@@ -6,7 +6,54 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
   styleUrls: ['./starter.component.css']
 })
 export class StarterComponent implements OnInit, OnDestroy {
-
+  private mylinks: any = [
+    {
+      'title': 'Home',
+      'icon': 'dashboard',
+      'link': ['/']
+    },
+    {
+      'title': 'Sub menu',
+      'icon': 'link',
+      'sublinks': [
+        {
+          'title': 'Page 2',
+          'link': ['/page/2'],
+        },
+        {
+          'title': 'Page 3',
+          'link': ['/page/3'],
+        }
+      ]
+    },
+    {
+      'title': 'External Link',
+      'icon': 'google',
+      'link': ['http://google.com'],
+      'external': true,
+      'target': '_blank'
+    },
+    {
+      'title': 'External Links',
+      'icon': 'link',
+      'sublinks': [
+        {
+          'title': 'Github',
+          'link': ['https://github.com/TwanoO67/ngx-admin-lte'],
+          'icon': 'github',
+          'external': true,
+          'target': '_blank'
+        },
+        {
+          'title': 'Yahoo',
+          'link': ['http://yahoo.com'],
+          'icon': 'yahoo',
+          'external': true,
+          'target': '_blank'
+        }
+      ]
+    }
+  ];
   bodyClasses = 'skin-blue sidebar-mini';
   body: HTMLBodyElement = document.getElementsByTagName('body')[0];
 
