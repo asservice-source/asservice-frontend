@@ -4,12 +4,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from "@angular/forms";
 import { AppComponent } from './app.component';
-import { StarterComponent } from './starter/starter.component';
-import { StarterHeaderComponent } from './starter/starter-header/starter-header.component';
-import { StarterLeftSideComponent } from './starter/starter-left-side/starter-left-side.component';
-import { StarterContentComponent } from './starter/starter-content/starter-content.component';
-import { StarterFooterComponent } from './starter/starter-footer/starter-footer.component';
-import { StarterControlSidebarComponent } from './starter/starter-control-sidebar/starter-control-sidebar.component';
+import { MainComponent } from './main/main.component';
+import { MainHeaderComponent } from './main/main-header/main-header.component';
+import { MainLeftSideComponent } from './main/main-left-side/main-left-side.component';
+import { MainContentComponent } from './main/main-content/main-content.component';
+import { MainFooterComponent } from './main/main-footer/main-footer.component';
+import { MainControlSidebarComponent } from './main/main-control-sidebar/main-control-sidebar.component';
 import { AdminComponent } from './admin/admin.component';
 import { AdminHeaderComponent } from './admin/admin-header/admin-header.component';
 import { AdminLeftSideComponent } from './admin/admin-left-side/admin-left-side.component';
@@ -24,12 +24,12 @@ import { LoginComponent } from './login/login.component';
 @NgModule({
   declarations: [
     AppComponent,
-    StarterComponent,
-    StarterHeaderComponent,
-    StarterLeftSideComponent,
-    StarterContentComponent,
-    StarterFooterComponent,
-    StarterControlSidebarComponent,
+    MainComponent,
+    MainHeaderComponent,
+    MainLeftSideComponent,
+    MainContentComponent,
+    MainFooterComponent,
+    MainControlSidebarComponent,
     ContentComponent,
     NotfoundComponent,
     LoginComponent
