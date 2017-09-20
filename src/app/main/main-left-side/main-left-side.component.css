@@ -1,0 +1,14 @@
+
+.main-sidebar{
+    background-color: #0069ad;
+}
+.sidebar a:hover{
+    background-color: #5F94E4;
+}
+.sidebar-menu li.active > a {
+    background-color: #083881;
+    color: #0069ad;
+}
+.sidebar-menu > li > .treeview-menu{
+    background-color: #ffffff;
+}
