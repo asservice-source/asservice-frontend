@@ -2,13 +2,32 @@
 .main-sidebar{
     background-color: #0069ad;
 }
-.sidebar a:hover{
+.sidebar-menu li a:hover{
+    background-color: inherit;
+}
+.sidebar-menu > li:hover{
+    background-color: #5F94E4;
+}
+.sidebar-menu > li > ul > li:hover{
+    background-color: #E0E0E0;
+}
+.sidebar-menu > li > ul{
+    padding-left: 0;
+}
+.sidebar-menu > li.active{
     background-color: #5F94E4;
 }
 .sidebar-menu li.active > a {
-    background-color: #083881;
+    background-color: #5F94E4;
     color: #0069ad;
+}
+.sidebar-menu li.active > a > span {
+    color: #ffffff;
+    font-weight: bold;
 }
 .sidebar-menu > li > .treeview-menu{
     background-color: #ffffff;
+}
+.sidebar-menu > li > .treeview-menu span{
+    color: #0069ad;
 }
