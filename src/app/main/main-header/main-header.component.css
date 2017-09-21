@@ -1,3 +1,32 @@
-.main-header{
-    background-color: #3f8bbc;  
+.main-header .logo{
+    width: 270px;
+    padding: 0 2px;
+    background-color: #42c8fb;
+    height: 70px;
+    text-align: left;
+    font-size: 18px;
+}
+.main-header>.navbar{
+    margin-left: 270px;
+    background-color: #42c8fb;  
+}
+.img-logo-left-head{
+    width: 60px;
+    height: 60px;
+    margin: 5px 3px;
+}
+.img-logo-left-head-mini{
+    width: 45px;
+    height: 45px;
+    margin: 12px 0 0 13px;
+}
+.main-header .navbar .sidebar-toggle{
+    font-size: 28px;
+}
+.main-header .navbar .sidebar-toggle:hover{
+    background-color: #63D2FA;
+
+}
+.main-header .navbar-custom-menu{
+    margin-top: 12px;
 }

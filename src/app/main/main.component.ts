@@ -8,48 +8,92 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 export class MainComponent implements OnInit, OnDestroy {
   private mylinks: any = [
     {
-      'title': 'Home',
-      'icon': 'dashboard',
-      'link': ['/']
-    },
-    {
-      'title': 'Sub menu',
-      'icon': 'link',
-      'sublinks': [
+      "title": "ข้อมูลพื้นฐาน",
+      "icon": "dashboard",
+      "sublinks": [
         {
-          'title': 'Page 2',
-          'link': ['/page/2'],
+          "title": "แบบสำรวจข้อมูลบุคล",
+          "link": ""
         },
         {
-          'title': 'Page 3',
-          'link': ['/page/3'],
+          "title": " แบบสำรวจข้อมูลผู้เสียชีวิตคล",
+          "link": ""
         }
       ]
     },
     {
-      'title': 'External Link',
-      'icon': 'google',
-      'link': ['http://google.com'],
-      'external': true,
-      'target': '_blank'
+      "title": "ส่งเสริมสุขภาพ",
+      "icon": "dashboard",
+      "sublinks": [
+        {
+          "title": "แบบสำรวจหญิงตั้งครรภ์และหลังคลอด",
+          "link": "/main/surveys/pregnant"
+        }
+      ]
     },
     {
-      'title': 'External Links',
-      'icon': 'link',
-      'sublinks': [
+      "title": "การเฝ้าระวัง/ป้องกัน/ควบคุมโรค",
+      "icon": "dashboard",
+      "sublinks": [
         {
-          'title': 'Github',
-          'link': ['https://github.com/TwanoO67/ngx-admin-lte'],
-          'icon': 'github',
-          'external': true,
-          'target': '_blank'
+          "title": "ข้อมูลการสำรวจผู้ป่วย",
+          "link": ""
         },
         {
-          'title': 'Yahoo',
-          'link': ['http://yahoo.com'],
-          'icon': 'yahoo',
-          'external': true,
-          'target': '_blank'
+          "title": "แบบสำรวจลูกน้ำ",
+          "link": ""
+        },
+        {
+          "title": "แบบสำรวจความเสียงโรค Metabolic",
+          "link": ""
+        }
+      ]
+    },
+    {
+      "title": "การฟื้นฟูสุขภาพ",
+      "icon": "dashboard",
+      "sublinks": [
+        {
+          "title": "แบบสำรวจผู้พิการและผู้ป่วยติดเตียง",
+          "link": ""
+        }
+      ]
+    },
+    {
+      "title": "รายงานสรุปแบบฟอร์ม",
+      "icon": "dashboard",
+      "sublinks": [
+        {
+          "title": "แบบสรุปข้อมูลบุคคล",
+          "link": ""
+        },
+        {
+          "title": "แบบสรุปข้อมูลผู้เสียชีวิต",
+          "link": ""
+        },
+        {
+          "title": "แบบสรุปหญิงตั้งครรภ์และหลังคลอด",
+          "link": ""
+        },
+        {
+          "title": "แบบสรุปสรุปค่า CI (ลูกน้ำ)",
+          "link": ""
+        },
+        {
+          "title": "แบบสรุปผู้ป่วย",
+          "link": ""
+        },
+        {
+          "title": "แบบสรุปลูกน้ำ",
+          "link": ""
+        },
+        {
+          "title": "แบบสรุปความเสียงโรค Metabolic",
+          "link": ""
+        },
+        {
+          "title": "แบบสรุปผู้พิการและผู้ป่วยติดเตียง",
+          "link": ""
         }
       ]
     }

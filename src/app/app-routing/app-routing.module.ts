@@ -10,6 +10,7 @@ import { ContentComponent } from "./../content/content.component";
 import { NotfoundComponent } from "./../notfound/notfound.component";
 import { LoginComponent } from "./../login/login.component";
 import { RegisterComponent } from "./../register/register.component";
+import { PregnantComponent } from "./../surveys/pregnant/pregnant.component"; 
 
 @NgModule({
   imports: [
@@ -40,6 +41,15 @@ import { RegisterComponent } from "./../register/register.component";
           ,{
             path: 'content',
             component: ContentComponent
+          },
+          {
+            path: 'surveys',
+            children: [
+              {
+                path: 'pregnant',
+                component: PregnantComponent
+              }
+            ]
           }
        ]
         }
