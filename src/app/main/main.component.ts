@@ -16,8 +16,8 @@ export class MainComponent implements OnInit, OnDestroy {
           "link": ""
         },
         {
-          "title": " แบบสำรวจข้อมูลผู้เสียชีวิตคล",
-          "link": ""
+          "title": " แบบสำรวจข้อมูลผู้เสียชีวิต",
+          "link": "/main/surveys/died"
         }
       ]
     },

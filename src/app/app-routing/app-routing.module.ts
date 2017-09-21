@@ -11,6 +11,7 @@ import { NotfoundComponent } from "./../notfound/notfound.component";
 import { LoginComponent } from "./../login/login.component";
 import { RegisterComponent } from "./../register/register.component";
 import { PregnantComponent } from "./../surveys/pregnant/pregnant.component"; 
+import { DiedComponent } from "./../surveys/died/died.component";
 
 @NgModule({
   imports: [
@@ -48,6 +49,10 @@ import { PregnantComponent } from "./../surveys/pregnant/pregnant.component";
               {
                 path: 'pregnant',
                 component: PregnantComponent
+              },
+              {
+                path: 'died',
+                component: DiedComponent
               }
             ]
           }

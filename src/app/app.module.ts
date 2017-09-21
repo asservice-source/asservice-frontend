@@ -22,6 +22,7 @@ import { NotfoundComponent } from './notfound/notfound.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { PregnantComponent } from './surveys/pregnant/pregnant.component';
+import { DiedComponent } from './surveys/died/died.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { PregnantComponent } from './surveys/pregnant/pregnant.component';
     NotfoundComponent,
     LoginComponent,
     RegisterComponent,
-    PregnantComponent
+    PregnantComponent,
+    DiedComponent
   ],
   imports: [
     BrowserModule,
