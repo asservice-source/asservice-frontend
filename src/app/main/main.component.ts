@@ -27,7 +27,7 @@ export class MainComponent implements OnInit, OnDestroy {
       "sublinks": [
         {
           "title": "แบบสำรวจหญิงตั้งครรภ์และหลังคลอด",
-          "link": ""
+          "link": "/main/surveys/pregnant"
         }
       ]
     },
