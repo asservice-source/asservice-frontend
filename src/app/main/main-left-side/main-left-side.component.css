@@ -27,7 +27,9 @@
     width: 220px;
     word-break: break-all;
 }
-
+.sidebar-menu > li > a > span{
+    color: #ffffff;
+}
 .sidebar-menu li.active > a > span , .sidebar-menu li.active > a > i {
     color: #ffffff;
 }

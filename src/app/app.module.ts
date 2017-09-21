@@ -23,6 +23,8 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { PregnantComponent } from './surveys/pregnant/pregnant.component';
 import { DiedComponent } from './surveys/died/died.component';
+import { PersonalComponent } from './surveys/personal/personal.component';
+import { PatientComponent } from './surveys/patient/patient.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { DiedComponent } from './surveys/died/died.component';
     LoginComponent,
     RegisterComponent,
     PregnantComponent,
-    DiedComponent
+    DiedComponent,
+    PersonalComponent,
+    PatientComponent
   ],
   imports: [
     BrowserModule,

@@ -13,7 +13,7 @@ export class MainComponent implements OnInit, OnDestroy {
       "sublinks": [
         {
           "title": "แบบสำรวจข้อมูลบุคล",
-          "link": ""
+          "link": "/main/surveys/personal"
         },
         {
           "title": " แบบสำรวจข้อมูลผู้เสียชีวิต",
@@ -37,7 +37,7 @@ export class MainComponent implements OnInit, OnDestroy {
       "sublinks": [
         {
           "title": "ข้อมูลการสำรวจผู้ป่วย",
-          "link": ""
+          "link": "/main/surveys/patient"
         },
         {
           "title": "แบบสำรวจลูกน้ำ",

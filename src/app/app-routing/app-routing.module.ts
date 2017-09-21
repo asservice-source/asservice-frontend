@@ -12,7 +12,8 @@ import { LoginComponent } from "./../login/login.component";
 import { RegisterComponent } from "./../register/register.component";
 import { PregnantComponent } from "./../surveys/pregnant/pregnant.component"; 
 import { DiedComponent } from "./../surveys/died/died.component";
-
+import { PersonalComponent } from "./../surveys/personal/personal.component";
+import { PatientComponent } from "./../surveys/patient/patient.component";
 @NgModule({
   imports: [
     RouterModule.forRoot([
@@ -53,7 +54,16 @@ import { DiedComponent } from "./../surveys/died/died.component";
               {
                 path: 'died',
                 component: DiedComponent
+              },
+              {
+                path: 'personal',
+                component: PersonalComponent
+              },
+              {
+                path: 'patient',
+                component: PatientComponent
               }
+              
             ]
           }
        ]
