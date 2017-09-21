@@ -1,6 +1,7 @@
-
 .main-sidebar{
-    background-color: #0069ad;
+    /* background-color: #42c8fb;   */
+    background-color: #0167b2;
+    width: 270px;
 }
 .sidebar-menu li a:hover{
     background-color: inherit;
@@ -21,13 +22,25 @@
     background-color: #5F94E4;
     color: #0069ad;
 }
-.sidebar-menu li.active > a > span {
-    color: #ffffff;
-    font-weight: bold;
+.sidebar-menu li.treeview ul.treeview-menu >li > a > span {
+    display: block;
+    width: 220px;
+    word-break: break-all;
 }
+
+.sidebar-menu li.active > a > span , .sidebar-menu li.active > a > i {
+    color: #ffffff;
+}
+
 .sidebar-menu > li > .treeview-menu{
     background-color: #ffffff;
 }
 .sidebar-menu > li > .treeview-menu span{
     color: #0069ad;
+}
+.user-panel > .image > img.img-user-info{
+    width: 80px;
+    height: 80px;
+    max-width: 80px;
+    margin-top: 15px;
 }
