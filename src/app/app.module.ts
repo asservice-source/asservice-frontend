@@ -20,6 +20,7 @@ import { AdminDashboard1Component } from './admin/admin-dashboard1/admin-dashboa
 import { ContentComponent } from './content/content.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { LoginComponent } from './login/login.component';
+import { PregnantComponent } from './surveys/pregnant/pregnant.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { LoginComponent } from './login/login.component';
     MainControlSidebarComponent,
     ContentComponent,
     NotfoundComponent,
-    LoginComponent
+    LoginComponent,
+    PregnantComponent
   ],
   imports: [
     BrowserModule,

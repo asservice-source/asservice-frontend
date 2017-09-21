@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 import { ContentComponent } from "./../content/content.component";
 import { NotfoundComponent } from "./../notfound/notfound.component";
 import { LoginComponent } from "./../login/login.component";
+import { PregnantComponent } from "./../surveys/pregnant/pregnant.component"; 
 import {GuardService} from "./../sevice/guard.service";
 @NgModule({
   imports: [
@@ -34,6 +35,15 @@ import {GuardService} from "./../sevice/guard.service";
           ,{
             path: 'content',
             component: ContentComponent
+          },
+          {
+            path: 'surveys',
+            children: [
+              {
+                path: 'pregnant',
+                component: PregnantComponent
+              }
+            ]
           }
        ]
         }
