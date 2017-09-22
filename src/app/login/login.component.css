@@ -1,3 +1,13 @@
+.logo-left-top{
+    width: 80px;
+    margin-bottom: 8px;
+}
+.title-left-header{
+    font-size: 38px;
+    font-weight: bold;
+    margin-top: 15px;
+    color: #ffffff;
+}
 .form-control {
     display: block;
     width: 95%;
@@ -70,4 +80,12 @@
     .uiButtonConfirm {
         background-color: #5401B2;
         border-color: #29487d;
+    }
+    .lb-forgot-password{
+        margin-top: 8px;
+        color: #195AC4;
+        text-decoration: none;
+    }
+    .lb-forgot-password:hover{
+        text-decoration:underline; 
     }
