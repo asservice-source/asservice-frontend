@@ -1,3 +1,132 @@
-<p>
-  patient works!
-</p>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <span>การส่งเสริมสุขภาพ/ ข้อมูลแบบสำรวจหญิงตั้งครรภ์ และหลังคลอด</span>
+  </div>
+  <div class="panel-body">
+  <div class="row" >
+      <div class="col-sm-12">
+      
+      <div class="text-left">
+        <a class="btn btn-primary" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+              การค้นหา
+            </a>
+      </div>
+      </div>
+  </div>
+  <div class="row" >
+      <div class="col-sm-12">
+      <div class="collapse" id="collapseExample">
+        <div >
+          <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-2 text-right ">
+              <strong>เขต :</strong>
+            </div>
+
+
+          </div>
+          <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-2 text-right">
+                  <strong>เลือกหมู่</strong>
+                </div>
+                <div class="col-sm-2">
+
+                    <select class="form-control">
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+
+                      </select>
+                </div>
+                <div class="col-sm-2 text-right">
+                  <strong>ชื่อ อสม.</strong>
+                </div>
+                <div class="col-sm-2">
+                  <input class="form-control" type="text" [(ngModel)]="user.username">
+                </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-2 text-right">
+              <strong>บ้านเลขที่</strong>
+            </div>
+            <div class="col-sm-2">
+              <input class="form-control" type="text" [(ngModel)]="user.username">
+            </div>
+
+            <div class="col-sm-2 text-right">
+                <strong >รหัสบ้าน</strong>
+              </div>
+              <div class="col-sm-2">
+                <input class="form-control" type="text" [(ngModel)]="user.username">
+              </div>
+          </div>
+          <div class="row">
+              
+          </div>
+          <div class="row text-center">
+
+            <button style="margin-top: 31.5px" class="btn btn-primary">ค้นหา</button>
+
+          </div>
+
+        </div>
+      </div>
+      </div>
+    </div>
+    
+
+    <div class="row">
+      
+      <div class="col-sm-2 text-left">
+        <a href="MemberAdd"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Add_user_icon_%28blue%29.svg/895px-Add_user_icon_%28blue%29.svg.png"
+              class="img-responsive btn" alt="เพิ่มผู้ใช้งาน" width="50"
+              height="50" style="cursor: pointer;" 
+              data-toggle="modal" data-target="#myModal"><span>เพิ่มผู้ใช้งาน</span>
+
+            </a>
+      </div>
+      <div class="col-sm-2 text-left">
+        <a href="MemberAdd"><img src="https://sites.google.com/site/itminiontion/_/rsrc/1472857152885/thekhnoloyi-hardwaer/Printer-icon.png?height=320&width=320"
+              class="img-responsive btn" alt="พิมพ์เอกสาร" width="50"
+              height="50" style="cursor: pointer;"
+              data-toggle="modal" data-target="#myModal"><span>พิมพ์เอกสาร</span>
+
+            </a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="panel panel-default">
+          <div style="background: white" class="panel-body">
+            <div class="table-responsive">
+              <table class="table table-striped  table-hover table-bordered" id="dataTables-example">
+                <thead >
+                  <tr>
+                    <th class="text-center">ลำดับ</th>
+                    <th class="text-center">วันที่ลงข้อมูล</th>
+                    <th class="text-center">ชื่อ-นามสกุล</th>
+                    <th class="text-center">อายุ</th>
+                    <th class="text-center">ที่อยู่</th>
+                    <th class="text-center">โรคหรือความพิการ</th>
+                    <th class="text-center">วันที่ป่วยหรือพิการ</th>
+                    <th class="text-center">ประเภทผู้ป่วย</th>
+                    <th class="text-center">สิทธิบัตร</th>
+                    <th class="text-center">เบอร์โทรศัพท์</th>
+                    <th class="text-center">อื่นๆ</th>
+                    <th class="text-center">action</th>
+                  </tr>
+                </thead>
+
+
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
