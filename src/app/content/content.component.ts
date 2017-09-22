@@ -11,5 +11,11 @@ export class ContentComponent implements OnInit {
 
   ngOnInit() {
   }
-
+  
 }
+$(function(){
+  $('#btn-search').on('click', function(){
+      alert('ssss');
+  });
+});
+
