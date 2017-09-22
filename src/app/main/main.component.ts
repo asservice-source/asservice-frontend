@@ -45,7 +45,7 @@ export class MainComponent implements OnInit, OnDestroy {
         },
         {
           "title": "แบบสำรวจความเสียงโรค Metabolic",
-          "link": ""
+          "link": "/main/surveys/metabolic"
         }
       ]
     },

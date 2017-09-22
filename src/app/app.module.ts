@@ -25,6 +25,7 @@ import { PregnantComponent } from './surveys/pregnant/pregnant.component';
 import { DiedComponent } from './surveys/died/died.component';
 import { PersonalComponent } from './surveys/personal/personal.component';
 import { PatientComponent } from './surveys/patient/patient.component';
+import { MetabolicComponent } from './surveys/metabolic/metabolic.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { PatientComponent } from './surveys/patient/patient.component';
     PregnantComponent,
     DiedComponent,
     PersonalComponent,
-    PatientComponent
+    PatientComponent,
+    MetabolicComponent
   ],
   imports: [
     BrowserModule,
