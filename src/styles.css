@@ -9,9 +9,11 @@ label{
 
 }
 
+.label-form{
 
+}
 .panel-default>.panel-heading {
-    background-color:  rgba(118, 128, 218, 0.25);
+    background-color:  #CFD8E2;
     height: 35px ;
     padding: 2px 2px 2px 15px;
   }
