@@ -28,6 +28,7 @@ import { PatientComponent } from './surveys/patient/patient.component';
 import { MetabolicComponent } from './surveys/metabolic/metabolic.component';
 import { FilterComponent } from './filter/filter.component';
 import { DiedAddComponent } from './surveys/died/died-add/died-add.component';
+import { FindPersonComponent } from './find-person/find-person.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { DiedAddComponent } from './surveys/died/died-add/died-add.component';
     PatientComponent,
     MetabolicComponent,
     FilterComponent,
-    DiedAddComponent
+    DiedAddComponent,
+    FindPersonComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="col-md-2 text-right">
+    <label>หมู่ที่</label>
+  </div>
+  <div class="col-md-4">
+    <select name="find-dropdownVillageNo" id="find-dropdownVillageNo" [(ngModel)]="mVillageNo" (change)="changVillageNo()">
+      <option value="0">--เลือกหมู่บ้าน--</option>
+      <option value="1">หมู่ที่ 1 บ้านคำไฮ</option>
+      <option value="2">หมู่ที่ 2 บ้านศรีฐาน</option>
+    </select>
+  </div>
+  <div class="col-md-1 text-right">
+    <label>บ้านเลขที่</label>
+  </div>
+  <div class="col-md-2">
+    <input name="find-homeNo" id="find-homeNo" [(ngModel)]="mHomeNo" [disabled]="isDisabledHomeNo">
+  </div>
+  <div class="col-md-1">
+    <button (click)="doSearchPerson()" type="buttoon" class="btn btn-primary btn-sm"><i class="fa fa-search"> ค้นหา</i></button>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-2 text-right">
+    <label>ผู้เสียชีวิต</label>
+  </div>
+  <div class="col-md-4">
+    <select name="find-dropdownPerson" id="find-dropdownPerson" [(ngModel)]="mPerson" [disabled]="isDisabledPerson">
+      <option value="0">--เลือกผู้เสียชีวิต--</option>
+      <option value="101">นายโสพน สดใส</option>
+    </select>
+  </div>
+</div>
