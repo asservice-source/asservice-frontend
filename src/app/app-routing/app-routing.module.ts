@@ -15,6 +15,7 @@ import { DiedComponent } from "./../surveys/died/died.component";
 import { PersonalComponent } from "./../surveys/personal/personal.component";
 import { PatientComponent } from "./../surveys/patient/patient.component";
 import { MetabolicComponent } from "./../surveys/metabolic/metabolic.component";
+import { MosquitoComponent } from "./../surveys/mosquito/mosquito.component";
 @NgModule({
   imports: [
     RouterModule.forRoot([
@@ -66,6 +67,9 @@ import { MetabolicComponent } from "./../surveys/metabolic/metabolic.component";
               },{
                 path: 'metabolic',
                 component: MetabolicComponent
+              },{
+                path: 'mosquito',
+                component: MosquitoComponent
               }
               
             ]

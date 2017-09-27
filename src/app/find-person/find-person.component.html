@@ -10,14 +10,26 @@
     </select>
   </div>
   <div class="col-md-1 text-right">
-    <label>บ้านเลขที่</label>
+    <label>อสม.</label>
   </div>
-  <div class="col-md-2">
-    <input name="find-homeNo" id="find-homeNo" [(ngModel)]="mHomeNo" [disabled]="isDisabledHomeNo">
+  <div class="col-md-4">
+      <select name="find-osmName" id="find-osmName">
+          <option>--เลือก อสม.--</option>
+     </select>
   </div>
-  <div class="col-md-1">
-    <button (click)="doSearchPerson()" type="buttoon" class="btn btn-primary btn-sm"><i class="fa fa-search"> ค้นหา</i></button>
-  </div>
+</div>
+<div class="row">
+    <div class="col-md-2 text-right">
+        <label>บ้านเลขที่</label>
+      </div>
+      <div class="col-md-4">
+          <select name="find-homeNo" id="find-homeNo">
+              <option>--เลือก บ้านเลขที่--</option>
+         </select>
+      </div>
+    <div class="col-md-1">
+        <button (click)="doSearchPerson()" type="buttoon" class="btn btn-primary btn-sm"><i class="fa fa-search"> ค้นหา</i></button>
+    </div>
 </div>
 
 <div class="row">
