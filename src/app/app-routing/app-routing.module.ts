@@ -16,6 +16,7 @@ import { PersonalComponent } from "./../surveys/personal/personal.component";
 import { PatientComponent } from "./../surveys/patient/patient.component";
 import { MetabolicComponent } from "./../surveys/metabolic/metabolic.component";
 import { MosquitoComponent } from "./../surveys/mosquito/mosquito.component";
+import { CancerComponent} from "./../surveys/cancer/cancer.component";
 @NgModule({
   imports: [
     RouterModule.forRoot([
@@ -70,6 +71,10 @@ import { MosquitoComponent } from "./../surveys/mosquito/mosquito.component";
               },{
                 path: 'mosquito',
                 component: MosquitoComponent
+              }
+              ,{
+                path: 'cancer',
+                component: CancerComponent
               }
               
             ]
