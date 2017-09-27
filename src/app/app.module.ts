@@ -31,6 +31,7 @@ import { DiedAddComponent } from './surveys/died/died-add/died-add.component';
 import { FindPersonComponent } from './find-person/find-person.component';
 import { MosquitoComponent } from './surveys/mosquito/mosquito.component';
 import { PersonalSurveyComponent } from './surveys/personal/personal-survey/personal-survey.component';
+import { CancerComponent } from './surveys/cancer/cancer.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { PersonalSurveyComponent } from './surveys/personal/personal-survey/pers
     DiedAddComponent,
     FindPersonComponent,
     MosquitoComponent,
-    PersonalSurveyComponent
+    PersonalSurveyComponent,
+    CancerComponent
   ],
   imports: [
     BrowserModule,
