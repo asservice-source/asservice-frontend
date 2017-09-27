@@ -13,8 +13,8 @@
     <label>อสม.</label>
   </div>
   <div class="col-md-4">
-      <select name="find-osmName" id="find-osmName">
-          <option>--เลือก อสม.--</option>
+      <select name="find-osmName" id="find-osmName" [(ngModel)]="mOSM" [disabled]="isDisabledOSM">
+          <option value="0">--เลือก อสม.--</option>
      </select>
   </div>
 </div>
@@ -23,12 +23,16 @@
         <label>บ้านเลขที่</label>
       </div>
       <div class="col-md-4">
-          <select name="find-homeNo" id="find-homeNo">
-              <option>--เลือก บ้านเลขที่--</option>
+          <select name="find-homeNo" id="find-homeNo" [(ngModel)]="mHomeNo" (change)="changHomeNo()" [disabled]="isDisabledHomeNo">
+              <option value="0">--เลือก บ้านเลขที่--</option>
+              <option value="30">30</option>
+              <option value="30-1">30/1</option>
+              <option value="44">44</option>
          </select>
       </div>
+      <div class="col-md-1"></div>
     <div class="col-md-1">
-        <button (click)="doSearchPerson()" type="buttoon" class="btn btn-primary btn-sm"><i class="fa fa-search"> ค้นหา</i></button>
+        <button (click)="doSearchPerson()" type="buttoon" class="btn btn-primary btn-sm" [disabled]="isDisableBtnSearch"><i class="fa fa-search"> ค้นหา</i></button>
     </div>
 </div>
 

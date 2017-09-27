@@ -29,12 +29,12 @@
           <label>11/1</label>
           <label>ถ.ดินแดง ตำบลในเมือง อ.เมือง จ.ขอนแก่น</label>
         </div>
-
-        <div class="col-md-4">
-          <label style="margin-top: 6px;">วันที่เสียชีวิต</label>
+      <div class="row">
+        <div class="col-md-3 text-right">
+          <label>วันที่เสียชีวิต</label>
         </div>
 
-        <div class="padding_left col-md-5">
+        <div class="col-md-5">
           <div class="input-group date" data-provide="datepicker">
             <input type="text" >
             <div class="input-group-addon">
@@ -42,14 +42,13 @@
             </div>
           </div>
         </div>
-
-        <div class="col-md-3"></div>
-
-        <div class="col-md-5">
-          <label style="margin-top: 6px;">สาเหตุการเสียชีวิต</label>
+    </div>
+    <div class="row">
+        <div class="col-md-3 text-right">
+          <label>สาเหตุการเสียชีวิต</label>
         </div>
 
-        <div class="padding_left col-md-5">
+        <div class="col-md-5">
           <select [(ngModel)]="cause" (change)="ChangeCause()">
             <option value="1">---เลือกสาเหตุ---</option>
             <option value="2">อุบัติเหตุทางจราจร</option>
@@ -57,77 +56,78 @@
             <option value="0">อื่นๆ</option>
           </select>
         </div>
-        <div class="col-md-2"></div>
-
+      </div>
+      <div class="row">
         <div id="textCause">
-          <div class="col-md-5">
-            <label style="margin-top: 6px;">สาเหตุอื่นๆ</label>
+          <div class="col-md-3">
+            <label class="text-right">สาเหตุอื่นๆ</label>
           </div>
 
-          <div class="padding_left col-md-5">
+          <div class="col-md-5">
             <input type="text" name="other-cause">
           </div>
-          <div class="col-md-2"></div>
+        
         </div>
-
+      </div>
+      <div class="row">
+        <div class="col-md-3 text-right">
+          <label >โรคประจำตัว</label>
+        </div>
         <div class="col-md-5">
-          <label style="margin-top: 6px;">โรคประจำตัว</label>
-        </div>
-
-        <div class="padding_left col-md-5">
-          <select class="form-control">
+          <select>
               <option value="1">มี</option>
               <option value="2">ไม่มี</option>
             </select>
         </div>
-        <div class="col-md-2"></div>
+      </div>
 
-        <div class="col-md-5">
-          <label style="margin-top: 6px;">สถานที่เสียชีวิต</label>
+      <div class="row">
+        <div class="col-md-3 text-right">
+          <label>สถานที่เสียชีวิต</label>
         </div>
 
-        <div class="padding_left col-md-5">
-          <select class="form-control" [(ngModel)]="location" (change)="ChangeLocation()">
+        <div class="col-md-5">
+          <select [(ngModel)]="location" (change)="ChangeLocation()">
               <option value="1">---เลือกสถานที่---</option>
                 <option value="2">บ้าน</option>
                 <option value="3">แหล่งน้ำ</option>
                 <option value="0">อื่นๆ</option>
               </select>
         </div>
-        <div class="col-md-2"></div>
-
+    </div>
+    <div class="row">
         <div id="textLocation">
-          <div class="col-md-5">
-            <label style="margin-top: 6px;">สถานที่อื่นๆ</label>
+          <div class="col-md-3 text-right">
+            <label class="">สถานที่อื่นๆ</label>
           </div>
 
-          <div class="padding_left col-md-5">
+          <div class="col-md-5">
             <textarea>
 
             </textarea>
           </div>
-          <div class="col-md-2"></div>
         </div>
-
+      </div>
+      <div class="row">
+        <div class="col-md-3 text-right">
+          <label>สถานะการเสียชีวิต</label>
+        </div>
 
         <div class="col-md-5">
-          <label style="margin-top: 6px;">สถานะการเสียชีวิต</label>
-        </div>
-
-        <div class="padding_left col-md-5">
-          <select class="form-control">
+          <select>
                   <option value="1">ยืนยัน</option>
                   <option value="2">รอยืนยัน</option>
                   <option value="3">ยกเลิก</option>
                 </select>
         </div>
-        <div class="col-md-2"></div>
+      </div>
 
-        <div class="col-md-12 text-center">
+      <div class="row">
+          <div class="col-md-12 text-center">
           <button style="margin-top: 31.5px" class="btn btn-primary">ยืนยัน</button>
           <button style="margin-top: 31.5px" class="btn btn-primary">รีเซ็ท</button>
         </div>
-
+      </div>
 
 
       </div>

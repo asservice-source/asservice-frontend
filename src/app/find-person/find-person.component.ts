@@ -8,31 +8,39 @@ declare var $:any;
 export class FindPersonComponent implements OnInit {
 
   mVillageNo = 0;
-  mHomeNo;
+  mOSM = 0;
+  mHomeNo = 0;
   mPerson = 0;
 
+  isDisabledOSM = true;
   isDisabledHomeNo = true;
   isDisabledPerson = true;
-  
+  isDisableBtnSearch = true;
   constructor() { }
 
   ngOnInit() {
     
   }
 
-  changVillageNo = function(){
+  changVillageNo(){
     if(this.mVillageNo>0){
+      this.isDisabledOSM = false;
       this.isDisabledHomeNo = false;
     }else{
       this.isDisabledHomeNo = true;
+      this.isDisabledOSM = true;
     }
     
   }
-  doSearchPerson = function(){
-    if(this.mHomeNo==30){
-      this.isDisabledPerson = false;
+  changHomeNo(){
+    if(this.mHomeNo != 0){
+      this.isDisableBtnSearch = false;
     }else{
-      this.isDisabledPerson = true;
+      this.isDisableBtnSearch = true;
     }
+    
+  }
+  doSearchPerson(){
+    this.isDisabledPerson = false;
   }
 }
