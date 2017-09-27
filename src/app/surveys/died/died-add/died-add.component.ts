@@ -50,6 +50,7 @@ export class DiedAddComponent implements OnInit ,AfterViewInit {
   ngAfterViewInit(){
     let person;
     $('#find-dropdownPerson').on('change', function(){
+      /*
       if($(this).val()>0){
         person = this.persons[0];
         this.mFullname = person.Prefix + person.FirstName+' ' +person.LastName;
@@ -58,7 +59,7 @@ export class DiedAddComponent implements OnInit ,AfterViewInit {
       }else{
         $('#personDetail').attr("hidden",'hidden');
       }
-      
+      */
     });
   
   }
