@@ -1,129 +1,51 @@
 <div class="panel panel-default">
-  <div style="background-color: rgba(118, 128, 218, 0.25);" class="panel-heading">
-    <h4 style="color: #000000;">การส่งเสริมสุขภาพ/ ข้อมูลแบบสำรวจหญิงตั้งครรภ์ และหลังคลอด</h4>
+  <div class="panel-heading">
+    <span>การส่งเสริมสุขภาพ/ ข้อมูลแบบสำรวจหญิงตั้งครรภ์ และหลังคลอด</span>
   </div>
+
+  <div class="panel-body">
+    <app-filter></app-filter> 
+
+  <div class="row">
+    
+    <div class="col-sm-2 text-left">
+      <button type="button" class="btn btn-info">เพิ่มผู้ใช้งาน</button>
+    </div>
+    <div class="col-sm-1 text-left">
+      <button type="button" class="btn btn-warning">พิมพ์เอกสาร</button>
+    </div>
+  </div>
+
   <div class="row">
     <div class="col-lg-12">
-
-      <div style="background-color: #f5f5f5" class="panel-body">
-        <br>
-        <div class="text-right">
-          <a class="btn btn-primary" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                การค้นหา
-              </a>
-        </div>
-        <div class="collapse" id="collapseExample">
-          <div style="background-color: #fff ; font-size: 11px" class="well">
-            <div class="row">
-              <div class="col-sm-2"></div>
-              <div class="col-sm-2 text-right "><br>
-                <label>เขต :</label>
-              </div>
-
-
-            </div><br>
-            <div class="row">
-                  <div class="col-sm-2"></div>
-                  <div class="col-sm-2 text-right">
-                    <label>เลือกหมู่</label>
-                  </div>
-                  <div class="col-sm-2">
-
-                      <select class="form-control"></select>
-                  </div>
-                  <div class="col-sm-1 text-right">
-                    <label>ชื่อ อสม.</label>
-                  </div>
-                  <div class="col-sm-2">
-                    <input class="form-control" type="text">
-                  </div>
-            </div><br>
-            <div class="row">
-              <div class="col-sm-2"></div>
-              <div class="col-sm-2 text-right">
-                <label>บ้านเลขที่</label>
-              </div>
-              <div class="col-sm-2">
-                <input class="form-control" type="text">
-              </div>
-  
-              <div class="col-sm-1 text-right">
-                  <label >รหัสบ้าน</label>
-                </div>
-                <div class="col-sm-2">
-                  <input class="form-control" type="text" >
-                </div>
-            </div>
-            <div class="row">
-                
-            </div>
-            <div class="row text-center">
-
-              <button style="margin-top: 31.5px" class="btn btn-primary">ค้นหา</button>
-
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <div class="panel-body" style="background-color: #f5f5f5">
-    <div class="row">
-      <div class="col-sm-8"></div>
-      <div class="col-sm-2 text-right">
-        <a href="MemberAdd"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Add_user_icon_%28blue%29.svg/895px-Add_user_icon_%28blue%29.svg.png"
-              class="img-responsive btn" alt="เพิ่มผู้ใช้งาน" width="50"
-              height="50" style="cursor: pointer;" 
-              data-toggle="modal" data-target="#myModal"><span>เพิ่มผู้ใช้งาน</span>
-
-            </a>
-      </div>
-      <div class="col-sm-2 text-right">
-        <a href="MemberAdd"><img src="https://sites.google.com/site/itminiontion/_/rsrc/1472857152885/thekhnoloyi-hardwaer/Printer-icon.png?height=320&width=320"
-              class="img-responsive btn" alt="พิมพ์เอกสาร" width="50"
-              height="50" style="cursor: pointer;"
-              data-toggle="modal" data-target="#myModal"><span>พิมพ์เอกสาร</span>
-
-            </a>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <div class="table-responsive">
-              <table class="table table-striped  table-hover table-bordered" id="dataTables-example">
-                <thead>
-                  <tr>
-                    <!-- <th class="text-center">No.</th> -->
-                    <th class="text-center">ลำดับ</th>
-                    <th class="text-center">วันที่ลงข้อมูล</th>
-                    <th class="text-center">ชื่อ-นามสกุล</th>
-                    <!-- 						<th class="text-center" width="15%">นามสกุล</th> -->
-                    <th class="text-center">โทรศัพท์</th>
-                    <th class="text-center">อายุ</th>
-                    <th class="text-center">ที่อยู่</th>
-                    <th class="text-center">ครรภ์ที่</th>
-                    <th class="text-center">วันกำหนดคลอด</th>
-                    <th class="text-center">รพ.</th>
-                    <th class="text-center">น้ำหนัก</th>
-                    <th class="text-center">ชื่อ/เพศ/เลขประจำตัวประชาชน</th>
-                    <th class="text-center">action</th>
-
-                  </tr>
-                </thead>
+      <div class="panel panel-default">
+        <div style="background: white" class="panel-body">
+          <div class="table-responsive">
+            <table class="table table-striped  table-hover table-bordered" id="dataTables-example">
+              <thead >
+                <tr>
+                  <th class="text-center">ลำดับ</th>
+                  <th class="text-center">วันที่ลงข้อมูล</th>
+                  <th class="text-center">ชื่อ-นามสกุล</th>
+                  <th class="text-center">โทรศัพท์</th>
+                  <th class="text-center">อายุ</th>
+                  <th class="text-center">ที่อยู่</th>
+                  <th class="text-center">ครรภ์ที่</th>
+                  <th class="text-center">วันกำหนดคลอด</th>
+                  <th class="text-center">รพ.</th>
+                  <th class="text-center">น้ำหนัก</th>
+                  <th class="text-center">ชื่อ/เพศ/เลขประจำตัวประชาชน</th>
+                  <th class="text-center">action</th>
+                </tr>
+              </thead>
 
 
-              </table>
-            </div>
+            </table>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
 
 </div>
