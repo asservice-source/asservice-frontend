@@ -116,33 +116,24 @@
 
 <!-- Modal -->
 <div id="myModal" class="modal fade" role="dialog">
-  <div class="modal-md modal-dialog">
+    <div class="modal-dialog">
+  
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">รายละเอียดการสำรวจ</h4>
+        </div>
+        <div class="modal-body">
 
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">รายละเอียดการสำรวจ</h4>
+            <app-personal-survey></app-personal-survey>
+            
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
       </div>
-
-      <div class="row form-group">
-        <div class="col-md-2 text-right">ประเภท</div>
-        <div class="col-md-6"><input type="text"></div>
-      </div>
-
-      <div class="row form-group">
-        <div class="col-md-1 text-right">ชื่อ</div>
-        <div class="col-md-3"><input type="text"></div>
-        <div class="col-md-1 text-right">นามสกุล</div>
-        <div class="col-md-3"><input type="text"></div>
-      </div>
-
-      <div class="row form-group">
-        <div class="col-md-2 text-right">ประเภท</div>
-        <div class="col-md-6"><input type="text"></div>
-      </div>
-      
-
+  
+    </div>
   </div>
- </div>
-</div>
+  
