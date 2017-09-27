@@ -37,13 +37,13 @@
                   <th class="text-center">ชื่อ-นามสกุล</th>
                   <th class="text-center">โทรศัพท์</th>
                   <th class="text-center">อายุ</th>
-                  <th class="text-center">ที่อยู่</th>
                   <!-- <th class="text-center">ครรภ์ที่</th> -->
-                  <th class="text-center">วันกำหนดคลอด</th>
+     
                   <!-- <th class="text-center">รพ.</th>
                   <th class="text-center">น้ำหนัก</th>
                   <th class="text-center">ชื่อ/เพศ/เลขประจำตัวประชาชน</th> -->
                   <th class="text-center">สถานะ</th>
+                  <th class="text-center">วันกำหนดคลอด</th>
                   <th class="text-center">วันที่ลงข้อมูล</th>
                   <th class="text-center">action</th>
                 </tr>
@@ -58,4 +58,35 @@
   </div>
 </div>
 
+</div>
+
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-lg modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">รายละเอียดผู้ตั้งครรภ์</h4>
+      </div>
+      <app-find-person></app-find-person>
+      <div class="padding_right col-md-9" id="personDetail" [hidden]="isHiddenContent">
+
+
+
+        
+      </div>
+     
+      <div class="modal-footer">
+          <div class="row">
+              <div class="col-md-12 text-center">
+          <button style="margin-top: 31.5px" class="btn btn-primary">ยืนยัน</button>
+          <button style="margin-top: 31.5px" class="btn btn-primary">รีเซ็ท</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
 </div>
