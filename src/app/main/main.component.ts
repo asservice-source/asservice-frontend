@@ -6,7 +6,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
   styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit, OnDestroy {
-  private mylinks: any = [
+ mylinks: any = [
     {
       "title": "ข้อมูลพื้นฐาน",
       "icon": "dashboard",
