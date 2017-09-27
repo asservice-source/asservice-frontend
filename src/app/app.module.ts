@@ -33,7 +33,8 @@ import { MosquitoComponent } from './surveys/mosquito/mosquito.component';
 import { PersonalSurveyComponent } from './surveys/personal/personal-survey/personal-survey.component';
 import { CancerComponent } from './surveys/cancer/cancer.component';
 import { MetabolicSurveyComponent } from './surveys/metabolic/metabolic-survey/metabolic-survey.component';
-
+import 'rxjs/add/operator/map';
+import { HttpModule } from '@angular/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -64,7 +65,8 @@ import { MetabolicSurveyComponent } from './surveys/metabolic/metabolic-survey/m
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    AdminModule
+    AdminModule,
+    HttpModule
   ],
   providers: [],
   bootstrap: [AppComponent]
