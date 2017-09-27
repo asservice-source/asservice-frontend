@@ -20,7 +20,7 @@ export class DiedAddComponent implements OnInit ,AfterViewInit {
   mGender;
   mPrefix;
   mBirthDate;
-  mFullname;
+  mFullname = "นายโสภน การแพทย์";
   constructor() { }
   persons = [];
 
@@ -50,16 +50,12 @@ export class DiedAddComponent implements OnInit ,AfterViewInit {
   ngAfterViewInit(){
     let person;
     $('#find-dropdownPerson').on('change', function(){
-      /*
-      if($(this).val()>0){
-        person = this.persons[0];
-        this.mFullname = person.Prefix + person.FirstName+' ' +person.LastName;
-        $('#personDetail').removeAttr("hidden");
-        console.log("mFullname => " + this.mFullname);
-      }else{
-        $('#personDetail').attr("hidden",'hidden');
-      }
-      */
+        if($(this).val()>=1){
+          $('#personDetail').removeAttr('hidden');
+        }else{
+          $('#personDetail').attr('hidden','true');
+        }
+        
     });
   
   }
