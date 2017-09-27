@@ -9,6 +9,12 @@ import {Headers} from '@angular/http';
   styleUrls: ['./metabolic-survey.component.css']
 })
 export class MetabolicSurveyComponent implements OnInit {
+
+  pFname = 'สมหมาย';
+  pLname = 'หลายใจ';
+  citizenID = '1-4599-00321-43-2';
+  patentID = 'xxxxxxxxxxxxxxxxx';
+
   dataFor;
 
   year = '2560';

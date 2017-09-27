@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-2 text-right">
-    <label>ประเภท</label>
+    <label class="label-form">ประเภท</label>
   </div>
   <div class="col-md-4">
     <select name="dropdown-type" id="dropdown-type" [(ngModel)]="mTypeNo">
@@ -14,7 +14,7 @@
 
 <div class="row">
   <div class="col-md-2 text-right">
-    <label>หมายเลขประจำตัว</label>
+    <label class="label-form">หมายเลขประจำตัว</label>
   </div>
   <div class="col-md-3">
     <input type="text" class="ng-pristine ng-valid ng-touched" placeholder="หมายเลขประจำตัว 13 หลัก"
@@ -24,13 +24,13 @@
 
 <div class="row">
   <div class="col-md-2 text-right">
-    <label>ชื่อจริง</label>
+    <label class="label-form">ชื่อจริง</label>
   </div>
   <div class="col-md-3">
     <input type="text" class="ng-pristine ng-valid ng-touched" placeholder="ชื่อจริง" value="{{pFname}}">
   </div>
   <div class="col-md-1 text-right">
-    <label>นามสกุล</label>
+    <label class="label-form">นามสกุล</label>
   </div>
   <div class="col-md-3">
     <input type="text" class="ng-pristine ng-valid ng-touched" placeholder="นามสกุล" value="{{pLname}}">
@@ -39,14 +39,14 @@
 
 <div class="row">
   <div class="col-md-2 text-right">
-    <label>วันเดือนปี เกิด</label>
+    <label class="label-form">วันเดือนปี เกิด</label>
   </div>
   <div class="col-md-3">
     <input type="text" [disabled]="true" placeholder="วว/ดด/ปป" value="{{birthDate}}">
   </div>
 
   <div class="col-md-1 text-right">
-    <label>การศึกษา</label>
+    <label class="label-form">การศึกษา</label>
   </div>
   <div class="col-md-3">
     <select name="dropdown-study" id="dropdown-study" [(ngModel)]="mStudyNo">
@@ -65,7 +65,7 @@
 
 <div class="row">
   <div class="col-md-2 text-right">
-    <label>อาชีพ</label>
+    <label class="label-form">อาชีพ</label>
   </div>
   <div class="col-md-3">
     <input type="text" class="ng-pristine ng-valid ng-touched" placeholder="อาชีพ" value="{{pJob}}">
@@ -74,7 +74,7 @@
 
 <div class="row">
   <div class="col-md-2 text-right">
-    <label>สถานะอยู่</label>
+    <label class="label-form">สถานะอยู่</label>
   </div>
   <div class="col-md-3">
     <select name="dropdown-livetype" id="dropdown-livetype" [(ngModel)]="mLiveType">
@@ -85,7 +85,7 @@
   </div>
 
   <div class="col-md-1 text-right">
-      <label>สถานะ</label>
+      <label class="label-form">สถานะ</label>
     </div>
     <div class="col-md-3">
       <select name="dropdown-ownertype" id="dropdown-ownertype" [(ngModel)]="mOwnerNo">
@@ -98,7 +98,7 @@
 
 <div class="row">
     <div class="col-md-2 text-right">
-      <label>โรคประจำตัว</label>
+      <label class="label-form">โรคประจำตัว</label>
     </div>
     <div class="col-md-3">
       <input type="text" class="ng-pristine ng-valid ng-touched" placeholder="ชื่อจริง" value="{{pDisease}}">
@@ -108,7 +108,7 @@
 
   <div class="row">
       <div class="col-md-2 text-right">
-        <label>หมายเหตุ</label>
+        <label class="label-form">หมายเหตุ</label>
       </div>
       <div class="col-md-3">
         <textarea class="ng-pristine ng-valid ng-touched" placeholder="ระบุหมายเหตุ ถ้ามี"></textarea>

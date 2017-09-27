@@ -1,1 +1,34 @@
-<p>xxx</p>
+<div class="row">
+    <div class="col-md-2 text-right">
+      <label class="label-form">หมายเลขประจำตัว</label>
+    </div>
+    <div class="col-md-3">
+      <input type="text" class="ng-pristine ng-valid ng-touched" placeholder="หมายเลข 13 หลัก" 
+      value="{{citizenID}}" [disabled]="true">
+    </div>
+
+    <div class="col-md-1 text-right">
+        <label class="label-form">สิทธิบัตร</label>
+      </div>
+      <div class="col-md-3">
+        <input type="text" class="ng-pristine ng-valid ng-touched" placeholder="หมาย xxx หลัก" 
+        value="{{patentID}}" [disabled]="true">
+      </div>
+  </div>
+
+<div class="row">
+    <div class="col-md-2 text-right">
+      <label class="label-form">ชื่อ</label>
+    </div>
+    <div class="col-md-3">
+      <input type="text" class="ng-pristine ng-valid ng-touched" placeholder="ชื่อ" value="{{pFname}}" [disabled]="true">
+    </div>
+
+    <div class="col-md-1 text-right">
+        <label class="label-form">นามสกุล</label>
+      </div>
+      <div class="col-md-3">
+        <input type="text" class="ng-pristine ng-valid ng-touched" placeholder="นามสกุล" value="{{pLname}}" [disabled]="true">
+      </div>
+  </div>
+
