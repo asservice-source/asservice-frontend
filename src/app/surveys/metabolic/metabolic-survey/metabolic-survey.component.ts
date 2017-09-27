@@ -28,21 +28,19 @@ xxx;
   }
 
   test() {
-    // let dataSend = new URLSearchParams();
-    // dataSend.append('page', this.testData);
-    let headers = new Headers({ 'Content-Type': 'application/json'});
-    let options = new RequestOptions({ headers: headers});
+    // let headers = new Headers({ 'Content-Type': 'application/json'});
+    // let options = new RequestOptions({ headers: headers});
 
-    this.http.get('http://192.168.1.59:8080/asservice/gender/getAll', options)
-      .map(res => res.json())
-      .subscribe(
-      data => {
-        this.dataFor = data;
-        console.log(this.dataFor);
-        this.xxx=data[0].Name;
-      },
-      error => console.log(error)
-      );
+    // this.http.get('http://192.168.1.59:8080/asservice/gender/getAll', options)
+    //   .map(res => res.json())
+    //   .subscribe(
+    //   data => {
+    //     this.dataFor = data;
+    //     console.log(this.dataFor);
+    //     this.xxx=data[0].Name;
+    //   },
+    //   error => console.log(error)
+    //   );
   }
 
 }
