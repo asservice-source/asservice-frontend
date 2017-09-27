@@ -17,7 +17,6 @@ export class MetabolicSurveyComponent implements OnInit {
 
   dataFor;
 
-  year = '2560';
 
 
 xxx;
