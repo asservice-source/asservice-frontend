@@ -32,7 +32,7 @@ import { FindPersonComponent } from './find-person/find-person.component';
 import { MosquitoComponent } from './surveys/mosquito/mosquito.component';
 import { PersonalSurveyComponent } from './surveys/personal/personal-survey/personal-survey.component';
 import { CancerComponent } from './surveys/cancer/cancer.component';
-import { MetabolicSurveyComponent } from './surveys/metabolic/src/app/surveys/metabolic/metabolic-survey/metabolic-survey.component';
+import { MetabolicSurveyComponent } from './surveys/metabolic/metabolic-survey/metabolic-survey.component';
 
 @NgModule({
   declarations: [
