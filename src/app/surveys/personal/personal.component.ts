@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PersonalComponent implements OnInit {
 
+  member = 4;
+
   constructor() { }
 
   ngOnInit() {
