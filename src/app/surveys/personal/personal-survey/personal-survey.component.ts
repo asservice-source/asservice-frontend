@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PersonalSurveyComponent implements OnInit {
 
+  mTypeNo = 0;
   constructor() { }
 
   ngOnInit() {
