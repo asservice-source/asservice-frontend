@@ -12,11 +12,7 @@ export class PersonalComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    $("#person_list_id").hide();
-  }
-
-  clickShow(id){
-    $("#person_list_id").toggle(700);
+  
   }
 
 }
