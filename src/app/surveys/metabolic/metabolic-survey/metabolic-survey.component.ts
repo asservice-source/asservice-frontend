@@ -20,8 +20,10 @@ export class MetabolicSurveyComponent implements OnInit {
   sDistrictID = 'บ้านเป็ด';
   lDistrictID = 'เมือง';
   cityID = 'ขอนแก่น';
-
+  pGender = 1;
   emblem = '-';
+  pSmoke = 0;
+  pDrink = 0;
 
   patentID = 'xxxxxxxxxxxxxxxxx';
 
@@ -38,8 +40,33 @@ xxx;
    }
 
   ngOnInit() {
-    this.test();
+    // this.test();
+
+    $('#radioBtn a').on('click', function(){
+      var sel = $(this).data('title');
+      var tog = $(this).data('toggle');
+      $('#'+tog).prop('value', sel);
+      
+      $('a[data-toggle="'+tog+'"]').not('[data-title="'+sel+'"]').removeClass('active').addClass('notActive');
+      $('a[data-toggle="'+tog+'"][data-title="'+sel+'"]').removeClass('notActive').addClass('active');
+  })
+
     
+  }
+
+  Smoke(){
+    if(this.pSmoke == 1){ 
+      $("#smoker").fadeIn();
+    }else{
+      $("#smoker").fadeOut();
+    }
+  }
+  Drink(){
+    if(this.pDrink == 1){ 
+      $("#drinker").fadeIn();
+    }else{
+      $("#drinker").fadeOut();
+    }
   }
 
   test() {
