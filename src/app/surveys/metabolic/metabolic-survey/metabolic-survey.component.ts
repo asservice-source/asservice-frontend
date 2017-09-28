@@ -51,21 +51,31 @@ xxx;
       $('a[data-toggle="'+tog+'"][data-title="'+sel+'"]').removeClass('notActive').addClass('active');
   })
 
+  $('#radioBtn2 a').on('click', function(){
+    var sel = $(this).data('title');
+    var tog = $(this).data('toggle');
+    $('#'+tog).prop('value', sel);
+    
+    $('a[data-toggle="'+tog+'"]').not('[data-title="'+sel+'"]').removeClass('active').addClass('notActive2');
+    $('a[data-toggle="'+tog+'"][data-title="'+sel+'"]').removeClass('notActive2').addClass('active');
+})
+
     
   }
 
-  Smoke(){
-    if(this.pSmoke == 1){ 
-      $("#smoker").fadeIn();
+  Smoke(T){
+    if(T == 'N'){
+      $("#numTobacco").prop('disabled', true);
     }else{
-      $("#smoker").fadeOut();
+      $("#numTobacco").prop('disabled', false);
     }
   }
-  Drink(){
-    if(this.pDrink == 1){ 
-      $("#drinker").fadeIn();
+
+  Drink(T){
+    if(T == 'N'){
+      $("#timeDrink").prop('disabled', true);
     }else{
-      $("#drinker").fadeOut();
+      $("#timeDrink").prop('disabled', false);
     }
   }
 

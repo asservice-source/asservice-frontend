@@ -225,7 +225,7 @@ href="#person-drug" aria-expanded="false" aria-controls="person-drug">ประ�
             <label class="label-form">สูบบุหรี่หรือไม่</label>
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-2">
               <!-- <select [(ngModel)]="pSmoke" (change)="Smoke()">
                 <option value="0">--เลือกการสูบ--</option>
                 <option value="1">สูบ</option>
@@ -233,20 +233,20 @@ href="#person-drug" aria-expanded="false" aria-controls="person-drug">ประ�
               </select> -->
               <div class="input-group">
                   <div id="radioBtn" class="btn-group">
-                    <a class="btn btn-primary btn-sm active" data-toggle="happy" data-title="Y">สูบ</a>
-                    <a class="btn btn-primary btn-sm notActive" data-toggle="happy" data-title="N">ไม่สูบ</a>
+                    <a class="btn btn-primary btn-sm active" data-toggle="happy" data-title="Y" (click)="Smoke('Y')">สูบ</a>
+                    <a class="btn btn-primary btn-sm notActive" data-toggle="happy" data-title="N" (click)="Smoke('N')">ไม่สูบ</a>
                   </div>
                   <input type="hidden" name="happy" id="happy">
                 </div>
         </div>
 
-        <div id="smoker" [hidden]="true">
+        <div id="smoker">
         <div class="col-md-1 text-right">    
             <label class="label-form">สูบจำนวน</label>
         </div>
 
         <div class="col-md-1">    
-            <input type="text" placeholder="จำนวน">
+            <input type="text" placeholder="จำนวน" id="numTobacco">
         </div>
 
         <div class="col-md-2" style="padding-left: 0px;">    
@@ -260,7 +260,7 @@ href="#person-drug" aria-expanded="false" aria-controls="person-drug">ประ�
           <label class="label-form">ดื่มเครื่องดื่มแอลกอฮอล์หรือไม่</label>
       </div>
 
-      <div class="col-md-3">
+      <div class="col-md-2">
             <!-- <select [(ngModel)]="pDrink" (change)="Drink()">
               <option value="0">--เลือกการดื่ม--</option>
               <option value="1">ดื่ม</option>
@@ -268,21 +268,21 @@ href="#person-drug" aria-expanded="false" aria-controls="person-drug">ประ�
             </select> -->
 
             <div class="input-group">
-                <div id="radioBtn" class="btn-group">
-                  <a class="btn btn-primary btn-sm active" data-toggle="happy" data-title="Y">ดื่ม</a>
-                  <a class="btn btn-primary btn-sm notActive" data-toggle="happy" data-title="N">ไม่ดื่ม</a>
+                <div id="radioBtn2" class="btn-group">
+                  <a class="btn btn-primary btn-sm active" data-toggle="happy2" data-title="Y" (click)="Drink('Y')">ดื่ม</a>
+                  <a class="btn btn-primary btn-sm notActive2" data-toggle="happy2" data-title="N" (click)="Drink('N')">ไม่ดื่ม</a>
                 </div>
-                <input type="hidden" name="happy" id="happy">
+                <input type="hidden" name="happy2" id="happy2">
               </div>
       </div>
 
-      <div id="drinker" [hidden]="true">
+      <div id="drinker">
       <div class="col-md-1 text-right">    
           <label class="label-form">ดื่มจำนวน</label>
       </div>
 
       <div class="col-md-1">    
-          <input type="text" placeholder="จำนวน">
+          <input type="text" placeholder="จำนวน" id="timeDrink">
       </div>
 
       <div class="col-md-2" style="padding-left: 0px;">    
