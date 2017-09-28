@@ -13,6 +13,16 @@ export class MetabolicSurveyComponent implements OnInit {
   pFname = 'สมหมาย';
   pLname = 'หลายใจ';
   citizenID = '1-4599-00321-43-2';
+  pAgeYears = 42;
+  pAgeMonths = 8;
+  houseID = '11/1';
+  hGroupID = 8;
+  sDistrictID = 'บ้านเป็ด';
+  lDistrictID = 'เมือง';
+  cityID = 'ขอนแก่น';
+
+  emblem = '-';
+
   patentID = 'xxxxxxxxxxxxxxxxx';
 
   dataFor;

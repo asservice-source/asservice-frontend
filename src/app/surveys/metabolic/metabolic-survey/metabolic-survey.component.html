@@ -1,3 +1,13 @@
+<!-- <a class="btn btn-primary" role="button" data-toggle="collapse" 
+   href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+  การค้นหา
+</a> -->
+
+<button class="accordion" role="button" data-toggle="collapse" 
+href="#person-detail" aria-expanded="false" aria-controls="person-detail">ข้อมูลบุคคล</button>
+
+
+<div class="collapse" id="person-detail">
 <div class="row">
     <div class="col-md-2 text-right">
       <label class="label-form">หมายเลขประจำตัว</label>
@@ -36,11 +46,89 @@
       <div class="col-md-2 text-right">
         <label class="label-form">อายุ</label>
       </div>
-      <div class="col-md-3">
-        <input type="text" class="ng-pristine ng-valid ng-touched" placeholder="อายุ">
+      <div class="col-md-1">
+        <input type="text" class="ng-pristine ng-valid ng-touched" placeholder="อายุ" value="{{pAgeYears}}"
+        onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="3">
       </div>
-  
+
+      <div class="col-md-1" style="padding-left: 0px;width: 20px;">
+        <label class="label-form">ปี</label>
+      </div>
+
+      <div class="col-md-1">
+        <select name="dropdown-AgeMonths" id="dropdown-AgeMonths" [(ngModel)]="pAgeMonths">
+          <option value="0">--เลือกเดือน--</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+          <option value="11">11</option>
+          <option value="12">12</option>
+        </select>
+      </div>
+
+      <div class="col-md-1" style="padding-left: 0px; width: 57px;">
+        <label class="label-form">เดือน</label>
+      </div>
+
+      <div class="col-md-1 text-right">
+        <label class="label-form">เพศ</label>
+      </div>
+      <div class="col-md-3">
+        <input type="text" class="ng-pristine ng-valid ng-touched" placeholder="หมายเลข 13 หลัก" 
+        value="{{citizenID}}" [disabled]="true">
+      </div>
+      
     </div>
 
+    <div class="row">
+      <div class="col-md-2 text-right">
+        <label class="label-form">บ้านเลขที่</label>
+      </div>
+      <div class="col-md-1">
+        <input type="text" class="ng-pristine ng-valid ng-touched" placeholder="บ้านเลขที่" 
+        value="{{houseID}}" [disabled]="true" style="width: 70px;">
+      </div>
   
+      <div class="col-md-1 text-center" style="padding-right: 0px;">
+          <label class="label-form">หมู่</label>
+        </div>
+        <div class="col-md-1" style="padding-left: 0px;">
+          <input type="text" class="ng-pristine ng-valid ng-touched" placeholder="หมู่" 
+          value="{{hGroupID}}" [disabled]="true">
+        </div>
+
+        <div class="col-md-1 text-right">
+          <label class="label-form">ตำบล</label>
+        </div>
+        <div class="col-md-3">
+          <input type="text" class="ng-pristine ng-valid ng-touched" placeholder="ตำบล" 
+          value="{{sDistrictID}}" [disabled]="true">
+        </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2 text-right">
+        <label class="label-form">อำเภอ</label>
+      </div>
+      <div class="col-md-3">
+        <input type="text" class="ng-pristine ng-valid ng-touched" placeholder="อำเภอ" 
+        value="{{lDistrictID}}" [disabled]="true">
+      </div>
+  
+      <div class="col-md-1 text-right">
+          <label class="label-form">จังหวัด</label>
+        </div>
+        <div class="col-md-3">
+          <input type="text" class="ng-pristine ng-valid ng-touched" placeholder="จังหวัด" 
+          value="{{cityID}}" [disabled]="true">
+        </div>
+    </div>
+  </div>
 
