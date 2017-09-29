@@ -3,7 +3,7 @@
         <span>การเฝ้าระวัง ป้องกัน และควบคุมโลก / ข้อมูลแบบสำรวจผู้ป่วยมะเร็ง</span>
     </div>
     <div class="panel-body">
-        <app-filter></app-filter> 
+        <!-- <app-filter></app-filter>  -->
     
         <div class="row">
             <div class="col-sm-12 text-left">
@@ -14,14 +14,22 @@
                     data-toggle="modal" data-target="#myModal">
       
                   </a>
-              <a href="#"><img src="Assets/img/create_users_group_people-512.png"
+              <a ><img src="Assets/img/create_users_group_people-512.png"
                     class="img-responsive btn" alt="พิมพ์เอกสาร" width="100"
                     height="100" style="cursor: pointer;"
                     data-toggle="modal" data-target="#myModal">
       
                   </a>
             </div>
+ 
+    
           </div>
+          <div class="row">
+              <div class="col-sm-12 text-left">
+              <app-filter></app-filter> 
+              </div>
+          </div>
+
     
       <div class="row">
         <div class="col-lg-12">
@@ -57,12 +65,23 @@
                         <td class="text-center">กำลังรักษา</td>
                         <td class="text-center" style="color:red">ยังไม่ได้สำรวจ</td>
                         <td class="text-center">
-                          <button style="padding-top: 0px; padding-bottom: 0px" data-toggle="modal" data-target="#myModalDetail" class="btn btn-primary">ยืนยัน</button></td>
+                            <img src="assets/img/check.png"
+                            width="30"
+                            height="30"  style="cursor: pointer;" data-toggle="modal"
+                            data-target="#myModalDetail">
                       </tr>
                     </tbody>
     
     
                 </table>
+
+                <nav aria-label="..." class="text-right">
+                    <ul class="pagination">
+                      <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                      <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                      ...
+                    </ul>
+                  </nav>
               </div>
             </div>
           </div>
@@ -74,7 +93,7 @@
 
 
     <!-- Modal -->
-<div id="myModal" class="modal fade" role="dialog">
+<div id="myModal" tabindex="-1" class="modal fade" role="dialog">
     <div class="modal-lg modal-dialog">
   
       <!-- Modal content-->
@@ -173,7 +192,7 @@
 
 
    <!-- Modal Survey-->
-   <div id="myModalDetail" class="modal fade" role="dialog">
+   <div id="myModalDetail" tabindex="-1" class="modal fade" role="dialog">
       <div class="modal-lg modal-dialog">
     
         <!-- Modal content-->
@@ -217,7 +236,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="input-group date" data-provide="datepicker">
-                            <input type="text" >
+                            <input type="text" value="1/9/2560" >
                             <div class="input-group-addon">
                               <span class="glyphicon glyphicon-th"></span>
                             </div>
@@ -238,7 +257,7 @@
                       <label>อื่นๆ</label>
                   </div>
                   <div class="col-md-3">
-                      <input type="text">
+                      <input type="text" value="มีอาการฮากเลือด">
                     </div>
   
   
