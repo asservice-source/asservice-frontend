@@ -9,15 +9,15 @@
   <div class="row">
             <div class="col-sm-12 text-left">
       
-              <a><img src="Assets/img/create_users_group_people-512.png"
-                    class="img-responsive btn" alt="เพิ่มสตรีมีครรภ์" width="100"
-                    height="100" style="cursor: pointer;" 
+              <a><img src="https://www.shareicon.net/data/2016/06/30/788859_add_512x512.png"
+                    alt="เพิ่มสตรีมีครรภ์" width="50"
+                    height="50" style="cursor: pointer;" 
                     data-toggle="modal" data-target="#myModal">
       
                   </a>
-              <a href="#"><img src="Assets/img/create_users_group_people-512.png"
-                    class="img-responsive btn" alt="พิมพ์เอกสาร" width="100"
-                    height="100" style="cursor: pointer;"
+              <a href="#"><img src="http://icons.iconarchive.com/icons/aha-soft/large-business/512/Printer-icon.png"
+                     alt="พิมพ์เอกสาร" width="50"
+                    height="50" style="cursor: pointer;"
                     data-toggle="modal" data-target="#myModal">
       
                   </a>
@@ -145,10 +145,9 @@
                     <label>สถานะการสำรวจ</label>
                 </div>
                 <div class="col-md-3">
-                    <select>
-                      <option value="0">==กรุณาเลือก==</option>
-                      <option value="1">ยังไม่คลอด</option>
-                      <option value="2" >คลอดแล้ว</option>
+                    <select name="find-dropdownStatusNo" id="find-dropdownStatusNo" [(ngModel)]="mStatusNo" (change)="changStatusNo()">
+                      <option value="0">ยังไม่คลอด</option>
+                      <option value="1" >คลอดแล้ว</option>
                     </select>
                   </div>
                   <div class="col-md-1 text-right">
@@ -168,21 +167,21 @@
 
               <div class="row">
                   <div class="col-md-3 text-right">
-                      <label>ครรภ์ที่</label>
+                      <label  [hidden]="isDisable">ครรภ์ที่</label>
                   </div>
                   <div class="col-md-3">
-                      <select>
+                      <select  [hidden]="isDisable">
                         <option value="0">==กรุณาเลือก==</option>
                         <option value="1">1</option>
                         <option value="2" >2</option>
                       </select>
                     </div>
                     <div class="col-md-1 text-right">
-                        <label>วันคลอด</label>
+                        <label  [hidden]="isDisable">วันคลอด</label>
                     </div>
-                    <div class="col-md-3">
-                        <div class="input-group date" data-provide="datepicker">
-                            <input type="text" >
+                    <div  [hidden]="isDisable" class="col-md-3">
+                        <div class="input-group date" data-provide="datepicker" >
+                            <input type="text" [disabled]="isDisable">
                             <div class="input-group-addon">
                               <span class="glyphicon glyphicon-th"></span>
                             </div>
@@ -194,16 +193,16 @@
 
                 <div class="row">
                     <div class="col-md-3 text-right">
-                        <label>โรงพยาบาลที่คลอด</label>
+                        <label  [hidden]="isDisable">โรงพยาบาลที่คลอด</label>
                     </div>
                     <div class="col-md-3">
-                          <input type="text" name="" id="">
+                          <input type="text" name="" id=""  [hidden]="isDisable">
                       </div>
                       <div class="col-md-1 text-right">
-                          <label>วิธีคลอด</label>
+                          <label  [hidden]="isDisable">วิธีคลอด</label>
                       </div>
                       <div class="col-md-3">
-                          <select>
+                          <select  [hidden]="isDisable">
                           <option value="0">คลอดเอง</option>
                           <option value="1">ผ่าคลอด</option>
                           <option value="2" >เครื่องดูด</option>
@@ -216,33 +215,33 @@
                   <div class="row">
                       
                             <div class="col-md-3 text-right">
-                                <label>ชื่อ-สกุล</label>
+                                <label  [hidden]="isDisable">ชื่อ-สกุล</label>
                             </div>
                             <div class="col-md-2">
-                                <input type="text" placeholder="ชื่อจริง">
+                                <input type="text" placeholder="ชื่อจริง"  [hidden]="isDisable">
                             </div>
                             <!-- <div class="col-md-1">
                             
                             </div> -->
                             <div class="col-md-3">
-                                <input type="text" placeholder="นามสกุล">
+                                <input type="text" placeholder="นามสกุล" [hidden]="isDisable">
                             </div>
                    </div>
                    <div class="row">
                       
                             <div class="col-md-3 text-right">
-                                <label>เพศ</label>
+                                <label  [hidden]="isDisable">เพศ</label>
                             </div>
                             <div class="col-md-2">
-                                <select>
+                                <select  [hidden]="isDisable">
                                     <option value="0">-เลือกเพศ-</option>
                                     <option value="1">ชาย</option>
                                     <option value="2" >หญิง</option>
                                     </select>
                             </div>
                              <div class="col-md-2 text-center ">
-                                <label >กรุ๊ปเลือด</label>
-                                <select style="width: 50%" >
+                                <label  [hidden]="isDisable" >กรุ๊ปเลือด</label>
+                                <select style="width: 50%"  [hidden]="isDisable" >
                                     <option value="0">-</option>
                                     <option value="1">A</option>
                                     <option value="2" >B</option>
@@ -251,8 +250,8 @@
                                     </select>
                             </div> 
                             <div class="col-md-2 text-center ">
-                                <label >น้ำหนัก</label>
-                                        <input style="width: 50%" type="text" name="" id="">
+                                <label  [hidden]="isDisable" >น้ำหนัก</label>
+                                        <input style="width: 50%" type="text" name="" id="" [hidden]="isDisable">
                             </div> 
                           
                     </div>
@@ -260,10 +259,10 @@
                     <div class="row">
                         
                               <div class="col-md-3 text-right">
-                                  <label>เลขประจำตัวประชาชน</label>
+                                  <label  [hidden]="isDisable">เลขประจำตัวประชาชน</label>
                               </div>
                               <div class="col-md-3">
-                                  <input type="text" name="" id="">
+                                  <input type="text" name="" id=""  [hidden]="isDisable">
                               </div>
 
                       </div>

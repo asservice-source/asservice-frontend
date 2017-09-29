@@ -6,6 +6,9 @@ declare var $:any
   styleUrls: ['./pregnant.component.css']
 })
 export class PregnantComponent implements OnInit {
+  mStatusNo = 0;
+ 
+  isDisable= true;
 
   constructor() { }
 
@@ -14,5 +17,14 @@ export class PregnantComponent implements OnInit {
      
 
   }
-
+  changStatusNo(){
+    if(this.mStatusNo>0){
+      this.isDisable = false;
+   
+    }else{
+      this.isDisable = true;
+ 
+    }
+    
+  }
 }
