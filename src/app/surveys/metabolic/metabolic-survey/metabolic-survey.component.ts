@@ -30,7 +30,6 @@ export class MetabolicSurveyComponent implements OnInit {
   dataFor;
 
 
-
 xxx;
   
  
