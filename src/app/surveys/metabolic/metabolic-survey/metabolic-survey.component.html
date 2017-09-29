@@ -28,14 +28,14 @@
       <label class="label-form">ชื่อ</label>
     </div>
     <div class="col-md-3">
-      <input type="text" class="ng-pristine ng-valid ng-touched" placeholder="ชื่อ" value="{{pFname}}" [disabled]="true">
+      <input type="text" class="ng-pristine ng-valid ng-touched" placeholder="ชื่อ" [(ngModel)]="pFname" [disabled]="true">
     </div>
 
     <div class="col-md-1 text-right">
       <label class="label-form">นามสกุล</label>
     </div>
     <div class="col-md-3">
-      <input type="text" class="ng-pristine ng-valid ng-touched" placeholder="นามสกุล" value="{{pLname}}" [disabled]="true">
+      <input type="text" class="ng-pristine ng-valid ng-touched" placeholder="นามสกุล" [(ngModel)]="pLname" [disabled]="true">
     </div>
   </div>
 
@@ -303,7 +303,7 @@ href="#person-check" aria-expanded="false" aria-controls="person-check">กา�
     </div>
 
     <div class="col-md-2">    
-        <input type="text" placeholder="น้ำหนัก">
+        <input type="text" placeholder="น้ำหนัก" [(ngModel)]="weight">
     </div>
 
     <div class="col-md-1" style="padding-left: 0px;">    
@@ -467,4 +467,5 @@ href="#person-disease" aria-expanded="false" aria-controls="person-disease">โ�
                 </div>
          </div>
 </div>
+
 
