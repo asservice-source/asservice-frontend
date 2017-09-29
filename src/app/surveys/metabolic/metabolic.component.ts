@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MetabolicComponent implements OnInit {
 
+  year = '2560';
+
   constructor() { }
 
   ngOnInit() {

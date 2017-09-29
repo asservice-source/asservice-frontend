@@ -9,9 +9,26 @@ import {Headers} from '@angular/http';
   styleUrls: ['./metabolic-survey.component.css']
 })
 export class MetabolicSurveyComponent implements OnInit {
+
+  pFname = 'สมหมาย';
+  pLname = 'หลายใจ';
+  citizenID = '1-4599-00321-43-2';
+  pAgeYears = 42;
+  pAgeMonths = 8;
+  houseID = '11/1';
+  hGroupID = 8;
+  sDistrictID = 'บ้านเป็ด';
+  lDistrictID = 'เมือง';
+  cityID = 'ขอนแก่น';
+  pGender = 1;
+  emblem = '-';
+  pSmoke = 0;
+  pDrink = 0;
+
+  patentID = 'xxxxxxxxxxxxxxxxx';
+
   dataFor;
 
-  year = '2560';
 
 
 xxx;
@@ -23,8 +40,43 @@ xxx;
    }
 
   ngOnInit() {
-    this.test();
+    // this.test();
+
+    $('#radioBtn a').on('click', function(){
+      var sel = $(this).data('title');
+      var tog = $(this).data('toggle');
+      $('#'+tog).prop('value', sel);
+      
+      $('a[data-toggle="'+tog+'"]').not('[data-title="'+sel+'"]').removeClass('active').addClass('notActive');
+      $('a[data-toggle="'+tog+'"][data-title="'+sel+'"]').removeClass('notActive').addClass('active');
+  })
+
+  $('#radioBtn2 a').on('click', function(){
+    var sel = $(this).data('title');
+    var tog = $(this).data('toggle');
+    $('#'+tog).prop('value', sel);
     
+    $('a[data-toggle="'+tog+'"]').not('[data-title="'+sel+'"]').removeClass('active').addClass('notActive2');
+    $('a[data-toggle="'+tog+'"][data-title="'+sel+'"]').removeClass('notActive2').addClass('active');
+})
+
+    
+  }
+
+  Smoke(T){
+    if(T == 'N'){
+      $("#numTobacco").prop('disabled', true);
+    }else{
+      $("#numTobacco").prop('disabled', false);
+    }
+  }
+
+  Drink(T){
+    if(T == 'N'){
+      $("#timeDrink").prop('disabled', true);
+    }else{
+      $("#timeDrink").prop('disabled', false);
+    }
   }
 
   test() {
