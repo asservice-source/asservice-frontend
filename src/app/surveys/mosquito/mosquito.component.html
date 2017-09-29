@@ -70,8 +70,8 @@
                   <label>สถานที่</label>
                 </div>
                 <div class="col-md-4">
-                  <select name="find-dropdownVillageNo" id="find-dropdownVillageNo">
-                    <option>--เลือกสถานที่--</option>
+                  <select  name="find-dropdownLocationNo" id="find-dropdownLocationNo" [(ngModel)]="mLocationNo" (change)="changLocationNo()">
+                    <option value="0">--เลือกสถานที่--</option>
                     <option value="1">บ้าน</option>
                     <option value="2">ศาสนสถาน</option>
                     <option value="3">โรงเรียน</option>
@@ -85,14 +85,14 @@
                   <label>เลือกหมู่</label>
                 </div>
                 <div class="col-md-4">
-                    <select name="find-osmName" id="find-osmName">
+                    <select>
                         <option>--เลือกหมู่--</option>
                    </select>
                 </div>
               </div>
-              <div class="row">
+              <div [hidden]="isDisable" class="row">
                   <div class="col-md-2 text-right">
-                      <label>บ้านเลขที่</label>
+                      <label >บ้านเลขที่</label>
                     </div>
                     <div class="col-md-4">
                         <select name="find-homeNo" id="find-homeNo">
