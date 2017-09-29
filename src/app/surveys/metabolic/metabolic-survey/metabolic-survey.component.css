@@ -9,15 +9,17 @@
 }
 
 button.accordion {
-    background-color: #eee;
+    background-color: #fff;
     color: #444;
     cursor: pointer;
     padding: 18px;
     width: 100%;
     text-align: left;
-    border: 1;
+    border: none;
     outline: none;
     transition: 0.4s;
+    border-left: 6px solid #FFEC8B; 
+    border-bottom: 6px solid #FFEC8B;
     
 }
 
@@ -29,6 +31,21 @@ button.accordion[aria-expanded="true"]:after {
     margin-left: 5px;
 }
 
+#person-detail{
+    background-color: #FFEC8B;
+}
+#person-history{
+    background-color: #FFEC8B;
+}
+#person-drug{
+    background-color: #FFEC8B;
+}
+#person-disease{
+    background-color: #FFEC8B;
+}
+#person-check{
+    background-color: #FFEC8B;
+}
 
 
 button.accordion[aria-expanded="false"]:after {
@@ -38,6 +55,8 @@ button.accordion[aria-expanded="false"]:after {
     float: right;
     margin-left: 5px;
 } 
+
+
 
 .checkbox{
     margin-top: 0px;
@@ -102,4 +121,14 @@ button.accordion[aria-expanded="false"]:after {
 .radio label input[type="radio"]:disabled + .cr {
     opacity: .5;
 }
+
+.cr{
+    background-color: white;    
+}
+
+
+
+
+
+
 
