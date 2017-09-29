@@ -10,7 +10,7 @@
             <div class="col-sm-12 text-left">
       
               <a><img src="Assets/img/create_users_group_people-512.png"
-                    class="img-responsive btn" alt="เพิ่มผู้ป่วย" width="100"
+                    class="img-responsive btn" alt="เพิ่มสตรีมีครรภ์" width="100"
                     height="100" style="cursor: pointer;" 
                     data-toggle="modal" data-target="#myModal">
       
@@ -70,18 +70,42 @@
         <h4 class="modal-title">รายละเอียดผู้ตั้งครรภ์</h4>
       </div>
       <app-find-person></app-find-person>
-      <div class="padding_right col-md-9" id="personDetail" [hidden]="isHiddenContent">
+      <div >
+          <div class="row">
+                   <div class="col-md-2 text-right"></div>
+                  <div class="col-md-2 text-right">
+                      <label>ครรภ์ที่</label>
+                    </div>
+                    <div class="col-md-1">
+                      <select name="find-dropdownPerson" id="find-dropdownPerson" [(ngModel)]="mPerson" [disabled]="isDisabledPerson">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                      </select>
+                    </div>
+                    <div class="col-md-2 text-right">
+                        <label>กำหนดคลอด</label> 
+                    </div>
+                    <div class="col-md-3">
+                        <div class="input-group date" data-provide="datepicker">
+                            <input type="text" >
+                            <div class="input-group-addon">
+                              <span class="glyphicon glyphicon-th"></span>
+                            </div>
+                          </div>
+                    </div>
+            
+          </div>
 
 
 
-        
       </div>
      
       <div class="modal-footer">
           <div class="row">
               <div class="col-md-12 text-center">
-          <button style="margin-top: 31.5px" class="btn btn-primary">ยืนยัน</button>
-          <button style="margin-top: 31.5px" class="btn btn-primary">รีเซ็ท</button>
+          <button  class="btn btn-primary">ยืนยัน</button>
+          <button  class="btn btn-primary">รีเซ็ท</button>
           </div>
 
         </div>
