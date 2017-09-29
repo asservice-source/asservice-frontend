@@ -44,6 +44,22 @@
                       <th class="text-center">action</th>
                     </tr>
                   </thead>
+                  <tbody>
+                      <tr>
+                        <td class="text-center">1</td>
+                        <td class="text-center">นาย โสพน สดใส</td>
+                        <td class="text-center">24</td>
+                        <td class="text-center">มะเร็งตับ</td>
+                        <td class="text-center">โรงพยาบาลศูนย์ขอนแก่น</td>
+                        <td class="text-center">1/9/2560</td>
+                        <td class="text-center">064-647-6484</td>
+                        <td class="text-center">มีอาการฮากเลือด</td>
+                        <td class="text-center">กำลังรักษา</td>
+                        <td class="text-center" style="color:red">ยังไม่ได้สำรวจ</td>
+                        <td class="text-center">
+                          <button style="padding-top: 0px; padding-bottom: 0px" data-toggle="modal" data-target="#myModalDetail" class="btn btn-primary">ยืนยัน</button></td>
+                      </tr>
+                    </tbody>
     
     
                 </table>
@@ -75,11 +91,67 @@
                   <label>ชื่อ-สกุล</label>
               </div>
               <div class="col-md-4">
-                  <input type="text">
+                  <input type="text"  value="นายโสพน สดใส" readonly="readonly">
               </div>
-                  
-              
+              <div class="col-md-1 text-right">
+                <label>โทรศัพท์</label>
+              </div>
+              <div class="col-md-3">
+                <input type="text"  value="094-647-6484" readonly="readonly">
+              </div>
             </div>
+
+            <div class="row">
+                <div class="col-md-2 text-right">
+                    <label>ชนิดของมะเร็ง</label>
+                </div>
+                <div class="col-md-4">
+                    <select>
+                      <option value="0">--เลือกมะเร็ง--</option>
+                      <option value="1">มะเร็งลำไส้ใหญ่</option>
+                      <option value="2">มะเร็งเต้านม</option>
+                    </select>
+                  </div>
+
+                  <div class="col-md-1 text-right">
+                      <label>เริ่มป่วย</label>
+                  </div>
+                  <div class="col-md-3">
+                      <div class="input-group date" data-provide="datepicker">
+                          <input type="text" >
+                          <div class="input-group-addon">
+                            <span class="glyphicon glyphicon-th"></span>
+                          </div>
+                        </div>
+                  </div>
+
+
+            </div>
+            <div class="row">
+                <div class="col-md-2 text-right">
+                    <label>รพ.ที่รักษา</label>
+                </div>
+                <div class="col-md-4">
+                  <input type="text">
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="row">
+                <div class="col-md-2 text-right">
+                    <label>อื่นๆ</label>
+                </div>
+                <div class="col-md-4">
+                    <textarea class="form-control" rows="3"></textarea>
+                  </div>
+
+            </div>
+
+
   
   
   
@@ -101,4 +173,130 @@
       </div>
   
     </div>
+</div>
+
+
+
+
+
+   <!-- Modal Survey-->
+   <div id="myModalDetail" class="modal fade" role="dialog">
+      <div class="modal-lg modal-dialog">
+    
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">การสำรวจผู้ป่วยมะเร็ง</h4>
+          </div>
+       
+          <div >
+              <div class="row">
+          
+                <div class="col-md-3 text-right">
+                    <label>ชื่อ-สกุล</label>
+                </div>
+                <div class="col-md-3">
+                    <input type="text"  value="นายโสพน สดใส">
+                </div>
+                <div class="col-md-1 text-right">
+                  <label>โทรศัพท์</label>
+                </div>
+                <div class="col-md-3">
+                  <input type="text"  value="094-647-6484">
+                </div>
+              </div>
+  
+              <div class="row">
+                  <div class="col-md-3 text-right">
+                      <label>ชนิดของมะเร็ง</label>
+                  </div>
+                  <div class="col-md-3">
+                      <select>
+                        <option value="0">มะเร็งตับ</option>
+                        <option value="1">มะเร็งลำไส้ใหญ่</option>
+                        <option value="2">มะเร็งเต้านม</option>
+                      </select>
+                    </div>
+  
+                    <div class="col-md-1 text-right">
+                        <label>เริ่มป่วย</label>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="input-group date" data-provide="datepicker">
+                            <input type="text" >
+                            <div class="input-group-addon">
+                              <span class="glyphicon glyphicon-th"></span>
+                            </div>
+                          </div>
+                    </div>
+  
+  
+              </div>
+              <div class="row">
+                  <div class="col-md-3 text-right">
+                      <label>รพ.ที่รักษา</label>
+                  </div>
+                  <div class="col-md-3">
+                    <input type="text" value="โรงพยาบาลขอนแก่นรามฯ">
+  
+                  </div>
+                  <div class="col-md-1 text-right">
+                      <label>อื่นๆ</label>
+                  </div>
+                  <div class="col-md-3">
+                      <textarea rows="1"></textarea>
+                    </div>
+  
+  
+              </div>
+  
+              <div class="row">
+                  <div class="col-md-3 text-right">
+                      <label>สถานะการสำรวจ</label>
+                  </div>
+                  <div class="col-md-3">
+                      <select>
+                        <option value="0">==กรุณาเลือก==</option>
+                        <option value="1">กำลังรักษา</option>
+                        <option value="2">หายแล้ว</option>
+                      </select>
+                    </div>
+                    <div class="col-md-1 text-right">
+                        <label>วันสำรวจ</label>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="input-group date" data-provide="datepicker">
+                            <input type="text" >
+                            <div class="input-group-addon">
+                              <span class="glyphicon glyphicon-th"></span>
+                            </div>
+                          </div>
+                    </div>
+
+
+                </div>
+  
+  
+    
+    
+    
+          </div>
+    
+    
+  
+    
+      
+          <div class="modal-footer">
+              <div class="row">
+                  <div class="col-md-12 text-center">
+              <button  class="btn btn-primary">ยืนยัน</button>
+              <button  class="btn btn-primary">ยกเลิก</button>
+              </div>
+    
+            </div>
+          </div>
+        </div>
+    
+      </div>
   </div>
