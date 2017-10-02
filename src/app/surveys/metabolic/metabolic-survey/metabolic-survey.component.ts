@@ -29,11 +29,6 @@ export class MetabolicSurveyComponent implements OnInit {
 
   dataFor;
   weight = 71;
-
-
-
-xxx;
-  
  
 
   constructor(private http: Http) {
