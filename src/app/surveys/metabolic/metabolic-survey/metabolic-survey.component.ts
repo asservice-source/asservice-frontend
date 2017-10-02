@@ -28,6 +28,8 @@ export class MetabolicSurveyComponent implements OnInit {
   patentID = 'xxxxxxxxxxxxxxxxx';
 
   dataFor;
+  weight = 71;
+
 
 
 xxx;

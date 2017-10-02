@@ -18,8 +18,8 @@ button.accordion {
     border: none;
     outline: none;
     transition: 0.4s;
-    border-left: 6px solid #FFEC8B; 
-    border-bottom: 6px solid #FFEC8B;
+    border-left: 6px solid #a1d6e2; 
+    border-bottom: 6px solid #a1d6e2;
     
 }
 
@@ -32,19 +32,19 @@ button.accordion[aria-expanded="true"]:after {
 }
 
 #person-detail{
-    background-color: #FFEC8B;
+    background-color: #a1d6e2;
 }
 #person-history{
-    background-color: #FFEC8B;
+    background-color: #a1d6e2;
 }
 #person-drug{
-    background-color: #FFEC8B;
+    background-color: #a1d6e2;
 }
 #person-disease{
-    background-color: #FFEC8B;
+    background-color: #a1d6e2;
 }
 #person-check{
-    background-color: #FFEC8B;
+    background-color: #a1d6e2;
 }
 
 
