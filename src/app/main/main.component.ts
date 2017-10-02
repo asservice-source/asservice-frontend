@@ -73,7 +73,7 @@ export class MainComponent implements OnInit, OnDestroy {
         },
         {
           "title": "แบบสรุปหญิงตั้งครรภ์และหลังคลอด",
-          "link": ""
+          "link": "/main/summary/sumpregnant"
         },
         {
           "title": "แบบสรุปสรุปค่า CI (ลูกน้ำ)",

@@ -1,27 +1,13 @@
 <div class="panel panel-default">
   <div class="panel-heading">
-    <span>การส่งเสริมสุขภาพ/ ข้อมูลแบบสำรวจหญิงตั้งครรภ์ และหลังคลอด</span>
+    <span>รายงานสรุปแบบฟอร์ม / แบบสรุปหญิงตั้งครรภ์และหลังคลอด</span>
   </div>
 
   <div class="panel-body">
 
 
   <div class="row">
-            <div class="col-sm-12 text-left">
-      
-              <a><img src="https://www.shareicon.net/data/2016/06/30/788859_add_512x512.png"
-                    alt="เพิ่มสตรีมีครรภ์" width="50"
-                    height="50" style="cursor: pointer;" 
-                    data-toggle="modal" data-target="#myModal">
-      
-                  </a>
-              <a href="#"><img src="http://icons.iconarchive.com/icons/aha-soft/large-business/512/Printer-icon.png"
-                     alt="พิมพ์เอกสาร" width="50"
-                    height="50" style="cursor: pointer;"
-                    data-toggle="modal" data-target="#myModal">
-      
-                  </a>
-            </div>
+          
           </div>
 
           <div class="row">
@@ -46,8 +32,8 @@
                   <!-- <th class="text-center">รพ.</th>
                   <th class="text-center">น้ำหนัก</th>
                   <th class="text-center">ชื่อ/เพศ/เลขประจำตัวประชาชน</th> -->
-                  <th class="text-center">วันกำหนดคลอด</th>
-                  <th class="text-center">วันที่ลงข้อมูล</th>
+                  <!-- <th class="text-center">วันกำหนดคลอด</th>
+                  <th class="text-center">วันที่ลงข้อมูล</th> -->
                   <th class="text-center"></th>
                 </tr>
               </thead>
@@ -59,10 +45,10 @@
                     <td class="text-center">28</td>
                     <td class="text-center">100 ม.3</td>
                     <td class="text-center">089-0072345</td>
-                    <td class="text-center">15/12/60</td>
-                    <td class="text-center" style="color:red">ยังไม่ได้สำรวจ</td>
+                    <!-- <td class="text-center">15/12/60</td>
+                    <td class="text-center" style="color:red">ยังไม่ได้สำรวจ</td> -->
                     <td class="text-center">
-                        <img src="assets/img/check.png"
+                        <img src="assets/img/Search-icon.png"
                         width="30"
                         height="30"  style="cursor: pointer;" data-toggle="modal"
                         data-target="#myModalDetail">
@@ -139,53 +125,21 @@
             
 
            
-        
-            <div class="row">
-                <div class="col-md-3 text-right">
-                    <label>สถานะการสำรวจ</label>
-                </div>
-                <div class="col-md-3">
-                    <select name="find-dropdownStatusNo" id="find-dropdownStatusNo" [(ngModel)]="mStatusNo" (change)="changStatusNo()">
-                      <option value="0">ยังไม่คลอด</option>
-                      <option value="1" >คลอดแล้ว</option>
-                    </select>
-                  </div>
-                  <div class="col-md-1 text-right">
-                      <label>วันสำรวจ</label>
-                  </div>
-                  <div class="col-md-3">
-                      <div class="input-group date" data-provide="datepicker">
-                          <input type="text" >
-                          <div class="input-group-addon">
-                            <span class="glyphicon glyphicon-th"></span>
-                          </div>
-                        </div>
-                        <!-- <select >
-                            <option value="1">มกราคม</option>
-                            <option value="2">กุมภาพันธ์</option>
-                            <option value="3" >มีนาคม</option>
-                            <option value="4" >เมษายน</option>
-                            <option value="5" >พฤษภาคม</option>
-                            <option value="6" >มิถุนายน</option>
-                            <option value="7" >กรกฎาคม</option>
-                            <option value="8" >สิงหาคม</option>
-                            <option value="9" >กันยายน</option>
-                            <option value="10" >ตุลาคม</option>
-                            <option value="11" >พฤศจิกายน</option>
-                            <option value="12" >ธันวาคม</option>
-                          </select> -->
-                        
-                  </div>
-
-
-              </div>
 
               <div class="row">
                   <div class="col-md-3 text-right">
-                        <label  [hidden]="isDisable">วันคลอด</label>
+                      <label  [hidden]="isDisable">ครรภ์ที่</label>
                   </div>
-
-
+                  <div class="col-md-3">
+                      <select  [hidden]="isDisable">
+                        <option value="0">==กรุณาเลือก==</option>
+                        <option value="1">1</option>
+                        <option value="2" >2</option>
+                      </select>
+                    </div>
+                    <div class="col-md-1 text-right">
+                        <label  [hidden]="isDisable">วันคลอด</label>
+                    </div>
                     <div  [hidden]="isDisable" class="col-md-3">
                         <div class="input-group date" data-provide="datepicker" >
                             <input type="text" [disabled]="isDisable">
@@ -209,11 +163,7 @@
                           <label  [hidden]="isDisable">วิธีคลอด</label>
                       </div>
                       <div class="col-md-3">
-                          <select  [hidden]="isDisable">
-                          <option value="0">คลอดเอง</option>
-                          <option value="1">ผ่าคลอด</option>
-                          <option value="2" >เครื่องดูด</option>
-                          </select>
+                        <input type="text" name="" id="">
                       </div>
     
     
@@ -224,41 +174,32 @@
                             <div class="col-md-3 text-right">
                                 <label  [hidden]="isDisable">ชื่อ-สกุล</label>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <input type="text" placeholder="ชื่อจริง"  [hidden]="isDisable">
                             </div>
-                            <!-- <div class="col-md-1">
-                            
-                            </div> -->
-                            <div class="col-md-3">
-                                <input type="text" placeholder="นามสกุล" [hidden]="isDisable">
-                            </div>
+                    
                    </div>
                    <div class="row">
                       
                             <div class="col-md-3 text-right">
                                 <label  [hidden]="isDisable">เพศ</label>
                             </div>
-                            <div class="col-md-2">
-                                <select  [hidden]="isDisable">
-                                    <option value="0">-เลือกเพศ-</option>
-                                    <option value="1">ชาย</option>
-                                    <option value="2" >หญิง</option>
-                                    </select>
+                            <div class="col-md-1">
+                                <input type="text" name="" id="">
                             </div>
-                             <div class="col-md-2 text-center ">
+                             <div class="col-md-2 ">
                                 <label  [hidden]="isDisable" >กรุ๊ปเลือด</label>
-                                <select style="width: 50%"  [hidden]="isDisable" >
-                                    <option value="0">-</option>
-                                    <option value="1">A</option>
-                                    <option value="2" >B</option>
-                                    <option value="2" >AB</option>
-                                    <option value="2" >O</option>
-                                    </select>
+                                <input  style="width: 50%" type="text" name="" id="">
+                            
                             </div> 
-                            <div class="col-md-2 text-center ">
+        
+                            <div class="col-md-1 text-right ">
                                 <label  [hidden]="isDisable" >น้ำหนัก</label>
-                                        <input style="width: 50%" type="text" name="" id="" [hidden]="isDisable">
+                                   
+                            </div> 
+                            <div class="col-md-1 text-right ">
+                                <input   type="text" name="" id="">
+                                   
                             </div> 
                           
                     </div>

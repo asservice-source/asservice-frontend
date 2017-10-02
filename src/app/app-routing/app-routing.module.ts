@@ -17,6 +17,7 @@ import { PatientComponent } from "./../surveys/patient/patient.component";
 import { MetabolicComponent } from "./../surveys/metabolic/metabolic.component";
 import { MosquitoComponent } from "./../surveys/mosquito/mosquito.component";
 import { CancerComponent} from "./../surveys/cancer/cancer.component";
+import { SumpregnantComponent} from "./../summary/sumpregnant/sumpregnant.component";
 @NgModule({
   imports: [
     RouterModule.forRoot([
@@ -77,6 +78,15 @@ import { CancerComponent} from "./../surveys/cancer/cancer.component";
                 component: CancerComponent
               }
               
+            ]
+          },
+          {
+            path: 'summary',
+            children: [
+              {
+                path: 'sumpregnant',
+                component: SumpregnantComponent
+              }
             ]
           }
        ]
