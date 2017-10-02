@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LabelManager } from "../../labels/label.manager";
 declare var $: any;
 @Component({
   selector: 'app-died',
@@ -7,10 +8,11 @@ declare var $: any;
 })
 export class DiedComponent implements OnInit {
 
-
-  constructor() { }
-
+  labelManager = new LabelManager();
+  constructor() {    
+   }
   ngOnInit() {
+    this.labelManager.setupLabel();
   };
 
 

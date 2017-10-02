@@ -1,0 +1,26 @@
+{
+    "lbl_cancel": {
+      "th": "ยกเลิก",
+      "en": "Cancel"
+    },
+    "lbl_firstName": {
+      "th": "ชื่อ",
+      "en": "Name"
+    },
+    "lbl_nickName": {
+      "th": "ชื่อเล่น",
+      "en": "Nickname"
+    },
+    "lbl_ok": {
+      "th": "ตกลง",
+      "en": "Ok"
+    },
+    "lbl_surName": {
+      "th": "นามสกุล",
+      "en": "Surname"
+    },
+    "lbl_villageNo": {
+      "th": "หมู่ที่",
+      "en": "Village No"
+    }
+  }
