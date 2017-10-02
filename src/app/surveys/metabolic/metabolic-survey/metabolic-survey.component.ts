@@ -24,9 +24,7 @@ export class MetabolicSurveyComponent implements OnInit {
   emblem = '-';
   pSmoke = 0;
   pDrink = 0;
-
-  patentID = 'xxxxxxxxxxxxxxxxx';
-
+  patentID = 13;
   dataFor;
   weight = 71;
  
