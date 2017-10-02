@@ -36,6 +36,8 @@ import { MetabolicSurveyComponent } from './surveys/metabolic/metabolic-survey/m
 import 'rxjs/add/operator/map';
 import { HttpModule } from '@angular/http';
 import { SumpregnantComponent } from './summary/sumpregnant/sumpregnant.component';
+import { DataTableModule } from "angular2-datatable";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -68,7 +70,8 @@ import { SumpregnantComponent } from './summary/sumpregnant/sumpregnant.componen
     AppRoutingModule,
     FormsModule,
     AdminModule,
-    HttpModule
+    HttpModule,
+    DataTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]
