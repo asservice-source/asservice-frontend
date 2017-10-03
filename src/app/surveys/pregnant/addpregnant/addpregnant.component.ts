@@ -8,18 +8,28 @@ import { Component, OnInit } from '@angular/core';
 export class AddpregnantComponent implements OnInit {
   mStatusNo = 0;
   
-   isDisable= true;
+   isDisable= false;
+   isDisableBirth= true;
+   isDisableAbort = true ;
   constructor() { }
 
   ngOnInit() {
   }
   changStatusNo(){
     if(this.mStatusNo>0){
-      this.isDisable = false;
-   
+      if(this.mStatusNo==1){
+        this.isDisable = true;
+        this.isDisableBirth = false;
+        this.isDisableAbort = true ;
+      }else{
+        this.isDisable = true;
+        this.isDisableBirth = true;
+        this.isDisableAbort = false ;
+      }   
     }else{
-      this.isDisable = true;
- 
+      this.isDisableBirth = true;
+      this.isDisable = false;
+      this.isDisableAbort = true ;
     }
     
   }
