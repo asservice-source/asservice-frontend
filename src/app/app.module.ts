@@ -38,7 +38,7 @@ import { HttpModule } from '@angular/http';
 import { SumpregnantComponent } from './summary/sumpregnant/sumpregnant.component';
 import { AddpregnantComponent } from './surveys/pregnant/addpregnant/addpregnant.component';
 import { DetailpregnantComponent } from './surveys/pregnant/detailpregnant/detailpregnant.component';
-import { DataTableModule } from "angular2-datatable";
+import { DataTablesModule } from 'angular-datatables';
 
 
 @NgModule({
@@ -76,7 +76,7 @@ import { DataTableModule } from "angular2-datatable";
     FormsModule,
     AdminModule,
     HttpModule,
-    DataTableModule
+    DataTablesModule
   ],
   providers: [],
   bootstrap: [AppComponent]

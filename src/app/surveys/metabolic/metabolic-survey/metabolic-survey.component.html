@@ -1,134 +1,4 @@
-<!-- <a class="btn btn-primary" role="button" data-toggle="collapse" 
-   href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-  การค้นหา
-</a> -->
 
-
-
-<!-- <button class="accordion" role="button" data-toggle="collapse" href="#person-detail" aria-expanded="false" aria-controls="person-detail">ข้อมูลบุคคล</button> -->
-
-
-<!-- <div>
-  <div class="row">
-    <div class="col-md-2 text-right">
-      <label class="label-form">หมายเลขประจำตัว</label>
-    </div>
-    <div class="col-md-3">
-      <label class="label-form">{{citizenID}}</label>
-    </div>
-
-    <div class="col-md-1 text-right">
-      <label class="label-form">สิทธิบัตร</label>
-    </div>
-    <div class="col-md-3">
-      <label class="label-form">{{patentID}}</label>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-2 text-right">
-      <label class="label-form">ชื่อ</label>
-    </div>
-    <div class="col-md-3">
-      <input type="text" class="ng-pristine ng-valid ng-touched" placeholder="ชื่อ" [(ngModel)]="pFname" [disabled]="true">
-    </div>
-
-    <div class="col-md-1 text-right">
-      <label class="label-form">นามสกุล</label>
-    </div>
-    <div class="col-md-3">
-      <input type="text" class="ng-pristine ng-valid ng-touched" placeholder="นามสกุล" [(ngModel)]="pLname" [disabled]="true">
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-2 text-right">
-      <label class="label-form">อายุ</label>
-    </div>
-    <div class="col-md-1">
-      <input type="text" class="ng-pristine ng-valid ng-touched" placeholder="อายุ" [(ngModel)]="pAgeYears" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
-        maxlength="3" [disabled]="true">
-    </div>
-
-    <div class="col-md-1" style="padding-left: 0px;width: 20px;">
-      <label class="label-form">ปี</label>
-    </div>
-
-    <div class="col-md-1">
-      <select name="dropdown-AgeMonths" id="dropdown-AgeMonths" [(ngModel)]="pAgeMonths" [disabled]="true">
-          <option value="0">--เลือกเดือน--</option>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-          <option value="7">7</option>
-          <option value="8">8</option>
-          <option value="9">9</option>
-          <option value="10">10</option>
-          <option value="11">11</option>
-          <option value="12">12</option>
-        </select>
-    </div>
-
-    <div class="col-md-1" style="padding-left: 0px; width: 57px;">
-      <label class="label-form">เดือน</label>
-    </div>
-
-    <div class="col-md-1 text-right">
-      <label class="label-form">เพศ</label>
-    </div>
-    <div class="col-md-3">
-      <select name="dropdown-pGender" id="dropdown-pGender" [(ngModel)]="pGender" [disabled]="true">
-          <option value="0">--เลือกเพศ--</option>
-          <option value="1">ชาย</option>
-          <option value="2">หญิง</option>
-        </select>
-    </div>
-
-  </div>
-
-  <div class="row">
-    <div class="col-md-2 text-right">
-      <label class="label-form">บ้านเลขที่</label>
-    </div>
-    <div class="col-md-1">
-      <input type="text" class="ng-pristine ng-valid ng-touched" placeholder="บ้านเลขที่" value="{{houseID}}" [disabled]="true"
-        style="width: 70px;">
-    </div>
-
-    <div class="col-md-1 text-center" style="padding-right: 0px;">
-      <label class="label-form">หมู่</label>
-    </div>
-    <div class="col-md-1" style="padding-left: 0px;">
-      <input type="text" class="ng-pristine ng-valid ng-touched" placeholder="หมู่" value="{{hGroupID}}" [disabled]="true">
-    </div>
-
-    <div class="col-md-1 text-right">
-      <label class="label-form">ตำบล</label>
-    </div>
-    <div class="col-md-3">
-      <input type="text" class="ng-pristine ng-valid ng-touched" placeholder="ตำบล" value="{{sDistrictID}}" [disabled]="true">
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-2 text-right">
-      <label class="label-form">อำเภอ</label>
-    </div>
-    <div class="col-md-3">
-      <input type="text" class="ng-pristine ng-valid ng-touched" placeholder="อำเภอ" value="{{lDistrictID}}" [disabled]="true">
-    </div>
-
-    <div class="col-md-1 text-right">
-      <label class="label-form">จังหวัด</label>
-    </div>
-    <div class="col-md-3">
-      <input type="text" class="ng-pristine ng-valid ng-touched" placeholder="จังหวัด" [value]="cityID" [disabled]="true">
-    </div>
-  </div>
-</div> -->
 <div style="background-color: #fff">
   <div class="row">
       <div class="col-md-3 text-right">
@@ -136,10 +6,10 @@
        </div>
 
      
-      <label class="label-form label_space">{{citizenID}}</label>
+      <label class="label-form label_space">{{personal_CitizenID}}</label>
 
       <label class="label-form">สิทธิบัตร :</label>
-      <label class="label-form label_space">{{patentID}}</label>
+      <label class="label-form label_space">{{personal_PatentID}}</label>
 
   </div>
 
@@ -148,13 +18,13 @@
          <label class="label-form label_space">ชื่อ-สกุล :</label>
       </div>
      
-      <label class="label-form label_space">{{pFname}}  {{pLname}}</label>
+      <label class="label-form label_space">{{personal_Fname}}  {{personal_Lname}}</label>
 
       <label class="label-form">เพศ :</label>
-      <label class="label-form label_space">{{pGender}}</label>
+      <label class="label-form label_space">{{personal_Gender}}</label>
 
       <label class="label-form">อายุ :</label>
-      <label class="label-form label_space">{{pAgeYears}} ปี {{pAgeMonths}} เดือน</label>
+      <label class="label-form label_space">{{personal_AgeYears}} ปี {{personal_AgeMonths}} เดือน</label>
   </div>
  
 
@@ -163,20 +33,20 @@
         <label class="label-form label_space">บ้านเลขที่ :</label>
       </div>
         
-        <label class="label-form label_space">{{houseID}}</label>
+        <label class="label-form label_space">{{personal_HouseID}}</label>
 
 
         <label class="label-form">หมู่ :</label>
-        <label class="label-form label_space">{{hGroupID}}</label>
+        <label class="label-form label_space">{{personal_HgroupID}}</label>
 
         <label class="label-form">ตำบล :</label>
-        <label class="label-form label_space">{{sDistrictID}}</label>
+        <label class="label-form label_space">{{personal_DistrictID}}</label>
 
         <label class="label-form">อำเภอ :</label>
-        <label class="label-form label_space">{{amphurID}}</label>
+        <label class="label-form label_space">{{personal_AmphurID}}</label>
 
         <label class="label-form">จังหวัด :</label>
-        <label class="label-form label_space">{{cityID}}</label>
+        <label class="label-form label_space">{{personal_CityID}}</label>
   </div>
 </div>
 <!-- ประวัติสุขภาพ -->
@@ -189,10 +59,11 @@
     <div class="col-md-12 col-md-offset-1">
       <div class="checkbox">
         <label class="label-form" style="font-size: 1em">
-                  <input type="checkbox" value="">
+                  <input type="checkbox" [checked]="healtHistory_isDiabetesParent" (change)="healtHistory_isDiabetesParent = !healtHistory_isDiabetesParent">
                   <span class="cr"><i class="cr-icon fa fa-check"></i></span>
                   มีประวัติ พ่อแม่ ญาติ พี่น้องสายตรงเป็นเบาหวาน
               </label>
+              
       </div>
     </div>
   </div>
@@ -201,10 +72,11 @@
     <div class="col-md-12 col-md-offset-1">
       <div class="checkbox">
         <label class="label-form" style="font-size: 1em">
-                    <input type="checkbox" value="">
+                    <input type="checkbox" [checked]="healtHistory_isOverBmi" (change)="healtHistory_isOverBmi = !healtHistory_isOverBmi">
                     <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                    รอบเอวในชาย >90 ซม./หญิง >80 ซม. หรือภาวะอ้วน อัชนีมวลกาย >25 กก/ตร.ม
+                    รอบเอวในชาย >90 ซม./หญิง >80 ซม. หรือภาวะอ้วน ดัชนีมวลกาย >25 กก/ตร.ม
                 </label>
+                
       </div>
     </div>
   </div>
@@ -213,32 +85,11 @@
     <div class="col-md-12 col-md-offset-1">
       <div class="checkbox">
         <label class="label-form" style="font-size: 1em">
-                      <input type="checkbox" value="">
+                      <input type="checkbox" [checked]="healtHistory_isOverBp" (change)="healtHistory_isOverBp = !healtHistory_isOverBp">
                       <span class="cr"><i class="cr-icon fa fa-check"></i></span>
                       ความดันโลหิต >140/90 mmHg หรือเคยมีประวัติเป็นโรคความดันโลหิตสูง
                   </label>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-3 col-md-offset-1">
-      <div class="checkbox">
-        <label class="label-form" style="font-size: 1em">
-                        <input type="checkbox" value="">
-                        <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                        มีประวัติน้ำตาลในเลือดสูง
-                    </label>
-      </div>
-    </div>
-
-    <div class="col-md-6">
-      <div class="checkbox">
-        <label class="label-form" style="font-size: 1em">
-                        <input type="checkbox" value="">
-                        <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                        มีประวัติภาวะไขมันในเลือดสูง
-                    </label>
+                  
       </div>
     </div>
   </div>
@@ -247,7 +98,33 @@
     <div class="col-md-12 col-md-offset-1">
       <div class="checkbox">
         <label class="label-form" style="font-size: 1em">
-                          <input type="checkbox" value="">
+                        <input type="checkbox" [checked]="healtHistory_isOverFbs" (change)="healtHistory_isOverFbs = !healtHistory_isOverFbs">
+                        <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                        มีประวัติน้ำตาลในเลือดสูง
+                    </label>
+                    
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 col-md-offset-1">
+      <div class="checkbox">
+        <label class="label-form" style="font-size: 1em">
+                        <input type="checkbox" [checked]="healtHistory_isOvercholesterol" (change)="healtHistory_isOvercholesterol = !healtHistory_isOvercholesterol">
+                        <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                        มีประวัติภาวะไขมันในเลือดสูง
+                    </label>
+                    
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 col-md-offset-1">
+      <div class="checkbox">
+        <label class="label-form" style="font-size: 1em">
+                          <input type="checkbox" [checked]="healtHistory_isPregnantDiabetes" (change)="healtHistory_isPregnantDiabetes = !healtHistory_isPregnantDiabetes">
                           <span class="cr"><i class="cr-icon fa fa-check"></i></span>
                           มีประวัติเป็นเบาหวานและตั้งครรภ์หรือมีบุตรน้ำหนักแรกเกิดเกิน 4 กิโลกรัม
                       </label>
@@ -259,7 +136,7 @@
     <div class="col-md-12 col-md-offset-1">
       <div class="checkbox">
         <label class="label-form" style="font-size: 1em">
-                            <input type="checkbox" value="">
+                            <input type="checkbox" [checked]="healtHistory_isOverBpParent" (change)="healtHistory_isOverBpParent = !healtHistory_isOverBpParent">
                             <span class="cr"><i class="cr-icon fa fa-check"></i></span>
                             มีประวัติความดันโลหิตสูงในญาติสายตรง
                         </label>
@@ -281,11 +158,6 @@ href="#person-drug" aria-expanded="false" aria-controls="person-drug">ประ�
         </div>
 
         <div class="col-md-2">
-              <!-- <select [(ngModel)]="pSmoke" (change)="Smoke()">
-                <option value="0">--เลือกการสูบ--</option>
-                <option value="1">สูบ</option>
-                <option value="2">ไม่สูบ</option>
-              </select> -->
               <div class="input-group">
                   <div id="radioBtn" class="btn-group">
                     <a class="btn btn-primary btn-sm active" data-toggle="happy" data-title="N" (click)="Smoke('N')">ไม่สูบ</a>
@@ -301,7 +173,8 @@ href="#person-drug" aria-expanded="false" aria-controls="person-drug">ประ�
         </div>
 
         <div class="col-md-1" style="padding-right: 5px; padding-left: 10px;">    
-            <input type="text" placeholder="จำนวน" id="numTobacco" [disabled]="true">
+            <input type="text" placeholder="จำนวน" id="numTobacco" [(ngModel)]="drugHistory_numTobacco" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+            maxlength="3" [disabled]="true">
         </div>
 
         <div class="col-md-2" style="padding-left: 0px;">    
@@ -316,12 +189,6 @@ href="#person-drug" aria-expanded="false" aria-controls="person-drug">ประ�
       </div>
 
       <div class="col-md-2">
-            <!-- <select [(ngModel)]="pDrink" (change)="Drink()">
-              <option value="0">--เลือกการดื่ม--</option>
-              <option value="1">ดื่ม</option>
-              <option value="2">ไม่ดื่ม</option>
-            </select> -->
-
             <div class="input-group">
                 <div id="radioBtn2" class="btn-group">
                   <a class="btn btn-primary btn-sm active" data-toggle="happy2" data-title="N" (click)="Drink('N')">ไม่ดื่ม</a>
@@ -337,7 +204,8 @@ href="#person-drug" aria-expanded="false" aria-controls="person-drug">ประ�
       </div>
 
       <div class="col-md-1" style="padding-right: 5px; padding-left: 10px;">    
-          <input type="text" placeholder="จำนวน" id="timeDrink" [disabled]="true">
+          <input type="text" placeholder="จำนวน" id="timeDrink" [(ngModel)]="drugHistory_numDrink" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+          maxlength="2" [disabled]="true">
       </div>
 
       <div class="col-md-2" style="padding-left: 0px;">    

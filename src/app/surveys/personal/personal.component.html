@@ -33,65 +33,31 @@
           <div class="panel-body">
             <div class="table-responsive">
 
-              <table class="table table-striped table-hover table-bordered" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage"
-                [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder" (mfSortOrderChange)="onSortOrder($event)">
-
+              <table datatable [dtOptions]="dtOptions" class="table table-striped table-bordered">
                 <thead>
                   <tr>
-                    <th class="text-center">
-                      <mfDefaultSorter by="no">ลำดับ</mfDefaultSorter>
-                    </th>
-                    <th class="text-center">
-                      <mfDefaultSorter by="name">ชื่อ-สกุล</mfDefaultSorter>
-                    </th>
-                    <th class="text-center">
-                      <mfDefaultSorter by="moo">หมายเลขประจำตัว</mfDefaultSorter>
-                    </th>
-                    <th class="text-center">
-                      <mfDefaultSorter by="home_id">ประเภท</mfDefaultSorter>
-                    </th>
-                    <th class="text-center">
-                      <mfDefaultSorter by="home_code">อายุ</mfDefaultSorter>
-                    </th>
-                    <th class="text-center">
-                      <mfDefaultSorter by="member">สถานะ</mfDefaultSorter>
-                    </th>
-                    <th class="text-center"></th>
+                    <th>ลำดับ</th>
+                    <th>ชื่อ-สกุล เจ้าบ้าน</th>
+                    <th>หมู่</th>
+                    <th>บ้านเลขที่</th>
+                    <th>รหัสบ้าน</th>
+                    <th>สมาชิก</th>
+                    <th></th>
                   </tr>
                 </thead>
-
                 <tbody>
-                  <tr *ngFor="let item of mf.data">
-                    <td class="text-center">{{item.no}}</td>
-                    <td class="text-center">{{item.name}}</td>
-                    <td class="text-center">{{item.moo}}</td>
-                    <td class="text-center">{{item.home_id}}</td>
-                    <td class="text-center">{{item.home_code}}</td>
-                    <td class="text-center">{{item.member}}</td>
-                    <td class="text-center">
-                      <button style="padding-top: 0px; padding-bottom: 0px" data-toggle="modal" data-target="#myModal" class="btn btn-primary">จัดการ</button></td>
-                  </tr>
-                  <!-- <tr>
-                    <td class="text-center">1</td>
-                    <td class="text-center">นาย สมหมาย หลายใจ</td>
-                    <td class="text-center">1-4599-00321-43-2</td>
-                    <td class="text-center">ชื่อในสำเนาทะเบียนบ้านจริง</td>
-                    <td class="text-center">42</td>
-                    <td class="text-center">เจ้าบ้าน</td>
-                    <td class="text-center">
-                      <button style="padding-top: 0px; padding-bottom: 0px" data-toggle="modal"
-                        data-target="#myModal" class="btn btn-primary">จัดการ</button></td>
-                  </tr> -->
-                </tbody>
-
-                <tfoot>
-                  <tr>
-                    <td colspan="7">
-                      <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+                  <tr *ngFor="let item of data">
+                    <td>{{ item.no }}</td>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.moo }}</td>
+                    <td>{{ item.home_id }}</td>
+                    <td>{{ item.home_code }}</td>
+                    <td>{{ item.member }}</td>
+                    <td>
+                      <button style="padding-top: 0px; padding-bottom: 0px" data-toggle="modal" data-target="#myModal" class="btn btn-primary">จัดการ</button>
                     </td>
                   </tr>
-                </tfoot>
-
+                </tbody>
               </table>
 
             </div>

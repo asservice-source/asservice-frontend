@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Http, RequestOptions } from '@angular/http';
 import {Headers} from '@angular/http';
+import { NgModel } from '@angular/forms';
 
 
 @Component({
@@ -8,26 +9,41 @@ import {Headers} from '@angular/http';
   templateUrl: './metabolic-survey.component.html',
   styleUrls: ['./metabolic-survey.component.css']
 })
-export class MetabolicSurveyComponent implements OnInit {
+export class MetabolicSurveyComponent implements OnInit { 
 
-  pFname = 'สมหมาย';
-  pLname = 'หลายใจ';
-  citizenID = '1-4599-00321-43-2';
-  pAgeYears = 42;
-  pAgeMonths = 8;
-  houseID = '11/1';
-  hGroupID = 8;
-  sDistrictID = 'บ้านเป็ด';
-  amphurID = 'เมือง';
-  cityID = 'ขอนแก่น';
-  pGender = 'ชาย';
-  emblem = '-';
-  pSmoke = 0;
-  pDrink = 0;
-  patentID = 'ท.89';
+  personal_CitizenID = '1-4599-00321-43-2';
+  personal_PatentID = 'ท.89';
+  personal_Fname = 'สมหมาย';
+  personal_Lname = 'หลายใจ';
+  personal_Gender = 'ชาย';
+  personal_AgeYears = 42;
+  personal_AgeMonths = 8;
+  personal_HouseID = '11/1';
+  personal_HgroupID = 8;
+  personal_DistrictID = 'บ้านเป็ด';
+  personal_AmphurID = 'เมือง';
+  personal_CityID = 'ขอนแก่น';
+
+  healtHistory_isDiabetesParent = false;
+  healtHistory_isOverBmi = false;
+  healtHistory_isOverBp = false;
+  healtHistory_isOverFbs = false;
+  healtHistory_isOvercholesterol = false;
+  healtHistory_isPregnantDiabetes=false;
+  healtHistory_isOverBpParent=false;
+
+  drugHistory_isSmoke = false;
+  drugHistory_isDrink = false;
+  drugHistory_numTobacco;
+  drugHistory_numDrink;
+
   dataFor;
   weight = 71;
+
+  xxx;
+  
  
+
 
   constructor(private http: Http) {
 
@@ -35,6 +51,7 @@ export class MetabolicSurveyComponent implements OnInit {
 
   ngOnInit() {
     // this.test();
+    
 
     $('#radioBtn a').on('click', function(){
       var sel = $(this).data('title');
@@ -60,18 +77,25 @@ export class MetabolicSurveyComponent implements OnInit {
   Smoke(T){
     if(T == 'N'){
       $("#numTobacco").prop('disabled', true);
+      this.drugHistory_isSmoke = false;
+      
     }else{
       $("#numTobacco").prop('disabled', false);
+      this.drugHistory_isSmoke = true;
     }
+    
   }
 
   Drink(T){
     if(T == 'N'){
       $("#timeDrink").prop('disabled', true);
+      this.drugHistory_isDrink = false;
     }else{
       $("#timeDrink").prop('disabled', false);
+      this.drugHistory_isDrink = true;
     }
   }
+
 
   test() {
     // let headers = new Headers({ 'Content-Type': 'application/json'});
