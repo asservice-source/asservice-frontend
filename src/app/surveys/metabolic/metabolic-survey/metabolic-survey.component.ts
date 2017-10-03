@@ -18,13 +18,13 @@ export class MetabolicSurveyComponent implements OnInit {
   houseID = '11/1';
   hGroupID = 8;
   sDistrictID = 'บ้านเป็ด';
-  lDistrictID = 'เมือง';
+  amphurID = 'เมือง';
   cityID = 'ขอนแก่น';
-  pGender = 1;
+  pGender = 'ชาย';
   emblem = '-';
   pSmoke = 0;
   pDrink = 0;
-  patentID = 13;
+  patentID = 'ท.89';
   dataFor;
   weight = 71;
  

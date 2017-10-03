@@ -1,15 +1,20 @@
 #radioBtn .notActive{
     color: #3276b1;
-    background-color: #fff;
+    background-color: #f5f5f5;
 }
 
 #radioBtn2 .notActive2{
     color: #3276b1;
-    background-color: #fff;
+    background-color: #f5f5f5;
 }
 
+.label_space{
+    padding-right: 15px;
+}
+
+
 button.accordion {
-    background-color: #fff;
+    background-color: #f5f5f5;
     color: #444;
     cursor: pointer;
     padding: 18px;
@@ -32,19 +37,19 @@ button.accordion[aria-expanded="true"]:after {
 }
 
 #person-detail{
-    background-color: #f5f5f5;
+    background-color: #fff;
 }
 #person-history{
-    background-color: #f5f5f5;
+    background-color: #fff;
 }
 #person-drug{
-    background-color: #f5f5f5;
+    background-color: #fff;
 }
 #person-disease{
-    background-color: #f5f5f5;
+    background-color: #fff;
 }
 #person-check{
-    background-color: #f5f5f5;
+    background-color: #fff;
 }
 
 
