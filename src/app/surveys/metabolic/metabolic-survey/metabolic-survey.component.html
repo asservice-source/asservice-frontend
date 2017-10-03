@@ -6,7 +6,7 @@
        </div>
 
      
-      <label class="label-form label_space">{{personal_CitizenID}}</label>
+      <label class="label-form label_space">{{xxx.personal_CitizenID}}</label>
 
       <label class="label-form">สิทธิบัตร :</label>
       <label class="label-form label_space">{{personal_PatentID}}</label>
@@ -229,7 +229,7 @@ href="#person-check" aria-expanded="false" aria-controls="person-check">กา�
     </div>
 
     <div class="col-md-2">    
-        <input type="text" placeholder="น้ำหนัก" [(ngModel)]="weight" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+        <input type="text" placeholder="น้ำหนัก" [(ngModel)]="physicalBody_weight" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
         maxlength="3">
     </div>
 
@@ -242,7 +242,7 @@ href="#person-check" aria-expanded="false" aria-controls="person-check">กา�
     </div>
 
     <div class="col-md-2">    
-        <input type="text" placeholder="ส่วนสูง" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+        <input type="text" placeholder="ส่วนสูง" [(ngModel)]="physicalBody_height" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
         maxlength="3">
     </div>
 
@@ -257,7 +257,7 @@ href="#person-check" aria-expanded="false" aria-controls="person-check">กา�
       </div>
   
       <div class="col-md-2">    
-          <input type="text" placeholder="รอบเอว" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+          <input type="text" placeholder="รอบเอว" [(ngModel)]="physicalBody_waistline" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
           maxlength="3">
       </div>
   
@@ -270,7 +270,7 @@ href="#person-check" aria-expanded="false" aria-controls="person-check">กา�
       </div>
   
       <div class="col-md-2">    
-          <input type="text" placeholder="ดัชนีมวลกาย" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+          <input type="text" placeholder="ดัชนีมวลกาย" [(ngModel)]="physicalBody_BMI" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
           maxlength="3">
       </div>
   
@@ -285,10 +285,10 @@ href="#person-check" aria-expanded="false" aria-controls="person-check">กา�
         </div>
     
         <div class="col-md-2">    
-            <input type="text" placeholder="xxx" style="width:50px" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+            <input type="text" placeholder="มม." [(ngModel)]="physicalBody_BP1_mm" style="width:50px" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
             maxlength="3">
             <label class="label-form">/</label>
-            <input type="text" placeholder="xxx" style="width:50px" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+            <input type="text" placeholder="ปรอท" [(ngModel)]="physicalBody_BP1_hg" style="width:50px" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
             maxlength="3">
         </div>
     
@@ -301,10 +301,10 @@ href="#person-check" aria-expanded="false" aria-controls="person-check">กา�
         </div>
     
         <div class="col-md-2">    
-            <input type="text" placeholder="xxx" style="width:50px" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+            <input type="text" placeholder="มม." [(ngModel)]="physicalBody_BP2_mm" style="width:50px" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
             maxlength="3">
             <label class="label-form">/</label>
-            <input type="text" placeholder="xxx" style="width:50px" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+            <input type="text" placeholder="ปรอท" [(ngModel)]="physicalBody_BP2_hg" style="width:50px" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
             maxlength="3">
         </div>
     
@@ -328,7 +328,7 @@ href="#person-disease" aria-expanded="false" aria-controls="person-disease">โ�
         <div class="col-md-3">
           <div class="checkbox">
             <label class="label-form" style="font-size: 1em">
-                            <input type="checkbox" value="">
+                            <input type="checkbox" [checked]="disease_Diabetes" (change)="disease_Diabetes = !disease_Diabetes">
                             <span class="cr"><i class="cr-icon fa fa-check"></i></span>
                             ป่วยเป็นเบาหวาน
                         </label>
@@ -338,7 +338,7 @@ href="#person-disease" aria-expanded="false" aria-controls="person-disease">โ�
         <div class="col-md-6">
           <div class="checkbox">
             <label class="label-form" style="font-size: 1em">
-                            <input type="checkbox" value="">
+                            <input type="checkbox" [checked]="disease_OverBP" (change)="disease_OverBP = !disease_OverBP">
                             <span class="cr"><i class="cr-icon fa fa-check"></i></span>
                             ป่วยเป็นความดันโลหิตสูง
                         </label>
@@ -353,7 +353,7 @@ href="#person-disease" aria-expanded="false" aria-controls="person-disease">โ�
           <div class="col-md-2">
             <div class="checkbox">
               <label class="label-form" style="font-size: 1em">
-                              <input type="checkbox" value="">
+                              <input type="checkbox" [checked]="disease_Complication_eye" (change)="disease_Complication_eye = !disease_Complication_eye">
                               <span class="cr"><i class="cr-icon fa fa-check"></i></span>
                               ตา
                           </label>
@@ -363,7 +363,7 @@ href="#person-disease" aria-expanded="false" aria-controls="person-disease">โ�
           <div class="col-md-2">
             <div class="checkbox">
               <label class="label-form" style="font-size: 1em">
-                              <input type="checkbox" value="">
+                              <input type="checkbox" [checked]="disease_Complication_kidney" (change)="disease_Complication_kidney = !disease_Complication_kidney">
                               <span class="cr"><i class="cr-icon fa fa-check"></i></span>
                               ไต
                           </label>
@@ -373,7 +373,7 @@ href="#person-disease" aria-expanded="false" aria-controls="person-disease">โ�
           <div class="col-md-3">
               <div class="checkbox">
                 <label class="label-form" style="font-size: 1em">
-                                <input type="checkbox" value="">
+                                <input type="checkbox" [checked]="disease_Complication_nerve" (change)="disease_Complication_nerve = !disease_Complication_nerve">
                                 <span class="cr"><i class="cr-icon fa fa-check"></i></span>
                                 ปลายประสาท
                             </label>
@@ -385,7 +385,7 @@ href="#person-disease" aria-expanded="false" aria-controls="person-disease">โ�
             <div class="col-md-2 col-md-offset-3">
                 <div class="checkbox">
                   <label class="label-form" style="font-size: 1em">
-                                  <input type="checkbox" value="">
+                                  <input type="checkbox" [checked]="disease_Complication_nervousSys" (change)="disease_Complication_nervousSys = !disease_Complication_nervousSys">
                                   <span class="cr"><i class="cr-icon fa fa-check"></i></span>
                                   ระบบประสาท
                               </label>
@@ -395,7 +395,7 @@ href="#person-disease" aria-expanded="false" aria-controls="person-disease">โ�
               <div class="col-md-2">
                   <div class="checkbox">
                     <label class="label-form" style="font-size: 1em">
-                                    <input type="checkbox" value="">
+                                    <input type="checkbox" [checked]="disease_Complication_etc" (change)="disease_Complication_etc = !disease_Complication_etc">
                                     <span class="cr"><i class="cr-icon fa fa-check"></i></span>
                                     อื่นๆ
                                 </label>

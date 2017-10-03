@@ -24,11 +24,11 @@
  
     
           </div>
-          <div class="row">
+          <!-- <div class="row">
               <div class="col-sm-12 text-left">
               <app-filter></app-filter> 
               </div>
-          </div>
+          </div> -->
 
     
       <div class="row">
@@ -125,10 +125,28 @@
                     <label>ชนิดของมะเร็ง</label>
                 </div>
                 <div class="col-md-4">
-                    <select>
+                    <select name="find-dropdownStatusNo" id="find-dropdownStatusNo" [(ngModel)]="mStatusNo" (change)="changStatusNo()">
                       <option value="0">--เลือกมะเร็ง--</option>
-                      <option value="1">มะเร็งลำไส้ใหญ่</option>
-                      <option value="2">มะเร็งเต้านม</option>
+                      <option value="1">ปากมดลูก</option>
+                      <option value="2">เต้านม</option>
+                      <option value="3">ตับ</option>
+                      <option value="4">ปอด</option>
+                      <option value="5">ช่องปาก</option>
+                      <option value="6">โพรงหลังจมูก</option>
+                      <option value="7">กล่องเสียง</option>
+                      <option value="8">ต่อมธัยรอยด์</option>
+                      <option value="9">ถุงน้ำดี,ท่อน้ำดี</option>
+                      <option value="10">ตับอ่อน</option>
+                      <option value="11">ลำไส้ใหญ่,ทวารหนัก</option>
+                      <option value="12">รังไข่</option>
+                      <option value="13">มดลูก</option>
+                      <option value="14">กระดูก</option>
+                      <option value="15">ผิวหนัง</option>
+                      <option value="16">ต่อมลูกหมาก</option>
+                      <option value="17">เม็ดเลือดขาว</option>
+                      <option value="18">ต่อมน้ำเหลือง</option>
+                      <option value="19">ระบบประสาท</option>
+                      <option value="20">ระบบทางเดินอาหาร ปัสสาวะ,อวัยวะสืบพันธุ์ชาย</option>
                     </select>
                   </div>
 
@@ -146,6 +164,25 @@
 
 
             </div>
+            <!-- <div [hidden]="isDisable" class="row" >
+                  <div class="col-md-2 text-right">
+                        <label>ระบุชนิดของมะเร็ง</label>
+                   </div>
+                   <div class="col-md-4">
+                        <input type="text" name="" id="">
+                    </div>
+
+
+
+            </div> -->
+            <!-- <div class="row" [disabled]="isDisable">
+                <div class="col-md-2 text-right">
+                    <label>ระบุชนิดของมะเร็ง</label>
+                </div>
+                <div class="col-md-3">
+                    <input type="text" name="" id="">
+                </div>
+            </div> -->
             <div class="row">
                 <div class="col-md-2 text-right">
                     <label>รพ.ที่รักษา</label>
@@ -209,13 +246,13 @@
                     <label>ชื่อ-สกุล</label>
                 </div>
                 <div class="col-md-3">
-                    <input type="text"  value="นายโสพน สดใส">
+                    <input type="text"  value="นายโสพน สดใส" disabled="disabled">
                 </div>
                 <div class="col-md-1 text-right">
                   <label>โทรศัพท์</label>
                 </div>
                 <div class="col-md-3">
-                  <input type="text"  value="094-647-6484">
+                  <input type="text"  value="094-647-6484"disabled="disabled">
                 </div>
               </div>
   
@@ -224,23 +261,16 @@
                       <label>ชนิดของมะเร็ง</label>
                   </div>
                   <div class="col-md-3">
-                      <select>
-                        <option value="0">มะเร็งตับ</option>
-                        <option value="1">มะเร็งลำไส้ใหญ่</option>
-                        <option value="2">มะเร็งเต้านม</option>
-                      </select>
+                      <input type="text" name="" id="" value="มะเร็งตับ" disabled="disabled">
                     </div>
   
                     <div class="col-md-1 text-right">
                         <label>เริ่มป่วย</label>
                     </div>
                     <div class="col-md-3">
-                        <div class="input-group date" data-provide="datepicker">
-                            <input type="text" value="1/9/2560" >
-                            <div class="input-group-addon">
-                              <span class="glyphicon glyphicon-th"></span>
-                            </div>
-                          </div>
+                     
+                            <input type="text" value="1/9/2560" disabled="disabled" >
+                            
                     </div>
   
   

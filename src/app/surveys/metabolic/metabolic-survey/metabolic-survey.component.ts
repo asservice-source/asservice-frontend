@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Http, RequestOptions } from '@angular/http';
 import {Headers} from '@angular/http';
 import { NgModel } from '@angular/forms';
+import {Xxx} from './metabolic-survey-bean';
 
 
 @Component({
@@ -11,18 +12,21 @@ import { NgModel } from '@angular/forms';
 })
 export class MetabolicSurveyComponent implements OnInit { 
 
-  personal_CitizenID = '1-4599-00321-43-2';
-  personal_PatentID = 'ท.89';
-  personal_Fname = 'สมหมาย';
-  personal_Lname = 'หลายใจ';
-  personal_Gender = 'ชาย';
-  personal_AgeYears = 42;
-  personal_AgeMonths = 8;
-  personal_HouseID = '11/1';
-  personal_HgroupID = 8;
-  personal_DistrictID = 'บ้านเป็ด';
-  personal_AmphurID = 'เมือง';
-  personal_CityID = 'ขอนแก่น';
+
+ public xxx = new Xxx();
+
+  // personal_CitizenID = '1-4599-00321-43-2';
+  // personal_PatentID = 'ท.89';
+  // personal_Fname = 'สมหมาย';
+  // personal_Lname = 'หลายใจ';
+  // personal_Gender = 'ชาย';
+  // personal_AgeYears = 42;
+  // personal_AgeMonths = 8;
+  // personal_HouseID = '11/1';
+  // personal_HgroupID = 8;
+  // personal_DistrictID = 'บ้านเป็ด';
+  // personal_AmphurID = 'เมือง';
+  // personal_CityID = 'ขอนแก่น';
 
   healtHistory_isDiabetesParent = false;
   healtHistory_isOverBmi = false;
@@ -37,21 +41,30 @@ export class MetabolicSurveyComponent implements OnInit {
   drugHistory_numTobacco;
   drugHistory_numDrink;
 
-  dataFor;
-  weight = 71;
+  physicalBody_weight;
+  physicalBody_height;
+  physicalBody_waistline;
+  physicalBody_BMI;
+  physicalBody_BP1_mm;
+  physicalBody_BP1_hg;
+  physicalBody_BP2_mm;
+  physicalBody_BP2_hg;
 
-  xxx;
-  
- 
+  disease_Diabetes = false;
+  disease_OverBP = false;
+  disease_Complication_eye = false;
+  disease_Complication_kidney = false;
+  disease_Complication_nerve = false;
+  disease_Complication_nervousSys = false;
+  disease_Complication_etc = false;
 
+  // dataFor;
 
   constructor(private http: Http) {
-
+    this.xxx.personal_CitizenID = 'xxx';
    }
 
   ngOnInit() {
-    // this.test();
-    
 
     $('#radioBtn a').on('click', function(){
       var sel = $(this).data('title');
