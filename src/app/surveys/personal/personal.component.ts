@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
-import { Http } from "@angular/http";
-import * as _ from "lodash";
+import { Http, Response, RequestOptions } from "@angular/http";
+import "rxjs"
 
 @Component({
   selector: 'app-personal',
@@ -10,33 +9,44 @@ import * as _ from "lodash";
 })
 export class PersonalComponent implements OnInit {
 
-  public data: any[];
-  public rowsOnPage = 5;
-  public sortBy = "no";
-  public sortOrder = "asc";
-
-  member = 4;
+  dtOptions: DataTables.Settings = {};
+  data;
 
   constructor(private http: Http) {
+    // this.http.get("assets/data_personal.json")
+    //   .map((res: Response) => res.json())
+    //   .subscribe((data) => this.data = data, (err) => console.log(err), () => console.log("Success"));
+
+    this.http.get("assets/data_personal.json")
+      .map(res => res.json())
+      .subscribe(data => this.data = data);
+
+    this.dtOptions = {
+      pagingType: "full_numbers",
+      processing: true,
+      columns: [{
+        width: "5%",
+        orderable: false
+      }, {
+        width: "30%"
+      }, {
+        width: "15%"
+      }, {
+        width: "15%"
+      }, {
+        width: "15%"
+      }, {
+        width: "10%"
+      }, {
+        width: "5%",
+        orderable: false
+      }]
+    };
 
   }
 
   ngOnInit(): void {
-    this.loadData();
+
   }
 
-  public loadData() {
-    this.http.get("assets/data_personal.json")
-      .subscribe((data) => {
-        setTimeout(() => {
-          this.data = _.orderBy(data.json(), this.sortBy, [this.sortOrder]);
-          // this.data = _.slice(this.data, this.activePage, this.activePage + this.rowsOnPage);
-        }, 1000);
-      });
-  }
-
-  public onSortOrder(event) {
-    this.loadData();
-  }
-  
 }
