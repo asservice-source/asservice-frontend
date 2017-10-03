@@ -13,3 +13,4 @@ var AdminLTE = (function() {
   }
 })(AdminLTE||{});
 
+var labelsConfig = undefined;

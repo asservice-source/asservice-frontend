@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-2 text-right">
-    <label>หมู่ที่</label>
+    <label fs-label="lbl_villageNo" fs-lang="th">หมู่ที่</label>
   </div>
   <div class="col-md-4">
     <select name="find-dropdownVillageNo" id="find-dropdownVillageNo" [(ngModel)]="mVillageNo" (change)="changVillageNo()">
@@ -10,7 +10,7 @@
     </select>
   </div>
   <div class="col-md-1 text-right">
-    <label>อสม.</label>
+    <label fs-label="lbl_osm">อสม.</label>
   </div>
   <div class="col-md-4">
       <select name="find-osmName" id="find-osmName" [(ngModel)]="mOSM" [disabled]="isDisabledOSM">
@@ -20,7 +20,7 @@
 </div>
 <div class="row">
     <div class="col-md-2 text-right">
-        <label>บ้านเลขที่</label>
+        <label fs-label="lbl_homeNo">บ้านเลขที่</label>
       </div>
       <div class="col-md-4">
           <select name="find-homeNo" id="find-homeNo" [(ngModel)]="mHomeNo" (change)="changHomeNo()" [disabled]="isDisabledHomeNo">
@@ -38,11 +38,11 @@
 
 <div class="row">
   <div class="col-md-2 text-right">
-    <label>ผู้เสียชีวิต</label>
+    <label fs-label="lbl_member">สมาชิก</label>
   </div>
   <div class="col-md-4">
     <select name="find-dropdownPerson" id="find-dropdownPerson" [(ngModel)]="mPerson" [disabled]="isDisabledPerson">
-      <option value="0">--เลือกผู้เสียชีวิต--</option>
+      <option value="0" fs-label="lbl_member">--เลือกสมาชิก--</option>
       <option value="101">นายโสพน สดใส</option>
     </select>
   </div>
