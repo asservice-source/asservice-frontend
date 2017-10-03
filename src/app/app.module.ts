@@ -36,6 +36,8 @@ import { MetabolicSurveyComponent } from './surveys/metabolic/metabolic-survey/m
 import 'rxjs/add/operator/map';
 import { HttpModule } from '@angular/http';
 import { SumpregnantComponent } from './summary/sumpregnant/sumpregnant.component';
+import { AddpregnantComponent } from './surveys/pregnant/addpregnant/addpregnant.component';
+import { DetailpregnantComponent } from './surveys/pregnant/detailpregnant/detailpregnant.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,7 +63,9 @@ import { SumpregnantComponent } from './summary/sumpregnant/sumpregnant.componen
     PersonalSurveyComponent,
     CancerComponent,
     MetabolicSurveyComponent,
-    SumpregnantComponent
+    SumpregnantComponent,
+    AddpregnantComponent,
+    DetailpregnantComponent
   ],
   imports: [
     BrowserModule,
