@@ -5,38 +5,23 @@
 
 
 
-<button class="accordion" role="button" data-toggle="collapse" href="#person-detail" aria-expanded="false" aria-controls="person-detail">ข้อมูลบุคคล</button>
+<!-- <button class="accordion" role="button" data-toggle="collapse" href="#person-detail" aria-expanded="false" aria-controls="person-detail">ข้อมูลบุคคล</button> -->
 
 
-<div class="collapse" id="person-detail">
+<!-- <div>
   <div class="row">
     <div class="col-md-2 text-right">
       <label class="label-form">หมายเลขประจำตัว</label>
     </div>
     <div class="col-md-3">
-      <input type="text" class="ng-pristine ng-valid ng-touched" placeholder="หมายเลข 13 หลัก" [(ngModel)]="citizenID" [disabled]="true">
+      <label class="label-form">{{citizenID}}</label>
     </div>
 
     <div class="col-md-1 text-right">
       <label class="label-form">สิทธิบัตร</label>
     </div>
     <div class="col-md-3">
-      <select name="dropdown-patentID" id="dropdown-patentID" [(ngModel)]="patentID" [disabled]="true">
-        <option value="0">--เลือกประเภท--</option>
-        <option value="1">ท.67</option>
-        <option value="2">ท.68</option>
-        <option value="3">ท.69</option>
-        <option value="4">ท.70</option>
-        <option value="5">ท.71</option>
-        <option value="6">ท.72</option>
-        <option value="7">ท.73</option>
-        <option value="8">ท.74</option>
-        <option value="9">ท.75</option>
-        <option value="10">ท.76</option>
-        <option value="11">ท.77</option>
-        <option value="12">ท.78</option>
-        <option value="13">ท.89</option>
-      </select>
+      <label class="label-form">{{patentID}}</label>
     </div>
   </div>
 
@@ -143,9 +128,58 @@
       <input type="text" class="ng-pristine ng-valid ng-touched" placeholder="จังหวัด" [value]="cityID" [disabled]="true">
     </div>
   </div>
-</div>
+</div> -->
+<div style="background-color: #fff">
+  <div class="row">
+      <div class="col-md-3 text-right">
+          <label class="label-form label_space">หมายเลขประจำตัว :</label>
+       </div>
 
-<form>
+     
+      <label class="label-form label_space">{{citizenID}}</label>
+
+      <label class="label-form">สิทธิบัตร :</label>
+      <label class="label-form label_space">{{patentID}}</label>
+
+  </div>
+
+  <div class="row">
+      <div class="col-md-3 text-right">
+         <label class="label-form label_space">ชื่อ-สกุล :</label>
+      </div>
+     
+      <label class="label-form label_space">{{pFname}}  {{pLname}}</label>
+
+      <label class="label-form">เพศ :</label>
+      <label class="label-form label_space">{{pGender}}</label>
+
+      <label class="label-form">อายุ :</label>
+      <label class="label-form label_space">{{pAgeYears}} ปี {{pAgeMonths}} เดือน</label>
+  </div>
+ 
+
+  <div class="row">
+      <div class="col-md-3 text-right">
+        <label class="label-form label_space">บ้านเลขที่ :</label>
+      </div>
+        
+        <label class="label-form label_space">{{houseID}}</label>
+
+
+        <label class="label-form">หมู่ :</label>
+        <label class="label-form label_space">{{hGroupID}}</label>
+
+        <label class="label-form">ตำบล :</label>
+        <label class="label-form label_space">{{sDistrictID}}</label>
+
+        <label class="label-form">อำเภอ :</label>
+        <label class="label-form label_space">{{amphurID}}</label>
+
+        <label class="label-form">จังหวัด :</label>
+        <label class="label-form label_space">{{cityID}}</label>
+  </div>
+</div>
+<!-- ประวัติสุขภาพ -->
 
 <button class="accordion" role="button" data-toggle="collapse" href="#person-history" aria-expanded="false" aria-controls="person-history">ประวัติสุขภาพ</button>
 
@@ -235,6 +269,8 @@
 
 </div>
 
+<!-- ประวัติบุหรี่และของมึนเมา -->
+
 <button class="accordion" role="button" data-toggle="collapse" 
 href="#person-drug" aria-expanded="false" aria-controls="person-drug">ประวัติบุหรี่และของมึนเมา</button>
 
@@ -252,8 +288,8 @@ href="#person-drug" aria-expanded="false" aria-controls="person-drug">ประ�
               </select> -->
               <div class="input-group">
                   <div id="radioBtn" class="btn-group">
-                    <a class="btn btn-primary btn-sm active" data-toggle="happy" data-title="Y" (click)="Smoke('Y')">สูบ</a>
-                    <a class="btn btn-primary btn-sm notActive" data-toggle="happy" data-title="N" (click)="Smoke('N')">ไม่สูบ</a>
+                    <a class="btn btn-primary btn-sm active" data-toggle="happy" data-title="N" (click)="Smoke('N')">ไม่สูบ</a>
+                    <a class="btn btn-primary btn-sm notActive" data-toggle="happy" data-title="Y" (click)="Smoke('Y')">สูบ</a>
                   </div>
                   <input type="hidden" name="happy" id="happy">
                 </div>
@@ -265,7 +301,7 @@ href="#person-drug" aria-expanded="false" aria-controls="person-drug">ประ�
         </div>
 
         <div class="col-md-1" style="padding-right: 5px; padding-left: 10px;">    
-            <input type="text" placeholder="จำนวน" id="numTobacco">
+            <input type="text" placeholder="จำนวน" id="numTobacco" [disabled]="true">
         </div>
 
         <div class="col-md-2" style="padding-left: 0px;">    
@@ -288,10 +324,10 @@ href="#person-drug" aria-expanded="false" aria-controls="person-drug">ประ�
 
             <div class="input-group">
                 <div id="radioBtn2" class="btn-group">
-                  <a class="btn btn-primary btn-sm active" data-toggle="happy2" data-title="Y" (click)="Drink('Y')">ดื่ม</a>
-                  <a class="btn btn-primary btn-sm notActive2" data-toggle="happy2" data-title="N" (click)="Drink('N')">ไม่ดื่ม</a>
+                  <a class="btn btn-primary btn-sm active" data-toggle="happy2" data-title="N" (click)="Drink('N')">ไม่ดื่ม</a>
+                  <a class="btn btn-primary btn-sm notActive2" data-toggle="happy2" data-title="Y" (click)="Drink('Y')">ดื่ม</a>
                 </div>
-                <input type="hidden" name="happy2" id="happy2">
+                <input type="hidden" name="happy2" id="happy2" >
               </div>
       </div>
 
@@ -301,7 +337,7 @@ href="#person-drug" aria-expanded="false" aria-controls="person-drug">ประ�
       </div>
 
       <div class="col-md-1" style="padding-right: 5px; padding-left: 10px;">    
-          <input type="text" placeholder="จำนวน" id="timeDrink">
+          <input type="text" placeholder="จำนวน" id="timeDrink" [disabled]="true">
       </div>
 
       <div class="col-md-2" style="padding-left: 0px;">    
@@ -311,6 +347,9 @@ href="#person-drug" aria-expanded="false" aria-controls="person-drug">ประ�
 
     </div>
 </div>
+
+
+<!-- การตรวจร่างกาย -->
 
 <button class="accordion" role="button" data-toggle="collapse" 
 href="#person-check" aria-expanded="false" aria-controls="person-check">การตรวจร่างกาย</button>
@@ -408,6 +447,8 @@ href="#person-check" aria-expanded="false" aria-controls="person-check">กา�
 
 </div>
 
+<!-- ภาวะแทรกซ้อน -->
+
 <button class="accordion" role="button" data-toggle="collapse" 
 href="#person-disease" aria-expanded="false" aria-controls="person-disease">โรคและภาวะแทรกซ้อน</button>
 
@@ -500,4 +541,3 @@ href="#person-disease" aria-expanded="false" aria-controls="person-disease">โ�
   <button class="btn btn-primary text-center">ยกเลิก</button>
 </div>
 
-</form>
