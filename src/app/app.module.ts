@@ -36,13 +36,11 @@ import { MetabolicSurveyComponent } from './surveys/metabolic/metabolic-survey/m
 import 'rxjs/add/operator/map';
 import { HttpModule } from '@angular/http';
 import { SumpregnantComponent } from './summary/sumpregnant/sumpregnant.component';
-<<<<<<< HEAD
 import { AddpregnantComponent } from './surveys/pregnant/addpregnant/addpregnant.component';
 import { DetailpregnantComponent } from './surveys/pregnant/detailpregnant/detailpregnant.component';
-=======
 import { DataTableModule } from "angular2-datatable";
 
->>>>>>> ed972057688cf21db877f427e8970b2f187a02c1
+
 @NgModule({
   declarations: [
     AppComponent,
