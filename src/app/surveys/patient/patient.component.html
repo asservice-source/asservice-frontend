@@ -36,15 +36,35 @@
                     <th class="text-center">ชื่อ-นามสกุล</th>
                     <th class="text-center">อายุ</th>
                     <th class="text-center">โรคหรือความพิการ</th>
+                    <th class="text-center">สาเหตุความพิการ</th>
                     <th class="text-center">วันที่ป่วยหรือพิการ</th>
                     <th class="text-center">ประเภทผู้ป่วย</th>
-                    <th class="text-center">สิทธิบัตร</th>
+                    <!-- <th class="text-center">สิทธิบัตร</th> -->
                     <th class="text-center">เบอร์โทรศัพท์</th>
-                    <th class="text-center">อื่นๆ</th>
+                    <th class="text-center">สถานะ</th>
                     <th class="text-center">วันที่ลงข้อมูล</th>
-                    <th class="text-center">action</th>
+                    <th class="text-center"></th>
                   </tr>
                 </thead>
+                <tbody>
+                    <tr>
+                      <td class="text-center">1</td>
+                      <td class="text-center">นาย โสพน สดใส</td>
+                      <td class="text-center">24</td>
+                      <td class="text-center">อัมพาตซีกซ้าย</td>
+                      <td class="text-center">โรคหลอดเลือดสมอง</td>
+                      <td class="text-center">20/8/2557</td>
+                      <td class="text-center">ติดเตียง</td>
+                      <td class="text-center">089-1112735</td>
+                      <td class="text-center">กำลังรักษา</td>
+                      <td class="text-center" style="color:red">ยังไม่ได้สำรวจ</td>
+                      <td class="text-center">
+                          <img src="assets/img/check.png"
+                          width="30"
+                          height="30"  style="cursor: pointer;" data-toggle="modal"
+                          data-target="#myModalDetail">
+                    </tr>
+                  </tbody>
 
 
               </table>
@@ -67,21 +87,112 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">รายละเอียดผู้พิการ และผู้ป่วยติดเตียง</h4>
+          <h4 class="modal-title">เพิ่มรายชื่อผู้พิการ และผู้ป่วยติดเตียง</h4>
         </div>
         <app-find-person></app-find-person>
-        <div class="padding_right col-md-9" id="personDetail" [hidden]="isHiddenContent">
-  
-  
-  
-          
+        <div class="row">
+            <div class="col-md-2 text-right">
+                <label>ประเภทความพิการ</label>
+            </div>
+            <div class="col-md-4">
+                <select>
+                    <option value="0">--เลือกประเภท--</option>
+                    <option value="1">ความพิการทางการเห็น</option>
+                    <option value="2">ความพิการทางการได้ยินหรือสื่อความหมาย</option>
+                    <option value="3">ความพิการการเคลื่อนไหวหรือทางร่างกาย</option>
+                    <option value="4">ความพิการทางจิตใจหรือพฤติกรรมหรือออทิสติก</option>
+                    <option value="5">ความพิการทางสติปัญญา</option>
+                    <option value="6">ความพิการทางการเรียนรู้</option>
+                  </select>
+            </div>
+
+            <div class="col-md-1 text-right">
+                <label>ระบุ</label>
+            </div>
+            <div class="col-md-4">
+                <input type="text" name="" id="">
+            </div>
+
+
         </div>
+
+        <div class="row">
+            <div class="col-md-2 text-right">
+                <label>ป่วยหรือความพิการ</label>
+            </div>
+            <div class="col-md-4">
+                <select >
+                    <option value="0">--เลือกประเภท--</option>
+                    <option value="1">ความพิการหรือป่วยแต่กำเนิด</option>
+                    <option value="2">ความพิการหรือป่วยจากการบาดเจ็บ</option>
+                    <option value="3">ความพิการหรือป่วยจากโรค</option>
+                  </select>
+            </div>
+
+            <div class="col-md-1 text-right">
+                <label>ระบุ</label>
+            </div>
+            <div class="col-md-4">
+                <input type="text" name="" id="">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 text-right">
+                <label>วันที่พิการ</label>
+            </div>
+
+            <div class="col-md-3">
+                <div class="input-group date" data-provide="datepicker">
+                    <input type="text" >
+                    <div class="input-group-addon">
+                      <span class="glyphicon glyphicon-th"></span>
+                    </div>
+                  </div>
+            </div>
+            <div class="col-md-2 text-right">
+                <label>ประเภทผู้ป่วย</label>
+            </div>
+            <div class="col-md-2">
+                <select >
+                    <option value="0">--เลือกประเภท--</option>
+                    <option value="1">ติดบ้าน</option>
+                    <option value="2">ติดเตียง</option>
+                  </select>
+            </div>
+
+
+
+        </div>
+        <div class="row">
+            <div class="col-md-2 text-right">
+                <label>สิทธิบัตร</label>
+            </div>
+            <div class="col-md-2">
+                <select >
+                    <option value="0">--เลือกประเภท--</option>
+                    <option value="1">ท.66</option>
+                    <option value="2">ท.67</option>
+                    <option value="3">ท.68</option>
+                    <option value="4">ท.69</option>
+                    <option value="5">ท.71</option>
+                    <option value="6">ท.73</option>
+                    <option value="7">ท.74</option>
+                    <option value="8">ท.75</option>
+                    <option value="9">ท.77</option>
+                    <option value="10">ท.80</option>
+                    <option value="11">ท.89</option>
+                  </select>
+            </div>
+
+
+        </div>
+     
        
         <div class="modal-footer">
             <div class="row">
                 <div class="col-md-12 text-center">
-            <button style="margin-top: 31.5px" class="btn btn-primary">ยืนยัน</button>
-            <button style="margin-top: 31.5px" class="btn btn-primary">รีเซ็ท</button>
+            <button class="btn btn-primary">ยืนยัน</button>
+            <button class="btn btn-primary">รีเซ็ท</button>
             </div>
   
           </div>
