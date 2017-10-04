@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-mosquito',
-  templateUrl: './mosquito.component.html',
-  styleUrls: ['./mosquito.component.css']
+  selector: 'app-survey-mosquito',
+  templateUrl: './survey-mosquito.component.html',
+  styleUrls: ['./survey-mosquito.component.css']
 })
-export class MosquitoComponent implements OnInit {
+export class SurveyMosquitoComponent implements OnInit {
   mLocationNo = 0;
   
    isDisable= true;

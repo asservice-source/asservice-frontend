@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SurveyMetabolicComponent } from './Survey-metabolic-modal.component';
+import { SurveyMetabolicModalComponent } from './survey-metabolic-modal.component';
 
 describe('SurveyMetabolicComponent', () => {
-  let component: SurveyMetabolicComponent;
-  let fixture: ComponentFixture<SurveyMetabolicComponent>;
+  let component: SurveyMetabolicModalComponent;
+  let fixture: ComponentFixture<SurveyMetabolicModalComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SurveyMetabolicComponent ]
+      declarations: [ SurveyMetabolicModalComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SurveyMetabolicComponent);
+    fixture = TestBed.createComponent(SurveyMetabolicModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

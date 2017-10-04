@@ -26,15 +26,16 @@ import { SurveyPregnantAddComponent } from './surveys/pregnant/pregnant-add/surv
 import { SurveyPregnantDetailComponent } from './surveys/pregnant/pregnant-detail/survey-pregnant-detail.component';
 import { SurverDiedComponent } from './surveys/died/survey-died.component';
 import { PersonalComponent } from './surveys/personal/personal.component';
-import { PatientComponent } from './surveys/patient/patient.component';
-import { MetabolicComponent } from './surveys/metabolic/metabolic.component';
+import { SurveyPatientComponent } from './surveys/patient/survey-patient.component';
+import { SurveyMetabolicComponent } from './surveys/metabolic/survey-metabolic.component';
+import { SurveyMetabolicModalComponent } from './surveys/metabolic/Survey-metabolic-modal/survey-metabolic-modal.component';
 import { FilterComponent } from './filter/filter.component';
 import { SurveyDiedAddComponent } from './surveys/died/died-add/survey-died-add.component';
 import { FindPersonComponent } from './find-person/find-person.component';
-import { MosquitoComponent } from './surveys/mosquito/mosquito.component';
+import { SurveyMosquitoComponent } from './surveys/mosquito/survey-mosquito.component';
 import { SurveyPersonalDetailComponent } from './surveys/personal/personal-detail/personal-detail.component';
-import { CancerComponent } from './surveys/cancer/cancer.component';
-import { SurveyMetabolicComponent } from './surveys/metabolic/Survey-metabolic-modal/Survey-metabolic-modal.component';
+import { SurveyCancerComponent } from './surveys/cancer/survey-cancer.component';
+
 import 'rxjs/add/operator/map';
 import { HttpModule } from '@angular/http';
 import { SumpregnantComponent } from './summary/sumpregnant/sumpregnant.component';
@@ -55,22 +56,22 @@ import { SurveyPersonalDetailModalComponent } from './surveys/personal/personal-
     NotfoundComponent,
     LoginComponent,
     RegisterComponent,
+    FindPersonComponent,
+    FilterComponent,
     SurveyPregnantComponent,
     SurveyPregnantAddComponent,
     SurveyPregnantDetailComponent,
     SurverDiedComponent,
     PersonalComponent,
-    PatientComponent,
-    MetabolicComponent,
-    FilterComponent,
-    SurveyDiedAddComponent,
-    FindPersonComponent,
-    MosquitoComponent,
-    SurveyPersonalDetailComponent,
-    CancerComponent,
+    SurveyPatientComponent,
     SurveyMetabolicComponent,
-    SumpregnantComponent,
-    SurveyPersonalDetailModalComponent
+    SurveyMetabolicModalComponent,
+    SurveyDiedAddComponent,
+    SurveyMosquitoComponent,
+    SurveyPersonalDetailComponent,
+    SurveyCancerComponent,
+    SurveyPersonalDetailModalComponent,
+    SumpregnantComponent
    
   ],
   imports: [

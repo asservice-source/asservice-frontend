@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-cancer',
-  templateUrl: './cancer.component.html',
-  styleUrls: ['./cancer.component.css']
+  templateUrl: './survey-cancer.component.html',
+  styleUrls: ['./survey-cancer.component.css']
 })
-export class CancerComponent implements OnInit {
+export class SurveyCancerComponent implements OnInit {
 
   mStatusNo = 0;
   

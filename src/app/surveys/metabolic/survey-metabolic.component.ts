@@ -5,10 +5,10 @@ declare var $;
 
 @Component({
   selector: 'app-metabolic',
-  templateUrl: './metabolic.component.html',
-  styleUrls: ['./metabolic.component.css']
+  templateUrl: './survey-metabolic.component.html',
+  styleUrls: ['./survey-metabolic.component.css']
 })
-export class MetabolicComponent implements OnInit {
+export class SurveyMetabolicComponent implements OnInit {
 
   year = '2560';
   public citizenID  : string;

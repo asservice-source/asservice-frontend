@@ -14,10 +14,10 @@ import { SurveyPregnantComponent } from "./../surveys/pregnant/survey-pregnant.c
 import { SurverDiedComponent } from "./../surveys/died/survey-died.component";
 import { PersonalComponent } from "./../surveys/personal/personal.component";
 import { SurveyPersonalDetailComponent } from "./../surveys/personal/personal-detail/personal-detail.component";
-import { PatientComponent } from "./../surveys/patient/patient.component";
-import { MetabolicComponent } from "./../surveys/metabolic/metabolic.component";
-import { MosquitoComponent } from "./../surveys/mosquito/mosquito.component";
-import { CancerComponent } from "./../surveys/cancer/cancer.component";
+import { SurveyPatientComponent } from "./../surveys/patient/survey-patient.component";
+import { SurveyMetabolicComponent } from "./../surveys/metabolic/survey-metabolic.component";
+import { SurveyMosquitoComponent } from "./../surveys/mosquito/survey-mosquito.component";
+import { SurveyCancerComponent } from "./../surveys/cancer/survey-cancer.component";
 import { SumpregnantComponent } from "./../summary/sumpregnant/sumpregnant.component";
 @NgModule({
   imports: [
@@ -69,17 +69,17 @@ import { SumpregnantComponent } from "./../summary/sumpregnant/sumpregnant.compo
             },
             {
               path: 'patient',
-              component: PatientComponent
+              component: SurveyPatientComponent
             }, {
               path: 'metabolic',
-              component: MetabolicComponent
+              component: SurveyMetabolicComponent
             }, {
               path: 'mosquito',
-              component: MosquitoComponent
+              component: SurveyMosquitoComponent
             }
             , {
               path: 'cancer',
-              component: CancerComponent
+              component: SurveyCancerComponent
             }
 
           ]
