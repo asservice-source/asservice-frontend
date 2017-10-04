@@ -7,7 +7,11 @@ declare var $:any;
   styleUrls: ['./find-person.component.css']
 })
 export class FindPersonComponent {
-  @Input() title:string;
+  @Input() set title(title: string) {
+
+    console.log('got title: ', title);
+  
+  }
   @Output() notify: EventEmitter<PersonBean> = new EventEmitter<PersonBean>();
   public personBean : PersonBean;
   public mVillageNo = 0;
