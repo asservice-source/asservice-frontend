@@ -2,12 +2,12 @@ import { Component, OnInit ,AfterViewInit} from '@angular/core';
 import { FindPersonComponent } from "../../../find-person/find-person.component";
 import { PersonBean } from "../../../beans/person.bean";
 @Component({
-  selector: 'app-died-add',
-  templateUrl: './died-add.component.html',
-  styleUrls: ['./died-add.component.css']
+  selector: 'app-survey-died-add',
+  templateUrl: './survey-died-add.component.html',
+  styleUrls: ['./survey-died-add.component.css']
   
 })
-export class DiedAddComponent implements OnInit ,AfterViewInit {
+export class SurveyDiedAddComponent implements OnInit ,AfterViewInit {
   isHiddenContent = true;
   show = false;
   location = 1;

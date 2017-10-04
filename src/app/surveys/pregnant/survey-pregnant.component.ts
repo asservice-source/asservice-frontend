@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 declare var $:any
 @Component({
   selector: 'app-pregnant',
-  templateUrl: './pregnant.component.html',
-  styleUrls: ['./pregnant.component.css']
+  templateUrl: './survey-pregnant.component.html',
+  styleUrls: ['./survey-pregnant.component.css']
 })
-export class PregnantComponent implements OnInit {
+export class SurveyPregnantComponent implements OnInit {
   
 
   constructor() { }

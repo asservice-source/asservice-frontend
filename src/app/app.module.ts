@@ -21,13 +21,15 @@ import { ContentComponent } from './content/content.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { PregnantComponent } from './surveys/pregnant/pregnant.component';
-import { DiedComponent } from './surveys/died/died.component';
+import { SurveyPregnantComponent } from './surveys/pregnant/survey-pregnant.component';
+import { SurveyPregnantAddComponent } from './surveys/pregnant/pregnant-add/survey-pregnant-add.component';
+import { SurveyPregnantDetailComponent } from './surveys/pregnant/pregnant-detail/survey-pregnant-detail.component';
+import { SurverDiedComponent } from './surveys/died/survey-died.component';
 import { PersonalComponent } from './surveys/personal/personal.component';
 import { PatientComponent } from './surveys/patient/patient.component';
 import { MetabolicComponent } from './surveys/metabolic/metabolic.component';
 import { FilterComponent } from './filter/filter.component';
-import { DiedAddComponent } from './surveys/died/died-add/died-add.component';
+import { SurveyDiedAddComponent } from './surveys/died/died-add/survey-died-add.component';
 import { FindPersonComponent } from './find-person/find-person.component';
 import { MosquitoComponent } from './surveys/mosquito/mosquito.component';
 import { SurveyPersonalDetailComponent } from './surveys/personal/personal-detail/personal-detail.component';
@@ -36,9 +38,8 @@ import { SurveyMetabolicComponent } from './surveys/metabolic/Survey-metabolic-m
 import 'rxjs/add/operator/map';
 import { HttpModule } from '@angular/http';
 import { SumpregnantComponent } from './summary/sumpregnant/sumpregnant.component';
-import { AddpregnantComponent } from './surveys/pregnant/addpregnant/addpregnant.component';
-import { DetailpregnantComponent } from './surveys/pregnant/detailpregnant/detailpregnant.component';
 import { DataTablesModule } from 'angular-datatables';
+import { SurveyPersonalDetailModalComponent } from './surveys/personal/personal-detail/survey-personal-detail-modal/survey-personal-detail-modal.component';
 
 
 @NgModule({
@@ -54,21 +55,23 @@ import { DataTablesModule } from 'angular-datatables';
     NotfoundComponent,
     LoginComponent,
     RegisterComponent,
-    PregnantComponent,
-    DiedComponent,
+    SurveyPregnantComponent,
+    SurveyPregnantAddComponent,
+    SurveyPregnantDetailComponent,
+    SurverDiedComponent,
     PersonalComponent,
     PatientComponent,
     MetabolicComponent,
     FilterComponent,
-    DiedAddComponent,
+    SurveyDiedAddComponent,
     FindPersonComponent,
     MosquitoComponent,
     SurveyPersonalDetailComponent,
     CancerComponent,
     SurveyMetabolicComponent,
     SumpregnantComponent,
-    AddpregnantComponent,
-    DetailpregnantComponent
+    SurveyPersonalDetailModalComponent
+   
   ],
   imports: [
     BrowserModule,

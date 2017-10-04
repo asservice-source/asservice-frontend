@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DetailpregnantComponent } from './detailpregnant.component';
+import { SurverDiedComponent } from './survey-died.component';
 
-describe('DetailpregnantComponent', () => {
-  let component: DetailpregnantComponent;
-  let fixture: ComponentFixture<DetailpregnantComponent>;
+describe('DiedComponent', () => {
+  let component: SurverDiedComponent;
+  let fixture: ComponentFixture<SurverDiedComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DetailpregnantComponent ]
+      declarations: [ SurverDiedComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DetailpregnantComponent);
+    fixture = TestBed.createComponent(SurverDiedComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

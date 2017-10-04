@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-detailpregnant',
-  templateUrl: './detailpregnant.component.html',
-  styleUrls: ['./detailpregnant.component.css']
+  selector: 'app-survey-pregnant-add',
+  templateUrl: './survey-pregnant-add.component.html',
+  styleUrls: ['./survey-pregnant-add.component.css']
 })
-export class DetailpregnantComponent implements OnInit {
+export class SurveyPregnantAddComponent implements OnInit {
   mStatusNo = 0;
   
-  isDisable= false;
-  isDisableBirth= true;
-  isDisableAbort = true ;
+   isDisable= false;
+   isDisableBirth= true;
+   isDisableAbort = true ;
   constructor() { }
 
   ngOnInit() {
@@ -33,4 +33,5 @@ export class DetailpregnantComponent implements OnInit {
     }
     
   }
+
 }

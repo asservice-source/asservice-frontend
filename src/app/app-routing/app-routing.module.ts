@@ -10,8 +10,8 @@ import { ContentComponent } from "./../content/content.component";
 import { NotfoundComponent } from "./../notfound/notfound.component";
 import { LoginComponent } from "./../login/login.component";
 import { RegisterComponent } from "./../register/register.component";
-import { PregnantComponent } from "./../surveys/pregnant/pregnant.component";
-import { DiedComponent } from "./../surveys/died/died.component";
+import { SurveyPregnantComponent } from "./../surveys/pregnant/survey-pregnant.component";
+import { SurverDiedComponent } from "./../surveys/died/survey-died.component";
 import { PersonalComponent } from "./../surveys/personal/personal.component";
 import { SurveyPersonalDetailComponent } from "./../surveys/personal/personal-detail/personal-detail.component";
 import { PatientComponent } from "./../surveys/patient/patient.component";
@@ -53,11 +53,11 @@ import { SumpregnantComponent } from "./../summary/sumpregnant/sumpregnant.compo
           children: [
             {
               path: 'pregnant',
-              component: PregnantComponent
+              component: SurveyPregnantComponent
             },
             {
               path: 'died',
-              component: DiedComponent
+              component: SurverDiedComponent
             },
             {
               path: 'personal',
