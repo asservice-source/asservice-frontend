@@ -1,6 +1,7 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Http, Response, RequestOptions } from "@angular/http";
-import "rxjs"
+import { Router } from "@angular/router";
+declare var $;
 
 @Component({
   selector: 'app-personal',
@@ -9,13 +10,24 @@ import "rxjs"
 })
 export class PersonalComponent implements OnInit {
 
+  // Datatables options
   dtOptions: DataTables.Settings = {};
+
+  // Data from api
   data;
 
-  constructor(private http: Http) {
-    // this.http.get("assets/data_personal.json")
-    //   .map((res: Response) => res.json())
-    //   .subscribe((data) => this.data = data, (err) => console.log(err), () => console.log("Success"));
+  // Passing citizen id from row in table to personal-survey component
+  cid: string;
+
+  constructor(private http: Http, private router: Router) {
+    this.loadData();
+  }
+
+  ngOnInit(): void {
+
+  }
+
+  loadData() {
 
     this.http.get("assets/data_personal.json")
       .map(res => res.json())
@@ -45,8 +57,10 @@ export class PersonalComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
-
+  clickManage(key: string) {
+    
+    // $("#myModal").modal('show');
+    this.router.navigate(['survey'], { queryParams: { cid: key } });
   }
 
 }
