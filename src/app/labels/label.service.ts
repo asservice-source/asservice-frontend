@@ -12,8 +12,7 @@ export class LabelService{
             return '';
         }else{
             let objLabel = null;
-            objLabel = this.labels[key.toLocaleLowerCase()];
-            console.log(objLabel);
+            objLabel = this.labels[key];
             if(!objLabel){
                 return '';
             }

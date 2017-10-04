@@ -1,9 +1,11 @@
 import { Component, OnInit ,AfterViewInit} from '@angular/core';
-
+import { FindPersonComponent } from "../../../find-person/find-person.component";
+import { PersonBean } from "../../../beans/person.bean";
 @Component({
   selector: 'app-died-add',
   templateUrl: './died-add.component.html',
   styleUrls: ['./died-add.component.css']
+  
 })
 export class DiedAddComponent implements OnInit ,AfterViewInit {
   isHiddenContent = true;
@@ -55,11 +57,13 @@ export class DiedAddComponent implements OnInit ,AfterViewInit {
         }else{
           $('#personDetail').attr('hidden','true');
         }
-        
+
     });
-  
   }
   
+  doAlert(){
+    alert('dddd');
+  }
 
   ChangeLocation(){
     if(this.location == 0){
@@ -92,6 +96,12 @@ export class DiedAddComponent implements OnInit ,AfterViewInit {
       $("#textCause2").fadeOut();
     }
   }
+
+
+  onNotify(personBean:PersonBean):void {
+    alert(personBean.citizenID + " : " + personBean.firstName);
+  }
+
 }
 
 

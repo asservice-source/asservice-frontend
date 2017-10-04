@@ -1,25 +1,35 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter} from '@angular/core';
+import { PersonBean } from "../beans/person.bean";
 declare var $:any;
 @Component({
   selector: 'app-find-person',
   templateUrl: './find-person.component.html',
   styleUrls: ['./find-person.component.css']
 })
-export class FindPersonComponent implements OnInit {
+export class FindPersonComponent {
+  @Input() title:string;
+  @Output() notify: EventEmitter<PersonBean> = new EventEmitter<PersonBean>();
+  public personBean : PersonBean;
+  public mVillageNo = 0;
+  public mOSM = 0;
+  public mHomeNo = 0;
+  public mPerson = 0;
 
-  mVillageNo = 0;
-  mOSM = 0;
-  mHomeNo = 0;
-  mPerson = 0;
+  public isDisabledOSM = true;
+  public isDisabledHomeNo = true;
+  public isDisabledPerson = true;
+  public isDisableBtnSearch = true;
+  constructor() { 
+    this.personBean = new PersonBean();
+    this.personBean.citizenID = '1122323232323';
+    this.personBean.firstName = 'Firstname';
+    this.personBean.lastName = 'Lastname';
+    this.personBean.nickName = "Sum";
+  }
 
-  isDisabledOSM = true;
-  isDisabledHomeNo = true;
-  isDisabledPerson = true;
-  isDisableBtnSearch = true;
-  constructor() { }
-
-  ngOnInit() {
+  doPersonChange(){
     
+    this.notify.emit(this.personBean);
   }
 
   changVillageNo(){
