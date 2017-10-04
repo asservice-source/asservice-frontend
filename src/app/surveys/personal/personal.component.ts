@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Http, Response, RequestOptions } from "@angular/http";
+import { Http } from "@angular/http";
 import { Router } from "@angular/router";
-declare var $;
 
 @Component({
   selector: 'app-personal',
@@ -30,21 +29,17 @@ export class PersonalComponent implements OnInit {
 
   loadData() {
 
-    this.http.get("assets/data_personal.json")
+    this.http.get("assets/data_test/data_home_personal.json")
       .map(res => res.json())
       .subscribe(data => this.data = data);
 
     this.dtOptions = {
       pagingType: "full_numbers",
-      processing: true,
       searching: false,
       columns: [{
-        width: "5%",
-        orderable: false
-      }, {
-        width: "30%"
-      }, {
         width: "15%"
+      }, {
+        width: "40%"
       }, {
         width: "15%"
       }, {
