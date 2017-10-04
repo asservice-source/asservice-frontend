@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Http, RequestOptions } from '@angular/http';
 import {Headers} from '@angular/http';
 import { NgModel } from '@angular/forms';
-import {Xxx} from './metabolic-survey-bean';
+import {Personalities} from './metabolic-survey-bean';
 
 
 @Component({
@@ -13,7 +13,7 @@ import {Xxx} from './metabolic-survey-bean';
 export class MetabolicSurveyComponent implements OnInit { 
 
 
- public xxx = new Xxx();
+ public Personalities = new Personalities();
 
   // personal_CitizenID = '1-4599-00321-43-2';
   // personal_PatentID = 'ท.89';
@@ -28,40 +28,40 @@ export class MetabolicSurveyComponent implements OnInit {
   // personal_AmphurID = 'เมือง';
   // personal_CityID = 'ขอนแก่น';
 
-  healtHistory_isDiabetesParent = false;
-  healtHistory_isOverBmi = false;
-  healtHistory_isOverBp = false;
-  healtHistory_isOverFbs = false;
-  healtHistory_isOvercholesterol = false;
-  healtHistory_isPregnantDiabetes=false;
-  healtHistory_isOverBpParent=false;
+  healtHistory_isDiabetesParent : boolean;
+  healtHistory_isOverBmi : boolean;
+  healtHistory_isOverBp : boolean;
+  healtHistory_isOverFbs : boolean;
+  healtHistory_isOvercholesterol : boolean;
+  healtHistory_isPregnantDiabetes : boolean;
+  healtHistory_isOverBpParent : boolean;
 
-  drugHistory_isSmoke = false;
-  drugHistory_isDrink = false;
-  drugHistory_numTobacco;
-  drugHistory_numDrink;
+  drugHistory_isSmoke : boolean;
+  drugHistory_isDrink : boolean;
+  drugHistory_numTobacco : Number;
+  drugHistory_numDrink : Number;
 
-  physicalBody_weight;
-  physicalBody_height;
-  physicalBody_waistline;
-  physicalBody_BMI;
-  physicalBody_BP1_mm;
-  physicalBody_BP1_hg;
-  physicalBody_BP2_mm;
-  physicalBody_BP2_hg;
+  physicalBody_weight : Number;
+  physicalBody_height : Number;
+  physicalBody_waistline : Number;
+  physicalBody_BMI : Number;
+  physicalBody_BP1_mm : Number; 
+  physicalBody_BP1_hg : Number;
+  physicalBody_BP2_mm : Number;
+  physicalBody_BP2_hg : Number;
 
-  disease_Diabetes = false;
-  disease_OverBP = false;
-  disease_Complication_eye = false;
-  disease_Complication_kidney = false;
-  disease_Complication_nerve = false;
-  disease_Complication_nervousSys = false;
-  disease_Complication_etc = false;
+  disease_Diabetes : boolean;
+  disease_OverBP : boolean;
+  disease_Complication_eye : boolean;
+  disease_Complication_kidney : boolean;
+  disease_Complication_nerve : boolean;
+  disease_Complication_nervousSys : boolean;
+  disease_Complication_etc : boolean;
 
   // dataFor;
 
   constructor(private http: Http) {
-    this.xxx.personal_CitizenID = 'xxx';
+    this.Personalities.personal_CitizenID = 'xxx';
    }
 
   ngOnInit() {
