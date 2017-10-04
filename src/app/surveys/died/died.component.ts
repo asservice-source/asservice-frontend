@@ -1,19 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { LabelManager } from "../../labels/label.manager";
+import { BaseSmart } from "../../labels/base.smart";
 declare var $: any;
 @Component({
   selector: 'app-died',
   templateUrl: './died.component.html',
   styleUrls: ['./died.component.css']
 })
-export class DiedComponent implements OnInit {
+export class DiedComponent extends BaseSmart implements OnInit {
 
-  labelManager = new LabelManager();
-  constructor() {    
+  constructor() {  
+    super();
    }
   ngOnInit() {
-    this.labelManager.setupLabel();
+    super.ngOnInit();
   };
+
 
 
 }
