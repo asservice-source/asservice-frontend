@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { LabelStored } from "./label.stored";
-export class LabelService{
+import { LabelStored } from "./label-stored";
+export class LabelManager{
     public labelStored = new LabelStored();
     public labels;
     constructor(){

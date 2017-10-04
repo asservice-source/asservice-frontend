@@ -1,13 +1,14 @@
 import { Component, OnInit ,AfterViewInit} from '@angular/core';
 import { FindPersonComponent } from "../../../find-person/find-person.component";
 import { PersonBean } from "../../../beans/person.bean";
+import { BaseComponent } from "../../../base-component";
 @Component({
   selector: 'app-survey-died-add',
   templateUrl: './survey-died-add.component.html',
   styleUrls: ['./survey-died-add.component.css']
   
 })
-export class SurveyDiedAddComponent implements OnInit ,AfterViewInit {
+export class SurveyDiedAddComponent extends BaseComponent implements OnInit ,AfterViewInit {
   isHiddenContent = true;
   show = false;
   location = 1;
@@ -23,7 +24,9 @@ export class SurveyDiedAddComponent implements OnInit ,AfterViewInit {
   mPrefix;
   mBirthDate;
   mFullname = "นายโสภน การแพทย์";
-  constructor() { }
+  constructor() {
+    super();
+   }
   persons = [];
 
   ngOnInit() {

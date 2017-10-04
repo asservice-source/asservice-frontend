@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { LabelService } from "./label.service";
+import { LabelManager } from "./label/label-manager";
 declare var $: any;
-export class BaseSmart implements OnInit{
-    labelService = new LabelService();
+export class BaseComponent implements OnInit{
+    public labelManager = new LabelManager();
     constructor() {   
         
     }
@@ -10,6 +10,6 @@ export class BaseSmart implements OnInit{
     }
     getLabel(key:string, lang?:string, defaultValue?:string ){
         console.log("label:"+key);
-        return this.labelService.getLabel(key,lang) || defaultValue;
+        return this.labelManager.getLabel(key,lang) || defaultValue;
     }
 }
