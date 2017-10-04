@@ -1,5 +1,6 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Http, Response, RequestOptions } from "@angular/http";
+import { Router } from "@angular/router";
 declare var $;
 
 @Component({
@@ -9,11 +10,17 @@ declare var $;
 })
 export class PersonalComponent implements OnInit {
 
+  // Datatables options
   dtOptions: DataTables.Settings = {};
+
+  // Data from api
   data;
 
-  constructor(private http: Http) {
-this.loadData();
+  // Passing citizen id from row in table to personal-survey component
+  cid: string;
+
+  constructor(private http: Http, private router: Router) {
+    this.loadData();
   }
 
   ngOnInit(): void {
@@ -51,7 +58,9 @@ this.loadData();
   }
 
   clickManage(key: string) {
-    $("#myModal").modal('show');
+    
+    // $("#myModal").modal('show');
+    this.router.navigate(['survey'], { queryParams: { cid: key } });
   }
 
 }
