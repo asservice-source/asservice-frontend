@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Input } from '@angular/core';
 import { Http, RequestOptions } from '@angular/http';
 import {Headers} from '@angular/http';
 import { NgModel } from '@angular/forms';
@@ -12,6 +12,9 @@ import {Personalities} from './metabolic-survey-bean';
 })
 export class MetabolicSurveyComponent implements OnInit { 
 
+  @Input() set citizenID(citizenID:string){
+    console.log(citizenID);
+  }
 
  public Personalities = new Personalities();
 
@@ -65,6 +68,8 @@ export class MetabolicSurveyComponent implements OnInit {
    }
 
   ngOnInit() {
+
+    
 
     $('#radioBtn a').on('click', function(){
       var sel = $(this).data('title');
