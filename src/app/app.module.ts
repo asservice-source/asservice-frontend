@@ -32,7 +32,7 @@ import { FindPersonComponent } from './find-person/find-person.component';
 import { MosquitoComponent } from './surveys/mosquito/mosquito.component';
 import { SurveyPersonalDetailComponent } from './surveys/personal/personal-detail/personal-detail.component';
 import { CancerComponent } from './surveys/cancer/cancer.component';
-import { MetabolicSurveyComponent } from './surveys/metabolic/metabolic-survey/metabolic-survey.component';
+import { SurveyMetabolicComponent } from './surveys/metabolic/Survey-metabolic-modal/Survey-metabolic-modal.component';
 import 'rxjs/add/operator/map';
 import { HttpModule } from '@angular/http';
 import { SumpregnantComponent } from './summary/sumpregnant/sumpregnant.component';
@@ -65,7 +65,7 @@ import { DataTablesModule } from 'angular-datatables';
     MosquitoComponent,
     SurveyPersonalDetailComponent,
     CancerComponent,
-    MetabolicSurveyComponent,
+    SurveyMetabolicComponent,
     SumpregnantComponent,
     AddpregnantComponent,
     DetailpregnantComponent

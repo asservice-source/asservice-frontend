@@ -2,15 +2,15 @@ import { Component, OnInit,Input } from '@angular/core';
 import { Http, RequestOptions } from '@angular/http';
 import {Headers} from '@angular/http';
 import { NgModel } from '@angular/forms';
-import {Personalities} from './metabolic-survey-bean';
+import {Personalities} from './Survey-metabolic-modal-bean';
 
 
 @Component({
   selector: 'app-metabolic-survey',
-  templateUrl: './metabolic-survey.component.html',
-  styleUrls: ['./metabolic-survey.component.css']
+  templateUrl: './Survey-metabolic-modal.component.html',
+  styleUrls: ['./Survey-metabolic-modal.component.css']
 })
-export class MetabolicSurveyComponent implements OnInit { 
+export class SurveyMetabolicComponent implements OnInit { 
 
   @Input() set citizenID(citizenID:string){
     console.log(citizenID);
