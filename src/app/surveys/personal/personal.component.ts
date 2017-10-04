@@ -8,6 +8,7 @@ declare var $;
   templateUrl: './personal.component.html',
   styleUrls: ['./personal.component.css']
 })
+
 export class PersonalComponent implements OnInit {
 
   // Datatables options
@@ -36,6 +37,7 @@ export class PersonalComponent implements OnInit {
     this.dtOptions = {
       pagingType: "full_numbers",
       processing: true,
+      searching: false,
       columns: [{
         width: "5%",
         orderable: false
@@ -58,9 +60,7 @@ export class PersonalComponent implements OnInit {
   }
 
   clickManage(key: string) {
-    
-    // $("#myModal").modal('show');
-    this.router.navigate(['survey'], { queryParams: { cid: key } });
+    this.router.navigate(['/main/surveys/personal-detail', key]);
   }
 
 }

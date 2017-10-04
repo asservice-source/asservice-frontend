@@ -30,7 +30,7 @@ import { FilterComponent } from './filter/filter.component';
 import { DiedAddComponent } from './surveys/died/died-add/died-add.component';
 import { FindPersonComponent } from './find-person/find-person.component';
 import { MosquitoComponent } from './surveys/mosquito/mosquito.component';
-import { PersonalSurveyComponent } from './surveys/personal/personal-survey/personal-survey.component';
+import { SurveyPersonalDetailComponent } from './surveys/personal/personal-detail/personal-detail.component';
 import { CancerComponent } from './surveys/cancer/cancer.component';
 import { MetabolicSurveyComponent } from './surveys/metabolic/metabolic-survey/metabolic-survey.component';
 import 'rxjs/add/operator/map';
@@ -63,7 +63,7 @@ import { DataTablesModule } from 'angular-datatables';
     DiedAddComponent,
     FindPersonComponent,
     MosquitoComponent,
-    PersonalSurveyComponent,
+    SurveyPersonalDetailComponent,
     CancerComponent,
     MetabolicSurveyComponent,
     SumpregnantComponent,

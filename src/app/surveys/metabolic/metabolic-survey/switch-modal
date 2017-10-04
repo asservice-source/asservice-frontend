@@ -1,0 +1,410 @@
+
+<div style="background-color: #fff">
+  <div class="row">
+      <div class="col-md-3 text-right">
+          <label class="label-form label_space">หมายเลขประจำตัว :</label>
+       </div>
+
+     
+      <label class="label-form label_space">{{Personalities.personal_CitizenID}}</label>
+
+      <label class="label-form">สิทธิบัตร :</label>
+      <label class="label-form label_space">{{Personalities.personal_PatentID}}</label>
+
+  </div>
+
+  <div class="row">
+      <div class="col-md-3 text-right">
+         <label class="label-form label_space">ชื่อ-สกุล :</label>
+      </div>
+     
+      <label class="label-form label_space">{{Personalities.personal_Fname}}  {{Personalities.personal_Lname}}</label>
+
+      <label class="label-form">เพศ :</label>
+      <label class="label-form label_space">{{Personalities.personal_Gender}}</label>
+
+      <label class="label-form">อายุ :</label>
+      <label class="label-form label_space">{{Personalities.personal_AgeYears}} ปี {{Personalities.personal_AgeMonths}} เดือน</label>
+  </div>
+ 
+
+  <div class="row">
+      <div class="col-md-3 text-right">
+        <label class="label-form label_space">บ้านเลขที่ :</label>
+      </div>
+        
+        <label class="label-form label_space">{{Personalities.personal_HouseID}}</label>
+
+
+        <label class="label-form">หมู่ :</label>
+        <label class="label-form label_space">{{Personalities.personal_HgroupID}}</label>
+
+        <label class="label-form">ตำบล :</label>
+        <label class="label-form label_space">{{Personalities.personal_DistrictID}}</label>
+
+        <label class="label-form">อำเภอ :</label>
+        <label class="label-form label_space">{{Personalities.personal_AmphurID}}</label>
+
+        <label class="label-form">จังหวัด :</label>
+        <label class="label-form label_space">{{Personalities.personal_CityID}}</label>
+  </div>
+</div>
+<!-- ประวัติสุขภาพ -->
+
+<button class="accordion" role="button" data-toggle="collapse" href="#person-history" aria-expanded="false" aria-controls="person-history">ประวัติสุขภาพ</button>
+
+<div class="collapse" id="person-history">
+
+  <div class="row">
+    <div class="col-md-12 col-md-offset-1">
+      <div class="checkbox">
+        <label class="label-form" style="font-size: 1em">
+                  <input type="checkbox" [checked]="healtHistory_isDiabetesParent" (change)="healtHistory_isDiabetesParent = !healtHistory_isDiabetesParent">
+                  <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                  มีประวัติ พ่อแม่ ญาติ พี่น้องสายตรงเป็นเบาหวาน
+              </label>
+              
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 col-md-offset-1">
+      <div class="checkbox">
+        <label class="label-form" style="font-size: 1em">
+                    <input type="checkbox" [checked]="healtHistory_isOverBmi" (change)="healtHistory_isOverBmi = !healtHistory_isOverBmi">
+                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                    รอบเอวในชาย >90 ซม./หญิง >80 ซม. หรือภาวะอ้วน ดัชนีมวลกาย >25 กก/ตร.ม
+                </label>
+                
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 col-md-offset-1">
+      <div class="checkbox">
+        <label class="label-form" style="font-size: 1em">
+                      <input type="checkbox" [checked]="healtHistory_isOverBp" (change)="healtHistory_isOverBp = !healtHistory_isOverBp">
+                      <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                      ความดันโลหิต >140/90 mmHg หรือเคยมีประวัติเป็นโรคความดันโลหิตสูง
+                  </label>
+                  
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 col-md-offset-1">
+      <div class="checkbox">
+        <label class="label-form" style="font-size: 1em">
+                        <input type="checkbox" [checked]="healtHistory_isOverFbs" (change)="healtHistory_isOverFbs = !healtHistory_isOverFbs">
+                        <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                        มีประวัติน้ำตาลในเลือดสูง
+                    </label>
+                    
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 col-md-offset-1">
+      <div class="checkbox">
+        <label class="label-form" style="font-size: 1em">
+                        <input type="checkbox" [checked]="healtHistory_isOvercholesterol" (change)="healtHistory_isOvercholesterol = !healtHistory_isOvercholesterol">
+                        <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                        มีประวัติภาวะไขมันในเลือดสูง
+                    </label>
+                    
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 col-md-offset-1">
+      <div class="checkbox">
+        <label class="label-form" style="font-size: 1em">
+                          <input type="checkbox" [checked]="healtHistory_isPregnantDiabetes" (change)="healtHistory_isPregnantDiabetes = !healtHistory_isPregnantDiabetes">
+                          <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                          มีประวัติเป็นเบาหวานและตั้งครรภ์หรือมีบุตรน้ำหนักแรกเกิดเกิน 4 กิโลกรัม
+                      </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 col-md-offset-1">
+      <div class="checkbox">
+        <label class="label-form" style="font-size: 1em">
+                            <input type="checkbox" [checked]="healtHistory_isOverBpParent" (change)="healtHistory_isOverBpParent = !healtHistory_isOverBpParent">
+                            <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                            มีประวัติความดันโลหิตสูงในญาติสายตรง
+                        </label>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ประวัติบุหรี่และของมึนเมา -->
+
+<button class="accordion" role="button" data-toggle="collapse" 
+href="#person-drug" aria-expanded="false" aria-controls="person-drug">ประวัติบุหรี่และของมึนเมา</button>
+
+<div class="collapse" id="person-drug">
+    <div class="row">
+        <div class="col-md-3 col-md-offset-1 text-right">    
+            <label class="label-form">สูบบุหรี่หรือไม่</label>
+        </div>
+
+        <div class="col-md-2">
+              <div class="input-group">
+                  <div id="radioBtn" class="btn-group">
+                    <a class="btn btn-primary btn-sm active" data-toggle="happy" data-title="N" (click)="Smoke('N')">ไม่สูบ</a>
+                    <a class="btn btn-primary btn-sm notActive" data-toggle="happy" data-title="Y" (click)="Smoke('Y')">สูบ</a>
+                  </div>
+                  <input type="hidden" name="happy" id="happy">
+                </div>
+        </div>
+
+        <div id="smoker">
+        <div class="col-md-1 text-right">    
+            <label class="label-form">สูบจำนวน</label>
+        </div>
+
+        <div class="col-md-1" style="padding-right: 5px; padding-left: 10px;">    
+            <input type="text" placeholder="จำนวน" id="numTobacco" [(ngModel)]="drugHistory_numTobacco" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+            maxlength="3" [disabled]="true">
+        </div>
+
+        <div class="col-md-2" style="padding-left: 0px;">    
+            <label class="label-form">มวน/วัน</label>
+        </div>
+      </div>
+  </div>
+
+  <div class="row">
+      <div class="col-md-3 col-md-offset-1 text-right">    
+          <label class="label-form">ดื่มเครื่องดื่มแอลกอฮอล์หรือไม่</label>
+      </div>
+
+      <div class="col-md-2">
+            <div class="input-group">
+                <div id="radioBtn2" class="btn-group">
+                  <a class="btn btn-primary btn-sm active" data-toggle="happy2" data-title="N" (click)="Drink('N')">ไม่ดื่ม</a>
+                  <a class="btn btn-primary btn-sm notActive2" data-toggle="happy2" data-title="Y" (click)="Drink('Y')">ดื่ม</a>
+                </div>
+                <input type="hidden" name="happy2" id="happy2" >
+              </div>
+      </div>
+
+      <div id="drinker">
+      <div class="col-md-1 text-right">    
+          <label class="label-form">ดื่มจำนวน</label>
+      </div>
+
+      <div class="col-md-1" style="padding-right: 5px; padding-left: 10px;">    
+          <input type="text" placeholder="จำนวน" id="timeDrink" [(ngModel)]="drugHistory_numDrink" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+          maxlength="2" [disabled]="true">
+      </div>
+
+      <div class="col-md-2" style="padding-left: 0px;">    
+          <label class="label-form">ครั้ง/สัปดาห์</label>
+      </div>
+    </div>
+
+    </div>
+</div>
+
+
+<!-- การตรวจร่างกาย -->
+
+<button class="accordion" role="button" data-toggle="collapse" 
+href="#person-check" aria-expanded="false" aria-controls="person-check">การตรวจร่างกาย</button>
+
+<div class="collapse" id="person-check">
+  <div class="row">
+    <div class="col-md-2 col-md-offset-1 text-right">    
+        <label class="label-form">น้ำหนัก</label>
+    </div>
+
+    <div class="col-md-2">    
+        <input type="text" placeholder="น้ำหนัก" [(ngModel)]="physicalBody_weight" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+        maxlength="3">
+    </div>
+
+    <div class="col-md-1" style="padding-left: 0px;">    
+        <label class="label-form">กิโลกรัม</label>
+    </div>
+
+    <div class="col-md-2 text-right">    
+        <label class="label-form">ส่วนสูง</label>
+    </div>
+
+    <div class="col-md-2">    
+        <input type="text" placeholder="ส่วนสูง" [(ngModel)]="physicalBody_height" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+        maxlength="3">
+    </div>
+
+    <div class="col-md-1" style="padding-left: 0px;">    
+        <label class="label-form">เซนติเมตร</label>
+    </div>
+  </div>
+
+  <div class="row">
+      <div class="col-md-2 col-md-offset-1 text-right">    
+          <label class="label-form">รอบเอว</label>
+      </div>
+  
+      <div class="col-md-2">    
+          <input type="text" placeholder="รอบเอว" [(ngModel)]="physicalBody_waistline" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+          maxlength="3">
+      </div>
+  
+      <div class="col-md-1" style="padding-left: 0px;">    
+          <label class="label-form">เซนติเมตร</label>
+      </div>
+  
+      <div class="col-md-2 text-right">    
+          <label class="label-form">ดัชนีมวลกาย(BMI)</label>
+      </div>
+  
+      <div class="col-md-2">    
+          <input type="text" placeholder="ดัชนีมวลกาย" [(ngModel)]="physicalBody_BMI" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+          maxlength="3">
+      </div>
+  
+      <div class="col-md-1" style="padding-left: 0px;">    
+          <label class="label-form">Kg/m</label>
+      </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2 col-md-offset-1 text-right">    
+            <label class="label-form">BP ครั้งที่1</label>
+        </div>
+    
+        <div class="col-md-2">    
+            <input type="text" placeholder="มม." [(ngModel)]="physicalBody_BP1_mm" style="width:50px" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+            maxlength="3">
+            <label class="label-form">/</label>
+            <input type="text" placeholder="ปรอท" [(ngModel)]="physicalBody_BP1_hg" style="width:50px" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+            maxlength="3">
+        </div>
+    
+        <div class="col-md-1" style="padding-left: 0px;">    
+            <label class="label-form">mmHg</label>
+        </div>
+    
+        <div class="col-md-2 text-right">    
+            <label class="label-form">BP ครั้งที่2</label>
+        </div>
+    
+        <div class="col-md-2">    
+            <input type="text" placeholder="มม." [(ngModel)]="physicalBody_BP2_mm" style="width:50px" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+            maxlength="3">
+            <label class="label-form">/</label>
+            <input type="text" placeholder="ปรอท" [(ngModel)]="physicalBody_BP2_hg" style="width:50px" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+            maxlength="3">
+        </div>
+    
+        <div class="col-md-1" style="padding-left: 0px;">    
+            <label class="label-form">mmHg</label>
+        </div>
+      </div>
+
+</div>
+
+<!-- ภาวะแทรกซ้อน -->
+
+<button class="accordion" role="button" data-toggle="collapse" 
+href="#person-disease" aria-expanded="false" aria-controls="person-disease">โรคและภาวะแทรกซ้อน</button>
+
+<div class="collapse" id="person-disease">
+    <div class="row">
+        <div class="col-md-2 col-md-offset-1 text-right">
+            <label class="label-form">โรค</label>
+        </div>
+        <div class="col-md-3">
+          <div class="checkbox">
+            <label class="label-form" style="font-size: 1em">
+                            <input type="checkbox" [checked]="disease_Diabetes" (change)="disease_Diabetes = !disease_Diabetes">
+                            <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                            ป่วยเป็นเบาหวาน
+                        </label>
+          </div>
+        </div>
+    
+        <div class="col-md-6">
+          <div class="checkbox">
+            <label class="label-form" style="font-size: 1em">
+                            <input type="checkbox" [checked]="disease_OverBP" (change)="disease_OverBP = !disease_OverBP">
+                            <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                            ป่วยเป็นความดันโลหิตสูง
+                        </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+          <div class="col-md-2 col-md-offset-1 text-right">
+              <label class="label-form">ภาวะแทรกซ้อน</label>
+          </div>
+          <div class="col-md-2">
+            <div class="checkbox">
+              <label class="label-form" style="font-size: 1em">
+                              <input type="checkbox" [checked]="disease_Complication_eye" (change)="disease_Complication_eye = !disease_Complication_eye">
+                              <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                              ตา
+                          </label>
+            </div>
+          </div>
+      
+          <div class="col-md-2">
+            <div class="checkbox">
+              <label class="label-form" style="font-size: 1em">
+                              <input type="checkbox" [checked]="disease_Complication_kidney" (change)="disease_Complication_kidney = !disease_Complication_kidney">
+                              <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                              ไต
+                          </label>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+              <div class="checkbox">
+                <label class="label-form" style="font-size: 1em">
+                                <input type="checkbox" [checked]="disease_Complication_nerve" (change)="disease_Complication_nerve = !disease_Complication_nerve">
+                                <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                                ปลายประสาท
+                            </label>
+              </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-2 col-md-offset-3">
+                <div class="checkbox">
+                  <label class="label-form" style="font-size: 1em">
+                                  <input type="checkbox" [checked]="disease_Complication_nervousSys" (change)="disease_Complication_nervousSys = !disease_Complication_nervousSys">
+                                  <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                                  ระบบประสาท
+                              </label>
+                </div>
+              </div>
+
+              <div class="col-md-2">
+                  <div class="checkbox">
+                    <label class="label-form" style="font-size: 1em">
+                                    <input type="checkbox" [checked]="disease_Complication_etc" (change)="disease_Complication_etc = !disease_Complication_etc">
+                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                                    อื่นๆ
+                                </label>
+                  </div>
+                </div>
+         </div>
+</div>
+
+<div class="modal-footer">
+  <button class="btn btn-primary text-center">บันทึก</button>
+  <button class="btn btn-primary text-center">ยกเลิก</button>
+</div>
