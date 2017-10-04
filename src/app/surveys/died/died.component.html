@@ -7,13 +7,15 @@
 
   <div class="panel-body">
     <p>
-      TEST : <label fs-label="lbl_cancel" fs-lang='th'>Default Label</label>
-      
+      TEST LABEL : <label>{{getLabel('lbl_ok','en','ssssss')}}</label>
     </p>
     <p>
-        TEST : <input id="test" value="{{getLabel('lbl_ok','en','ssssss')}}">
-        
+      TEST LABEL : <label>{{getLabel('lbl_cancel','th')}}</label>
     </p>
+    <p>
+      TEST LABEL : <label>{{getLabel('lbl_firstName')}}</label>
+    </p>
+    
     <app-filter></app-filter> 
    
     <div class="row">

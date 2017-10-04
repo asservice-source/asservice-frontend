@@ -9,6 +9,7 @@ export class BaseSmart implements OnInit{
     ngOnInit(){
     }
     getLabel(key:string, lang?:string, defaultValue?:string ){
+        console.log("label:"+key);
         return this.labelService.getLabel(key,lang) || defaultValue;
     }
 }

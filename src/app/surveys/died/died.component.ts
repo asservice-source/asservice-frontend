@@ -12,7 +12,6 @@ export class DiedComponent extends BaseSmart implements OnInit {
     super();
    }
   ngOnInit() {
-    super.ngOnInit();
   };
 
 

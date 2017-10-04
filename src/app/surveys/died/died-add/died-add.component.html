@@ -8,7 +8,7 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">รายละเอียดผู้เสียชีวิต</h4>
       </div>
-      <app-find-person></app-find-person>
+      <app-find-person [title]="mFullname" (notify)="onNotify($event)"></app-find-person>
       <div class="padding_right col-md-9" id="personDetail" [hidden]="isHiddenContent">
         <div class="col-md-6">
           <label>ชื่อ {{mFullname}}</label>
