@@ -1,13 +1,15 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-personal-survey',
-  templateUrl: './personal-survey.component.html',
-  styleUrls: ['./personal-survey.component.css']
+  selector: 'app-survey-personal-detail',
+  templateUrl: './personal-detail.component.html',
+  styleUrls: ['./personal-detail.component.css']
 })
-export class PersonalSurveyComponent implements OnInit {
+export class SurveyPersonalDetailComponent implements OnInit {
 
-  @Input() cid: string
+  // Receive parameters
+  hid: string
 
   mTypeNo = 1;
   mStudyNo = 3;
@@ -19,18 +21,26 @@ export class PersonalSurveyComponent implements OnInit {
   pFname = 'สมหมาย';
   pLname = 'หลายใจ';
   birthDate = '16/09/2535';
-  constructor() { }
+
+  constructor(private route: ActivatedRoute) {
+
+  }
 
   ngOnInit() {
+
+    this.route.params.subscribe(params => {
+      this.hid = params['hid'];
+    });
 
     $('.datepicker').datepicker({
       format: 'mm/dd/yyyy',
       startDate: '-3d'
     });
+
   }
 
-  clickSave(){
-    alert(this.cid);
+  clickSave() {
+    alert(this.hid);
   }
 
 }

@@ -13,7 +13,7 @@ import { RegisterComponent } from "./../register/register.component";
 import { PregnantComponent } from "./../surveys/pregnant/pregnant.component";
 import { DiedComponent } from "./../surveys/died/died.component";
 import { PersonalComponent } from "./../surveys/personal/personal.component";
-import { PersonalSurveyComponent } from "./../surveys/personal/personal-survey/personal-survey.component";
+import { SurveyPersonalDetailComponent } from "./../surveys/personal/personal-detail/personal-detail.component";
 import { PatientComponent } from "./../surveys/patient/patient.component";
 import { MetabolicComponent } from "./../surveys/metabolic/metabolic.component";
 import { MosquitoComponent } from "./../surveys/mosquito/mosquito.component";
@@ -31,16 +31,15 @@ import { SumpregnantComponent } from "./../summary/sumpregnant/sumpregnant.compo
         component: RegisterComponent
       },
       {
-        path: ''
-        , redirectTo: 'main'
-        , pathMatch: 'full'
+        path: '',
+        redirectTo: 'main',
+        pathMatch: 'full'
       }
       ,
       {
-        path: 'main'
-        , component: MainComponent
-        , canActivate: [GuardService]
-        ,
+        path: 'main',
+        component: MainComponent,
+        canActivate: [GuardService],
         children: [{
           path: '',
           component: ContentComponent
@@ -62,11 +61,11 @@ import { SumpregnantComponent } from "./../summary/sumpregnant/sumpregnant.compo
             },
             {
               path: 'personal',
-              component: PersonalComponent,
-              children: [{
-                path: 'survey',
-                component: PersonalSurveyComponent
-                }]
+              component: PersonalComponent
+            },
+            {
+              path: 'personal-detail/:hid',
+              component: SurveyPersonalDetailComponent
             },
             {
               path: 'patient',
