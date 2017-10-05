@@ -3,7 +3,6 @@ import { Http, Response, RequestOptions } from "@angular/http";
 import { Router } from "@angular/router";
 import {BaseComponent} from "./../../base-component"
 
-
 declare var $;
 
 @Component({
@@ -51,6 +50,10 @@ export class SurveyMetabolicComponent extends BaseComponent implements OnInit {
             width: ""
           }, {
             width: "220px"
+          }, {
+            width: "70px"
+          }, {
+            width: "70px"
           }, {
             width: "70px"
           }, {
