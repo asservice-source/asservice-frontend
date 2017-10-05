@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Http, Response, RequestOptions } from "@angular/http";
 import { Router } from "@angular/router";
+
+
 declare var $;
 
 @Component({
@@ -14,6 +16,7 @@ export class SurveyMetabolicComponent implements OnInit {
   public citizenID  : string;
   dtOptions: DataTables.Settings = {};
   data;
+  
 
   constructor(private http: Http, private router: Router) {
     this.loadData();
@@ -23,8 +26,16 @@ export class SurveyMetabolicComponent implements OnInit {
   }
 
   loadData() {
+      // const body = {xxx: 'xxx',
+      //             aaa: 'aaa',
+      //             bbb: 'bbb',
+      //             ccc: 'ccc',
+      //             ddd: 'ddd',
+      //             };
+
     
-        this.http.get("assets/test-list.json")
+    
+          this.http.get("assets/test-list.json")
           .map(res => res.json())
           .subscribe(data => this.data = data);
     
