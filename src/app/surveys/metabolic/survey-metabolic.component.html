@@ -5,60 +5,7 @@
     </div>
   
     <div class="panel-body">
-      <div class="row"> 
-        <div class="col-sm-12">
-            <a class="btn btn-primary" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                การค้นหา
-              </a>
-        </div>
-      </div>
-      <div class="collapse" id="collapseExample">
-        <form action="#" method="post" name="filter-form" id="filter-form">
-          <div class="row">
-            <div class="col-md-1"></div>
-            <div class="col-md-2 text-right">
-              <label class="label-form">เลือกหมู่</label>
-            </div>
-            <div class="col-md-3">
-              <select name="filter-villageNo" id="filter-villageNo">
-                <option>--เลือกหมู่บ้าน--</option>
-              </select>
-            </div>
-            <div class="col-md-2 text-right">
-              <label class="label-form">ชื่อ อสม.</label>
-            </div>
-            <div class="col-md-3">
-                <select name="filter-osmName" id="filter-osmName">
-                    <option>--เลือก อสม.--</option>
-               </select>
-            </div>
-          </div>
-      
-          <div class="row">
-            <div class="col-md-1"></div>
-            <div class="col-md-2 text-right">
-              <label class="label-form">บ้านเลขที่</label>
-            </div>
-            <div class="col-md-3">
-              <select name="filter-homeNo" id="filter-homeNo">
-                <option>--เลือก บ้านเลขที่--</option>
-               </select>
-            </div>
-      
-            <div class="col-md-2 text-right">
-              <label class="label-form">รหัสบ้าน</label>
-            </div>
-            <div class="col-md-3">
-                <select name="filter-homeId" id="filter-homeId">
-                    <option>--เลือก รหัสบ้าน--</option>
-                </select>
-            </div>
-          </div>
-          <div class="row text-center" style="margin-top: 10px;">
-            <button class="btn btn-primary" id="filter-btnSearch"><i class="fa fa-search"> ค้นหา</i></button>
-          </div>
-        </form>
-      </div>
+      <app-filter></app-filter> 
 
       <div class="row">
         <div class="col-sm-12 text-left">
