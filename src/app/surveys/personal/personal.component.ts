@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Http } from "@angular/http";
 import { Router } from "@angular/router";
+import { FilterBean } from "../../beans/filter.bean";
 
 @Component({
   selector: 'app-personal',
@@ -20,7 +21,7 @@ export class PersonalComponent implements OnInit {
   cid: string;
 
   constructor(private http: Http, private router: Router) {
-    this.loadData();
+    
   }
 
   ngOnInit(): void {
@@ -52,6 +53,14 @@ export class PersonalComponent implements OnInit {
       }]
     };
 
+  }
+
+  clickSearch(event: FilterBean) {
+    let osmId = event.OSMID;
+    let homeId = event.homeID;
+    let villageId = event.villageID;
+
+    this.loadData();
   }
 
   clickManage(key: string) {
