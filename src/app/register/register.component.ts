@@ -46,4 +46,8 @@ export class RegisterComponent extends BaseComponent implements OnInit {
         () => console.log('Fetching complete for Server Metrics')
       )
   }
+
+  doRegister() : void{
+    
+  }
 }

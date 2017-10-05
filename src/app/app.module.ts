@@ -41,6 +41,7 @@ import { HttpModule } from '@angular/http';
 import { SumpregnantComponent } from './summary/sumpregnant/sumpregnant.component';
 import { DataTablesModule } from 'angular-datatables';
 import { SurveyPersonalDetailModalComponent } from './surveys/personal/personal-detail/survey-personal-detail-modal/survey-personal-detail-modal.component';
+import { LoadingComponent } from './loading/loading.component';
 
 
 @NgModule({
@@ -71,7 +72,8 @@ import { SurveyPersonalDetailModalComponent } from './surveys/personal/personal-
     SurveyPersonalDetailComponent,
     SurveyCancerComponent,
     SurveyPersonalDetailModalComponent,
-    SumpregnantComponent
+    SumpregnantComponent,
+    LoadingComponent
    
   ],
   imports: [

@@ -1,3 +1,4 @@
+<app-loading></app-loading>
 <div class="row" style="background-color: #42c8fb;">
   <div class="col-md-12" style="text-align:center;    height: 70px;">
     <label style="text-align: center; font-size: 38px; margin-top:10px; color: white">สร้างบัญชี รพ.สต.</label>
@@ -124,7 +125,7 @@
 
 
         <div class="col-md-6 col-md-offset-5">
-          <button class="btn btn-primary">สร้างบัญชี รพ.สต.</button>
+          <button class="btn btn-primary" (click)="doRegister()">สร้างบัญชี รพ.สต.</button>
           <button class="btn btn-primary">ยอนกลับ</button>
         </div>
       </div>
