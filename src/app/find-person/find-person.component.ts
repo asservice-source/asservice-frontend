@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter} from '@angular/core';
+import { BaseComponent } from "../base-component";
 import { PersonBean } from "../beans/person.bean";
 declare var $:any;
 @Component({
@@ -6,7 +7,7 @@ declare var $:any;
   templateUrl: './find-person.component.html',
   styleUrls: ['./find-person.component.css']
 })
-export class FindPersonComponent {
+export class FindPersonComponent extends BaseComponent{
   @Input() set title(title: string) {
 
     console.log('got title: ', title);
@@ -24,6 +25,7 @@ export class FindPersonComponent {
   public isDisabledPerson = true;
   public isDisableBtnSearch = true;
   constructor() { 
+    super();
     this.personBean = new PersonBean();
     this.personBean.citizenID = '1122323232323';
     this.personBean.firstName = 'Firstname';
