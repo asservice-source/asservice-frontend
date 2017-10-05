@@ -6,7 +6,7 @@ import { Router } from "@angular/router";
 declare var $;
 
 @Component({
-  selector: 'app-metabolic',
+  selector: 'app-survey-metabolic',
   templateUrl: './survey-metabolic.component.html',
   styleUrls: ['./survey-metabolic.component.css']
 })
