@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Http, Response, RequestOptions } from "@angular/http";
 import { Router } from "@angular/router";
+import {BaseComponent} from "./../../base-component"
 
 
 declare var $;
@@ -10,7 +11,7 @@ declare var $;
   templateUrl: './survey-metabolic.component.html',
   styleUrls: ['./survey-metabolic.component.css']
 })
-export class SurveyMetabolicComponent implements OnInit {
+export class SurveyMetabolicComponent extends BaseComponent implements OnInit {
 
   year = '2560';
   public citizenID  : string;
@@ -19,6 +20,7 @@ export class SurveyMetabolicComponent implements OnInit {
   
 
   constructor(private http: Http, private router: Router) {
+    super();
     this.loadData();
    }
 
@@ -43,20 +45,20 @@ export class SurveyMetabolicComponent implements OnInit {
           pagingType: "full_numbers",
           processing: true,
           columns: [{
-            width: "5%",
+            width: "40px",
             orderable: false
           }, {
-            width: "30%"
+            width: ""
           }, {
-            width: "15%"
+            width: "220px"
           }, {
-            width: "15%"
+            width: "70px"
           }, {
-            width: "15%"
+            width: "70px"
           }, {
-            width: "10%"
+            width: "70px"
           }, {
-            width: "5%",
+            width: "70px",
             orderable: false
           }]
         };
