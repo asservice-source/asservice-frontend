@@ -12,6 +12,8 @@ import {Personalities} from './survey-metabolic-modal-bean';
 })
 export class SurveyMetabolicModalComponent implements OnInit { 
 
+  
+
   @Input() set citizenID(citizenID:string){
     console.log(citizenID);
   }
