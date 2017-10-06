@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Http } from "@angular/http";
 import { Router } from "@angular/router";
 import { FilterBean } from "../../beans/filter.bean";
-declare var $;
+declare var $: any;
 
 @Component({
   selector: 'app-personal',
@@ -10,7 +10,7 @@ declare var $;
   styleUrls: ['./personal.component.css']
 })
 
-export class PersonalComponent implements OnInit {
+export class PersonalComponent implements OnInit, AfterViewInit {
 
   // public data: any;
 
@@ -19,14 +19,18 @@ export class PersonalComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.bindJS();
+  }
+
+  ngAfterViewInit() {
 
   }
 
   clickSearch(event: FilterBean) {
 
-    let osmId = event.OSMID;
+    let villageNo = event.villageID;
     let homeId = event.homeID;
-    let villageId = event.villageID;
+    let osmId = event.OSMID;
 
     // this.http.get("assets/data_test/data_home_personal.json")
     //   .map(res => res.json())
@@ -52,6 +56,11 @@ export class PersonalComponent implements OnInit {
         "url": "assets/data_test/data_home_personal.json",
         "type": "GET",
         "datatype": "json",
+        "data": function (d) {
+          d.myKey = villageNo;
+          d.myKey = homeId;
+          d.myKey = osmId;
+        },
         "dataSrc": ""
       },
       "columns": [
@@ -88,7 +97,7 @@ export class PersonalComponent implements OnInit {
           "className": "text-center",
           "render": function (row) {
             var homeId = row.home_id;
-            var btnManage = "<button style=\"padding-top: 0px; padding-bottom: 0px\" class=\"btn btn-primary\" onclick=\"clickManage('" + homeId + "');\">จัดการ</button>";
+            var btnManage = "<button style=\"padding-top: 0px; padding-bottom: 0px\" class=\"btn btn-primary\" id=\"home_id\" home_id=\"" + homeId + "\" >จัดการ</button>";
             return btnManage;
           }
         }]
@@ -97,13 +106,26 @@ export class PersonalComponent implements OnInit {
     // Rerender data tables
     tbl.api().ajax.reload();
 
-
+    $("#panel_table_personal").show();
   }
 
   // clickManage(key: string) {
-
   //   this.router.navigate(['/main/surveys/personal-detail', key]);
-
   // }
+
+  bindJS() {
+
+    let component = this;
+    $(function () {
+
+      $('#tablePersonal').on('click', '#home_id', function () {
+        var homeId = $(this).attr('home_id');
+        // document.location.href = '/main/surveys/personal-detail/' + homeId;
+        component.router.navigate(['/main/surveys/personal-detail', homeId]);
+      });
+
+    });
+
+  }
 
 }
