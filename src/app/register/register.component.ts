@@ -12,7 +12,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
 
   public hospitalBean: HospitalBean;
   public personBean: PersonBean;
- 
+  public loadingCMD: string = 'hide';
   constructor(private http : Http) {
     super();
     this.hospitalBean = new HospitalBean();
@@ -20,6 +20,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
    }
 
   ngOnInit() {
+   // this.loadingCMD = 'show';
     this.api_province();
   }
 
@@ -27,6 +28,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
     
   }
   api_province() : void {
+    /*
     this.http.get( this._GLOBAL.API_SERVER_URL +'address/province', {})
       .subscribe(data => {
       console.log(data);
@@ -45,9 +47,10 @@ export class RegisterComponent extends BaseComponent implements OnInit {
         err => err,
         () => console.log('Fetching complete for Server Metrics')
       )
+      */
   }
 
   doRegister() : void{
-    
+    this.loadingCMD = 'show';
   }
 }

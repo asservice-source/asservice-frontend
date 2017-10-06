@@ -6,16 +6,12 @@ declare var $:any
   styleUrls: ['./content.component.css']
 })
 export class ContentComponent implements OnInit {
-
+  cmd = 'hide';
   constructor() { }
 
   ngOnInit() {
+    
   }
   
 }
-$(function(){
-  $('#btn-search').on('click', function(){
-      alert('ssss');
-  });
-});
 
