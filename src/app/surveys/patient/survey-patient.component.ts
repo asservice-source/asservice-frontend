@@ -12,6 +12,8 @@ export class SurveyPatientComponent implements OnInit {
   patientType = 0;
   isShowsick : boolean = true;
 
+  mooID:number = 0;
+
   constructor() { 
     this.loadData();
   }

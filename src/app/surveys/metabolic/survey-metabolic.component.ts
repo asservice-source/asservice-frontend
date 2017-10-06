@@ -16,7 +16,9 @@ export class SurveyMetabolicComponent extends BaseComponent implements OnInit {
   public citizenID  : string;
   dtOptions: DataTables.Settings = {};
   data;
-  
+  mooID:number = 0;
+  xxx:String;
+  check = false;
 
   constructor(private http: Http, private router: Router) {
     super();
@@ -24,7 +26,14 @@ export class SurveyMetabolicComponent extends BaseComponent implements OnInit {
    }
 
   ngOnInit() {
+
   }
+
+  save(){
+    this.check = true
+  }
+
+
 
   loadData() {
       // const body = {xxx: 'xxx',

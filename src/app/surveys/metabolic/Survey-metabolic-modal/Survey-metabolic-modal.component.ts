@@ -18,6 +18,7 @@ export class SurveyMetabolicModalComponent implements OnInit {
     console.log(citizenID);
   }
 
+
  public Personalities = new Personalities();
 
   // personal_CitizenID = '1-4599-00321-43-2';
@@ -91,6 +92,10 @@ export class SurveyMetabolicModalComponent implements OnInit {
     $('a[data-toggle="'+tog+'"][data-title="'+sel+'"]').removeClass('notActive2').addClass('active');
 })
 
+    
+  }
+
+  update(){
     
   }
 
