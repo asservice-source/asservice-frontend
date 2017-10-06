@@ -21,6 +21,7 @@ export class LoadingComponent implements OnInit {
 
   }
   start(){
+    console.log('Start Waiting');
     $('html, body').css({'overflow': 'hidden'});
     $('#loading-bg').fadeIn(300);
     $('#loading-img').fadeIn(300);
@@ -29,6 +30,7 @@ export class LoadingComponent implements OnInit {
     
   }
   stop(){
+    console.log('Stop Waiting');
     $('#loading-bg').fadeOut(300);
     $('#loading-img').fadeOut(300);
     $('html, body').css({'overflow': 'initial'});
