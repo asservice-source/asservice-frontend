@@ -24,6 +24,7 @@ export class PersonBean{
     public passport: string;
     public isDead: boolean;
     public deadDate: boolean;
+    public healthInsurananceType: string;
 
 
 }

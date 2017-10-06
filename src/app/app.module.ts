@@ -2,7 +2,7 @@ import { AdminModule } from './admin/admin.module';
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { AppComponent } from './app.component';
 import { MainComponent } from './main/main.component';
 import { MainHeaderComponent } from './main/main-header/main-header.component';
@@ -80,6 +80,7 @@ import { SurveyPersonalDetailModalComponent } from './surveys/personal/personal-
     FormsModule,
     AdminModule,
     HttpModule,
+    ReactiveFormsModule,
     DataTablesModule
   ],
   providers: [],
