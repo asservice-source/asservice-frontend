@@ -6,8 +6,9 @@
     <div class="col-md-3">
       <select name="filter-villageNo" [(ngModel)]="filterBean.villageID">
         <option value="0">--เลือกหมู่บ้าน--</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
+        <option *ngFor="let village of list_village_no" [value]="village.id">{{ village.villageNo }}</option>
+        <!-- <option value="1">1</option>
+        <option value="2">2</option> -->
       </select>
     </div>
     <div class="col-md-2 text-right">
