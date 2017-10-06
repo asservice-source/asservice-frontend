@@ -1,8 +1,6 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Http } from "@angular/http";
 import { Router } from "@angular/router";
-import { DataTableDirective } from 'angular-datatables';
-import { Subject } from 'rxjs/Rx';
 import { FilterBean } from "../../beans/filter.bean";
 declare var $;
 
@@ -12,21 +10,9 @@ declare var $;
   styleUrls: ['./personal.component.css']
 })
 
-export class PersonalComponent implements OnInit, AfterViewInit {
+export class PersonalComponent implements OnInit {
 
-  @ViewChild(DataTableDirective)
-  dtElement: DataTableDirective;
-
-  dtTrigger: Subject<any> = new Subject();
-
-  // Datatables options
-  dtOptions: DataTables.Settings = {};
-
-  // Data from api
-  data;
-
-  // Passing citizen id from row in table to personal-survey component
-  cid: string;
+  // public data: any;
 
   constructor(private http: Http, private router: Router) {
 
@@ -36,51 +22,88 @@ export class PersonalComponent implements OnInit, AfterViewInit {
 
   }
 
-  ngAfterViewInit(): void {
-    this.dtTrigger.next();
-  }
-
   clickSearch(event: FilterBean) {
 
     let osmId = event.OSMID;
     let homeId = event.homeID;
     let villageId = event.villageID;
 
-    this.http.get("assets/data_test/data_home_personal.json")
-      .map(res => res.json())
-      .subscribe(data => this.data = data);
+    // this.http.get("assets/data_test/data_home_personal.json")
+    //   .map(res => res.json())
+    //   .subscribe(data => this.data = data);
 
-    this.dtOptions = {
-      pagingType: "full_numbers",
-      searching: false,
-      columns: [{
-        width: "15%"
-      }, {
-        width: "15%"
-      }, {
-        width: "15%"
-      }, {
-        width: "40%"
-      }, {
-        width: "10%"
-      }, {
-        width: "5%",
-        orderable: false
-      }]
-    };
+    // $.ajax({
+    //   url: "http://192.168.1.203:8080/api-asservice/address/province",
+    //   type: "GET",
+    //   datatype: "JSON",
+    //   async: false,
+    //   success: function (data) {
+    //     console.log(data);
 
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      // Destroy the table first
-      dtInstance.destroy();
-      // Call the dtTrigger to rerender again
-      this.dtTrigger.next();
+    //   }
+    // });
+
+    var tbl = $("#tablePersonal").dataTable({
+      "destroy": true,
+      "order": [[1, "asc"]],
+      "searching": false,
+      "ajax": {
+        // "url": "http://192.168.1.203:8080/api-asservice/address/province",
+        "url": "assets/data_test/data_home_personal.json",
+        "type": "GET",
+        "datatype": "json",
+        "dataSrc": ""
+      },
+      "columns": [
+        {
+          "data": null,
+          "orderable": false,
+          "className": "text-center",
+          "render": function (data, type, row, meta) {
+            return meta.row + 1;
+          }
+        },
+        {
+          "data": "village_no",
+          "className": "text-center",
+          "orderable": true
+        },
+        {
+          "data": "home_no",
+          "className": "text-center",
+          "orderable": true
+        },
+        {
+          "data": "holder_name",
+          "orderable": true
+        },
+        {
+          "data": "member_count",
+          "className": "text-center",
+          "orderable": true
+        },
+        {
+          "data": null,
+          "orderable": false,
+          "className": "text-center",
+          "render": function (row) {
+            var homeId = row.home_id;
+            var btnManage = "<button style=\"padding-top: 0px; padding-bottom: 0px\" class=\"btn btn-primary\" onclick=\"clickManage('" + homeId + "');\">จัดการ</button>";
+            return btnManage;
+          }
+        }]
     });
 
-    // $("#rowTable").show();
+    // Rerender data tables
+    tbl.api().ajax.reload();
+
+
   }
 
-  clickManage(key: string) {
-    this.router.navigate(['/main/surveys/personal-detail', key]);
-  }
+  // clickManage(key: string) {
+
+  //   this.router.navigate(['/main/surveys/personal-detail', key]);
+
+  // }
 
 }
