@@ -36,15 +36,15 @@ export class FilterComponent implements OnInit {
       .map(res => res.json().list)
       .subscribe(data => this.list_village_no = data);
 
-    // Get list of home no
-    this.http.get(this.URL_LIST_HOME_NO)
-      .map(res => res.json().list)
-      .subscribe(data => this.list_home_no = data);
+    // // Get list of home no
+    // this.http.get(this.URL_LIST_HOME_NO)
+    //   .map(res => res.json().list)
+    //   .subscribe(data => this.list_home_no = data);
 
-    // Get list of osm
-    this.http.get(this.URL_LIST_OSM)
-      .map(res => res.json().list)
-      .subscribe(data => this.list_osm = data);
+    // // Get list of osm
+    // this.http.get(this.URL_LIST_OSM)
+    //   .map(res => res.json().list)
+    //   .subscribe(data => this.list_osm = data);
 
   }
 
