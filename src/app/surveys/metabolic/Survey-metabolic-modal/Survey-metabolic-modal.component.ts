@@ -34,6 +34,7 @@ export class SurveyMetabolicModalComponent implements OnInit {
   // personal_AmphurID = 'เมือง';
   // personal_CityID = 'ขอนแก่น';
 
+
   healtHistory_isDiabetesParent : boolean;
   healtHistory_isOverBmi : boolean;
   healtHistory_isOverBp : boolean;
@@ -72,8 +73,6 @@ export class SurveyMetabolicModalComponent implements OnInit {
 
   ngOnInit() {
 
-    
-
     $('#radioBtn a').on('click', function(){
       var sel = $(this).data('title');
       var tog = $(this).data('toggle');
@@ -91,12 +90,11 @@ export class SurveyMetabolicModalComponent implements OnInit {
     $('a[data-toggle="'+tog+'"]').not('[data-title="'+sel+'"]').removeClass('active').addClass('notActive2');
     $('a[data-toggle="'+tog+'"][data-title="'+sel+'"]').removeClass('notActive2').addClass('active');
 })
-
     
   }
 
   update(){
-    
+
   }
 
   Smoke(T){
