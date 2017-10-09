@@ -31,4 +31,14 @@ export class ApiHTTPService extends BaseComponent implements OnInit {
         )
     }
 
+    post(url:string, params?: object, callback?: (doc: any) => void){
+        this.http.post(this.getApiUrl(url),params)
+        .map(res => res.json())
+        .subscribe(
+          data => callback(data),
+          err => err,
+          () => console.log('Fetching complete for Server Api.')
+        )
+    }
+
 }
