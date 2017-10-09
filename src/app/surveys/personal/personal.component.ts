@@ -19,7 +19,7 @@ export class PersonalComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.bindJS();
+    this.onReadyjQuery();
   }
 
   ngAfterViewInit() {
@@ -27,10 +27,9 @@ export class PersonalComponent implements OnInit, AfterViewInit {
   }
 
   clickSearch(event: FilterBean) {
-
-    let villageNo = event.villageID;
-    let homeId = event.homeID;
-    let osmId = event.OSMID;
+    // let villageNo = event.villageID;
+    // let homeId = event.homeID;
+    // let osmId = event.OSMID;
 
     // this.http.get("assets/data_test/data_home_personal.json")
     //   .map(res => res.json())
@@ -47,24 +46,32 @@ export class PersonalComponent implements OnInit, AfterViewInit {
     //   }
     // });
 
+    // jsonParams["villageNo"] = event.villageID;
+    // jsonParams["osmId"] = event.OSMID;
+    // jsonParams["id"] = event.homeID;
+
+    var jsonParams = {};
+    jsonParams["villageNo"] = "1";
+    jsonParams["osmId"] = "1234567890123";
+    jsonParams["id"] = "1";
+
     var tbl = $("#tablePersonal").dataTable({
-      "destroy": true,
       "order": [[1, "asc"]],
       "searching": false,
       "ajax": {
-        // "url": "http://192.168.1.203:8080/api-asservice/address/province",
-        "url": "assets/data_test/data_home_personal.json",
-        "type": "GET",
+        "url": "http://192.168.2.227:8080/API-ASService/home/home_list",
+        // "url": "assets/data_test/data_home_personal.json",
+        "type": "POST",
         "datatype": "json",
-        "data": function (d) {
-          d.myKey = villageNo;
-          d.myKey = homeId;
-          d.myKey = osmId;
+        "contentType": "application/json",
+        "data": function () {
+          return JSON.stringify(jsonParams);
         },
-        "dataSrc": ""
+        "dataSrc": "list"
       },
       "columns": [
         {
+          "title": "ลำดับ",
           "data": null,
           "orderable": false,
           "className": "text-center",
@@ -73,21 +80,36 @@ export class PersonalComponent implements OnInit, AfterViewInit {
           }
         },
         {
-          "data": "village_no",
+          "title": "หมู่",
+          "data": "villageNo",
           "className": "text-center",
           "orderable": true
         },
         {
-          "data": "home_no",
+          "title": "บ้านเลขที่",
+          "data": "homeNo",
           "className": "text-center",
           "orderable": true
         },
         {
-          "data": "holder_name",
+          "title": "ชื่อ-สกุล เจ้าบ้าน",
+          "data": null,
+          "className": "dt-head-center dt-body-left",
+          "orderable": true,
+          "render": function (row) {
+            var fullName = row.holder.firstName + " " + row.holder.lastName;
+            return fullName;
+          }
+        },
+        {
+          "title": "จำนวนสมาชิก",
+          "data": "memberAmount",
+          "className": "dt-head-center dt-body-right",
           "orderable": true
         },
         {
-          "data": "member_count",
+          "title": "สถานะ",
+          "data": "osmId",
           "className": "text-center",
           "orderable": true
         },
@@ -97,7 +119,7 @@ export class PersonalComponent implements OnInit, AfterViewInit {
           "className": "text-center",
           "render": function (row) {
             var homeId = row.home_id;
-            var btnManage = "<button style=\"padding-top: 0px; padding-bottom: 0px\" class=\"btn btn-primary\" id=\"home_id\" home_id=\"" + homeId + "\" >จัดการ</button>";
+            var btnManage = "<button style=\"padding-top: 0px; padding-bottom: 0px\" class=\"btn btn-primary\" id=\"btnManage\" home_id=\"" + homeId + "\" >จัดการ</button>";
             return btnManage;
           }
         }]
@@ -109,23 +131,16 @@ export class PersonalComponent implements OnInit, AfterViewInit {
     $("#panel_table_personal").show();
   }
 
-  // clickManage(key: string) {
-  //   this.router.navigate(['/main/surveys/personal-detail', key]);
-  // }
-
-  bindJS() {
-
-    let component = this;
+  onReadyjQuery() {
+    let _self = this;
     $(function () {
 
-      $('#tablePersonal').on('click', '#home_id', function () {
+      $('#tablePersonal').on('click', '#btnManage', function () {
         var homeId = $(this).attr('home_id');
-        // document.location.href = '/main/surveys/personal-detail/' + homeId;
-        component.router.navigate(['/main/surveys/personal-detail', homeId]);
+        _self.router.navigate(['/main/surveys/personal-detail', homeId]);
       });
 
     });
-
   }
 
 }
