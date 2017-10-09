@@ -12,7 +12,7 @@
         </div> 
       </div> -->
 
-     <app-survey-head-filter [surveyTypeID]="surveyTypeID"></app-survey-head-filter>
+     <app-survey-head-filter [surveyTypeCode]="surveyTypeCode"></app-survey-head-filter>
  
 
       <div class="row">
@@ -27,7 +27,7 @@
           <div class="panel panel-default">
             <div class="panel-body">
               <div class="table-responsive">
-                <table datatable [dtOptions]="dtOptions" class="table table-striped table-bordered">
+                <table class="table table-striped table-bordered">
                   <thead>
                       <tr>
                           <th class="text-center">{{getLabel('lbl_seq')}}</th>               
@@ -40,7 +40,7 @@
                         </tr>
                   </thead>
   
-                  <tbody>
+                  <!-- <tbody>
                       <tr *ngFor="let item of data">
                           <td class="text-center">{{item.id}}</td>
                           <td class="text-left">{{item.name}}</td>
@@ -50,16 +50,12 @@
                           <td class="text-center">{{item.age}}</td>
                           <td class="text-center">
 
-                            <!-- <button style="padding-top: 0px; padding-bottom: 0px" 
-                            data-target="#myModal" class="btn btn-primary" 
-                            (click)="openModal(item.id);">จัดการ</button> -->
-
                             <a data-target="#myModal" (click)="openModal(item.cID);" class="glyphicon glyphicon-pencil" title="แก้ไข"></a>
                             <a class="glyphicon glyphicon-trash" title="ลบ" style="padding-left: 10px;"></a>
 
                             </td>
                         </tr>
-                  </tbody>
+                  </tbody> -->
                 </table>
               </div>
             </div>

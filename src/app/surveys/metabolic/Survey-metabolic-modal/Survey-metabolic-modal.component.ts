@@ -15,7 +15,7 @@ export class SurveyMetabolicModalComponent implements OnInit {
   
 
   @Input() set citizenID(citizenID:string){
-    console.log(citizenID);
+    this.Personalities.personal_CitizenID = citizenID;
   }
 
 
@@ -68,7 +68,7 @@ export class SurveyMetabolicModalComponent implements OnInit {
   // dataFor;
 
   constructor(private http: Http) {
-    this.Personalities.personal_CitizenID = 'xxx';
+
    }
 
   ngOnInit() {

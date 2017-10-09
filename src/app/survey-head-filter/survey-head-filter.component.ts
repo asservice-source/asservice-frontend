@@ -1,7 +1,7 @@
-import { Component, OnInit,Input } from '@angular/core';
-import {Headers} from '@angular/http';
+import { Component, OnInit, Input } from '@angular/core';
+import { Headers } from '@angular/http';
 import { NgModel } from '@angular/forms';
-import { Http, Response, RequestOptions } from "@angular/http";
+import { Http, Response, RequestOptions, RequestMethod } from "@angular/http";
 declare var $;
 
 @Component({
@@ -11,31 +11,32 @@ declare var $;
 })
 export class SurveyHeadFilterComponent implements OnInit {
 
-  @Input() set surveyTypeID(surveyTypeID : number){
-    this.typeid = surveyTypeID;
+  @Input() set surveyTypeCode(surveyTypeCode: string) {
+    this.typeCode = surveyTypeCode;
   }
 
   public villageID = 0;
   public OSMID = 0;
-  public typeid:number;
-  public data;
+  public typeCode: string;
+  public villageList;
+  public typeid : number = 1;
 
   constructor(private http: Http) {
     this.getVillageNo();
-   }
+  }
 
   ngOnInit() {
-    console.log(this.data);
+
   }
 
-  getVillageNo(){
+  getVillageNo() {
+    let param = { "hospitalCode": "04269" };
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers, method: "post" });
 
-    const body = { "hospitalCode":"04269" }
+    this.http.post("http://192.168.2.227:8080/API-ASService/village/village_no_list", param, options)
+      .map(res => res.json())
+      .subscribe(data => this.villageList=data.list);
 
-    this.http.post("http://192.168.2.227:8080/API-ASService/village/village_no_list",body)
-    .map(res => res.json())
-    .subscribe(data => this.data = data);
-    
   }
-
 }
