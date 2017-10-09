@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Http, Response, RequestOptions } from "@angular/http";
 import { Router } from "@angular/router";
-import {BaseComponent} from "./../../base-component"
+import { BaseComponent } from "./../../base-component"
 
 declare var $;
 
@@ -13,76 +13,65 @@ declare var $;
 export class SurveyMetabolicComponent extends BaseComponent implements OnInit {
 
   public year = '2560';
-  public citizenID  : string;
+  public citizenID: string;
   public dtOptions: DataTables.Settings = {};
   public data;
-  public mooID:number = 0;
-  public xxx:String;
-  public check = false;
-  public metabolicHeadID:number = 0;
-  public surveyTypeID:number = 1;
+  public mooID: number = 0;
+  public xxx: string;
+  public check: boolean = false;
+  public metabolicHeadID: number = 0;
+  public surveyTypeID: number = 1;
 
   constructor(private http: Http, private router: Router) {
     super();
     this.loadData();
-   }
+  }
 
   ngOnInit() {
 
   }
 
-  save(){
+  save() {
     this.check = true
   }
 
-
-
   loadData() {
-      // const body = {xxx: 'xxx',
-      //             aaa: 'aaa',
-      //             bbb: 'bbb',
-      //             ccc: 'ccc',
-      //             ddd: 'ddd',
-      //             };
+    this.http.get("assets/test-list.json")
+      .map(res => res.json())
+      .subscribe(data => this.data = data);
 
-    
-    
-          this.http.get("assets/test-list.json")
-          .map(res => res.json())
-          .subscribe(data => this.data = data);
-    
-        this.dtOptions = {
-          pagingType: "full_numbers",
-          processing: true,
-          columns: [{
-            width: "40px",
-            orderable: false
-          }, {
-            width: ""
-          }, {
-            width: "220px"
-          }, {
-            width: "70px"
-          }, {
-            width: "70px"
-          }, {
-            width: "70px"
-          }, {
-            width: "70px"
-          }, {
-            width: "70px"
-          }, {
-            width: "70px",
-            orderable: false
-          }]
-        };
-    
-      }
+    this.dtOptions = {
+      pagingType: "full_numbers",
+      processing: true,
+      columns: [{
+        width: "40px",
+        orderable: false
+      }, {
+        width: ""
+      }, {
+        width: "220px"
+      }, {
+        width: "70px"
+      }, {
+        width: "70px"
+      }, {
+        width: "70px"
+      }, {
+        width: "70px"
+      }, {
+        width: "70px"
+      }, {
+        width: "70px",
+        orderable: false
+      }]
+    };
 
-    openModal(key: string) {
-      this.citizenID = key;
-     $("#myModal").modal('show');
-    
+  }
+
+  openModal(key: string) {
+    this.citizenID = key;
+    $("#myModal").modal('show');
+
   }
 
 }
