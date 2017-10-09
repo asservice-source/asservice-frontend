@@ -41,4 +41,11 @@ export class ApiHTTPService extends BaseComponent implements OnInit {
         )
     }
 
+    api_villageList(hospitalCode5: string, callback?: (doc: any) => void){
+        this.post(this.getApiUrl('village/villageList')
+        ,{hospitalCode: hospitalCode5}
+        ,callback
+    );
+    }
+
 }
