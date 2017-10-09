@@ -41,13 +41,13 @@ export class SurveyPatientComponent implements OnInit {
         }, {
           width: ""
         }, {
-          width: "220px"
+          width: "200px"
         }, {
-          width: "70px"
+          width: "50px"
         }, {
-          width: "70px"
+          width: "170px"
         }, {
-          width: "70px"
+          width: "100px"
         }, {
           width: "70px",
           orderable: false

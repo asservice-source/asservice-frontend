@@ -12,13 +12,15 @@ declare var $;
 })
 export class SurveyMetabolicComponent extends BaseComponent implements OnInit {
 
-  year = '2560';
+  public year = '2560';
   public citizenID  : string;
-  dtOptions: DataTables.Settings = {};
-  data;
-  mooID:number = 0;
-  xxx:String;
-  check = false;
+  public dtOptions: DataTables.Settings = {};
+  public data;
+  public mooID:number = 0;
+  public xxx:String;
+  public check = false;
+  public metabolicHeadID:number = 0;
+  public surveyTypeID:number = 1;
 
   constructor(private http: Http, private router: Router) {
     super();

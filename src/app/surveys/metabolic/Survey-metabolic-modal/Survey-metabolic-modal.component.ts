@@ -94,7 +94,9 @@ export class SurveyMetabolicModalComponent implements OnInit {
   }
 
   update(){
-
+    if(this.physicalBody_weight == 0){
+        
+    }
   }
 
   Smoke(T){

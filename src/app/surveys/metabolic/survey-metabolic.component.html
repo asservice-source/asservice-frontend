@@ -1,39 +1,18 @@
 <div class="panel panel-default">
     <div style="background-color: rgba(118, 128, 218, 0.25);" class="panel-heading">
       <!-- <h4 style="color: #000000;">แบบสำรวจข้อมูลผู้เสียชีวิต</h4> -->
-      <label>แบบสำรวจความเสี่ยงโรค Metabolic</label>
+      <label>แบบสำรวจความเสี่ยงโรค Metabolic ประจำปี 2560/1</label>
     </div>
   
     <div class="panel-body">
       <!-- <app-filter></app-filter>  -->
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-md-12">
             <label>แบบสำรวจความเสี่ยงโรค Metabolic ประจำปี 2560/1</label>
         </div> 
-      </div>
+      </div> -->
 
-      <div class="row">
-          <div class="col-md-1 col-md-offset-2 text-right">
-              <label>หมู่ที่</label>
-          </div>
-          <div class="col-md-2">  
-              <select [(ngModel)]="mooID">
-                  <option value="0">--เลือกหมู่--</option>      
-              </select>
-          </div>
-          
-          <div class="col-md-1 text-right">
-              <label>ชื่อ อสม.</label>
-          </div> 
-          <div class="col-md-3">
-              <select [disabled]="mooID== 0?true:false">
-                  <option>--เลือก อสม.--</option>      
-              </select>
-          </div> 
-          <div class="col-md-1">
-              <button class="btn btn-primary"><i class="fa fa-search"></i>ค้นหา</button>
-          </div>
-      </div>
+     <app-survey-head-filter [surveyTypeID]="surveyTypeID"></app-survey-head-filter>
 
       <div class="row">
         <div class="col-sm-12 text-left">

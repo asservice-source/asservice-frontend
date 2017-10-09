@@ -42,6 +42,7 @@ import { SumpregnantComponent } from './summary/sumpregnant/sumpregnant.componen
 import { DataTablesModule } from 'angular-datatables';
 import { SurveyPersonalDetailModalComponent } from './surveys/personal/personal-detail/survey-personal-detail-modal/survey-personal-detail-modal.component';
 import { LoadingComponent } from './loading/loading.component';
+import { SurveyHeadFilterComponent } from './survey-head-filter/survey-head-filter.component';
 
 
 @NgModule({
@@ -73,7 +74,8 @@ import { LoadingComponent } from './loading/loading.component';
     SurveyCancerComponent,
     SurveyPersonalDetailModalComponent,
     SumpregnantComponent,
-    LoadingComponent
+    LoadingComponent,
+    SurveyHeadFilterComponent
    
   ],
   imports: [
