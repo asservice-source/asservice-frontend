@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import { ApiHTTPService} from "../sevice/api-http.service";
+import { ApiHTTPService} from "../service/api-http.service";
 import { BaseComponent } from "../base-component";
 import { HospitalBean } from "../beans/hospital.bean";
 import { PersonBean } from "../beans/person.bean";
