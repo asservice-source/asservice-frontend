@@ -16,7 +16,6 @@ export class LoadingComponent implements OnInit {
   }
 
   constructor() { }
-
   ngOnInit() {
 
   }
@@ -25,9 +24,6 @@ export class LoadingComponent implements OnInit {
     $('html, body').css({'overflow': 'hidden'});
     $('#loading-bg').fadeIn(300);
     $('#loading-img').fadeIn(300);
-    // $('#loading-bg').css({'top':'0', 'bottom':'0', 'left':'0'});
-    // $('#loading-img').css({'top':'0', 'bottom':'0', 'left':'0','width':'100%', 'height':'100%'});
-    
   }
   stop(){
     console.log('Stop Waiting');

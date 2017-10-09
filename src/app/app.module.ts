@@ -43,7 +43,7 @@ import { DataTablesModule } from 'angular-datatables';
 import { SurveyPersonalDetailModalComponent } from './surveys/personal/personal-detail/survey-personal-detail-modal/survey-personal-detail-modal.component';
 import { LoadingComponent } from './loading/loading.component';
 import { SurveyHeadFilterComponent } from './survey-head-filter/survey-head-filter.component';
-
+import { Ng2CompleterModule } from "ng2-completer";
 
 @NgModule({
   declarations: [
@@ -85,7 +85,8 @@ import { SurveyHeadFilterComponent } from './survey-head-filter/survey-head-filt
     AdminModule,
     HttpModule,
     ReactiveFormsModule,
-    DataTablesModule
+    DataTablesModule,
+    Ng2CompleterModule
   ],
   providers: [],
   bootstrap: [AppComponent]

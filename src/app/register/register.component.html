@@ -18,9 +18,21 @@
         </div>
 
         <div class="col-md-8 form-group">
-          <select class="ng-pristine ng-valid ng-touched">
+          <!-- <select class="ng-pristine ng-valid ng-touched">
                   <option value="0">เลือกโรงพยาบาลส่งเสริมสุขภาพตำบล</option>
-                </select>
+                </select> -->
+          <ng2-completer [datasource]="dataHospitals" [minSearchLength]="0" [(ngModel)]="hospitalName" placeholder="ชื่อ รพ.สต."></ng2-completer>
+        </div>
+
+        <div class="text-right col-md-4 form-group">
+          <label></label>
+        </div>
+
+        <div class="col-md-8 form-group">
+          <select class="ng-pristine ng-valid ng-touched" [(ngModel)]="provinceID" (change)="onProvinceChange()">
+            <option value="0">---เลือกจังหวัด---</option>
+            <option *ngFor="let prov of provinces" [value]="prov.codeId">{{ prov.name }}</option>
+          </select>
         </div>
 
         <div class="text-right col-md-4 form-group">
@@ -28,32 +40,19 @@
         </div>
 
         <div class="col-md-8">
-
-          <div class="col-md-6 form-group" style="padding-left: 0px;">
-            <select class="ng-pristine ng-valid ng-touched">
-                    <option value="0">เลือกตำบล</option>
-                  </select>
+          <div class="col-md-6 form-group"  style="padding-left: 0px;">
+            <select class="ng-pristine ng-valid ng-touched" [(ngModel)]="amphurID" (change)="onAmphurChange()">
+              <option value="0">เลือกอำเภอ</option>
+              <option *ngFor="let item of amphurs" [value]="item.codeId">{{ item.name }}</option>
+            </select>
           </div>
-
-          <div class="col-md-6 form-group" style="padding-right: 0px;">
-            <select class="ng-pristine ng-valid ng-touched">
-                    <option value="0">เลือกอำเภอ</option>
-                  </select>
+          <div class="col-md-6 form-group"  style="padding-right: 0px;">
+            <select class="ng-pristine ng-valid ng-touched" [(ngModel)]="tumbolID" (change)="onTumbolChange()">
+              <option value="0">เลือกตำบล</option>
+              <option *ngFor="let item of tumbols" [value]="item.codeId">{{ item.name }}</option>
+            </select>
           </div>
         </div>
-
-
-        <div class="text-right col-md-4 form-group">
-          <label></label>
-        </div>
-
-        <div class="col-md-8 form-group">
-          <select class="ng-pristine ng-valid ng-touched">
-                    <option value="0">เลือกจังหวัด</option>
-                  </select>
-        </div>
-
-
 
         <div class="text-right col-md-4 form-group">
           <label class="label-form">รหัส 9 หลัก รพ.สต.</label>
@@ -122,11 +121,9 @@
           <input class="ng-pristine ng-valid ng-touched" type="text" placeholder="เบอร์โทรศัพท์">
         </div>
 
-
-
         <div class="col-md-6 col-md-offset-5">
           <button class="btn btn-primary" (click)="doRegister()">สร้างบัญชี รพ.สต.</button>
-          <button class="btn btn-primary">ยอนกลับ</button>
+          <!-- <button class="btn btn-primary">ยอนกลับ</button> -->
         </div>
       </div>
     </div>
