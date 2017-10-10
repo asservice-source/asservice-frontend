@@ -10,28 +10,113 @@ declare var bootbox:any;
 })
 export class SurverDiedComponent extends BaseComponent implements OnInit {
  // Datatables options
-  dtOptions: DataTables.Settings = {};
-  public data;
+ // dtOptions: DataTables.Settings = {};
   private http = new ApiHTTPService();
+  public datas = [
+    {
+      id: 1,
+      name: "Leanne Graham",
+      username: "Bret",
+      email: "Sincere@april.biz"
+    },
+    {
+      id: 2,
+      name: "Ervin Howell",
+      username: "Antonette",
+      email: "Shanna@melissa.tv"
+    },
+    // ... list of items
+    {
+      id: 11,
+      name: "Nicholas DuBuque",
+      username: "Nicholas.Stanton",
+      email: "Rey.Padberg@rosamond.biz"
+    }
+  ];
+  settings: any = {
+    mode:'inline',
+    attr:{
+      class: "table table-striped table-bordered"
+    },
+    actions:{
+      add: false,
+      edit: false,
+      delete: false,
+    },
+    hideSubHeader: true,
+    pager:{
+      display: true,
+      perPage: 2
+    },
+    columns: {
+      id: {
+        title: 'ID',
+        filter: false,
+        sort: false
+      },
+      name: {
+        title: 'Full Name',
+        filter: false
+      },
+      username: {
+        title: 'User Name',
+        filter: false
+      },
+      email: {
+        title: 'Email',
+        filter: false
+      }
+    }
+  };
   constructor() {  
     super();
    }
   ngOnInit() {
-    this.loadData();
-  };
-
+   
+  }
   loadData() {
-    
-        // this.http.get("assets/data_test/data_home_personal.json")
-        //   .map(res => res.json())
-        //   .subscribe(data => this.data = data);
-        let seft = this;
-        this.http.get('address/province', {}, function(data){
-          seft.data = data;
-          //seft.fetchData(data);
-        });
 
-        
+        // let self = this;
+        // this.http.get('address/province', {}, function(data){
+        //   self.datas = data;
+        // });
+
+
+        this.settings = {
+          mode:'inline',
+          attr:{
+            class: "table table-striped table-bordered"
+          },
+          actions:{
+            add: false,
+            edit: false,
+            delete: false,
+          },
+          hideSubHeader: false,
+          pager:{
+            display: true,
+            perPage: 1
+          },
+          columns: {
+            id: {
+              title: 'ID',
+              filter: false,
+            },
+            name: {
+              title: 'Full Name',
+              filter: false
+            },
+            username: {
+              title: 'User Name',
+              filter: false
+            },
+            email: {
+              title: 'Email',
+              filter: false
+            }
+          }
+        };
+
       }
 
       fetchData(data){

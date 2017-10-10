@@ -44,6 +44,7 @@ import { SurveyPersonalDetailModalComponent } from './surveys/personal/personal-
 import { LoadingComponent } from './loading/loading.component';
 import { SurveyHeadFilterComponent } from './survey-head-filter/survey-head-filter.component';
 import { Ng2CompleterModule } from "ng2-completer";
+import { Ng2SmartTableModule } from "ng2-smart-table";
 
 @NgModule({
   declarations: [
@@ -86,7 +87,8 @@ import { Ng2CompleterModule } from "ng2-completer";
     HttpModule,
     ReactiveFormsModule,
     DataTablesModule,
-    Ng2CompleterModule
+    Ng2CompleterModule,
+    Ng2SmartTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]
