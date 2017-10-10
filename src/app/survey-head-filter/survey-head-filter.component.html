@@ -4,7 +4,8 @@
   </div>
   <div class="col-md-3">  
       <select [(ngModel)]="villageID">
-          <option value="0">--เลือกหมู่--</option>      
+          <option value="0">--เลือกหมู่--</option>
+          <option *ngFor="let item of villageList" value="{{item.id}}">{{item.villageName}}</option>      
       </select>
   </div>
   
@@ -27,8 +28,8 @@
 </div>
 <div class="col-md-3">  
   <select [(ngModel)]="typeid">
-      <option value="0">--เลือกรอบสำรวจ--</option>  
-      <option value="1">ROUND 1</option>    
+      <option value="0">--เลือกรอบสำรวจ--</option>
+      <option value="1">round1</option>
   </select>
 </div>
 </div>
