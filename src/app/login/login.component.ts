@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from "./../sevice/user.service";
+import { UserService } from "./../service/user.service";
 import { Router } from "@angular/router";
 import { RequestOptions, Headers, URLSearchParams, Http } from '@angular/http';
 @Component({

@@ -5,7 +5,7 @@ import { AdminComponent } from './../admin/admin.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { GuardService } from "./../sevice/guard.service";
+import { GuardService } from "./../service/guard.service";
 import { ContentComponent } from "./../content/content.component";
 import { NotfoundComponent } from "./../notfound/notfound.component";
 import { LoginComponent } from "./../login/login.component";
