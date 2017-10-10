@@ -34,7 +34,7 @@ export class SurveyHeadFilterComponent implements OnInit {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers, method: "post" });
 
-    this.http.post("http://192.168.2.227:8080/API-ASService/village/village_no_list", param, options)
+    this.http.post("http://192.168.1.203:8080/API-ASService/village/village_no_list", param, options)
       .map(res => res.json())
       .subscribe(data => this.villageList=data.list);
 

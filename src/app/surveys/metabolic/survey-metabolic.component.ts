@@ -70,7 +70,7 @@ export class SurveyMetabolicComponent extends BaseComponent implements OnInit {
 
   openModal(key: string) {
     this.citizenID = key;
-    $("#myModal").modal('show');
+    $("#editMetabolicSurvey").modal('show');
 
   }
 
