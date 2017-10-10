@@ -5,7 +5,8 @@
     <div class="col-md-3">
         <select [(ngModel)]="villageID">
           <option value="0">--เลือกหมู่--</option>
-          <option *ngFor="let item of villageList" value="{{item.id}}">{{item.villageName}}</option>      
+          <!-- <option *ngFor="let item of villageList" value="{{item.id}}">{{item.villageName}}</option> -->
+          <option *ngFor="let village of list_village_no" [value]="village.id">{{ village.villageNo + ' : ' + village.villageName }}</option>
       </select>
     </div>
 
@@ -33,7 +34,7 @@
 
 <div class="row">
     <div class="col-md-12 text-center">
-        <button class="btn btn-primary btn-sm"><i class="fa fa-search"></i>{{typeCode}}</button>
+        <button class="btn btn-primary" (click)="doSearchFilter()" id="filter-btnSearch"><i class="fa fa-search"> ค้นหา</i></button>
     </div>
 </div>
 
