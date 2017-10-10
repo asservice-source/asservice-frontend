@@ -6,9 +6,7 @@
     <div class="col-md-3">
       <select name="filter-villageNo" [(ngModel)]="filterBean.villageID">
         <option value="0">--เลือกหมู่บ้าน--</option>
-        <option *ngFor="let village of list_village_no" [value]="village.id">{{ village.villageNo }}</option>
-        <!-- <option value="1">1</option>
-        <option value="2">2</option> -->
+        <option *ngFor="let village of list_village_no" [value]="village.id">{{ village.villageNo + ' : ' + village.villageName }}</option>
       </select>
     </div>
     <div class="col-md-2 text-right">
@@ -17,8 +15,7 @@
     <div class="col-md-3">
         <select name="filter-osmName" [(ngModel)]="filterBean.OSMID">
             <option value="0">--เลือก อสม.--</option>
-            <option value="1">นายวศิน อิอิ</option>
-            <option value="2">นางสาวอิฐ ตะกร</option>
+            <option *ngFor="let osm of list_osm" [value]="osm.citizenId">{{ osm.firstName + ' : ' + osm.lastName }}</option>
         </select>
     </div>
   </div>
@@ -31,8 +28,7 @@
     <div class="col-md-3">
       <select name="filter-homeNo" [(ngModel)]="filterBean.homeID">
         <option value="0">--เลือก บ้านเลขที่--</option>
-        <option value="1">101</option>
-        <option value="2">102</option>
+        <option *ngFor="let home of list_home_no" [value]="home.homeId">{{ osm.homeNo }}</option> 
         </select>
     </div>
   
