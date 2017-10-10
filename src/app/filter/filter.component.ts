@@ -26,6 +26,8 @@ export class FilterComponent extends BaseComponent implements OnInit {
   public list_home_no;
   public list_osm;
 
+  isDisabledHomeAndOSM: boolean = true;
+
   constructor(private http: Http) {
     super();
     this.filterBean = new FilterBean();
@@ -48,12 +50,19 @@ export class FilterComponent extends BaseComponent implements OnInit {
 
   changeVillageNo() {
     let self = this;
+
+    self.isDisabledHomeAndOSM = true;
+
     // Get list of osm and home no.
     let params_getOSM = { "id": self.filterBean.villageID };
     this.apiHttp.post(this.URL_LIST_OSM_AND_HOME_NO, params_getOSM, function (d) {
       if (d != null && d.status.toUpperCase() == "SUCCESS") {
         self.list_home_no = d.list[0].listHome;
         self.list_osm = d.list[0].listOSM;
+
+        self.filterBean.OSMID = 0;
+        self.filterBean.homeID = 0;
+        self.isDisabledHomeAndOSM = false;
       }
     })
   }
