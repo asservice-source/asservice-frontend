@@ -3,35 +3,8 @@
         <span>แบบสำรวจผู้พิการ และผู้ป่วยติดเตียง</span>
     </div>
     <div class="panel-body">
-        <!-- <app-filter></app-filter>  -->
-        <div class="row">
-            <div class="col-md-12">
-                <label>แบบสำรวจผู้พิการ และผู้ป่วยติดเตียง ประจำเดือน ก.ค. 2560</label>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-1 col-md-offset-2 text-right">
-                <label class="">หมู่ที่</label>
-            </div>
-            <div class="col-md-2">
-                <select [(ngModel)]="mooID">
-                      <option value="0">--เลือกหมู่--</option>      
-                  </select>
-            </div>
-
-            <div class="col-md-1 text-right">
-                <label class="">ชื่อ อสม.</label>
-            </div>
-            <div class="col-md-3">
-                <select [disabled]="mooID==0?true:false">
-                      <option>--เลือก อสม.--</option>      
-                  </select>
-            </div>
-            <div class="col-md-1">
-                <button class="btn btn-primary"><i class="fa fa-search"></i>ค้นหา</button>
-            </div>
-        </div>
+       <app-survey-head-filter [surveyTypeCode]="surveyTypeCode"></app-survey-head-filter>
+      
 
         <div class="row">
             <div class="col-sm-12 text-left">

@@ -9,10 +9,9 @@ export class SurveyPatientComponent implements OnInit {
 
   dtOptions: DataTables.Settings = {};
 
-  patientType = 0;
-  isShowsick : boolean = true;
-
-  mooID:number = 0;
+  public patientType:number = 0;
+  public isShowsick : boolean = true;
+  public surveyTypeCode: string = "PATIENT";
 
   constructor() { 
     this.loadData();

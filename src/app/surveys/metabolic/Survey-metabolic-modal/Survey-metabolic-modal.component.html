@@ -4,10 +4,9 @@
             <label class="label-form label_space">หมายเลขประจำตัว :</label>
         </div>
 
-
-        <label class="label-form label_space">{{Personalities.personal_CitizenID}}</label>
+        <label class="label-form label_space">{{PersonBean.citizenID}}</label>
         <label class="label-form">สิทธิบัตร :</label>
-        <label class="label-form label_space">{{Personalities.personal_PatentID}}</label>
+        <label class="label-form label_space">{{PersonBean.healthInsurananceType}}</label>
 
     </div>
 
@@ -16,13 +15,13 @@
             <label class="label-form label_space">ชื่อ-สกุล :</label>
         </div>
 
-        <label class="label-form label_space">{{Personalities.personal_Fname}}  {{Personalities.personal_Lname}}</label>
+        <label class="label-form label_space">{{PersonBean.firstName}}  {{PersonBean.lastName}}</label>
 
         <label class="label-form">เพศ :</label>
-        <label class="label-form label_space">{{Personalities.personal_Gender}}</label>
+        <label class="label-form label_space">{{PersonBean.gender}}</label>
 
         <label class="label-form">อายุ :</label>
-        <label class="label-form label_space">{{Personalities.personal_AgeYears}} ปี {{Personalities.personal_AgeMonths}} เดือน</label>
+        <label class="label-form label_space">{{PersonBean.ageYear}} ปี {{PersonBean.ageMont}} เดือน</label>
     </div>
 
 
@@ -31,20 +30,20 @@
             <label class="label-form label_space">บ้านเลขที่ :</label>
         </div>
 
-        <label class="label-form label_space">{{Personalities.personal_HouseID}}</label>
+        <label class="label-form label_space">{{PersonBean.homeNo}}</label>
 
 
         <label class="label-form">หมู่ :</label>
-        <label class="label-form label_space">{{Personalities.personal_HgroupID}}</label>
+        <label class="label-form label_space">{{PersonBean.mooNo}}</label>
 
         <label class="label-form">ตำบล :</label>
-        <label class="label-form label_space">{{Personalities.personal_DistrictID}}</label>
+        <label class="label-form label_space">{{PersonBean.tumbolName}}</label>
 
         <label class="label-form">อำเภอ :</label>
-        <label class="label-form label_space">{{Personalities.personal_AmphurID}}</label>
+        <label class="label-form label_space">{{PersonBean.amphurName}}</label>
 
         <label class="label-form">จังหวัด :</label>
-        <label class="label-form label_space">{{Personalities.personal_CityID}}</label>
+        <label class="label-form label_space">{{PersonBean.privinceName}}</label>
     </div>
 </div>
 <hr>
@@ -254,9 +253,6 @@
     <div class="col-md-1" style="padding-left: 0px;">
         <label class="label-form">เซนติเมตร</label>
     </div>
-
-
-
 </div>
 
 <div class="row">
@@ -410,10 +406,8 @@
     <div class="col-md-2">
         <div class="checkbox">
             <label class="label-form" style="font-size: 1em">
-                                      <input type="checkbox" [checked]="disease_Complication_etc" (change)="disease_Complication_etc = !disease_Complication_etc">
-                                      <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                                      อื่นๆ
-                                  </label>
+                <input type="checkbox" [checked]="disease_Complication_etc" (change)="disease_Complication_etc = !disease_Complication_etc">
+                <span class="cr"><i class="cr-icon fa fa-check"></i></span> อื่นๆ</label>
         </div>
     </div>
 </div>

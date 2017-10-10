@@ -5,6 +5,7 @@ export class PersonBean{
     public firstName: string;
     public nickName: string;
     public genderCode: string;
+    public gender: string;
     public prefixCode: string;
     public birthday: string;
     public mStatusCode: string;
@@ -25,6 +26,13 @@ export class PersonBean{
     public isDead: boolean;
     public deadDate: boolean;
     public healthInsurananceType: string;
+    public ageYear: string;
+    public ageMont: string;
+    public homeNo: string;
+    public mooNo: string;
+    public tumbolName: string;
+    public amphurName: string;
+    public privinceName: string;
 
 
 }

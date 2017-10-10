@@ -56,6 +56,24 @@
                             </td>
                         </tr>
                   </tbody> -->
+
+                    <tbody>
+                      <tr *ngFor="let item of data">
+                          <td class="text-center">{{item.id}}</td>
+                          <td class="text-left">{{item.name}}</td>
+                          <td class="text-center">{{item.cID}}</td>
+                          <td class="text-center">{{item.homeID}}</td>
+                          <td class="text-center">{{item.gender}}</td>
+                          <td class="text-center">{{item.age}}</td>
+                          <td class="text-center">
+
+                            <a data-target="#myModal" (click)="openModal(item.cID);" class="glyphicon glyphicon-pencil" title="แก้ไข"></a>
+                            <a class="glyphicon glyphicon-trash" title="ลบ" style="padding-left: 10px;"></a>
+
+                            </td>
+                        </tr>
+                  </tbody> 
+
                 </table>
               </div>
             </div>

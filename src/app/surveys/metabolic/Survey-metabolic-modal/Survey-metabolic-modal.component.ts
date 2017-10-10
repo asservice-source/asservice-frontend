@@ -3,6 +3,7 @@ import { Http, RequestOptions } from '@angular/http';
 import {Headers} from '@angular/http';
 import { NgModel } from '@angular/forms';
 import {Personalities} from './survey-metabolic-modal-bean';
+import {PersonBean} from './../../../beans/person.bean';
 
 
 @Component({
@@ -20,21 +21,9 @@ export class SurveyMetabolicModalComponent implements OnInit {
 
 
  public Personalities = new Personalities();
+ public PersonBean = new PersonBean();
 
-  // personal_CitizenID = '1-4599-00321-43-2';
-  // personal_PatentID = 'ท.89';
-  // personal_Fname = 'สมหมาย';
-  // personal_Lname = 'หลายใจ';
-  // personal_Gender = 'ชาย';
-  // personal_AgeYears = 42;
-  // personal_AgeMonths = 8;
-  // personal_HouseID = '11/1';
-  // personal_HgroupID = 8;
-  // personal_DistrictID = 'บ้านเป็ด';
-  // personal_AmphurID = 'เมือง';
-  // personal_CityID = 'ขอนแก่น';
-
-
+  
   healtHistory_isDiabetesParent : boolean;
   healtHistory_isOverBmi : boolean;
   healtHistory_isOverBp : boolean;

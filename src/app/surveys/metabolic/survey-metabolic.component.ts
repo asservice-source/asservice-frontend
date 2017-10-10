@@ -36,35 +36,35 @@ export class SurveyMetabolicComponent extends BaseComponent implements OnInit {
   }
 
   loadData() {
-    // this.http.get("assets/test-list.json")
-    //   .map(res => res.json())
-    //   .subscribe(data => this.data = data);
+    this.http.get("assets/test-list.json")
+      .map(res => res.json())
+      .subscribe(data => this.data = data);
 
-    // this.dtOptions = {
-    //   pagingType: "full_numbers",
-    //   processing: true,
-    //   columns: [{
-    //     width: "40px",
-    //     orderable: false
-    //   }, {
-    //     width: ""
-    //   }, {
-    //     width: "220px"
-    //   }, {
-    //     width: "70px"
-    //   }, {
-    //     width: "70px"
-    //   }, {
-    //     width: "70px"
-    //   }, {
-    //     width: "70px"
-    //   }, {
-    //     width: "70px"
-    //   }, {
-    //     width: "70px",
-    //     orderable: false
-    //   }]
-    // };
+    this.dtOptions = {
+      pagingType: "full_numbers",
+      processing: true,
+      columns: [{
+        width: "40px",
+        orderable: false
+      }, {
+        width: ""
+      }, {
+        width: "220px"
+      }, {
+        width: "70px"
+      }, {
+        width: "70px"
+      }, {
+        width: "70px"
+      }, {
+        width: "70px"
+      }, {
+        width: "70px"
+      }, {
+        width: "70px",
+        orderable: false
+      }]
+    };
 
   }
 
