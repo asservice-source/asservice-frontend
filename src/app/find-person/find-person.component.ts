@@ -34,7 +34,6 @@ export class FindPersonComponent extends BaseComponent{
   }
 
   doPersonChange(){
-    
     this.notify.emit(this.personBean);
   }
 

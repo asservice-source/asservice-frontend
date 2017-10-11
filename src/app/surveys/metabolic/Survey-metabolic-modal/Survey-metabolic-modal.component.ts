@@ -16,7 +16,7 @@ export class SurveyMetabolicModalComponent implements OnInit {
   
 
   @Input() set citizenID(citizenID:string){
-    this.Personalities.personal_CitizenID = citizenID;
+    this.PersonBean.citizenID = citizenID;
   }
 
 
