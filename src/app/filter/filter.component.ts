@@ -59,7 +59,6 @@ export class FilterComponent extends BaseComponent implements OnInit {
       if (d != null && d.status.toUpperCase() == "SUCCESS") {
         self.list_home_no = d.list[0].listHome;
         self.list_osm = d.list[0].listOSM;
-
         self.filterBean.OSMID = 0;
         self.filterBean.homeID = 0;
         self.isDisabledHomeAndOSM = false;

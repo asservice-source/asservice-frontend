@@ -29,12 +29,9 @@ export class SurveyHeadFilterComponent extends BaseComponent implements OnInit {
   private apiHttp = new ApiHTTPService();
   @Output() notifyFilter: EventEmitter<HeadFilterBean> = new EventEmitter<HeadFilterBean>();
   public filterBean: HeadFilterBean;
-
-  public villageID = 0;
-  public OSMID = 0;
+  
   public typeCode: string;
   public villageList;
-  public roundID : number = 1;
 
   constructor(private http: Http) {
     super();
