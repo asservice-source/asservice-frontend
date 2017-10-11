@@ -36,11 +36,11 @@ import { SurveyMetabolicComponent } from './surveys/metabolic/survey-metabolic.c
 import { SurveyDiedAddComponent } from './surveys/died/died-add/survey-died-add.component';
 import { SurveyMetabolicModalComponent } from './surveys/metabolic/Survey-metabolic-modal/survey-metabolic-modal.component';
 import { SurveyMosquitoComponent } from './surveys/mosquito/survey-mosquito.component';
-import { SurveyPersonalDetailComponent } from './surveys/personal/personal-detail/personal-detail.component';
+import { SurveyPersonalDetailComponent, SurveyPersonalDetailButtonEditComponent } from './surveys/personal/personal-detail/personal-detail.component';
 import { SurveyCancerComponent } from './surveys/cancer/survey-cancer.component';
 import { SurveyPersonalDetailModalComponent } from './surveys/personal/personal-detail/survey-personal-detail-modal/survey-personal-detail-modal.component';
 import { SurveyHeadFilterComponent } from './survey-head-filter/survey-head-filter.component';
-import { PersonalComponent, PersonalButtonEditComponent } from './surveys/personal/personal.component';
+import { SurveyPersonalComponent, SurveyPersonalButtonEditComponent } from './surveys/personal/personal.component';
 import { FilterComponent } from './filter/filter.component';
 import { FindPersonComponent } from './find-person/find-person.component';
 import { ActionCustomViewComponent } from './action-custom-table/action-custom-view.component'
@@ -66,7 +66,6 @@ import { LoadingComponent } from './loading/loading.component';
     SurveyPregnantAddComponent,
     SurveyPregnantDetailComponent,
     SurverDiedComponent,
-    PersonalComponent,
     SurveyPatientComponent,
     SurveyMetabolicComponent,
     SurveyMetabolicModalComponent,
@@ -74,12 +73,14 @@ import { LoadingComponent } from './loading/loading.component';
     SurveyMosquitoComponent,
     SurveyPersonalDetailComponent,
     SurveyCancerComponent,
+    SurveyPersonalComponent,
+    SurveyPersonalButtonEditComponent,
     SurveyPersonalDetailModalComponent,
+    SurveyPersonalDetailButtonEditComponent,
     SurveyHeadFilterComponent,
     SumpregnantComponent,
     LoadingComponent,
-    ActionCustomViewComponent,
-    PersonalButtonEditComponent
+    ActionCustomViewComponent
   ],
   imports: [
     BrowserModule,
@@ -94,7 +95,8 @@ import { LoadingComponent } from './loading/loading.component';
   ],
   entryComponents: [
     ActionCustomViewComponent,
-    PersonalButtonEditComponent
+    SurveyPersonalButtonEditComponent,
+    SurveyPersonalDetailButtonEditComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

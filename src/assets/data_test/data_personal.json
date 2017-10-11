@@ -1,34 +1,34 @@
 [
   {
     "name": "นายข้าวหลาม หนองมน",
-    "citizen_id": "1400000000111",
-    "sex": "ชาย",
-    "blood_type": "A",
-    "date_of_birth": "16/01/2535",
+    "citizenId": "1400000000111",
+    "age": "25",
+    "bloodType": "A",
+    "dateOfBirth": "16/01/2535",
     "job": "ชาวสวน"
   },
   {
     "name": "นางสาวข้าวเหนียว ปากซอย",
-    "citizen_id": "1400000000112",
-    "sex": "หญิง",
-    "blood_type": "A",
-    "date_of_birth": "01/11/2535",
+    "citizenId": "1400000000112",
+    "age": "23",
+    "bloodType": "A",
+    "dateOfBirth": "01/11/2535",
     "job": "พนักงานประจำ"
   },
   {
     "name": "นายข้าวต้ม ปลาทะเล",
-    "citizen_id": "1400000000113",
-    "sex": "ชาย",
-    "blood_type": "AB",
-    "date_of_birth": "10/09/2525",
+    "citizenId": "1400000000113",
+    "age": "12",
+    "bloodType": "AB",
+    "dateOfBirth": "10/09/2525",
     "job": "ชาวไร่"
   },
   {
     "name": "นางข้าวจี่ ไข่เจียว",
-    "citizen_id": "1400000000114",
-    "sex": "หญิง",
-    "blood_type": "B",
-    "date_of_birth": "01/07/2535",
+    "citizenId": "1400000000114",
+    "age": "18",
+    "bloodType": "B",
+    "dateOfBirth": "01/07/2535",
     "job": "ชาวนา"
   }
 ]

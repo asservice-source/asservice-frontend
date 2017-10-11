@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Http, Response, RequestOptions } from "@angular/http";
 import { Router } from "@angular/router";
-import { BaseComponent } from "./../../base-component"
+import { BaseComponent } from "./../../base-component";
+import { PersonBean } from "../../beans/person.bean";
 
 declare var $;
 
@@ -13,7 +14,7 @@ declare var $;
 export class SurveyMetabolicComponent extends BaseComponent implements OnInit {
 
   public year = '2560';
-  public citizenID: string;
+  public citizenID: string = "0";
   public dtOptions: DataTables.Settings = {};
   public data;
   public mooID: number = 0;
@@ -70,8 +71,14 @@ export class SurveyMetabolicComponent extends BaseComponent implements OnInit {
 
   openModal(key: string) {
     this.citizenID = key;
-    $("#editMetabolicSurvey").modal('show');
+    $("#addMetabolicSurvey").modal('show');
 
+  }
+
+  getCitizen(event: PersonBean) {
+    this.citizenID = event.citizenID;
+    console.log(this.citizenID);
+    
   }
 
 }

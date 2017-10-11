@@ -12,7 +12,7 @@ import { LoginComponent } from "./../login/login.component";
 import { RegisterComponent } from "./../register/register.component";
 import { SurveyPregnantComponent } from "./../surveys/pregnant/survey-pregnant.component";
 import { SurverDiedComponent } from "./../surveys/died/survey-died.component";
-import { PersonalComponent } from "./../surveys/personal/personal.component";
+import { SurveyPersonalComponent } from "./../surveys/personal/personal.component";
 import { SurveyPersonalDetailComponent } from "./../surveys/personal/personal-detail/personal-detail.component";
 import { SurveyPatientComponent } from "./../surveys/patient/survey-patient.component";
 import { SurveyMetabolicComponent } from "./../surveys/metabolic/survey-metabolic.component";
@@ -61,10 +61,10 @@ import { SumpregnantComponent } from "./../summary/sumpregnant/sumpregnant.compo
             },
             {
               path: 'personal',
-              component: PersonalComponent
+              component: SurveyPersonalComponent
             },
             {
-              path: 'personal-detail/:hid',
+              path: 'personal-detail/:homeId',
               component: SurveyPersonalDetailComponent
             },
             {

@@ -7,7 +7,7 @@ export class PersonBean{
     public genderCode: string;
     public gender: string;
     public prefixCode: string;
-    public birthday: string;
+    public birthDate: string;
     public mStatusCode: string;
     public occupCode: string;
     public raceCode: string;
@@ -27,12 +27,11 @@ export class PersonBean{
     public deadDate: boolean;
     public healthInsurananceType: string;
     public ageYear: string;
-    public ageMont: string;
+    public ageMonth: string;
     public homeNo: string;
-    public mooNo: string;
+    public villageNo: string;
     public tumbolName: string;
     public amphurName: string;
-    public privinceName: string;
-
-
+    public provinceName: string;
+    public guestType: string;
 }
