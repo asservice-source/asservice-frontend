@@ -29,7 +29,12 @@ export class SurveyPersonalComponent extends BaseComponent implements OnInit, Af
     self.settings = this.getTabelSetting({
       no: {
         title: 'ลำดับ',
-        filter: false
+        type:'html',
+        valuePrepareFunction: (cell,row) => {
+            // let x= cell;
+            // let y = row;
+            return "";
+        }
       },
       villageNo: {
         title: 'หมู่',

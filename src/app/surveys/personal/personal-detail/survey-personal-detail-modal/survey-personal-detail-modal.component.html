@@ -1,5 +1,5 @@
 <div id="modalMember" class="modal fade" role="dialog">
-  <div class="modal-lg modal-dialog">
+  <div class="modal-xl modal-dialog">
 
     <div class="modal-content">
       <div class="modal-header">
@@ -10,11 +10,12 @@
       <div class="panel-body">
 
         <div class="row">
+          <div class="col-md-1"></div>
           <div class="col-md-2 text-right">
             <label class="label-form">ประเภท</label>
           </div>
-          <div class="col-md-4">
-            <select name="dropdown-type" id="dropdown-type" [(ngModel)]="mTypeNo">
+          <div class="col-md-3">
+            <select name="ddlGuestType" [(ngModel)]="person.guestType">
               <option value="0">--เลือกประเภท--</option>
               <option value="1">มีชื่อในทะเบียนบ้านจริง</option>
               <option value="2">ไม่มีชื่อในทะเบียนบ้าน</option>
@@ -23,6 +24,7 @@
         </div>
 
         <div class="row">
+            <div class="col-md-1"></div>
           <div class="col-md-2 text-right">
             <label class="label-form">หมายเลขประจำตัว</label>
           </div>
@@ -32,33 +34,35 @@
         </div>
 
         <div class="row">
+            <div class="col-md-1"></div>
           <div class="col-md-2 text-right">
             <label class="label-form">ชื่อจริง</label>
           </div>
           <div class="col-md-3">
-            <input type="text" class="ng-pristine ng-valid ng-touched" placeholder="ชื่อจริง" value="{{pFname}}">
+            <input type="text" class="ng-pristine ng-valid ng-touched" [(ngModel)]="person.firstName">
           </div>
           <div class="col-md-1 text-right">
             <label class="label-form">นามสกุล</label>
           </div>
           <div class="col-md-3">
-            <input type="text" class="ng-pristine ng-valid ng-touched" placeholder="นามสกุล" value="{{pLname}}">
+            <input type="text" class="ng-pristine ng-valid ng-touched" [(ngModel)]="person.lastName">
           </div>
         </div>
 
         <div class="row">
+            <div class="col-md-1"></div>
           <div class="col-md-2 text-right">
             <label class="label-form">วันเดือนปี เกิด</label>
           </div>
           <div class="col-md-3">
-            <input type="text" [disabled]="true" placeholder="วว/ดด/ปป" value="{{birthDate}}">
+            <input type="text" [disabled]="true" placeholder="วว/ดด/ปป" [(ngModel)]="person.birthDate">
           </div>
 
           <div class="col-md-1 text-right">
             <label class="label-form">การศึกษา</label>
           </div>
           <div class="col-md-3">
-            <select name="dropdown-study" id="dropdown-study" [(ngModel)]="mStudyNo">
+            <select name="dropdown-study" id="dropdown-study" [(ngModel)]="person.mStudyNo">
               <option value="0">--เลือกระดับการศึกษา--</option>
               <option value="1">ประถมศึกษาตอนต้น</option>
               <option value="2">ประถมศึกษาตอนปลาย</option>
@@ -73,20 +77,22 @@
         </div>
 
         <div class="row">
+            <div class="col-md-1"></div>
           <div class="col-md-2 text-right">
             <label class="label-form">อาชีพ</label>
           </div>
           <div class="col-md-3">
-            <input type="text" class="ng-pristine ng-valid ng-touched" placeholder="อาชีพ" value="{{pJob}}">
+            <input type="text" class="ng-pristine ng-valid ng-touched" [(ngModel)]="person.occupCode">
           </div>
         </div>
 
         <div class="row">
+            <div class="col-md-1"></div>
           <div class="col-md-2 text-right">
             <label class="label-form">สถานะอยู่</label>
           </div>
           <div class="col-md-3">
-            <select name="dropdown-livetype" id="dropdown-livetype" [(ngModel)]="mLiveType">
+            <select name="dropdown-livetype" id="dropdown-livetype" [(ngModel)]="person.mLiveType">
               <option value="0">--เลือกสถานะ--</option>
               <option value="1">อยู่จริง</option>
               <option value="2">มีชื่อ แต่ไม่ได้อยู่</option>
@@ -97,7 +103,7 @@
             <label class="label-form">สถานะ</label>
           </div>
           <div class="col-md-3">
-            <select name="dropdown-ownertype" id="dropdown-ownertype" [(ngModel)]="mOwnerNo">
+            <select name="dropdown-ownertype" id="dropdown-ownertype" [(ngModel)]="person.mOwnerNo">
               <option value="0">--เลือกสถานะ--</option>
               <option value="1">เจ้าบ้าน</option>
               <option value="2">ผู้อาศัย</option>
@@ -106,21 +112,23 @@
         </div>
 
         <div class="row">
+            <div class="col-md-1"></div>
           <div class="col-md-2 text-right">
             <label class="label-form">โรคประจำตัว</label>
           </div>
           <div class="col-md-3">
-            <input type="text" class="ng-pristine ng-valid ng-touched" placeholder="ชื่อจริง" value="{{pDisease}}">
+            <input type="text" class="ng-pristine ng-valid ng-touched" [(ngModel)]="person.disease">
           </div>
 
         </div>
 
         <div class="row">
+            <div class="col-md-1"></div>
           <div class="col-md-2 text-right">
             <label class="label-form">หมายเหตุ</label>
           </div>
-          <div class="col-md-3">
-            <textarea class="ng-pristine ng-valid ng-touched" placeholder="ระบุหมายเหตุ ถ้ามี"></textarea>
+          <div class="col-md-7">
+            <textarea style="height: 50px;" class="ng-pristine ng-valid ng-touched" placeholder="ระบุหมายเหตุ ถ้ามี" [(ngModel)]="person.reason"></textarea>
           </div>
 
         </div>
@@ -128,7 +136,7 @@
         <div class="row text-center">
           <div class="col-md-12">
             <button class="btn btn-primary text-center" (click)="clickSave();">บันทึก</button>
-            <button class="btn btn-primary text-center">ยกเลิก</button>
+            <button class="btn btn-primary text-center" data-dismiss="modal">ยกเลิก</button>
           </div>
         </div>
 

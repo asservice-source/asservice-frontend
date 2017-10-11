@@ -53,6 +53,7 @@ export class SurveyPersonalDetailComponent extends BaseComponent implements OnIn
         onComponentInitFunction(instance) {
           instance.action.subscribe((row) => {
             self.paramCitizenId = row.citizenId;
+            $("#modalMember").modal({backdrop: 'static', keyboard: false});
           });
         }
       }

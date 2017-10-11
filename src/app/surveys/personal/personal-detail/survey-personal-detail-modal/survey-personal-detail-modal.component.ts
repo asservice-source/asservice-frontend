@@ -21,6 +21,7 @@ export class SurveyPersonalDetailModalComponent implements OnInit {
 
   constructor() {
     this.person = new PersonBean();
+    this.person.guestType = "0";
   }
 
   ngOnInit() {
@@ -38,9 +39,6 @@ export class SurveyPersonalDetailModalComponent implements OnInit {
       // })
       // if (self.personData) {
       this.person.citizenID = citizenId;
-
-
-      $("#modalMember").modal("show");
       // }
     }
   }
