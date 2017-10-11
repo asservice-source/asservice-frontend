@@ -1,11 +1,22 @@
 <div class="row">
     <div class="col-md-1 col-md-offset-1 text-right">
+        <label class="label-form">รอบสำรวจ</label>
+    </div>
+    <div class="col-md-4">
+        <select [(ngModel)]="roundID">
+      <option value="0">--เลือกรอบสำรวจ--</option>
+      <option value="1">ประจำเดือน พฤศจิกายน พ.ศ. 2560</option>
+  </select>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-1 col-md-offset-1 text-right">
         <label class="label-form">หมู่ที่</label>
     </div>
     <div class="col-md-3">
-        <select [(ngModel)]="villageID">
+        <select [(ngModel)]="villageID" (change)="getOSMbyVillageID">
           <option value="0">--เลือกหมู่--</option>
-          <!-- <option *ngFor="let item of villageList" value="{{item.id}}">{{item.villageName}}</option> -->
           <option *ngFor="let village of list_village_no" [value]="village.id">{{ village.villageNo + ' : ' + village.villageName }}</option>
       </select>
     </div>
@@ -15,26 +26,14 @@
     </div>
     <div class="col-md-3">
         <select [disabled]="villageID== 0?true:false" [(ngModel)]="OSMID">
-          <option value="0">--เลือก อสม.--</option>      
+          <option value="0">--เลือก อสม.--</option>  
       </select>
     </div>
 </div>
 
 <div class="row">
-    <div class="col-md-1 col-md-offset-1 text-right">
-        <label class="label-form">รอบสำรวจ</label>
-    </div>
-    <div class="col-md-3">
-        <select [(ngModel)]="typeid">
-      <option value="0">--เลือกรอบสำรวจ--</option>
-      <option value="1">ประจำเดือน พฤศจิกายน พ.ศ. 2560</option>
-  </select>
-    </div>
-</div>
-
-<div class="row">
     <div class="col-md-12 text-center">
-        <button class="btn btn-primary" (click)="doSearchFilter()" id="filter-btnSearch"><i class="fa fa-search"> ค้นหา</i></button>
+        <button class="btn btn-primary btn-sm" (click)="doSearchFilter()" id="filter-btnSearch"><i class="fa fa-search"> {{typeCode}}</i></button>
     </div>
 </div>
 
