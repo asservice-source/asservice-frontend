@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { BaseComponent } from "../../base-component";
 import { ApiHTTPService } from "../../service/api-http.service";
+import { ActionCustomViewComponent } from '../../action-custom-table/action-custom-view.component';
+
 declare var $: any;
 declare var bootbox:any;
+
 @Component({
   selector: 'app-survey-died',
   templateUrl: './survey-died.component.html',
@@ -12,47 +15,40 @@ export class SurverDiedComponent extends BaseComponent implements OnInit {
  // Datatables options
  // dtOptions: DataTables.Settings = {};
   private http = new ApiHTTPService();
+  public settings: any;
   public datas = [
     {
       id: 1,
       name: "Leanne Graham",
       username: "Bret",
       email: "Sincere@april.biz"
+     
     },
     {
       id: 2,
       name: "Ervin Howell",
       username: "Antonette",
-      email: "Shanna@melissa.tv"
+      email: "Shanna@melissa.tv",
+      
     },
     // ... list of items
     {
       id: 11,
       name: "Nicholas DuBuque",
       username: "Nicholas.Stanton",
-      email: "Rey.Padberg@rosamond.biz"
-    }
+      email: "Rey.Padberg@rosamond.biz",
+     
+    },
+   
   ];
-  settings: any = {
-    mode:'inline',
-    attr:{
-      class: "table table-striped table-bordered"
-    },
-    actions:{
-      add: false,
-      edit: false,
-      delete: false,
-    },
-    hideSubHeader: true,
-    pager:{
-      display: true,
-      perPage: 2
-    },
-    columns: {
+  
+  constructor() {  
+    super();
+    let self = this;
+    this.settings = this.getTabelSetting({
       id: {
         title: 'ID',
         filter: false,
-        sort: false
       },
       name: {
         title: 'Full Name',
@@ -65,14 +61,36 @@ export class SurverDiedComponent extends BaseComponent implements OnInit {
       email: {
         title: 'Email',
         filter: false
+      },
+      action: {
+        title: 'Action',
+        filter: false,
+        type: 'custom',
+        renderComponent: ActionCustomViewComponent,
+        onComponentInitFunction(instance) {
+          // instance.view.subscribe(row => {
+          //   self.doClick(row);
+          // });
+          // instance.edit.subscribe(row => {
+          //   self.doClick(row);
+          // });
+          // instance.delete.subscribe(row => {
+          //   self.doClick(row);
+          // });
+
+          instance.action.subscribe(row => {
+            self.doClick(row);
+          });
+        }
       }
-    }
-  };
-  constructor() {  
-    super();
+    });
+
    }
   ngOnInit() {
-   
+  
+  }
+  doClick(row){
+    alert(row.action);
   }
   loadData() {
 
@@ -81,41 +99,8 @@ export class SurverDiedComponent extends BaseComponent implements OnInit {
         //   self.datas = data;
         // });
 
-
-        this.settings = {
-          mode:'inline',
-          attr:{
-            class: "table table-striped table-bordered"
-          },
-          actions:{
-            add: false,
-            edit: false,
-            delete: false,
-          },
-          hideSubHeader: false,
-          pager:{
-            display: true,
-            perPage: 1
-          },
-          columns: {
-            id: {
-              title: 'ID',
-              filter: false,
-            },
-            name: {
-              title: 'Full Name',
-              filter: false
-            },
-            username: {
-              title: 'User Name',
-              filter: false
-            },
-            email: {
-              title: 'Email',
-              filter: false
-            }
-          }
-        };
+  
+        
 
       }
 

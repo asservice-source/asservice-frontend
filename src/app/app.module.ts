@@ -24,7 +24,7 @@ import { RegisterComponent } from './register/register.component';
 import { SurveyPregnantComponent } from './surveys/pregnant/survey-pregnant.component';
 import { SurveyPregnantAddComponent } from './surveys/pregnant/pregnant-add/survey-pregnant-add.component';
 import { SurveyPregnantDetailComponent } from './surveys/pregnant/pregnant-detail/survey-pregnant-detail.component';
-import { SurverDiedComponent } from './surveys/died/survey-died.component';
+import { SurverDiedComponent} from './surveys/died/survey-died.component';
 import { PersonalComponent } from './surveys/personal/personal.component';
 import { SurveyPatientComponent } from './surveys/patient/survey-patient.component';
 import { SurveyMetabolicComponent } from './surveys/metabolic/survey-metabolic.component';
@@ -35,6 +35,7 @@ import { FindPersonComponent } from './find-person/find-person.component';
 import { SurveyMosquitoComponent } from './surveys/mosquito/survey-mosquito.component';
 import { SurveyPersonalDetailComponent } from './surveys/personal/personal-detail/personal-detail.component';
 import { SurveyCancerComponent } from './surveys/cancer/survey-cancer.component';
+import { ActionCustomViewComponent } from './action-custom-table/action-custom-view.component'
 
 import 'rxjs/add/operator/map';
 import { HttpModule } from '@angular/http';
@@ -76,7 +77,8 @@ import { Ng2SmartTableModule } from "ng2-smart-table";
     SurveyPersonalDetailModalComponent,
     SumpregnantComponent,
     LoadingComponent,
-    SurveyHeadFilterComponent
+    SurveyHeadFilterComponent,
+    ActionCustomViewComponent
    
   ],
   imports: [
@@ -89,6 +91,9 @@ import { Ng2SmartTableModule } from "ng2-smart-table";
     DataTablesModule,
     Ng2CompleterModule,
     Ng2SmartTableModule
+  ],
+  entryComponents: [
+    ActionCustomViewComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]

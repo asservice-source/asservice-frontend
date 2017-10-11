@@ -20,4 +20,28 @@ export class BaseComponent implements OnInit {
     public getHospitalCode() {
         return "04269";
     }
+    public getTabelSetting(columns:any){
+        var settings: any = {
+            mode:'inline',
+            attr:{
+              class: "table table-striped table-bordered"
+            },
+            actions:{
+              add: false,
+              edit: false,
+              delete: false,
+            },
+            hideSubHeader: true,
+            pager:{
+              display: true,
+              perPage: 2
+            }
+          };
+
+          settings.columns = columns;
+
+          
+
+          return settings;
+    }
 }
