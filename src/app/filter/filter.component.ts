@@ -18,15 +18,15 @@ export class FilterComponent extends BaseComponent implements OnInit {
   public filterBean: FilterBean;
 
   // Call api url
-  URL_LIST_VILLAGE_NO: string = "village/village_no_list";
-  URL_LIST_OSM_AND_HOME_NO: string = "osm/osm_and_home_list_by_village";
+  private URL_LIST_VILLAGE_NO: string = "village/village_no_list";
+  private URL_LIST_OSM_AND_HOME_NO: string = "osm/osm_and_home_list_by_village";
 
   // Data
   public list_village_no;
   public list_home_no;
   public list_osm;
 
-  isDisabledHomeAndOSM: boolean = true;
+  public isDisabledHomeAndOSM: boolean = true;
 
   constructor(private http: Http) {
     super();

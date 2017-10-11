@@ -3,6 +3,12 @@ import { AppRoutingModule } from './app-routing/app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { DataTablesModule } from 'angular-datatables';
+import { Ng2CompleterModule } from "ng2-completer";
+import { Ng2SmartTableModule } from "ng2-smart-table";
+import { HttpModule } from '@angular/http';
+import 'rxjs/add/operator/map';
+
 import { AppComponent } from './app.component';
 import { MainComponent } from './main/main.component';
 import { MainHeaderComponent } from './main/main-header/main-header.component';
@@ -24,28 +30,22 @@ import { RegisterComponent } from './register/register.component';
 import { SurveyPregnantComponent } from './surveys/pregnant/survey-pregnant.component';
 import { SurveyPregnantAddComponent } from './surveys/pregnant/pregnant-add/survey-pregnant-add.component';
 import { SurveyPregnantDetailComponent } from './surveys/pregnant/pregnant-detail/survey-pregnant-detail.component';
-import { SurverDiedComponent} from './surveys/died/survey-died.component';
-import { PersonalComponent } from './surveys/personal/personal.component';
+import { SurverDiedComponent } from './surveys/died/survey-died.component';
 import { SurveyPatientComponent } from './surveys/patient/survey-patient.component';
 import { SurveyMetabolicComponent } from './surveys/metabolic/survey-metabolic.component';
-import { SurveyMetabolicModalComponent } from './surveys/metabolic/Survey-metabolic-modal/survey-metabolic-modal.component';
-import { FilterComponent } from './filter/filter.component';
 import { SurveyDiedAddComponent } from './surveys/died/died-add/survey-died-add.component';
-import { FindPersonComponent } from './find-person/find-person.component';
+import { SurveyMetabolicModalComponent } from './surveys/metabolic/Survey-metabolic-modal/survey-metabolic-modal.component';
 import { SurveyMosquitoComponent } from './surveys/mosquito/survey-mosquito.component';
 import { SurveyPersonalDetailComponent } from './surveys/personal/personal-detail/personal-detail.component';
 import { SurveyCancerComponent } from './surveys/cancer/survey-cancer.component';
-import { ActionCustomViewComponent } from './action-custom-table/action-custom-view.component'
-
-import 'rxjs/add/operator/map';
-import { HttpModule } from '@angular/http';
-import { SumpregnantComponent } from './summary/sumpregnant/sumpregnant.component';
-import { DataTablesModule } from 'angular-datatables';
 import { SurveyPersonalDetailModalComponent } from './surveys/personal/personal-detail/survey-personal-detail-modal/survey-personal-detail-modal.component';
-import { LoadingComponent } from './loading/loading.component';
 import { SurveyHeadFilterComponent } from './survey-head-filter/survey-head-filter.component';
-import { Ng2CompleterModule } from "ng2-completer";
-import { Ng2SmartTableModule } from "ng2-smart-table";
+import { PersonalComponent, PersonalButtonEditComponent } from './surveys/personal/personal.component';
+import { FilterComponent } from './filter/filter.component';
+import { FindPersonComponent } from './find-person/find-person.component';
+import { ActionCustomViewComponent } from './action-custom-table/action-custom-view.component'
+import { SumpregnantComponent } from './summary/sumpregnant/sumpregnant.component';
+import { LoadingComponent } from './loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -75,11 +75,11 @@ import { Ng2SmartTableModule } from "ng2-smart-table";
     SurveyPersonalDetailComponent,
     SurveyCancerComponent,
     SurveyPersonalDetailModalComponent,
+    SurveyHeadFilterComponent,
     SumpregnantComponent,
     LoadingComponent,
-    SurveyHeadFilterComponent,
-    ActionCustomViewComponent
-   
+    ActionCustomViewComponent,
+    PersonalButtonEditComponent
   ],
   imports: [
     BrowserModule,
@@ -94,6 +94,7 @@ import { Ng2SmartTableModule } from "ng2-smart-table";
   ],
   entryComponents: [
     ActionCustomViewComponent,
+    PersonalButtonEditComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
