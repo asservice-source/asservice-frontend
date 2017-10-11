@@ -20,26 +20,47 @@ export class SurverDiedComponent extends BaseComponent implements OnInit {
     {
       id: 1,
       name: "Leanne Graham",
-      username: "Bret",
-      email: "Sincere@april.biz"
-     
+      citizenId: "1-4113-00-1349-8-9",
+      reason: "ลืมหายใจ",
+      age: 38,
+      status: "ยืนยัน"
     },
     {
       id: 2,
       name: "Ervin Howell",
-      username: "Antonette",
-      email: "Shanna@melissa.tv",
+      citizenId: "1-4113-00-1349-8-0",
+      reason: "ลืมหายใจ",
+      age: 54,
+      status: "ยืนยัน"
       
     },
-    // ... list of items
     {
       id: 11,
       name: "Nicholas DuBuque",
-      username: "Nicholas.Stanton",
-      email: "Rey.Padberg@rosamond.biz",
+      citizenId: "1-4113-00-2259-6-4",
+      reason: "ลืมหายใจ",
+      age: 32,
+      status: "ยืนยัน"
      
     },
-   
+    {
+      id: 12,
+      name: "Nicholas DuBuque",
+      citizenId: "1-4113-00-2254-6-2",
+      reason: "ลืมหายใจ",
+      age: 62,
+      status: "ยืนยัน"
+     
+    },
+    {
+      id: 13,
+      name: "Nicholas DuBuque",
+      citizenId: "1-4113-00-3259-6-5",
+      reason: "ลืมหายใจ",
+      age: 42,
+      status: "ยืนยัน"
+     
+    },
   ];
   
   constructor() {  
@@ -47,24 +68,40 @@ export class SurverDiedComponent extends BaseComponent implements OnInit {
     let self = this;
     this.settings = this.getTabelSetting({
       id: {
-        title: 'ID',
+        title: 'ลำดับ',
         filter: false,
+        sort: false,
+        width: '60px',
       },
       name: {
-        title: 'Full Name',
+        title: 'ชื่อ - นามสกุล',
         filter: false
       },
-      username: {
-        title: 'User Name',
-        filter: false
+      citizenId: {
+        title: 'เลขประจำตัวประชาชน',
+        filter: false, 
+        width: '200px',
       },
-      email: {
-        title: 'Email',
-        filter: false
+      reason: {
+        title: 'สาเหตุการเสียชีวิต',
+        filter: false, 
+        width: '180px',
+      },
+      age: {
+        title: 'อายุ',
+        filter: false ,
+        width: '70px',
+      },
+      status: {
+        title: 'สถานะ',
+        filter: false,
+        width: '90px',
       },
       action: {
-        title: 'Action',
+        title: 'จัดการ',
         filter: false,
+        sort: false,
+        width: '100px',
         type: 'custom',
         renderComponent: ActionCustomViewComponent,
         onComponentInitFunction(instance) {
@@ -90,7 +127,7 @@ export class SurverDiedComponent extends BaseComponent implements OnInit {
   
   }
   doClick(row){
-    alert(row.action);
+    alert(row.id);
   }
   loadData() {
 
@@ -113,58 +150,5 @@ export class SurverDiedComponent extends BaseComponent implements OnInit {
         var dtTable = $("#table-list").dataTable({
           data: data
         });
-        
-        // var tbl = $("#table-list").dataTable({
-        //   pagingType: "full_numbers",
-        //   paging: true,
-        //   pageLength: 10,
-        //   searching: true,
-        //   columns: [{
-        //     orderable: false,
-        //     width: "40px"
-        //   }, {
-           
-        //   }, {
-        //     width: "140px"
-        //   }, {
-        //     width: "70px"
-        //   }, {
-        //     width: "70px"
-        //   }, {
-        //     width: "70px"
-        //   }, {
-        //     width: "70px"
-        //   }, {
-        //     width: "60px",
-        //     orderable: false
-        //   }]
-        // });
-
-
-        // this.dtOptions = {
-        //   pagingType: "full_numbers",
-        //   paging: true,
-        //   pageLength: 10,
-        //   searching: true,
-        //   columns: [{
-        //     orderable: false,
-        //     width: "40px"
-        //   }, {
-           
-        //   }, {
-        //     width: "140px"
-        //   }, {
-        //     width: "70px"
-        //   }, {
-        //     width: "70px"
-        //   }, {
-        //     width: "70px"
-        //   }, {
-        //     width: "70px"
-        //   }, {
-        //     width: "60px",
-        //     orderable: false
-        //   }]
-        // };
       }
 }
