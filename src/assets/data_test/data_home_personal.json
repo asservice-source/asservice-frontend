@@ -1,9 +1,16 @@
 [
     {
-        "village_no": "12",
-        "home_no": "13/5",
-        "holder_name": "นายแสงโสม สิมิรัน",
-        "member_count": 3,
-        "home_id": "123456789"
-      }
+        "villageNo": "12",
+        "homeNo": "12/1",
+        "holderName": "นายแสงโสม สิมิรัน",
+        "memberAmount": 3,
+        "homeId": "123456789"
+    },
+    {
+        "villageNo": "13",
+        "homeNo": "13/5",
+        "holderName": "นายฮันเดร็ด ไพเพอร์",
+        "memberAmount": 5,
+        "homeId": "987654321"
+    }
 ]
