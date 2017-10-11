@@ -5,19 +5,19 @@
   </div>
   <div class="panel-body">
     <div class="row">
-      <app-survey-head-filter></app-survey-head-filter>
+      <app-survey-head-filter [surveyTypeCode]="surveyTypeCode" (notifyFilter)="onSearch($event)" (changeFilter)="onChangeFilter($event)"></app-survey-head-filter>
     </div>
     <div class="row">
       <div class="col-md-12 text-left">
         <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-add-died">เพิ่มผู้เสียชีวิต</button>
       </div>
     </div>
-    <div class="row">
+    <div class="row" [hidden]="isHideList">
       <div class="col-lg-12">
         <div class="panel panel-default">
           <div class="panel-body">
             <div class="row">
-                <ng2-smart-table [settings]="settings" [source]="datas"></ng2-smart-table>
+                <ng2-smart-table [settings]="settings" [source]="sources"></ng2-smart-table>
             </div>
           </div>
         </div>

@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { LabelManager } from "./label/label-manager";
 import * as myconf from "./global-config";
 declare var $: any;
+declare var bootbox:any;
 export class BaseComponent implements OnInit {
     public labelManager = new LabelManager();
     public _GLOBAL = myconf;

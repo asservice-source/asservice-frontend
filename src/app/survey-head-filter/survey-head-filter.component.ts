@@ -6,7 +6,7 @@ import {HeadFilterBean} from '../beans/survey-head-filter.Bean';
 import { ApiHTTPService } from '../service/api-http.service';
 import { BaseComponent } from '../base-component';
 
-declare var $;
+declare var $:any;
 
 @Component({
   selector: 'app-survey-head-filter',
@@ -17,8 +17,11 @@ export class SurveyHeadFilterComponent extends BaseComponent implements OnInit {
 
   @Input() set surveyTypeCode(surveyTypeCode: string) {
     this.typeCode = surveyTypeCode;
+    console.log(this.typeCode);
   }
-  
+  @Output() notifyFilter: EventEmitter<HeadFilterBean> = new EventEmitter<HeadFilterBean>();
+  @Output() changeFilter: EventEmitter<HeadFilterBean> = new EventEmitter<HeadFilterBean>();
+
   URL_LIST_VILLAGE_NO: string = "village/village_no_list";
   URL_LIST_OSM_AND_HOME_NO: string = "osm/osm_and_home_list_by_village";
 
@@ -26,20 +29,19 @@ export class SurveyHeadFilterComponent extends BaseComponent implements OnInit {
   public list_osm;
   public list_round_no;
 
-  private apiHttp = new ApiHTTPService();
-  @Output() notifyFilter: EventEmitter<HeadFilterBean> = new EventEmitter<HeadFilterBean>();
+  private apiHttp: ApiHTTPService;
   public filterBean: HeadFilterBean;
-  
   public typeCode: string;
   public villageList;
 
   constructor(private http: Http) {
     super();
+    this.apiHttp = new ApiHTTPService();
     this.filterBean = new HeadFilterBean();
+    this.filterBean.roundID = 1;
     this.filterBean.villageID = 0;
     this.filterBean.OSMID = 0;
-    this.filterBean.roundID = 0;
-
+    this.filterBean.name = '';
   }
 
   ngOnInit() {
@@ -67,17 +69,28 @@ export class SurveyHeadFilterComponent extends BaseComponent implements OnInit {
 
   getOSMbyVillageID(){
     let self = this;
-    
-        // Get list of village no
-        let params_getOSM = { "id": this.filterBean.villageID };
-        this.apiHttp.post(this.URL_LIST_OSM_AND_HOME_NO, params_getOSM, function (d) {
-          if (d != null && d.status.toUpperCase() == "SUCCESS") {
-            self.list_osm = d.list.listOSM;
-          }
-        })
-  }
+    // Get list of village no
+    let params_getOSM = { "id": this.filterBean.villageID };
+    this.apiHttp.post(this.URL_LIST_OSM_AND_HOME_NO, params_getOSM, function (d) {
+      if (d != null && d.status.toUpperCase() == "SUCCESS") {
+        self.list_osm = d.list.listOSM;
+      }
+    })
 
-  doSearchFilter(){
+  }
+  onChangeRound(){
+    this.onDropdownChange();
+  }
+  onChangeVillage(){
+    this.onDropdownChange();
+  }
+  onChangeOSM(){
+    this.onDropdownChange();
+  }
+  onSearchFilter(){
     this.notifyFilter.emit(this.filterBean);
+  }
+  onDropdownChange(){
+    this.changeFilter.emit(this.filterBean);
   }
 }

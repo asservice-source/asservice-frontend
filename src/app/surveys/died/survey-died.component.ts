@@ -2,9 +2,9 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { BaseComponent } from "../../base-component";
 import { ApiHTTPService } from "../../service/api-http.service";
 import { ActionCustomViewComponent } from '../../action-custom-table/action-custom-view.component';
+import { HeadFilterBean } from '../../beans/survey-head-filter.Bean';
 
 declare var $: any;
-declare var bootbox:any;
 
 @Component({
   selector: 'app-survey-died',
@@ -14,8 +14,11 @@ declare var bootbox:any;
 export class SurverDiedComponent extends BaseComponent implements OnInit {
  // Datatables options
  // dtOptions: DataTables.Settings = {};
-  private http = new ApiHTTPService();
+  private api: ApiHTTPService;
   public settings: any;
+  public surveyTypeCode: string = 'DEATH';
+  public isHideList: boolean = true;
+  public sources: any;
   public datas = [
     {
       id: 1,
@@ -65,6 +68,7 @@ export class SurverDiedComponent extends BaseComponent implements OnInit {
   
   constructor() {  
     super();
+    this.api = new ApiHTTPService();
     let self = this;
     this.settings = this.getTabelSetting({
       id: {
@@ -126,6 +130,17 @@ export class SurverDiedComponent extends BaseComponent implements OnInit {
   ngOnInit() {
   
   }
+  onChangeFilter(event: HeadFilterBean){
+    console.log("ChangeFilter");
+    this.isHideList = true;
+  }
+  onSearch(event: HeadFilterBean){
+      console.log(event);
+      this.sources = this.datas;
+      this.isHideList = false;
+
+  }
+  
   doClick(row){
     alert(row.id);
   }
