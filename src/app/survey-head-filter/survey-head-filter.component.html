@@ -3,31 +3,38 @@
         <label class="label-form">รอบสำรวจ</label>
     </div>
     <div class="col-md-4">
-        <select [(ngModel)]="roundID">
-      <option value="0">--เลือกรอบสำรวจ--</option>
-      <option value="1">ประจำเดือน พฤศจิกายน พ.ศ. 2560</option>
-  </select>
+        <select [(ngModel)]="filterBean.roundID">
+            <option value="0">--เลือกรอบสำรวจ--</option>
+            <option value="1">ประจำเดือน พฤศจิกายน พ.ศ. 2560</option>
+        </select>
     </div>
-</div>
 
-<div class="row">
     <div class="col-md-1 col-md-offset-1 text-right">
         <label class="label-form">หมู่ที่</label>
     </div>
     <div class="col-md-3">
-        <select [(ngModel)]="villageID" (change)="getOSMbyVillageID">
-          <option value="0">--เลือกหมู่--</option>
-          <option *ngFor="let village of list_village_no" [value]="village.id">{{ village.villageNo + ' : ' + village.villageName }}</option>
-      </select>
+        <select [(ngModel)]="filterBean.villageID" (change)="getOSMbyVillageID">
+            <option value="0">--เลือกหมู่--</option>
+            <option *ngFor="let village of list_village_no" [value]="village.id">{{ village.villageNo + ' : ' + village.villageName }}</option>
+        </select>
     </div>
 
+</div>
+
+<div class="row">
     <div class="col-md-1 text-right">
         <label class="label-form">ชื่อ อสม.</label>
     </div>
     <div class="col-md-3">
-        <select [disabled]="villageID== 0?true:false" [(ngModel)]="OSMID">
+        <select [disabled]="filterBean.villageID== 0?true:false" [(ngModel)]="filterBean.OSMID">
           <option value="0">--เลือก อสม.--</option>  
       </select>
+    </div>
+    <div class="col-md-1 text-right">
+        <label class="label-form">ชื่อ อสม.</label>
+    </div>
+    <div class="col-md-3">
+        <input type="text" [(ngModel)]="filterBean.name">
     </div>
 </div>
 

@@ -66,3 +66,6 @@ select[disabled]{
 table{
     font-size: 16px;
 }
+table th{
+    text-align: center;
+}

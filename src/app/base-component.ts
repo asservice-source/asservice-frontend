@@ -34,7 +34,7 @@ export class BaseComponent implements OnInit {
             hideSubHeader: true,
             pager:{
               display: true,
-              perPage: 2
+              perPage: 4
             }
           };
 

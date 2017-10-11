@@ -3,6 +3,7 @@ import { ViewCell } from 'ng2-smart-table';
 @Component({
     selector: 'button-view',
     templateUrl: './action-custom-view.component.html',
+    styleUrls: ['./action-custom-view.component.css']
   })
   export class ActionCustomViewComponent implements ViewCell, OnInit {
     renderValue: string;
