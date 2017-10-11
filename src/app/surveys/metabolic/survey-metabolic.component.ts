@@ -76,9 +76,9 @@ export class SurveyMetabolicComponent extends BaseComponent implements OnInit {
   }
 
   getCitizen(event: PersonBean) {
-   
     this.citizenID = event.citizenID;
     console.log(this.citizenID);
+    
   }
 
 }
