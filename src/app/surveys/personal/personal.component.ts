@@ -13,8 +13,7 @@ declare var $: any;
   templateUrl: './personal.component.html',
   styleUrls: ['./personal.component.css']
 })
-
-export class PersonalComponent extends BaseComponent implements OnInit, AfterViewInit {
+export class SurveyPersonalComponent extends BaseComponent implements OnInit, AfterViewInit {
 
   private apiHttp: ApiHTTPService = new ApiHTTPService();
   private URL_LIST_HOME: string = "";
@@ -52,9 +51,9 @@ export class PersonalComponent extends BaseComponent implements OnInit, AfterVie
         title: '',
         filter: false,
         type: 'custom',
-        renderComponent: PersonalButtonEditComponent,
+        renderComponent: SurveyPersonalButtonEditComponent,
         onComponentInitFunction(instance) {
-          instance.action.subscribe(row => {
+          instance.action.subscribe((row) => {
             let homeId = row.homeId;
             self.router.navigate(['/main/surveys/personal-detail', homeId]);
           });
@@ -172,9 +171,9 @@ export class PersonalComponent extends BaseComponent implements OnInit, AfterVie
 }
 
 @Component({
-  template: "<button (click)=\"clickEdit();\" style=\"padding-top: 0px; padding-bottom: 0px\" class=\"btn btn-primary\">จัดการ</button>",
+  template: "<button (click)=\"clickEdit();\" style=\"padding-top: 0px; padding-bottom: 0px\" class=\"btn btn-primary\">จัดการสมาชิก</button>",
 })
-export class PersonalButtonEditComponent implements ViewCell, OnInit {
+export class SurveyPersonalButtonEditComponent implements ViewCell, OnInit {
   renderValue: string;
 
   @Input() value: string | number;
