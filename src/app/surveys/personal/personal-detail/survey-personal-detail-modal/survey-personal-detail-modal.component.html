@@ -12,10 +12,10 @@
         <div class="row">
           <div class="col-md-1"></div>
           <div class="col-md-2 text-right">
-            <label class="label-form">ประเภท</label>
+            <label class="label-form">ประเภทการเข้าอยู่อาศัย</label>
           </div>
           <div class="col-md-3">
-            <select name="ddlGuestType" [(ngModel)]="person.guestType">
+            <select name="dropdown-typeArea" id="dropdown-typeArea" [(ngModel)]="person.typeAreaCode">
               <option value="0">--เลือกประเภท--</option>
               <option value="1">มีชื่อในทะเบียนบ้านจริง</option>
               <option value="2">ไม่มีชื่อในทะเบียนบ้าน</option>
@@ -24,7 +24,7 @@
         </div>
 
         <div class="row">
-            <div class="col-md-1"></div>
+          <div class="col-md-1"></div>
           <div class="col-md-2 text-right">
             <label class="label-form">หมายเลขประจำตัว</label>
           </div>
@@ -34,7 +34,7 @@
         </div>
 
         <div class="row">
-            <div class="col-md-1"></div>
+          <div class="col-md-1"></div>
           <div class="col-md-2 text-right">
             <label class="label-form">ชื่อจริง</label>
           </div>
@@ -50,19 +50,85 @@
         </div>
 
         <div class="row">
-            <div class="col-md-1"></div>
+          <div class="col-md-1"></div>
+          <div class="col-md-2 text-right">
+            <label class="label-form">เพศ</label>
+          </div>
+          <div class="col-md-3">
+            <select name="dropdown-gender" id="dropdown-gender" [(ngModel)]="person.genderCode">
+              <option value="0">--เลือกเพศ--</option>
+              <option value="1">ชาย</option>
+              <option value="2">หญิง</option>
+            </select>
+          </div>
+
+          <div class="col-md-1 text-right">
+            <label class="label-form">เชื้อชาติ</label>
+          </div>
+          <div class="col-md-3">
+            <select name="dropdown-race" id="dropdown-race" [(ngModel)]="person.raceCode">
+              <option value="0">--เลือกเชื้อชาติ--</option>
+              <option value="1">ไทย</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-1"></div>
+          <div class="col-md-2 text-right">
+            <label class="label-form">สัญชาติ</label>
+          </div>
+          <div class="col-md-3">
+            <select name="dropdown-nation" id="dropdown-nation" [(ngModel)]="person.nationCode">
+              <option value="0">--เลือกสัญชาติ--</option>
+            </select>
+          </div>
+
+          <div class="col-md-1 text-right">
+            <label class="label-form">ศาสนา</label>
+          </div>
+          <div class="col-md-3">
+            <select name="dropdown-race" id="dropdown-race" [(ngModel)]="person.religionCode">
+              <option value="0">--เลือกศาสนา--</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-1"></div>
+          <div class="col-md-2 text-right">
+            <label class="label-form">กรุ๊ปเลือด</label>
+          </div>
+          <div class="col-md-3">
+            <select name="dropdown-blood" id="dropdown-blood" [(ngModel)]="person.bloodType">
+              <option value="0">--เลือกรุ๊ปเลือด--</option>
+            </select>
+          </div>
+
+          <div class="col-md-1 text-right">
+            <label class="label-form">RH Group</label>
+          </div>
+          <div class="col-md-3">
+            <select name="dropdown-rhGroup" id="dropdown-rhGroup" [(ngModel)]="person.rhGroupID">
+              <option value="0">--เลือ RH Group--</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-1"></div>
           <div class="col-md-2 text-right">
             <label class="label-form">วันเดือนปี เกิด</label>
           </div>
           <div class="col-md-3">
-            <input type="text" [disabled]="true" placeholder="วว/ดด/ปป" [(ngModel)]="person.birthDate">
+            <input type="text" [disabled]="true" [(ngModel)]="person.birthDate">
           </div>
 
           <div class="col-md-1 text-right">
             <label class="label-form">การศึกษา</label>
           </div>
           <div class="col-md-3">
-            <select name="dropdown-study" id="dropdown-study" [(ngModel)]="person.mStudyNo">
+            <select name="dropdown-education" id="dropdown-education" [(ngModel)]="person.educationCode">
               <option value="0">--เลือกระดับการศึกษา--</option>
               <option value="1">ประถมศึกษาตอนต้น</option>
               <option value="2">ประถมศึกษาตอนปลาย</option>
@@ -77,7 +143,7 @@
         </div>
 
         <div class="row">
-            <div class="col-md-1"></div>
+          <div class="col-md-1"></div>
           <div class="col-md-2 text-right">
             <label class="label-form">อาชีพ</label>
           </div>
@@ -87,7 +153,7 @@
         </div>
 
         <div class="row">
-            <div class="col-md-1"></div>
+          <div class="col-md-1"></div>
           <div class="col-md-2 text-right">
             <label class="label-form">สถานะอยู่</label>
           </div>
@@ -112,7 +178,7 @@
         </div>
 
         <div class="row">
-            <div class="col-md-1"></div>
+          <div class="col-md-1"></div>
           <div class="col-md-2 text-right">
             <label class="label-form">โรคประจำตัว</label>
           </div>
@@ -123,7 +189,7 @@
         </div>
 
         <div class="row">
-            <div class="col-md-1"></div>
+          <div class="col-md-1"></div>
           <div class="col-md-2 text-right">
             <label class="label-form">หมายเหตุ</label>
           </div>

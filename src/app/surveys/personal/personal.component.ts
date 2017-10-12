@@ -26,15 +26,16 @@ export class SurveyPersonalComponent extends BaseComponent implements OnInit, Af
 
     let self = this;
 
-    self.settings = this.getTabelSetting({
+    self.settings = self.getTabelSetting({
       no: {
         title: 'ลำดับ',
-        type:'html',
-        valuePrepareFunction: (cell,row) => {
-            // let x= cell;
-            // let y = row;
-            return "";
-        }
+        type: 'html',
+        valuePrepareFunction: (cell, row) => {
+          // let x= cell;
+          // let y = row;
+          return "";
+        },
+        class: "running_no"
       },
       villageNo: {
         title: 'หมู่',
@@ -68,7 +69,7 @@ export class SurveyPersonalComponent extends BaseComponent implements OnInit, Af
   }
 
   ngOnInit(): void {
-
+    
   }
 
   ngAfterViewInit() {
