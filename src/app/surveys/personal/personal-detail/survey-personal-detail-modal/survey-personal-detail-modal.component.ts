@@ -10,8 +10,8 @@ declare var $;
 })
 export class SurveyPersonalDetailModalComponent implements OnInit {
 
-  @Input() set triggerCitizenId(paramCitizenId: string) {
-    this.showModal(paramCitizenId);
+  @Input() set triggerPerson(paramsPerson: PersonBean) {
+    this.showModal(paramsPerson);
   }
 
   private apiHttp: ApiHTTPService = new ApiHTTPService();
@@ -35,9 +35,9 @@ export class SurveyPersonalDetailModalComponent implements OnInit {
 
   }
 
-  showModal(citizenId: string) {
+  showModal(ps: PersonBean) {
     let self = this;
-    if (citizenId) {
+    if (ps) {
       // let params = { "hospitalCode": "" };
       // this.apiHttp.post(this.URL_PERSON_PROFILE, params, function (d) {
       //   if (d != null && d.status.toUpperCase() == "SUCCESS") {
@@ -45,7 +45,7 @@ export class SurveyPersonalDetailModalComponent implements OnInit {
       //   }
       // })
       // if (self.personData) {
-      this.person.citizenID = citizenId;
+      this.person = ps;
       // }
     }
   }

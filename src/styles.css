@@ -69,3 +69,7 @@ table{
 table th{
     text-align: center;
 }
+
+.table .btn {
+color: white !important;
+}

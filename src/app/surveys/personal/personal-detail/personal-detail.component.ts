@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 import { ActivatedRoute } from '@angular/router';
 import { BaseComponent } from '../../../base-component';
 import { ViewCell } from 'ng2-smart-table';
+import { PersonBean } from '../../../beans/person.bean';
 declare var $;
 
 @Component({
@@ -14,7 +15,7 @@ declare var $;
 export class SurveyPersonalDetailComponent extends BaseComponent implements OnInit {
 
   private paramHomeId: string;
-  public paramCitizenId: string;
+  public paramsPerson: PersonBean;
 
   public settings: any;
   public listMemberData: any = [];
@@ -45,6 +46,10 @@ export class SurveyPersonalDetailComponent extends BaseComponent implements OnIn
         title: 'อายุ',
         filter: false
       },
+      status: {
+        title: 'สถานะการอยู่อาศัย',
+        filter: false
+      },
       action: {
         title: '',
         filter: false,
@@ -52,7 +57,10 @@ export class SurveyPersonalDetailComponent extends BaseComponent implements OnIn
         renderComponent: SurveyPersonalDetailButtonEditComponent,
         onComponentInitFunction(instance) {
           instance.action.subscribe((row) => {
-            self.paramCitizenId = row.citizenId;
+              let tmpPerson = new PersonBean();
+              tmpPerson.citizenID = row.citizenId;
+
+            self.paramsPerson = tmpPerson;
             $("#modalMember").modal({backdrop: 'static', keyboard: false});
           });
         }
