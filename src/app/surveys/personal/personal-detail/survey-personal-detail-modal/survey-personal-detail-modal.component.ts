@@ -21,14 +21,14 @@ export class SurveyPersonalDetailModalComponent implements OnInit {
 
   constructor() {
     this.person = new PersonBean();
-    this.person.typeAreaCode = "0";
-    this.person.genderCode = "0";
-    this.person.raceCode = "0";
-    this.person.nationCode = "0";
-    this.person.religionCode = "0";
-    this.person.bloodType = "0";
-    this.person.rhGroupID = "0";
-    this.person.educationCode = "0";
+    // this.person.typeAreaCode = "0";
+    // this.person.genderCode = "0";
+    // this.person.raceCode = "0";
+    // this.person.nationCode = "0";
+    // this.person.religionCode = "0";
+    // this.person.bloodType = "0";
+    // this.person.rhGroupID = "0";
+    // this.person.educationCode = "0";
   }
 
   ngOnInit() {

@@ -57,11 +57,11 @@ export class SurveyPersonalDetailComponent extends BaseComponent implements OnIn
         renderComponent: SurveyPersonalDetailButtonEditComponent,
         onComponentInitFunction(instance) {
           instance.action.subscribe((row) => {
-              let tmpPerson = new PersonBean();
-              tmpPerson.citizenID = row.citizenId;
+            let tmpPerson = new PersonBean();
+            tmpPerson.citizenID = row.citizenId;
 
             self.paramsPerson = tmpPerson;
-            $("#modalMember").modal({backdrop: 'static', keyboard: false});
+            $("#modalMember").modal({ backdrop: 'static', keyboard: false });
           });
         }
       }
