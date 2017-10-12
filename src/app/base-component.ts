@@ -10,6 +10,14 @@ export class BaseComponent implements OnInit {
 
     }
     ngOnInit() {
+        $(function(){
+            $('.panel-body').on('click', '.ng2-smart-sort-link', function(){
+                console.log($('.table>tbody>tr'));
+                $.each($('.table>tbody>tr'), function(k, v){
+                  $(this).find('td').first().html(k+1);
+                });
+             });
+        });
     }
     public getLabel(key: string, lang?: string, defaultValue?: string) {
         ///console.log("label:"+key);

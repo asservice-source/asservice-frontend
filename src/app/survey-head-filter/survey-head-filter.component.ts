@@ -54,7 +54,6 @@ export class SurveyHeadFilterComponent extends BaseComponent implements OnInit {
             self.list_village_no = d.list;
           }
         })
-
   }
 
   // getVillageNo() {

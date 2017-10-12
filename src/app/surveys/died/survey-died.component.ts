@@ -71,7 +71,7 @@ export class SurverDiedComponent extends BaseComponent implements OnInit {
     this.api = new ApiHTTPService();
     let self = this;
     this.settings = this.getTabelSetting({
-      id: {
+      seq: {
         title: 'ลำดับ',
         filter: false,
         sort: false,
