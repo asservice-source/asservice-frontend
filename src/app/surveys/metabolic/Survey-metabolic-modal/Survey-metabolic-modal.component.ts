@@ -22,7 +22,7 @@ export class SurveyMetabolicModalComponent implements OnInit {
 
  public Personalities = new Personalities();
  public PersonBean = new PersonBean();
-
+ public isShowForm: boolean = false;
   
   healtHistory_isDiabetesParent : boolean;
   healtHistory_isOverBmi : boolean;
@@ -125,6 +125,23 @@ export class SurveyMetabolicModalComponent implements OnInit {
     //   },
     //   error => console.log(error)
     //   );
+  }
+  getCitizen(event: PersonBean){
+    if(event.citizenID=='0'){
+      this.isShowForm = false;
+    }else{
+      this.isShowForm = true;
+    }
+    this.PersonBean.citizenID = event.citizenID;
+    console.log("content");
+  }
+  onChangeFind(event: PersonBean){
+    if(event.citizenID=='0'){
+      this.isShowForm = false;
+    }else{
+      this.isShowForm = true;
+    }
+    console.log(event);
   }
 
 }

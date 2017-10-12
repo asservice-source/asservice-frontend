@@ -14,6 +14,7 @@ export class FindPersonComponent extends BaseComponent{
   
   }
   @Output() notify: EventEmitter<PersonBean> = new EventEmitter<PersonBean>();
+  @Output() changeFilter: EventEmitter<PersonBean> = new EventEmitter<PersonBean>();
   public personBean : PersonBean;
   public mVillageNo = 0;
   public mOSM = 0;
@@ -27,14 +28,16 @@ export class FindPersonComponent extends BaseComponent{
   constructor() { 
     super();
     this.personBean = new PersonBean();
-    this.personBean.citizenID = '1122323232323';
+    this.personBean.citizenID = '0';
     this.personBean.firstName = 'Firstname';
     this.personBean.lastName = 'Lastname';
     this.personBean.nickName = "Sum";
   }
 
   doPersonChange(){
+
     this.notify.emit(this.personBean);
+    this.onChangeFilter();
   }
 
   changVillageNo(){
@@ -45,7 +48,8 @@ export class FindPersonComponent extends BaseComponent{
       this.isDisabledHomeNo = true;
       this.isDisabledOSM = true;
     }
-    
+    this.personBean.citizenID = '0';
+    this.onChangeFilter();
   }
   changHomeNo(){
     if(this.mHomeNo != 0){
@@ -53,9 +57,14 @@ export class FindPersonComponent extends BaseComponent{
     }else{
       this.isDisableBtnSearch = true;
     }
-    
+    this.personBean.citizenID = '0';
+    this.onChangeFilter();
   }
   doSearchPerson(){
     this.isDisabledPerson = false;
+  }
+
+  onChangeFilter(){
+    this.changeFilter.emit(this.personBean);
   }
 }
