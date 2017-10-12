@@ -21,7 +21,7 @@ export class SurveyMetabolicComponent extends BaseComponent implements OnInit {
   public xxx: string;
   public check: boolean = false;
   public metabolicHeadID: number = 0;
-  public surveyTypeCode: string = "METABOLIC";  
+  public surveyTypeCode: string = "METABOLIC"; 
 
   constructor(private http: Http, private router: Router) {
     super();
@@ -73,12 +73,6 @@ export class SurveyMetabolicComponent extends BaseComponent implements OnInit {
     this.citizenID = key;
     $("#addMetabolicSurvey").modal('show');
 
-  }
-
-  getCitizen(event: PersonBean) {
-    this.citizenID = event.citizenID;
-    console.log(this.citizenID);
-    
   }
 
 }

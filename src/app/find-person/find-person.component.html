@@ -41,9 +41,9 @@
     <label class="label-form">{{getLabel('lbl_member')}}</label>
   </div>
   <div class="col-md-4">
-    <select name="find-dropdownPerson" id="find-dropdownPerson" (change)="doPersonChange()" [(ngModel)]="mPerson" [disabled]="isDisabledPerson">
-      <option value="0" fs-label="lbl_member">--เลือกสมาชิก--</option>
-      <option value="101">นายโสพน สดใส</option>
+    <select name="find-dropdownPerson" id="find-dropdownPerson" (change)="doPersonChange()" [(ngModel)]="personBean.citizenID" [disabled]="isDisabledPerson">
+      <option ngValue="0" fs-label="lbl_member">--เลือกสมาชิก--</option>
+      <option ngValue="1122323232323">นายโสพน สดใส</option>
     </select>
   </div>
 </div>
