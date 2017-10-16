@@ -46,6 +46,7 @@ import { FindPersonComponent } from './find-person/find-person.component';
 import { ActionCustomViewComponent } from './action-custom-table/action-custom-view.component'
 import { SumpregnantComponent } from './summary/sumpregnant/sumpregnant.component';
 import { LoadingComponent } from './loading/loading.component';
+import { FilterPersonalComponent } from './filter-personal/filter-personal.component';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,8 @@ import { LoadingComponent } from './loading/loading.component';
     SurveyHeadFilterComponent,
     SumpregnantComponent,
     LoadingComponent,
-    ActionCustomViewComponent
+    ActionCustomViewComponent,
+    FilterPersonalComponent
   ],
   imports: [
     BrowserModule,
