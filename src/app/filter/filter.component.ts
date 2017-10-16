@@ -31,9 +31,6 @@ export class FilterComponent extends BaseComponent implements OnInit {
   constructor(private http: Http) {
     super();
     this.filterBean = new FilterBean();
-    this.filterBean.villageID = 0;
-    this.filterBean.homeID = 0;
-    this.filterBean.OSMID = 0;
   }
 
   ngOnInit() {
@@ -59,8 +56,8 @@ export class FilterComponent extends BaseComponent implements OnInit {
       if (d != null && d.status.toUpperCase() == "SUCCESS") {
         self.list_home_no = d.list[0].listHome;
         self.list_osm = d.list[0].listOSM;
-        self.filterBean.OSMID = 0;
-        self.filterBean.homeID = 0;
+        self.filterBean.OSMID = "";
+        self.filterBean.homeID = "";
         self.isDisabledHomeAndOSM = false;
       }
     })

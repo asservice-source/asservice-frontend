@@ -2,9 +2,10 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Http, Response, RequestOptions } from "@angular/http";
 import { Router } from "@angular/router";
 import { ActivatedRoute } from '@angular/router';
-import { BaseComponent } from '../../../base-component';
 import { ViewCell } from 'ng2-smart-table';
+import { BaseComponent } from '../../../base-component';
 import { PersonBean } from '../../../beans/person.bean';
+import { ApiHTTPService } from '../../../service/api-http.service';
 declare var $;
 
 @Component({
@@ -13,6 +14,9 @@ declare var $;
   styleUrls: ['./personal-detail.component.css']
 })
 export class SurveyPersonalDetailComponent extends BaseComponent implements OnInit {
+
+  private apiHttp: ApiHTTPService = new ApiHTTPService();
+  private URL_LIST_HOME_MEMBERS: string = "homemember/homemember_by_home";
 
   private paramHomeId: string;
   public paramsPerson: PersonBean;
@@ -83,77 +87,16 @@ export class SurveyPersonalDetailComponent extends BaseComponent implements OnIn
   loadData() {
     let self = this;
 
-    this.http.get("assets/data_test/data_personal.json")
-      .map(res => res.json())
-      .subscribe(data => self.listMemberData = data);
+    let params = { "homeId": this.paramHomeId };
+    this.apiHttp.post(this.URL_LIST_HOME_MEMBERS, params, function (d) {
+      if (d != null && d.status.toUpperCase() == "SUCCESS") {
+        self.listMemberData = d.list;
+      }
+    })
 
-    // var tbl = $("#tableMember").dataTable({
-    //   "order": [[1, "asc"]],
-    //   "searching": false,
-    //   "paging": false,
-    //   "ajax": {
-    //     // "url": "http://192.168.1.203:8080/api-asservice/address/province",
-    //     "url": "assets/data_test/data_personal.json",
-    //     "type": "GET",
-    //     "datatype": "json",
-    //     // "data": function (params) {
-    //     //   params.myKey = villageNo;
-    //     // },
-    //     "dataSrc": ""
-    //   },
-    //   "columns": [
-    //     {
-    //       "title": "ลำดับ",
-    //       "data": null,
-    //       "orderable": false,
-    //       "className": "text-center",
-    //       "render": function (data, type, row, meta) {
-    //         return meta.row + 1;
-    //       }
-    //     },
-    //     {
-    //       "title": "ชื่อ-สกุล สมาชิก",
-    //       "data": "name",
-    //       "className": "text-left",
-    //       "orderable": true
-    //     },
-    //     {
-    //       "title": "รหัสประจำตัวประชาชน",
-    //       "data": "citizen_id",
-    //       "className": "text-center",
-    //       "orderable": true
-    //     },
-    //     {
-    //       "title": "วัน/เดือน/ปี เกิด",
-    //       "data": "sex",
-    //       "className": "text-center",
-    //       "orderable": true
-    //     },
-    //     {
-    //       "title": "อายุ",
-    //       "data": "blood_type",
-    //       "orderable": true
-    //     },
-    //     {
-    //       "title": "สถานะ",
-    //       "data": "date_of_birth",
-    //       "className": "text-center",
-    //       "orderable": true
-    //     },
-    //     {
-    //       "data": null,
-    //       "orderable": false,
-    //       "className": "text-center",
-    //       "render": function (row) {
-    //         var citizenId = row.citizen_id;
-    //         var btnEdit = "<button style=\"padding-top: 0px; padding-bottom: 0px\" class=\"btn btn-primary\" id=\"btnEdit\" citizen_id=\"" + citizenId + "\" >จัดการ</button>";
-    //         return btnEdit;
-    //       }
-    //     }]
-    // });
-
-    // // Rerender data tables
-    // tbl.api().ajax.reload();
+    // this.http.get("assets/data_test/data_personal.json")
+    //   .map(res => res.json())
+    //   .subscribe(data => self.listMemberData = data);
   }
 
   clickBack() {

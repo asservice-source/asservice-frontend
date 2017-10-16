@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit, EventEmitter, Input, Output } from '@angular/core';
-import { Http } from "@angular/http";
+import { Http, Headers, RequestOptions } from "@angular/http";
 import { Router } from "@angular/router";
 import { FilterBean } from "../../beans/filter.bean";
 import { ApiHTTPService } from '../../service/api-http.service';
@@ -16,7 +16,7 @@ declare var $: any;
 export class SurveyPersonalComponent extends BaseComponent implements OnInit, AfterViewInit {
 
   private apiHttp: ApiHTTPService = new ApiHTTPService();
-  private URL_LIST_HOME: string = "";
+  private URL_LIST_HOME: string = "home/home_list";
 
   public settings: any;
   public listHomeData: any = [];
@@ -69,7 +69,23 @@ export class SurveyPersonalComponent extends BaseComponent implements OnInit, Af
   }
 
   ngOnInit(): void {
-    
+    // let username: string = 'asservice-trusted-client';
+    // let password: string = 'secret';
+    // let param = new URLSearchParams()
+    // param.append('grant_type', 'password')
+    // param.append('username', 'anamai01');
+    // param.append('password', 'an123401');
+    // let headers = new Headers({
+    //   'Content-Type': 'application/x-www-form-urlencoded',
+    //   'Authorization': 'Basic ' + btoa(username + ':' + password),
+    //   'Access-Control-Allow-Origin': '*'
+    // });
+    // let options = new RequestOptions({ headers: headers });
+    // this.http.post("http://192.168.1.203:8080/api-asservice/oauth/token", param, options)
+    //   .map(res => res.json())
+    //   .subscribe(data => console.log(data.access_token),
+    //   err => console.log(err),
+    //   () => console.log('Fetching complete for Server Metrics'));
   }
 
   ngAfterViewInit() {
@@ -79,99 +95,22 @@ export class SurveyPersonalComponent extends BaseComponent implements OnInit, Af
   clickSearch(event: FilterBean) {
     let self = this;
 
-    // let villageNo = event.villageID;
-    // let homeId = event.homeID;
-    // let osmId = event.OSMID;
+    let villageNo = event.villageID;
+    let homeId = event.homeID;
+    let osmId = event.OSMID;
 
-    // let params = { "hospitalCode": "" };
-    // this.apiHttp.post(this.URL_LIST_HOME, params, function (d) {
-    //   if (d != null && d.status.toUpperCase() == "SUCCESS") {
-    //     self.listHomeData = d.list;
-    //   }
-    // })
+    let params = { "hospitalCode": this.getHospitalCode() };
+    this.apiHttp.post(this.URL_LIST_HOME, params, function (d) {
+      if (d != null && d.status.toUpperCase() == "SUCCESS") {
+        self.listHomeData = d.list;
+      }
+    })
 
-    this.http.get("assets/data_test/data_home_personal.json")
-      .map(res => res.json())
-      .subscribe(data => self.listHomeData = data);
+    // this.http.get("assets/data_test/data_home_personal.json")
+    //   .map(res => res.json())
+    //   .subscribe(data => self.listHomeData = data);
 
-    // jsonParams["villageNo"] = event.villageID;
-    // jsonParams["osmId"] = event.OSMID;
-    // jsonParams["id"] = event.homeID;
-
-    // var tbl = $("#tablePersonal").dataTable({
-    //   "order": [[1, "asc"]],
-    //   "searching": false,
-    //   "ajax": {
-    //     "url": "http://192.168.2.227:8080/API-ASService/home/home_list",
-    //     // "url": "assets/data_test/data_home_personal.json",
-    //     "type": "POST",
-    //     "datatype": "json",
-    //     "contentType": "application/json",
-    //     "data": function () {
-    //       return JSON.stringify(jsonParams);
-    //     },
-    //     "dataSrc": "list"
-    //   },
-    //   "columns": [
-    //     {
-    //       "title": "ลำดับ",
-    //       "data": null,
-    //       "orderable": false,
-    //       "className": "text-center",
-    //       "render": function (data, type, row, meta) {
-    //         return meta.row + 1;
-    //       }
-    //     },
-    //     {
-    //       "title": "หมู่",
-    //       "data": "villageNo",
-    //       "className": "text-center",
-    //       "orderable": true
-    //     },
-    //     {
-    //       "title": "บ้านเลขที่",
-    //       "data": "homeNo",
-    //       "className": "text-center",
-    //       "orderable": true
-    //     },
-    //     {
-    //       "title": "ชื่อ-สกุล เจ้าบ้าน",
-    //       "data": null,
-    //       "className": "dt-head-center dt-body-left",
-    //       "orderable": true,
-    //       "render": function (row) {
-    //         var fullName = row.holder.firstName + " " + row.holder.lastName;
-    //         return fullName;
-    //       }
-    //     },
-    //     {
-    //       "title": "จำนวนสมาชิก",
-    //       "data": "memberAmount",
-    //       "className": "dt-head-center dt-body-right",
-    //       "orderable": true
-    //     },
-    //     {
-    //       "title": "สถานะ",
-    //       "data": "osmId",
-    //       "className": "text-center",
-    //       "orderable": true
-    //     },
-    //     {
-    //       "data": null,
-    //       "orderable": false,
-    //       "className": "text-center",
-    //       "render": function (row) {
-    //         var homeId = row.home_id;
-    //         var btnManage = "<button style=\"padding-top: 0px; padding-bottom: 0px\" class=\"btn btn-primary\" id=\"btnManage\" home_id=\"" + homeId + "\" >จัดการ</button>";
-    //         return btnManage;
-    //       }
-    //     }]
-    // });
-
-    // // Rerender data tables
-    // tbl.api().ajax.reload();
-
-    $("#panel_table_personal").show();
+    // $("#panel_table_personal").show();
   }
 
 }
