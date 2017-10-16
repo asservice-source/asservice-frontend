@@ -151,9 +151,6 @@ export class SurverDiedComponent extends BaseComponent implements OnInit {
         //   self.datas = data;
         // });
 
-  
-        
-
       }
 
       fetchData(data){
