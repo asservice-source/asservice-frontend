@@ -1,23 +1,27 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { LabelManager } from "./label/label-manager";
 import * as myconf from "./global-config";
+import { LocalDataSource } from 'ng2-smart-table';
 declare var $: any;
 declare var bootbox:any;
 export class BaseComponent implements OnInit {
     public labelManager = new LabelManager();
     public _GLOBAL = myconf;
+    private ng2STDataSource : LocalDataSource;// = new LocalDataSource();
     constructor() {
-
+        
     }
     ngOnInit() {
         $(function(){
-            $('.panel-body').on('click', '.ng2-smart-sort-link', function(){
-                console.log($('.table>tbody>tr'));
+            $('body').on('click', '.ng2-smart-sort-link', function(){
                 $.each($('.table>tbody>tr'), function(k, v){
-                  $(this).find('td').first().html(k+1);
-                });
+                    $(this).find('td').first().html(k+1);
+                  });
              });
         });
+    }
+    public setNg2STDatasource(data: LocalDataSource){
+        this.ng2STDataSource = data;
     }
     public getLabel(key: string, lang?: string, defaultValue?: string) {
         ///console.log("label:"+key);
@@ -31,7 +35,7 @@ export class BaseComponent implements OnInit {
     }
     public getTabelSetting(columns:any){
         var settings: any = {
-            mode:'inline',
+            mode:'external',
             attr:{
               class: "table table-striped table-bordered"
             },
@@ -53,4 +57,58 @@ export class BaseComponent implements OnInit {
 
           return settings;
     }
+    private isRefrestData = false;
+    public onRowSelect(event):void{
+        console.log('onRowSelect');
+        if(this.isRefrestData) {
+            this.isRefrestData = false;
+            return;
+        }
+        if(this.ng2STDataSource){
+            this.ng2STDataSource.getElements().then( list => { 
+                let page = this.ng2STDataSource.getPaging();
+                let startSeq = page.page>1?((page.perPage*page.page)-page.perPage)+1:1;
+                for(let item of list){
+                    item.seq = startSeq++;
+                }
+                this.ng2STDataSource.refresh();
+                this.isRefrestData = true;
+            });
+        }
+      }
+    /*#Old SEQ
+    public sequenceTable(dataSource :LocalDataSource){
+        
+       dataSource.getElements().then( list => { 
+            let page = dataSource.getPaging();
+            let startSeq = page.page>1?((page.perPage*page.page)-page.perPage)+1:1;
+            for(let item of list){
+                item.seq = startSeq++;
+            }
+            dataSource.refresh();
+        });
+        
+        setTimeout(() => {
+            
+            let page = dataSource.getPaging();
+            let startSeq = page.page>1?((page.perPage*page.page)-page.perPage)+1:1;
+            $.each($('.table>tbody>tr'), function(k, v){
+                $(this).find('td').first().html(k+startSeq);
+            });
+        
+
+        }, 200);
+        
+    }
+
+    public bindSequenceTable(dataSource :LocalDataSource){
+        let self = this;
+        self.sequenceTable(dataSource);
+        $(function(){
+            $('body').on('click', '.ng2-smart-sort-link', function(){
+                self.sequenceTable(dataSource);
+             });
+        });
+    }
+    */
 }

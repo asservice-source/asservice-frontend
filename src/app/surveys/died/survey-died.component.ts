@@ -3,6 +3,7 @@ import { BaseComponent } from "../../base-component";
 import { ApiHTTPService } from "../../service/api-http.service";
 import { ActionCustomViewComponent } from '../../action-custom-table/action-custom-view.component';
 import { HeadFilterBean } from '../../beans/survey-head-filter.Bean';
+import { LocalDataSource } from 'ng2-smart-table';
 
 declare var $: any;
 
@@ -17,11 +18,11 @@ export class SurverDiedComponent extends BaseComponent implements OnInit {
   private api: ApiHTTPService;
   public settings: any;
   public surveyTypeCode: string = 'DEATH';
-  public isHideList: boolean = true;
-  public sources: any;
+  public isShowList: boolean = false;
+  public source: LocalDataSource = new LocalDataSource();
   public datas = [
     {
-      id: 1,
+      seq: 1,
       name: "Leanne Graham",
       citizenId: "1-4113-00-1349-8-9",
       reason: "ลืมหายใจ",
@@ -29,7 +30,7 @@ export class SurverDiedComponent extends BaseComponent implements OnInit {
       status: "ยืนยัน"
     },
     {
-      id: 2,
+      seq: 2,
       name: "Ervin Howell",
       citizenId: "1-4113-00-1349-8-0",
       reason: "ลืมหายใจ",
@@ -38,7 +39,7 @@ export class SurverDiedComponent extends BaseComponent implements OnInit {
       
     },
     {
-      id: 11,
+      seq: 11,
       name: "Nicholas DuBuque",
       citizenId: "1-4113-00-2259-6-4",
       reason: "ลืมหายใจ",
@@ -47,7 +48,7 @@ export class SurverDiedComponent extends BaseComponent implements OnInit {
      
     },
     {
-      id: 12,
+      seq: 12,
       name: "Nicholas DuBuque",
       citizenId: "1-4113-00-2254-6-2",
       reason: "ลืมหายใจ",
@@ -56,7 +57,7 @@ export class SurverDiedComponent extends BaseComponent implements OnInit {
      
     },
     {
-      id: 13,
+      seq: 13,
       name: "Nicholas DuBuque",
       citizenId: "1-4113-00-3259-6-5",
       reason: "ลืมหายใจ",
@@ -109,18 +110,19 @@ export class SurverDiedComponent extends BaseComponent implements OnInit {
         type: 'custom',
         renderComponent: ActionCustomViewComponent,
         onComponentInitFunction(instance) {
-          // instance.view.subscribe(row => {
-          //   self.doClick(row);
-          // });
-          // instance.edit.subscribe(row => {
-          //   self.doClick(row);
-          // });
-          // instance.delete.subscribe(row => {
-          //   self.doClick(row);
-          // });
-
-          instance.action.subscribe(row => {
+         /*
+         instance.view.subscribe(row => {
             self.doClick(row);
+          });
+          instance.edit.subscribe(row => {
+            self.doClick(row);
+          });
+          instance.delete.subscribe(row => {
+            self.doClick(row);
+          });
+          */
+          instance.action.subscribe(row => {
+           alert(row.action);
           });
         }
       }
@@ -132,35 +134,13 @@ export class SurverDiedComponent extends BaseComponent implements OnInit {
   }
   onChangeFilter(event: HeadFilterBean){
     console.log("ChangeFilter");
-    this.isHideList = true;
+    this.isShowList = false;
   }
   onSearch(event: HeadFilterBean){
       console.log(event);
-      this.sources = this.datas;
-      this.isHideList = false;
-
+      this.source = new LocalDataSource(this.datas);
+      this.isShowList = true;
+      super.setNg2STDatasource(this.source);
   }
-  
-  doClick(row){
-    alert(row.id);
-  }
-  loadData() {
 
-        // let self = this;
-        // this.http.get('address/province', {}, function(data){
-        //   self.datas = data;
-        // });
-
-      }
-
-      fetchData(data){
-        //var dtTable = $("#table-list").dataTable();
-        var tempTable = $('#table-list').html();
-        $('#container-table').html('');
-        $('#container-table').html(tempTable);
-        data = [["Tiger Nixon", "System Architect", "Edinburgh", "5421", "2011/04/25", "$320,800", "2011/04/25", "$320,800"]]
-        var dtTable = $("#table-list").dataTable({
-          data: data
-        });
-      }
 }
