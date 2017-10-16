@@ -44,7 +44,7 @@ export class ContentComponent implements OnInit {
           localStorage.setItem('json', response.json());
         }).subscribe();
         */
-        this.onTestApi();
+        //this.onTestApi();
   }
 
   onTestApi(){

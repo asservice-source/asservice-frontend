@@ -47,6 +47,7 @@ import { ActionCustomViewComponent } from './action-custom-table/action-custom-v
 import { SumpregnantComponent } from './summary/sumpregnant/sumpregnant.component';
 import { LoadingComponent } from './loading/loading.component';
 import { FilterPersonalComponent } from './filter-personal/filter-personal.component';
+import { FiindPersonMemberListComponent } from './find-person/find-person-member-list/member-list.component';
 
 @NgModule({
   declarations: [
@@ -82,7 +83,8 @@ import { FilterPersonalComponent } from './filter-personal/filter-personal.compo
     SumpregnantComponent,
     LoadingComponent,
     ActionCustomViewComponent,
-    FilterPersonalComponent
+    FilterPersonalComponent,
+    FiindPersonMemberListComponent
   ],
   imports: [
     BrowserModule,

@@ -39,6 +39,8 @@ export class FindPersonComponent extends BaseComponent implements OnInit{
   
   public villageList: Array<VillageBean>;
 
+  public isFindPerson: boolean = false;
+
   constructor(private http: Http) { 
     super();
     this.villageList = new Array();
@@ -51,17 +53,17 @@ export class FindPersonComponent extends BaseComponent implements OnInit{
     this.osm = new OSMBean();
     this.home = new HomeBean();
     this.personBean = new PersonBean();
-    this.village.villageID = '';
-    this.personBean.citizenID = '';
-    this.personBean.firstName = 'Firstname';
-    this.personBean.lastName = 'Lastname';
+    this.village.villageID = "";
+    this.personBean.citizenID = "";
+    this.personBean.firstName = "Firstname";
+    this.personBean.lastName = "Lastname";
     this.personBean.nickName = "Sum";
 
     this.selectVillage = this.defaultVillage;
   }
 
    ngOnInit(){
-
+     
    }
   doPersonChange(){
     this.notify.emit(this.personBean);
@@ -90,6 +92,8 @@ export class FindPersonComponent extends BaseComponent implements OnInit{
   }
   doSearchPerson(){
     this.isDisabledPerson = false;
+    this.isFindPerson = true;
+    
   }
 
   onChangeFilter(){

@@ -30,11 +30,11 @@
       </div>
       <div class="col-md-1"></div>
     <div class="col-md-1">
-        <button (click)="doSearchPerson()" type="buttoon" class="btn btn-primary btn-sm" [disabled]="isDisableBtnSearch">แสดงรายชื่อสมาชิก</button>
+        <button (click)="doSearchPerson()" data-target="#modal-person-member-list"  data-toggle="modal"type="buttoon" class="btn btn-primary btn-sm" [disabled]="isDisableBtnSearch">แสดงรายชื่อสมาชิก</button>
     </div>
 </div>
 
-<div class="row">
+<!-- <div class="row">
   <div class="col-md-2 text-right">
     <label class="label-form">{{getLabel('lbl_member')}}</label>
   </div>
@@ -44,4 +44,33 @@
       <option ngValue="1122323232323">นายโสพน สดใส</option>
     </select>
   </div>
-</div>
+</div> -->
+
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th width="60">ลำดับ</th>
+              <th>ชื่อ - สกุล</th>
+              <th width="180">เลขประจำตัวประชาชน</th>
+              <th width="60">อายุ</th>
+              <th width="80">สถานะ</th>
+              <th width="60">เลือก</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Jhon</td>
+              <td>Heroes</td>
+              <td></td>
+              <td></td>
+              <td>Choose</td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+  </div>
+
