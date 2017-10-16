@@ -21,6 +21,7 @@ export class SurveyPatientComponent extends BaseComponent implements OnInit {
   public settings: any;
   public isHideList: boolean = true;
   public sources: any;
+  public healtInsuranceID = 7;
   public datas = [
     {
       id: 1,
@@ -101,17 +102,17 @@ export class SurveyPatientComponent extends BaseComponent implements OnInit {
       gender: {
         title: 'เพศ',
         filter: false ,
-        width: '70px',
+        width: '50px',
       },
       age: {
         title: 'อายุ',
         filter: false,
-        width: '90px',
+        width: '50px',
       },
       type: {
         title: 'ประเภทผู้พิการ/ป่วย',
         filter: false,
-        width: '90px',
+        width: '170px',
       },
       action: {
         title: 'การทำงาน',

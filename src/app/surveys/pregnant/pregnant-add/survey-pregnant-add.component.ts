@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PersonBean } from '../../../beans/person.bean';
 
 @Component({
   selector: 'app-survey-pregnant-add',
@@ -11,6 +12,10 @@ export class SurveyPregnantAddComponent implements OnInit {
    isDisable= false;
    isDisableBirth= true;
    isDisableAbort = true ;
+   public pregnantType : number = 0;
+   public bornType: number = 0;
+   public personBean = new PersonBean();
+   
   constructor() { }
 
   ngOnInit() {
@@ -33,5 +38,24 @@ export class SurveyPregnantAddComponent implements OnInit {
     }
     
   }
+
+  // getCitizen(event: PersonBean){
+  //   if(event.citizenID=='0'){
+  //     this.isShowForm = false;
+  //   }else{
+  //     this.isShowForm = true;
+  //   }
+  //   this.personBean.citizenID = event.citizenID;
+  //   console.log("content");
+  // }
+
+  // onChangeFind(event: PersonBean){
+  //   if(event.citizenID=='0'){
+  //     this.isShowForm = false;
+  //   }else{
+  //     this.isShowForm = true;
+  //   }
+  //   console.log(event);
+  // }
 
 }

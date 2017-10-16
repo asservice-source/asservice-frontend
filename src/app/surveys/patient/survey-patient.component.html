@@ -70,7 +70,7 @@
             <hr>
             <div class="row">
                 <div class="col-md-2 text-right">
-                    <label>ประเภท</label>
+                    <label class="label-form">ประเภท</label>
                 </div>
                 <div class="col-md-4">
                     <select [(ngModel)]="patientType">
@@ -84,7 +84,7 @@
             <div id="sick" [hidden]="patientType== 1?false:true">
                 <div class="row">
                     <div class="col-md-2 text-right">
-                        <label>ระบุ</label>
+                        <label class="label-form">ระบุ</label>
                     </div>
                     <div class="col-md-4">
                         <input type="text" name="" id="">
@@ -93,7 +93,7 @@
 
                 <div class="row">
                     <div class="col-md-2 text-right">
-                        <label>ประเภทผู้ป่วย</label>
+                        <label class="label-form">ประเภทผู้ป่วย</label>
                     </div>
                     <div class="col-md-4">
                         <select>
@@ -107,22 +107,22 @@
                 <div class="row">
 
                     <div class="col-md-2 text-right">
-                        <label>สิทธิบัตร</label>
+                        <label class="label-form">สิทธิบัตร</label>
                     </div>
                     <div class="col-md-4">
-                        <select>
-                    <option value="0">--เลือกประเภท--</option>
-                    <option value="1">ท.66</option>
-                    <option value="2">ท.67</option>
-                    <option value="3">ท.68</option>
-                    <option value="4">ท.69</option>
-                    <option value="5">ท.71</option>
-                    <option value="6">ท.73</option>
-                    <option value="7">ท.74</option>
-                    <option value="8">ท.75</option>
-                    <option value="9">ท.77</option>
-                    <option value="10">ท.80</option>
-                    <option value="11">ท.89</option>
+                    <select [ngModel]="healtInsuranceID">
+                        <option value="0">--เลือกประเภท--</option>
+                        <option value="1">ท.66</option>
+                        <option value="2">ท.67</option>
+                        <option value="3">ท.68</option>
+                        <option value="4">ท.69</option>
+                        <option value="5">ท.71</option>
+                        <option value="6">ท.73</option>
+                        <option value="7">ท.74</option>
+                        <option value="8">ท.75</option>
+                        <option value="9">ท.77</option>
+                        <option value="10">ท.80</option>
+                        <option value="11">ท.89</option>
                   </select>
                     </div>
                 </div>
@@ -197,7 +197,7 @@
                         <label>สิทธิบัตร</label>
                     </div>
                     <div class="col-md-4">
-                        <select>
+                        <select [ngModel]="healtInsuranceID">
                         <option value="0">--เลือกประเภท--</option>
                         <option value="1">ท.66</option>
                         <option value="2">ท.67</option>

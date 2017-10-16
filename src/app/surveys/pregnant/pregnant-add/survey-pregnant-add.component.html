@@ -1,154 +1,295 @@
 <div id="myModal" tabindex="-1" class="modal fade" role="dialog">
-  <div class="modal-lg modal-dialog">
+    <div class="modal-lg modal-dialog">
 
-    <!-- Modal ADD-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">รายละเอียดผู้ตั้งครรภ์</h4>
-      </div>
-      <app-find-person></app-find-person>
-      <div class="row">
-            <div class="col-md-2 text-right">
-                <label>สถานะครรภ์</label>
+        <!-- Modal ADD-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">รายละเอียดผู้ตั้งครรภ์</h4>
             </div>
-            <div class="col-md-3">
-                <select name="find-dropdownStatusNo" id="find-dropdownStatusNo" [(ngModel)]="mStatusNo" (change)="changStatusNo()">
-                  <option value="0">ยังไม่คลอด</option>
-                  <option value="1" >คลอดแล้ว</option>
-                  <option value="2" >แท้ง</option>
-                </select>
-              </div>
-              
-              <div class="col-md-2 text-right">
-                  <label  [hidden]="isDisable">กำหนดคลอด</label>
-                  <label  [hidden]="isDisableAbort">หมายเหตุ</label>
-              </div>
-              <div  [hidden]="isDisable" class="col-md-3">
-                  <div class="input-group date" data-provide="datepicker">
-                      <input type="text" >
-                      <div class="input-group-addon">
-                        <span class="glyphicon glyphicon-th"></span>
-                      </div>
+            <app-find-person (notify)="getCitizen($event);" (changeFilter)="onChangeFind($event)" ></app-find-person>
+            <hr>
+
+            <div class="row">
+                <div class="col-md-2 text-right">
+                    <label class="label-form">สถานะครรภ์</label>
+                </div>
+                <div class="col-md-4">
+                    <select [(ngModel)]="pregnantType">
+                 <option value="0">กำลังตั้งครรภ์</option>
+                 <option value="1">คลอดแล้ว</option>
+               </select>
+
+                </div>
+
+                <div [hidden]="pregnantType == '0'? false:true">
+                    <div class="col-md-2 text-right">
+                        <label class="label-form">กำหนดคลอด</label>
                     </div>
-              </div>
-              <div  [hidden]="isDisableAbort" class="col-md-3">
-                <input type="text" name="" id="">
-            </div>
-
-              
-
-
-          </div>
-
-
-          <div class="row">
-            <div class="col-md-2 text-right">
-                  <label  [hidden]="isDisableBirth">วันคลอด</label>
-            </div>
-
-
-              <div  [hidden]="isDisableBirth" class="col-md-3">
-                  <div class="input-group date" data-provide="datepicker" >
-                      <input type="text" [disabled]="isDisableBirth">
-                      <div class="input-group-addon">
-                        <span class="glyphicon glyphicon-th"></span>
-                      </div>
+                    <div class="col-md-3">
+                        <div class="input-group date" data-provide="datepicker">
+                            <input type="text">
+                            <div class="input-group-addon">
+                                <span class="glyphicon glyphicon-th"></span>
+                            </div>
+                        </div>
                     </div>
-              </div>
+                </div>
 
 
-          </div>
+                <div [hidden]="pregnantType == '1'? false:true">
+                    <div class="col-md-1 text-right">
+                        <label class="label-form">วันคลอด</label>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="input-group date" data-provide="datepicker">
+                            <input type="text">
+                            <div class="input-group-addon">
+                                <span class="glyphicon glyphicon-th"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-          <div class="row">
-              <div class="col-md-2 text-right">
-                  <label  [hidden]="isDisableBirth">โรงพยาบาลที่คลอด</label>
-              </div>
-              <div class="col-md-3">
-                    <input type="text" name="" id=""  [hidden]="isDisableBirth">
+            </div>
+
+            <div [hidden]="pregnantType == '1'? false:true">
+
+            <div class="row">
+                <div class="col-md-2 text-right">
+                    <label>โรงพยาบาลที่คลอด</label>
+                </div>
+                <div class="col-md-4">
+                    <select>
+                <option value="0">--เลือกโรงพยาบาล--</option>
+                <option value="1">โรงพยาบาลปอเนาะ</option>
+            </select>
                 </div>
                 <div class="col-md-1 text-right">
-                    <label  [hidden]="isDisableBirth">วิธีคลอด</label>
+                    <label class="label-form">วิธีคลอด</label>
                 </div>
                 <div class="col-md-3">
-                    <select  [hidden]="isDisableBirth">
-                    <option value="0">คลอดเอง</option>
-                    <option value="1">ผ่าคลอด</option>
-                    <option value="2" >เครื่องดูด</option>
-                    </select>
+                    <select [(ngModel)]="bornType">
+                 <option value="0">--เลือกวิธีคลอด--</option>
+                 <option value="1" >คลอดเอง</option>
+                 <option value="2" >ผ่าคลอด</option>
+                 <option value="3" >เครื่องดูด</option>
+                 <option value="4" >แท้ง</option>
+               </select>
                 </div>
 
+            </div>
 
+            <div class="row" [hidden]="bornType == 4? false:true">
+                <div class="col-md-2 text-right">
+                    <label class="label-form">หมายเหตุ</label>
+                </div>
+                <div class="col-md-4">
+                    <input type="text">
+                </div>
             </div>
 
             <div class="row">
-                
-                      <div class="col-md-2 text-right">
-                          <label  [hidden]="isDisableBirth">ชื่อ-สกุล</label>
-                      </div>
-                      <div class="col-md-2">
-                          <input type="text" placeholder="ชื่อจริง"  [hidden]="isDisableBirth">
-                      </div>
-                      <!-- <div class="col-md-1">
-                      
-                      </div> -->
-                      <div class="col-md-3">
-                          <input type="text" placeholder="นามสกุล" [hidden]="isDisableBirth">
-                      </div>
-             </div>
-             <div class="row">
-                
-                      <div class="col-md-2 text-right">
-                          <label  [hidden]="isDisableBirth">เพศ</label>
-                      </div>
-                      <div class="col-md-2">
-                          <select  [hidden]="isDisableBirth">
-                              <option value="0">-เลือกเพศ-</option>
-                              <option value="1">ชาย</option>
-                              <option value="2" >หญิง</option>
-                              </select>
-                      </div>
-                       <div class="col-md-2 text-center ">
-                          <label  [hidden]="isDisableBirth" >กรุ๊ปเลือด</label>
-                          <select style="width: 50%"  [hidden]="isDisableBirth" >
-                              <option value="0">-</option>
-                              <option value="1">A</option>
-                              <option value="2" >B</option>
-                              <option value="2" >AB</option>
-                              <option value="2" >O</option>
-                              </select>
-                      </div> 
-                      <div class="col-md-2 text-center ">
-                          <label  [hidden]="isDisableBirth" >น้ำหนัก</label>
-                                  <input style="width: 50%" type="text" name="" id="" [hidden]="isDisableBirth">
-                      </div> 
-                    
-              </div>
+                    <div class="col-md-2 text-right">
+                        <label class="label-form">หมายเลขประจำตัว</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text">
+                    </div>
 
-              <div class="row">
-                  
-                        <div class="col-md-2 text-right">
-                            <label style="font-size: 13px"  [hidden]="isDisableBirth">เลขประจำตัวประชาชน</label>
+                    <div class="col-md-1 text-right">
+                            <label class="label-form">เพศ</label>
                         </div>
-                        <div class="col-md-3">
-                            <input type="text" name="" id=""  [hidden]="isDisableBirth">
+                        <div class="col-md-2">
+                            <select>
+                            <option value="0">--เลือกเพศ--</option>
+                            <option value="1" >ชาย</option>
+                            <option value="2" >หญิง</option>
+                        </select>
                         </div>
+                </div>
+
+            <div class="row">
+                <div class="col-md-2 text-right">
+                    <label class="label-form">ชื่อ</label>
+                </div>
+                <div class="col-md-3">
+                    <input type="text">
+                </div>
+                <div class="col-md-1 text-right">
+                    <label class="label-form">สกุล</label>
+                </div>
+                <div class="col-md-3">
+                    <input type="text">
+                </div>
+               
+            </div>
+
+            <div class="row">
+                   
+
+                <div class="col-md-2 text-right">
+                    <label class="label-form">กรุ๊ปเลือด</label>
+                </div>
+                <div class="col-md-3">
+                    <select>
+                    <option value="0">--เลือกกรุ๊ปเลือด--</option>
+                    <option value="1" >A</option>
+                    <option value="2" >ABC</option>
+                </select>
+                </div>
+
+                <div class="col-md-1 text-right">
+                    <label class="label-form">น้ำหนัก</label>
+                </div>
+                <div class="col-md-2">
+                    <input type="text">
+                </div>
+            </div>         
+        </div>
+        <div class="modal-footer">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <button class="btn btn-primary">ยืนยัน</button>
+                        <button class="btn btn-primary">รีเซ็ท</button>
+                    </div>
 
                 </div>
-      <div >
-  
-     
-      <div class="modal-footer">
-          <div class="row">
-              <div class="col-md-12 text-center">
-          <button  class="btn btn-primary">ยืนยัน</button>
-          <button  class="btn btn-primary">รีเซ็ท</button>
-          </div>
+            </div>
 
         </div>
-      </div>
+     
     </div>
+</div>
 
+
+
+
+<!-- 
+<div class="row">
+        <div class="col-md-2 text-right">
+            <label>สถานะครรภ์</label>
+        </div>
+        <div class="col-md-3">
+            <select name="find-dropdownStatusNo" id="find-dropdownStatusNo" [(ngModel)]="mStatusNo" (change)="changStatusNo()">
+              <option value="0">ยังไม่คลอด</option>
+              <option value="1" >คลอดแล้ว</option>
+              <option value="2" >แท้ง</option>
+            </select>
+          </div>
+          
+          <div class="col-md-2 text-right">
+              <label  [hidden]="isDisable">กำหนดคลอด</label>
+              <label  [hidden]="isDisableAbort">หมายเหตุ</label>
+          </div>
+          <div  [hidden]="isDisable" class="col-md-3">
+              <div class="input-group date" data-provide="datepicker">
+                  <input type="text" >
+                  <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-th"></span>
+                  </div>
+                </div>
+          </div>
+          <div  [hidden]="isDisableAbort" class="col-md-3">
+            <input type="text" name="" id="">
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-md-2 text-right">
+              <label  [hidden]="isDisableBirth">วันคลอด</label>
+        </div>
+          <div  [hidden]="isDisableBirth" class="col-md-3">
+              <div class="input-group date" data-provide="datepicker" >
+                  <input type="text" [disabled]="isDisableBirth">
+                  <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-th"></span>
+                  </div>
+                </div>
+          </div>
+      </div>
+
+      <div class="row">
+          <div class="col-md-2 text-right">
+              <label  [hidden]="isDisableBirth">โรงพยาบาลที่คลอด</label>
+          </div>
+          <div class="col-md-3">
+                <input type="text" name="" id=""  [hidden]="isDisableBirth">
+            </div>
+            <div class="col-md-1 text-right">
+                <label  [hidden]="isDisableBirth">วิธีคลอด</label>
+            </div>
+            <div class="col-md-3">
+                <select  [hidden]="isDisableBirth">
+                <option value="0">คลอดเอง</option>
+                <option value="1">ผ่าคลอด</option>
+                <option value="2" >เครื่องดูด</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row">
+            
+                  <div class="col-md-2 text-right">
+                      <label  [hidden]="isDisableBirth">ชื่อ-สกุล</label>
+                  </div>
+                  <div class="col-md-2">
+                      <input type="text" placeholder="ชื่อจริง"  [hidden]="isDisableBirth">
+                  </div>
+             
+                  <div class="col-md-3">
+                      <input type="text" placeholder="นามสกุล" [hidden]="isDisableBirth">
+                  </div>
+         </div>
+         <div class="row">
+            
+                  <div class="col-md-2 text-right">
+                      <label  [hidden]="isDisableBirth">เพศ</label>
+                  </div>
+                  <div class="col-md-2">
+                      <select  [hidden]="isDisableBirth">
+                          <option value="0">-เลือกเพศ-</option>
+                          <option value="1">ชาย</option>
+                          <option value="2" >หญิง</option>
+                          </select>
+                  </div>
+                   <div class="col-md-2 text-center ">
+                      <label  [hidden]="isDisableBirth" >กรุ๊ปเลือด</label>
+                      <select style="width: 50%"  [hidden]="isDisableBirth" >
+                          <option value="0">-</option>
+                          <option value="1">A</option>
+                          <option value="2" >B</option>
+                          <option value="2" >AB</option>
+                          <option value="2" >O</option>
+                          </select>
+                  </div> 
+                  <div class="col-md-2 text-center ">
+                      <label  [hidden]="isDisableBirth" >น้ำหนัก</label>
+                              <input style="width: 50%" type="text" name="" id="" [hidden]="isDisableBirth">
+                  </div>              
+          </div>
+
+          <div class="row">
+              
+                    <div class="col-md-2 text-right">
+                        <label style="font-size: 13px"  [hidden]="isDisableBirth">เลขประจำตัวประชาชน</label>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" name="" id=""  [hidden]="isDisableBirth">
+                    </div>
+
+            </div>
+  <div >
+
+ 
+  <div class="modal-footer">
+      <div class="row">
+          <div class="col-md-12 text-center">
+      <button  class="btn btn-primary">ยืนยัน</button>
+      <button  class="btn btn-primary">รีเซ็ท</button>
+      </div>
+
+    </div>
   </div>
-</div>
-</div>
+</div> -->
