@@ -51,12 +51,12 @@ export class SurveyMetabolicComponent extends BaseComponent implements OnInit {
       cID: {
         title: 'เลขประจำตัวประชาชน',
         filter: false, 
-        width: '200px',
+        width: '150px',
       },
       homeID: {
         title: 'บ้านเลขที่',
         filter: false, 
-        width: '180px',
+        width: '80px',
       },
       gender: {
         title: 'เพศ',

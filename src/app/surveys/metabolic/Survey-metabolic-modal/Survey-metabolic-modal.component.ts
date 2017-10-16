@@ -16,13 +16,14 @@ export class SurveyMetabolicModalComponent implements OnInit {
   
 
   @Input() set citizenID(citizenID:string){
-    this.PersonBean.citizenID = citizenID;
+    this.personBean.citizenID = citizenID;
   }
 
 
- public Personalities = new Personalities();
- public PersonBean = new PersonBean();
+ public personalities = new Personalities();
+ public personBean = new PersonBean();
  public isShowForm: boolean = false;
+
   
   healtHistory_isDiabetesParent : boolean;
   healtHistory_isOverBmi : boolean;
@@ -57,7 +58,7 @@ export class SurveyMetabolicModalComponent implements OnInit {
   // dataFor;
 
   constructor(private http: Http) {
-
+      this.personBean.healthInsurananceType = "ท.89"
    }
 
   ngOnInit() {
@@ -132,7 +133,7 @@ export class SurveyMetabolicModalComponent implements OnInit {
     }else{
       this.isShowForm = true;
     }
-    this.PersonBean.citizenID = event.citizenID;
+    this.personBean.citizenID = event.citizenID;
     console.log("content");
   }
   onChangeFind(event: PersonBean){
