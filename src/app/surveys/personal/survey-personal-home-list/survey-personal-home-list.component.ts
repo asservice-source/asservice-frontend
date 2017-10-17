@@ -19,8 +19,8 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
   private URL_LIST_HOME: string = "home/home_list";
 
   public settings: any;
-  public listHomeData: any = [];
   public source: LocalDataSource;
+  public isShowTable: boolean = false;
 
   constructor(private http: Http, private router: Router) {
     super();
@@ -28,15 +28,11 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
     let self = this;
 
     self.settings = self.getTabelSetting({
-      no: {
+      seq: {
         title: 'ลำดับ',
-        type: 'html',
-        valuePrepareFunction: (cell, row) => {
-          // let x= cell;
-          // let y = row;
-          return "";
-        },
-        class: "running_no"
+        filter: false,
+        sort: false,
+        width: '60px',
       },
       villageNo: {
         title: 'หมู่',
@@ -93,10 +89,11 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
 
     this.http.get("assets/data_test/data_home_personal.json")
       .map(res => res.json())
-      .subscribe(data => self.listHomeData = data);
-
-    self.source = new LocalDataSource(self.listHomeData);
-    self.setNg2STDatasource(self.source);
+      .subscribe((data) => {
+        self.source = new LocalDataSource(data);
+        self.isShowTable = true;
+        super.setNg2STDatasource(self.source);
+      });
   }
 
 }

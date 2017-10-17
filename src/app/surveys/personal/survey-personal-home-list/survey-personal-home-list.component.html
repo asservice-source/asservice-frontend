@@ -8,7 +8,7 @@
   <div class="panel-body">
     <app-filter-personal (notifyFilter)="clickSearch($event)"></app-filter-personal>
 
-    <div id="panel_table_personal" class="row">
+    <div id="panel_table_personal" class="row" *ngIf="isShowTable">
       <div class="col-lg-12">
         <div class="panel panel-default">
           <div class="panel-body">
