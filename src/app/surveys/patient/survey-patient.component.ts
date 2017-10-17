@@ -123,16 +123,7 @@ export class SurveyPatientComponent extends BaseComponent implements OnInit {
         type: 'custom',
         renderComponent: ActionCustomViewComponent,
         onComponentInitFunction(instance) {
-          // instance.view.subscribe(row => {
-          //   self.doClick(row);
-          // });
-          // instance.edit.subscribe(row => {
-          //   self.doClick(row);
-          // });
-          // instance.delete.subscribe(row => {
-          //   self.doClick(row);
-          // });
-
+        
           instance.action.subscribe(row => {
             alert(row.action);
           });
