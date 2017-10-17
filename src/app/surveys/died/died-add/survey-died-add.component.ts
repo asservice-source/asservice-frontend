@@ -9,7 +9,8 @@ import { BaseComponent } from "../../../base-component";
   
 })
 export class SurveyDiedAddComponent extends BaseComponent implements OnInit ,AfterViewInit {
-  isHiddenContent = true;
+  public isShowForm: boolean = false;
+  public isFindPersonal: boolean = true;
   show = false;
   location = 1;
   cause = 1;
@@ -100,11 +101,16 @@ export class SurveyDiedAddComponent extends BaseComponent implements OnInit ,Aft
     }
   }
 
-
-  onNotify(personBean:PersonBean):void {
-    alert(personBean.citizenID + " : " + personBean.firstName);
+  onChoosePersonal(personBean:PersonBean):void {
+    console.log('noti Choose = '+personBean.citizenID);
+    this.isFindPersonal = false;
+    this.isShowForm = true;
   }
-
+  onBack(){
+    this.isFindPersonal = true;
+    this.isShowForm = false;
+    console.log(this.isFindPersonal);
+  }
 }
 
 
