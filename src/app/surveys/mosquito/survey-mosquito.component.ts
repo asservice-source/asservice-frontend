@@ -26,7 +26,12 @@ export class SurveyMosquitoComponent extends BaseComponent implements OnInit {
       reason: "อุบัติเหตุทางรถยนต์",
       gender: "ชาย",
       age: 38,
-      type: "ติดบ้าน"
+      type: "ติดบ้าน",
+      homeNo:"112/1",
+      totalSurvey:"25",
+      totalDetect:"13",
+      localType:"สถานศาสนา",
+      totalCI:"53.57"
     },
     {
       id: 2,
@@ -35,7 +40,12 @@ export class SurveyMosquitoComponent extends BaseComponent implements OnInit {
       reason: "อุบัติเหตุทางรถยนต์",
       gender: "ชาย",
       age: 54,
-      type: "ติดบ้าน"
+      type: "ติดบ้าน",
+      homeNo:"24/9",
+      totalSurvey:"44",
+      totalDetect:"12",
+      localType:"โรงเรียน",
+      totalCI:"53.57"
       
     },
     {
@@ -45,7 +55,12 @@ export class SurveyMosquitoComponent extends BaseComponent implements OnInit {
       reason: "อุบัติเหตุทางรถยนต์",
       gender: "ชาย",
       age: 32,
-      type: "ติดบ้าน"
+      type: "ติดบ้าน",
+      homeNo:"58/7",
+      totalSurvey:"29",
+      totalDetect:"7",
+      localType:"หลังคาเรือน",
+      totalCI:"53.57"
      
     },
     {
@@ -55,7 +70,12 @@ export class SurveyMosquitoComponent extends BaseComponent implements OnInit {
       reason: "อุบัติเหตุทางรถยนต์",
       gender: "ชาย",
       age: 62,
-      type: "ติดบ้าน"
+      type: "ติดบ้าน",
+      homeNo:"55/12",
+      totalSurvey:"50",
+      totalDetect:"12",
+      localType:"ศูนย์เด็กเล็ก",
+      totalCI:"53.57"
      
     },
     {
@@ -65,7 +85,12 @@ export class SurveyMosquitoComponent extends BaseComponent implements OnInit {
       reason: "อุบัติเหตุทางรถยนต์",
       gender: "ชาย",
       age: 42,
-      type: "ติดบ้าน"
+      type: "ติดบ้าน",
+      homeNo:"222/2",
+      totalSurvey:"88",
+      totalDetect:"22",
+      localType:"หน่วยราชการ",
+      totalCI:"53.57"
      
     },
   ];
@@ -76,35 +101,35 @@ export class SurveyMosquitoComponent extends BaseComponent implements OnInit {
     this.api = new ApiHTTPService();
     let self = this;
     this.settings = this.getTabelSetting({
-      seq: {
+      id: {
         title: 'ลำดับ',
         filter: false,
         sort: false,
         width: '60px',
       },
       name: {
-        title: 'ชื่อ - นามสกุล',
+        title: 'ชื่อผู้สำรวจ',
         filter: false
       },
-      citizenId: {
-        title: 'เลขประจำตัวประชาชน',
+      homeNo: {
+        title: 'เลขที่',
         filter: false, 
-        width: '200px',
-      },
-      reason: {
-        title: 'สาเหตุการเสียชีวิต',
-        filter: false, 
-        width: '180px',
-      },
-      age: {
-        title: 'อายุ',
-        filter: false ,
-        width: '70px',
-      },
-      status: {
-        title: 'สถานะ',
-        filter: false,
         width: '90px',
+      },
+      localType: {
+        title: 'สถานที่',
+        filter: false, 
+        width: '130px',
+      },
+      totalSurvey: {
+        title: 'ภาชนะที่สำรวจ',
+        filter: false ,
+        width: '150px',
+      },
+      totalDetect: {
+        title: 'ภาชนะที่พบ',
+        filter: false ,
+        width: '150px',
       },
       action: {
         title: 'จัดการ',

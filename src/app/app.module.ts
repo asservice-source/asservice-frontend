@@ -36,11 +36,12 @@ import { SurveyMetabolicComponent } from './surveys/metabolic/survey-metabolic.c
 import { SurveyDiedAddComponent } from './surveys/died/died-add/survey-died-add.component';
 import { SurveyMetabolicModalComponent } from './surveys/metabolic/Survey-metabolic-modal/survey-metabolic-modal.component';
 import { SurveyMosquitoComponent } from './surveys/mosquito/survey-mosquito.component';
-import { SurveyPersonalDetailComponent, SurveyPersonalDetailButtonEditComponent } from './surveys/personal/personal-detail/personal-detail.component';
-import { SurveyCancerComponent } from './surveys/cancer/survey-cancer.component';
-import { SurveyPersonalDetailModalComponent } from './surveys/personal/personal-detail/survey-personal-detail-modal/survey-personal-detail-modal.component';
+import { SurveyPersonalComponent, SurveyPersonalButtonEditComponent } from './surveys/personal/survey-personal/survey-personal.component';
+import { SurveyPersonalDetailComponent, SurveyPersonalDetailButtonEditComponent } from './surveys/personal/survey-personal-detail/survey-personal-detail.component';
+import { SurveyPersonalDetailModalComponent } from './surveys/personal/survey-personal-detail-modal/survey-personal-detail-modal.component';
+import { SurveyCancerComponent, SurveyCancerButtonEditComponent } from './surveys/cancer/survey-cancer/survey-cancer.component';
+import { SurveyCancerModalComponent } from './surveys/cancer/survey-cancer-modal/survey-cancer-modal.component';
 import { SurveyHeadFilterComponent } from './survey-head-filter/survey-head-filter.component';
-import { SurveyPersonalComponent, SurveyPersonalButtonEditComponent } from './surveys/personal/personal.component';
 import { FilterComponent } from './filter/filter.component';
 import { FindPersonComponent } from './find-person/find-person.component';
 import { ActionCustomViewComponent } from './action-custom-table/action-custom-view.component'
@@ -75,6 +76,8 @@ import { FiindPersonMemberListComponent } from './find-person/find-person-member
     SurveyMosquitoComponent,
     SurveyPersonalDetailComponent,
     SurveyCancerComponent,
+    SurveyCancerButtonEditComponent,
+    SurveyCancerModalComponent,
     SurveyPersonalComponent,
     SurveyPersonalButtonEditComponent,
     SurveyPersonalDetailModalComponent,
@@ -100,7 +103,8 @@ import { FiindPersonMemberListComponent } from './find-person/find-person-member
   entryComponents: [
     ActionCustomViewComponent,
     SurveyPersonalButtonEditComponent,
-    SurveyPersonalDetailButtonEditComponent
+    SurveyPersonalDetailButtonEditComponent,
+    SurveyCancerButtonEditComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

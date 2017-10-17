@@ -12,12 +12,12 @@ import { LoginComponent } from "./../login/login.component";
 import { RegisterComponent } from "./../register/register.component";
 import { SurveyPregnantComponent } from "./../surveys/pregnant/survey-pregnant.component";
 import { SurverDiedComponent } from "./../surveys/died/survey-died.component";
-import { SurveyPersonalComponent } from "./../surveys/personal/personal.component";
-import { SurveyPersonalDetailComponent } from "./../surveys/personal/personal-detail/personal-detail.component";
+import { SurveyPersonalComponent } from "./../surveys/personal/survey-personal/survey-personal.component";
+import { SurveyPersonalDetailComponent } from "./../surveys/personal/survey-personal-detail/survey-personal-detail.component";
 import { SurveyPatientComponent } from "./../surveys/patient/survey-patient.component";
 import { SurveyMetabolicComponent } from "./../surveys/metabolic/survey-metabolic.component";
 import { SurveyMosquitoComponent } from "./../surveys/mosquito/survey-mosquito.component";
-import { SurveyCancerComponent } from "./../surveys/cancer/survey-cancer.component";
+import { SurveyCancerComponent } from "./../surveys/cancer/survey-cancer/survey-cancer.component";
 import { SumpregnantComponent } from "./../summary/sumpregnant/sumpregnant.component";
 @NgModule({
   imports: [
