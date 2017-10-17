@@ -10,8 +10,8 @@ declare var $;
 
 @Component({
   selector: 'app-survey-personal-detail',
-  templateUrl: './personal-detail.component.html',
-  styleUrls: ['./personal-detail.component.css']
+  templateUrl: './survey-personal-detail.component.html',
+  styleUrls: ['./survey-personal-detail.component.css']
 })
 export class SurveyPersonalDetailComponent extends BaseComponent implements OnInit {
 

@@ -36,8 +36,8 @@ import { SurveyMetabolicComponent } from './surveys/metabolic/survey-metabolic.c
 import { SurveyDiedAddComponent } from './surveys/died/died-add/survey-died-add.component';
 import { SurveyMetabolicModalComponent } from './surveys/metabolic/Survey-metabolic-modal/survey-metabolic-modal.component';
 import { SurveyMosquitoComponent } from './surveys/mosquito/survey-mosquito.component';
-import { SurveyPersonalComponent, SurveyPersonalButtonEditComponent } from './surveys/personal/survey-personal/personal.component';
-import { SurveyPersonalDetailComponent, SurveyPersonalDetailButtonEditComponent } from './surveys/personal/survey-personal-detail/personal-detail.component';
+import { SurveyPersonalComponent, SurveyPersonalButtonEditComponent } from './surveys/personal/survey-personal/survey-personal.component';
+import { SurveyPersonalDetailComponent, SurveyPersonalDetailButtonEditComponent } from './surveys/personal/survey-personal-detail/survey-personal-detail.component';
 import { SurveyPersonalDetailModalComponent } from './surveys/personal/survey-personal-detail-modal/survey-personal-detail-modal.component';
 import { SurveyCancerComponent, SurveyCancerButtonEditComponent } from './surveys/cancer/survey-cancer/survey-cancer.component';
 import { SurveyCancerModalComponent } from './surveys/cancer/survey-cancer-modal/survey-cancer-modal.component';
