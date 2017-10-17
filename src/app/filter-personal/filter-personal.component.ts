@@ -16,14 +16,16 @@ export class FilterPersonalComponent extends BaseComponent implements OnInit {
 
   // Call api url
   private URL_LIST_VILLAGE_NO: string = "village/village_no_list";
-  private URL_LIST_OSM_AND_HOME_NO: string = "osm/osm_and_home_list_by_village";
+  private URL_LIST_OSM: string = "osm/osm_and_home_list_by_village";
+  private URL_LIST_HOME_NO: string = "osm/osm_and_home_list_by_village";
 
   // Data
   public list_village_no;
   public list_home_no;
   public list_osm;
 
-  public isDisabledHomeAndOSM: boolean = true;
+  public isDisabledOSM: boolean = true;
+  public isDisabledHomeNo: boolean = true;
 
   constructor(private http: Http) {
     super();
@@ -45,19 +47,28 @@ export class FilterPersonalComponent extends BaseComponent implements OnInit {
   changeVillageNo() {
     let self = this;
 
-    self.isDisabledHomeAndOSM = true;
+    self.isDisabledOSM = true;
+    self.isDisabledHomeNo = true;
 
-    // Get list of osm and home no.
+    // Get list of osm
     let params_getOSM = { "id": self.filterBean.villageID };
-    this.apiHttp.post(this.URL_LIST_OSM_AND_HOME_NO, params_getOSM, function (d) {
+    this.apiHttp.post(this.URL_LIST_OSM, params_getOSM, function (d) {
       if (d != null && d.status.toUpperCase() == "SUCCESS") {
-        self.list_home_no = d.list[0].listHome;
         self.list_osm = d.list[0].listOSM;
         self.filterBean.OSMID = "";
-        self.filterBean.homeID = "";
-        self.isDisabledHomeAndOSM = false;
+        self.isDisabledOSM = false;
       }
-    })
+    });
+
+    // Get list of home no
+    let params_getHomeNo = { "id": self.filterBean.villageID };
+    this.apiHttp.post(this.URL_LIST_HOME_NO, params_getHomeNo, function (d) {
+      if (d != null && d.status.toUpperCase() == "SUCCESS") {
+        self.list_home_no = d.list[0].listHome;
+        self.filterBean.homeID = "";
+        self.isDisabledHomeNo = false;
+      }
+    });
   }
 
   doSearchFilter() {

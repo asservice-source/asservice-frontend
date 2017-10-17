@@ -13,7 +13,7 @@
     <label class="label-form">ชื่อ อสม.</label>
   </div>
   <div class="col-md-3">
-      <select name="filter-osmName" [(ngModel)]="filterBean.OSMID" [disabled]="isDisabledHomeAndOSM">
+      <select name="filter-osmName" [(ngModel)]="filterBean.OSMID" [disabled]="isDisabledOSM">
           <option value="">--เลือก อสม.--</option>
           <option *ngFor="let osm of list_osm" [value]="osm.citizenId">{{ osm.firstName + ' ' + osm.lastName }}</option>
       </select>
@@ -26,17 +26,17 @@
   <label class="label-form">บ้านเลขที่</label>
 </div>
 <div class="col-md-3">
-  <select name="filter-homeNo" [(ngModel)]="filterBean.homeID" [disabled]="isDisabledHomeAndOSM">
+  <select name="filter-homeNo" [(ngModel)]="filterBean.homeID" [disabled]="isDisabledHomeNo">
     <option value="">--เลือก บ้านเลขที่--</option>
     <option *ngFor="let home of list_home_no" [value]="home.homeId">{{ home.homeNo }}</option> 
     </select>
 </div>
 
 <div class="col-md-1 text-right">
-    <label class="label-form">ชื่อ</label>
+    <!-- <label class="label-form">ชื่อ</label> -->
   </div>
   <div class="col-md-3">
-    <input type="text" [(ngModel)]="filterBean.name">
+    <!-- <input type="text" [(ngModel)]="filterBean.name"> -->
   </div>
 </div>
 
