@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { PersonBean } from "../../../../beans/person.bean";
-import { ApiHTTPService } from '../../../../service/api-http.service';
+import { PersonBean } from "../../../beans/person.bean";
+import { ApiHTTPService } from '../../../service/api-http.service';
 declare var $;
 
 @Component({

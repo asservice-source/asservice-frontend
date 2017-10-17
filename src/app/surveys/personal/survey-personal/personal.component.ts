@@ -1,10 +1,10 @@
 import { Component, OnInit, AfterViewInit, EventEmitter, Input, Output } from '@angular/core';
 import { Http, Headers, RequestOptions } from "@angular/http";
 import { Router } from "@angular/router";
-import { FilterBean } from "../../beans/filter.bean";
-import { ApiHTTPService } from '../../service/api-http.service';
-import { BaseComponent } from '../../base-component';
-import { ActionCustomViewComponent } from '../../action-custom-table/action-custom-view.component';
+import { FilterBean } from "../../../beans/filter.bean";
+import { ApiHTTPService } from '../../../service/api-http.service';
+import { BaseComponent } from '../../../base-component';
+import { ActionCustomViewComponent } from '../../../action-custom-table/action-custom-view.component';
 import { ViewCell, LocalDataSource } from 'ng2-smart-table';
 declare var $: any;
 
