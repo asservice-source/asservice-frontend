@@ -109,7 +109,6 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
   onBack(){
     this.isFindPersonal = true;
     this.isShowForm = false;
-    console.log(this.isFindPersonal);
   }
 }
 

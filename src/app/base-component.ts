@@ -12,13 +12,7 @@ export class BaseComponent implements OnInit {
         
     }
     ngOnInit() {
-        $(function(){
-            $('body').on('click', '.ng2-smart-sort-link', function(){
-                $.each($('.table>tbody>tr'), function(k, v){
-                    $(this).find('td').first().html(k+1);
-                  });
-             });
-        });
+
     }
     public setNg2STDatasource(data: LocalDataSource){
         this.ng2STDataSource = data;
@@ -63,6 +57,7 @@ export class BaseComponent implements OnInit {
         }
         if(this.ng2STDataSource){
             this.ng2STDataSource.getElements().then( list => { 
+                console.log(list);
                 let page = this.ng2STDataSource.getPaging();
                 let startSeq = page.page>1?((page.perPage*page.page)-page.perPage)+1:1;
                 for(let item of list){

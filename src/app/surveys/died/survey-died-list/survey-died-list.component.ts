@@ -133,11 +133,9 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
   
   }
   onChangeFilter(event: HeadFilterBean){
-    console.log("ChangeFilter");
     this.isShowList = false;
   }
   onSearch(event: HeadFilterBean){
-      console.log(event);
       this.source = new LocalDataSource(this.datas);
       this.isShowList = true;
       super.setNg2STDatasource(this.source);
