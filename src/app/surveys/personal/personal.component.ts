@@ -5,7 +5,7 @@ import { FilterBean } from "../../beans/filter.bean";
 import { ApiHTTPService } from '../../service/api-http.service';
 import { BaseComponent } from '../../base-component';
 import { ActionCustomViewComponent } from '../../action-custom-table/action-custom-view.component';
-import { ViewCell } from 'ng2-smart-table';
+import { ViewCell, LocalDataSource } from 'ng2-smart-table';
 declare var $: any;
 
 @Component({
@@ -20,6 +20,7 @@ export class SurveyPersonalComponent extends BaseComponent implements OnInit, Af
 
   public settings: any;
   public listHomeData: any = [];
+  public source: LocalDataSource;
 
   constructor(private http: Http, private router: Router) {
     super();
@@ -105,6 +106,9 @@ export class SurveyPersonalComponent extends BaseComponent implements OnInit, Af
         self.listHomeData = d.list;
       }
     })
+
+    self.source = new LocalDataSource(self.listHomeData);
+    super.setNg2STDatasource(self.source);
 
     // this.http.get("assets/data_test/data_home_personal.json")
     //   .map(res => res.json())
