@@ -83,7 +83,9 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
     // let params = { "hospitalCode": this.getHospitalCode() };
     // this.apiHttp.post(this.URL_LIST_HOME, params, function (d) {
     //   if (d != null && d.status.toUpperCase() == "SUCCESS") {
-    //     self.listHomeData = d.list;
+    //     self.source = new LocalDataSource(d.list);
+    //     self.setNg2STDatasource(self.source);
+    //     self.isShowTable = true;
     //   }
     // })
 
@@ -91,8 +93,8 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
       .map(res => res.json())
       .subscribe((data) => {
         self.source = new LocalDataSource(data);
+        self.setNg2STDatasource(self.source);
         self.isShowTable = true;
-        super.setNg2STDatasource(self.source);
       });
   }
 

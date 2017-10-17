@@ -22,7 +22,6 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
   public paramsPerson: PersonBean;
 
   public settings: any;
-  public listMemberData: any = [];
   public source: LocalDataSource;
 
   constructor(private http: Http, private router: Router, private route: ActivatedRoute) {
@@ -31,9 +30,11 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     let self = this;
 
     self.settings = this.getTabelSetting({
-      no: {
+      seq: {
         title: 'ลำดับ',
-        filter: false
+        filter: false,
+        sort: false,
+        width: '60px',
       },
       name: {
         title: 'ชื่อ-สกุล สมาชิก',
@@ -93,16 +94,17 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     let params = { "homeId": this.paramHomeId };
     this.apiHttp.post(this.URL_LIST_HOME_MEMBERS, params, function (d) {
       if (d != null && d.status.toUpperCase() == "SUCCESS") {
-        self.listMemberData = d.list;
+        self.source = new LocalDataSource(d.list);
+        self.setNg2STDatasource(self.source);
       }
     })
 
     // this.http.get("assets/data_test/data_personal.json")
     //   .map(res => res.json())
-    //   .subscribe(data => self.listMemberData = data);
-
-    self.source = new LocalDataSource(self.listMemberData);
-    self.setNg2STDatasource(self.source);
+    //   .subscribe((data) => {
+    //     self.source = new LocalDataSource(data);
+    //     self.setNg2STDatasource(self.source);
+    //   });
   }
 
   clickBack() {
