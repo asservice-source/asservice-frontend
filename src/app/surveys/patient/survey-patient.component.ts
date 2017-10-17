@@ -3,6 +3,7 @@ import { BaseComponent } from '../../base-component';
 import { ApiHTTPService } from '../../service/api-http.service';
 import { ActionCustomViewComponent } from '../../action-custom-table/action-custom-view.component';
 import { HeadFilterBean } from '../../beans/survey-head-filter.Bean';
+import { LocalDataSource } from 'ng2-smart-table';
 declare var $;
 @Component({
   selector: 'app-survey-patient',
@@ -19,8 +20,8 @@ export class SurveyPatientComponent extends BaseComponent implements OnInit {
 
   private api: ApiHTTPService;
   public settings: any;
-  public isHideList: boolean = true;
-  public sources: any;
+  public isShowList: boolean = false;
+  public source: LocalDataSource = new LocalDataSource();
   public healtInsuranceID = 7;
   public datas = [
     {
@@ -97,22 +98,22 @@ export class SurveyPatientComponent extends BaseComponent implements OnInit {
       reason: {
         title: 'สาเหตุความพิการ/ป่วย',
         filter: false, 
-        width: '180px',
+        width: '190px',
       },
       gender: {
         title: 'เพศ',
         filter: false ,
-        width: '50px',
+        width: '70px',
       },
       age: {
         title: 'อายุ',
         filter: false,
-        width: '50px',
+        width: '70px',
       },
       type: {
-        title: 'ประเภทผู้พิการ/ป่วย',
+        title: 'ประเภท',
         filter: false,
-        width: '170px',
+        width: '120px',
       },
       action: {
         title: 'การทำงาน',
@@ -133,15 +134,11 @@ export class SurveyPatientComponent extends BaseComponent implements OnInit {
           // });
 
           instance.action.subscribe(row => {
-            self.doClick(row);
+            alert(row.action);
           });
         }
       }
     });
-  }
-
-  doClick(row){
-    alert(row.id);
   }
 
   ngOnInit() {  
@@ -155,43 +152,17 @@ export class SurveyPatientComponent extends BaseComponent implements OnInit {
         $("#disabled").hide();
     }
   }
+  onChangeFilter(event: HeadFilterBean){
+    console.log("ChangeFilter");
+    this.isShowList = false;
+  }
+  onSearch(event: HeadFilterBean){
+    console.log(event);
+    this.source = new LocalDataSource(this.datas);
+    this.isShowList = true;
+    super.setNg2STDatasource(this.source);
 
-  loadData() {
-  
-      // this.dtOptions = {
-      //   pagingType: "full_numbers",
-      //   processing: true,
-      //   columns: [{
-      //     width: "40px",
-      //     orderable: false
-      //   }, {
-      //     width: ""
-      //   }, {
-      //     width: "200px"
-      //   }, {
-      //     width: "50px"
-      //   }, {
-      //     width: "170px"
-      //   }, {
-      //     width: "100px"
-      //   }, {
-      //     width: "70px",
-      //     orderable: false
-      //   }]
-      // };
-  
-    }
-
-    onChangeFilter(event: HeadFilterBean){
-      console.log("ChangeFilter");
-      this.isHideList = true;
-    }
-    onSearch(event: HeadFilterBean){
-        console.log(event);
-        this.sources = this.datas;
-        this.isHideList = false;
-  
-    }
+  }
 
 
 }

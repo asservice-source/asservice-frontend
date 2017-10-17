@@ -6,6 +6,7 @@ import { PersonBean } from "../../beans/person.bean";
 import { ApiHTTPService } from '../../service/api-http.service';
 import { ActionCustomViewComponent } from '../../action-custom-table/action-custom-view.component';
 import { HeadFilterBean } from '../../beans/survey-head-filter.Bean';
+import { LocalDataSource } from 'ng2-smart-table';
 
 declare var $;
 
@@ -25,8 +26,8 @@ export class SurveyMetabolicComponent extends BaseComponent implements OnInit {
   public check: boolean = false;
   public metabolicHeadID: number = 0;
   public surveyTypeCode: string = "METABOLIC"; 
-  public sources: any;
-  public isHideList: boolean = true;
+  public isShowList: boolean = false;
+  public source: LocalDataSource = new LocalDataSource();
   
 
   private api: ApiHTTPService;
@@ -51,12 +52,12 @@ export class SurveyMetabolicComponent extends BaseComponent implements OnInit {
       cID: {
         title: 'เลขประจำตัวประชาชน',
         filter: false, 
-        width: '150px',
+        width: '200px',
       },
       homeID: {
         title: 'บ้านเลขที่',
         filter: false, 
-        width: '80px',
+        width: '100px',
       },
       gender: {
         title: 'เพศ',
@@ -66,7 +67,7 @@ export class SurveyMetabolicComponent extends BaseComponent implements OnInit {
       age: {
         title: 'อายุ',
         filter: false,
-        width: '90px',
+        width: '80px',
       },
       action: {
         title: 'การทำงาน',
@@ -76,26 +77,13 @@ export class SurveyMetabolicComponent extends BaseComponent implements OnInit {
         type: 'custom',
         renderComponent: ActionCustomViewComponent,
         onComponentInitFunction(instance) {
-          // instance.view.subscribe(row => {
-          //   self.doClick(row);
-          // });
-          // instance.edit.subscribe(row => {
-          //   self.doClick(row);
-          // });
-          // instance.delete.subscribe(row => {
-          //   self.doClick(row);
-          // });
 
           instance.action.subscribe(row => {
-            self.doClick(row);
+            alert(row.action);
           });
         }
       }
     });
-  }
-
-  doClick(row){
-    alert(row.id);
   }
 
   ngOnInit() {
@@ -110,32 +98,6 @@ export class SurveyMetabolicComponent extends BaseComponent implements OnInit {
     this.http.get("assets/test-list.json")
       .map(res => res.json())
       .subscribe(data => this.data = data);
-
-    // this.dtOptions = {
-    //   pagingType: "full_numbers",
-    //   processing: true,
-    //   columns: [{
-    //     width: "40px",
-    //     orderable: false
-    //   }, {
-    //     width: ""
-    //   }, {
-    //     width: "220px"
-    //   }, {
-    //     width: "70px"
-    //   }, {
-    //     width: "70px"
-    //   }, {
-    //     width: "70px"
-    //   }, {
-    //     width: "70px"
-    //   }, {
-    //     width: "70px"
-    //   }, {
-    //     width: "70px",
-    //     orderable: false
-    //   }]
-    // };
   }
 
   openModal(key: string) {
@@ -146,12 +108,13 @@ export class SurveyMetabolicComponent extends BaseComponent implements OnInit {
 
   onChangeFilter(event: HeadFilterBean){
     console.log("ChangeFilter");
-    this.isHideList = true;
+    this.isShowList = false;
   }
   onSearch(event: HeadFilterBean){
-      console.log(event);
-      this.sources = this.data;
-      this.isHideList = false;
+    console.log(event);
+    this.source = new LocalDataSource(this.data);
+    this.isShowList = true;
+    super.setNg2STDatasource(this.source);
 
   }
 

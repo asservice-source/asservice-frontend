@@ -6,6 +6,7 @@ import { PersonBean } from "../../beans/person.bean";
 import { ApiHTTPService } from '../../service/api-http.service';
 import { ActionCustomViewComponent } from '../../action-custom-table/action-custom-view.component';
 import { HeadFilterBean } from '../../beans/survey-head-filter.Bean';
+import { LocalDataSource } from 'ng2-smart-table';
 
 declare var $: any
 @Component({
@@ -19,8 +20,8 @@ export class SurveyPregnantComponent extends BaseComponent implements OnInit {
   private api: ApiHTTPService;
   public settings: any;
   public data;
-  public isHideList:boolean = true;
-  public sources: any;
+  public isShowList:boolean = false;
+  public source: LocalDataSource = new LocalDataSource();
   
   constructor(private http: Http, private router: Router) { 
     super();
@@ -43,42 +44,32 @@ export class SurveyPregnantComponent extends BaseComponent implements OnInit {
         filter: false, 
         width: '200px',
       },
-      homeID: {
-        title: 'บ้านเลขที่',
-        filter: false, 
-        width: '180px',
-      },
-      gender: {
-        title: 'เพศ',
-        filter: false ,
-        width: '70px',
-      },
       age: {
         title: 'อายุ',
-        filter: false,
+        filter: false, 
+        width: '70px',
+      },
+      wombNo: {
+        title: 'ครรภ์ที่',
+        filter: false ,
         width: '90px',
+      },
+      bornDueDate: {
+        title: 'วันกำหนดคลอด',
+        filter: false,
+        width: '150px',
       },
       action: {
         title: 'การทำงาน',
         filter: false,
         sort: false,
-        width: '100px',
+        width: '120px',
         type: 'custom',
         renderComponent: ActionCustomViewComponent,
         onComponentInitFunction(instance) {
-          // instance.view.subscribe(row => {
-          //   self.doClick(row);
-          // });
-          // instance.edit.subscribe(row => {
-          //   self.doClick(row);
-          // });
-          // instance.delete.subscribe(row => {
-          //   self.doClick(row);
-          // });
-
           instance.action.subscribe(row => {
-            self.doClick(row);
-          });
+            alert(row.action);
+           });
         }
       }
     });
@@ -86,9 +77,7 @@ export class SurveyPregnantComponent extends BaseComponent implements OnInit {
   ngOnInit() {
   }
 
-  doClick(row){
-    alert(row.id);
-  }
+ 
 
   loadData() {
     this.http.get("assets/test-list.json")
@@ -99,13 +88,13 @@ export class SurveyPregnantComponent extends BaseComponent implements OnInit {
 
   onChangeFilter(event: HeadFilterBean){
     console.log("ChangeFilter");
-    this.isHideList = true;
+    this.isShowList = false;
   }
   onSearch(event: HeadFilterBean){
-      console.log(event);
-      this.sources = this.data;
-      this.isHideList = false;
-
+    console.log(event);
+    this.source = new LocalDataSource(this.data);
+    this.isShowList = true;
+    super.setNg2STDatasource(this.source);
   }
  
 }
