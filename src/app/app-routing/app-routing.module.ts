@@ -10,15 +10,15 @@ import { ContentComponent } from "./../content/content.component";
 import { NotfoundComponent } from "./../notfound/notfound.component";
 import { LoginComponent } from "./../login/login.component";
 import { RegisterComponent } from "./../register/register.component";
-import { SurveyPregnantComponent } from "./../surveys/pregnant/survey-pregnant.component";
+import { SurveyPregnantListComponent } from "./../surveys/pregnant/survey-pregnant-list/survey-pregnant-list.component";
 import { SurverDiedComponent } from "./../surveys/died/survey-died.component";
-import { SurveyPersonalComponent } from "./../surveys/personal/survey-personal/survey-personal.component";
-import { SurveyPersonalDetailComponent } from "./../surveys/personal/survey-personal-detail/survey-personal-detail.component";
-import { SurveyPatientComponent } from "./../surveys/patient/survey-patient.component";
-import { SurveyMetabolicComponent } from "./../surveys/metabolic/survey-metabolic.component";
-import { SurveyMosquitoComponent } from "./../surveys/mosquito/survey-mosquito.component";
-import { SurveyCancerComponent } from "./../surveys/cancer/survey-cancer/survey-cancer.component";
-import { SumpregnantComponent } from "./../summary/sumpregnant/sumpregnant.component";
+import { SurveyPersonalHomeListComponent } from "./../surveys/personal/survey-personal-home-list/survey-personal-home-list.component";
+import { SurveyPersonalMemberListComponent } from "./../surveys/personal/survey-personal-member-list/survey-personal-member-list.component";
+import { SurveyPatientListComponent } from "./../surveys/patient/survey-patient-list/survey-patient-list.component";
+import { SurveyMetabolicListComponent } from "./../surveys/metabolic/survey-metabolic-list/survey-metabolic-list.component";
+import { SurveyMosquitoListComponent } from "./../surveys/mosquito/survey-mosquito-list/survey-mosquito-list.component";
+import { SurveyCancerListComponent } from "./../surveys/cancer/survey-cancer-list/survey-cancer-list.component";
+
 @NgModule({
   imports: [
     RouterModule.forRoot([
@@ -53,7 +53,7 @@ import { SumpregnantComponent } from "./../summary/sumpregnant/sumpregnant.compo
           children: [
             {
               path: 'pregnant',
-              component: SurveyPregnantComponent
+              component: SurveyPregnantListComponent
             },
             {
               path: 'died',
@@ -61,36 +61,27 @@ import { SumpregnantComponent } from "./../summary/sumpregnant/sumpregnant.compo
             },
             {
               path: 'personal',
-              component: SurveyPersonalComponent
+              component: SurveyPersonalHomeListComponent
             },
             {
               path: 'personal-detail/:homeId',
-              component: SurveyPersonalDetailComponent
+              component: SurveyPersonalMemberListComponent
             },
             {
               path: 'patient',
-              component: SurveyPatientComponent
+              component: SurveyPatientListComponent
             }, {
               path: 'metabolic',
-              component: SurveyMetabolicComponent
+              component: SurveyMetabolicListComponent
             }, {
               path: 'mosquito',
-              component: SurveyMosquitoComponent
+              component: SurveyMosquitoListComponent
             }
             , {
               path: 'cancer',
-              component: SurveyCancerComponent
+              component: SurveyCancerListComponent
             }
 
-          ]
-        },
-        {
-          path: 'summary',
-          children: [
-            {
-              path: 'sumpregnant',
-              component: SumpregnantComponent
-            }
           ]
         }
         ]
