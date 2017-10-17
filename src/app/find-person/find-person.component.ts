@@ -29,7 +29,7 @@ export class FindPersonComponent extends BaseComponent implements OnInit, OnChan
   public isDisabledHomeNo = true;
   public isDisabledPerson = true;
   public isDisableBtnSearch = true;
-  public personData: any = [{citizenID: '1-11-3-2290343-2-4', fullName: 'Mr. Jhon Heroes', age: 41, status: 'เจ้าบ้าน'}];
+  public personData: any = [{citizenId: '1-11-3-2290343-2-4', fullName: 'Mr. Jhon Heroes', age: 41, status: 'เจ้าบ้าน'}];
   
   @Input() findPersonal: boolean;
   @Output() choosePersonal: EventEmitter<PersonBean> = new EventEmitter<PersonBean>();
@@ -43,7 +43,7 @@ export class FindPersonComponent extends BaseComponent implements OnInit, OnChan
     this.personBean = new PersonBean();
     this.village.villageID = "";
     this.osm.OSMID = "";
-    this.personBean.citizenID = "";
+    this.personBean.citizenId = "";
     this.personBean.firstName = "Firstname";
     this.personBean.lastName = "Lastname";
     this.personBean.nickName = "Sum";
@@ -67,7 +67,7 @@ export class FindPersonComponent extends BaseComponent implements OnInit, OnChan
       this.isDisabledHomeNo = true;
       this.isDisabledOSM = true;
     }
-    this.personBean.citizenID = '';
+    this.personBean.citizenId = '';
   }
   changHomeNo(){
     if(this.home.homeID){
@@ -75,7 +75,7 @@ export class FindPersonComponent extends BaseComponent implements OnInit, OnChan
     }else{
       this.isDisableBtnSearch = true;
     }
-    this.personBean.citizenID = '';
+    this.personBean.citizenId = '';
   }
   doSearchPerson(){
     this.isDisabledPerson = false;

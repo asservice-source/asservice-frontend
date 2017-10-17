@@ -1,18 +1,18 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { BaseComponent } from "../../base-component";
-import { ApiHTTPService } from "../../service/api-http.service";
-import { ActionCustomViewComponent } from '../../action-custom-table/action-custom-view.component';
-import { HeadFilterBean } from '../../beans/survey-head-filter.Bean';
+import { BaseComponent } from "../../../base-component";
+import { ApiHTTPService } from "../../../service/api-http.service";
+import { ActionCustomViewComponent } from '../../../action-custom-table/action-custom-view.component';
+import { HeadFilterBean } from '../../../beans/survey-head-filter.Bean';
 import { LocalDataSource } from 'ng2-smart-table';
 
 declare var $: any;
 
 @Component({
-  selector: 'app-survey-died',
-  templateUrl: './survey-died.component.html',
-  styleUrls: ['./survey-died.component.css']
+  selector: 'app-survey-died-list',
+  templateUrl: './survey-died-list.component.html',
+  styleUrls: ['./survey-died-list.component.css']
 })
-export class SurverDiedComponent extends BaseComponent implements OnInit {
+export class SurverDiedListComponent extends BaseComponent implements OnInit {
  // Datatables options
  // dtOptions: DataTables.Settings = {};
   private api: ApiHTTPService;

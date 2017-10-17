@@ -11,7 +11,7 @@ import { NotfoundComponent } from "./../notfound/notfound.component";
 import { LoginComponent } from "./../login/login.component";
 import { RegisterComponent } from "./../register/register.component";
 import { SurveyPregnantListComponent } from "./../surveys/pregnant/survey-pregnant-list/survey-pregnant-list.component";
-import { SurverDiedComponent } from "./../surveys/died/survey-died.component";
+import { SurverDiedListComponent } from "./../surveys/died/survey-died-list/survey-died-list.component";
 import { SurveyPersonalHomeListComponent } from "./../surveys/personal/survey-personal-home-list/survey-personal-home-list.component";
 import { SurveyPersonalMemberListComponent } from "./../surveys/personal/survey-personal-member-list/survey-personal-member-list.component";
 import { SurveyPatientListComponent } from "./../surveys/patient/survey-patient-list/survey-patient-list.component";
@@ -57,7 +57,7 @@ import { SurveyCancerListComponent } from "./../surveys/cancer/survey-cancer-lis
             },
             {
               path: 'died',
-              component: SurverDiedComponent
+              component: SurverDiedListComponent
             },
             {
               path: 'personal',

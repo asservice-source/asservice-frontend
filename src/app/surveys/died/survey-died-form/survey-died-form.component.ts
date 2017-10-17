@@ -3,12 +3,12 @@ import { FindPersonComponent } from "../../../find-person/find-person.component"
 import { PersonBean } from "../../../beans/person.bean";
 import { BaseComponent } from "../../../base-component";
 @Component({
-  selector: 'app-survey-died-add',
-  templateUrl: './survey-died-add.component.html',
-  styleUrls: ['./survey-died-add.component.css']
+  selector: 'app-survey-died-form',
+  templateUrl: './survey-died-form.component.html',
+  styleUrls: ['./survey-died-form.component.css']
   
 })
-export class SurveyDiedAddComponent extends BaseComponent implements OnInit ,AfterViewInit {
+export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,AfterViewInit {
   public isShowForm: boolean = false;
   public isFindPersonal: boolean = true;
   show = false;
@@ -102,7 +102,7 @@ export class SurveyDiedAddComponent extends BaseComponent implements OnInit ,Aft
   }
 
   onChoosePersonal(personBean:PersonBean):void {
-    console.log('noti Choose = '+personBean.citizenID);
+    console.log('noti Choose = '+personBean.citizenId);
     this.isFindPersonal = false;
     this.isShowForm = true;
   }

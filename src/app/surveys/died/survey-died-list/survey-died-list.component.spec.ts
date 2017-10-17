@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SurveyDiedAddComponent } from './survey-died-add.component';
+import { SurverDiedListComponent } from './survey-died-list.component';
 
-describe('DiedAddComponent', () => {
-  let component: SurveyDiedAddComponent;
-  let fixture: ComponentFixture<SurveyDiedAddComponent>;
+describe('SurverDiedListComponent', () => {
+  let component: SurverDiedListComponent;
+  let fixture: ComponentFixture<SurverDiedListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SurveyDiedAddComponent ]
+      declarations: [ SurverDiedListComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SurveyDiedAddComponent);
+    fixture = TestBed.createComponent(SurverDiedListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
