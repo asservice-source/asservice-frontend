@@ -113,8 +113,6 @@ export class SurveyPersonalComponent extends BaseComponent implements OnInit, Af
     // this.http.get("assets/data_test/data_home_personal.json")
     //   .map(res => res.json())
     //   .subscribe(data => self.listHomeData = data);
-
-    // $("#panel_table_personal").show();
   }
 
 }

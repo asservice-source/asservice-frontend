@@ -15,7 +15,6 @@ export class SurveyPersonalDetailModalComponent implements OnInit {
   }
 
   private apiHttp: ApiHTTPService = new ApiHTTPService();
-  private URL_PERSON_PROFILE: string = "";
   private personData: any;
   public person: PersonBean;
 
