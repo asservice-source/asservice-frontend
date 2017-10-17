@@ -13,7 +13,7 @@ import { PersonBean } from './../../../beans/person.bean';
 export class SurveyMetabolicFormComponent implements OnInit {
 
   @Input() set citizenID(citizenID: string) {
-    this.personBean.citizenID = citizenID;
+    this.personBean.citizenId = citizenID;
   }
 
   public personalities = new Personalities();
@@ -123,17 +123,17 @@ export class SurveyMetabolicFormComponent implements OnInit {
   }
 
   getCitizen(event: PersonBean) {
-    if (event.citizenID == '0') {
+    if (event.citizenId == '0') {
       this.isShowForm = false;
     } else {
       this.isShowForm = true;
     }
-    this.personBean.citizenID = event.citizenID;
+    this.personBean.citizenId = event.citizenId;
     console.log("content");
   }
 
   onChangeFind(event: PersonBean) {
-    if (event.citizenID == '0') {
+    if (event.citizenId == '0') {
       this.isShowForm = false;
     } else {
       this.isShowForm = true;

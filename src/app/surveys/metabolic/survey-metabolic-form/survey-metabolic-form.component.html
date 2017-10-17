@@ -1,28 +1,29 @@
-
 <div id="find-person-md" class="modal fade" role="dialog" tabindex="-1">
-        <div class="modal-lg modal-dialog">
-      
-          <!-- Modal content-->
-          <div class="modal-content">
+    <div class="modal-lg modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
             <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-              <h4 class="modal-title"><span><img height="30" src="assets/img/check.png" style="cursor: pointer;" width="30">
-              </span>ค้นหา</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">
+                    <span>
+                        <img height="30" src="assets/img/check.png" style="cursor: pointer;" width="30">
+                    </span>ค้นหา</h4>
             </div>
-            
-            <app-find-person (notify)="getCitizen($event);" (changeFilter)="onChangeFind($event)" ></app-find-person>
-    
+
+            <app-find-person (notify)="getCitizen($event);" (changeFilter)="onChangeFind($event)"></app-find-person>
+
             <hr>
-            
+
             <div *ngIf="isShowForm">
-                                
+
                 <div style="background-color: #fff">
                     <div class="row">
                         <div class="col-md-3 text-right">
                             <label id="cid" class="label-form label_space">หมายเลขประจำตัว :</label>
                         </div>
 
-                        <label class="label-form label_space">{{personBean.citizenID}}</label>
+                        <label class="label-form label_space">{{personBean.citizenId}}</label>
                         <label class="label-form">สิทธิบัตร :</label>
                         <label class="label-form label_space">{{personBean.healthInsurananceType}}</label>
 
@@ -33,7 +34,7 @@
                             <label class="label-form label_space">ชื่อ-สกุล :</label>
                         </div>
 
-                        <label class="label-form label_space">{{personBean.firstName}}  {{personBean.lastName}}</label>
+                        <label class="label-form label_space">{{personBean.firstName}} {{personBean.lastName}}</label>
 
                         <label class="label-form">เพศ :</label>
                         <label class="label-form label_space">{{personBean.gender}}</label>
@@ -70,10 +71,12 @@
                     <div class="col-md-12 col-md-offset-2">
                         <div class="checkbox">
                             <label class="label-form" style="font-size: 1em">
-                                    <input type="checkbox" [checked]="healtHistory_isDiabetesParent" (change)="healtHistory_isDiabetesParent = !healtHistory_isDiabetesParent">
-                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                                    มีประวัติ พ่อแม่ ญาติ พี่น้องสายตรงเป็นเบาหวาน
-                                </label>
+                                <input type="checkbox" [checked]="healtHistory_isDiabetesParent" (change)="healtHistory_isDiabetesParent = !healtHistory_isDiabetesParent">
+                                <span class="cr">
+                                    <i class="cr-icon fa fa-check"></i>
+                                </span>
+                                มีประวัติ พ่อแม่ ญาติ พี่น้องสายตรงเป็นเบาหวาน
+                            </label>
 
                         </div>
                     </div>
@@ -83,10 +86,12 @@
                     <div class="col-md-12 col-md-offset-2">
                         <div class="checkbox">
                             <label class="label-form" style="font-size: 1em">
-                                    <input type="checkbox" [checked]="healtHistory_isOverBmi" (change)="healtHistory_isOverBmi = !healtHistory_isOverBmi">
-                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                                    รอบเอวในชาย >90 ซม./หญิง >80 ซม. หรือภาวะอ้วน ดัชนีมวลกาย >25 กก/ตร.ม
-                                </label>
+                                <input type="checkbox" [checked]="healtHistory_isOverBmi" (change)="healtHistory_isOverBmi = !healtHistory_isOverBmi">
+                                <span class="cr">
+                                    <i class="cr-icon fa fa-check"></i>
+                                </span>
+                                รอบเอวในชาย >90 ซม./หญิง >80 ซม. หรือภาวะอ้วน ดัชนีมวลกาย >25 กก/ตร.ม
+                            </label>
 
                         </div>
                     </div>
@@ -96,10 +101,12 @@
                     <div class="col-md-12 col-md-offset-2">
                         <div class="checkbox">
                             <label class="label-form" style="font-size: 1em">
-                                        <input type="checkbox" [checked]="healtHistory_isOverBp" (change)="healtHistory_isOverBp = !healtHistory_isOverBp">
-                                        <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                                        ความดันโลหิต >140/90 mmHg หรือเคยมีประวัติเป็นโรคความดันโลหิตสูง
-                                    </label>
+                                <input type="checkbox" [checked]="healtHistory_isOverBp" (change)="healtHistory_isOverBp = !healtHistory_isOverBp">
+                                <span class="cr">
+                                    <i class="cr-icon fa fa-check"></i>
+                                </span>
+                                ความดันโลหิต >140/90 mmHg หรือเคยมีประวัติเป็นโรคความดันโลหิตสูง
+                            </label>
 
                         </div>
                     </div>
@@ -109,10 +116,12 @@
                     <div class="col-md-12 col-md-offset-2">
                         <div class="checkbox">
                             <label class="label-form" style="font-size: 1em">
-                                        <input type="checkbox" [checked]="healtHistory_isOverFbs" (change)="healtHistory_isOverFbs = !healtHistory_isOverFbs">
-                                        <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                                        มีประวัติน้ำตาลในเลือดสูง
-                                    </label>
+                                <input type="checkbox" [checked]="healtHistory_isOverFbs" (change)="healtHistory_isOverFbs = !healtHistory_isOverFbs">
+                                <span class="cr">
+                                    <i class="cr-icon fa fa-check"></i>
+                                </span>
+                                มีประวัติน้ำตาลในเลือดสูง
+                            </label>
 
                         </div>
                     </div>
@@ -122,10 +131,12 @@
                     <div class="col-md-12 col-md-offset-2">
                         <div class="checkbox">
                             <label class="label-form" style="font-size: 1em">
-                                        <input type="checkbox" [checked]="healtHistory_isOvercholesterol" (change)="healtHistory_isOvercholesterol = !healtHistory_isOvercholesterol">
-                                        <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                                        มีประวัติภาวะไขมันในเลือดสูง
-                                    </label>
+                                <input type="checkbox" [checked]="healtHistory_isOvercholesterol" (change)="healtHistory_isOvercholesterol = !healtHistory_isOvercholesterol">
+                                <span class="cr">
+                                    <i class="cr-icon fa fa-check"></i>
+                                </span>
+                                มีประวัติภาวะไขมันในเลือดสูง
+                            </label>
 
                         </div>
                     </div>
@@ -135,10 +146,12 @@
                     <div class="col-md-12 col-md-offset-2">
                         <div class="checkbox">
                             <label class="label-form" style="font-size: 1em">
-                                            <input type="checkbox" [checked]="healtHistory_isPregnantDiabetes" (change)="healtHistory_isPregnantDiabetes = !healtHistory_isPregnantDiabetes">
-                                            <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                                            มีประวัติเป็นเบาหวานและตั้งครรภ์หรือมีบุตรน้ำหนักแรกเกิดเกิน 4 กิโลกรัม
-                                        </label>
+                                <input type="checkbox" [checked]="healtHistory_isPregnantDiabetes" (change)="healtHistory_isPregnantDiabetes = !healtHistory_isPregnantDiabetes">
+                                <span class="cr">
+                                    <i class="cr-icon fa fa-check"></i>
+                                </span>
+                                มีประวัติเป็นเบาหวานและตั้งครรภ์หรือมีบุตรน้ำหนักแรกเกิดเกิน 4 กิโลกรัม
+                            </label>
                         </div>
                     </div>
                 </div>
@@ -147,10 +160,12 @@
                     <div class="col-md-12 col-md-offset-2">
                         <div class="checkbox">
                             <label class="label-form" style="font-size: 1em">
-                                            <input type="checkbox" [checked]="healtHistory_isOverBpParent" (change)="healtHistory_isOverBpParent = !healtHistory_isOverBpParent">
-                                            <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                                            มีประวัติความดันโลหิตสูงในญาติสายตรง
-                                        </label>
+                                <input type="checkbox" [checked]="healtHistory_isOverBpParent" (change)="healtHistory_isOverBpParent = !healtHistory_isOverBpParent">
+                                <span class="cr">
+                                    <i class="cr-icon fa fa-check"></i>
+                                </span>
+                                มีประวัติความดันโลหิตสูงในญาติสายตรง
+                            </label>
                         </div>
                     </div>
                 </div>
@@ -357,20 +372,24 @@
                     <div class="col-md-3">
                         <div class="checkbox">
                             <label class="label-form" style="font-size: 1em">
-                                            <input type="checkbox" [checked]="disease_Diabetes" (change)="disease_Diabetes = !disease_Diabetes">
-                                            <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                                            ป่วยเป็นเบาหวาน
-                                        </label>
+                                <input type="checkbox" [checked]="disease_Diabetes" (change)="disease_Diabetes = !disease_Diabetes">
+                                <span class="cr">
+                                    <i class="cr-icon fa fa-check"></i>
+                                </span>
+                                ป่วยเป็นเบาหวาน
+                            </label>
                         </div>
                     </div>
 
                     <div class="col-md-6">
                         <div class="checkbox">
                             <label class="label-form" style="font-size: 1em">
-                                            <input type="checkbox" [checked]="disease_OverBP" (change)="disease_OverBP = !disease_OverBP">
-                                            <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                                            ป่วยเป็นความดันโลหิตสูง
-                                        </label>
+                                <input type="checkbox" [checked]="disease_OverBP" (change)="disease_OverBP = !disease_OverBP">
+                                <span class="cr">
+                                    <i class="cr-icon fa fa-check"></i>
+                                </span>
+                                ป่วยเป็นความดันโลหิตสูง
+                            </label>
                         </div>
                     </div>
                 </div>
@@ -382,30 +401,36 @@
                     <div class="col-md-2">
                         <div class="checkbox">
                             <label class="label-form" style="font-size: 1em">
-                                                <input type="checkbox" [checked]="disease_Complication_eye" (change)="disease_Complication_eye = !disease_Complication_eye">
-                                                <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                                                ตา
-                                            </label>
+                                <input type="checkbox" [checked]="disease_Complication_eye" (change)="disease_Complication_eye = !disease_Complication_eye">
+                                <span class="cr">
+                                    <i class="cr-icon fa fa-check"></i>
+                                </span>
+                                ตา
+                            </label>
                         </div>
                     </div>
 
                     <div class="col-md-2">
                         <div class="checkbox">
                             <label class="label-form" style="font-size: 1em">
-                                                <input type="checkbox" [checked]="disease_Complication_kidney" (change)="disease_Complication_kidney = !disease_Complication_kidney">
-                                                <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                                                ไต
-                                            </label>
+                                <input type="checkbox" [checked]="disease_Complication_kidney" (change)="disease_Complication_kidney = !disease_Complication_kidney">
+                                <span class="cr">
+                                    <i class="cr-icon fa fa-check"></i>
+                                </span>
+                                ไต
+                            </label>
                         </div>
                     </div>
 
                     <div class="col-md-3">
                         <div class="checkbox">
                             <label class="label-form" style="font-size: 1em">
-                                                <input type="checkbox" [checked]="disease_Complication_nerve" (change)="disease_Complication_nerve = !disease_Complication_nerve">
-                                                <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                                                ปลายประสาท
-                                            </label>
+                                <input type="checkbox" [checked]="disease_Complication_nerve" (change)="disease_Complication_nerve = !disease_Complication_nerve">
+                                <span class="cr">
+                                    <i class="cr-icon fa fa-check"></i>
+                                </span>
+                                ปลายประสาท
+                            </label>
                         </div>
                     </div>
                 </div>
@@ -414,10 +439,12 @@
                     <div class="col-md-2 col-md-offset-3">
                         <div class="checkbox">
                             <label class="label-form" style="font-size: 1em">
-                                                    <input type="checkbox" [checked]="disease_Complication_nervousSys" (change)="disease_Complication_nervousSys = !disease_Complication_nervousSys">
-                                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                                                    ระบบประสาท
-                                                </label>
+                                <input type="checkbox" [checked]="disease_Complication_nervousSys" (change)="disease_Complication_nervousSys = !disease_Complication_nervousSys">
+                                <span class="cr">
+                                    <i class="cr-icon fa fa-check"></i>
+                                </span>
+                                ระบบประสาท
+                            </label>
                         </div>
                     </div>
 
@@ -425,7 +452,9 @@
                         <div class="checkbox">
                             <label class="label-form" style="font-size: 1em">
                                 <input type="checkbox" [checked]="disease_Complication_etc" (change)="disease_Complication_etc = !disease_Complication_etc">
-                                <span class="cr"><i class="cr-icon fa fa-check"></i></span> อื่นๆ</label>
+                                <span class="cr">
+                                    <i class="cr-icon fa fa-check"></i>
+                                </span> อื่นๆ</label>
                         </div>
                     </div>
                 </div>
@@ -434,8 +463,8 @@
                     <button class="btn btn-primary text-center" (click)="update();">บันทึก</button>
                     <button class="btn btn-primary text-center">ยกเลิก</button>
                 </div>
+            </div>
+
         </div>
-            
-    </div>
     </div>
 </div>

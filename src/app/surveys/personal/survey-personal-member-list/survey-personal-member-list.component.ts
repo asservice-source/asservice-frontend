@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Http, Response, RequestOptions } from "@angular/http";
 import { Router } from "@angular/router";
 import { ActivatedRoute } from '@angular/router';
-import { ViewCell } from 'ng2-smart-table';
+import { ViewCell, LocalDataSource } from 'ng2-smart-table';
 import { BaseComponent } from '../../../base-component';
 import { PersonBean } from '../../../beans/person.bean';
 import { ApiHTTPService } from '../../../service/api-http.service';
@@ -23,6 +23,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
 
   public settings: any;
   public listMemberData: any = [];
+  public source: LocalDataSource;
 
   constructor(private http: Http, private router: Router, private route: ActivatedRoute) {
     super();
@@ -42,7 +43,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
         title: 'เลขประจำตัวประชาชน',
         filter: false
       },
-      dateOfBirth: {
+      birthDate: {
         title: 'วัน/เดือน/ปี เกิด',
         filter: false
       },
@@ -60,11 +61,13 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
         type: 'custom',
         renderComponent: SurveyPersonalMemberListButtonEditComponent,
         onComponentInitFunction(instance) {
-          instance.action.subscribe((row) => {
-            let tmpPerson = new PersonBean();
-            tmpPerson.citizenID = row.citizenId;
+          instance.action.subscribe((row: PersonBean) => {
+            // let tmpPerson = new PersonBean();
+            // tmpPerson.firstName = row.firstName;
+            // tmpPerson.lastName = row.lastName;
+            // tmpPerson.citizenID = row.citizenId;
 
-            self.paramsPerson = tmpPerson;
+            self.paramsPerson = row;
             $("#modalMember").modal({ backdrop: 'static', keyboard: false });
           });
         }
@@ -86,7 +89,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
 
   loadData() {
     let self = this;
-
+    this.paramHomeId = "1"; // test
     let params = { "homeId": this.paramHomeId };
     this.apiHttp.post(this.URL_LIST_HOME_MEMBERS, params, function (d) {
       if (d != null && d.status.toUpperCase() == "SUCCESS") {
@@ -97,6 +100,9 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     // this.http.get("assets/data_test/data_personal.json")
     //   .map(res => res.json())
     //   .subscribe(data => self.listMemberData = data);
+
+    self.source = new LocalDataSource(self.listMemberData);
+    self.setNg2STDatasource(self.source);
   }
 
   clickBack() {
