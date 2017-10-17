@@ -30,10 +30,12 @@ import { SurveyPregnantListComponent } from './surveys/pregnant/survey-pregnant-
 import { SurveyPregnantFormComponent } from './surveys/pregnant/survey-pregnant-form/survey-pregnant-form.component';
 import { SurverDiedComponent } from './surveys/died/survey-died.component';
 import { SurveyPatientListComponent } from './surveys/patient/survey-patient-list/survey-patient-list.component';
+import { SurveyPatientFormComponent } from './surveys/patient/survey-patient-form/survey-patient-form.component';
 import { SurveyMetabolicListComponent } from './surveys/metabolic/survey-metabolic-list/survey-metabolic-list.component';
 import { SurveyMetabolicFormComponent } from './surveys/metabolic/survey-metabolic-form/survey-metabolic-form.component';
 import { SurveyDiedAddComponent } from './surveys/died/died-add/survey-died-add.component';
 import { SurveyMosquitoListComponent } from './surveys/mosquito/survey-mosquito-list/survey-mosquito-list.component';
+import { SurveyMosquitoFormComponent } from './surveys/mosquito/survey-mosquito-form/survey-mosquito-form.component';
 import { SurveyPersonalHomeListComponent, SurveyPersonalHomeListButtonEditComponent } from './surveys/personal/survey-personal-home-list/survey-personal-home-list.component';
 import { SurveyPersonalMemberListComponent, SurveyPersonalMemberListButtonEditComponent } from './surveys/personal/survey-personal-member-list/survey-personal-member-list.component';
 import { SurveyPersonalMemberFormComponent } from './surveys/personal/survey-personal-member-form/survey-personal-member-form.component';
@@ -82,7 +84,9 @@ import { FiindPersonMemberListComponent } from './find-person/find-person-member
     LoadingComponent,
     ActionCustomViewComponent,
     FilterPersonalComponent,
-    FiindPersonMemberListComponent
+    FiindPersonMemberListComponent,
+    SurveyMosquitoFormComponent,
+    SurveyPatientFormComponent
   ],
   imports: [
     BrowserModule,
