@@ -52,9 +52,6 @@ export class BaseComponent implements OnInit {
           };
 
           settings.columns = columns;
-
-          
-
           return settings;
     }
     private isRefrestData = false;

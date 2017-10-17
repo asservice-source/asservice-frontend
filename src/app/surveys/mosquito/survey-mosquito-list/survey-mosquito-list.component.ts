@@ -109,7 +109,7 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
         width: '60px',
       },
       name: {
-        title: 'ชื่อผู้สำรวจ',
+        title: 'ชื่อาอสาสมัคร',
         filter: false
       },
       homeNo: {
