@@ -2,12 +2,12 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Http, Headers, RequestOptions } from "@angular/http";
 import { Router } from "@angular/router";
 import { LocalDataSource, ViewCell } from 'ng2-smart-table';
-import { ApiHTTPService } from '../../service/api-http.service';
-import { BaseComponent } from '../../base-component';
+import { BaseComponent } from '../../../base-component';
+import { ApiHTTPService } from '../../../service/api-http.service';
 declare var $;
 
 @Component({
-  selector: 'app-cancer',
+  selector: 'app-survey-cancer',
   templateUrl: './survey-cancer.component.html',
   styleUrls: ['./survey-cancer.component.css']
 })

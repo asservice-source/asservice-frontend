@@ -17,7 +17,7 @@ import { SurveyPersonalDetailComponent } from "./../surveys/personal/personal-de
 import { SurveyPatientComponent } from "./../surveys/patient/survey-patient.component";
 import { SurveyMetabolicComponent } from "./../surveys/metabolic/survey-metabolic.component";
 import { SurveyMosquitoComponent } from "./../surveys/mosquito/survey-mosquito.component";
-import { SurveyCancerComponent } from "./../surveys/cancer/survey-cancer.component";
+import { SurveyCancerComponent } from "./../surveys/cancer/survey-cancer/survey-cancer.component";
 import { SumpregnantComponent } from "./../summary/sumpregnant/sumpregnant.component";
 @NgModule({
   imports: [

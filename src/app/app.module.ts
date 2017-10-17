@@ -37,7 +37,8 @@ import { SurveyDiedAddComponent } from './surveys/died/died-add/survey-died-add.
 import { SurveyMetabolicModalComponent } from './surveys/metabolic/Survey-metabolic-modal/survey-metabolic-modal.component';
 import { SurveyMosquitoComponent } from './surveys/mosquito/survey-mosquito.component';
 import { SurveyPersonalDetailComponent, SurveyPersonalDetailButtonEditComponent } from './surveys/personal/personal-detail/personal-detail.component';
-import { SurveyCancerComponent, SurveyCancerButtonEditComponent } from './surveys/cancer/survey-cancer.component';
+import { SurveyCancerComponent, SurveyCancerButtonEditComponent } from './surveys/cancer/survey-cancer/survey-cancer.component';
+import { SurveyCancerModalComponent } from './surveys/cancer/survey-cancer-modal/survey-cancer-modal.component';
 import { SurveyPersonalDetailModalComponent } from './surveys/personal/personal-detail/survey-personal-detail-modal/survey-personal-detail-modal.component';
 import { SurveyHeadFilterComponent } from './survey-head-filter/survey-head-filter.component';
 import { SurveyPersonalComponent, SurveyPersonalButtonEditComponent } from './surveys/personal/personal.component';
@@ -48,7 +49,6 @@ import { SumpregnantComponent } from './summary/sumpregnant/sumpregnant.componen
 import { LoadingComponent } from './loading/loading.component';
 import { FilterPersonalComponent } from './filter-personal/filter-personal.component';
 import { FiindPersonMemberListComponent } from './find-person/find-person-member-list/member-list.component';
-import { SurveyCancerModalComponent } from './surveys/cancer/survey-cancer-modal/survey-cancer-modal.component';
 
 @NgModule({
   declarations: [
@@ -77,6 +77,7 @@ import { SurveyCancerModalComponent } from './surveys/cancer/survey-cancer-modal
     SurveyPersonalDetailComponent,
     SurveyCancerComponent,
     SurveyCancerButtonEditComponent,
+    SurveyCancerModalComponent,
     SurveyPersonalComponent,
     SurveyPersonalButtonEditComponent,
     SurveyPersonalDetailModalComponent,
@@ -86,8 +87,7 @@ import { SurveyCancerModalComponent } from './surveys/cancer/survey-cancer-modal
     LoadingComponent,
     ActionCustomViewComponent,
     FilterPersonalComponent,
-    FiindPersonMemberListComponent,
-    SurveyCancerModalComponent
+    FiindPersonMemberListComponent
   ],
   imports: [
     BrowserModule,
