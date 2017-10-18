@@ -12,19 +12,20 @@
     <app-find-person [findPersonal]="isFindPersonal" (choosePersonal)="onChoosePersonal($event)"></app-find-person>
     
      <div class="row" *ngIf="isShowForm">
-        <div class="padding_right col-md-9" id="personDetail" >
+        <div class="col-md-12">
+        <div class="padding_right col-md-9">
             <div class="col-md-6">
-              <label>ชื่อ {{mFullname}}</label>
+              <label>ชื่อ {{personBean.fullName}}</label>
             </div>
             
             <div class="col-md-4 col-md-offset-2" style="margin-left:0px">
               <label>อายุ</label>
-              <label>25</label>
+              <label>{{personBean.age}}</label>
             </div>
     
             <div class="col-md-12">
               <label>หมายเลขประจำตัว</label>
-              <label>1-4599-00321-43-2</label>
+              <label>{{personBean.citizenId}}</label>
             </div>
     
             <div class="col-md-12">
@@ -99,15 +100,13 @@
             </div>
         </div>
         <div class="row">
-            <div id="textLocation">
+            <div id="textLocation" hidden="true">
               <div class="col-md-3 text-right">
                 <label class="">สถานที่อื่นๆ</label>
               </div>
     
               <div class="col-md-5">
-                <textarea>
-    
-                </textarea>
+                <input type="text" [(ngModel)]="locationOther">
               </div>
             </div>
           </div>
@@ -125,12 +124,7 @@
             </div>
           </div>
     
-          <div class="row">
-              <div class="col-md-12 text-center">
-              <button class="btn btn-sm btn-primary">ยืนยัน</button>
-              <button class="btn btn-sm btn-primary" (click)="onBack()">กลับ</button>
-            </div>
-          </div>
+          
           </div>
 
 
@@ -143,6 +137,15 @@
           <div class="modal-footer">
           </div>
 
+          </div>
+
+        
+          <div class="row">
+            <div class="col-md-12 text-center">
+              <button class="btn btn-sm btn-primary">ยืนยัน</button> &nbsp;&nbsp;
+              <button class="btn btn-sm btn-primary" (click)="onBack()">กลับ</button>
+            </div>
+          </div>
 
      </div>
     <!-- /END Form -->

@@ -29,7 +29,7 @@ export class FindPersonComponent extends BaseComponent implements OnInit, OnChan
   public isDisabledHomeNo = true;
   public isDisabledPerson = true;
   public isDisableBtnSearch = true;
-  public personData: any = [{citizenId: '1-11-3-2290343-2-4', fullName: 'Mr. Jhon Heroes', age: 41, status: 'เจ้าบ้าน'}];
+  public personData: any = [{citizenId: '1-11-3-2290343-2-4', fullName: 'นายโอดอวย หวยโหย', age: 34, status: 'ผู้อาศัย'}, {citizenId: '6-00-3-2290344-5-0', fullName: 'นายต้องเต ไทบ้านนอก', age: 41, status: 'เจ้าบ้าน'}];
   
   @Input() findPersonal: boolean;
   @Output() choosePersonal: EventEmitter<PersonBean> = new EventEmitter<PersonBean>();
