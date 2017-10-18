@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FindPersonComponent } from './find-person.component';
+import { FilterFindPersonComponent } from './filter-find-person.component';
 
-describe('FindPersonComponent', () => {
-  let component: FindPersonComponent;
-  let fixture: ComponentFixture<FindPersonComponent>;
+describe('FilterFindPersonComponent', () => {
+  let component: FilterFindPersonComponent;
+  let fixture: ComponentFixture<FilterFindPersonComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FindPersonComponent ]
+      declarations: [ FilterFindPersonComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FindPersonComponent);
+    fixture = TestBed.createComponent(FilterFindPersonComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

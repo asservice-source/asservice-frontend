@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../../../base-component';
 import { ApiHTTPService } from '../../../service/api-http.service';
 import { ActionCustomViewComponent } from '../../../action-custom-table/action-custom-view.component';
-import { HeadFilterBean } from '../../../beans/survey-head-filter.Bean';
+import { FilterHeadSurveyBean } from '../../../beans/filter-head-survey.bean';
 import { LocalDataSource } from 'ng2-smart-table';
 declare var $;
 
@@ -144,12 +144,12 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
     }
   }
 
-  onChangeFilter(event: HeadFilterBean) {
+  onChangeFilter(event: FilterHeadSurveyBean) {
     console.log("ChangeFilter");
     this.isShowList = false;
   }
 
-  onSearch(event: HeadFilterBean) {
+  onSearch(event: FilterHeadSurveyBean) {
     console.log(event);
     this.source = new LocalDataSource(this.datas);
     this.isShowList = true;

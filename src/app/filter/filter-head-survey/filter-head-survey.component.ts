@@ -2,7 +2,7 @@ import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 import { Headers } from '@angular/http';
 import { NgModel } from '@angular/forms';
 import { Http, Response, RequestOptions, RequestMethod } from "@angular/http";
-import { HeadFilterBean } from '../../beans/survey-head-filter.Bean';
+import { FilterHeadSurveyBean } from '../../beans/filter-head-survey.Bean';
 import { ApiHTTPService } from '../../service/api-http.service';
 import { BaseComponent } from '../../base-component';
 
@@ -20,8 +20,8 @@ export class FilterHeadSurveyComponent extends BaseComponent implements OnInit {
     console.log(this.typeCode);
   }
 
-  @Output() notifyFilter: EventEmitter<HeadFilterBean> = new EventEmitter<HeadFilterBean>();
-  @Output() changeFilter: EventEmitter<HeadFilterBean> = new EventEmitter<HeadFilterBean>();
+  @Output() notifyFilter: EventEmitter<FilterHeadSurveyBean> = new EventEmitter<FilterHeadSurveyBean>();
+  @Output() changeFilter: EventEmitter<FilterHeadSurveyBean> = new EventEmitter<FilterHeadSurveyBean>();
 
   URL_LIST_VILLAGE_NO: string = "village/village_no_list";
   URL_LIST_OSM_AND_HOME_NO: string = "osm/osm_and_home_list_by_village";
@@ -31,14 +31,14 @@ export class FilterHeadSurveyComponent extends BaseComponent implements OnInit {
   public list_round_no;
 
   private apiHttp: ApiHTTPService;
-  public filterBean: HeadFilterBean;
+  public filterBean: FilterHeadSurveyBean;
   public typeCode: string;
   public villageList;
 
   constructor(private http: Http) {
     super();
     this.apiHttp = new ApiHTTPService();
-    this.filterBean = new HeadFilterBean();
+    this.filterBean = new FilterHeadSurveyBean();
     this.filterBean.roundID = 1;
     this.filterBean.villageID = 0;
     this.filterBean.OSMID = 0;
