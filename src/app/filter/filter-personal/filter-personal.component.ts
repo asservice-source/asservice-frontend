@@ -1,8 +1,8 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Http } from "@angular/http";
-import { FilterBean } from "../beans/filter.bean";
-import { BaseComponent } from '../base-component';
-import { ApiHTTPService } from '../service/api-http.service';
+import { FilterBean } from "../../beans/filter.bean";
+import { BaseComponent } from '../../base-component';
+import { ApiHTTPService } from '../../service/api-http.service';
 @Component({
   selector: 'app-filter-personal',
   templateUrl: './filter-personal.component.html',
@@ -74,4 +74,11 @@ export class FilterPersonalComponent extends BaseComponent implements OnInit {
   doSearchFilter() {
     this.notifyFilter.emit(this.filterBean);
   }
+
+  doClearFilter() {
+    this.filterBean.villageID = "";
+    this.filterBean.OSMID = "";
+    this.filterBean.homeID = "";
+  }
+
 }

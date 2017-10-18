@@ -12,11 +12,12 @@
         <label class="label-form">หมู่บ้าน</label>
     </div>
     <div class="col-md-4">
-        <select [(ngModel)]="filterBean.villageID"  (change)="onChangeVillage()">
+        <select [(ngModel)]="filterBean.villageID" (change)="onChangeVillage()">
             <option value="0">--เลือกหมู่บ้าน--</option>
             <option *ngFor="let village of list_village_no" [value]="village.id">{{ village.villageNo + ' : ' + village.villageName }}</option>
         </select>
     </div>
+
 </div>
 
 <div class="row">
@@ -25,9 +26,9 @@
         <label class="label-form">ชื่อ อสม.</label>
     </div>
     <div class="col-md-4">
-        <select [disabled]="filterBean.villageID<=0?true:false" [(ngModel)]="filterBean.OSMID"  (change)="onChangeOSM()">
-          <option value="0">--เลือก อสม.--</option>  
-      </select>
+        <select [disabled]="filterBean.villageID<=0?true:false" [(ngModel)]="filterBean.OSMID" (change)="onChangeOSM()">
+            <option value="0">--เลือก อสม.--</option>
+        </select>
     </div>
     <div class="col-md-1 text-right">
         <label class="label-form">ชื่อ</label>
@@ -42,6 +43,3 @@
         <button class="btn btn-primary btn-sm" (click)="onSearchFilter()" id="filter-btnSearch">แสดงข้อมูล : {{typeCode}}</button>
     </div>
 </div>
-
-
-
