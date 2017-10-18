@@ -79,39 +79,10 @@ export class BaseComponent implements OnInit {
             });
         }
       }
-    /*#Old SEQ
-    public sequenceTable(dataSource :LocalDataSource){
-        
-       dataSource.getElements().then( list => { 
-            let page = dataSource.getPaging();
-            let startSeq = page.page>1?((page.perPage*page.page)-page.perPage)+1:1;
-            for(let item of list){
-                item.seq = startSeq++;
-            }
-            dataSource.refresh();
-        });
-        
-        setTimeout(() => {
-            
-            let page = dataSource.getPaging();
-            let startSeq = page.page>1?((page.perPage*page.page)-page.perPage)+1:1;
-            $.each($('.table>tbody>tr'), function(k, v){
-                $(this).find('td').first().html(k+startSeq);
-            });
-        
-
-        }, 200);
-        
+    public getFullName(prefix: string, firstName, lastname){
+        if(prefix && prefix.trim()){
+            return prefix+""+firstName+" "+lastname;
+        }
+        return firstName+" "+lastname;
     }
-
-    public bindSequenceTable(dataSource :LocalDataSource){
-        let self = this;
-        self.sequenceTable(dataSource);
-        $(function(){
-            $('body').on('click', '.ng2-smart-sort-link', function(){
-                self.sequenceTable(dataSource);
-             });
-        });
-    }
-    */
 }

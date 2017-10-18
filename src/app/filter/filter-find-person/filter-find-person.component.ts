@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { BaseComponent } from "../../base-component";
 import { PersonBean } from "../../beans/person.bean";
 import { VillageBean } from '../../beans/village.bean';
@@ -13,7 +13,7 @@ declare var $: any;
   templateUrl: './filter-find-person.component.html',
   styleUrls: ['./filter-find-person.component.css']
 })
-export class FilterFindPersonComponent extends BaseComponent implements OnInit, OnChanges {
+export class FilterFindPersonComponent extends BaseComponent implements OnInit {
 
   private api: ApiHTTPService;
   public isShowFind: boolean = true;
@@ -32,6 +32,8 @@ export class FilterFindPersonComponent extends BaseComponent implements OnInit, 
   public personData: any = [{ citizenId: '1-11-3-2290343-2-4', fullName: 'นายโอดอวย หวยโหย', age: 34, status: 'ผู้อาศัย' }, { citizenId: '6-00-3-2290344-5-0', fullName: 'นายต้องเต ไทบ้านนอก', age: 41, status: 'เจ้าบ้าน' }];
 
   @Input() findPersonal: boolean;
+  @Input() reset: any;
+
   @Output() choosePersonal: EventEmitter<PersonBean> = new EventEmitter<PersonBean>();
 
   constructor(private http: Http) {
@@ -52,11 +54,14 @@ export class FilterFindPersonComponent extends BaseComponent implements OnInit, 
   ngOnInit() {
     this.setUpVillage();
   }
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(changes): void {
     console.log("OnChanges");
     console.log(changes);
     if (changes['findPersonal']) {
       this.isShowFind = this.findPersonal
+    }
+    if(changes['reset']){
+      this.village.villageID = "";
     }
   }
 
@@ -68,6 +73,10 @@ export class FilterFindPersonComponent extends BaseComponent implements OnInit, 
       this.isDisabledOSM = true;
     }
     this.personBean.citizenId = '';
+    this.filterChanges();
+  }
+  changeOSM(){
+    this.filterChanges();
   }
   changHomeNo() {
     if (this.home.homeID) {
@@ -76,6 +85,7 @@ export class FilterFindPersonComponent extends BaseComponent implements OnInit, 
       this.isDisableBtnSearch = true;
     }
     this.personBean.citizenId = '';
+    this.filterChanges();
   }
   doSearchPerson() {
     this.isDisabledPerson = false;
@@ -96,7 +106,6 @@ export class FilterFindPersonComponent extends BaseComponent implements OnInit, 
       }
     })
   }
-
   setUpOSM() {
     let self = this;
     let params_getVillageNo = { "id": self.village.villageID };
@@ -113,5 +122,8 @@ export class FilterFindPersonComponent extends BaseComponent implements OnInit, 
   onChoosePerson(person: PersonBean) {
     this.isShowFind = false;
     this.choosePersonal.emit(person);
+  }
+  filterChanges(){
+    this.isShowPersons = false;
   }
 }

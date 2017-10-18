@@ -1,4 +1,4 @@
-import { Component, OnInit ,AfterViewInit} from '@angular/core';
+import { Component, OnInit ,AfterViewInit, ElementRef, ChangeDetectorRef} from '@angular/core';
 import { PersonBean } from "../../../beans/person.bean";
 import { BaseComponent } from "../../../base-component";
 @Component({
@@ -10,6 +10,7 @@ import { BaseComponent } from "../../../base-component";
 export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,AfterViewInit {
   public isShowForm: boolean = false;
   public isFindPersonal: boolean = true;
+  public resetFind: number = 1;
   public personBean: PersonBean = new PersonBean();
   show = false;
   location = 1;
@@ -25,12 +26,14 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
   mPrefix;
   mBirthDate;
   mFullname = "นายโสภน การแพทย์";
-  constructor() {
+  constructor(private changeRef: ChangeDetectorRef) {
     super();
    }
   persons = [];
 
   ngOnInit() {
+    
+    this.onModalEvent();
     $('.datepicker').datepicker({
       format: 'mm/dd/yyyy',
       startDate: '-3d'
@@ -106,9 +109,23 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
     this.isShowForm = true;
   }
   onBack(){
+    this.personBean = new PersonBean();
     this.isFindPersonal = true;
     this.isShowForm = false;
   }
+  onModalEvent(){
+    let self = this;
+    $('#modal-add-died').on('show.bs.modal', function (e) {
+      console.log("show.bs.modal");
+      self.resetFind = self.resetFind+1;
+      self.changeRef.detectChanges();
+    })
+    $('#modal-add-died').on('hidden.bs.modal', function () {
+      console.log("hide.bs.modal");
+      self.isShowForm = false;
+      self.isFindPersonal = true;
+      self.resetFind = self.resetFind+1;
+      self.changeRef.detectChanges();
+    });
+  }
 }
-
-
