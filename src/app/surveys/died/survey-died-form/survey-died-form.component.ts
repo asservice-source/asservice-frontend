@@ -1,5 +1,4 @@
 import { Component, OnInit ,AfterViewInit} from '@angular/core';
-import { FindPersonComponent } from "../../../find-person/find-person.component";
 import { PersonBean } from "../../../beans/person.bean";
 import { BaseComponent } from "../../../base-component";
 @Component({
