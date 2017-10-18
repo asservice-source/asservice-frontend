@@ -11,6 +11,7 @@ import { BaseComponent } from "../../../base-component";
 export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,AfterViewInit {
   public isShowForm: boolean = false;
   public isFindPersonal: boolean = true;
+  public personBean: PersonBean = new PersonBean();
   show = false;
   location = 1;
   cause = 1;
@@ -102,6 +103,7 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
   }
 
   onChoosePersonal(personBean:PersonBean):void {
+    this.personBean = personBean;
     console.log('noti Choose = '+personBean.citizenId);
     this.isFindPersonal = false;
     this.isShowForm = true;

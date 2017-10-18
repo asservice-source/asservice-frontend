@@ -6,7 +6,7 @@ import { BaseComponent } from '../../../base-component';
 import { PersonBean } from "../../../beans/person.bean";
 import { ApiHTTPService } from '../../../service/api-http.service';
 import { ActionCustomViewComponent } from '../../../action-custom-table/action-custom-view.component';
-import { HeadFilterBean } from '../../../beans/survey-head-filter.Bean';
+import { FilterHeadSurveyBean } from '../../../beans/filter-head-survey.bean';
 declare var $;
 
 @Component({
@@ -24,10 +24,10 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
   public xxx: string;
   public check: boolean = false;
   public metabolicHeadID: number = 0;
-  public surveyTypeCode: string = "METABOLIC"; 
+  public surveyTypeCode: string = "METABOLIC";
   public isShowList: boolean = false;
   public source: LocalDataSource = new LocalDataSource();
-  
+
 
   private api: ApiHTTPService;
   public settings: any;
@@ -50,17 +50,17 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
       },
       cID: {
         title: 'เลขประจำตัวประชาชน',
-        filter: false, 
+        filter: false,
         width: '200px',
       },
       homeID: {
         title: 'บ้านเลขที่',
-        filter: false, 
+        filter: false,
         width: '100px',
       },
       gender: {
         title: 'เพศ',
-        filter: false ,
+        filter: false,
         width: '70px',
       },
       age: {
@@ -86,7 +86,7 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
   }
 
   ngOnInit() {
-    
+
   }
 
   save() {
@@ -105,11 +105,11 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
 
   }
 
-  onChangeFilter(event: HeadFilterBean){
+  onChangeFilter(event: FilterHeadSurveyBean) {
     console.log("ChangeFilter");
     this.isShowList = false;
   }
-  onSearch(event: HeadFilterBean){
+  onSearch(event: FilterHeadSurveyBean) {
     console.log(event);
     this.source = new LocalDataSource(this.data);
     this.isShowList = true;

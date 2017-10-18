@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { BaseComponent } from "../../../base-component";
 import { ApiHTTPService } from "../../../service/api-http.service";
 import { ActionCustomViewComponent } from '../../../action-custom-table/action-custom-view.component';
-import { HeadFilterBean } from '../../../beans/survey-head-filter.Bean';
+import { FilterHeadSurveyBean } from '../../../beans/filter-head-survey.bean';
 import { LocalDataSource } from 'ng2-smart-table';
 
 declare var $: any;
@@ -13,8 +13,8 @@ declare var $: any;
   styleUrls: ['./survey-died-list.component.css']
 })
 export class SurverDiedListComponent extends BaseComponent implements OnInit {
- // Datatables options
- // dtOptions: DataTables.Settings = {};
+  // Datatables options
+  // dtOptions: DataTables.Settings = {};
   private api: ApiHTTPService;
   public settings: any;
   public surveyTypeCode: string = 'DEATH';
@@ -36,7 +36,7 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
       reason: "ลืมหายใจ",
       age: 54,
       status: "ยืนยัน"
-      
+
     },
     {
       seq: 11,
@@ -45,7 +45,7 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
       reason: "ลืมหายใจ",
       age: 32,
       status: "ยืนยัน"
-     
+
     },
     {
       seq: 12,
@@ -54,7 +54,7 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
       reason: "ลืมหายใจ",
       age: 62,
       status: "ยืนยัน"
-     
+
     },
     {
       seq: 13,
@@ -63,11 +63,11 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
       reason: "ลืมหายใจ",
       age: 42,
       status: "ยืนยัน"
-     
+
     },
   ];
-  
-  constructor() {  
+
+  constructor() {
     super();
     this.api = new ApiHTTPService();
     let self = this;
@@ -84,17 +84,17 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
       },
       citizenId: {
         title: 'เลขประจำตัวประชาชน',
-        filter: false, 
+        filter: false,
         width: '200px',
       },
       reason: {
         title: 'สาเหตุการเสียชีวิต',
-        filter: false, 
+        filter: false,
         width: '180px',
       },
       age: {
         title: 'อายุ',
-        filter: false ,
+        filter: false,
         width: '70px',
       },
       status: {
@@ -110,35 +110,35 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
         type: 'custom',
         renderComponent: ActionCustomViewComponent,
         onComponentInitFunction(instance) {
-         /*
-         instance.view.subscribe(row => {
-            self.doClick(row);
-          });
-          instance.edit.subscribe(row => {
-            self.doClick(row);
-          });
-          instance.delete.subscribe(row => {
-            self.doClick(row);
-          });
-          */
+          /*
+          instance.view.subscribe(row => {
+             self.doClick(row);
+           });
+           instance.edit.subscribe(row => {
+             self.doClick(row);
+           });
+           instance.delete.subscribe(row => {
+             self.doClick(row);
+           });
+           */
           instance.action.subscribe(row => {
-           alert(row.action);
+            alert(row.action);
           });
         }
       }
     });
 
-   }
-  ngOnInit() {
-  
   }
-  onChangeFilter(event: HeadFilterBean){
+  ngOnInit() {
+
+  }
+  onChangeFilter(event: FilterHeadSurveyBean) {
     this.isShowList = false;
   }
-  onSearch(event: HeadFilterBean){
-      this.source = new LocalDataSource(this.datas);
-      this.isShowList = true;
-      super.setNg2STDatasource(this.source);
+  onSearch(event: FilterHeadSurveyBean) {
+    this.source = new LocalDataSource(this.datas);
+    this.isShowList = true;
+    super.setNg2STDatasource(this.source);
   }
 
 }

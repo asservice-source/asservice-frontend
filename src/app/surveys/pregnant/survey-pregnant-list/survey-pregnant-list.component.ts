@@ -5,7 +5,7 @@ import { BaseComponent } from "./../../../base-component";
 import { PersonBean } from "../../../beans/person.bean";
 import { ApiHTTPService } from '../../../service/api-http.service';
 import { ActionCustomViewComponent } from '../../../action-custom-table/action-custom-view.component';
-import { HeadFilterBean } from '../../../beans/survey-head-filter.Bean';
+import { FilterHeadSurveyBean } from '../../../beans/filter-head-survey.bean';
 import { LocalDataSource } from 'ng2-smart-table';
 declare var $: any
 
@@ -86,11 +86,11 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
 
   }
 
-  onChangeFilter(event: HeadFilterBean) {
+  onChangeFilter(event: FilterHeadSurveyBean) {
     console.log("ChangeFilter");
     this.isShowList = false;
   }
-  onSearch(event: HeadFilterBean) {
+  onSearch(event: FilterHeadSurveyBean) {
     console.log(event);
     this.source = new LocalDataSource(this.data);
     this.isShowList = true;
