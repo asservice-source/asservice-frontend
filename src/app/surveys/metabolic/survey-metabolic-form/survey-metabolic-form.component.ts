@@ -5,16 +5,22 @@ import { NgModel } from '@angular/forms';
 import { Personalities } from './survey-metabolic-form-bean';
 import { PersonBean } from './../../../beans/person.bean';
 
+declare var $:any;
+
 @Component({
   selector: 'app-survey-metabolic-form',
   templateUrl: './survey-metabolic-form.component.html',
   styleUrls: ['./survey-metabolic-form.component.css']
 })
+
 export class SurveyMetabolicFormComponent implements OnInit {
 
   @Input() set citizenID(citizenID: string) {
     this.personBean.citizenId = citizenID;
+    
   }
+
+  public isFindPersonal: boolean = true;
 
   public personalities = new Personalities();
   public personBean = new PersonBean();
@@ -53,12 +59,11 @@ export class SurveyMetabolicFormComponent implements OnInit {
   // dataFor;
 
   constructor(private http: Http) {
-    this.personBean.healthInsurananceType = "ท.89"
+    
   }
 
   ngOnInit() {
-
-    $('#radioBtn a').on('click', function () {
+    $('body').on('click','#radioBtn a', function () {
       var sel = $(this).data('title');
       var tog = $(this).data('toggle');
       $('#' + tog).prop('value', sel);
@@ -67,7 +72,7 @@ export class SurveyMetabolicFormComponent implements OnInit {
       $('a[data-toggle="' + tog + '"][data-title="' + sel + '"]').removeClass('notActive').addClass('active');
     })
 
-    $('#radioBtn2 a').on('click', function () {
+    $('body').on('click','#radioBtn2 a', function () {
       var sel = $(this).data('title');
       var tog = $(this).data('toggle');
       $('#' + tog).prop('value', sel);
@@ -139,6 +144,18 @@ export class SurveyMetabolicFormComponent implements OnInit {
       this.isShowForm = true;
     }
     console.log(event);
+  }
+
+  onChoosePersonal(personBean:PersonBean):void {
+    this.personBean = personBean;
+    console.log('noti Choose = '+personBean.citizenId);
+    this.isFindPersonal = false;
+    this.isShowForm = true;
+   
+  }
+  onBack(){
+    this.isFindPersonal = true;
+    this.isShowForm = false;
   }
 
 }
