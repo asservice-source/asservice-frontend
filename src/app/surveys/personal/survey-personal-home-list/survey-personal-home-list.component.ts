@@ -16,7 +16,6 @@ declare var $: any;
 export class SurveyPersonalHomeListComponent extends BaseComponent implements OnInit, AfterViewInit {
 
   private apiHttp: ApiHTTPService = new ApiHTTPService();
-  private URL_LIST_HOME: string = "home/home_list";
 
   public settings: any;
   public source: LocalDataSource;
@@ -70,26 +69,29 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
   clickSearch(event: FilterBean) {
     let self = this;
 
-    // let villageNo = event.villageID;
-    // let homeId = event.homeID;
-    // let osmId = event.OSMID;
+    let villageId = event.villageID;
+    let osmId = event.OSMID;
+    let homeId = event.homeID;
 
-    // let params = { "hospitalCode": this.getHospitalCode() };
-    // this.apiHttp.post(this.URL_LIST_HOME, params, function (d) {
-    //   if (d != null && d.status.toUpperCase() == "SUCCESS") {
-    //     self.source = new LocalDataSource(d.list);
-    //     self.setNg2STDatasource(self.source);
-    //     self.isShowTable = true;
-    //   }
-    // })
+    let URL_LIST_HOME: string = "home/home_list_search_by_village_osm_home";
+    let params = { "villageId": villageId, "osmId": osmId, "id": homeId };
 
-    this.http.get("assets/data_test/data_home_personal.json")
-      .map(res => res.json())
-      .subscribe((data) => {
-        self.source = new LocalDataSource(data);
+    self.apiHttp.post(URL_LIST_HOME, params, function (d) {
+      if (d != null && d.status.toUpperCase() == "SUCCESS") {
+        console.log(d);
+        self.source = new LocalDataSource(d.list);
         self.setNg2STDatasource(self.source);
         self.isShowTable = true;
-      });
+      }
+    })
+
+    // this.http.get("assets/data_test/data_home_personal.json")
+    //   .map(res => res.json())
+    //   .subscribe((data) => {
+    //     self.source = new LocalDataSource(data);
+    //     self.setNg2STDatasource(self.source);
+    //     self.isShowTable = true;
+    //   });
   }
 
 }
