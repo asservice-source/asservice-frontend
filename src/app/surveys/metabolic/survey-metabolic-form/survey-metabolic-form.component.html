@@ -11,7 +11,7 @@
                     </span>ค้นหา</h4>
             </div>
 
-            <app-filter-find-person (notify)="getCitizen($event);" (changeFilter)="onChangeFind($event)"></app-filter-find-person>
+            <app-filter-find-person [findPersonal]="isFindPersonal" (choosePersonal)="onChoosePersonal($event)"></app-filter-find-person>
 
             <hr>
 
@@ -179,7 +179,7 @@
                         <label class="label-form">สูบบุหรี่หรือไม่</label>
                     </div>
 
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <div class="input-group">
                             <div id="radioBtn" class="btn-group">
                                 <a class="btn btn-primary btn-sm active" data-toggle="happy" data-title="N" (click)="Smoke('N')">ไม่สูบ</a>
@@ -218,7 +218,7 @@
                         <label class="label-form">ดื่มเครื่องดื่มแอลกอฮอล์หรือไม่</label>
                     </div>
 
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <div class="input-group">
                             <div id="radioBtn2" class="btn-group">
                                 <a class="btn btn-primary btn-sm active" data-toggle="happy2" data-title="N" (click)="Drink('N')">ไม่ดื่ม</a>
@@ -459,9 +459,11 @@
                     </div>
                 </div>
 
-                <div class="modal-footer">
-                    <button class="btn btn-primary text-center" (click)="update();">บันทึก</button>
-                    <button class="btn btn-primary text-center">ยกเลิก</button>
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <button class="btn btn-sm btn-primary">ยืนยัน</button> &nbsp;&nbsp;
+                        <button class="btn btn-sm btn-primary" (click)="onBack()">กลับ</button>
+                    </div>
                 </div>
             </div>
 

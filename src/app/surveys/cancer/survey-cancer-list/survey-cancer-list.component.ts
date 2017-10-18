@@ -30,9 +30,6 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
     let self = this;
 
     self.settings = self.getTabelSetting({
-      no: {
-        title: 'ลำดับ'
-      },
       name: {
         title: 'ชื่อ-สกุล',
         filter: false

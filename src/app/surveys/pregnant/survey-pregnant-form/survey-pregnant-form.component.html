@@ -7,158 +7,153 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">รายละเอียดผู้ตั้งครรภ์</h4>
             </div>
-            <app-filter-find-person (notify)="getCitizen($event);" (changeFilter)="onChangeFind($event)" ></app-filter-find-person>
+            <app-filter-find-person [findPersonal]="isFindPersonal" (choosePersonal)="onChoosePersonal($event)"></app-filter-find-person>
             <hr>
 
-            <div class="row">
-                <div class="col-md-2 text-right">
-                    <label class="label-form">สถานะครรภ์</label>
-                </div>
-                <div class="col-md-4">
-                    <select [(ngModel)]="pregnantType">
-                 <option value="0">กำลังตั้งครรภ์</option>
-                 <option value="1">คลอดแล้ว</option>
-               </select>
-
-                </div>
-
-                <div [hidden]="pregnantType == '0'? false:true">
+            <div *ngIf="isShowForm">
+                <div class="row">
                     <div class="col-md-2 text-right">
-                        <label class="label-form">กำหนดคลอด</label>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="input-group date" data-provide="datepicker">
-                            <input type="text">
-                            <div class="input-group-addon">
-                                <span class="glyphicon glyphicon-th"></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div [hidden]="pregnantType == '1'? false:true">
-                    <div class="col-md-1 text-right">
-                        <label class="label-form">วันคลอด</label>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="input-group date" data-provide="datepicker">
-                            <input type="text">
-                            <div class="input-group-addon">
-                                <span class="glyphicon glyphicon-th"></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <div [hidden]="pregnantType == '1'? false:true">
-
-            <div class="row">
-                <div class="col-md-2 text-right">
-                    <label>โรงพยาบาลที่คลอด</label>
-                </div>
-                <div class="col-md-4">
-                    <select>
-                <option value="0">--เลือกโรงพยาบาล--</option>
-                <option value="1">โรงพยาบาลปอเนาะ</option>
-            </select>
-                </div>
-                <div class="col-md-1 text-right">
-                    <label class="label-form">วิธีคลอด</label>
-                </div>
-                <div class="col-md-3">
-                    <select [(ngModel)]="bornType">
-                 <option value="0">--เลือกวิธีคลอด--</option>
-                 <option value="1" >คลอดเอง</option>
-                 <option value="2" >ผ่าคลอด</option>
-                 <option value="3" >เครื่องดูด</option>
-                 <option value="4" >แท้ง</option>
-               </select>
-                </div>
-
-            </div>
-
-            <div class="row" [hidden]="bornType == 4? false:true">
-                <div class="col-md-2 text-right">
-                    <label class="label-form">หมายเหตุ</label>
-                </div>
-                <div class="col-md-4">
-                    <input type="text">
-                </div>
-            </div>
-
-            <div class="row">
-                    <div class="col-md-2 text-right">
-                        <label class="label-form">หมายเลขประจำตัว</label>
+                        <label class="label-form">สถานะครรภ์</label>
                     </div>
                     <div class="col-md-4">
-                        <input type="text">
+                        <select [(ngModel)]="pregnantType">
+                            <option value="0">กำลังตั้งครรภ์</option>
+                            <option value="1">คลอดแล้ว</option>
+                        </select>
                     </div>
 
-                    <div class="col-md-1 text-right">
+                    <div [hidden]="pregnantType == '0'? false:true">
+                        <div class="col-md-2 text-right">
+                            <label class="label-form">กำหนดคลอด</label>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group date" data-provide="datepicker">
+                                <input type="text">
+                                <div class="input-group-addon">
+                                    <span class="glyphicon glyphicon-th"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div [hidden]="pregnantType == '1'? false:true">
+                        <div class="col-md-1 text-right">
+                            <label class="label-form">วันคลอด</label>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group date" data-provide="datepicker">
+                                <input type="text">
+                                <div class="input-group-addon">
+                                    <span class="glyphicon glyphicon-th"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div [hidden]="pregnantType == '1'? false:true">
+
+                    <div class="row">
+                        <div class="col-md-2 text-right">
+                            <label>โรงพยาบาลที่คลอด</label>
+                        </div>
+                        <div class="col-md-4">
+                            <select>
+                                <option value="0">--เลือกโรงพยาบาล--</option>
+                                <option value="1">โรงพยาบาลปอเนาะ</option>
+                            </select>
+                        </div>
+                        <div class="col-md-1 text-right">
+                            <label class="label-form">วิธีคลอด</label>
+                        </div>
+                        <div class="col-md-3">
+                            <select [(ngModel)]="bornType">
+                                <option value="0">--เลือกวิธีคลอด--</option>
+                                <option value="1">คลอดเอง</option>
+                                <option value="2">ผ่าคลอด</option>
+                                <option value="3">เครื่องดูด</option>
+                                <option value="4">แท้ง</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="row" [hidden]="bornType == 4? false:true">
+                        <div class="col-md-2 text-right">
+                            <label class="label-form">หมายเหตุ</label>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2 text-right">
+                            <label class="label-form">หมายเลขประจำตัว</label>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text">
+                        </div>
+
+                        <div class="col-md-1 text-right">
                             <label class="label-form">เพศ</label>
                         </div>
                         <div class="col-md-2">
                             <select>
-                            <option value="0">--เลือกเพศ--</option>
-                            <option value="1" >ชาย</option>
-                            <option value="2" >หญิง</option>
-                        </select>
+                                <option value="0">--เลือกเพศ--</option>
+                                <option value="1">ชาย</option>
+                                <option value="2">หญิง</option>
+                            </select>
                         </div>
-                </div>
-
-            <div class="row">
-                <div class="col-md-2 text-right">
-                    <label class="label-form">ชื่อ</label>
-                </div>
-                <div class="col-md-3">
-                    <input type="text">
-                </div>
-                <div class="col-md-1 text-right">
-                    <label class="label-form">สกุล</label>
-                </div>
-                <div class="col-md-3">
-                    <input type="text">
-                </div>
-               
-            </div>
-
-            <div class="row">
-                   
-
-                <div class="col-md-2 text-right">
-                    <label class="label-form">กรุ๊ปเลือด</label>
-                </div>
-                <div class="col-md-3">
-                    <select>
-                    <option value="0">--เลือกกรุ๊ปเลือด--</option>
-                    <option value="1" >A</option>
-                    <option value="2" >ABC</option>
-                </select>
-                </div>
-
-                <div class="col-md-1 text-right">
-                    <label class="label-form">น้ำหนัก</label>
-                </div>
-                <div class="col-md-2">
-                    <input type="text">
-                </div>
-            </div>         
-        </div>
-        <div class="modal-footer">
-                <div class="row">
-                    <div class="col-md-12 text-center">
-                        <button class="btn btn-primary">ยืนยัน</button>
-                        <button class="btn btn-primary">รีเซ็ท</button>
                     </div>
 
+                    <div class="row">
+                        <div class="col-md-2 text-right">
+                            <label class="label-form">ชื่อ</label>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text">
+                        </div>
+                        <div class="col-md-1 text-right">
+                            <label class="label-form">สกุล</label>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2 text-right">
+                            <label class="label-form">กรุ๊ปเลือด</label>
+                        </div>
+                        <div class="col-md-3">
+                            <select>
+                                <option value="0">--เลือกกรุ๊ปเลือด--</option>
+                                <option value="1">A</option>
+                                <option value="2">ABC</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-1 text-right">
+                            <label class="label-form">น้ำหนัก</label>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <button class="btn btn-sm btn-primary">ยืนยัน</button> &nbsp;&nbsp;
+                        <button class="btn btn-sm btn-primary" (click)="onBack()">กลับ</button>
+                    </div>
                 </div>
             </div>
-
         </div>
-     
+
     </div>
 </div>
 

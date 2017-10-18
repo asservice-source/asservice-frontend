@@ -7,9 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FilterFindMosquitoComponent implements OnInit {
 
-  constructor() { }
+  public villageNo : string = '0';
+  public locationType : string = '0';
+  public HomeNo: string = '0';
+
+  constructor() {
+
+   }
 
   ngOnInit() {
+
   }
 
 }
