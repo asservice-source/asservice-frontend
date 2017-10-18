@@ -31,6 +31,17 @@
           <div class="col-md-3">
             <input type="text" class="ng-pristine ng-valid ng-touched" [disabled]="true" [(ngModel)]="person.citizenId">
           </div>
+
+          <div class="col-md-1 text-right">
+            <label class="label-form">คำนำหน้าชื่อ</label>
+          </div>
+          <div class="col-md-3">
+            <select name="dropdown-prefix" id="dropdown-prefix" [(ngModel)]="person.prefixCode">
+              <option value="">--เลือก คำนำหน้าชื่อ--</option>
+              <option value="1">นาย</option>
+              <option value="2">นางสาว</option>
+            </select>
+          </div>
         </div>
 
         <div class="row">
@@ -56,7 +67,7 @@
           </div>
           <div class="col-md-3">
             <select name="dropdown-gender" id="dropdown-gender" [(ngModel)]="person.genderCode">
-              <option value="">--เลือกเพศ--</option>
+              <option value="">--เลือก เพศ--</option>
               <option value="1">ชาย</option>
               <option value="2">หญิง</option>
             </select>
@@ -67,7 +78,7 @@
           </div>
           <div class="col-md-3">
             <select name="dropdown-race" id="dropdown-race" [(ngModel)]="person.raceCode">
-              <option value="">--เลือกเชื้อชาติ--</option>
+              <option value="">--เลือก เชื้อชาติ--</option>
               <option value="1">ไทย</option>
             </select>
           </div>
@@ -80,7 +91,7 @@
           </div>
           <div class="col-md-3">
             <select name="dropdown-nation" id="dropdown-nation" [(ngModel)]="person.nationCode">
-              <option value="">--เลือกสัญชาติ--</option>
+              <option value="">--เลือก สัญชาติ--</option>
             </select>
           </div>
 
@@ -89,7 +100,7 @@
           </div>
           <div class="col-md-3">
             <select name="dropdown-race" id="dropdown-race" [(ngModel)]="person.religionCode">
-              <option value="">--เลือกศาสนา--</option>
+              <option value="">--เลือก ศาสนา--</option>
             </select>
           </div>
         </div>
@@ -101,7 +112,7 @@
           </div>
           <div class="col-md-3">
             <select name="dropdown-blood" id="dropdown-blood" [(ngModel)]="person.bloodType">
-              <option value="">--เลือกรุ๊ปเลือด--</option>
+              <option value="">--เลือก กรุ๊ปเลือด--</option>
             </select>
           </div>
 
@@ -110,7 +121,7 @@
           </div>
           <div class="col-md-3">
             <select name="dropdown-rhGroup" id="dropdown-rhGroup" [(ngModel)]="person.rhGroupID">
-              <option value="">--เลือ RH Group--</option>
+              <option value="">--เลือก RH Group--</option>
             </select>
           </div>
         </div>
@@ -129,7 +140,7 @@
           </div>
           <div class="col-md-3">
             <select name="dropdown-education" id="dropdown-education" [(ngModel)]="person.educationCode">
-              <option value="">--เลือกระดับการศึกษา--</option>
+              <option value="">--เลือก ระดับการศึกษา--</option>
               <option value="1">ประถมศึกษาตอนต้น</option>
               <option value="2">ประถมศึกษาตอนปลาย</option>
               <option value="3">มัธยมศึกษาตอนต้น</option>
@@ -159,7 +170,7 @@
           </div>
           <div class="col-md-3">
             <select name="dropdown-livetype" id="dropdown-livetype" [(ngModel)]="person.mLiveType">
-              <option value="">--เลือกสถานะ--</option>
+              <option value="">--เลือก สถานะ--</option>
               <option value="1">อยู่จริง</option>
               <option value="2">มีชื่อ แต่ไม่ได้อยู่</option>
             </select>
@@ -170,7 +181,7 @@
           </div>
           <div class="col-md-3">
             <select name="dropdown-ownertype" id="dropdown-ownertype" [(ngModel)]="person.mOwnerNo">
-              <option value="">--เลือกสถานะ--</option>
+              <option value="">--เลือก สถานะ--</option>
               <option value="1">เจ้าบ้าน</option>
               <option value="2">ผู้อาศัย</option>
             </select>

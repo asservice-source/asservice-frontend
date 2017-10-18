@@ -30,12 +30,6 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     let self = this;
 
     self.settings = this.getTabelSetting({
-      seq: {
-        title: 'ลำดับ',
-        filter: false,
-        sort: false,
-        width: '60px',
-      },
       name: {
         title: 'ชื่อ-สกุล สมาชิก',
         filter: false

@@ -28,12 +28,6 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
     let self = this;
 
     self.settings = self.getTabelSetting({
-      seq: {
-        title: 'ลำดับ',
-        filter: false,
-        sort: false,
-        width: '60px',
-      },
       villageNo: {
         title: 'หมู่',
         filter: false

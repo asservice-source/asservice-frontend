@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from "./../service/user.service";
 import { Router } from "@angular/router";
 import { RequestOptions, Headers, URLSearchParams, Http } from '@angular/http';
+import { ApiHTTPService } from '../service/api-http.service';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -9,15 +11,25 @@ import { RequestOptions, Headers, URLSearchParams, Http } from '@angular/http';
   providers: [UserService]
 })
 export class LoginComponent implements OnInit {
+
   user = new UserService();
+
+  private apiHttp: ApiHTTPService = new ApiHTTPService();
+  private URL_AUTHEN = "";
+
   fixUser = "admin";
   fixPass = "1234";
-  constructor(private http:Http,private router: Router) { }
 
-  ngOnInit() {
+  constructor(private http: Http, private router: Router) {
+
   }
 
-  login(){
+  ngOnInit() {
+
+  }
+
+  login() {
+    let self = this;
     // let param = new URLSearchParams()
     // /*    param.append('username', this.username);
     //  param.append('password', this.password);*/
@@ -32,17 +44,26 @@ export class LoginComponent implements OnInit {
     //     err => console.log(err),
     //     () => console.log('Fetching complete for Server Metrics')
     //   )
-    
-    console.log(this.user.password);
-      let strUser = this.user.username;
-      let strPass = this.user.password;
 
-      if(this.fixUser == strUser && this.fixPass == strPass){
-          localStorage.setItem("login", "1");
-          this.router.navigate([""]);
-      }else{
-          localStorage.setItem("login", "0");
-      }
+    console.log("username: " + self.user.username);
+    console.log("password: " + self.user.password);
 
+    let strUser = self.user.username;
+    let strPass = self.user.password;
+
+    // let params = { "username": strUser, "password": strPass };
+    // self.apiHttp.post(self.URL_AUTHEN, params, function (d) {
+    //   if (d != null && d.status.toUpperCase() == "SUCCESS") {
+        
+    //   }
+    // })
+
+    if (this.fixUser == strUser && this.fixPass == strPass) {
+      localStorage.setItem("login", "1");
+      self.router.navigate([""]);
+    } else {
+      localStorage.setItem("login", "0");
+    }
   }
+
 }
