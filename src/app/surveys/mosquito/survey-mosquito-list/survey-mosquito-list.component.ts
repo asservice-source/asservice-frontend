@@ -110,22 +110,34 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
       homeNo: {
         title: 'เลขที่',
         filter: false,
-        width: '90px',
+        width: '120px',
+        type:'html',
+        valuePrepareFunction: (cell, row) => { 
+          return '<div class="text-center">'+cell+'</div>'
+        }
       },
       localType: {
         title: 'สถานที่',
         filter: false,
-        width: '130px',
+        width: '160px',
       },
       totalSurvey: {
         title: 'ภาชนะที่สำรวจ',
         filter: false,
         width: '150px',
+        type:'html',
+        valuePrepareFunction: (cell, row) => { 
+          return '<div class="text-center">'+cell+'</div>'
+        }
       },
       totalDetect: {
         title: 'ภาชนะที่พบ',
         filter: false,
         width: '150px',
+        type:'html',
+        valuePrepareFunction: (cell, row) => { 
+          return '<div class="text-center">'+cell+'</div>'
+        }
       },
       action: {
         title: 'จัดการ',

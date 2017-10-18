@@ -47,21 +47,37 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
         title: 'เลขประจำตัวประชาชน',
         filter: false,
         width: '200px',
+        type:'html',
+        valuePrepareFunction: (cell, row) => { 
+          return '<div class="text-center">'+cell+'</div>'
+        }
       },
       homeID: {
         title: 'บ้านเลขที่',
         filter: false,
         width: '100px',
+        type:'html',
+        valuePrepareFunction: (value) => { 
+          return '<div class="text-center">'+value+'</div>'
+        }
       },
       gender: {
         title: 'เพศ',
         filter: false,
         width: '70px',
+        type:'html',
+        valuePrepareFunction: (cell, row) => { 
+          return '<div class="text-center">'+cell+'</div>'
+        }
       },
       age: {
         title: 'อายุ',
         filter: false,
         width: '80px',
+        type:'html',
+        valuePrepareFunction: (cell, row) => { 
+          return '<div class="text-center">'+cell+'</div>'
+        }
       },
       action: {
         title: 'การทำงาน',
