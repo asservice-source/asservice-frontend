@@ -30,7 +30,7 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
       type: "ติดบ้าน",
       homeNo: "112/1",
       totalSurvey: "25",
-      totalDetect: "13",
+      totalDetect: 13,
       localType: "สถานศาสนา",
       totalCI: "53.57"
     },
@@ -44,7 +44,7 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
       type: "ติดบ้าน",
       homeNo: "24/9",
       totalSurvey: "44",
-      totalDetect: "12",
+      totalDetect: 12,
       localType: "โรงเรียน",
       totalCI: "53.57"
 
@@ -59,7 +59,7 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
       type: "ติดบ้าน",
       homeNo: "58/7",
       totalSurvey: "29",
-      totalDetect: "7",
+      totalDetect: 7,
       localType: "หลังคาเรือน",
       totalCI: "53.57"
 
@@ -74,7 +74,7 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
       type: "ติดบ้าน",
       homeNo: "55/12",
       totalSurvey: "50",
-      totalDetect: "12",
+      totalDetect: 12,
       localType: "ศูนย์เด็กเล็ก",
       totalCI: "53.57"
 
@@ -89,7 +89,7 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
       type: "ติดบ้าน",
       homeNo: "222/2",
       totalSurvey: "88",
-      totalDetect: "22",
+      totalDetect: 22,
       localType: "หน่วยราชการ",
       totalCI: "53.57"
 

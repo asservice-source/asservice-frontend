@@ -15,10 +15,6 @@
                     aria-controls="collapseMosquito">ทำแบบสำรวจ
                 </button>
 
-                <button class="btn btn-sm btn-primary" type="button" data-toggle="collapse" data-target="#collapseAddLocation" aria-expanded="false"
-                    aria-controls="collapseAddLocation">เพิ่มสถานที่
-                </button>
-
                 <div class="col-md-12">
                     <div class="collapse" id="collapseMosquito">
                         <div class="well">
@@ -45,7 +41,6 @@
                                 </div>
                                 <div class="col-md-2">
                                     <input maxlength="3" class="valuecenter" name="find-homeNo" id="find-homeNo" value="0">
-
                                 </div>
                             </div>
 
@@ -203,17 +198,15 @@
 
 
                         </div>
+                        <div class="row text-center">
+                            <button type="buttoon" class="btn btn-primary btn-sm">ยืนยัน</button>
+                            <button type="buttoon" class="btn btn-primary btn-sm">รีเซ็ต</button>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="modal-footer">
-                <div class="row text-center">
-                    <button (click)="doSearchPerson()" type="buttoon" class="btn btn-primary btn-sm">ยืนยัน</button>
-                    <button (click)="doSearchPerson()" type="buttoon" class="btn btn-primary btn-sm">รีเซ็ต</button>
 
-                </div>
-            </div>
         </div>
 
     </div>
