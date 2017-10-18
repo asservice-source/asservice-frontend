@@ -52,7 +52,6 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
     , BirthDate: "01/02/2536"}];
   }
 
-
   ngAfterViewInit(){
     let person;
     $('#find-dropdownPerson').on('change', function(){
@@ -61,7 +60,6 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
         }else{
           $('#personDetail').attr('hidden','true');
         }
-
     });
   }
   

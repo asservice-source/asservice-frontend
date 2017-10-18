@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ViewCell } from 'ng2-smart-table';
 @Component({
-    selector: 'button-view',
+    selector: 'action-custom-table-view',
     templateUrl: './action-custom-view.component.html',
     styleUrls: ['./action-custom-view.component.css']
   })

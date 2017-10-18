@@ -42,10 +42,21 @@ export class BaseComponent implements OnInit {
             pager:{
               display: true,
               perPage: 4
-            }
+            },
+            
           };
 
-          settings.columns = columns;
+          settings.columns = {};
+          settings.columns.squenceNo = {
+            title: 'ลำดับ',
+            filter: false,
+            sort: false,
+            width: '60px',
+            type: 'html'
+          }
+          for(var obj in columns){
+            settings.columns[obj] = columns[obj];
+          }
           return settings;
     }
     private isRefrestData = false;
@@ -61,7 +72,7 @@ export class BaseComponent implements OnInit {
                 let page = this.ng2STDataSource.getPaging();
                 let startSeq = page.page>1?((page.perPage*page.page)-page.perPage)+1:1;
                 for(let item of list){
-                    item.seq = startSeq++;
+                    item.squenceNo = '<div class="text-center">'+(startSeq++)+'</div>';
                 }
                 this.ng2STDataSource.refresh();
                 this.isRefrestData = true;

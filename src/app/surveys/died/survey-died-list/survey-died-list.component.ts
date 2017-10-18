@@ -71,13 +71,7 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
     super();
     this.api = new ApiHTTPService();
     let self = this;
-    this.settings = this.getTabelSetting({
-      seq: {
-        title: 'ลำดับ',
-        filter: false,
-        sort: false,
-        width: '60px',
-      },
+    let columns = {
       name: {
         title: 'ชื่อ - นามสกุล',
         filter: false
@@ -126,7 +120,9 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
           });
         }
       }
-    });
+    };
+
+    this.settings = this.getTabelSetting(columns);
 
   }
   ngOnInit() {
