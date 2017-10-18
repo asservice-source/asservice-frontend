@@ -1,24 +1,25 @@
-import { Component, OnInit,Output, Input ,EventEmitter} from '@angular/core';
+import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 import { Headers } from '@angular/http';
 import { NgModel } from '@angular/forms';
 import { Http, Response, RequestOptions, RequestMethod } from "@angular/http";
-import {HeadFilterBean} from '../beans/survey-head-filter.Bean';
-import { ApiHTTPService } from '../service/api-http.service';
-import { BaseComponent } from '../base-component';
+import { HeadFilterBean } from '../../beans/survey-head-filter.Bean';
+import { ApiHTTPService } from '../../service/api-http.service';
+import { BaseComponent } from '../../base-component';
 
-declare var $:any;
+declare var $: any;
 
 @Component({
-  selector: 'app-survey-head-filter',
-  templateUrl: './survey-head-filter.component.html',
-  styleUrls: ['./survey-head-filter.component.css']
+  selector: 'app-filter-head-survey',
+  templateUrl: './filter-head-survey.component.html',
+  styleUrls: ['./filter-head-survey.component.css']
 })
-export class SurveyHeadFilterComponent extends BaseComponent implements OnInit {
+export class FilterHeadSurveyComponent extends BaseComponent implements OnInit {
 
   @Input() set surveyTypeCode(surveyTypeCode: string) {
     this.typeCode = surveyTypeCode;
     console.log(this.typeCode);
   }
+
   @Output() notifyFilter: EventEmitter<HeadFilterBean> = new EventEmitter<HeadFilterBean>();
   @Output() changeFilter: EventEmitter<HeadFilterBean> = new EventEmitter<HeadFilterBean>();
 
@@ -46,14 +47,14 @@ export class SurveyHeadFilterComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     let self = this;
-    
-        // Get list of village no
-        let params_getVillageNo = { "hospitalCode": this.getHospitalCode() };
-        this.apiHttp.post(this.URL_LIST_VILLAGE_NO, params_getVillageNo, function (d) {
-          if (d != null && d.status.toUpperCase() == "SUCCESS") {
-            self.list_village_no = d.list;
-          }
-        })
+
+    // Get list of village no
+    let params_getVillageNo = { "hospitalCode": this.getHospitalCode() };
+    this.apiHttp.post(this.URL_LIST_VILLAGE_NO, params_getVillageNo, function (d) {
+      if (d != null && d.status.toUpperCase() == "SUCCESS") {
+        self.list_village_no = d.list;
+      }
+    })
   }
 
   // getVillageNo() {
@@ -66,7 +67,7 @@ export class SurveyHeadFilterComponent extends BaseComponent implements OnInit {
   //     .subscribe(data => this.villageList=data.list);
   // }
 
-  getOSMbyVillageID(){
+  getOSMbyVillageID() {
     let self = this;
     // Get list of village no
     let params_getOSM = { "id": this.filterBean.villageID };
@@ -77,19 +78,25 @@ export class SurveyHeadFilterComponent extends BaseComponent implements OnInit {
     })
 
   }
-  onChangeRound(){
+
+  onChangeRound() {
     this.onDropdownChange();
   }
-  onChangeVillage(){
+
+  onChangeVillage() {
     this.onDropdownChange();
   }
-  onChangeOSM(){
+
+  onChangeOSM() {
     this.onDropdownChange();
   }
-  onSearchFilter(){
+
+  onSearchFilter() {
     this.notifyFilter.emit(this.filterBean);
   }
-  onDropdownChange(){
+
+  onDropdownChange() {
     this.changeFilter.emit(this.filterBean);
   }
+
 }
