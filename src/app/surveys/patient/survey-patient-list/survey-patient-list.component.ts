@@ -80,12 +80,7 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
     this.api = new ApiHTTPService();
     let self = this;
     this.settings = this.getTabelSetting({
-      id: {
-        title: 'ลำดับ',
-        filter: false,
-        sort: false,
-        width: '60px',
-      },
+
       name: {
         title: 'ชื่อ - นามสกุล',
         filter: false

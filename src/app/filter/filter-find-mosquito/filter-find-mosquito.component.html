@@ -1,3 +1,85 @@
-<p>
-  filter-find-mosquito works!
-</p>
+<div class="row">
+    <div class="col-md-2 text-right">
+        <label>เลือกหมู่</label>
+      </div>
+      <div class="col-md-4">
+          <select [(ngModel)]="villageNo">
+              <option ngValue="0">--เลือกหมู่--</option>
+              <option ngValue="1">1</option>
+              <option ngValue="2">2</option>
+         </select>
+      </div>
+
+  <div class="col-md-1 text-right">
+    <label>สถานที่</label>
+  </div>
+
+  <div class="col-md-4">
+    <select [(ngModel)]="locationType" (change)="changLocationNo()" [disabled]="villageNo == 0?true:false" >
+      <option value="0">--เลือกสถานที่--</option>
+      <option value="1">บ้าน</option>
+      <option value="2">ศาสนสถาน</option>
+      <option value="3">โรงเรียน</option>
+      <option value="4">โรงพยาบาล</option>
+      <option value="5">โรงงาน</option>
+      <option value="6">โรงแรม</option>
+      <option value="7">อื่นๆ</option>
+    </select>
+  </div>
+</div>
+
+<div class="row" *ngIf="locationType == 1? true:false">
+    <div class="col-md-2 text-right">
+        <label >บ้านเลขที่</label>
+      </div>
+      <div class="col-md-4">
+          <select name="find-homeNo" id="find-homeNo">
+              <option>--เลือก บ้านเลขที่--</option>
+         </select>
+      </div>
+</div>
+
+<div class="row" *ngIf="locationType == 1? false:true">
+    <div class="col-md-2 text-right">
+        <label >ชื่อสถานที่</label>
+      </div>
+      <div class="col-md-4">
+          <select name="find-homeNo" id="find-homeNo">
+              <option>--เลือก สถานที่--</option>
+         </select>
+      </div>
+</div>
+
+<div class="collapse" id="collapseAddLocation">
+  <hr>
+  <div class="row">
+      <div class="col-md-2 text-right">
+          <label>สถานที่</label>
+        </div>
+      
+        <div class="col-md-3">
+          <select >
+            <option value="0">--เลือกสถานที่--</option>
+            <option value="1">บ้าน</option>
+            <option value="2">ศาสนสถาน</option>
+            <option value="3">โรงเรียน</option>
+            <option value="4">โรงพยาบาล</option>
+            <option value="5">โรงงาน</option>
+            <option value="6">โรงแรม</option>
+            <option value="7">อื่นๆ</option>
+          </select>
+        </div>
+
+        <div class="col-md-1 text-right">
+            <label>ชื่อ</label>
+          </div>
+          <div class="col-md-3">
+              <input type="text">
+          </div>
+          
+          <div class="col-md-1">
+              <button type="buttoon" class="btn btn-primary btn-sm">เพิ่ม</button>
+          </div>
+
+  </div>
+</div>
