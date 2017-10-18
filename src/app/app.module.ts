@@ -41,13 +41,12 @@ import { SurveyPersonalMemberListComponent, SurveyPersonalMemberListButtonEditCo
 import { SurveyPersonalMemberFormComponent } from './surveys/personal/survey-personal-member-form/survey-personal-member-form.component';
 import { SurveyCancerListComponent, SurveyCancerListButtonEditComponent } from './surveys/cancer/survey-cancer-list/survey-cancer-list.component';
 import { SurveyCancerFormComponent } from './surveys/cancer/survey-cancer-form/survey-cancer-form.component';
-import { SurveyHeadFilterComponent } from './survey-head-filter/survey-head-filter.component';
-import { FilterComponent } from './filter/filter.component';
-import { FindPersonComponent } from './find-person/find-person.component';
+import { FilterComponent } from './filter/filter/filter.component';
+import { FilterFindPersonComponent } from './filter/filter-find-person/filter-find-person.component';
+import { FilterHeadSurveyComponent } from './filter/filter-head-survey/filter-head-survey.component';
+import { FilterPersonalComponent } from './filter/filter-personal/filter-personal.component';
 import { ActionCustomViewComponent } from './action-custom-table/action-custom-view.component'
 import { LoadingComponent } from './loading/loading.component';
-import { FilterPersonalComponent } from './filter-personal/filter-personal.component';
-import { FiindPersonMemberListComponent } from './find-person/find-person-member-list/member-list.component';
 
 @NgModule({
   declarations: [
@@ -62,8 +61,10 @@ import { FiindPersonMemberListComponent } from './find-person/find-person-member
     NotfoundComponent,
     LoginComponent,
     RegisterComponent,
-    FindPersonComponent,
     FilterComponent,
+    FilterFindPersonComponent,
+    FilterHeadSurveyComponent,
+    FilterPersonalComponent,
     SurveyPregnantListComponent,
     SurveyPregnantFormComponent,
     SurverDiedListComponent,
@@ -80,13 +81,10 @@ import { FiindPersonMemberListComponent } from './find-person/find-person-member
     SurveyPersonalMemberListComponent,
     SurveyPersonalMemberListButtonEditComponent,
     SurveyPersonalMemberFormComponent,
-    SurveyHeadFilterComponent,
-    LoadingComponent,
-    ActionCustomViewComponent,
-    FilterPersonalComponent,
-    FiindPersonMemberListComponent,
     SurveyMosquitoFormComponent,
-    SurveyPatientFormComponent
+    SurveyPatientFormComponent,
+    LoadingComponent,
+    ActionCustomViewComponent
   ],
   imports: [
     BrowserModule,

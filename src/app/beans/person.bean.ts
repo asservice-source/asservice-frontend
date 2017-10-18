@@ -3,6 +3,7 @@ export class PersonBean{
     public citizenId: string = "";
     public firstName: string = "";
     public lastName: string = "";
+    public fullName: string = "";
     public nickName: string = "";
     public genderCode: string = "";
     public genderName: string = "";
