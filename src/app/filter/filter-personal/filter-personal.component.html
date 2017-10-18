@@ -4,8 +4,8 @@
     <label class="label-form">เลือกหมู่</label>
   </div>
   <div class="col-md-3">
-    <select name="filter-villageNo" [(ngModel)]="filterBean.villageID" (change)="changeVillageNo()">
-      <option value="">--เลือกหมู่บ้าน--</option>
+    <select name="filter-villageNo" [(ngModel)]="filterBean.villageID" (change)="onChangeVillageNo()">
+      <option value="">--เลือก หมู่บ้าน--</option>
       <option *ngFor="let village of list_village_no" [value]="village.id">{{ village.villageNo + ' : ' + village.villageName }}</option>
     </select>
   </div>
@@ -13,7 +13,7 @@
     <label class="label-form">ชื่อ อสม.</label>
   </div>
   <div class="col-md-3">
-      <select name="filter-osmName" [(ngModel)]="filterBean.OSMID" [disabled]="isDisabledOSM">
+      <select name="filter-osmName" [(ngModel)]="filterBean.OSMID"  (change)="onChangeOSM()" [disabled]="isDisabledOSM">
           <option value="">--เลือก อสม.--</option>
           <option *ngFor="let osm of list_osm" [value]="osm.citizenId">{{ osm.firstName + ' ' + osm.lastName }}</option>
       </select>
@@ -28,7 +28,7 @@
 <div class="col-md-3">
   <select name="filter-homeNo" [(ngModel)]="filterBean.homeID" [disabled]="isDisabledHomeNo">
     <option value="">--เลือก บ้านเลขที่--</option>
-    <option *ngFor="let home of list_home_no" [value]="home.homeId">{{ home.homeNo }}</option> 
+    <option *ngFor="let home of list_home_no" [value]="home.id">{{ home.homeNo }}</option> 
     </select>
 </div>
 
