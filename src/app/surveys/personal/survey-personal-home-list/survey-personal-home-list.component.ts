@@ -89,16 +89,16 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
   clickSearch(event: FilterBean) {
     let self = this;
 
-    let villageId = event.villageID;
-    let osmId = event.OSMID;
-    let homeId = event.homeID;
+    let villageId = event.villageId;
+    let osmId = event.osmId;
+    let homeId = event.homeId;
 
     let URL_LIST_HOME: string = "home/home_list_search_by_village_osm_home";
     let params = { "villageId": villageId, "osmId": osmId, "id": homeId };
 
     self.apiHttp.post(URL_LIST_HOME, params, function (d) {
       if (d != null && d.status.toUpperCase() == "SUCCESS") {
-        console.log(d);
+        // console.log(d);
         self.source = new LocalDataSource(d.list);
         self.setNg2STDatasource(self.source);
         self.isShowTable = true;

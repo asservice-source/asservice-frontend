@@ -41,7 +41,6 @@ import { SurveyPersonalMemberListComponent, SurveyPersonalMemberListButtonEditCo
 import { SurveyPersonalMemberFormComponent } from './surveys/personal/survey-personal-member-form/survey-personal-member-form.component';
 import { SurveyCancerListComponent, SurveyCancerListButtonEditComponent } from './surveys/cancer/survey-cancer-list/survey-cancer-list.component';
 import { SurveyCancerFormComponent } from './surveys/cancer/survey-cancer-form/survey-cancer-form.component';
-import { FilterComponent } from './filter/filter/filter.component';
 import { FilterFindMosquitoComponent } from './filter/filter-find-mosquito/filter-find-mosquito.component';
 import { FilterFindPersonComponent } from './filter/filter-find-person/filter-find-person.component';
 import { FilterHeadSurveyComponent } from './filter/filter-head-survey/filter-head-survey.component';
@@ -62,7 +61,6 @@ import { LoadingComponent } from './loading/loading.component';
     NotfoundComponent,
     LoginComponent,
     RegisterComponent,
-    FilterComponent,
     FilterFindMosquitoComponent,
     FilterFindPersonComponent,
     FilterHeadSurveyComponent,
