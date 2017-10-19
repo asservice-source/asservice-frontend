@@ -27,30 +27,50 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
     let self = this;
 
     self.settings = self.getTabelSetting({
-      villageNo: {
+      village: {
         title: 'หมู่',
-        filter: false
+        filter: false,
+        width: '100px',
+        type: 'html',
+        valuePrepareFunction: (cell, row) => {
+          return '<div class="text-center">' + cell.villageNo + '</div>';
+        }
       },
       homeNo: {
         title: 'บ้านเลขที่',
-        filter: false
+        filter: false,
+        width: '100px',
+        type: 'html',
+        valuePrepareFunction: (cell, row) => {
+          return '<div class="text-center">' + cell + '</div>';
+        }
       },
-      holderName: {
+      holder: {
         title: 'ชื่อ-สกุล เจ้าของบ้าน',
-        filter: false
+        filter: false,
+        width: '300px',
+        valuePrepareFunction: (cell, row) => {
+          return self.getFullName(cell.prefix.shortName, cell.firstName, cell.lastName);
+        }
       },
       memberAmount: {
         title: 'จำนวนสมาชิก',
-        filter: false
+        filter: false,
+        width: '100px',
+        type: 'html',
+        valuePrepareFunction: (cell, row) => {
+          return '<div class="text-center">' + cell + '</div>';
+        }
       },
       action: {
         title: '',
         filter: false,
+        width: '100px',
         type: 'custom',
         renderComponent: SurveyPersonalHomeListButtonEditComponent,
         onComponentInitFunction(instance) {
           instance.action.subscribe((row) => {
-            let homeId = row.homeId;
+            let homeId = row.id;
             self.router.navigate(['/main/surveys/personal-detail', homeId]);
           });
         }
@@ -97,7 +117,7 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
 }
 
 @Component({
-  template: "<button (click)=\"clickEdit();\" style=\"padding-top: 0px; padding-bottom: 0px\" class=\"btn btn-primary\">จัดการสมาชิก</button>",
+  template: "<div class=\"text-center\"><button (click)=\"clickEdit();\" style=\"padding-top: 0px; padding-bottom: 0px\" class=\"btn btn-primary\">จัดการสมาชิก</button></div>",
 })
 export class SurveyPersonalHomeListButtonEditComponent implements ViewCell, OnInit {
   renderValue: string;

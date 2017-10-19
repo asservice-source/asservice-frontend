@@ -76,3 +76,7 @@ table th{
 .table .btn {
 color: white !important;
 }
+
+.ng2-smart-no-data-found {
+    text-align: center !important;
+}
