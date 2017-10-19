@@ -14,7 +14,7 @@
       <div class="col-md-12">
 
         <div class="text-right col-md-4 form-group">
-          <label class="label-form">ที่ตั้ง รพ.สต.</label>
+          <label class="label-form">ชื่อ รพ.สต.</label>
         </div>
 
         <div class="col-md-8 form-group">
@@ -25,13 +25,13 @@
         </div>
 
         <div class="text-right col-md-4 form-group">
-          <label></label>
+          <label>ที่ตั้ง รพ.สต.</label>
         </div>
 
         <div class="col-md-8 form-group">
           <select class="ng-pristine ng-valid ng-touched" [(ngModel)]="provinceID" (change)="onProvinceChange()">
             <option value="0">---เลือกจังหวัด---</option>
-            <option *ngFor="let prov of provinces" [value]="prov.codeId">{{ prov.name }}</option>
+            <option *ngFor="let item of provinceList" [ngValue]="item.codeId">{{ item.name }}</option>
           </select>
         </div>
 
@@ -41,15 +41,15 @@
 
         <div class="col-md-8">
           <div class="col-md-6 form-group"  style="padding-left: 0px;">
-            <select class="ng-pristine ng-valid ng-touched" [(ngModel)]="amphurID" (change)="onAmphurChange()">
+            <select class="ng-pristine ng-valid ng-touched" [(ngModel)]="amphurID" (change)="onAmphurChange()" [disabled]="provinceID == 0?true:false">
               <option value="0">เลือกอำเภอ</option>
-              <option *ngFor="let item of amphurs" [value]="item.codeId">{{ item.name }}</option>
+              <option *ngFor="let item of amphurList" [value]="item.code">{{ item.name }}</option>
             </select>
           </div>
           <div class="col-md-6 form-group"  style="padding-right: 0px;">
-            <select class="ng-pristine ng-valid ng-touched" [(ngModel)]="tumbolID" (change)="onTumbolChange()">
+            <select class="ng-pristine ng-valid ng-touched" [(ngModel)]="tumbolID" (change)="onTumbolChange()" [disabled]="amphurID == 0?true:false">
               <option value="0">เลือกตำบล</option>
-              <option *ngFor="let item of tumbols" [value]="item.codeId">{{ item.name }}</option>
+              <option *ngFor="let item of tumbolsList" [value]="item.codeId">{{ item.name }}</option>
             </select>
           </div>
         </div>
@@ -86,6 +86,7 @@
         <div class="col-md-8 form-group">
           <select class="ng-pristine ng-valid ng-touched">
                 <option value="0">เลือกคำนำหน้า</option>
+                <option *ngFor="let item of prefixList" [value]="item.code">{{ item.name }}</option>
               </select>
         </div>
 

@@ -21,7 +21,7 @@ export class ApiHTTPService extends BaseComponent implements OnInit {
         throw new Error("Method not implemented.");
     }
 
-    get(url: string, params?: object, callback?: (doc: any) => void) {
+    get(url: string, params?: any, callback?: (doc: any) => void) {
         this.http.get(this.getApiUrl(url), params)
             .map(res => res.json())
             .subscribe(
@@ -31,7 +31,7 @@ export class ApiHTTPService extends BaseComponent implements OnInit {
             )
     }
 
-    post(url: string, params?: object, callback?: (doc: any) => void) {
+    post(url: string, params?: any, callback?: (doc: any) => void) {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers, method: "post" });
 

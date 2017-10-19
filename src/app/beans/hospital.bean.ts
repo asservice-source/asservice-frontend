@@ -15,7 +15,7 @@ export class HospitalBean{
     public contactPrefix: string;
     public contactFirstName: string;
     public contactLastName: string;
-    public contactCitizenID: string;
+    public contactCitizenId: string;
     public contactTelephone: string;
     public contactEmail: string;
     public isActive: boolean;
