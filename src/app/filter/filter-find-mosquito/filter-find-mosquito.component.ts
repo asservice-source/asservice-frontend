@@ -10,6 +10,7 @@ export class FilterFindMosquitoComponent implements OnInit {
   public villageNo : string = '0';
   public locationType : string = '0';
   public HomeNo: string = '0';
+  public nameLength: number = 10;
 
   constructor() {
 

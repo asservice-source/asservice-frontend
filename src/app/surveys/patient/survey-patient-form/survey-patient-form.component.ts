@@ -11,6 +11,7 @@ export class SurveyPatientFormComponent implements OnInit {
     public isFindPersonal: boolean = true;
     public personBean = new PersonBean();
     public isShowForm: boolean = false;
+    public patientType : string ="0";
 
   constructor() { }
 
