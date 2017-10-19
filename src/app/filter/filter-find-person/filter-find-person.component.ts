@@ -54,6 +54,7 @@ export class FilterFindPersonComponent extends BaseComponent implements OnInit {
     console.log(changes);
     if (changes['findPersonal']) {
       this.isShowFind = this.findPersonal
+      console.log(this.findPersonal);
     }
     if(changes['reset']){
       this.filterBean.villageId = "";
