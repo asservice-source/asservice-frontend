@@ -28,7 +28,7 @@ export class FilterFindPersonComponent extends BaseComponent implements OnInit {
   public isDisabledHomeNo = true;
   public isDisabledPerson = true;
   public isDisableBtnSearch = true;
-  public personData: any = [{ citizenId: '1-11-3-2290343-2-4', fullName: 'นายโอดอวย หวยโหย', age: 34, status: 'ผู้อาศัย' }, { citizenId: '6-00-3-2290344-5-0', fullName: 'นายต้องเต ไทบ้านนอก', age: 41, status: 'เจ้าบ้าน' }];
+  public personData: any = []//[{ citizenId: '1-11-3-2290343-2-4', fullName: 'นายโอดอวย หวยโหย', age: 34, status: 'ผู้อาศัย' }, { citizenId: '6-00-3-2290344-5-0', fullName: 'นายต้องเต ไทบ้านนอก', age: 41, status: 'เจ้าบ้าน' }];
   public homeData: any;
 
   @Input() findPersonal: boolean;
@@ -53,11 +53,13 @@ export class FilterFindPersonComponent extends BaseComponent implements OnInit {
     console.log("OnChanges");
     console.log(changes);
     if (changes['findPersonal']) {
-      this.isShowFind = this.findPersonal
-      console.log(this.findPersonal);
+      this.isShowFind = this.findPersonal;
+      
     }
     if(changes['reset']){
       this.filterBean.villageId = "";
+      this.changVillageNo();
+      
     }
   }
 
@@ -65,12 +67,12 @@ export class FilterFindPersonComponent extends BaseComponent implements OnInit {
     if (this.filterBean.villageId) {
       this.setUpOSM();
       this.setUpHome();
-      this.filterBean.osmId="";
-      this.filterBean.homeId="";
     } else {
       this.isDisabledHomeNo = true;
       this.isDisabledOSM = true;
     }
+    this.filterBean.osmId="";
+    this.filterBean.homeId="";
     this.personBean.citizenId = '';
     this.filterChanges();
   }
@@ -91,9 +93,19 @@ export class FilterFindPersonComponent extends BaseComponent implements OnInit {
   doSearchPerson() {
     this.isDisabledPerson = false;
     this.isShowPersons = true;
-
+    this.setUpPerson();
   }
 
+  setUpPerson(){
+    let self = this;
+    let params = { "homeId": self.filterBean.homeId};
+    this.api.post('homemember/homemember_by_home', params, function (resp) {
+      console.log(resp);
+      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+        self.personData = resp.list; 
+      }
+    })
+  }
   setUpVillage() {
     let self = this;
     let params = { "hospitalCode": super.getHospitalCode() };
