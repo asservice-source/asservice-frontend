@@ -16,7 +16,6 @@ declare var $;
 export class SurveyPersonalMemberListComponent extends BaseComponent implements OnInit {
 
   private apiHttp: ApiHTTPService = new ApiHTTPService();
-  private URL_LIST_HOME_MEMBERS: string = "homemember/homemember_by_home";
 
   private paramHomeId: string;
   public paramsPerson: PersonBean;
@@ -30,38 +29,58 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     let self = this;
 
     self.settings = this.getTabelSetting({
-      name: {
+      person: {
         title: 'ชื่อ-สกุล สมาชิก',
-        filter: false
+        filter: false,
+        width: '200px',
+        valuePrepareFunction: (cell, row) => {
+          return self.getFullName(cell.prefix.shortName, cell.firstName, cell.lastName);
+        }
       },
       citizenId: {
         title: 'เลขประจำตัวประชาชน',
-        filter: false
+        filter: false,
+        width: '200px'
       },
       birthDate: {
         title: 'วัน/เดือน/ปี เกิด',
-        filter: false
+        filter: false,
+        width: '150px',
+        type: 'html',
+        valuePrepareFunction: (cell, row) => {
+          let birthDate = row.person.birthDate;
+          let date = new Date(birthDate);
+          return '<div class="text-center">' + self.displayFormatDate(birthDate) + '</div>';
+        }
       },
       age: {
         title: 'อายุ',
-        filter: false
+        filter: false,
+        width: '100px',
+        type: 'html',
+        valuePrepareFunction: (cell, row) => {
+          let birthDate = row.person.birthDate;
+          return '<div class="text-center">' + self.getAge(birthDate) + '</div>';
+        }
       },
       status: {
-        title: 'สถานะการอยู่อาศัย',
-        filter: false
+        title: 'ประเภทการเข้าอยู่อาศัย',
+        filter: false,
+        width: '200px',
+        type: 'html',
+        valuePrepareFunction: (cell, row) => {
+          let guestDesc = (row.guest === true) ? 'มีชื่อในทะเบียนบ้านจริง' : 'ไม่มีชื่อในทะเบียนบ้าน';
+          return '<div class="text-center">' + guestDesc + '</div>';
+        }
       },
       action: {
         title: '',
         filter: false,
+        width: '100px',
         type: 'custom',
         renderComponent: SurveyPersonalMemberListButtonEditComponent,
         onComponentInitFunction(instance) {
           instance.action.subscribe((row: PersonBean) => {
-            // let tmpPerson = new PersonBean();
-            // tmpPerson.firstName = row.firstName;
-            // tmpPerson.lastName = row.lastName;
-            // tmpPerson.citizenID = row.citizenId;
-
             self.paramsPerson = row;
             $("#modalMember").modal({ backdrop: 'static', keyboard: false });
           });
@@ -84,10 +103,13 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
 
   loadData() {
     let self = this;
-    this.paramHomeId = "1"; // test
+
+    let URL_LIST_HOME_MEMBERS: string = "homemember/homemember_by_home";
     let params = { "homeId": this.paramHomeId };
-    this.apiHttp.post(this.URL_LIST_HOME_MEMBERS, params, function (d) {
+
+    self.apiHttp.post(URL_LIST_HOME_MEMBERS, params, function (d) {
       if (d != null && d.status.toUpperCase() == "SUCCESS") {
+        console.log(d);
         self.source = new LocalDataSource(d.list);
         self.setNg2STDatasource(self.source);
       }
@@ -121,7 +143,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
 }
 
 @Component({
-  template: "<button (click)=\"clickEdit();\" style=\"padding-top: 0px; padding-bottom: 0px\" class=\"btn btn-primary\">แก้ไข</button>",
+  template: "<div class=\"text-center\"><button (click)=\"clickEdit();\" style=\"padding-top: 0px; padding-bottom: 0px\" class=\"btn btn-primary\">แก้ไข</button></div>",
 })
 export class SurveyPersonalMemberListButtonEditComponent implements ViewCell, OnInit {
   renderValue: string;

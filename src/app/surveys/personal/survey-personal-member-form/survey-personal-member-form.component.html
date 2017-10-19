@@ -159,7 +159,10 @@
             <label class="label-form">อาชีพ</label>
           </div>
           <div class="col-md-3">
-            <input type="text" class="ng-pristine ng-valid ng-touched" [(ngModel)]="person.occupCode">
+            <!-- <input type="text" class="ng-pristine ng-valid ng-touched" [(ngModel)]="person.occupCode"> -->
+            <select name="dropdown-occupCode" id="dropdown-occupCode" [(ngModel)]="person.occupCode">
+              <option value="">--เลือก อาชีพ--</option>
+            </select>
           </div>
         </div>
 

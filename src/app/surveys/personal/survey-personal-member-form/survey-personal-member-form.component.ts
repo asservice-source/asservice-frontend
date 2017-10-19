@@ -20,33 +20,68 @@ export class SurveyPersonalMemberFormComponent implements OnInit {
 
   constructor() {
     this.person = new PersonBean();
-    // this.person.typeAreaCode = "0";
-    // this.person.genderCode = "0";
-    // this.person.raceCode = "0";
-    // this.person.nationCode = "0";
-    // this.person.religionCode = "0";
-    // this.person.bloodType = "0";
-    // this.person.rhGroupID = "0";
-    // this.person.educationCode = "0";
   }
 
   ngOnInit() {
+    let self = this;
 
+    self.bindGuestType();
+    self.bindPrefix();
+    self.bindGender();
+    self.bindRace();
+    self.bindNationality();
+    self.bindReligion();
+    self.bindBloodType();
+    self.bindRHGroup();
+    self.bindEducation();
+    self.bindOccupation();
   }
 
   showModal(ps: PersonBean) {
     let self = this;
     if (ps) {
-      // let params = { "hospitalCode": "" };
-      // this.apiHttp.post(this.URL_PERSON_PROFILE, params, function (d) {
-      //   if (d != null && d.status.toUpperCase() == "SUCCESS") {
-      //     self.listHomeData = d.list;
-      //   }
-      // })
-      // if (self.personData) {
       this.person = ps;
-      // }
     }
+  }
+
+  bindGuestType(){
+
+  }
+
+  bindPrefix(){
+    
+  }
+
+  bindGender(){
+
+  }
+
+  bindRace(){
+
+  }
+
+  bindNationality(){
+
+  }
+
+  bindReligion(){
+
+  }
+
+  bindBloodType(){
+
+  }
+
+  bindRHGroup(){
+
+  }
+
+  bindEducation(){
+
+  }
+
+  bindOccupation(){
+
   }
 
 }
