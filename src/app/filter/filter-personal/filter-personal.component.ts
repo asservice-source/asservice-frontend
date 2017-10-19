@@ -41,18 +41,18 @@ export class FilterPersonalComponent extends BaseComponent implements OnInit {
     self.isDisabledOSM = true;
     self.isDisabledHomeNo = true;
 
-    if (self.filterBean.villageID == "") {
+    if (self.filterBean.villageId == "") {
       self.list_osm = [];
       self.list_home_no = [];
 
-      self.filterBean.OSMID = "";
-      self.filterBean.homeID = "";
+      self.filterBean.osmId = "";
+      self.filterBean.homeId = "";
 
       self.isDisabledOSM = true;
       self.isDisabledHomeNo = true;
     } else {
-      self.bindOSM(self.filterBean.villageID);
-      self.bindHomeNo(self.filterBean.villageID, self.filterBean.OSMID);
+      self.bindOSM(self.filterBean.villageId);
+      self.bindHomeNo(self.filterBean.villageId, self.filterBean.osmId);
     }
   }
 
@@ -61,7 +61,7 @@ export class FilterPersonalComponent extends BaseComponent implements OnInit {
 
     self.isDisabledHomeNo = true;
 
-    self.bindHomeNo(self.filterBean.villageID, self.filterBean.OSMID);
+    self.bindHomeNo(self.filterBean.villageId, self.filterBean.osmId);
   }
 
   bindVillageNo() {
@@ -82,13 +82,13 @@ export class FilterPersonalComponent extends BaseComponent implements OnInit {
     let self = this;
 
     let URL_LIST_OSM: string = "osm/osm_list_by_village";
-    let params_getOSM = { "id": self.filterBean.villageID };
+    let params_getOSM = { "id": self.filterBean.villageId };
 
     self.apiHttp.post(URL_LIST_OSM, params_getOSM, function (d) {
       if (d && d.status.toUpperCase() == "SUCCESS") {
         // console.log(d);
         self.list_osm = d.list;
-        self.filterBean.OSMID = "";
+        self.filterBean.osmId = "";
         self.isDisabledOSM = false;
       }
     });
@@ -104,7 +104,7 @@ export class FilterPersonalComponent extends BaseComponent implements OnInit {
       if (d && d.status.toUpperCase() == "SUCCESS") {
         // console.log(d);
         self.list_home_no = d.list;
-        self.filterBean.homeID = "";
+        self.filterBean.homeId = "";
         self.isDisabledHomeNo = false;
       }
     });
@@ -117,9 +117,9 @@ export class FilterPersonalComponent extends BaseComponent implements OnInit {
   doClearFilter() {
     let self = this;
 
-    this.filterBean.villageID = "";
-    this.filterBean.OSMID = "";
-    this.filterBean.homeID = "";
+    this.filterBean.villageId = "";
+    this.filterBean.osmId = "";
+    this.filterBean.homeId = "";
 
     self.isDisabledOSM = true;
     self.isDisabledHomeNo = true;
