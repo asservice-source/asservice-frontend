@@ -1,6 +1,6 @@
 export class FilterBean {
-    public villageID: string = "";
-    public OSMID: string = "";
-    public homeID: string = "";
+    public villageId: string = "";
+    public osmId: string = "";
+    public homeId: string = "";
     public name: string = "";
 }

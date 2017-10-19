@@ -5,18 +5,18 @@
         <label class="label-form" >{{getLabel('lbl_villageNo')}}</label>
       </div>
       <div class="col-md-4">
-        <select [(ngModel)]="village.villageID" (change)="changVillageNo()">
+        <select [(ngModel)]="filterBean.villageId" (change)="changVillageNo()">
           <option ngValue="">--เลือก หมู่ที่--</option>
-          <option *ngFor="let item of villageData" [ngValue]="item">{{item.villageNo+' : '+item.villageName}}</option>
+          <option *ngFor="let item of villageData" [ngValue]="item.id">{{item.villageNo+' : '+item.villageName}}</option>
         </select>
       </div>
       <div class="col-md-1 text-right">
         <label class="label-form">{{getLabel('lbl_osm')}}</label>
       </div>
       <div class="col-md-4">
-          <select name="find-osmName" id="find-osmName" [(ngModel)]="osm.OSMID" (change)="changeOSM()" [disabled]="isDisabledOSM">
+          <select name="find-osmName" id="find-osmName" [(ngModel)]="filterBean.osmId" (change)="changeOSM()" [disabled]="isDisabledOSM">
             <option ngValue="">--เลือก อสม.--</option>
-            <option *ngFor="let item of osmData" [ngValue]="item">{{item.OSMID+' : '+item.OSMName}}</option>
+            <option *ngFor="let item of osmData" [ngValue]="item.citizenId">{{getFullName(item.prefix.name, item.firstName, item.lastName)}}</option>
         </select>
       </div>
     </div>
@@ -25,11 +25,10 @@
             <label class="label-form">{{getLabel('lbl_homeNo')}}</label>
           </div>
           <div class="col-md-4">
-              <select name="find-homeNo" id="find-homeNo" [(ngModel)]="home.homeID" (change)="changHomeNo()" [disabled]="isDisabledHomeNo">
+              <select name="find-homeNo" id="find-homeNo" [(ngModel)]="filterBean.homeId" (change)="changHomeNo()" [disabled]="isDisabledHomeNo">
                   <option ngValue="">--เลือก บ้านเลขที่--</option>
-                  <option ngValue="30">30</option>
-                  <option ngValue="30-1">30/1</option>
-                  <option ngValue="44">44</option>
+                  <option *ngFor="let item of homeData" [ngValue]="item.id">{{item.homeNo}}</option>
+                  
             </select>
           </div>
           <div class="col-md-1"></div>
