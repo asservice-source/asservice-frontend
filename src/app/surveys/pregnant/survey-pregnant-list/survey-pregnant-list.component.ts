@@ -37,21 +37,37 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
         title: 'เลขประจำตัวประชาชน',
         filter: false,
         width: '200px',
+        type:'html',
+        valuePrepareFunction: (cell, row) => { 
+          return '<div class="text-center">'+cell+'</div>'
+        }
       },
       age: {
         title: 'อายุ',
         filter: false,
         width: '70px',
+        type:'html',
+        valuePrepareFunction: (cell, row) => { 
+          return '<div class="text-center">'+cell+'</div>'
+        }
       },
       wombNo: {
         title: 'ครรภ์ที่',
         filter: false,
         width: '90px',
+        type:'html',
+        valuePrepareFunction: (cell, row) => { 
+          return '<div class="text-center">'+cell+'</div>'
+        }
       },
       bornDueDate: {
         title: 'วันกำหนดคลอด',
         filter: false,
         width: '150px',
+        type:'html',
+        valuePrepareFunction: (cell, row) => { 
+          return '<div class="text-center">'+cell+'</div>'
+        }
       },
       action: {
         title: 'การทำงาน',
@@ -70,8 +86,6 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
   }
   ngOnInit() {
   }
-
-
 
   loadData() {
     this.http.get("assets/test-list.json")

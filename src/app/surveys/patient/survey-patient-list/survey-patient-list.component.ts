@@ -70,7 +70,6 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
       gender: "ชาย",
       age: 42,
       type: "ติดบ้าน"
-
     },
   ];
 
@@ -89,6 +88,10 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
         title: 'เลขประจำตัวประชาชน',
         filter: false,
         width: '200px',
+        type:'html',
+        valuePrepareFunction: (cell, row) => { 
+          return '<div class="text-center">'+cell+'</div>'
+        }
       },
       reason: {
         title: 'สาเหตุความพิการ/ป่วย',
@@ -99,16 +102,28 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
         title: 'เพศ',
         filter: false,
         width: '70px',
+        type:'html',
+        valuePrepareFunction: (cell, row) => { 
+          return '<div class="text-center">'+cell+'</div>'
+        }
       },
       age: {
         title: 'อายุ',
         filter: false,
         width: '70px',
+        type:'html',
+        valuePrepareFunction: (cell, row) => { 
+          return '<div class="text-center">'+cell+'</div>'
+        }
       },
       type: {
         title: 'ประเภท',
         filter: false,
         width: '120px',
+        type:'html',
+        valuePrepareFunction: (cell, row) => { 
+          return '<div class="text-center">'+cell+'</div>'
+        }
       },
       action: {
         title: 'การทำงาน',
