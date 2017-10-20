@@ -18,10 +18,8 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
   isDisable = true;
 
   private apiHttp: ApiHTTPService = new ApiHTTPService();
-  private URL_LIST_CANCER: string = "home/home_list";
 
   public settings: any;
-  public listHomeData: any = [];
   public source: LocalDataSource;
 
   constructor(private http: Http, private router: Router) {
@@ -81,7 +79,33 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
+    let self = this;
 
+    self.bindCancerList();
+  }
+
+  bindCancerList() {
+    let self = this;
+
+    // let URL_LIST_CANCER: string = "homemember/homemember_by_home";
+    // let params = {};
+
+    // self.apiHttp.post(URL_LIST_CANCER, params, function (d) {
+    //   if (d != null && d.status.toUpperCase() == "SUCCESS") {
+    //     console.log(d);
+    //     self.source = new LocalDataSource(d.list);
+    //     self.setNg2STDatasource(self.source);
+    //   } else {
+    //     console.log('survey-cancer-list(bindCancerList) occured error(s) => ' + d.message);
+    //   }
+    // });
+
+    this.http.get("assets/data_test/data_cancer_list.json")
+      .map(res => res.json())
+      .subscribe((data) => {
+        self.source = new LocalDataSource(data);
+        self.setNg2STDatasource(self.source);
+      });
   }
 
   changStatusNo() {
