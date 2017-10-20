@@ -13,7 +13,7 @@ declare var bootbox: any;
 export class RegisterComponent extends BaseComponent implements OnInit {
 
 
-  public registerBean: RegisterBean;
+  public registerBean: RegisterBean
   public loadingCMD: string = 'hide';
   public dataHospitals: CompleterData;
   public apiHttp = new ApiHTTPService();
@@ -48,7 +48,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
-
+ 
   }
 
   api_register(): void {
@@ -275,5 +275,14 @@ export class RegisterComponent extends BaseComponent implements OnInit {
     }
     
   }
+
+  onInputChange(){
+    // let self = this;
+    // let re = "(\d{1})-(\d{4})-(\d{5})-(\d{2})-(\d{1})"; 
+    // let str = self.registerBean.contactCitizenId; 
+    // let newstr = str.replace(re, "$1,$2,$3,$4,$5"); 
+    // console.log(newstr);
+  }
+ 
 
 }

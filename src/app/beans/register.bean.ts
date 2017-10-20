@@ -1,18 +1,18 @@
 export class RegisterBean{
 
     public hospitalName : string;
-    public provinceID : any;
-    public amphurCode : any;
-    public tumbolID : any;
-    public code9 : any;
-    public code5 : any;
+    public provinceID : string;
+    public amphurCode : string;
+    public tumbolID : string;
+    public code9 : string;
+    public code5 : string;
 
-    public contactCitizenId : any;
-    public contactPrefix : any;
-    public contactFirstName : any;
-    public contactLastName : any;
-    public contactTelephone : any;
-    public contactEmail : any;
+    public contactCitizenId : string;
+    public contactPrefix : string;
+    public contactFirstName : string;
+    public contactLastName : string;
+    public contactTelephone : string;
+    public contactEmail : string;
 
 
 
