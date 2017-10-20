@@ -80,6 +80,10 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
         title: 'เลขประจำตัวประชาชน',
         filter: false,
         width: '200px',
+        type: 'html',
+        valuePrepareFunction: (cell, row) => { 
+          return '<div class="text-center">'+cell+'</div>'
+        }
       },
       reason: {
         title: 'สาเหตุการเสียชีวิต',
@@ -90,11 +94,10 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
         title: 'อายุ',
         filter: false,
         width: '70px',
-      },
-      status: {
-        title: 'สถานะ',
-        filter: false,
-        width: '90px',
+        type: 'html',
+        valuePrepareFunction: (cell, row) => { 
+          return '<div class="text-center">'+cell+'</div>'
+        }
       },
       action: {
         title: 'จัดการ',
@@ -126,15 +129,18 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
 
   }
   ngOnInit() {
-
+    this. setUpTable();
   }
   onChangeFilter(event: FilterHeadSurveyBean) {
     this.isShowList = false;
   }
   onSearch(event: FilterHeadSurveyBean) {
+    this. setUpTable();
+  }
+
+  setUpTable(){
     this.source = new LocalDataSource(this.datas);
     this.isShowList = true;
     super.setNg2STDatasource(this.source);
   }
-
 }

@@ -29,8 +29,7 @@
         "../node_modules/admin-lte/plugins/daterangepicker/daterangepicker.css",
         "../node_modules/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.css",
         "assets/jquery-thailand/jquery.Thailand.min.css",
-        "styles.css",
-        "../node_modules/datatables.net-dt/css/jquery.dataTables.css"
+        "styles.css"
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.js",
@@ -49,7 +48,6 @@
         "../node_modules/admin-lte/dist/js/app.js",
         "assets/jquery-thailand/jquery.Thailand.js",
         "assets/js/scripts.js",
-        "../node_modules/datatables.net/js/jquery.dataTables.js",
         "../node_modules/bootbox/bootbox.js"
       ],
       "environmentSource": "environments/environment.ts",

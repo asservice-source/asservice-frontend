@@ -15,23 +15,24 @@
         <div class="col-md-12">
         <div class="padding_right col-md-9">
             <div class="col-md-6">
-              <label>ชื่อ {{getFullName(personBean.person.prefix.name,personBean.person.firstName,personBean.person.lastName)}}</label>
+              <label>ชื่อ</label>
+              <label class="value"> {{getFullName(personBean.person.prefix.name,personBean.person.firstName,personBean.person.lastName)}}</label>
             </div>
             
             <div class="col-md-4 col-md-offset-2" style="margin-left:0px">
               <label>อายุ</label>
-              <label>{{getAge(personBean.person.birthDate)}}</label>
+              <label class="value">{{getAge(personBean.person.birthDate)}}</label>
             </div>
     
             <div class="col-md-12">
               <label>หมายเลขประจำตัว</label>
-              <label>{{personBean.citizenId}}</label>
+              <label class="value">{{personBean.citizenId}}</label>
             </div>
     
             <div class="col-md-12">
               <label>ที่อยู่</label>
-              <label>11/1</label>
-              <label>ถ.ดินแดง ตำบลในเมือง อ.เมือง จ.ขอนแก่น</label>
+              <label class="value">11/1</label>
+              <label class="value">ถ.ดินแดง ตำบลในเมือง อ.เมือง จ.ขอนแก่น</label>
             </div>
           <div class="row">
             <div class="col-md-3 text-right">

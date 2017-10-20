@@ -92,4 +92,12 @@ export class BaseComponent implements OnInit {
     public getAge(birthDate: string) {
         return moment().diff(birthDate, 'years',false);
     }
+    public isEmpty(value: string): boolean{
+        if(value){
+            if(value.trim.length>0){
+                return false;
+            }
+        }
+        return true;
+    }
 }

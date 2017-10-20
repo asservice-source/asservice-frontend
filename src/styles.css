@@ -4,27 +4,32 @@
 }
 label{
     color: #000000;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: bold;
 
+}
+span.value, label.value{
+    color: #000000;
+    font-size: 16px;
+    font-weight: normal;
 }
 
 .label-form{
 
 }
 .panel-default>.panel-heading {
-    background-color:  #CFD8E2;
-    height: 35px ;
-    padding: 2px 2px 2px 15px;
+    background-color: #e4e7e8;
+    height: 38px ;
+    padding: 6px 2px 2px 15px;
   }
 .panel-heading>*{
     font-size: 16px  ;
     font-weight: bold;
     color : #3D3C3C ;
-    line-height: 31px ;
+    
   }
 .panel-default>.panel-body {
-    background-color: #f5f5f5;
+    background-color: #ffffff;
     padding: 7px 10px 7px 10px;
   }
   /* .btn{
@@ -49,7 +54,7 @@ input,select,textarea{
     color: #3d3d3d ;
     padding : 2px 4px 2px 4px ;
     border-radius : 3px ;
-    border: 1px solid #D2ACEB;
+    border: 1px solid #a0b1be;
 }
 select[disabled]{
     background-color: #ebebe4;
@@ -72,6 +77,9 @@ table{
 table th{
     text-align: center;
 }
+table th .ng2-smart-sort-link{
+    color: black;
+}
 
 .table .btn {
 color: white !important;
@@ -79,4 +87,11 @@ color: white !important;
 
 .ng2-smart-no-data-found {
     text-align: center !important;
+}
+
+.pagination > li > a, .pagination > li > span, .pagination > li > a> span{
+    font-size: 12px;
+}
+.pagination > li > a> span, .ng2-smart-pagination .page-link-next, .ng2-smart-pagination  .page-link-prev{
+    font-size: 12px;
 }
