@@ -6,6 +6,7 @@ import { ViewCell, LocalDataSource } from 'ng2-smart-table';
 import { BaseComponent } from '../../../base-component';
 import { PersonBean } from '../../../beans/person.bean';
 import { ApiHTTPService } from '../../../service/api-http.service';
+import { PersonalMemberBean } from '../../../beans/personal-member.bean';
 declare var $;
 
 @Component({
@@ -18,7 +19,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
   private apiHttp: ApiHTTPService = new ApiHTTPService();
 
   private paramHomeId: string;
-  public paramsPerson: PersonBean;
+  public paramMember: PersonalMemberBean;
 
   public settings: any;
   public source: LocalDataSource;
@@ -29,28 +30,23 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     let self = this;
 
     self.settings = this.getTabelSetting({
-      person: {
-        title: 'ชื่อ-สกุล สมาชิก',
+      fullName: {
+        title: 'ชื่อ-สกุล',
         filter: false,
-        width: '200px',
-        valuePrepareFunction: (cell, row) => {
-          return self.getFullName(cell.prefix.shortName, cell.firstName, cell.lastName);
-        }
+        width: '300px'
       },
       citizenId: {
         title: 'เลขประจำตัวประชาชน',
         filter: false,
-        width: '200px'
+        width: '300px'
       },
-      birthDate: {
-        title: 'วัน/เดือน/ปี เกิด',
+      genderName: {
+        title: 'เพศ',
         filter: false,
-        width: '150px',
+        width: '100px',
         type: 'html',
         valuePrepareFunction: (cell, row) => {
-          let birthDate = row.person.birthDate;
-          let date = new Date(birthDate);
-          return '<div class="text-center">' + self.displayFormatDate(birthDate) + '</div>';
+          return '<div class="text-center">' + cell + '</div>';
         }
       },
       age: {
@@ -59,19 +55,14 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
         width: '100px',
         type: 'html',
         valuePrepareFunction: (cell, row) => {
-          let birthDate = row.person.birthDate;
-          return '<div class="text-center">' + self.getAge(birthDate) + '</div>';
+          return '<div class="text-center">' + cell + '</div>';
         }
       },
       status: {
-        title: 'ประเภทการเข้าอยู่อาศัย',
+        title: 'สถานะผู้อยู่อาศัย',
         filter: false,
         width: '200px',
-        type: 'html',
-        valuePrepareFunction: (cell, row) => {
-          let guestDesc = (row.guest === true) ? 'มีชื่อในทะเบียนบ้านจริง' : 'ไม่มีชื่อในทะเบียนบ้าน';
-          return '<div class="text-center">' + guestDesc + '</div>';
-        }
+        type: 'html'
       },
       action: {
         title: '',
@@ -81,25 +72,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
         renderComponent: SurveyPersonalMemberListButtonEditComponent,
         onComponentInitFunction(instance) {
           instance.action.subscribe((row) => {
-            let p = new PersonBean();
-            p.typeAreaCode = row.person.typeArea.code || '';
-            p.citizenId = row.person.citizenId || '';
-            p.prefixCode = row.person.prefix.code || '';
-            p.firstName = row.person.firstName || '';
-            p.lastName = row.person.lastName || '';
-            p.genderCode = row.person.gender.code || '';
-            p.raceCode = row.person.race.code || '';
-            p.nationalityCode = row.person.nationality.code || '';
-            p.religionCode = row.person.religion.code || '';
-            p.bloodTypeId = row.person.bloodType.id || '';
-            p.rHGroupId = row.person.rhgroup.id || '';
-            p.birthDate = row.person.birthDate || '';
-            p.educationCode = row.person.education.code || '';
-            p.occupationCode = row.person.occupation.id || '';
-            p.dischargeId = row.dischargeID || '';
-            p.familyStatus = row.familyStatus.code || '';
-
-            self.paramsPerson = p;
+            self.paramMember = row;
             $("#modalMember").modal({ backdrop: 'static', keyboard: false });
           });
         }
@@ -128,7 +101,8 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     self.apiHttp.post(URL_LIST_HOME_MEMBERS, params, function (d) {
       if (d != null && d.status.toUpperCase() == "SUCCESS") {
         console.log(d);
-        self.source = new LocalDataSource(d.list);
+        let tmp = self.mappingPersonalMemberBean(d.list);
+        self.source = new LocalDataSource(tmp);
         self.setNg2STDatasource(self.source);
       } else {
         console.log('survey-personal-member-list(bindHomeMemberList) occured error(s) => ' + d.message);
@@ -141,6 +115,32 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     //     self.source = new LocalDataSource(data);
     //     self.setNg2STDatasource(self.source);
     //   });
+  }
+
+  mappingPersonalMemberBean(data: any): Array<PersonalMemberBean> {
+    let self = this;
+
+    let memberList: Array<PersonalMemberBean> = new Array<PersonalMemberBean>();
+    for (let item of data) {
+      if (item) {
+        let member: PersonalMemberBean = new PersonalMemberBean();
+        if (item.person && item.person.prefix) {
+          member.fullName = self.getFullName(item.person.prefix.name, item.person.firstName, item.person.lastName);
+        }
+        member.citizenId = item.citizenId || '';
+        if (item.person && item.person.gender) {
+          member.genderName = item.person.gender.name
+        }
+        if (item.person) {
+          member.age = self.getAge(item.person.birthDate).toString();
+        }
+        if (item.discharge) {
+          member.dischargeName = item.discharge.name;
+        }
+        memberList.push(member);
+      }
+    }
+    return memberList;
   }
 
   clickBack() {

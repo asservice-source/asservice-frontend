@@ -6,6 +6,7 @@ import { FilterBean } from "../../../beans/filter.bean";
 import { ApiHTTPService } from '../../../service/api-http.service';
 import { BaseComponent } from '../../../base-component';
 import { ActionCustomViewComponent } from '../../../action-custom-table/action-custom-view.component';
+import { PersonalHomeBean } from '../../../beans/personal-home.bean';
 declare var $: any;
 
 @Component({
@@ -27,13 +28,13 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
     let self = this;
 
     self.settings = self.getTabelSetting({
-      village: {
+      villageNo: {
         title: 'หมู่',
         filter: false,
         width: '100px',
         type: 'html',
         valuePrepareFunction: (cell, row) => {
-          return '<div class="text-center">' + cell.villageNo + '</div>';
+          return '<div class="text-center">' + cell + '</div>';
         }
       },
       homeNo: {
@@ -45,18 +46,15 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
           return '<div class="text-center">' + cell + '</div>';
         }
       },
-      holder: {
+      fullName: {
         title: 'ชื่อ-สกุล เจ้าของบ้าน',
         filter: false,
-        width: '300px',
-        valuePrepareFunction: (cell, row) => {
-          return self.getFullName(cell.prefix.shortName, cell.firstName, cell.lastName);
-        }
+        width: '300px'
       },
       memberAmount: {
         title: 'จำนวนสมาชิก',
         filter: false,
-        width: '100px',
+        width: '110px',
         type: 'html',
         valuePrepareFunction: (cell, row) => {
           return '<div class="text-center">' + cell + '</div>';
@@ -70,7 +68,8 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
         renderComponent: SurveyPersonalHomeListButtonEditComponent,
         onComponentInitFunction(instance) {
           instance.action.subscribe((row) => {
-            let homeId = row.id;
+            console.log(row);
+            let homeId = row.homeId;
             self.router.navigate(['/main/surveys/personal-detail', homeId]);
           });
         }
@@ -112,8 +111,9 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
 
     self.apiHttp.post(URL_LIST_HOME, params, function (d) {
       if (d != null && d.status.toUpperCase() == "SUCCESS") {
-        // console.log(d);
-        self.source = new LocalDataSource(d.list);
+        console.log(d);
+        let tmp = self.mappingPersonalHomeBean(d.list);
+        self.source = new LocalDataSource(tmp);
         self.setNg2STDatasource(self.source);
         self.isShowTable = true;
       } else {
@@ -122,6 +122,25 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
     });
   }
 
+  mappingPersonalHomeBean(data: any): Array<PersonalHomeBean> {
+    let self = this;
+
+    let homeList: Array<PersonalHomeBean> = new Array<PersonalHomeBean>();
+    for (let item of data) {
+      if (item) {
+        let home: PersonalHomeBean = new PersonalHomeBean();
+        home.villageNo = item.village.villageNo || '';
+        home.homeNo = item.homeNo || '';
+        if (item.holder && item.holder.prefix) {
+          home.fullName = self.getFullName(item.holder.prefix.name, item.holder.firstName, item.holder.lastName);
+        }
+        home.memberAmount = item.memberAmount || '';
+        home.homeId = item.id || '';
+        homeList.push(home);
+      }
+    }
+    return homeList;
+  }
 }
 
 @Component({
