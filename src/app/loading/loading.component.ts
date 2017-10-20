@@ -7,18 +7,22 @@ declare var $:any;
 })
 export class LoadingComponent implements OnInit {
   
-  @Input() set cmd(cmd:string){
-    if('show' == cmd){
-     this.start();
-    }else{
-     this.stop();
-    }
-  }
+  @Input() cmd:string;
 
   constructor() { }
   ngOnInit() {
 
   }
+  ngOnChanges(changes){
+    if(changes['cmd']){
+      if('show' == this.cmd){
+        this.start();
+       }else{
+        this.stop();
+       }
+    }
+  }
+  
   start(){
     console.log('Start Waiting');
     $('html, body').css({'overflow': 'hidden'});

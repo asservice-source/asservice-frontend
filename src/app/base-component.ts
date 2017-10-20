@@ -94,7 +94,7 @@ export class BaseComponent implements OnInit {
     }
     public isEmpty(value: string): boolean{
         if(value){
-            if(value.trim.length>0){
+            if(value.trim().length>0){
                 return false;
             }
         }
