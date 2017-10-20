@@ -68,32 +68,32 @@ export class FilterPersonalComponent extends BaseComponent implements OnInit {
     let self = this;
 
     let URL_LIST_VILLAGE_NO: string = "village/village_no_list_by_hospital";
-    let params_getVillageNo = { "hospitalCode": this.getHospitalCode() };
+    let params = { "hospitalCode": this.getHospitalCode() };
 
-    self.apiHttp.post(URL_LIST_VILLAGE_NO, params_getVillageNo, function (d) {
+    self.apiHttp.post(URL_LIST_VILLAGE_NO, params, function (d) {
       if (d && d.status.toUpperCase() == "SUCCESS") {
         // console.log(d);
         self.list_village_no = d.list;
       } else {
-        console.log('filter-personal(bindVillageNo) occured error(s) => ' + d);
+        console.log('filter-personal(bindVillageNo) occured error(s) => ' + d.message);
       }
-    })
+    });
   }
 
   bindOSM(villageId: string) {
     let self = this;
 
     let URL_LIST_OSM: string = "osm/osm_list_by_village";
-    let params_getOSM = { "id": self.filterBean.villageId };
+    let params = { "id": self.filterBean.villageId };
 
-    self.apiHttp.post(URL_LIST_OSM, params_getOSM, function (d) {
+    self.apiHttp.post(URL_LIST_OSM, params, function (d) {
       if (d && d.status.toUpperCase() == "SUCCESS") {
         // console.log(d);
         self.list_osm = d.list;
         self.filterBean.osmId = "";
         self.isDisabledOSM = false;
       } else {
-        console.log('filter-personal(bindOSM) occured error(s) => ' + d);
+        console.log('filter-personal(bindOSM) occured error(s) => ' + d.message);
       }
     });
   }
@@ -102,16 +102,16 @@ export class FilterPersonalComponent extends BaseComponent implements OnInit {
     let self = this;
 
     let URL_LIST_HOME_NO: string = "home/home_no_list_by_village_or_osm";
-    let params_getHomeNo = { "id": villageId, "osmId": osmId };
+    let params = { "id": villageId, "osmId": osmId };
 
-    self.apiHttp.post(URL_LIST_HOME_NO, params_getHomeNo, function (d) {
+    self.apiHttp.post(URL_LIST_HOME_NO, params, function (d) {
       if (d && d.status.toUpperCase() == "SUCCESS") {
         // console.log(d);
         self.list_home_no = d.list;
         self.filterBean.homeId = "";
         self.isDisabledHomeNo = false;
       } else {
-        console.log('filter-personal(bindHomeNo) occured error(s) => ' + d);
+        console.log('filter-personal(bindHomeNo) occured error(s) => ' + d.message);
       }
     });
   }

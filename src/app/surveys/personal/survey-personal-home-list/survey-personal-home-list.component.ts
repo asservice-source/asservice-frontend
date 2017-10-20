@@ -117,9 +117,9 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
         self.setNg2STDatasource(self.source);
         self.isShowTable = true;
       } else {
-        console.log('survey-personal-home-list(bindHomeList) occured error(s) => ' + d);
+        console.log('survey-personal-home-list(bindHomeList) occured error(s) => ' + d.message);
       }
-    })
+    });
   }
 
 }
