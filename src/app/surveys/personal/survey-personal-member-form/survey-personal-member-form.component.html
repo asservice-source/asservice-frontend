@@ -17,8 +17,7 @@
           <div class="col-md-3">
             <select name="dropdown-typeArea" id="dropdown-typeArea" [(ngModel)]="person.typeAreaCode">
               <option value="">--เลือกประเภท--</option>
-              <option value="1">มีชื่อในทะเบียนบ้านจริง</option>
-              <option value="2">ไม่มีชื่อในทะเบียนบ้าน</option>
+              <option *ngFor="let item of listTypeArea" [value]="item.code">{{item.name}}</option>
             </select>
           </div>
         </div>
@@ -38,8 +37,7 @@
           <div class="col-md-3">
             <select name="dropdown-prefix" id="dropdown-prefix" [(ngModel)]="person.prefixCode">
               <option value="">--เลือก คำนำหน้าชื่อ--</option>
-              <option value="1">นาย</option>
-              <option value="2">นางสาว</option>
+              <option *ngFor="let item of listPrefix" [value]="item.code">{{item.name}}</option>
             </select>
           </div>
         </div>
@@ -68,8 +66,7 @@
           <div class="col-md-3">
             <select name="dropdown-gender" id="dropdown-gender" [(ngModel)]="person.genderCode">
               <option value="">--เลือก เพศ--</option>
-              <option value="1">ชาย</option>
-              <option value="2">หญิง</option>
+              <option *ngFor="let item of listGender" [value]="item.code">{{item.name}}</option>
             </select>
           </div>
 
@@ -79,7 +76,7 @@
           <div class="col-md-3">
             <select name="dropdown-race" id="dropdown-race" [(ngModel)]="person.raceCode">
               <option value="">--เลือก เชื้อชาติ--</option>
-              <option value="1">ไทย</option>
+              <option *ngFor="let item of listRace" [value]="item.code">{{item.name}}</option>
             </select>
           </div>
         </div>
@@ -90,8 +87,9 @@
             <label class="label-form">สัญชาติ</label>
           </div>
           <div class="col-md-3">
-            <select name="dropdown-nation" id="dropdown-nation" [(ngModel)]="person.nationCode">
+            <select name="dropdown-nation" id="dropdown-nation" [(ngModel)]="person.nationalityCode">
               <option value="">--เลือก สัญชาติ--</option>
+              <option *ngFor="let item of listNationality" [value]="item.code">{{item.name}}</option>
             </select>
           </div>
 
@@ -101,6 +99,7 @@
           <div class="col-md-3">
             <select name="dropdown-race" id="dropdown-race" [(ngModel)]="person.religionCode">
               <option value="">--เลือก ศาสนา--</option>
+              <option *ngFor="let item of listReligion" [value]="item.code">{{item.name}}</option>
             </select>
           </div>
         </div>
@@ -111,8 +110,9 @@
             <label class="label-form">กรุ๊ปเลือด</label>
           </div>
           <div class="col-md-3">
-            <select name="dropdown-blood" id="dropdown-blood" [(ngModel)]="person.bloodType">
+            <select name="dropdown-blood" id="dropdown-blood" [(ngModel)]="person.bloodTypeId">
               <option value="">--เลือก กรุ๊ปเลือด--</option>
+              <option *ngFor="let item of listBloodType" [value]="item.id">{{item.name}}</option>
             </select>
           </div>
 
@@ -120,8 +120,9 @@
             <label class="label-form">RH Group</label>
           </div>
           <div class="col-md-3">
-            <select name="dropdown-rhGroup" id="dropdown-rhGroup" [(ngModel)]="person.rhGroupID">
+            <select name="dropdown-rhGroup" id="dropdown-rhGroup" [(ngModel)]="person.rHGroupId">
               <option value="">--เลือก RH Group--</option>
+              <option *ngFor="let item of listRHGroup" [value]="item.code">{{item.name}}</option>
             </select>
           </div>
         </div>
@@ -141,14 +142,7 @@
           <div class="col-md-3">
             <select name="dropdown-education" id="dropdown-education" [(ngModel)]="person.educationCode">
               <option value="">--เลือก ระดับการศึกษา--</option>
-              <option value="1">ประถมศึกษาตอนต้น</option>
-              <option value="2">ประถมศึกษาตอนปลาย</option>
-              <option value="3">มัธยมศึกษาตอนต้น</option>
-              <option value="4">มัธยมศึกษาตอนปลาย</option>
-              <option value="5">ปริญญาตรี</option>
-              <option value="6">ปริญญาโท</option>
-              <option value="7">ปริญญาเอก</option>
-              <option value="8">ดาวนาเม็ก</option>
+              <option *ngFor="let item of listEducation" [value]="item.code">{{item.name}}</option>
             </select>
           </div>
         </div>
@@ -160,8 +154,9 @@
           </div>
           <div class="col-md-3">
             <!-- <input type="text" class="ng-pristine ng-valid ng-touched" [(ngModel)]="person.occupCode"> -->
-            <select name="dropdown-occupCode" id="dropdown-occupCode" [(ngModel)]="person.occupCode">
+            <select name="dropdown-occupationCode" id="dropdown-occupationCode" [(ngModel)]="person.occupationCode">
               <option value="">--เลือก อาชีพ--</option>
+              <option *ngFor="let item of listOccupation" [value]="item.id">{{item.name}}</option>
             </select>
           </div>
         </div>
@@ -172,10 +167,9 @@
             <label class="label-form">สถานะอยู่</label>
           </div>
           <div class="col-md-3">
-            <select name="dropdown-livetype" id="dropdown-livetype" [(ngModel)]="person.mLiveType">
+            <select name="dropdown-discharge" id="dropdown-discharge" [(ngModel)]="person.dischargeId">
               <option value="">--เลือก สถานะ--</option>
-              <option value="1">อยู่จริง</option>
-              <option value="2">มีชื่อ แต่ไม่ได้อยู่</option>
+              <option *ngFor="let item of listDischarge" [value]="item.id">{{item.name}}</option>
             </select>
           </div>
 
@@ -183,10 +177,9 @@
             <label class="label-form">สถานะ</label>
           </div>
           <div class="col-md-3">
-            <select name="dropdown-ownertype" id="dropdown-ownertype" [(ngModel)]="person.mOwnerNo">
+            <select name="dropdown-ownertype" id="dropdown-ownertype" [(ngModel)]="person.familyStatus">
               <option value="">--เลือก สถานะ--</option>
-              <option value="1">เจ้าบ้าน</option>
-              <option value="2">ผู้อาศัย</option>
+              <option *ngFor="let item of listFamilyStatus" [value]="item.code">{{item.name}}</option>
             </select>
           </div>
         </div>

@@ -80,8 +80,26 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
         type: 'custom',
         renderComponent: SurveyPersonalMemberListButtonEditComponent,
         onComponentInitFunction(instance) {
-          instance.action.subscribe((row: PersonBean) => {
-            self.paramsPerson = row;
+          instance.action.subscribe((row) => {
+            let p = new PersonBean();
+            p.typeAreaCode = row.person.typeArea.code || '';
+            p.citizenId = row.person.citizenId || '';
+            p.prefixCode = row.person.prefix.code || '';
+            p.firstName = row.person.firstName || '';
+            p.lastName = row.person.lastName || '';
+            p.genderCode = row.person.gender.code || '';
+            p.raceCode = row.person.race.code || '';
+            p.nationalityCode = row.person.nationality.code || '';
+            p.religionCode = row.person.religion.code || '';
+            p.bloodTypeId = row.person.bloodType.id || '';
+            p.rHGroupId = row.person.rhgroup.id || '';
+            p.birthDate = row.person.birthDate || '';
+            p.educationCode = row.person.education.code || '';
+            p.occupationCode = row.person.occupation.id || '';
+            p.dischargeId = row.dischargeID || '';
+            p.familyStatus = row.familyStatus.code || '';
+
+            self.paramsPerson = p;
             $("#modalMember").modal({ backdrop: 'static', keyboard: false });
           });
         }
@@ -91,7 +109,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
 
   ngOnInit() {
     this.receiveParameters();
-    this.loadData();
+    this.bindHomeMemberList();
     this.onReadyjQuery();
   }
 
@@ -101,7 +119,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     });
   }
 
-  loadData() {
+  bindHomeMemberList() {
     let self = this;
 
     let URL_LIST_HOME_MEMBERS: string = "homemember/homemember_by_home";
@@ -112,8 +130,10 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
         console.log(d);
         self.source = new LocalDataSource(d.list);
         self.setNg2STDatasource(self.source);
+      } else {
+        console.log('survey-personal-member-list(bindHomeMemberList) occured error(s) => ' + d.message);
       }
-    })
+    });
 
     // this.http.get("assets/data_test/data_personal.json")
     //   .map(res => res.json())

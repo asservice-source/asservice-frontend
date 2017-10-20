@@ -1,5 +1,5 @@
-import {  } from "@angular/core";
-export class PersonBean{
+import { } from "@angular/core";
+export class PersonBean {
     public citizenId: string = "";
     public firstName: string = "";
     public lastName: string = "";
@@ -11,7 +11,7 @@ export class PersonBean{
     public prefixName: string = "";
     public raceCode: string = "";
     public raceName: string = "";
-    public nationCode: string = "";
+    public nationalityCode: string = "";
     public nationalityName: string = "";
     public religionCode: string = "";
     public religionName: string = "";
@@ -23,8 +23,10 @@ export class PersonBean{
     public educationCode: string = "";
     public educationName: string = "";
     public educationDescription: string = "";
-    public occupCode: string = "";
-    public occuptionName: string = "";
+    public occupationCode: string = "";
+    public occupationName: string = "";
+    public dischargeId: string = "";
+    public familyStatus: string = "";
     public guest: boolean = false;
 
     public fatherCID: string = "";
@@ -32,7 +34,6 @@ export class PersonBean{
     public cupleCID: string = "";
     public typeAreaCode: string = "";
     public vStatusCode: string = "";
-    public rhGroupID: string = "";
     public laborCode: string = "";
     public passport: string = "";
     public isDead: boolean;
