@@ -93,6 +93,20 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
     let osmId = event.osmId;
     let homeId = event.homeId;
 
+    self.bindHomeList(villageId, osmId, homeId);
+
+    // this.http.get("assets/data_test/data_home_personal.json")
+    //   .map(res => res.json())
+    //   .subscribe((data) => {
+    //     self.source = new LocalDataSource(data);
+    //     self.setNg2STDatasource(self.source);
+    //     self.isShowTable = true;
+    //   });
+  }
+
+  bindHomeList(villageId: string, osmId: string, homeId: string) {
+    let self = this;
+
     let URL_LIST_HOME: string = "home/home_list_search_by_village_osm_home";
     let params = { "villageId": villageId, "osmId": osmId, "id": homeId };
 
@@ -102,16 +116,10 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
         self.source = new LocalDataSource(d.list);
         self.setNg2STDatasource(self.source);
         self.isShowTable = true;
+      } else {
+        console.log('survey-personal-home-list(bindHomeList) occured error(s) => ' + d);
       }
     })
-
-    // this.http.get("assets/data_test/data_home_personal.json")
-    //   .map(res => res.json())
-    //   .subscribe((data) => {
-    //     self.source = new LocalDataSource(data);
-    //     self.setNg2STDatasource(self.source);
-    //     self.isShowTable = true;
-    //   });
   }
 
 }

@@ -74,6 +74,8 @@ export class FilterPersonalComponent extends BaseComponent implements OnInit {
       if (d && d.status.toUpperCase() == "SUCCESS") {
         // console.log(d);
         self.list_village_no = d.list;
+      } else {
+        console.log('filter-personal(bindVillageNo) occured error(s) => ' + d);
       }
     })
   }
@@ -90,6 +92,8 @@ export class FilterPersonalComponent extends BaseComponent implements OnInit {
         self.list_osm = d.list;
         self.filterBean.osmId = "";
         self.isDisabledOSM = false;
+      } else {
+        console.log('filter-personal(bindOSM) occured error(s) => ' + d);
       }
     });
   }
@@ -106,6 +110,8 @@ export class FilterPersonalComponent extends BaseComponent implements OnInit {
         self.list_home_no = d.list;
         self.filterBean.homeId = "";
         self.isDisabledHomeNo = false;
+      } else {
+        console.log('filter-personal(bindHomeNo) occured error(s) => ' + d);
       }
     });
   }
