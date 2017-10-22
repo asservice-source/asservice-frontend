@@ -90,9 +90,10 @@
           </div>
 
           <div class="col-md-8 ">
-            <input class="ng-pristine ng-valid ng-touched" type="text" (keypress)="onInputChange();" placeholder="เลขประจำตัว 13 หลัก" [(ngModel)]="registerBean.contactCitizenId">
+            <input class="ng-pristine ng-valid ng-touched" type="text" placeholder="เลขประจำตัว 13 หลัก" [(ngModel)]="registerBean.contactCitizenId"
+            (ngModelChange)="onInputChange()"/>
           </div>
-          {{registerBean.contactCitizenId}}
+          <label >{{registerBean.contactCitizenId}}</label>
         </div>
 
         <div class="row">

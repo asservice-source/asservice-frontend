@@ -3,13 +3,16 @@ import { ApiHTTPService } from "../service/api-http.service";
 import { BaseComponent } from "../base-component";
 import { CompleterService, CompleterData } from 'ng2-completer';
 import { RegisterBean } from "../beans/register.bean";
+
 declare var bootbox: any;
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.css'],
 })
+
+
 export class RegisterComponent extends BaseComponent implements OnInit {
 
 
@@ -44,11 +47,12 @@ export class RegisterComponent extends BaseComponent implements OnInit {
     this.registerBean.provinceID = "0";
     this.registerBean.amphurCode = "0";
     this.registerBean.tumbolID = "0";
+   
 
   }
 
   ngOnInit() {
- 
+    this
   }
 
   api_register(): void {
@@ -56,7 +60,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
   }
 
   api_hospital() {
-    this.loadingCMD = 'show';
+    //this.loadingCMD = 'show';
     let seft = this;
     this.apiHttp.post('hospital/hospital_list', {}, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
@@ -277,12 +281,11 @@ export class RegisterComponent extends BaseComponent implements OnInit {
   }
 
   onInputChange(){
-    // let self = this;
-    // let re = "(\d{1})-(\d{4})-(\d{5})-(\d{2})-(\d{1})"; 
-    // let str = self.registerBean.contactCitizenId; 
-    // let newstr = str.replace(re, "$1,$2,$3,$4,$5"); 
-    // console.log(newstr);
+    let self = this;
+    if(!self.isEmpty(self.registerBean.contactCitizenId)){
+      self.registerBean.contactCitizenId = self.registerBean.contactCitizenId.toUpperCase();   
+      console.log(self.registerBean.contactCitizenId);
+    }
   }
- 
 
 }
