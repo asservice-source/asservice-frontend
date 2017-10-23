@@ -47,6 +47,7 @@ import { FilterHeadSurveyComponent } from './filter/filter-head-survey/filter-he
 import { FilterPersonalComponent } from './filter/filter-personal/filter-personal.component';
 import { ActionCustomViewComponent } from './action-custom-table/action-custom-view.component'
 import { LoadingComponent } from './loading/loading.component';
+import {OnlyNumber} from './onlyNumber/onlynumber.diretive'
 
 @NgModule({
   declarations: [
@@ -84,7 +85,8 @@ import { LoadingComponent } from './loading/loading.component';
     SurveyMosquitoFormComponent,
     SurveyPatientFormComponent,
     LoadingComponent,
-    ActionCustomViewComponent
+    ActionCustomViewComponent,
+    OnlyNumber
     
   ],
   imports: [

@@ -33,6 +33,13 @@ export class RegisterComponent extends BaseComponent implements OnInit {
 
   public isErrorCode9 : boolean = false;
   public isErrorCode5 : boolean = false;
+  public isErrorPrefix : boolean = false;
+  public isErrorFirstName : boolean = false;
+  public isErrorLastName : boolean = false;
+  public isErrorEmail : boolean = false;
+  public isErrorPhone : boolean = false;
+  public isErrorCitizenID : boolean = false;
+  
 
 
   constructor(private completerService: CompleterService, private changeRef: ChangeDetectorRef) {
@@ -47,6 +54,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
     this.registerBean.provinceID = "0";
     this.registerBean.amphurCode = "0";
     this.registerBean.tumbolID = "0";
+    this.registerBean.contactPrefix = "0";
    
 
   }
@@ -113,6 +121,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
     let self = this;
 
     this.validateForm();
+    console.log(this.validateForm());
     // let objvalidate = this.validateHostpital();
 
     // if (objvalidate.addressFail == true) {
@@ -241,50 +250,154 @@ export class RegisterComponent extends BaseComponent implements OnInit {
 
   validateForm(){
     let self = this;
+  
+      if (self.isEmpty(self.registerBean.hospitalName)) {
+        self.isErrorHospital = true;
+        return false;
+      } else {
+        self.isErrorHospital = false;
+      }
 
-    if(self.isEmpty(self.registerBean.hospitalName)){
-      self.isErrorHospital = true;
-    }else{    
-      self.isErrorHospital = false;
-    }
+      if (self.registerBean.provinceID == "0") {
+        self.isErrorProvice = true;
+        return false;
+      } else {
+        self.isErrorProvice = false;
+      }
 
-    if(self.registerBean.provinceID == "0"){
-      self.isErrorProvice = true;
-    }else{    
-      self.isErrorProvice = false;
-    }
+      if (self.registerBean.amphurCode == "0") {
+        self.isErrorAmphur = true;
+        return false;
+      } else {
+        self.isErrorAmphur = false;
+      }
 
-    if(self.registerBean.amphurCode == "0"){
-      self.isErrorAmphur = true;
-    }else{    
-      self.isErrorAmphur = false;
-    }
+      if (self.registerBean.tumbolID == "0") {
+        self.isErrorTumbol = true;
+        return false;
+      } else {
+        self.isErrorTumbol = false;
+      }
 
-    if(self.registerBean.tumbolID == "0"){
-      self.isErrorTumbol = true;
-    }else{    
-      self.isErrorTumbol = false;
-    }
+      if (self.isEmpty(self.registerBean.code9) || self.registerBean.code9.length < 9) {
+        self.isErrorCode9 = true;
+        return false;
+      } else {
+        self.isErrorCode9 = false;
+      }
 
-    if(self.isEmpty(self.registerBean.code9)){
-      self.isErrorCode9 = true;
-    }else{    
-      self.isErrorCode9 = false;
-    }
+      if (self.isEmpty(self.registerBean.code5) || self.registerBean.code5.length < 5) {
+        self.isErrorCode5 = true;
+        return false;
+      } else {
+        self.isErrorCode5 = false;
+      }
 
-    if(self.isEmpty(self.registerBean.code5)){
-      self.isErrorCode5 = true;
-    }else{    
-      self.isErrorCode5 = false;
-    }
+      if (self.isEmpty(self.registerBean.contactCitizenId) || self.registerBean.contactCitizenId.length < 17) {
+        self.isErrorCitizenID = true;
+        return false;
+      } else {
+        self.isErrorCitizenID = false;
+      }
+
+      if (self.registerBean.contactPrefix == "0") {
+        self.isErrorPrefix = true;
+        return false;
+      } else {
+        self.isErrorPrefix = false;
+      }
+
+      if (self.isEmpty(self.registerBean.contactFirstName)) {
+        self.isErrorFirstName = true;
+        return false;
+      } else {
+        self.isErrorFirstName = false;
+      }
+
+      if (self.isEmpty(self.registerBean.contactLastName)) {
+        self.isErrorLastName = true;
+        return false;
+      } else {
+        self.isErrorLastName = false;
+      }
+
+      if (self.isEmpty(self.registerBean.contactEmail)) {
+        self.isErrorEmail = true;
+        return false;
+      } else {
+        self.isErrorEmail = false;
+      }
+
+      if (self.isEmpty(self.registerBean.contactTelephone)) {
+        self.isErrorPhone = true;
+        return false;
+      } else {
+        self.isErrorPhone = false;      
+      }
+
+      return true;
     
   }
 
-  onInputChange(){
+  formatCitizenID() {
     let self = this;
-    if(!self.isEmpty(self.registerBean.contactCitizenId)){
-      self.registerBean.contactCitizenId = self.registerBean.contactCitizenId.toUpperCase();   
-      console.log(self.registerBean.contactCitizenId);
+
+    if (!self.isEmpty(self.registerBean.contactCitizenId)) {
+      let patternCitizen: string = "_-____-_____-__-_";
+      let patternCitizen_ex: string = "-";
+      let returnText = "";
+      let obj_1: number = self.registerBean.contactCitizenId.length;
+      let obj_2 = obj_1 - 1;
+      for (let i = 0; i < patternCitizen.length; i++) {
+        if (obj_2 == i && patternCitizen.charAt(i + 1) == patternCitizen_ex) {
+          returnText += self.registerBean.contactCitizenId + patternCitizen_ex;
+          self.registerBean.contactCitizenId = returnText;
+        }
+      }
+
+      if (obj_1 >= patternCitizen.length) {
+        self.registerBean.contactCitizenId = self.registerBean.contactCitizenId.substr(0, patternCitizen.length - 1);
+      }
+    }
+  }
+
+  formatPhoneNumber() {
+    let self = this;
+
+    if (!self.isEmpty(self.registerBean.contactTelephone)) {
+      let patternPhone: string = "__-____-____";
+      let patternPhone_ex: string = "-";
+      let returnText = "";
+      let obj_1: number = self.registerBean.contactTelephone.length;
+      let obj_2 = obj_1 - 1;
+      for (let i = 0; i < patternPhone.length; i++) {
+        if (obj_2 == i && patternPhone.charAt(i + 1) == patternPhone_ex) {
+          returnText += self.registerBean.contactTelephone + patternPhone_ex;
+          self.registerBean.contactTelephone = returnText;
+        }
+      }
+
+      if (obj_1 >= patternPhone.length) {
+        self.registerBean.contactTelephone = self.registerBean.contactTelephone.substr(0, patternPhone.length - 1);
+      }
+    }
+  }
+
+  setCode9Maxlenght() {
+    let self = this;
+    if (!self.isEmpty(self.registerBean.code9)) {
+      if (self.registerBean.code9.length >= 9) {
+        self.registerBean.code9 = self.registerBean.code9.substr(0, 8);
+      }
+    }
+  }
+
+  setCode5Maxlenght() {
+    let self = this;
+    if (!self.isEmpty(self.registerBean.code5)) {
+      if (self.registerBean.code5.length >= 5) {
+        self.registerBean.code5 = self.registerBean.code5.substr(0, 4);
+      }
     }
   }
 

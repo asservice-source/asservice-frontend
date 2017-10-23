@@ -68,8 +68,9 @@
           </div>
 
           <div class="col-md-8 ">
-            <input class="ng-pristine ng-valid ng-touched" type="text" placeholder="รหัส 9 หลัก รพ.สต." [(ngModel)]="registerBean.code9">
-            <label class="error col-md-12" *ngIf="isErrorCode9">กรุณาระบุเลข 9 หลัก</label>
+            <input class="ng-pristine ng-valid ng-touched" type="text" placeholder="รหัส 9 หลัก รพ.สต." [(ngModel)]="registerBean.code9"
+            (keypress)="setCode9Maxlenght()" OnlyNumber="true"/>
+            <label class="error col-md-12" *ngIf="isErrorCode9">กรุณาระบุหมายเลขให้ครบ 9 หลัก</label>
           </div>
         </div>
 
@@ -79,8 +80,9 @@
           </div>
 
           <div class="col-md-8 ">
-            <input class="ng-pristine ng-valid ng-touched" type="text" placeholder="รหัส 5 หลัก" [(ngModel)]="registerBean.code5">
-            <label class="error col-md-12" *ngIf="isErrorCode5">กรุณาระบุเลข 5 หลัก</label>
+            <input class="ng-pristine ng-valid ng-touched" type="text" placeholder="รหัส 5 หลัก" [(ngModel)]="registerBean.code5"
+            (keypress)="setCode5Maxlenght()" OnlyNumber="true"/>
+            <label class="error col-md-12" *ngIf="isErrorCode5">กรุณาระบุหมายเลขให้ครบ 5 หลัก</label>
           </div>
         </div>
 
@@ -91,9 +93,9 @@
 
           <div class="col-md-8 ">
             <input class="ng-pristine ng-valid ng-touched" type="text" placeholder="เลขประจำตัว 13 หลัก" [(ngModel)]="registerBean.contactCitizenId"
-            (ngModelChange)="onInputChange()"/>
+            (keypress)="formatCitizenID()" OnlyNumber="true"/>
+            <label class="error col-md-12" *ngIf="isErrorCitizenID">กรุณาระบุหมายเลขประจำตัวประชาชน ให้ครบ 13 หลัก</label>
           </div>
-          <label >{{registerBean.contactCitizenId}}</label>
         </div>
 
         <div class="row">
@@ -106,6 +108,7 @@
               <option value="0">เลือกคำนำหน้า</option>
               <option *ngFor="let item of prefixList" [value]="item.code">{{ item.name }}</option>
             </select>
+            <label class="error col-md-12" *ngIf="isErrorPrefix">กรุณาระบุคำนำหน้าชื่อ</label>
           </div>
         </div>
 
@@ -116,6 +119,7 @@
 
           <div class="col-md-8 ">
             <input class="ng-pristine ng-valid ng-touched" type="text" placeholder="ชื่อ" [(ngModel)]="registerBean.contactFirstName">
+            <label class="error col-md-12" *ngIf="isErrorFirstName">กรุณาระบุชื่อจริง</label>
           </div>
         </div>
 
@@ -126,6 +130,7 @@
 
           <div class="col-md-8 ">
             <input class="ng-pristine ng-valid ng-touched" type="text" placeholder="สกุล" [(ngModel)]="registerBean.contactLastName">
+            <label class="error col-md-12" *ngIf="isErrorLastName">กรุณาระบุนามสกุล</label>
           </div>
         </div>
 
@@ -136,6 +141,7 @@
 
           <div class="col-md-8 ">
             <input class="ng-pristine ng-valid ng-touched" type="text" placeholder="อีเมล" [(ngModel)]="registerBean.contactEmail">
+            <label class="error col-md-12" *ngIf="isErrorEmail">กรุณาระบุอีเมลให้ถูกต้อง</label>
           </div>
         </div>
 
@@ -145,7 +151,9 @@
           </div>
 
           <div class="col-md-8 ">
-            <input class="ng-pristine ng-valid ng-touched" type="text" placeholder="เบอร์โทรศัพท์" [(ngModel)]="registerBean.contactTelephone">
+            <input class="ng-pristine ng-valid ng-touched" type="text" placeholder="เบอร์โทรศัพท์" [(ngModel)]="registerBean.contactTelephone"
+            (keypress)="formatPhoneNumber()" OnlyNumber="true"/>
+            <label class="error col-md-12" *ngIf="isErrorPhone">กรุณาระบุเบอร์โทรศัพท์ให้ถูกต้อง</label>
           </div>
         </div>
 
