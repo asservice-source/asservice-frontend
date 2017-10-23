@@ -60,7 +60,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
-    this
+  
   }
 
   api_register(): void {
@@ -218,8 +218,8 @@ export class RegisterComponent extends BaseComponent implements OnInit {
 
   validateHostpital() {
     let self = this;
-
-    if (self.registerBean.hospitalName != null) {
+    
+    if (!self.isEmpty(self.registerBean.hospitalName)) {
       let obj = {
         addressFail: true,
         code5Fail: true,
@@ -243,9 +243,9 @@ export class RegisterComponent extends BaseComponent implements OnInit {
       }
       return obj;
     }
-    else {
-      self.isErrorHospital = true;
-    }
+    // else {
+    //   self.isErrorHospital = true;
+    // }
   }
 
   validateForm(){
@@ -253,89 +253,75 @@ export class RegisterComponent extends BaseComponent implements OnInit {
   
       if (self.isEmpty(self.registerBean.hospitalName)) {
         self.isErrorHospital = true;
-        return false;
       } else {
         self.isErrorHospital = false;
       }
 
       if (self.registerBean.provinceID == "0") {
         self.isErrorProvice = true;
-        return false;
       } else {
         self.isErrorProvice = false;
       }
 
       if (self.registerBean.amphurCode == "0") {
         self.isErrorAmphur = true;
-        return false;
       } else {
         self.isErrorAmphur = false;
       }
 
       if (self.registerBean.tumbolID == "0") {
         self.isErrorTumbol = true;
-        return false;
       } else {
         self.isErrorTumbol = false;
       }
 
       if (self.isEmpty(self.registerBean.code9) || self.registerBean.code9.length < 9) {
         self.isErrorCode9 = true;
-        return false;
       } else {
         self.isErrorCode9 = false;
       }
 
       if (self.isEmpty(self.registerBean.code5) || self.registerBean.code5.length < 5) {
         self.isErrorCode5 = true;
-        return false;
       } else {
         self.isErrorCode5 = false;
       }
 
       if (self.isEmpty(self.registerBean.contactCitizenId) || self.registerBean.contactCitizenId.length < 17) {
         self.isErrorCitizenID = true;
-        return false;
       } else {
         self.isErrorCitizenID = false;
       }
 
       if (self.registerBean.contactPrefix == "0") {
         self.isErrorPrefix = true;
-        return false;
       } else {
         self.isErrorPrefix = false;
       }
 
       if (self.isEmpty(self.registerBean.contactFirstName)) {
         self.isErrorFirstName = true;
-        return false;
       } else {
         self.isErrorFirstName = false;
       }
 
       if (self.isEmpty(self.registerBean.contactLastName)) {
         self.isErrorLastName = true;
-        return false;
       } else {
         self.isErrorLastName = false;
       }
 
       if (self.isEmpty(self.registerBean.contactEmail)) {
         self.isErrorEmail = true;
-        return false;
       } else {
         self.isErrorEmail = false;
       }
 
       if (self.isEmpty(self.registerBean.contactTelephone)) {
         self.isErrorPhone = true;
-        return false;
       } else {
         self.isErrorPhone = false;      
       }
-
-      return true;
     
   }
 
@@ -399,6 +385,15 @@ export class RegisterComponent extends BaseComponent implements OnInit {
         self.registerBean.code5 = self.registerBean.code5.substr(0, 4);
       }
     }
+  }
+
+  formatForJson(value){
+    let pure_value = value.split("-");
+    let result = "";
+    for(let i=0;i<=pure_value.length-1;i++){
+         result = result+pure_value[i];
+    }
+    return result;
   }
 
 }
