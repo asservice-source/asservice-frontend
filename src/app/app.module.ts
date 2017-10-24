@@ -47,7 +47,7 @@ import { FilterHeadSurveyComponent } from './filter/filter-head-survey/filter-he
 import { FilterPersonalComponent } from './filter/filter-personal/filter-personal.component';
 import { ActionCustomViewComponent } from './action-custom-table/action-custom-view.component'
 import { LoadingComponent } from './loading/loading.component';
-import {OnlyNumber} from './onlyNumber/onlynumber.diretive'
+import {OnlyNumberDirective} from './directives/onlynumber.diretive'
 
 @NgModule({
   declarations: [
@@ -86,7 +86,7 @@ import {OnlyNumber} from './onlyNumber/onlynumber.diretive'
     SurveyPatientFormComponent,
     LoadingComponent,
     ActionCustomViewComponent,
-    OnlyNumber
+    OnlyNumberDirective
     
   ],
   imports: [
