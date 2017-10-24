@@ -18,7 +18,7 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
   private api: ApiHTTPService;
   public settings: any;
   public surveyTypeCode: string = 'DEATH';
-  public isShowList: boolean = false;
+  public isShowList: boolean = true;
   public source: LocalDataSource = new LocalDataSource();
   public datas = [
     {
@@ -132,7 +132,7 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
     this. setUpTable();
   }
   onChangeFilter(event: FilterHeadSurveyBean) {
-    this.isShowList = false;
+   // this.isShowList = false;
   }
   onSearch(event: FilterHeadSurveyBean) {
     this. setUpTable();

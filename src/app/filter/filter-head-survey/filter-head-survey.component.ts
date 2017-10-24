@@ -23,60 +23,52 @@ export class FilterHeadSurveyComponent extends BaseComponent implements OnInit {
   @Output() notifyFilter: EventEmitter<FilterHeadSurveyBean> = new EventEmitter<FilterHeadSurveyBean>();
   @Output() changeFilter: EventEmitter<FilterHeadSurveyBean> = new EventEmitter<FilterHeadSurveyBean>();
 
-  URL_LIST_VILLAGE_NO: string = "village/village_no_list";
-  URL_LIST_OSM_AND_HOME_NO: string = "osm/osm_and_home_list_by_village";
-
-  public list_village_no;
-  public list_osm;
-  public list_round_no;
-
-  private apiHttp: ApiHTTPService;
+  private api: ApiHTTPService;
   public filterBean: FilterHeadSurveyBean;
   public typeCode: string;
-  public villageList;
+  public villageData: any;
+  public osmData: any;
+  public isDisabledOSM = true;
+  public isDisabledName = true;
 
   constructor(private http: Http) {
     super();
-    this.apiHttp = new ApiHTTPService();
+    this.api = new ApiHTTPService();
     this.filterBean = new FilterHeadSurveyBean();
-    this.filterBean.roundID = 1;
-    this.filterBean.villageID = 0;
-    this.filterBean.OSMID = 0;
+    this.filterBean.roundId = '1';
+    this.filterBean.villageId = '';
+    this.filterBean.osmId = '';
     this.filterBean.name = '';
-  }
+  } 
 
   ngOnInit() {
-    let self = this;
+    this.setUpVillage();
+  }
 
-    // Get list of village no
-    let params_getVillageNo = { "hospitalCode": this.getHospitalCode() };
-    this.apiHttp.post(this.URL_LIST_VILLAGE_NO, params_getVillageNo, function (d) {
-      if (d != null && d.status.toUpperCase() == "SUCCESS") {
-        self.list_village_no = d.list;
+  setUpVillage() { // Get list of village no
+    let self = this;
+    let params = { "hospitalCode": super.getHospitalCode() };
+    this.api.post('village/village_no_list_by_hospital', params, function (resp) {
+      console.log(self.villageData);
+      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+        self.villageData = resp.list; 
       }
     })
   }
-
-  // getVillageNo() {
-  //   let param = { "hospitalCode": "04269" };
-  //   let headers = new Headers({ 'Content-Type': 'application/json' });
-  //   let options = new RequestOptions({ headers: headers, method: "post" });
-
-  //   this.http.post("http://192.168.1.203:8080/API-ASService/village/village_no_list", param, options)
-  //     .map(res => res.json())
-  //     .subscribe(data => this.villageList=data.list);
-  // }
-
-  getOSMbyVillageID() {
+  setUpOSM() {
+    
     let self = this;
-    // Get list of village no
-    let params_getOSM = { "id": this.filterBean.villageID };
-    this.apiHttp.post(this.URL_LIST_OSM_AND_HOME_NO, params_getOSM, function (d) {
-      if (d != null && d.status.toUpperCase() == "SUCCESS") {
-        self.list_osm = d.list.listOSM;
+    self.filterBean.osmId='';
+    self.isDisabledOSM = false;
+    let params = { "id": this.filterBean.villageId};
+    this.api.post('osm/osm_list_by_village', params, function (resp) {
+      console.log(resp);
+      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+        self.osmData = resp.list;
+        self.isDisabledOSM = false;
+        self.isDisabledName = false;
       }
     })
-
   }
 
   onChangeRound() {
@@ -84,6 +76,7 @@ export class FilterHeadSurveyComponent extends BaseComponent implements OnInit {
   }
 
   onChangeVillage() {
+    this.setUpOSM();
     this.onDropdownChange();
   }
 
