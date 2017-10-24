@@ -30,8 +30,7 @@
           <div class="col-md-3">
             <input type="text" class="ng-pristine ng-valid ng-touched" [disabled]="true" [(ngModel)]="member.citizenId">
           </div>
-
-          <div class="col-md-1 text-right">
+          <div class="col-md-2 text-right">
             <label class="label-form">คำนำหน้าชื่อ</label>
           </div>
           <div class="col-md-3">
@@ -50,7 +49,7 @@
           <div class="col-md-3">
             <input type="text" class="ng-pristine ng-valid ng-touched" [(ngModel)]="member.firstName">
           </div>
-          <div class="col-md-1 text-right">
+          <div class="col-md-2 text-right">
             <label class="label-form">นามสกุล</label>
           </div>
           <div class="col-md-3">
@@ -69,8 +68,7 @@
               <option *ngFor="let item of listGender" [value]="item.code">{{item.name}}</option>
             </select>
           </div>
-
-          <div class="col-md-1 text-right">
+          <div class="col-md-2 text-right">
             <label class="label-form">เชื้อชาติ</label>
           </div>
           <div class="col-md-3">
@@ -92,8 +90,7 @@
               <option *ngFor="let item of listNationality" [value]="item.code">{{item.name}}</option>
             </select>
           </div>
-
-          <div class="col-md-1 text-right">
+          <div class="col-md-2 text-right">
             <label class="label-form">ศาสนา</label>
           </div>
           <div class="col-md-3">
@@ -115,8 +112,7 @@
               <option *ngFor="let item of listBloodType" [value]="item.id">{{item.name}}</option>
             </select>
           </div>
-
-          <div class="col-md-1 text-right">
+          <div class="col-md-2 text-right">
             <label class="label-form">RH Group</label>
           </div>
           <div class="col-md-3">
@@ -135,8 +131,7 @@
           <div class="col-md-3">
             <input type="text" [disabled]="true" [(ngModel)]="member.birthDate">
           </div>
-
-          <div class="col-md-1 text-right">
+          <div class="col-md-2 text-right">
             <label class="label-form">การศึกษา</label>
           </div>
           <div class="col-md-3">
@@ -153,13 +148,12 @@
             <label class="label-form">อาชีพ</label>
           </div>
           <div class="col-md-3">
-            <!-- <input type="text" class="ng-pristine ng-valid ng-touched" [(ngModel)]="member.occupCode"> -->
             <select name="dropdown-occupationCode" id="dropdown-occupationCode" [(ngModel)]="member.occupationCode" (change)="onChangeOccupation()">
               <option value="">--เลือก อาชีพ--</option>
               <option *ngFor="let item of listOccupation" [value]="item.id">{{item.name}}</option>
             </select>
           </div>
-          <div class="col-md-1 text-right" *ngIf="isDisplayOccupationOthers">
+          <div class="col-md-2 text-right" *ngIf="isDisplayOccupationOthers">
             <label class="label-form">อื่นๆ โปรดระบุ</label>
           </div>
           <div class="col-md-3" *ngIf="isDisplayOccupationOthers">
@@ -178,8 +172,7 @@
               <option *ngFor="let item of listDischarge" [value]="item.id">{{item.name}}</option>
             </select>
           </div>
-
-          <div class="col-md-1 text-right">
+          <div class="col-md-2 text-right">
             <label class="label-form">สถานะ</label>
           </div>
           <div class="col-md-3">
@@ -198,7 +191,6 @@
           <div class="col-md-3">
             <input type="text" class="ng-pristine ng-valid ng-touched" [(ngModel)]="member.disease">
           </div>
-
         </div>
 
         <div class="row">
@@ -209,7 +201,6 @@
           <div class="col-md-7">
             <textarea style="height: 50px;" class="ng-pristine ng-valid ng-touched" placeholder="ระบุหมายเหตุ ถ้ามี" [(ngModel)]="member.reason"></textarea>
           </div>
-
         </div>
 
         <div class="row text-center">
@@ -218,7 +209,6 @@
             <button class="btn btn-primary text-center" data-dismiss="modal">ยกเลิก</button>
           </div>
         </div>
-
       </div>
 
       <div class="modal-footer">
