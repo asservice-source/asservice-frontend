@@ -1,6 +1,7 @@
 import { Component, OnInit ,AfterViewInit, ElementRef, ChangeDetectorRef} from '@angular/core';
 import { PersonBean } from "../../../beans/person.bean";
 import { BaseComponent } from "../../../base-component";
+import { DiedBean } from '../../../beans/died.bean';
 @Component({
   selector: 'app-survey-died-form',
   templateUrl: './survey-died-form.component.html',
@@ -11,23 +12,17 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
   public isShowForm: boolean = false;
   public isFindPersonal: boolean = true;
   public resetFind: number = 1;
-  public personBean: PersonBean = new PersonBean();
-  show = false;
-  location = 1;
-  cause = 1;
-  location2 = 1;
-  cause2 = 1;
-
-  mCitizenID;
-  mFirstName;
-  mLastName;
-  mNickName;
-  mGender;
-  mPrefix;
-  mBirthDate;
-  mFullname = "นายโสภน การแพทย์";
+  public personBean: PersonBean;
+  public diedBean: DiedBean;
+  //show = false;
   constructor(private changeRef: ChangeDetectorRef) {
     super();
+    this.diedBean = new DiedBean();
+    this.personBean = new PersonBean();
+
+    this.diedBean.causeDied = '-1';
+
+
    }
   persons = [];
 
@@ -65,41 +60,11 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
         }
     });
   }
-  
-  doAlert(){
-    alert('dddd');
+  onChangeCause(){
+    
   }
-
-  ChangeLocation(){
-    if(this.location == 0){
-      $("#textLocation").fadeIn();
-    }else{
-      $("#textLocation").fadeOut();
-    }
-  }
-
-  ChangeCause(){
-    if(this.cause == 0){
-      $("#textCause").fadeIn();
-    }else{
-      $("#textCause").fadeOut();
-    }
-  }
-
-  ChangeLocation2(){
-    if(this.location2 == 0){
-      $("#textLocation2").fadeIn();
-    }else{
-      $("#textLocation2").fadeOut();
-    }
-  }
-
-  ChangeCause2(){
-    if(this.cause2 == 0){
-      $("#textCause2").fadeIn();
-    }else{
-      $("#textCause2").fadeOut();
-    }
+  onChangeLocation(){
+    
   }
 
   onChoosePersonal(personBean:PersonBean):void {

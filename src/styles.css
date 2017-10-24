@@ -32,17 +32,6 @@ span.value, label.value{
     background-color: #ffffff;
     padding: 7px 10px 7px 10px;
   }
-  /* .btn{
-      height: 28px ;
-      border: 1px solid #3d3d3d ;
-  } 
-   .btn-primary ,.btn-primary * {
-    background-color: #3c8dbc;
-    border-color: #367fa9;
-    line-height: 14px ;
-    font-size: 14px ;
-}
-*/
 .btn{
     min-width: 90px;
 }
@@ -74,11 +63,15 @@ select[disabled]{
 table{
     font-size: 16px;
 }
-table th{
-    text-align: center;
+table>thead {
+    background-color: #4aa3df;
+   
 }
-table th .ng2-smart-sort-link{
-    color: black;
+
+.table-bordered > thead > tr > th, table > thead > tr > th .ng2-smart-sort-link{
+    text-align: center;
+    color: #ffffff;
+    border: none;
 }
 
 .table .btn {
