@@ -122,40 +122,38 @@ export class RegisterComponent extends BaseComponent implements OnInit {
 
     this.validateForm();
     console.log(this.validateForm());
-    // let objvalidate = this.validateHostpital();
+    let objvalidate = this.validateHostpital();
 
-    // if (objvalidate.addressFail == true) {
-    //   bootbox.alert({
-    //     size: "large",
-    //     title: "<div style='color:#E21B1B;font-weight: bold;'>สถานที่ไม่ตรง</div>",
-    //     message: "กรุณาระบุสถานที่ตั้งให้ตรงกับ รพ.สต. ที่ท่านเลือก",
-    //     callback: function () { /* your callback code */ }
-    //   });
-    // }
-    // else if (objvalidate.code9Fail == true) {
-    //   bootbox.alert({
-    //     size: "large",
-    //     title: "<b>หมายเลข9หลักไม่ตรง</b>",
-    //     message: "กรอกรหัส 9 หลักให้ตรงกับ รพ.สต. ที่ท่านเลือก",
-    //     callback: function () { /* your callback code */ }
-    //   });
-    // }
-    // else if (objvalidate.code5Fail == true) {
-    //   bootbox.alert({
-    //     size: "large",
-    //     title: "<b>หมายเลข5หลักไม่ตรง</b>",
-    //     message: "กรอกรหัส 5 หลักให้ตรงกับ รพ.สต. ที่ท่านเลือก",
-    //     callback: function () { /* your callback code */ }
-    //   });
-    // } else {
-    //   bootbox.alert("ผ่าน");
-    // }
+    if (objvalidate.addressFail == true) {
+      bootbox.alert({
+        size: "large",
+        title: "<div style='color:#E21B1B;font-weight: bold;'>สถานที่ไม่ตรง</div>",
+        message: "กรุณาระบุสถานที่ตั้งให้ตรงกับ รพ.สต. ที่ท่านเลือก",
+        callback: function () { /* your callback code */ }
+      });
+    }
+    else if (objvalidate.code9Fail == true) {
+      bootbox.alert({
+        size: "large",
+        title: "<b>หมายเลข9หลักไม่ตรง</b>",
+        message: "กรอกรหัส 9 หลักให้ตรงกับ รพ.สต. ที่ท่านเลือก",
+        callback: function () { /* your callback code */ }
+      });
+    }
+    else if (objvalidate.code5Fail == true) {
+      bootbox.alert({
+        size: "large",
+        title: "<b>หมายเลข5หลักไม่ตรง</b>",
+        message: "กรอกรหัส 5 หลักให้ตรงกับ รพ.สต. ที่ท่านเลือก",
+        callback: function () { /* your callback code */ }
+      });
+    } else {
+      bootbox.alert("ผ่าน");
+    }
 
 
     // this.validateHostpital();
-    //console.log(this.validateHostpital());
-
-
+    // console.log(this.validateHostpital());
 
 
     /*
@@ -178,9 +176,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         console.log("ไปแล้วววว++");
       }
-    
     })
-
 */
   }
 
@@ -248,80 +244,95 @@ export class RegisterComponent extends BaseComponent implements OnInit {
     // }
   }
 
-  validateForm(){
+  validateForm(): boolean{
     let self = this;
+    let validateForm = true;
   
       if (self.isEmpty(self.registerBean.hospitalName)) {
         self.isErrorHospital = true;
+        validateForm = false;
       } else {
         self.isErrorHospital = false;
       }
 
       if (self.registerBean.provinceID == "0") {
         self.isErrorProvice = true;
+        validateForm = false;
       } else {
         self.isErrorProvice = false;
       }
 
       if (self.registerBean.amphurCode == "0") {
         self.isErrorAmphur = true;
+        validateForm = false;
       } else {
         self.isErrorAmphur = false;
       }
 
       if (self.registerBean.tumbolID == "0") {
         self.isErrorTumbol = true;
+        validateForm = false;
       } else {
         self.isErrorTumbol = false;
       }
 
       if (self.isEmpty(self.registerBean.code9) || self.registerBean.code9.length < 9) {
         self.isErrorCode9 = true;
+        validateForm = false;
       } else {
         self.isErrorCode9 = false;
       }
 
       if (self.isEmpty(self.registerBean.code5) || self.registerBean.code5.length < 5) {
         self.isErrorCode5 = true;
+        validateForm = false;
       } else {
         self.isErrorCode5 = false;
       }
 
       if (self.isEmpty(self.registerBean.contactCitizenId) || self.registerBean.contactCitizenId.length < 17) {
         self.isErrorCitizenID = true;
+        validateForm = false;
       } else {
         self.isErrorCitizenID = false;
       }
 
       if (self.registerBean.contactPrefix == "0") {
         self.isErrorPrefix = true;
+        validateForm = false;
       } else {
         self.isErrorPrefix = false;
       }
 
       if (self.isEmpty(self.registerBean.contactFirstName)) {
         self.isErrorFirstName = true;
+        validateForm = false;
       } else {
         self.isErrorFirstName = false;
       }
 
       if (self.isEmpty(self.registerBean.contactLastName)) {
         self.isErrorLastName = true;
+        validateForm = false;
       } else {
         self.isErrorLastName = false;
       }
 
       if (self.isEmpty(self.registerBean.contactEmail)) {
         self.isErrorEmail = true;
+        validateForm = false;
       } else {
         self.isErrorEmail = false;
       }
 
       if (self.isEmpty(self.registerBean.contactTelephone)) {
         self.isErrorPhone = true;
+        validateForm = false;
       } else {
         self.isErrorPhone = false;      
       }
+
+ return validateForm;
     
   }
 
