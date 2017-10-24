@@ -19,7 +19,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
   private apiHttp: ApiHTTPService = new ApiHTTPService();
 
   private paramHomeId: string;
-  public paramMember: PersonalMemberBean;
+  public paramMember: PersonalMemberBean = new PersonalMemberBean();
 
   public settings: any;
   public source: LocalDataSource;
@@ -71,7 +71,8 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
         type: 'custom',
         renderComponent: SurveyPersonalMemberListButtonEditComponent,
         onComponentInitFunction(instance) {
-          instance.action.subscribe((row) => {
+          instance.action.subscribe((row: PersonalMemberBean) => {
+            console.log(row);
             self.paramMember = row;
             $("#modalMember").modal({ backdrop: 'static', keyboard: false });
           });
@@ -124,19 +125,69 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     for (let item of data) {
       if (item) {
         let member: PersonalMemberBean = new PersonalMemberBean();
-        if (item.person && item.person.prefix) {
-          member.fullName = self.getFullName(item.person.prefix.name, item.person.firstName, item.person.lastName);
-        }
+
         member.citizenId = item.citizenId || '';
-        if (item.person && item.person.gender) {
-          member.genderName = item.person.gender.name
-        }
+
         if (item.person) {
+
+          if (item.person.prefix) {
+            member.prefixCode = item.person.prefix.code;
+            member.fullName = self.getFullName(item.person.prefix.name, item.person.firstName, item.person.lastName);
+          }
+
+          if (item.person.gender) {
+            member.genderCode = item.person.gender.code;
+            member.genderName = item.person.gender.name;
+          }
+
+          member.birthDate = self.displayFormatDate(item.person.birthDate);
           member.age = self.getAge(item.person.birthDate).toString();
+
+          if (item.person.typeArea) {
+            member.typeAreaCode = item.person.typeArea.code;
+          }
+
+          member.firstName = item.person.firstName;
+          member.lastName = item.person.lastName;
+
+          if (item.person.race) {
+            member.raceCode = item.person.race.code;
+          }
+
+          if (item.person.nationality) {
+            member.nationalityCode = item.person.nationality.code;
+          }
+
+          if (item.person.religion) {
+            member.religionCode = item.person.religion.code;
+          }
+
+          if (item.person.bloodType) {
+            member.bloodTypeId = item.person.bloodType.id;
+          }
+
+          if (item.person.rhGroup) {
+            member.rhGroupId = item.person.rhGroup.id;
+          }
+
+          if (item.person.education) {
+            member.educationCode = item.person.education.code;
+          }
+
+          if (item.person.occupation) {
+            member.occupationCode = item.person.occupation.id;
+          }
+
+          if (item.familyStatus) {
+            member.familyStatus = item.familyStatus.code;
+          }
+
         }
+
         if (item.discharge) {
           member.dischargeName = item.discharge.name;
         }
+
         memberList.push(member);
       }
     }
