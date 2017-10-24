@@ -1,8 +1,9 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { BaseComponent } from "../../../base-component";
 import { ApiHTTPService } from "../../../service/api-http.service";
 import { ActionCustomViewComponent } from '../../../action-custom-table/action-custom-view.component';
 import { FilterHeadSurveyBean } from '../../../beans/filter-head-survey.bean';
+import { DiedBean } from '../../../beans/died.bean';
 import { LocalDataSource } from 'ng2-smart-table';
 
 declare var $: any;
@@ -19,60 +20,59 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
   public settings: any;
   public surveyTypeCode: string = 'DEATH';
   public isShowList: boolean = true;
+  public action: string = 'add';
   public source: LocalDataSource = new LocalDataSource();
+  public diedBean: DiedBean = new DiedBean();
   public datas = [
     {
       seq: 1,
-      name: "Leanne Graham",
+      fullName: "Mr. Leanne Graham",
       citizenId: "1-4113-00-1349-8-9",
-      reason: "ลืมหายใจ",
+      causeName: "ลืมหายใจ",
+      causeCode: "1",
       age: 38,
-      status: "ยืนยัน"
     },
     {
       seq: 2,
-      name: "Ervin Howell",
+      fullName: "Mr. Ervin Howell",
       citizenId: "1-4113-00-1349-8-0",
-      reason: "ลืมหายใจ",
-      age: 54,
-      status: "ยืนยัน"
-
+      causeName: "ลืมหายใจ",
+      causeCode: "1",
+      age: 37,
     },
     {
       seq: 11,
-      name: "Nicholas DuBuque",
+      fullName: "Mr. Nicholas DuBuque",
       citizenId: "1-4113-00-2259-6-4",
-      reason: "ลืมหายใจ",
-      age: 32,
-      status: "ยืนยัน"
-
+      causeName: "ลืมหายใจ",
+      causeCode: "1",
+      age: 3,
     },
     {
       seq: 12,
-      name: "Nicholas DuBuque",
+      fullName: "Mr. Nicholas DuBuque",
       citizenId: "1-4113-00-2254-6-2",
-      reason: "ลืมหายใจ",
-      age: 62,
-      status: "ยืนยัน"
-
+      causeName: "ลืมหายใจ",
+      causeCode: "1",
+      age: 4,
     },
     {
       seq: 13,
-      name: "Nicholas DuBuque",
+      fullName: "Mr. Nicholas DuBuque",
       citizenId: "1-4113-00-3259-6-5",
-      reason: "ลืมหายใจ",
+      causeName: "ลืมหายใจ",
+      causeCode: "1",
       age: 42,
-      status: "ยืนยัน"
 
     },
   ];
 
-  constructor() {
+  constructor(private changeRef: ChangeDetectorRef) {
     super();
     this.api = new ApiHTTPService();
     let self = this;
     let columns = {
-      name: {
+      fullName: {
         title: 'ชื่อ - นามสกุล',
         filter: false
       },
@@ -85,7 +85,7 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
           return '<div class="text-center">'+cell+'</div>'
         }
       },
-      reason: {
+      cause: {
         title: 'สาเหตุการเสียชีวิต',
         filter: false,
         width: '180px',
@@ -118,8 +118,12 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
              self.doClick(row);
            });
            */
-          instance.action.subscribe(row => {
-            alert(row.action);
+          instance.action.subscribe((row: DiedBean, cell) => {
+            console.log(row);
+            if(row && row.action=='edit'){
+              self.diedBean = row;
+              self.onModalFrom(row.action);
+            }
           });
         }
       }
@@ -138,9 +142,17 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
     this. setUpTable();
   }
 
+  onModalFrom(action: string){
+    this.action = action;
+    this.changeRef.detectChanges();
+    $('#modal-add-died').modal('show');
+  }
+
   setUpTable(){
+                
     this.source = new LocalDataSource(this.datas);
     this.isShowList = true;
     super.setNg2STDatasource(this.source);
   }
+  
 }

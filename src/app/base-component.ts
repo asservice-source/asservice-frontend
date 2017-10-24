@@ -62,14 +62,12 @@ export class BaseComponent implements OnInit {
     }
     private isRefrestData = false;
     public onRowSelect(event): void {
-        console.log('onRowSelect');
         if (this.isRefrestData) {
             this.isRefrestData = false;
             return;
         }
         if (this.ng2STDataSource) {
             this.ng2STDataSource.getElements().then(list => {
-                console.log(list);
                 let page = this.ng2STDataSource.getPaging();
                 let startSeq = page.page > 1 ? ((page.perPage * page.page) - page.perPage) + 1 : 1;
                 for (let item of list) {

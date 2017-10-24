@@ -18,7 +18,7 @@
                 <label>ชื่อ</label>
               </div>
               <div class="col-md-5">
-                  <label class="value"> {{getFullName(personBean.person.prefix.name,personBean.person.firstName,personBean.person.lastName)}}</label>
+                  <label class="value">{{diedBean.fullName}}</label>
               </div>
             </div>
             <div class="row">
@@ -26,7 +26,7 @@
                 <label>อายุ</label>
               </div>
               <div class="col-md-3">
-                <label class="value">{{getAge(personBean.person.birthDate)}}</label>
+                <label class="value">{{diedBean.age}}</label>
               </div>
             </div>
             <div class="row">
@@ -34,7 +34,7 @@
                 <label>หมายเลขประจำตัว</label>
               </div>
               <div class="col-md-5">
-                <label class="value">{{personBean.citizenId}}</label>
+                <label class="value">{{diedBean.citizenId}}</label>
               </div>
             </div>
             <div class="row">
@@ -63,8 +63,8 @@
               <label>สาเหตุการเสียชีวิต</label>
             </div>
             
-            <div class="col-md-5"  *ngIf="diedBean.causeDied!=-9">
-              <select [(ngModel)]="diedBean.causeDied" (change)="onChangeCause()" >
+            <div class="col-md-5"  *ngIf="diedBean.causeCode!=-9">
+              <select [(ngModel)]="diedBean.causeCode" (change)="onChangeCause()" >
                 <option value="">---เลือกสาเหตุ---</option>
                 <option value="1">อุบัติเหตุทางจราจร</option>
                 <option value="2">ความดันโลหิตสูง</option>
@@ -72,10 +72,10 @@
               </select>
               
             </div>
-            <div class="col-md-5" *ngIf="diedBean.causeDied==-9">
+            <div class="col-md-5" *ngIf="diedBean.causeCode==-9">
                 <div class="input-group date">
-                  <input type="text" [(ngModel)]="diedBean.causeOtherDied" placeholder="อื่นๆ ระบุ" >
-                  <div class="input-group-addon" (click)="diedBean.causeDied=''">
+                  <input type="text" [(ngModel)]="diedBean.causeOtherCode" placeholder="อื่นๆ ระบุ" >
+                  <div class="input-group-addon" (click)="diedBean.causeCode=''">
                     <span class="fa fa-remove"></span>
                   </div>
                 </div>
@@ -99,18 +99,18 @@
               <label>สถานที่เสียชีวิต</label>
             </div>
     
-            <div class="col-md-5" *ngIf="diedBean.locationDied!=-9">
-              <select [(ngModel)]="diedBean.locationDied" (change)="onChangeLocation()">
+            <div class="col-md-5" *ngIf="diedBean.placeCode!='-9'">
+              <select [(ngModel)]="diedBean.placeCode" (change)="onChangePlace()">
                   <option value="">---เลือกสถานที่---</option>
                   <option value="2">บ้าน</option>
                   <option value="3">แหล่งน้ำ</option>
                   <option value="-9">อื่นๆ</option>
               </select>
             </div>
-            <div class="col-md-5" *ngIf="diedBean.locationDied==-9">
+            <div class="col-md-5" *ngIf="diedBean.placeCode=='-9'">
                 <div class="input-group date">
-                  <input type="text" [(ngModel)]="diedBean.locationOtherDied" placeholder="อื่นๆ ระบุ" >
-                  <div class="input-group-addon" (click)="diedBean.locationDied=''">
+                  <input type="text" [(ngModel)]="diedBean.placeOtherName" placeholder="อื่นๆ ระบุ" >
+                  <div class="input-group-addon" (click)="diedBean.placeCode=''">
                     <span class="fa fa-remove"></span>
                   </div>
                 </div>

@@ -1,10 +1,20 @@
 export class DiedBean{
     public surveyId: string;
     public citizenId: string;
+    public prefix: string;
+    public firstName: string;
+    public lastName: string;
+    public fullName: string;
+    public birthDate: string;
+    public age: number;
     public dateDied: string;
-    public causeDied: string;
-    public causeOtherDied: string;
-    public locationDied: string;
-    public locationOtherDied: string;
+    public causeCode: string;
+    public causeName: string;
+    public causeOtherCode: string;
+    public causeOtherName: string;
+    public placeCode: string;
+    public placeOtherCode: string;
+    public placeOtherName: string;
     public disease: string;
+    public action: string;
 }

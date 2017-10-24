@@ -1,7 +1,8 @@
-import { Component, OnInit ,AfterViewInit, ElementRef, ChangeDetectorRef} from '@angular/core';
+import { Component, OnInit ,AfterViewInit, ElementRef, ChangeDetectorRef, Input} from '@angular/core';
 import { PersonBean } from "../../../beans/person.bean";
 import { BaseComponent } from "../../../base-component";
 import { DiedBean } from '../../../beans/died.bean';
+declare var $: any;
 @Component({
   selector: 'app-survey-died-form',
   templateUrl: './survey-died-form.component.html',
@@ -9,22 +10,18 @@ import { DiedBean } from '../../../beans/died.bean';
   
 })
 export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,AfterViewInit {
+  @Input() action: string;
+  @Input() data: DiedBean;
   public isShowForm: boolean = false;
   public isFindPersonal: boolean = true;
   public resetFind: number = 1;
-  public personBean: PersonBean;
   public diedBean: DiedBean;
   //show = false;
   constructor(private changeRef: ChangeDetectorRef) {
     super();
     this.diedBean = new DiedBean();
-    this.personBean = new PersonBean();
-
-    this.diedBean.causeDied = '-1';
-
-
+    this.diedBean.causeCode = '-1';
    }
-  persons = [];
 
   ngOnInit() {
     
@@ -33,56 +30,54 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
       format: 'mm/dd/yyyy',
       startDate: '-3d'
     });
-
-    $("#textLocation").hide();
-    $("#textCause").hide();
-
-    $("#textLocation2").hide();
-    $("#textCause2").hide();
-    
-    this.persons = [{
-      CitizenID: "5470900018746"
-    , LastName:"สมนึก"
-    , FirstName: "จิตใจดี"
-    , NickName:"So"
-    , Gender: "ชาย"
-    , Prefix: "นาย"
-    , BirthDate: "01/02/2536"}];
   }
 
   ngAfterViewInit(){
-    let person;
-    $('#find-dropdownPerson').on('change', function(){
-        if($(this).val()>=1){
-          $('#personDetail').removeAttr('hidden');
-        }else{
-          $('#personDetail').attr('hidden','true');
-        }
-    });
+    
   }
   onChangeCause(){
     
   }
-  onChangeLocation(){
+  onChangePlace(){
     
   }
 
-  onChoosePersonal(personBean:PersonBean):void {
-    this.personBean = personBean;
-    console.log('noti Choose = '+personBean.citizenId);
+  onChoosePersonal(bean:any):void {
+    console.log('== noti Choose ==');
+    console.log(this.action);
+    console.log(bean);
+    console.log('== == ==');
+
+    if('add'==this.action){
+      this.diedBean.citizenId = bean.citizenId;
+      this.diedBean.fullName = this.getFullName(bean.person.prefix.name, bean.person.firstName, bean.person.lastName);
+      this.diedBean.birthDate = bean.person.birthDate
+      this.diedBean.age = this.getAge(bean.person.birthDate);
+    }else if('edit'==this.action){
+      this.diedBean = bean;
+    }
+    
     this.isFindPersonal = false;
     this.isShowForm = true;
   }
   onBack(){
-    this.personBean = new PersonBean();
+    this.diedBean = new DiedBean();
     this.isFindPersonal = true;
     this.isShowForm = false;
+    if('edit' == this.action){
+      $('#modal-add-died').modal('hide');
+    }
   }
   onModalEvent(){
     let self = this;
     $('#modal-add-died').on('show.bs.modal', function (e) {
-      console.log("show.bs.modal");
       self.resetFind = self.resetFind+1;
+      if(self.action=='edit'){
+        // self.isFindPersonal = false;
+        // self.isShowForm = true;
+        self.onChoosePersonal(self.data);
+      }
+
       self.changeRef.detectChanges();
     })
     $('#modal-add-died').on('hidden.bs.modal', function () {
