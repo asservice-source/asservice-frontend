@@ -32,8 +32,10 @@ export class SurveyPersonalMemberFormComponent implements OnInit {
   public listDischarge: any = [];
   public listFamilyStatus: any = [];
 
+  public isDisplayOccupationOthers = false;
+
   constructor() {
-    
+
   }
 
   ngOnInit() {
@@ -211,6 +213,14 @@ export class SurveyPersonalMemberFormComponent implements OnInit {
         console.log('survey-personal-member-member-form(bindOccupation) occured error(s) => ' + d.message);
       }
     });
+  }
+  onChangeOccupation() {
+    let self = this;
+    if (self.member.occupationCode == "010") {
+      self.isDisplayOccupationOthers = true;
+    } else {
+      self.isDisplayOccupationOthers = false;
+    }
   }
 
   bindDischarge() {

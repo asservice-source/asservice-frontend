@@ -154,10 +154,16 @@
           </div>
           <div class="col-md-3">
             <!-- <input type="text" class="ng-pristine ng-valid ng-touched" [(ngModel)]="member.occupCode"> -->
-            <select name="dropdown-occupationCode" id="dropdown-occupationCode" [(ngModel)]="member.occupationCode">
+            <select name="dropdown-occupationCode" id="dropdown-occupationCode" [(ngModel)]="member.occupationCode" (change)="onChangeOccupation()">
               <option value="">--เลือก อาชีพ--</option>
               <option *ngFor="let item of listOccupation" [value]="item.id">{{item.name}}</option>
             </select>
+          </div>
+          <div class="col-md-1 text-right" *ngIf="isDisplayOccupationOthers">
+            <label class="label-form">อื่นๆ โปรดระบุ</label>
+          </div>
+          <div class="col-md-3" *ngIf="isDisplayOccupationOthers">
+            <input type="text" class="ng-pristine ng-valid ng-touched">
           </div>
         </div>
 
