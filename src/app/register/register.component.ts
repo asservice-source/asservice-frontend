@@ -122,36 +122,35 @@ export class RegisterComponent extends BaseComponent implements OnInit {
 
     this.validateForm();
     console.log(this.validateForm());
-    let objvalidate = this.validateHostpital();
-
-    if (objvalidate.addressFail == true) {
-      bootbox.alert({
-        size: "large",
-        title: "<div style='color:#E21B1B;font-weight: bold;'>สถานที่ไม่ตรง</div>",
-        message: "กรุณาระบุสถานที่ตั้งให้ตรงกับ รพ.สต. ที่ท่านเลือก",
-        callback: function () { /* your callback code */ }
-      });
+    if (this.validateForm()){
+      let objvalidate = this.validateHostpital();
+      if (objvalidate.addressFail == true) {
+        bootbox.alert({
+          size: "large",
+          title: "<div style='color:#E21B1B;font-weight: bold;'>สถานที่ไม่ตรง</div>",
+          message: "กรุณาระบุสถานที่ตั้งให้ตรงกับ รพ.สต. ที่ท่านเลือก",
+          callback: function () { /* your callback code */ }
+        });
+      }
+      else if (objvalidate.code9Fail == true) {
+        bootbox.alert({
+          size: "large",
+          title: "<div style='color:#E21B1B;font-weight: bold;'>หมายเลข9หลักไม่ตรง</div>",
+          message: "กรอกรหัส 9 หลักให้ตรงกับ รพ.สต. ที่ท่านเลือก",
+          callback: function () { /* your callback code */ }
+        });
+      }
+      else if (objvalidate.code5Fail == true) {
+        bootbox.alert({
+          size: "large",
+          title: "<div style='color:#E21B1B;font-weight: bold;'>หมายเลข5หลักไม่ตรง</div>",
+          message: "กรอกรหัส 5 หลักให้ตรงกับ รพ.สต. ที่ท่านเลือก",
+          callback: function () { /* your callback code */ }
+        });
+      } else {
+        bootbox.alert("ผ่าน");
+      }
     }
-    else if (objvalidate.code9Fail == true) {
-      bootbox.alert({
-        size: "large",
-        title: "<b>หมายเลข9หลักไม่ตรง</b>",
-        message: "กรอกรหัส 9 หลักให้ตรงกับ รพ.สต. ที่ท่านเลือก",
-        callback: function () { /* your callback code */ }
-      });
-    }
-    else if (objvalidate.code5Fail == true) {
-      bootbox.alert({
-        size: "large",
-        title: "<b>หมายเลข5หลักไม่ตรง</b>",
-        message: "กรอกรหัส 5 หลักให้ตรงกับ รพ.สต. ที่ท่านเลือก",
-        callback: function () { /* your callback code */ }
-      });
-    } else {
-      bootbox.alert("ผ่าน");
-    }
-
-
     // this.validateHostpital();
     // console.log(this.validateHostpital());
 

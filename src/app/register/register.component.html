@@ -46,14 +46,14 @@
 
           <div class="col-md-8">
             <div class="col-md-6 " style="padding-left: 0px;">
-              <select class="ng-pristine ng-valid ng-touched" [(ngModel)]="registerBean.amphurCode" (change)="onAmphurChange()" [disabled]="registerBean.provinceID == 0?true:false">
+              <select class="ng-pristine ng-valid ng-touched" [(ngModel)]="registerBean.amphurCode" (change)="onAmphurChange()" [disabled]="registerBean.provinceID =='0' ?true:false">
                 <option value="0">เลือกอำเภอ</option>
                 <option *ngFor="let item of amphurList" [value]="item.code">{{ item.name }}</option>
               </select>
               <label class="error col-md-12" *ngIf="isErrorAmphur">กรุณาระบุอำเภอ</label>
             </div>
             <div class="col-md-6 " style="padding-right: 0px;">
-              <select class="ng-pristine ng-valid ng-touched" [(ngModel)]="registerBean.tumbolID" (change)="onTumbolChange()" [disabled]="registerBean.amphurCode == 0?true:false">
+              <select class="ng-pristine ng-valid ng-touched" [(ngModel)]="registerBean.tumbolID" (change)="onTumbolChange()" [disabled]="registerBean.amphurCode == '0'?true:false">
                 <option value="0">เลือกตำบล</option>
                 <option *ngFor="let item of tumbolsList" [value]="item.codeId">{{ item.name }}</option>
               </select>
