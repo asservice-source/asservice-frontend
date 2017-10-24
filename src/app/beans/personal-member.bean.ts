@@ -16,11 +16,13 @@ export class PersonalMemberBean {
     public religionName: string = "";
     public bloodTypeId: string = "";
     public bloodTypeName: string = "";
-    public rHGroupId: string = "";
+    public rhGroupId: string = "";
     public birthDate: string = "";
     public educationCode: string = "";
     public occupationCode: string = "";
     public dischargeId: string = "";
     public dischargeName: string = "";
     public familyStatus: string = "";
+    public disease: string = "";
+    public reason: string = "";
 }

@@ -120,7 +120,7 @@
             <label class="label-form">RH Group</label>
           </div>
           <div class="col-md-3">
-            <select name="dropdown-rhGroup" id="dropdown-rhGroup" [(ngModel)]="member.rHGroupId">
+            <select name="dropdown-rhGroup" id="dropdown-rhGroup" [(ngModel)]="member.rhGroupId">
               <option value="">--เลือก RH Group--</option>
               <option *ngFor="let item of listRHGroup" [value]="item.code">{{item.name}}</option>
             </select>
@@ -177,7 +177,7 @@
             <label class="label-form">สถานะ</label>
           </div>
           <div class="col-md-3">
-            <select name="dropdown-ownertype" id="dropdown-ownertype" [(ngModel)]="member.familyStatus">
+            <select name="dropdown-familyStatus" id="dropdown-familyStatus" [(ngModel)]="member.familyStatus">
               <option value="">--เลือก สถานะ--</option>
               <option *ngFor="let item of listFamilyStatus" [value]="item.code">{{item.name}}</option>
             </select>

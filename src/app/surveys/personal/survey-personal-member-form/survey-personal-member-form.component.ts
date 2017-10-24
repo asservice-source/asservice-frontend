@@ -11,13 +11,13 @@ declare var $;
 })
 export class SurveyPersonalMemberFormComponent implements OnInit {
 
-  @Input() set triggerMember(paramsMember: PersonalMemberBean) {
-    this.member = paramsMember;
+  @Input() set triggerMember(paramMember: PersonalMemberBean) {
+    this.member = paramMember;
   }
 
   private apiHttp: ApiHTTPService = new ApiHTTPService();
 
-  public member: PersonalMemberBean;
+  public member: PersonalMemberBean = new PersonalMemberBean();
 
   public listTypeArea: any = [];
   public listPrefix: any = [];
@@ -33,7 +33,7 @@ export class SurveyPersonalMemberFormComponent implements OnInit {
   public listFamilyStatus: any = [];
 
   constructor() {
-    this.member = new PersonalMemberBean();
+    
   }
 
   ngOnInit() {
