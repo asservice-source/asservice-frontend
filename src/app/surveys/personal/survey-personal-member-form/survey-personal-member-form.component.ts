@@ -1,7 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { PersonBean } from "../../../beans/person.bean";
 import { ApiHTTPService } from '../../../service/api-http.service';
 import { PersonalMemberBean } from '../../../beans/personal-member.bean';
+import { BaseComponent } from '../../../base-component';
 declare var $;
 
 @Component({
@@ -9,11 +10,12 @@ declare var $;
   templateUrl: './survey-personal-member-form.component.html',
   styleUrls: ['./survey-personal-member-form.component.css']
 })
-export class SurveyPersonalMemberFormComponent implements OnInit {
+export class SurveyPersonalMemberFormComponent extends BaseComponent implements OnInit {
 
   @Input() set triggerMember(paramMember: PersonalMemberBean) {
-    this.member = paramMember;
+    this.member = this.strNullToEmpty(paramMember);
   }
+  @Output() memberUpdated = new EventEmitter<PersonalMemberBean>();
 
   private apiHttp: ApiHTTPService = new ApiHTTPService();
 
@@ -35,7 +37,7 @@ export class SurveyPersonalMemberFormComponent implements OnInit {
   public isDisplayOccupationOthers = false;
 
   constructor() {
-
+    super();
   }
 
   ngOnInit() {
@@ -64,7 +66,7 @@ export class SurveyPersonalMemberFormComponent implements OnInit {
     self.apiHttp.post(URL_LIST_TYPE_AREA, params, function (d) {
       if (d != null && d.status.toUpperCase() == "SUCCESS") {
         // console.log(d);
-        self.listTypeArea = d.list;
+        self.listTypeArea = d.response;
       } else {
         console.log('survey-personal-member-member-form(bindTypeArea) occured error(s) => ' + d.message);
       }
@@ -80,7 +82,7 @@ export class SurveyPersonalMemberFormComponent implements OnInit {
     self.apiHttp.post(URL_LIST_PREFIX, params, function (d) {
       if (d != null && d.status.toUpperCase() == "SUCCESS") {
         // console.log(d);
-        self.listPrefix = d.list;
+        self.listPrefix = d.response;
       } else {
         console.log('survey-personal-member-member-form(bindPrefix) occured error(s) => ' + d.message);
       }
@@ -96,7 +98,7 @@ export class SurveyPersonalMemberFormComponent implements OnInit {
     self.apiHttp.post(URL_LIST_GENDER, params, function (d) {
       if (d != null && d.status.toUpperCase() == "SUCCESS") {
         // console.log(d);
-        self.listGender = d.list;
+        self.listGender = d.response;
       } else {
         console.log('survey-personal-member-member-form(bindGender) occured error(s) => ' + d.message);
       }
@@ -112,7 +114,7 @@ export class SurveyPersonalMemberFormComponent implements OnInit {
     self.apiHttp.post(URL_LIST_RACE, params, function (d) {
       if (d != null && d.status.toUpperCase() == "SUCCESS") {
         // console.log(d);
-        self.listRace = d.list;
+        self.listRace = d.response;
       } else {
         console.log('survey-personal-member-member-form(bindRace) occured error(s) => ' + d.message);
       }
@@ -128,7 +130,7 @@ export class SurveyPersonalMemberFormComponent implements OnInit {
     self.apiHttp.post(URL_LIST_NATIONALITY, params, function (d) {
       if (d != null && d.status.toUpperCase() == "SUCCESS") {
         // console.log(d);
-        self.listNationality = d.list;
+        self.listNationality = d.response;
       } else {
         console.log('survey-personal-member-member-form(bindNationality) occured error(s) => ' + d.message);
       }
@@ -144,7 +146,7 @@ export class SurveyPersonalMemberFormComponent implements OnInit {
     self.apiHttp.post(URL_LIST_RELIGION, params, function (d) {
       if (d != null && d.status.toUpperCase() == "SUCCESS") {
         // console.log(d);
-        self.listReligion = d.list;
+        self.listReligion = d.response;
       } else {
         console.log('survey-personal-member-member-form(bindReligion) occured error(s) => ' + d.message);
       }
@@ -160,7 +162,7 @@ export class SurveyPersonalMemberFormComponent implements OnInit {
     self.apiHttp.post(URL_LIST_BLOOD_TYPE, params, function (d) {
       if (d != null && d.status.toUpperCase() == "SUCCESS") {
         // console.log(d);
-        self.listBloodType = d.list;
+        self.listBloodType = d.response;
       } else {
         console.log('survey-personal-member-member-form(bindBloodType) occured error(s) => ' + d.message);
       }
@@ -176,7 +178,7 @@ export class SurveyPersonalMemberFormComponent implements OnInit {
     self.apiHttp.post(URL_LIST_RH_GROUP, params, function (d) {
       if (d != null && d.status.toUpperCase() == "SUCCESS") {
         // console.log(d);
-        self.listRHGroup = d.list;
+        self.listRHGroup = d.response;
       } else {
         console.log('survey-personal-member-member-form(bindRHGroup) occured error(s) => ' + d.message);
       }
@@ -192,7 +194,7 @@ export class SurveyPersonalMemberFormComponent implements OnInit {
     self.apiHttp.post(URL_LIST_EDUCATION, params, function (d) {
       if (d != null && d.status.toUpperCase() == "SUCCESS") {
         // console.log(d);
-        self.listEducation = d.list;
+        self.listEducation = d.response;
       } else {
         console.log('survey-personal-member-member-form(bindEducation) occured error(s) => ' + d.message);
       }
@@ -208,7 +210,7 @@ export class SurveyPersonalMemberFormComponent implements OnInit {
     self.apiHttp.post(URL_LIST_OCCUPATION, params, function (d) {
       if (d != null && d.status.toUpperCase() == "SUCCESS") {
         // console.log(d);
-        self.listOccupation = d.list;
+        self.listOccupation = d.response;
       } else {
         console.log('survey-personal-member-member-form(bindOccupation) occured error(s) => ' + d.message);
       }
@@ -217,7 +219,7 @@ export class SurveyPersonalMemberFormComponent implements OnInit {
 
   onChangeOccupation() {
     let self = this;
-    if (self.member.occupationCode == "010") {
+    if (self.member.occupationId == "010") {
       self.isDisplayOccupationOthers = true;
     } else {
       self.isDisplayOccupationOthers = false;
@@ -233,7 +235,7 @@ export class SurveyPersonalMemberFormComponent implements OnInit {
     self.apiHttp.post(URL_LIST_DISCHARGE, params, function (d) {
       if (d != null && d.status.toUpperCase() == "SUCCESS") {
         // console.log(d);
-        self.listDischarge = d.list;
+        self.listDischarge = d.response;
       } else {
         console.log('survey-personal-member-member-form(bindDischarge) occured error(s) => ' + d.message);
       }
@@ -249,7 +251,7 @@ export class SurveyPersonalMemberFormComponent implements OnInit {
     self.apiHttp.post(URL_LIST_FAMILY_STATUS, params, function (d) {
       if (d != null && d.status.toUpperCase() == "SUCCESS") {
         // console.log(d);
-        self.listFamilyStatus = d.list;
+        self.listFamilyStatus = d.response;
       } else {
         console.log('survey-personal-member-member-form(bindFamilyStatus) occured error(s) => ' + d.message);
       }
@@ -257,7 +259,10 @@ export class SurveyPersonalMemberFormComponent implements OnInit {
   }
 
   clickSave() {
-
+    this.member.listPrefix = this.listPrefix;
+    this.member.listGender = this.listGender;
+    this.member.listFamilyStatus = this.listFamilyStatus;
+    this.memberUpdated.emit(this.member);
   }
 
 }

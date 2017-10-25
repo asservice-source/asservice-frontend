@@ -8,23 +8,12 @@
 
     <div class="row">
       <div class="col-sm-12 text-left">
-        <!-- <a href="#"><img src="Assets/img/create_users_group_people-512.png"
-                    class="img-responsive btn" alt="เพิ่มคน" width="100"
-                    height="100" style="cursor: pointer;"
-                    data-toggle="modal" data-target="#">
-                  </a>
-    
-            <a href="#"><img src="Assets/img/create_users_group_people-512.png"
-                    class="img-responsive btn" alt="พิมพ์เอกสาร" width="100"
-                    height="100" style="cursor: pointer;"
-                    data-toggle="modal" data-target="#myModal">
-                  </a> -->
         <button class="btn btn-primary">เพิ่มสมาชิก</button>
         <button class="btn btn-primary">พิมพ์เอกสาร</button>
       </div>
     </div>
 
-    <div class="row">
+    <div class="row" *ngIf="isShowTable">
         <div class="col-md-12">
       <!-- <table id="tableMember" class="table table-striped table-bordered"></table> -->
       <ng2-smart-table [settings]="settings" [source]="source" (rowSelect)="onRowSelect($event)"></ng2-smart-table>
@@ -33,7 +22,7 @@
 
     <div class="row">
       <div class="col-md-12 text-center">
-        <button class="btn btn-primary">ส่งข้อมูล</button>
+        <button class="btn btn-primary" *ngIf="isShowTable">ส่งข้อมูล</button>
         <button class="btn btn-primary" (click)="clickBack()">ย้อนกลับ</button>
       </div>
     </div>
@@ -42,4 +31,4 @@
 
 </div>
 
-<app-survey-personal-member-form [triggerMember]="paramMember"></app-survey-personal-member-form>
+<app-survey-personal-member-form [triggerMember]="paramMember" (memberUpdated)="onUpdatedMember($event)"></app-survey-personal-member-form>

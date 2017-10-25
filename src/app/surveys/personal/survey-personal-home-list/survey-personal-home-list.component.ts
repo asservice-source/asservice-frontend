@@ -2,11 +2,11 @@ import { Component, OnInit, AfterViewInit, EventEmitter, Input, Output } from '@
 import { Http, Headers, RequestOptions } from "@angular/http";
 import { Router } from "@angular/router";
 import { ViewCell, LocalDataSource } from 'ng2-smart-table';
+import { ActionCustomViewComponent } from '../../../action-custom-table/action-custom-view.component';
 import { FilterBean } from "../../../beans/filter.bean";
+import { PersonalHomeBean } from '../../../beans/personal-home.bean';
 import { ApiHTTPService } from '../../../service/api-http.service';
 import { BaseComponent } from '../../../base-component';
-import { ActionCustomViewComponent } from '../../../action-custom-table/action-custom-view.component';
-import { PersonalHomeBean } from '../../../beans/personal-home.bean';
 declare var $: any;
 
 @Component({
@@ -46,7 +46,7 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
           return '<div class="text-center">' + cell + '</div>';
         }
       },
-      fullName: {
+      holderName: {
         title: 'ชื่อ-สกุล เจ้าของบ้าน',
         filter: false,
         width: '300px'
@@ -67,7 +67,7 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
         type: 'custom',
         renderComponent: SurveyPersonalHomeListButtonEditComponent,
         onComponentInitFunction(instance) {
-          instance.action.subscribe((row) => {
+          instance.action.subscribe((row: PersonalHomeBean) => {
             console.log(row);
             let homeId = row.homeId;
             self.router.navigate(['/main/surveys/personal-detail', homeId]);
@@ -88,11 +88,12 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
   clickSearch(event: FilterBean) {
     let self = this;
 
+    let roundId = event.roundId;
     let villageId = event.villageId;
     let osmId = event.osmId;
     let homeId = event.homeId;
 
-    self.bindHomeList(villageId, osmId, homeId);
+    self.bindHomeList(roundId, villageId, osmId, homeId);
 
     // this.http.get("assets/data_test/data_home_personal.json")
     //   .map(res => res.json())
@@ -103,17 +104,16 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
     //   });
   }
 
-  bindHomeList(villageId: string, osmId: string, homeId: string) {
+  bindHomeList(roundId: string, villageId: string, osmId: string, homeId: string) {
     let self = this;
 
-    let URL_LIST_HOME: string = "home/home_list_search_by_village_osm_home";
-    let params = { "villageId": villageId, "osmId": osmId, "id": homeId };
+    let URL_LIST_HOME: string = "survey_personal/search_home_list";
+    let params = { "roundGUID": roundId, "villageId": villageId, "osmId": osmId, "id": homeId };
 
     self.apiHttp.post(URL_LIST_HOME, params, function (d) {
       if (d != null && d.status.toUpperCase() == "SUCCESS") {
         console.log(d);
-        let tmp = self.mappingPersonalHomeBean(d.list);
-        self.source = new LocalDataSource(tmp);
+        self.source = new LocalDataSource(d.response);
         self.setNg2STDatasource(self.source);
         self.isShowTable = true;
       } else {

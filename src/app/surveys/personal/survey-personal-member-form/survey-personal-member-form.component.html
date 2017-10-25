@@ -148,7 +148,7 @@
             <label class="label-form">อาชีพ</label>
           </div>
           <div class="col-md-3">
-            <select name="dropdown-occupationCode" id="dropdown-occupationCode" [(ngModel)]="member.occupationCode" (change)="onChangeOccupation()">
+            <select name="dropdown-occupationCode" id="dropdown-occupationCode" [(ngModel)]="member.occupationId" (change)="onChangeOccupation()">
               <option value="">--เลือก อาชีพ--</option>
               <option *ngFor="let item of listOccupation" [value]="item.id">{{item.name}}</option>
             </select>
@@ -176,14 +176,14 @@
             <label class="label-form">สถานะ</label>
           </div>
           <div class="col-md-3">
-            <select name="dropdown-familyStatus" id="dropdown-familyStatus" [(ngModel)]="member.familyStatus">
+            <select name="dropdown-familyStatus" id="dropdown-familyStatus" [(ngModel)]="member.familyStatusCode">
               <option value="">--เลือก สถานะ--</option>
               <option *ngFor="let item of listFamilyStatus" [value]="item.code">{{item.name}}</option>
             </select>
           </div>
         </div>
 
-        <div class="row">
+        <!-- <div class="row">
           <div class="col-md-1"></div>
           <div class="col-md-2 text-right">
             <label class="label-form">โรคประจำตัว</label>
@@ -191,7 +191,7 @@
           <div class="col-md-3">
             <input type="text" class="ng-pristine ng-valid ng-touched" [(ngModel)]="member.disease">
           </div>
-        </div>
+        </div> -->
 
         <!-- <div class="row">
           <div class="col-md-1"></div>

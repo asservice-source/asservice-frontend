@@ -19,10 +19,12 @@ export class PersonalMemberBean {
     public rhGroupId: string = "";
     public birthDate: string = "";
     public educationCode: string = "";
-    public occupationCode: string = "";
+    public occupationId: string = "";
     public dischargeId: string = "";
     public dischargeName: string = "";
-    public familyStatus: string = "";
-    public disease: string = "";
-    public reason: string = "";
+    public familyStatusCode: string = "";
+
+    public listPrefix: any = [];
+    public listGender: any = [];
+    public listFamilyStatus: any = [];
 }

@@ -33,6 +33,8 @@ export class FilterPersonalComponent extends BaseComponent implements OnInit {
     let self = this;
 
     self.bindVillageNo();
+
+    self.doSearchFilter();
   }
 
   onChangeVillageNo() {
@@ -73,7 +75,7 @@ export class FilterPersonalComponent extends BaseComponent implements OnInit {
     self.apiHttp.post(URL_LIST_VILLAGE_NO, params, function (d) {
       if (d && d.status.toUpperCase() == "SUCCESS") {
         // console.log(d);
-        self.list_village_no = d.list;
+        self.list_village_no = d.response;
       } else {
         console.log('filter-personal(bindVillageNo) occured error(s) => ' + d.message);
       }
@@ -89,7 +91,7 @@ export class FilterPersonalComponent extends BaseComponent implements OnInit {
     self.apiHttp.post(URL_LIST_OSM, params, function (d) {
       if (d && d.status.toUpperCase() == "SUCCESS") {
         // console.log(d);
-        self.list_osm = d.list;
+        self.list_osm = d.response;
         self.filterBean.osmId = "";
         self.isDisabledOSM = false;
       } else {
@@ -107,7 +109,7 @@ export class FilterPersonalComponent extends BaseComponent implements OnInit {
     self.apiHttp.post(URL_LIST_HOME_NO, params, function (d) {
       if (d && d.status.toUpperCase() == "SUCCESS") {
         // console.log(d);
-        self.list_home_no = d.list;
+        self.list_home_no = d.response;
         self.filterBean.homeId = "";
         self.isDisabledHomeNo = false;
       } else {

@@ -23,6 +23,8 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
 
   public settings: any;
   public source: LocalDataSource;
+  public isShowTable: boolean = false;
+  public tempData: Array<any>;
 
   constructor(private http: Http, private router: Router, private route: ActivatedRoute) {
     super();
@@ -58,11 +60,14 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
           return '<div class="text-center">' + cell + '</div>';
         }
       },
-      status: {
+      familyStatusName: {
         title: 'สถานะผู้อยู่อาศัย',
         filter: false,
         width: '200px',
-        type: 'html'
+        type: 'html',
+        valuePrepareFunction: (cell, row) => {
+          return '<div class="text-center">' + cell + '</div>';
+        }
       },
       action: {
         title: '',
@@ -72,7 +77,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
         renderComponent: SurveyPersonalMemberListButtonEditComponent,
         onComponentInitFunction(instance) {
           instance.action.subscribe((row: PersonalMemberBean) => {
-            console.log(row);
+            // console.log(row);
             self.paramMember = row;
             $("#modalMember").modal({ backdrop: 'static', keyboard: false });
           });
@@ -102,9 +107,10 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     self.apiHttp.post(URL_LIST_HOME_MEMBERS, params, function (d) {
       if (d != null && d.status.toUpperCase() == "SUCCESS") {
         console.log(d);
-        let tmp = self.mappingPersonalMemberBean(d.list);
-        self.source = new LocalDataSource(tmp);
+        self.tempData = d.response;
+        self.source = new LocalDataSource(self.tempData);
         self.setNg2STDatasource(self.source);
+        self.isShowTable = true;
       } else {
         console.log('survey-personal-member-list(bindHomeMemberList) occured error(s) => ' + d.message);
       }
@@ -116,6 +122,54 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     //     self.source = new LocalDataSource(data);
     //     self.setNg2STDatasource(self.source);
     //   });
+  }
+
+  onUpdatedMember(member: PersonalMemberBean) {
+    let self = this;
+
+    for (let item of self.tempData) {
+      if (item.citizenId == member.citizenId) {
+        let index = self.tempData.indexOf(item);
+        self.tempData[index] = member;
+
+        let prefix = '';
+        if (member.listPrefix) {
+          for (let p of member.listPrefix) {
+            if (p.code == member.prefixCode) {
+              prefix = p.name;
+              break;
+            }
+          }
+        }
+        self.tempData[index].fullName = self.getFullName(prefix, member.firstName, member.lastName);
+
+        let gender = '';
+        if (member.listGender) {
+          for (let g of member.listGender) {
+            if (g.code == member.genderCode) {
+              gender = g.name;
+              break;
+            }
+          }
+        }
+        self.tempData[index].genderName = gender;
+
+        let familyStatus = '';
+        if (member.listFamilyStatus) {
+          for (let g of member.listFamilyStatus) {
+            if (g.code == member.familyStatusCode) {
+              familyStatus = g.name;
+              break;
+            }
+          }
+        }
+        self.tempData[index].familyStatusName = familyStatus;
+      }
+    }
+
+    self.source.refresh();
+
+    $("#modalMember").modal('hide');
   }
 
   mappingPersonalMemberBean(data: any): Array<PersonalMemberBean> {
@@ -175,11 +229,11 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
           }
 
           if (item.person.occupation) {
-            member.occupationCode = item.person.occupation.id;
+            member.occupationId = item.person.occupation.id;
           }
 
           if (item.familyStatus) {
-            member.familyStatus = item.familyStatus.code;
+            member.familyStatusCode = item.familyStatus.code;
           }
 
         }
