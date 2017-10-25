@@ -48,7 +48,7 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
     console.log(bean);
     console.log('== == ==');
 
-    if(this.ass_action.ADD==this.action){
+/*    if(this.ass_action.ADD==this.action){
       this.diedBean.citizenId = bean.citizenId;
       this.diedBean.fullName = this.getFullName(bean.person.prefix.name, bean.person.firstName, bean.person.lastName);
       this.diedBean.birthDate = bean.person.birthDate
@@ -56,7 +56,9 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
     }else if(this.ass_action.EDIT==this.action){
       this.diedBean = bean;
     }
-    
+    */
+    this.diedBean = bean;
+
     this.isFindPersonal = false;
     this.isShowForm = true;
   }
