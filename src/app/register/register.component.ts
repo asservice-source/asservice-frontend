@@ -122,7 +122,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
 
     this.validateForm();
     console.log(this.validateForm());
-    if (this.validateForm()){
+    if (this.validateForm()) {
       let objvalidate = this.validateHostpital();
       if (objvalidate.addressFail == true) {
         bootbox.alert({
@@ -148,35 +148,30 @@ export class RegisterComponent extends BaseComponent implements OnInit {
           callback: function () { /* your callback code */ }
         });
       } else {
-        bootbox.alert("ผ่าน");
+        this.registerBean.contactCitizenId = this.formatForJson(this.registerBean.contactCitizenId);
+        this.registerBean.contactTelephone = this.formatForJson(this.registerBean.contactTelephone);
+        let xxx = JSON.stringify(this.registerBean);
+        console.log(xxx);
+
+        // let self = this;
+        // let params = xxx;
+        // this.api.post('hospital/register_hospital', params, function (resp) {
+        //   console.log(resp);
+        //   if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+        //     console.log("ไปแล้วววว++");
+        //   }
+        // })
       }
     }
-    // this.validateHostpital();
-    // console.log(this.validateHostpital());
 
+    // this.hospitalBean.code5 = "94261";
+    // this.hospitalBean.contactPrefix = "003";
+    // this.hospitalBean.contactFirstName = "ittigorn";
+    // this.hospitalBean.contactLastName = "หล่อสัดๆ";
+    // this.hospitalBean.contactCitizenId = "1234567891011";
+    // this.hospitalBean.contactTelephone = "0812345678";
+    // this.hospitalBean.contactEmail = "ittigorn_hotmail.com";
 
-    /*
-    this.hospitalBean.code5 = "94261";
-    this.hospitalBean.contactPrefix = "003";
-    this.hospitalBean.contactFirstName = "ittigorn";
-    this.hospitalBean.contactLastName = "หล่อสัดๆ";
-    this.hospitalBean.contactCitizenId = "1234567891011";
-    this.hospitalBean.contactTelephone = "0812345678";
-    this.hospitalBean.contactEmail = "ittigorn_hotmail.com";
-
-   
-
-    let xxx = JSON.stringify(this.hospitalBean);
-
-    let self = this;
-    let params = xxx;
-    this.api.post('hospital/register_hospital', params, function (resp) {
-      console.log(resp);
-      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-        console.log("ไปแล้วววว++");
-      }
-    })
-*/
   }
 
   getProvinceList() {
@@ -317,7 +312,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
         self.isErrorLastName = false;
       }
 
-      if (self.isEmpty(self.registerBean.contactEmail)) {
+      if (self.isEmpty(self.registerBean.contactEmail) || !self.isEmailFormat(self.registerBean.contactEmail)) {
         self.isErrorEmail = true;
         validateForm = false;
       } else {
@@ -351,9 +346,9 @@ export class RegisterComponent extends BaseComponent implements OnInit {
         }
       }
 
-      if (obj_1 >= patternCitizen.length) {
-        self.registerBean.contactCitizenId = self.registerBean.contactCitizenId.substr(0, patternCitizen.length - 1);
-      }
+      // if (obj_1 >= patternCitizen.length) {
+      //   self.registerBean.contactCitizenId = self.registerBean.contactCitizenId.substr(0, patternCitizen.length - 1);
+      // }
     }
   }
 
@@ -373,9 +368,9 @@ export class RegisterComponent extends BaseComponent implements OnInit {
         }
       }
 
-      if (obj_1 >= patternPhone.length) {
-        self.registerBean.contactTelephone = self.registerBean.contactTelephone.substr(0, patternPhone.length - 1);
-      }
+      // if (obj_1 >= patternPhone.length) {
+      //   self.registerBean.contactTelephone = self.registerBean.contactTelephone.substr(0, patternPhone.length - 1);
+      // }
     }
   }
 
@@ -399,10 +394,11 @@ export class RegisterComponent extends BaseComponent implements OnInit {
 
   formatForJson(value){
     let pure_value = value.split("-");
-    let result = "";
-    for(let i=0;i<=pure_value.length-1;i++){
-         result = result+pure_value[i];
-    }
+    let result = pure_value.join('');
+
+    // for(let i=0;i<=pure_value.length-1;i++){
+    //      result = result+pure_value[i];
+    // }
     return result;
   }
 
