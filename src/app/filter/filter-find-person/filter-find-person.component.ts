@@ -102,7 +102,7 @@ export class FilterFindPersonComponent extends BaseComponent implements OnInit {
     this.api.post('homemember/homemember_by_home', params, function (resp) {
       console.log(resp);
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-        self.personData = resp.list; 
+        self.personData = resp.response; 
       }
     })
   }
@@ -112,7 +112,7 @@ export class FilterFindPersonComponent extends BaseComponent implements OnInit {
     this.api.post('village/village_no_list_by_hospital', params, function (resp) {
       console.log(self.villageData);
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-        self.villageData = resp.list; 
+        self.villageData = resp.response; 
       }
     })
   }
@@ -122,7 +122,7 @@ export class FilterFindPersonComponent extends BaseComponent implements OnInit {
     this.api.post('osm/osm_list_by_village', params, function (resp) {
       console.log(resp);
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-        self.osmData = resp.list;
+        self.osmData = resp.response;
         self.isDisabledOSM = false;
         self.isDisabledHomeNo = false;
       }
@@ -134,7 +134,7 @@ export class FilterFindPersonComponent extends BaseComponent implements OnInit {
     this.api.post('home/home_no_list_by_village_or_osm', params, function (resp) {
       console.log(resp);
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-        self.homeData = resp.list;
+        self.homeData = resp.response;
         self.isDisabledOSM = false;
         self.isDisabledHomeNo = false;
       }
