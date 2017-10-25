@@ -214,6 +214,7 @@ export class SurveyPersonalMemberFormComponent implements OnInit {
       }
     });
   }
+
   onChangeOccupation() {
     let self = this;
     if (self.member.occupationCode == "010") {
@@ -253,6 +254,10 @@ export class SurveyPersonalMemberFormComponent implements OnInit {
         console.log('survey-personal-member-member-form(bindFamilyStatus) occured error(s) => ' + d.message);
       }
     });
+  }
+
+  clickSave() {
+
   }
 
 }
