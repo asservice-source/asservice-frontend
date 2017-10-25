@@ -1,10 +1,9 @@
-<div id="find-person-md" class="modal fade" role="dialog" tabindex="-1">
+<div id="find-person-md" class="modal fade" role="dialog" data-backdrop="false" data-keyboard="false">
     <div class="modal-lg modal-dialog">
 
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">
                     <span>
                         <img height="30" src="assets/img/check.png" style="cursor: pointer;" width="30">
@@ -12,12 +11,8 @@
             </div>
 
             <app-filter-find-person [reset]="resetFind" [findPersonal]="isFindPersonal" (choosePersonal)="onChoosePersonal($event)"></app-filter-find-person>
-
-            <hr>
-
+                                    
             <div *ngIf="isShowForm">
-
-                <div style="background-color: #fff">
                     <div class="row">
                         <div class="col-md-3 text-right">
                             <label id="cid" class="label-form label_space">หมายเลขประจำตัว :</label>
@@ -64,7 +59,6 @@
                         <label class="label-form">จังหวัด :</label>
                         <label class="label-form label_space">{{personBean.privinceName}}</label>
                     </div>
-                </div>
                 <hr>
                 <!-- ประวัติสุขภาพ -->
                 <div class="row">

@@ -20,7 +20,6 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
 
   @Input() set citizenID(citizenID: string) {
     this.personBean.citizenId = citizenID;
-    
   }
 
   public metabolicbean:MetabolicBean;
@@ -30,48 +29,7 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
   public isShowForm: boolean = false;
   public resetFind: number = 1;
 
-  public personal_CitizenID : String;
-  public personal_PatentID : String;
-  public personal_Fname : String;
-  public personal_Lname : String;
-  public personal_Gender : String;
-  public personal_AgeYears : String;
-  public personal_AgeMonths : String;
-  public personal_HouseID : String;
-  public personal_HgroupID : String;
-  public personal_DistrictID : String;
-  public personal_AmphurID : String;
-  public personal_CityID : String;
-
-  public healtHistory_isDiabetesParent: boolean;
-  public healtHistory_isOverBmi: boolean;
-  public healtHistory_isOverBp: boolean;
-  public healtHistory_isOverFbs: boolean;
-  public healtHistory_isOvercholesterol: boolean;
-  public healtHistory_isPregnantDiabetes: boolean;
-  public healtHistory_isOverBpParent: boolean;
-
-  public drugHistory_isSmoke: boolean;
-  public drugHistory_isDrink: boolean;
-  public drugHistory_numTobacco: Number;
-  public drugHistory_numDrink: Number;
-
-  public physicalBody_weight: Number;
-  public physicalBody_height: Number;
-  public physicalBody_waistline: Number;
-  public physicalBody_BMI: Number;
-  public physicalBody_BP1_mm: Number;
-  public physicalBody_BP1_hg: Number;
-  public physicalBody_BP2_mm: Number;
-  public physicalBody_BP2_hg: Number;
-
-  public disease_Diabetes: boolean;
-  public disease_OverBP: boolean;
-  public disease_Complication_eye: boolean;
-  public disease_Complication_kidney: boolean;
-  public disease_Complication_nerve: boolean;
-  public disease_Complication_nervousSys: boolean;
-  public disease_Complication_etc: boolean;
+  
 
   // dataFor;
 
@@ -81,6 +39,7 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
   }
 
   ngOnInit() {
+    this.onModalEvent();
     $('body').on('click','#radioBtn a', function () {
       var sel = $(this).data('title');
       var tog = $(this).data('toggle');
@@ -106,7 +65,7 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
   }
 
   update() {
-    if (this.physicalBody_weight == 0) {
+    if (this.metabolicbean.physicalBody_weight == 0) {
 
     }
   }
@@ -114,11 +73,11 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
   Smoke(T) {
     if (T == 'N') {
       $("#numTobacco").prop('disabled', true);
-      this.drugHistory_isSmoke = false;
+      this.metabolicbean.drugHistory_isSmoke = false;
 
     } else {
       $("#numTobacco").prop('disabled', false);
-      this.drugHistory_isSmoke = true;
+      this.metabolicbean.drugHistory_isSmoke = true;
     }
 
   }
@@ -126,10 +85,10 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
   Drink(T) {
     if (T == 'N') {
       $("#timeDrink").prop('disabled', true);
-      this.drugHistory_isDrink = false;
+      this.metabolicbean.drugHistory_isDrink = false;
     } else {
       $("#timeDrink").prop('disabled', false);
-      this.drugHistory_isDrink = true;
+      this.metabolicbean.drugHistory_isDrink = true;
     }
   }
 
@@ -153,16 +112,46 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
     console.log(event);
   }
 
-  onChoosePersonal(personBean:PersonBean):void {
-    this.personBean = personBean;
-    console.log('noti Choose = '+personBean.citizenId);
+  onChoosePersonal(bean:any):void {
+    if(this.ass_action.ADD==this.action){
+      this.metabolicbean.personal_CitizenID = bean.citizenId;
+      this.metabolicbean.personal_Fullname = this.getFullName(bean.person.prefix.name, bean.person.firstName, bean.person.lastName);
+      this.metabolicbean.birthDate = bean.person.birthDate;
+      this.metabolicbean.personal_AgeYears = this.getAge(bean.person.birthDate);
+    }else if(this.ass_action.EDIT==this.action){
+      this.metabolicbean = bean;
+    }
+    
     this.isFindPersonal = false;
     this.isShowForm = true;
    
   }
   onBack(){
+    this.metabolicbean = new MetabolicBean();
     this.isFindPersonal = true;
     this.isShowForm = false;
+    if(this.ass_action.EDIT == this.action){
+      $('#find-person-md').modal('hide');
+    }
+  }
+
+  onModalEvent(){
+    let self = this;
+    $('#find-person-md').on('show.bs.modal', function (e) {
+      self.resetFind = self.resetFind+1;
+      if(self.action==self.ass_action.EDIT){
+        self.onChoosePersonal(self.data);
+      }
+
+      self.changeRef.detectChanges();
+    })
+    $('#find-person-md').on('hidden.bs.modal', function () {
+      console.log("hide.bs.modal");
+      self.isShowForm = false;
+      self.isFindPersonal = true;
+      self.resetFind = self.resetFind+1;
+      self.changeRef.detectChanges();
+    });
   }
 
 }

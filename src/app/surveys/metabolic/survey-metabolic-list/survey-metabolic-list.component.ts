@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Http, Response, RequestOptions } from "@angular/http";
 import { Router } from "@angular/router";
 import { LocalDataSource } from 'ng2-smart-table';
@@ -8,7 +8,7 @@ import { ApiHTTPService } from '../../../service/api-http.service';
 import { ActionCustomViewComponent } from '../../../action-custom-table/action-custom-view.component';
 import { FilterHeadSurveyBean } from '../../../beans/filter-head-survey.bean';
 import { MetabolicBean } from '../../../beans/metabolic.bean';
-declare var $;
+declare var $: any;
 
 @Component({
   selector: 'app-survey-metabolic-list',
@@ -35,7 +35,7 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
   private api: ApiHTTPService;
   public settings: any;
 
-  constructor(private http: Http, private router: Router) {
+  constructor(private http: Http, private router: Router,private changeRef: ChangeDetectorRef) {
     super();
     this.api = new ApiHTTPService();
     let self = this;
@@ -135,6 +135,12 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
     this.source = new LocalDataSource(this.data);
     this.isShowList = true;
     super.setNg2STDatasource(this.source);
+  }
+
+  onModalFrom(action: string){
+    this.action = action;
+    this.changeRef.detectChanges();
+    $('#find-person-md').modal('show');
   }
 
 }
