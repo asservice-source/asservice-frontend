@@ -1,9 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { Http, RequestOptions } from '@angular/http';
 import { Headers } from '@angular/http';
 import { NgModel } from '@angular/forms';
-import { Personalities } from './survey-metabolic-form-bean';
 import { PersonBean } from './../../../beans/person.bean';
+import { BaseComponent } from '../../../base-component';
+import {MetabolicBean} from '../../../beans/metabolic.bean';
 
 declare var $:any;
 
@@ -13,53 +14,70 @@ declare var $:any;
   styleUrls: ['./survey-metabolic-form.component.css']
 })
 
-export class SurveyMetabolicFormComponent implements OnInit {
+export class SurveyMetabolicFormComponent extends BaseComponent implements OnInit ,AfterViewInit {
+  @Input() action: string;
+  @Input() data: MetabolicBean;
 
   @Input() set citizenID(citizenID: string) {
     this.personBean.citizenId = citizenID;
     
   }
 
+  public metabolicbean:MetabolicBean;
   public isFindPersonal: boolean = true;
 
-  public personalities = new Personalities();
   public personBean = new PersonBean();
   public isShowForm: boolean = false;
+  public resetFind: number = 1;
 
-  healtHistory_isDiabetesParent: boolean;
-  healtHistory_isOverBmi: boolean;
-  healtHistory_isOverBp: boolean;
-  healtHistory_isOverFbs: boolean;
-  healtHistory_isOvercholesterol: boolean;
-  healtHistory_isPregnantDiabetes: boolean;
-  healtHistory_isOverBpParent: boolean;
+  public personal_CitizenID : String;
+  public personal_PatentID : String;
+  public personal_Fname : String;
+  public personal_Lname : String;
+  public personal_Gender : String;
+  public personal_AgeYears : String;
+  public personal_AgeMonths : String;
+  public personal_HouseID : String;
+  public personal_HgroupID : String;
+  public personal_DistrictID : String;
+  public personal_AmphurID : String;
+  public personal_CityID : String;
 
-  drugHistory_isSmoke: boolean;
-  drugHistory_isDrink: boolean;
-  drugHistory_numTobacco: Number;
-  drugHistory_numDrink: Number;
+  public healtHistory_isDiabetesParent: boolean;
+  public healtHistory_isOverBmi: boolean;
+  public healtHistory_isOverBp: boolean;
+  public healtHistory_isOverFbs: boolean;
+  public healtHistory_isOvercholesterol: boolean;
+  public healtHistory_isPregnantDiabetes: boolean;
+  public healtHistory_isOverBpParent: boolean;
 
-  physicalBody_weight: Number;
-  physicalBody_height: Number;
-  physicalBody_waistline: Number;
-  physicalBody_BMI: Number;
-  physicalBody_BP1_mm: Number;
-  physicalBody_BP1_hg: Number;
-  physicalBody_BP2_mm: Number;
-  physicalBody_BP2_hg: Number;
+  public drugHistory_isSmoke: boolean;
+  public drugHistory_isDrink: boolean;
+  public drugHistory_numTobacco: Number;
+  public drugHistory_numDrink: Number;
 
-  disease_Diabetes: boolean;
-  disease_OverBP: boolean;
-  disease_Complication_eye: boolean;
-  disease_Complication_kidney: boolean;
-  disease_Complication_nerve: boolean;
-  disease_Complication_nervousSys: boolean;
-  disease_Complication_etc: boolean;
+  public physicalBody_weight: Number;
+  public physicalBody_height: Number;
+  public physicalBody_waistline: Number;
+  public physicalBody_BMI: Number;
+  public physicalBody_BP1_mm: Number;
+  public physicalBody_BP1_hg: Number;
+  public physicalBody_BP2_mm: Number;
+  public physicalBody_BP2_hg: Number;
+
+  public disease_Diabetes: boolean;
+  public disease_OverBP: boolean;
+  public disease_Complication_eye: boolean;
+  public disease_Complication_kidney: boolean;
+  public disease_Complication_nerve: boolean;
+  public disease_Complication_nervousSys: boolean;
+  public disease_Complication_etc: boolean;
 
   // dataFor;
 
-  constructor(private http: Http) {
-    
+  constructor(private http: Http,private changeRef: ChangeDetectorRef) {
+    super();
+    this.metabolicbean = new MetabolicBean();
   }
 
   ngOnInit() {
@@ -81,6 +99,10 @@ export class SurveyMetabolicFormComponent implements OnInit {
       $('a[data-toggle="' + tog + '"][data-title="' + sel + '"]').removeClass('notActive2').addClass('active');
     })
 
+  }
+
+  ngAfterViewInit(){
+    
   }
 
   update() {
@@ -111,21 +133,6 @@ export class SurveyMetabolicFormComponent implements OnInit {
     }
   }
 
-  test() {
-    // let headers = new Headers({ 'Content-Type': 'application/json'});
-    // let options = new RequestOptions({ headers: headers});
-
-    // this.http.get('http://192.168.1.59:8080/asservice/gender/getAll', options)
-    //   .map(res => res.json())
-    //   .subscribe(
-    //   data => {
-    //     this.dataFor = data;
-    //     console.log(this.dataFor);
-    //     this.xxx=data[0].Name;
-    //   },
-    //   error => console.log(error)
-    //   );
-  }
 
   getCitizen(event: PersonBean) {
     if (event.citizenId == '0') {

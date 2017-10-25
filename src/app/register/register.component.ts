@@ -127,7 +127,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
       if (objvalidate.addressFail == true) {
         bootbox.alert({
           size: "large",
-          title: "<div style='color:#E21B1B;font-weight: bold;'>สถานที่ไม่ตรง</div>",
+          title: "<div style='color:#f0ad4e;font-weight: bold;'><span class='glyphicon glyphicon-alert'></span> สถานที่ไม่ตรง</div>",
           message: "กรุณาระบุสถานที่ตั้งให้ตรงกับ รพ.สต. ที่ท่านเลือก",
           callback: function () { /* your callback code */ }
         });
@@ -135,7 +135,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
       else if (objvalidate.code9Fail == true) {
         bootbox.alert({
           size: "large",
-          title: "<div style='color:#E21B1B;font-weight: bold;'>หมายเลข9หลักไม่ตรง</div>",
+          title: "<div style='color:#f0ad4e;font-weight: bold;'><span class='glyphicon glyphicon-alert'></span> หมายเลข 9 หลักไม่ตรง</div>",
           message: "กรอกรหัส 9 หลักให้ตรงกับ รพ.สต. ที่ท่านเลือก",
           callback: function () { /* your callback code */ }
         });
@@ -143,24 +143,29 @@ export class RegisterComponent extends BaseComponent implements OnInit {
       else if (objvalidate.code5Fail == true) {
         bootbox.alert({
           size: "large",
-          title: "<div style='color:#E21B1B;font-weight: bold;'>หมายเลข5หลักไม่ตรง</div>",
+          title: "<div style='color:#f0ad4e;font-weight: bold;'><span class='glyphicon glyphicon-alert'></span> หมายเลข 5 หลักไม่ตรง</div>",
           message: "กรอกรหัส 5 หลักให้ตรงกับ รพ.สต. ที่ท่านเลือก",
           callback: function () { /* your callback code */ }
         });
       } else {
         this.registerBean.contactCitizenId = this.formatForJson(this.registerBean.contactCitizenId);
         this.registerBean.contactTelephone = this.formatForJson(this.registerBean.contactTelephone);
-        let xxx = JSON.stringify(this.registerBean);
-        console.log(xxx);
-
-        // let self = this;
-        // let params = xxx;
-        // this.api.post('hospital/register_hospital', params, function (resp) {
-        //   console.log(resp);
-        //   if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-        //     console.log("ไปแล้วววว++");
-        //   }
-        // })
+        let params = {
+          code5: this.registerBean.code5, 
+          contactPrefix: this.registerBean.contactPrefix,
+          contactFirstName: this.registerBean.contactFirstName,
+          contactLastName: this.registerBean.contactLastName,
+          contactCitizenId: this.registerBean.contactCitizenId,
+          contactTelephone: this.registerBean.contactTelephone,
+          contactEmail: this.registerBean.contactEmail
+        };
+        console.log(params);
+        this.api.post('hospital/register_hospital', params, function (resp) {
+          console.log(resp);
+          if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+            console.log("ไปแล้วววว++");
+          }
+        })
       }
     }
 

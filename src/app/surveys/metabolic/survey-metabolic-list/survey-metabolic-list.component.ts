@@ -7,6 +7,7 @@ import { PersonBean } from "../../../beans/person.bean";
 import { ApiHTTPService } from '../../../service/api-http.service';
 import { ActionCustomViewComponent } from '../../../action-custom-table/action-custom-view.component';
 import { FilterHeadSurveyBean } from '../../../beans/filter-head-survey.bean';
+import { MetabolicBean } from '../../../beans/metabolic.bean';
 declare var $;
 
 @Component({
@@ -25,8 +26,10 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
   public check: boolean = false;
   public metabolicHeadID: number = 0;
   public surveyTypeCode: string = "METABOLIC";
-  public isShowList: boolean = false;
+  public isShowList: boolean = true;
   public source: LocalDataSource = new LocalDataSource();
+  public metabolicbean: MetabolicBean = new  MetabolicBean();
+  public action: string = 'add';
 
 
   private api: ApiHTTPService;
@@ -34,7 +37,6 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
 
   constructor(private http: Http, private router: Router) {
     super();
-    this.loadData();
     this.api = new ApiHTTPService();
     let self = this;
     this.settings = this.getTabelSetting({
@@ -97,7 +99,7 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
   }
 
   ngOnInit() {
-
+    this.loadData();
   }
 
   save() {
@@ -105,9 +107,14 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
   }
 
   loadData() {
+    let self = this;
     this.http.get("assets/test-list.json")
       .map(res => res.json())
-      .subscribe(data => this.data = data);
+      .subscribe(function(response){
+        self.data = response;
+        console.log(response);
+        self.setUpTable();
+      });
   }
 
   openModal(key: string) {
@@ -121,11 +128,13 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
     this.isShowList = false;
   }
   onSearch(event: FilterHeadSurveyBean) {
-    console.log(event);
+    this.setUpTable();
+  }
+
+  setUpTable() {
     this.source = new LocalDataSource(this.data);
     this.isShowList = true;
     super.setNg2STDatasource(this.source);
-
   }
 
 }

@@ -148,8 +148,7 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
     $('#modal-add-died').modal('show');
   }
 
-  setUpTable(){
-                
+  setUpTable(){               
     this.source = new LocalDataSource(this.datas);
     this.isShowList = true;
     super.setNg2STDatasource(this.source);
