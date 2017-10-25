@@ -48,12 +48,12 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
     console.log(bean);
     console.log('== == ==');
 
-    if('add'==this.action){
+    if(this.ass_action.ADD==this.action){
       this.diedBean.citizenId = bean.citizenId;
       this.diedBean.fullName = this.getFullName(bean.person.prefix.name, bean.person.firstName, bean.person.lastName);
       this.diedBean.birthDate = bean.person.birthDate
       this.diedBean.age = this.getAge(bean.person.birthDate);
-    }else if('edit'==this.action){
+    }else if(this.ass_action.EDIT==this.action){
       this.diedBean = bean;
     }
     
@@ -64,7 +64,7 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
     this.diedBean = new DiedBean();
     this.isFindPersonal = true;
     this.isShowForm = false;
-    if('edit' == this.action){
+    if(this.ass_action.EDIT == this.action){
       $('#modal-add-died').modal('hide');
     }
   }
@@ -72,9 +72,7 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
     let self = this;
     $('#modal-add-died').on('show.bs.modal', function (e) {
       self.resetFind = self.resetFind+1;
-      if(self.action=='edit'){
-        // self.isFindPersonal = false;
-        // self.isShowForm = true;
+      if(self.action==self.ass_action.EDIT){
         self.onChoosePersonal(self.data);
       }
 

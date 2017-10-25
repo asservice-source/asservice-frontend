@@ -20,7 +20,7 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
   public settings: any;
   public surveyTypeCode: string = 'DEATH';
   public isShowList: boolean = true;
-  public action: string = 'add';
+  public action: string = this.ass_action.ADD;
   public source: LocalDataSource = new LocalDataSource();
   public diedBean: DiedBean = new DiedBean();
   public datas = [
@@ -120,9 +120,9 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
            */
           instance.action.subscribe((row: DiedBean, cell) => {
             console.log(row);
-            if(row && row.action=='edit'){
+            if(row && row.action.toUpperCase()==self.ass_action.EDIT){
               self.diedBean = row;
-              self.onModalFrom(row.action);
+              self.onModalFrom(self.ass_action.EDIT);
             }
           });
         }
