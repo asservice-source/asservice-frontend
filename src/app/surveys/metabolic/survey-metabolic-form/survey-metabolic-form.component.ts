@@ -5,6 +5,7 @@ import { NgModel } from '@angular/forms';
 import { PersonBean } from './../../../beans/person.bean';
 import { BaseComponent } from '../../../base-component';
 import {MetabolicBean} from '../../../beans/metabolic.bean';
+import { ApiHTTPService } from '../../../service/api-http.service';
 
 declare var $:any;
 
@@ -17,6 +18,7 @@ declare var $:any;
 export class SurveyMetabolicFormComponent extends BaseComponent implements OnInit ,AfterViewInit {
   @Input() action: string;
   @Input() data: MetabolicBean;
+  
 
   @Input() set citizenID(citizenID: string) {
     this.personBean.citizenId = citizenID;
@@ -28,6 +30,9 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
   public personBean = new PersonBean();
   public isShowForm: boolean = false;
   public resetFind: number = 1;
+  public apiHttp = new ApiHTTPService();
+  private api: ApiHTTPService;
+  public healtInsuranceTypeList : any;
 
   
 
@@ -36,6 +41,9 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
   constructor(private http: Http,private changeRef: ChangeDetectorRef) {
     super();
     this.metabolicbean = new MetabolicBean();
+    this.api = new ApiHTTPService();
+    this.getHealtinsuranceType();
+    
   }
 
   ngOnInit() {
@@ -64,10 +72,15 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
     
   }
 
-  update() {
-    if (this.metabolicbean.physicalBody_weight == 0) {
+  getHealtinsuranceType() {
+    let self = this;
+    let params = {};
+    this.api.post('person/health_insurance_list', params, function (resp) {
+      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+        self.healtInsuranceTypeList = resp.list;
+      }
 
-    }
+    })
   }
 
   Smoke(T) {
@@ -113,13 +126,16 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
   }
 
   onChoosePersonal(bean:any):void {
+    console.log("---------------------------------------------");
+    console.log(bean.cID);
     if(this.ass_action.ADD==this.action){
-      this.metabolicbean.personal_CitizenID = bean.citizenId;
-      this.metabolicbean.personal_Fullname = this.getFullName(bean.person.prefix.name, bean.person.firstName, bean.person.lastName);
-      this.metabolicbean.birthDate = bean.person.birthDate;
-      this.metabolicbean.personal_AgeYears = this.getAge(bean.person.birthDate);
+      this.metabolicbean.personal_CitizenID = bean.cID;
+      // this.metabolicbean.healthInsurananceType = "ท.";
+      // this.metabolicbean.personal_Fullname = this.getFullName(bean.person.prefix.name, bean.person.firstName, bean.person.lastName);
+      // this.metabolicbean.birthDate = bean.person.birthDate;
+      // this.metabolicbean.personal_AgeYears = this.getAge(bean.person.birthDate);
     }else if(this.ass_action.EDIT==this.action){
-      this.metabolicbean = bean;
+      this.metabolicbean.personal_CitizenID = bean.cID;
     }
     
     this.isFindPersonal = false;

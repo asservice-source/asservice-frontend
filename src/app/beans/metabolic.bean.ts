@@ -12,6 +12,7 @@ export class MetabolicBean{
     public personal_AmphurID : String;
     public personal_CityID : String;
     public personal_Fullname : string;
+    public healthInsurananceType:string;
     public birthDate;
   
     public healtHistory_isDiabetesParent: boolean;
@@ -43,4 +44,5 @@ export class MetabolicBean{
     public disease_Complication_nerve: boolean;
     public disease_Complication_nervousSys: boolean;
     public disease_Complication_etc: boolean;
+    public action: string;
 }

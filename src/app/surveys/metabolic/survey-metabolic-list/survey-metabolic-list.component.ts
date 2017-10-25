@@ -90,8 +90,12 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
         renderComponent: ActionCustomViewComponent,
         onComponentInitFunction(instance) {
 
-          instance.action.subscribe(row => {
-            alert(row.action);
+          instance.action.subscribe((row: MetabolicBean, cell) => {
+            console.log(row);
+            if(row && row.action.toUpperCase()==self.ass_action.EDIT){
+              self.metabolicbean = row;
+              self.onModalFrom(self.ass_action.EDIT);
+            }
           });
         }
       }
