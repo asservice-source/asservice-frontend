@@ -15,7 +15,7 @@
     </div>
 
     <div class="col-md-3">
-        <select [(ngModel)]="locationType" (change)="changLocationNo()" [disabled]="villageNo == 0?true:false">
+        <select [(ngModel)]="locationType" (change)="changLocationNo()" [disabled]="villageNo == '0'?true:false">
             <option ngValue="0">--เลือกสถานที่--</option>
             <option ngValue="1">บ้าน</option>
             <option ngValue="2">ศาสนสถาน</option>
@@ -29,16 +29,16 @@
 </div>
 
 <div class="row">
-    <div class="col-md-2 text-right" *ngIf="locationType == 1? true:false">
+    <div class="col-md-2 text-right" *ngIf="locationType == '1'? true:false">
         <label class="label-form">บ้านเลขที่</label>
     </div>
 
-    <div class="col-md-2 text-right" *ngIf="locationType == 1? false:true">
+    <div class="col-md-2 text-right" *ngIf="locationType == '1'? false:true">
         <label class="label-form">ชื่อสถานที่</label>
     </div>
 
     <div class="col-md-4" >
-        <select [(ngModel)]="HomeNo" [disabled]="locationType == 0? true:false" >
+        <select [(ngModel)]="HomeNo" [disabled]="locationType == '0'? true:false" >
             <option ngValue="0">--เลือก บ้านเลขที่--</option>
             <option ngValue="1">11/11</option>
             <option ngValue="2">อื่นๆ</option>

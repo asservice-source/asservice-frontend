@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { LabelManager } from "./label/label-manager";
 import { LocalDataSource } from 'ng2-smart-table';
+import { Utils, Action } from "./utils.util";
 import * as myconf from "./global-config";
 import * as moment from 'moment'
 declare var $: any;
@@ -9,6 +10,7 @@ declare var bootbox: any;
 export class BaseComponent implements OnInit {
     public labelManager = new LabelManager();
     public _GLOBAL = myconf;
+    public ass_action = Action;
     private ng2STDataSource: LocalDataSource;// = new LocalDataSource();
     constructor() {
 
@@ -46,7 +48,7 @@ export class BaseComponent implements OnInit {
                 perPage: 4
             }
         };
-
+        
         settings.columns = {};
         settings.columns.squenceNo = {
             title: 'ลำดับ',

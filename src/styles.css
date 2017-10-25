@@ -82,6 +82,10 @@ color: white !important;
     text-align: center !important;
 }
 
+.ng2-smart-th {
+    vertical-align: middle !important;
+}
+
 .pagination > li > a, .pagination > li > span, .pagination > li > a> span{
     font-size: 12px;
 }
