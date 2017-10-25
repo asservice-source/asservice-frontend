@@ -27,7 +27,7 @@
           <div class="col-md-4">
               <select [(ngModel)]="filterBean.homeId" (change)="changHomeNo()" [disabled]="isDisabledHomeNo">
                   <option ngValue="">--เลือก บ้านเลขที่--</option>
-                  <option *ngFor="let item of homeData" [ngValue]="item.Id">{{item.HomeNo}}</option>
+                  <option *ngFor="let item of homeData" [ngValue]="item.id">{{item.homeNo}}</option>
                   
             </select>
           </div>
