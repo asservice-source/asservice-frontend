@@ -78,7 +78,7 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
     let params = {};
     this.api.post('person/health_insurance_list', params, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-        self.healtInsuranceTypeList = resp.list;
+        self.healtInsuranceTypeList = resp.response;
       }
 
     })

@@ -18,10 +18,20 @@
                             <label id="cid" class="label-form label_space">หมายเลขประจำตัว :</label>
                         </div>
 
-                        <label class="label-form label_space">{{metabolicbean.citizenId}}</label>
-                        <label class="label-form">สิทธิบัตร :</label>
-                        <label class="label-form label_space"></label>
+                        <div class="col-md-2">
+                            <label class="label-form label_space">{{metabolicbean.citizenId}}</label>
+                        </div>
+                        
+                        <div class="col-md-1">
+                            <label class="label-form">สิทธิบัตร:</label>
+                        </div>
 
+                        <div class="col-md-2">
+                            <select>
+                                <option value="0">เลือก</option>
+                                <option>xxx</option>
+                            </select>
+                        </div>
                     </div>
 
                     <div class="row">
@@ -71,7 +81,6 @@
                                 </span>
                                 มีประวัติ พ่อแม่ ญาติ พี่น้องสายตรงเป็นเบาหวาน
                             </label>
-
                         </div>
                     </div>
                 </div>
@@ -172,7 +181,7 @@
                         <label class="label-form">สูบบุหรี่หรือไม่</label>
                     </div>
 
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <div class="input-group">
                             <div id="radioBtn" class="btn-group">
                                 <a class="btn btn-primary btn-sm active" data-toggle="happy" data-title="N" (click)="Smoke('N')">ไม่สูบ</a>
@@ -204,6 +213,20 @@
                     </div>
                 </div>
 
+                <div class="row form-group">
+                    <label for="fun" class="col-sm-4 col-md-4 control-label text-right">Is it fun ?</label>
+                    <div class="col-sm-7 col-md-7">
+                        <div class="input-group">
+                            <div id="radioBtn" class="btn-group">
+                                <a class="btn btn-primary btn-sm active" data-toggle="fun" data-title="Y">YES</a>
+                                <a class="btn btn-primary btn-sm notActive" data-toggle="fun" data-title="X">I don't know</a>
+                                <a class="btn btn-primary btn-sm notActive" data-toggle="fun" data-title="N">NO</a>
+                            </div>
+                            <input type="hidden" name="fun" id="fun">
+                        </div>
+                    </div>
+                </div>
+
 
 
                 <div class="row">
@@ -211,7 +234,7 @@
                         <label class="label-form">ดื่มเครื่องดื่มแอลกอฮอล์หรือไม่</label>
                     </div>
 
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <div class="input-group">
                             <div id="radioBtn2" class="btn-group">
                                 <a class="btn btn-primary btn-sm active" data-toggle="happy2" data-title="N" (click)="Drink('N')">ไม่ดื่ม</a>
