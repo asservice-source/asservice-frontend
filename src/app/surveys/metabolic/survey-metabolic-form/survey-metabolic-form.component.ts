@@ -34,6 +34,7 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
   private api: ApiHTTPService;
   public healtInsuranceTypeList : any;
 
+
   
 
   // dataFor;
@@ -43,11 +44,11 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
     this.metabolicbean = new MetabolicBean();
     this.api = new ApiHTTPService();
     this.getHealtinsuranceType();
-    
   }
 
   ngOnInit() {
     this.onModalEvent();
+    
     $('body').on('click','#radioBtn a', function () {
       var sel = $(this).data('title');
       var tog = $(this).data('toggle');
@@ -127,16 +128,20 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
 
   onChoosePersonal(bean:any):void {
     console.log("---------------------------------------------");
-    console.log(bean.cID);
-    if(this.ass_action.ADD==this.action){
-      this.metabolicbean.personal_CitizenID = bean.cID;
-      // this.metabolicbean.healthInsurananceType = "ท.";
-      // this.metabolicbean.personal_Fullname = this.getFullName(bean.person.prefix.name, bean.person.firstName, bean.person.lastName);
-      // this.metabolicbean.birthDate = bean.person.birthDate;
-      // this.metabolicbean.personal_AgeYears = this.getAge(bean.person.birthDate);
-    }else if(this.ass_action.EDIT==this.action){
-      this.metabolicbean.personal_CitizenID = bean.cID;
-    }
+    console.log(bean);
+    // if(this.ass_action.ADD==this.action){
+    //   this.metabolicbean.personal_CitizenID = bean.cID;
+    //   this.metabolicbean.healthInsurananceType = "ท.";
+    //   this.metabolicbean.personal_Fullname = this.getFullName(bean.person.prefix.name, bean.person.firstName, bean.person.lastName);
+    //   this.metabolicbean.birthDate = bean.person.birthDate;
+    //   this.metabolicbean.personal_AgeYears = this.getAge(bean.person.birthDate);
+    //   console.log("action == "+ this.metabolicbean.personal_CitizenID);
+    // }else if(this.ass_action.EDIT==this.action){
+    //   this.metabolicbean.personal_CitizenID = bean.cID;
+    //   console.log("action == "+this.metabolicbean.personal_CitizenID);
+    // }
+
+    this.metabolicbean = bean;
     
     this.isFindPersonal = false;
     this.isShowForm = true;

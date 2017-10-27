@@ -28,6 +28,7 @@ export class PersonBean {
     public dischargeId: string = "";
     public familyStatus: string = "";
     public guest: boolean = false;
+    public age;
 
     public fatherCID: string = "";
     public montherCID: string = "";

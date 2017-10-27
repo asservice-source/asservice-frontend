@@ -18,7 +18,7 @@
                             <label id="cid" class="label-form label_space">หมายเลขประจำตัว :</label>
                         </div>
 
-                        <label class="label-form label_space">{{metabolicbean.personal_CitizenID}}</label>
+                        <label class="label-form label_space">{{metabolicbean.citizenId}}</label>
                         <label class="label-form">สิทธิบัตร :</label>
                         <label class="label-form label_space"></label>
 
@@ -29,13 +29,13 @@
                             <label class="label-form label_space">ชื่อ-สกุล :</label>
                         </div>
 
-                        <label class="label-form label_space">{{metabolicbean.personal_Fullname}}</label>
+                        <label class="label-form label_space">{{metabolicbean.fullName}}</label>
 
                         <label class="label-form">เพศ :</label>
-                        <label class="label-form label_space">{{personBean.gender}}</label>
+                        <label class="label-form label_space">{{metabolicbean.genderName}}</label>
 
                         <label class="label-form">อายุ :</label>
-                        <label class="label-form label_space">{{personBean.ageYear}} ปี {{personBean.ageMont}} เดือน</label>
+                        <label class="label-form label_space">{{metabolicbean.age}} ปี</label>
                     </div>
 
 
@@ -183,7 +183,7 @@
                     </div>
 
                     <div id="smoker">
-                        <div class="col-md-1 text-right">
+                        <div class="col-md-1 text-right" style="width: 100px">
                             <label class="label-form">สูบจำนวน</label>
                         </div>
 
@@ -222,7 +222,7 @@
                     </div>
 
                     <div id="drinker">
-                        <div class="col-md-1 text-right">
+                        <div class="col-md-1 text-right" style="width: 100px">
                             <label class="label-form">ดื่มจำนวน</label>
                         </div>
 
