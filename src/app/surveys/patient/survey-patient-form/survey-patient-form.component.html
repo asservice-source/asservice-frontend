@@ -1,16 +1,61 @@
-<div id="myModal" class="modal fade" role="dialog">
+<div id="find-person-md" class="modal fade" role="dialog" data-backdrop="false" data-keyboard="false">
     <div class="modal-lg modal-dialog">
 
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">เพิ่มรายชื่อผู้พิการ และผู้ป่วยติดเตียง</h4>
+                <h4 class="modal-title">ฟอร์มผู้ป่วยและผู้พิการ</h4>
             </div>
-            <app-filter-find-person [findPersonal]="isFindPersonal" (choosePersonal)="onChoosePersonal($event)"></app-filter-find-person>
-            <hr>
+            <app-filter-find-person [reset]="resetFind" [findPersonal]="isFindPersonal" (choosePersonal)="onChoosePersonal($event)"></app-filter-find-person>
 
             <div *ngIf="isShowForm">
+                    <div class="row">
+                            <div class="col-md-4 text-right">
+                                <label id="cid">หมายเลขประจำตัว :</label>
+                            </div>
+        
+                            <div class="col-md-2">
+                                <label class="value">{{patienbean.citizenId}}</label>
+                            </div>
+                        </div>
+        
+                        <div class="row">
+                            <div class="col-md-4 text-right">
+                                <label>ชื่อ-สกุล :</label>
+                            </div>
+        
+                            <div class="col-md-6">
+                                <label class="value">{{patienbean.fullName}}</label>
+                            </div>
+                        </div>
+        
+                        <div class="row">
+                            <div class="col-md-4 text-right">
+                                <label>เพศ :</label>
+                            </div>
+                            <div class="col-md-1" style="padding-right: 0px; width: 60px;">
+                                <label class="value">{{patienbean.genderName}}</label>
+                            </div>
+        
+                            <div class="col-md-1 text-right" style="width: 40px; padding-left: 0px;">
+                                <label>อายุ :</label>
+                            </div>
+                            <div class="col-md-1">
+                                <label class="value">{{patienbean.age}} ปี</label>
+                            </div>
+                        </div>
+        
+        
+                        <div class="row">
+                            <div class="col-md-4 text-right">
+                                <label class="label-form">ที่อยู่ :</label>
+                            </div>
+        
+                            <div class="col-md-5">
+                                <label class="label-form">{{patienbean.address}}</label>
+                            </div>
+                        </div>
+            
                 <div class="row">
                     <div class="col-md-2 text-right">
                         <label class="label-form">ประเภท</label>

@@ -29,7 +29,7 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
   public isShowList: boolean = true;
   public source: LocalDataSource = new LocalDataSource();
   public metabolicbean: MetabolicBean = new  MetabolicBean();
-  public action: string = 'add';
+  public action: string = this.ass_action.ADD;
 
 
   private api: ApiHTTPService;

@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { BaseComponent } from '../../../base-component';
 import { ApiHTTPService } from '../../../service/api-http.service';
 import { ActionCustomViewComponent } from '../../../action-custom-table/action-custom-view.component';
 import { FilterHeadSurveyBean } from '../../../beans/filter-head-survey.bean';
 import { LocalDataSource } from 'ng2-smart-table';
+import {PatientBean} from '../../../beans/patient.bean'
 declare var $;
 
 @Component({
@@ -16,6 +17,8 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
   public patientType: number = 0;
   public isShowsick: boolean = true;
   public surveyTypeCode: string = "PATIENT";
+  public patientbean : PatientBean = new PatientBean();
+  public action: string = this.ass_action.ADD;
 
   private api: ApiHTTPService;
   public settings: any;
@@ -73,7 +76,7 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
     },
   ];
 
-  constructor() {
+  constructor(private changeRef: ChangeDetectorRef) {
     super();
 
     this.api = new ApiHTTPService();
@@ -134,8 +137,12 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
         renderComponent: ActionCustomViewComponent,
         onComponentInitFunction(instance) {
 
-          instance.action.subscribe(row => {
-            alert(row.action);
+          instance.action.subscribe((row: PatientBean, cell) => {
+            console.log(row);
+            if(row && row.action.toUpperCase()==self.ass_action.EDIT){
+              self.patientbean = row;
+              self.onModalFrom(self.ass_action.EDIT);
+            }
           });
         }
       }
@@ -143,7 +150,7 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
   }
 
   ngOnInit() {
-
+    this.setUpTable();
   }
 
   checkPatient() {
@@ -160,10 +167,19 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
   }
 
   onSearch(event: FilterHeadSurveyBean) {
-    console.log(event);
+    this.setUpTable();
+  }
+
+  setUpTable() {
     this.source = new LocalDataSource(this.datas);
     this.isShowList = true;
     super.setNg2STDatasource(this.source);
+  }
+
+  onModalFrom(action: string){
+    this.action = action;
+    this.changeRef.detectChanges();
+    $('#find-person-md').modal('show');
   }
 
 }
