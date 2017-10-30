@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 import { LocalDataSource, ViewCell } from 'ng2-smart-table';
 import { BaseComponent } from '../../../base-component';
 import { ApiHTTPService } from '../../../service/api-http.service';
+import { CancerBean } from '../../../beans/cancer.bean';
 declare var $;
 
 @Component({
@@ -70,7 +71,8 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
         type: 'custom',
         renderComponent: SurveyCancerListButtonEditComponent,
         onComponentInitFunction(instance) {
-          instance.action.subscribe((row) => {
+          instance.action.subscribe((row: CancerBean) => {
+            
             $("#modalCancer").modal({ backdrop: 'static', keyboard: false });
           });
         }

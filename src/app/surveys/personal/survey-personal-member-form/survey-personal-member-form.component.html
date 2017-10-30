@@ -28,7 +28,7 @@
             <label class="label-form">หมายเลขประจำตัว</label>
           </div>
           <div class="col-md-3">
-            <input type="text" class="ng-pristine ng-valid ng-touched" [disabled]="true" [(ngModel)]="member.citizenId">
+            <input type="text" class="ng-pristine ng-valid ng-touched" [disabled]="isDisabledActionAdd" [(ngModel)]="member.citizenId">
           </div>
           <div class="col-md-2 text-right">
             <label class="label-form">คำนำหน้าชื่อ</label>
@@ -129,7 +129,7 @@
             <label class="label-form">วันเดือนปี เกิด</label>
           </div>
           <div class="col-md-3">
-            <input type="text" [disabled]="true" [(ngModel)]="member.birthDate">
+            <input type="text" [(ngModel)]="member.birthDate">
           </div>
           <div class="col-md-2 text-right">
             <label class="label-form">การศึกษา</label>
