@@ -32,6 +32,7 @@ export class FilterHeadSurveyComponent extends BaseComponent implements OnInit {
   public isDisabledOSM = true;
   public isDisabledName = true;
 
+  public rounds: any = [{roundId:'1', title: 'ประจำเดือน พฤศจิกายน พ.ศ. 1/2560'},{roundId:'2', title: 'ประจำเดือน พฤศจิกายน พ.ศ. 2/2560'},{roundId:'3', title: 'ประจำเดือน พฤศจิกายน พ.ศ. 3/2560'}]
   public discription: any = {round: '', village: 'ทั้งหมด', osm: 'ทั้งหมด', name: ''};
 
   constructor(private http: Http) {
@@ -47,6 +48,13 @@ export class FilterHeadSurveyComponent extends BaseComponent implements OnInit {
   ngOnInit() {
     this.setUpVillage();
     this.onSearchFilter();
+    for(let item of this.rounds){
+      if(item.roundId==this.filterBean.roundId){
+        this.discription.round = item.title;
+      }
+    }
+    this.onSearchFilter();
+    
   }
 
   setUpVillage() { // Get list of village no
@@ -76,9 +84,9 @@ export class FilterHeadSurveyComponent extends BaseComponent implements OnInit {
   }
 
   onChangeRound(select:any) {
+    console.log(select);
     for(let item of select.options){
       if(item.value==select.value){
-        console.log(item.text)
         this.discription.round = item.text;
       }
     }
@@ -89,7 +97,6 @@ export class FilterHeadSurveyComponent extends BaseComponent implements OnInit {
   onChangeVillage(select: any) {
     for(let item of select.options){
       if(item.value==select.value){
-        console.log(item.text)
         this.discription.village = item.text;
       }
     }
@@ -101,7 +108,6 @@ export class FilterHeadSurveyComponent extends BaseComponent implements OnInit {
   onChangeOSM(select: any) {
     for(let item of select.options){
       if(item.value==select.value){
-        console.log(item.text)
         this.discription.osm = item.text;
       }
     }

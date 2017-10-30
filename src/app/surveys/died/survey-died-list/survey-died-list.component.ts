@@ -19,7 +19,7 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
   private api: ApiHTTPService;
   public settings: any;
   public surveyTypeCode: string = 'DEATH';
-  public isShowList: boolean = true;
+  public isShowList: boolean = false;
   public action: string = this.ass_action.ADD;
   public source: LocalDataSource = new LocalDataSource();
   public diedBean: DiedBean = new DiedBean();
