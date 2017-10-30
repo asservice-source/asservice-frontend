@@ -12,10 +12,12 @@ declare var $;
 })
 export class SurveyPersonalMemberFormComponent extends BaseComponent implements OnInit {
 
+  @Input() action: string;
   @Input() set triggerMember(paramMember: PersonalMemberBean) {
     this.member = this.strNullToEmpty(paramMember);
   }
   @Output() memberUpdated = new EventEmitter<PersonalMemberBean>();
+  @Output() memberInserted = new EventEmitter<PersonalMemberBean>();
 
   private apiHttp: ApiHTTPService = new ApiHTTPService();
 
@@ -34,6 +36,7 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
   public listDischarge: any = [];
   public listFamilyStatus: any = [];
 
+  public isDisabledActionAdd: boolean = false;
   public isDisplayOccupationOthers = false;
 
   constructor() {
@@ -42,6 +45,8 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
 
   ngOnInit() {
     let self = this;
+
+    self.onModalEvent();
 
     self.bindTypeArea();
     self.bindPrefix();
@@ -55,6 +60,18 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
     self.bindOccupation();
     self.bindDischarge();
     self.bindFamilyStatus();
+  }
+
+  onModalEvent() {
+    let self = this;
+
+    $("#modalMember").on('show.bs.modal', function (e) {
+      if (self.action == self.ass_action.EDIT) {
+        self.isDisabledActionAdd = true;
+      } else {
+        self.isDisabledActionAdd = false;
+      }
+    });
   }
 
   bindTypeArea() {
@@ -259,10 +276,12 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
   }
 
   clickSave() {
-    this.member.listPrefix = this.listPrefix;
-    this.member.listGender = this.listGender;
-    this.member.listFamilyStatus = this.listFamilyStatus;
-    this.memberUpdated.emit(this.member);
+    let self = this;
+
+    self.member.listPrefix = this.listPrefix;
+    self.member.listGender = this.listGender;
+    self.member.listFamilyStatus = this.listFamilyStatus;
+    self.memberUpdated.emit(this.member);
   }
 
 }

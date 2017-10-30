@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { Http, Response, RequestOptions } from "@angular/http";
 import { Router } from "@angular/router";
 import { ActivatedRoute } from '@angular/router';
@@ -26,7 +26,9 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
   public isShowTable: boolean = false;
   public tempData: Array<any>;
 
-  constructor(private http: Http, private router: Router, private route: ActivatedRoute) {
+  public action: string = this.ass_action.ADD;
+
+  constructor(private http: Http, private router: Router, private route: ActivatedRoute, private changeRef: ChangeDetectorRef) {
     super();
 
     let self = this;
@@ -78,7 +80,9 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
         onComponentInitFunction(instance) {
           instance.action.subscribe((row: PersonalMemberBean) => {
             // console.log(row);
+            self.action = self.ass_action.EDIT;
             self.paramMember = row;
+            self.changeRef.detectChanges();
             $("#modalMember").modal({ backdrop: 'static', keyboard: false });
           });
         }
@@ -124,47 +128,103 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     //   });
   }
 
+  // onUpdatedMember(member: PersonalMemberBean) {
+  //   let self = this;
+
+  //   for (let item of self.tempData) {
+  //     if (item.citizenId == member.citizenId) {
+  //       let index = self.tempData.indexOf(item);
+  //       self.tempData[index] = member;
+
+  //       let prefix = '';
+  //       if (member.listPrefix) {
+  //         for (let p of member.listPrefix) {
+  //           if (p.code == member.prefixCode) {
+  //             prefix = p.name;
+  //             break;
+  //           }
+  //         }
+  //       }
+  //       self.tempData[index].fullName = self.getFullName(prefix, member.firstName, member.lastName);
+
+  //       let gender = '';
+  //       if (member.listGender) {
+  //         for (let g of member.listGender) {
+  //           if (g.code == member.genderCode) {
+  //             gender = g.name;
+  //             break;
+  //           }
+  //         }
+  //       }
+  //       self.tempData[index].genderName = gender;
+
+  //       let familyStatus = '';
+  //       if (member.listFamilyStatus) {
+  //         for (let g of member.listFamilyStatus) {
+  //           if (g.code == member.familyStatusCode) {
+  //             familyStatus = g.name;
+  //             break;
+  //           }
+  //         }
+  //       }
+  //       self.tempData[index].familyStatusName = familyStatus;
+  //     }
+  //   }
+
+  //   self.source.refresh();
+
+  //   $("#modalMember").modal('hide');
+  // }
+
   onUpdatedMember(member: PersonalMemberBean) {
     let self = this;
 
+    let index = -1;
+    let tmpMember = member;
+
     for (let item of self.tempData) {
       if (item.citizenId == member.citizenId) {
-        let index = self.tempData.indexOf(item);
-        self.tempData[index] = member;
-
-        let prefix = '';
-        if (member.listPrefix) {
-          for (let p of member.listPrefix) {
-            if (p.code == member.prefixCode) {
-              prefix = p.name;
-              break;
-            }
-          }
-        }
-        self.tempData[index].fullName = self.getFullName(prefix, member.firstName, member.lastName);
-
-        let gender = '';
-        if (member.listGender) {
-          for (let g of member.listGender) {
-            if (g.code == member.genderCode) {
-              gender = g.name;
-              break;
-            }
-          }
-        }
-        self.tempData[index].genderName = gender;
-
-        let familyStatus = '';
-        if (member.listFamilyStatus) {
-          for (let g of member.listFamilyStatus) {
-            if (g.code == member.familyStatusCode) {
-              familyStatus = g.name;
-              break;
-            }
-          }
-        }
-        self.tempData[index].familyStatusName = familyStatus;
+        index = self.tempData.indexOf(item);
       }
+    }
+
+    let prefix = '';
+    if (member.listPrefix) {
+      for (let p of member.listPrefix) {
+        if (p.code == member.prefixCode) {
+          prefix = p.name;
+          break;
+        }
+      }
+    }
+    tmpMember.fullName = self.getFullName(prefix, member.firstName, member.lastName);
+
+    let gender = '';
+    if (member.listGender) {
+      for (let g of member.listGender) {
+        if (g.code == member.genderCode) {
+          gender = g.name;
+          break;
+        }
+      }
+    }
+    tmpMember.genderName = gender;
+
+    let familyStatus = '';
+    if (member.listFamilyStatus) {
+      for (let g of member.listFamilyStatus) {
+        if (g.code == member.familyStatusCode) {
+          familyStatus = g.name;
+          break;
+        }
+      }
+    }
+    tmpMember.familyStatusName = familyStatus;
+
+    if (index >= 0) {
+      self.tempData[index] = tmpMember;
+    } else {
+      self.tempData.push(tmpMember);
     }
 
     self.source.refresh();
@@ -248,8 +308,27 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     return memberList;
   }
 
-  clickBack() {
+  onClickAdd() {
+    this.paramMember = new PersonalMemberBean();
+    this.action = this.ass_action.ADD;
+    this.changeRef.detectChanges();
+    $("#modalMember").modal({ backdrop: 'static', keyboard: false });
+  }
+
+  onClickPrint() {
+
+  }
+
+  onClickSave() {
+
+  }
+
+  onClickBack() {
     this.router.navigate(['/main/surveys/personal']);
+  }
+
+  onModalForm(row: PersonalMemberBean) {
+    $("#modalMember").modal({ backdrop: 'static', keyboard: false });
   }
 
   onReadyjQuery() {
