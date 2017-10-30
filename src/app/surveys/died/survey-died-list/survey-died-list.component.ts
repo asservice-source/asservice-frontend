@@ -23,6 +23,7 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
   public action: string = this.ass_action.ADD;
   public source: LocalDataSource = new LocalDataSource();
   public diedBean: DiedBean = new DiedBean();
+  public filterBean: FilterHeadSurveyBean = new FilterHeadSurveyBean();
   public datas = [
     {
       seq: 1,
@@ -139,6 +140,7 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
    // this.isShowList = false;
   }
   onSearch(event: FilterHeadSurveyBean) {
+    this.filterBean = event;
     this. setUpTable();
   }
 
@@ -152,9 +154,5 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
     this.source = new LocalDataSource(this.datas);
     this.isShowList = true;
     super.setNg2STDatasource(this.source);
-  }
- 
-  getText(){
-    return '<b>test</b>';
   }
 }

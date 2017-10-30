@@ -63,7 +63,7 @@ select[disabled]{
 table{
     font-size: 16px;
 }
-table>thead {
+table.table-bordered>thead {
     background-color: #4aa3df;
    
 }

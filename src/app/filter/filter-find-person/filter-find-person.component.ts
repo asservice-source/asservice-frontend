@@ -125,7 +125,7 @@ export class FilterFindPersonComponent extends BaseComponent implements OnInit {
         self.osmData = resp.response;
         self.isDisabledOSM = false;
         self.isDisabledHomeNo = false;
-      }
+      } 
     })
   }
   setUpHome(){

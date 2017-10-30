@@ -15,7 +15,7 @@
     <div class="row" *ngIf="isShowList">
       <div class="col-lg-12">
         <div class="row" >
-            <span class="large" [innerHtml]="getText()"></span>
+            <span class="large" [innerHtml]="filterBean.discription"></span>
           <ng2-smart-table [settings]="settings" [source]="source" (rowSelect)="onRowSelect($event)"></ng2-smart-table>
         </div>
       </div>

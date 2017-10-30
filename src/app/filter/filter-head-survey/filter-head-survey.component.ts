@@ -2,7 +2,7 @@ import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 import { Headers } from '@angular/http';
 import { NgModel } from '@angular/forms';
 import { Http, Response, RequestOptions, RequestMethod } from "@angular/http";
-import { FilterHeadSurveyBean } from '../../beans/filter-head-survey.Bean';
+import { FilterHeadSurveyBean } from '../../beans/filter-head-survey.bean';
 import { ApiHTTPService } from '../../service/api-http.service';
 import { BaseComponent } from '../../base-component';
 
@@ -22,7 +22,7 @@ export class FilterHeadSurveyComponent extends BaseComponent implements OnInit {
 
   @Output() notifyFilter: EventEmitter<FilterHeadSurveyBean> = new EventEmitter<FilterHeadSurveyBean>();
   @Output() changeFilter: EventEmitter<FilterHeadSurveyBean> = new EventEmitter<FilterHeadSurveyBean>();
-  @Output() discriptionFilter: EventEmitter<string> = new EventEmitter<string>();
+
 
   private api: ApiHTTPService;
   public filterBean: FilterHeadSurveyBean;
@@ -31,6 +31,8 @@ export class FilterHeadSurveyComponent extends BaseComponent implements OnInit {
   public osmData: any;
   public isDisabledOSM = true;
   public isDisabledName = true;
+
+  public discription: any = {round: '', village: 'ทั้งหมด', osm: 'ทั้งหมด', name: ''};
 
   constructor(private http: Http) {
     super();
@@ -44,6 +46,7 @@ export class FilterHeadSurveyComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     this.setUpVillage();
+    this.onSearchFilter();
   }
 
   setUpVillage() { // Get list of village no
@@ -72,28 +75,48 @@ export class FilterHeadSurveyComponent extends BaseComponent implements OnInit {
     })
   }
 
-  onChangeRound() {
+  onChangeRound(select:any) {
+    for(let item of select.options){
+      if(item.value==select.value){
+        console.log(item.text)
+        this.discription.round = item.text;
+      }
+    }
+
     this.onDropdownChange();
   }
 
-  onRound(str:any){
-    alert(str);
-  }
+  onChangeVillage(select: any) {
+    for(let item of select.options){
+      if(item.value==select.value){
+        console.log(item.text)
+        this.discription.village = item.text;
+      }
+    }
 
-  onChangeVillage() {
     this.setUpOSM();
     this.onDropdownChange();
   }
 
-  onChangeOSM() {
+  onChangeOSM(select: any) {
+    for(let item of select.options){
+      if(item.value==select.value){
+        console.log(item.text)
+        this.discription.osm = item.text;
+      }
+    }
     this.onDropdownChange();
   }
 
   onSearchFilter() {
-    this.notifyFilter.emit(this.filterBean);
-    let str = 'รอบสำรวจ';
 
-    this.discriptionFilter.emit('');
+    let str = '<b>รอบสำรวจ:</b> ' + this.discription.round;
+    str += ' , <b>หมู่บ้าน:</b> ' + this.discription.village;
+    str += ' , <b>อสม.:</b> ' + this.discription.osm;
+    str += ' , <b>ชื่อ:</b> ' + this.filterBean.name;
+    this.filterBean.discription = str;
+    this.notifyFilter.emit(this.filterBean);
+
   }
 
   onDropdownChange() {
