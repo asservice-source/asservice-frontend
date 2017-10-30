@@ -4,71 +4,72 @@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">
-                    <span>
-                        <img height="30" src="assets/img/check.png" style="cursor: pointer;" width="30">
-                    </span>ค้นหา</h4>
+                <h4 class="modal-title">ฟอ์มคัดกรองผู้ป่วย metabolic</h4>
             </div>
 
             <app-filter-find-person [reset]="resetFind" [findPersonal]="isFindPersonal" (choosePersonal)="onChoosePersonal($event)"></app-filter-find-person>
-                                    
+
             <div *ngIf="isShowForm">
-                    <div class="row">
-                        <div class="col-md-3 text-right">
-                            <label id="cid" class="label-form label_space">หมายเลขประจำตัว :</label>
-                        </div>
-
-                        <div class="col-md-2">
-                            <label class="label-form label_space">{{metabolicbean.citizenId}}</label>
-                        </div>
-                        
-                        <div class="col-md-1">
-                            <label class="label-form">สิทธิบัตร:</label>
-                        </div>
-
-                        <div class="col-md-2">
-                            <select>
-                                <option value="0">เลือก</option>
-                                <option>xxx</option>
-                            </select>
-                        </div>
+                <div class="row">
+                    <div class="col-md-4 text-right">
+                        <label id="cid">หมายเลขประจำตัว :</label>
                     </div>
 
-                    <div class="row">
-                        <div class="col-md-3 text-right">
-                            <label class="label-form label_space">ชื่อ-สกุล :</label>
-                        </div>
+                    <div class="col-md-2">
+                        <label class="value">{{metabolicbean.citizenId}}</label>
+                    </div>
+                </div>
 
-                        <label class="label-form label_space">{{metabolicbean.fullName}}</label>
-
-                        <label class="label-form">เพศ :</label>
-                        <label class="label-form label_space">{{metabolicbean.genderName}}</label>
-
-                        <label class="label-form">อายุ :</label>
-                        <label class="label-form label_space">{{metabolicbean.age}} ปี</label>
+                <div class="row">
+                    <div class="col-md-4 text-right">
+                        <label>ชื่อ-สกุล :</label>
                     </div>
 
-
-                    <div class="row">
-                        <div class="col-md-3 text-right">
-                            <label class="label-form label_space">บ้านเลขที่ :</label>
-                        </div>
-
-                        <label class="label-form label_space">{{personBean.homeNo}}</label>
-
-
-                        <label class="label-form">หมู่ :</label>
-                        <label class="label-form label_space">{{personBean.mooNo}}</label>
-
-                        <label class="label-form">ตำบล :</label>
-                        <label class="label-form label_space">{{personBean.tumbolName}}</label>
-
-                        <label class="label-form">อำเภอ :</label>
-                        <label class="label-form label_space">{{personBean.amphurName}}</label>
-
-                        <label class="label-form">จังหวัด :</label>
-                        <label class="label-form label_space">{{personBean.privinceName}}</label>
+                    <div class="col-md-6">
+                        <label class="value">{{metabolicbean.fullName}}</label>
                     </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 text-right">
+                        <label>เพศ :</label>
+                    </div>
+                    <div class="col-md-1" style="padding-right: 0px; width: 60px;">
+                        <label class="value">{{metabolicbean.genderName}}</label>
+                    </div>
+
+                    <div class="col-md-1 text-right" style="width: 40px; padding-left: 0px;">
+                        <label>อายุ :</label>
+                    </div>
+                    <div class="col-md-1">
+                        <label class="value">{{metabolicbean.age}} ปี</label>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-4 text-right">
+                        <label class="label-form">ที่อยู่ :</label>
+                    </div>
+
+                    <div class="col-md-5">
+                        <label class="label-form">{{metabolicbean.address}}</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 text-right">
+                        <label class="label-form">สิทธิบัตร:</label>
+                    </div>
+
+                    <div class="col-md-2">
+                        <select [(ngModel)]="healtInsuranceTypeList.id">
+                            <option value="0">เลือก</option>
+                            <option *ngFor="let item of healtInsuranceTypeList" value="{{item.id}}" >{{item.code}}</option>
+                        </select>
+                    </div>
+                </div>
+
                 <hr>
                 <!-- ประวัติสุขภาพ -->
                 <div class="row">
@@ -181,11 +182,12 @@
                         <label class="label-form">สูบบุหรี่หรือไม่</label>
                     </div>
 
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <div class="input-group">
                             <div id="radioBtn" class="btn-group">
                                 <a class="btn btn-primary btn-sm active" data-toggle="happy" data-title="N" (click)="Smoke('N')">ไม่สูบ</a>
                                 <a class="btn btn-primary btn-sm notActive" data-toggle="happy" data-title="Y" (click)="Smoke('Y')">สูบ</a>
+                                <a class="btn btn-primary btn-sm notActive" data-toggle="happy" data-title="X" (click)="Smoke('X')">เคยแต่เลิกแล้ว</a>
                             </div>
                             <input type="hidden" name="happy" id="happy">
                         </div>
@@ -197,8 +199,7 @@
                         </div>
 
                         <div class="col-md-1" style="padding-right: 5px; padding-left: 10px;">
-                            <input type="text" placeholder="จำนวน" id="numTobacco" [(ngModel)]="drugHistory_numTobacco" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
-                                maxlength="3" [disabled]="true">
+                            <input type="text" placeholder="จำนวน" id="numTobacco" [(ngModel)]="drugHistory_numTobacco" maxlength="3" [disabled]="true" OnlyNumber="true">
                         </div>
 
                         <div class="col-md-2" style="padding-left: 0px;">
@@ -213,32 +214,17 @@
                     </div>
                 </div>
 
-                <div class="row form-group">
-                    <label for="fun" class="col-sm-4 col-md-4 control-label text-right">Is it fun ?</label>
-                    <div class="col-sm-7 col-md-7">
-                        <div class="input-group">
-                            <div id="radioBtn" class="btn-group">
-                                <a class="btn btn-primary btn-sm active" data-toggle="fun" data-title="Y">YES</a>
-                                <a class="btn btn-primary btn-sm notActive" data-toggle="fun" data-title="X">I don't know</a>
-                                <a class="btn btn-primary btn-sm notActive" data-toggle="fun" data-title="N">NO</a>
-                            </div>
-                            <input type="hidden" name="fun" id="fun">
-                        </div>
-                    </div>
-                </div>
-
-
-
                 <div class="row">
                     <div class="col-md-3 col-md-offset-1 text-right">
                         <label class="label-form">ดื่มเครื่องดื่มแอลกอฮอล์หรือไม่</label>
                     </div>
 
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <div class="input-group">
                             <div id="radioBtn2" class="btn-group">
                                 <a class="btn btn-primary btn-sm active" data-toggle="happy2" data-title="N" (click)="Drink('N')">ไม่ดื่ม</a>
                                 <a class="btn btn-primary btn-sm notActive2" data-toggle="happy2" data-title="Y" (click)="Drink('Y')">ดื่ม</a>
+                                <a class="btn btn-primary btn-sm notActive2" data-toggle="happy2" data-title="X" (click)="Drink('X')">เคยแต่เลิกแล้ว</a>
                             </div>
                             <input type="hidden" name="happy2" id="happy2">
                         </div>
@@ -250,8 +236,7 @@
                         </div>
 
                         <div class="col-md-1" style="padding-right: 5px; padding-left: 10px;">
-                            <input type="text" placeholder="จำนวน" id="timeDrink" [(ngModel)]="drugHistory_numDrink" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
-                                maxlength="2" [disabled]="true">
+                            <input type="text" placeholder="จำนวน" id="timeDrink" [(ngModel)]="drugHistory_numDrink" maxlength="2" [disabled]="true" OnlyNumber="true">
                         </div>
 
                         <div class="col-md-2" style="padding-left: 0px;">
@@ -276,8 +261,7 @@
                     </div>
 
                     <div class="col-md-2">
-                        <input type="text" placeholder="น้ำหนัก" [(ngModel)]="physicalBody_weight" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
-                            maxlength="3">
+                        <input type="text" placeholder="น้ำหนัก" [(ngModel)]="physicalBody_weight" OnlyNumber="true" maxlength="3">
                         <div class="row" [hidden]="true" style="padding-left: 20px;">
                             <span class="error">กรุณากรอกน้ำหนัก</span>
                         </div>
@@ -292,8 +276,7 @@
                     </div>
 
                     <div class="col-md-2">
-                        <input type="text" placeholder="ส่วนสูง" [(ngModel)]="physicalBody_height" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
-                            maxlength="3">
+                        <input type="text" placeholder="ส่วนสูง" [(ngModel)]="physicalBody_height" maxlength="3" OnlyNumber="true">
                         <div class="row" [hidden]="true" style="padding-left: 20px;">
                             <span class="error">กรุณากรอกส่วนสูง</span>
                         </div>
@@ -310,8 +293,7 @@
                     </div>
 
                     <div class="col-md-2">
-                        <input type="text" placeholder="รอบเอว" [(ngModel)]="physicalBody_waistline" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
-                            maxlength="3">
+                        <input type="text" placeholder="รอบเอว" [(ngModel)]="physicalBody_waistline" maxlength="3" OnlyNumber="true">
                         <div class="row" [hidden]="true" style="padding-left: 20px;">
                             <span class="error">กรุณากรอกรอบเอว</span>
                         </div>
@@ -326,8 +308,7 @@
                     </div>
 
                     <div class="col-md-2">
-                        <input type="text" placeholder="ดัชนีมวลกาย" [(ngModel)]="physicalBody_BMI" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
-                            maxlength="3">
+                        <input type="text" placeholder="ดัชนีมวลกาย" [(ngModel)]="physicalBody_BMI" maxlength="3" OnlyNumber="true">
                         <div class="row" [hidden]="true" style="padding-left: 20px;">
                             <span class="error">กรุณากรอกค่าBMI</span>
                         </div>
@@ -344,11 +325,9 @@
                     </div>
 
                     <div class="col-md-2">
-                        <input type="text" placeholder="มม." [(ngModel)]="physicalBody_BP1_mm" style="width:50px" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
-                            maxlength="3">
+                        <input type="text" placeholder="มม." [(ngModel)]="physicalBody_BP1_mm" style="width:50px" maxlength="3" OnlyNumber="true">
                         <label class="label-form">/</label>
-                        <input type="text" placeholder="ปรอท" [(ngModel)]="physicalBody_BP1_hg" style="width:50px" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
-                            maxlength="3">
+                        <input type="text" placeholder="ปรอท" [(ngModel)]="physicalBody_BP1_hg" style="width:50px" maxlength="3" OnlyNumber="true">
                         <div class="row" [hidden]="true" style="padding-left: 20px;">
                             <span class="error">กรุณากรอกค่า BP</span>
                         </div>
@@ -363,11 +342,9 @@
                     </div>
 
                     <div class="col-md-2">
-                        <input type="text" placeholder="มม." [(ngModel)]="physicalBody_BP2_mm" style="width:50px" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
-                            maxlength="3">
+                        <input type="text" placeholder="มม." [(ngModel)]="physicalBody_BP2_mm" style="width:50px" maxlength="3" OnlyNumber="true">
                         <label class="label-form">/</label>
-                        <input type="text" placeholder="ปรอท" [(ngModel)]="physicalBody_BP2_hg" style="width:50px" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
-                            maxlength="3">
+                        <input type="text" placeholder="ปรอท" [(ngModel)]="physicalBody_BP2_hg" style="width:50px" maxlength="3" OnlyNumber="true">
                         <div class="row" [hidden]="true" style="padding-left: 20px;">
                             <span class="error">กรุณากรอกค่า BP</span>
                         </div>

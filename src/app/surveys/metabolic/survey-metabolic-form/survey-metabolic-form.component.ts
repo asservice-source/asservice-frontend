@@ -35,6 +35,8 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
   public healtInsuranceTypeList : any;
 
 
+
+
   
 
   // dataFor;
@@ -44,6 +46,7 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
     this.metabolicbean = new MetabolicBean();
     this.api = new ApiHTTPService();
     this.getHealtinsuranceType();
+    
   }
 
   ngOnInit() {
@@ -77,32 +80,33 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
     let self = this;
     let params = {};
     this.api.post('person/health_insurance_list', params, function (resp) {
-      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {   
         self.healtInsuranceTypeList = resp.response;
+        self.healtInsuranceTypeList.id = 89;
       }
 
     })
   }
 
   Smoke(T) {
-    if (T == 'N') {
-      $("#numTobacco").prop('disabled', true);
-      this.metabolicbean.drugHistory_isSmoke = false;
-
-    } else {
+    if (T == 'Y') {
       $("#numTobacco").prop('disabled', false);
       this.metabolicbean.drugHistory_isSmoke = true;
+
+    } else {
+      $("#numTobacco").prop('disabled', true);
+      this.metabolicbean.drugHistory_isSmoke = false;
     }
 
   }
 
   Drink(T) {
-    if (T == 'N') {
-      $("#timeDrink").prop('disabled', true);
-      this.metabolicbean.drugHistory_isDrink = false;
-    } else {
+    if (T == 'Y') {
       $("#timeDrink").prop('disabled', false);
       this.metabolicbean.drugHistory_isDrink = true;
+    } else {
+      $("#timeDrink").prop('disabled', true);
+      this.metabolicbean.drugHistory_isDrink = false;
     }
   }
 
