@@ -92,3 +92,10 @@ color: white !important;
 .pagination > li > a> span, .ng2-smart-pagination .page-link-next, .ng2-smart-pagination  .page-link-prev{
     font-size: 12px;
 }
+
+.filter-discription{
+    background-color: #d4d4d4;
+    margin: 0 1px 0 1px;
+    padding: 2px;
+    color: #717171;
+}
