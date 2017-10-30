@@ -23,6 +23,7 @@ export class PersonalMemberBean {
     public dischargeId: string = "";
     public dischargeName: string = "";
     public familyStatusCode: string = "";
+    public familyStatusName: string = "";
 
     public listPrefix: any = [];
     public listGender: any = [];

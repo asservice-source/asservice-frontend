@@ -8,7 +8,7 @@
 
     <div class="row">
       <div class="col-sm-12 text-left">
-        <button class="btn btn-primary">เพิ่มสมาชิก</button>
+        <button class="btn btn-primary" (click)="onClickAdd();">เพิ่มสมาชิก</button>
         <button class="btn btn-primary">พิมพ์เอกสาร</button>
       </div>
     </div>
@@ -22,8 +22,8 @@
 
     <div class="row">
       <div class="col-md-12 text-center">
-        <button class="btn btn-primary" *ngIf="isShowTable">ส่งข้อมูล</button>
-        <button class="btn btn-primary" (click)="clickBack()">ย้อนกลับ</button>
+        <button class="btn btn-primary" (click)="onClickSave();" *ngIf="isShowTable">ส่งข้อมูล</button>
+        <button class="btn btn-primary" (click)="onClickBack();">ย้อนกลับ</button>
       </div>
     </div>
 
@@ -31,4 +31,4 @@
 
 </div>
 
-<app-survey-personal-member-form [triggerMember]="paramMember" (memberUpdated)="onUpdatedMember($event)"></app-survey-personal-member-form>
+<app-survey-personal-member-form [action]="action" [triggerMember]="paramMember" (memberUpdated)="onUpdatedMember($event)"></app-survey-personal-member-form>

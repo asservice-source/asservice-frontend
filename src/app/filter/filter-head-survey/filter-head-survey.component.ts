@@ -22,6 +22,7 @@ export class FilterHeadSurveyComponent extends BaseComponent implements OnInit {
 
   @Output() notifyFilter: EventEmitter<FilterHeadSurveyBean> = new EventEmitter<FilterHeadSurveyBean>();
   @Output() changeFilter: EventEmitter<FilterHeadSurveyBean> = new EventEmitter<FilterHeadSurveyBean>();
+  @Output() discriptionFilter: EventEmitter<string> = new EventEmitter<string>();
 
   private api: ApiHTTPService;
   public filterBean: FilterHeadSurveyBean;
@@ -51,7 +52,7 @@ export class FilterHeadSurveyComponent extends BaseComponent implements OnInit {
     this.api.post('village/village_no_list_by_hospital', params, function (resp) {
       console.log(self.villageData);
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-        self.villageData = resp.list; 
+        self.villageData = resp.response; 
       }
     })
   }
@@ -64,7 +65,7 @@ export class FilterHeadSurveyComponent extends BaseComponent implements OnInit {
     this.api.post('osm/osm_list_by_village', params, function (resp) {
       console.log(resp);
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-        self.osmData = resp.list;
+        self.osmData = resp.response;
         self.isDisabledOSM = false;
         self.isDisabledName = false;
       }
@@ -73,6 +74,10 @@ export class FilterHeadSurveyComponent extends BaseComponent implements OnInit {
 
   onChangeRound() {
     this.onDropdownChange();
+  }
+
+  onRound(str:any){
+    alert(str);
   }
 
   onChangeVillage() {
@@ -86,6 +91,9 @@ export class FilterHeadSurveyComponent extends BaseComponent implements OnInit {
 
   onSearchFilter() {
     this.notifyFilter.emit(this.filterBean);
+    let str = 'รอบสำรวจ';
+
+    this.discriptionFilter.emit('');
   }
 
   onDropdownChange() {
