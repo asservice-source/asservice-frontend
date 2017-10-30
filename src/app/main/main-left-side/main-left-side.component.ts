@@ -8,7 +8,9 @@ import { ApiHTTPService } from "../../service/api-http.service";
 })
 export class MainLeftSideComponent implements OnInit {
   //@Input() links: Array<any> = [];
-  public links: Array<any> = [];
+  public surveyMenus: Array<any> = [];
+  public adminMenus: any = {};
+
   private api: ApiHTTPService = new ApiHTTPService();
   constructor() { }
 
@@ -20,8 +22,22 @@ export class MainLeftSideComponent implements OnInit {
     let self = this;
     this.api.post('app/menu',{}, function(response){
         console.log(response);
-        self.links = response;
+        //self.links = response;
+        self.compareMenu(response);
     });
+  }
+
+  compareMenu(menus: any){
+    let menuSurveys = [];
+    for(let item of menus){
+      if(item.menuID==21){
+        this.adminMenus = item;
+      }else{
+        menuSurveys.push(item);
+
+      }
+    }
+    this.surveyMenus = menuSurveys;
   }
 
 }

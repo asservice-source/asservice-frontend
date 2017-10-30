@@ -39,15 +39,40 @@
 		<!-- /.search form -->
 		<!-- Sidebar Menu -->
 		<ul class="sidebar-menu">
-			<ng-container *ngFor="let item of links">
+			<ng-container *ngFor="let item of surveyMenus; let idx = index">
+
+					<li *ngIf="idx==0" class="treeview manage-menu-let">
+						<a href="#">
+							<i *ngIf="adminMenus.icon" class="{{adminMenus.icon}}"></i>
+							<span>{{adminMenus.title}}</span>
+							<i class="fa fa-angle-left pull-right"></i>
+						</a>
+						<ul class="treeview-menu">
+							<ng-container *ngFor="let subitem of adminMenus.sublinks">
+								<li [class.active]="subitem.link[0] === currentUrl">
+									<a *ngIf="!subitem.external" [routerLink]="subitem.link">
+										<i *ngIf="subitem.icon" class="{{subitem.icon}}"></i>
+										<span>{{subitem.title}}</span>
+									</a>
+									<a *ngIf="subitem.external" [href]="subitem.link" [target]="subitem.target">
+										<i *ngIf="subitem.icon" class="{{subitem.icon}}"></i>
+										<span>{{subitem.title}}</span>
+									</a>
+								</li>
+							</ng-container>
+						</ul>
+					</li>
+
+				
+
 				<ng-container *ngIf="!item.sublinks">
 					<li [class.active]="item.link[0] === currentUrl">
 						<a *ngIf="!item.external" [routerLink]="item.link">
-							<i class="fa fa-{{item.icon}}"></i>
+							<i class="{{item.icon}}"></i>
 							<span>{{item.title}}</span>
 						</a>
 						<a *ngIf="item.external" [href]="item.link" [target]="item.target">
-							<i class="fa fa-{{item.icon}}"></i>
+							<i class="{{item.icon}}"></i>
 							<span>{{item.title}}</span>
 						</a>
 					</li>
@@ -56,7 +81,7 @@
 				<ng-container *ngIf="item.sublinks">
 					<li class="treeview">
 						<a href="#">
-							<i *ngIf="item.icon" class="fa fa-{{item.icon}}"></i>
+							<i *ngIf="item.icon" class="{{item.icon}}"></i>
 							<span>{{item.title}}</span>
 							<i class="fa fa-angle-left pull-right"></i>
 						</a>
@@ -64,11 +89,11 @@
 							<ng-container *ngFor="let subitem of item.sublinks">
 								<li [class.active]="subitem.link[0] === currentUrl">
 									<a *ngIf="!subitem.external" [routerLink]="subitem.link">
-										<i *ngIf="subitem.icon" class="fa fa-{{subitem.icon}}"></i>
+										<i *ngIf="subitem.icon" class="{{subitem.icon}}"></i>
 										<span>{{subitem.title}}</span>
 									</a>
 									<a *ngIf="subitem.external" [href]="subitem.link" [target]="subitem.target">
-										<i *ngIf="subitem.icon" class="fa fa-{{subitem.icon}}"></i>
+										<i *ngIf="subitem.icon" class="{{subitem.icon}}"></i>
 										<span>{{subitem.title}}</span>
 									</a>
 								</li>

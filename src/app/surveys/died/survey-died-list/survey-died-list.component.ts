@@ -122,7 +122,7 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
             console.log(row);
             if(row && row.action.toUpperCase()==self.ass_action.EDIT){
               self.diedBean = row;
-              self.onModalFrom(self.ass_action.EDIT);
+              self.onModalForm(self.ass_action.EDIT);
             }
           });
         }
@@ -142,7 +142,7 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
     this. setUpTable();
   }
 
-  onModalFrom(action: string){
+  onModalForm(action: string){
     this.action = action;
     this.changeRef.detectChanges();
     $('#modal-add-died').modal('show');
@@ -153,5 +153,8 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
     this.isShowList = true;
     super.setNg2STDatasource(this.source);
   }
-  
+ 
+  getText(){
+    return '<b>test</b>';
+  }
 }

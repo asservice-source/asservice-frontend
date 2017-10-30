@@ -4,8 +4,9 @@
         <label class="label-form">รอบสำรวจ</label>
     </div>
     <div class="col-md-4">
-        <select [(ngModel)]="filterBean.roundId" (change)="onChangeRound()">
-            <option ngValue="1">ประจำเดือน พฤศจิกายน พ.ศ. 2560</option>
+        <select [(ngModel)]="filterBean.roundId" name="round" id="round" #round (change)="onChangeRound();onRound(round.options[round.value].text)">
+            <option ngValue="1">ประจำเดือน พฤศจิกายน พ.ศ. 1/2560</option>
+            <option ngValue="2">ประจำเดือน พฤศจิกายน พ.ศ. 2/2560</option>
         </select>
     </div>
     <div class="col-md-1 text-right">
