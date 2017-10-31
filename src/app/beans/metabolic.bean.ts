@@ -29,16 +29,16 @@ export class MetabolicBean{
     public age: string;
     public address : string;
   
-    public healtHistory_isDiabetesParent: boolean;
-    public healtHistory_isOverBmi: boolean;
-    public healtHistory_isOverBp: boolean;
-    public healtHistory_isOverFbs: boolean;
-    public healtHistory_isOvercholesterol: boolean;
-    public healtHistory_isPregnantDiabetes: boolean;
-    public healtHistory_isOverBpParent: boolean;
+    public healtHistory_isDiabetesParent: boolean = false;
+    public healtHistory_isOverBmi: boolean = false;
+    public healtHistory_isOverBp: boolean = false;
+    public healtHistory_isOverFbs: boolean = false;
+    public healtHistory_isOvercholesterol: boolean = false;
+    public healtHistory_isPregnantDiabetes: boolean = false;
+    public healtHistory_isOverBpParent: boolean = false;
   
-    public drugHistory_isSmoke: boolean;
-    public drugHistory_isDrink: boolean;
+    public drugHistory_Smoke: string;
+    public drugHistory_Drink: string;
     public drugHistory_numTobacco: Number;
     public drugHistory_numDrink: Number;
   
