@@ -2,6 +2,7 @@ import { Component, OnInit ,AfterViewInit, ElementRef, ChangeDetectorRef, Input}
 import { PersonBean } from "../../../beans/person.bean";
 import { BaseComponent } from "../../../base-component";
 import { DiedBean } from '../../../beans/died.bean';
+import {IMyDpOptions} from 'mydatepicker';
 declare var $: any;
 @Component({
   selector: 'app-survey-died-form',
@@ -21,15 +22,11 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
     super();
     this.diedBean = new DiedBean();
     this.diedBean.causeCode = '-1';
+
    }
 
   ngOnInit() {
-    
     this.onModalEvent();
-    $('.datepicker').datepicker({
-      format: 'mm/dd/yyyy',
-      startDate: '-3d'
-    });
   }
 
   ngAfterViewInit(){
@@ -58,7 +55,9 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
     }
     */
     this.diedBean = bean;
-
+    if(!this.diedBean.dateDied){
+      this.diedBean.dateDied = super.getCurrentDatePickerModel();
+    }
     this.isFindPersonal = false;
     this.isShowForm = true;
   }

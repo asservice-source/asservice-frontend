@@ -50,12 +50,8 @@
               <label>วันที่เสียชีวิต</label>
             </div>
             <div class="col-md-5">
-              <div class="input-group date" data-provide="datepicker">
-                <input type="text" readonly>
-                <div class="input-group-addon">
-                  <span class="glyphicon glyphicon-th"></span>
-                </div>
-              </div>
+              <my-date-picker name="mydate" [options]="datePickerOptions" [(ngModel)]="diedBean.dateDied" required></my-date-picker>
+              
             </div>
         </div>
         <div class="row">

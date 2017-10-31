@@ -4,6 +4,7 @@ import { LocalDataSource } from 'ng2-smart-table';
 import { Utils, Action } from "./utils.util";
 import * as myconf from "./global-config";
 import * as moment from 'moment'
+import {IMyDpOptions} from 'mydatepicker';
 declare var $: any;
 declare var bootbox: any;
 
@@ -118,4 +119,26 @@ export class BaseComponent implements OnInit {
         }
         return obj;
     }
+
+    public datePickerOptions: IMyDpOptions = {
+
+        dateFormat: 'dd/mm/yyyy',
+    };
+    public getCurrentDatePickerModel(): any{
+        let dateObj = new Date();
+        let month = dateObj.getUTCMonth() + 1; //months from 1-12
+        let day = dateObj.getUTCDate();
+        let year = dateObj.getUTCFullYear();
+        return { date: { year: year, month: month, day: day} };
+    }
+   /*
+    public month2(m:number):string{
+        if(m<10){
+            return 0+''+(m+1);
+        }else if(m==12){
+            return '12';
+        }
+        return ''+m;
+    }
+    */
 }

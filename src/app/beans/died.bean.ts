@@ -7,7 +7,7 @@ export class DiedBean{
     public fullName: string;
     public birthDate: string;
     public age: number;
-    public dateDied: string;
+    public dateDied: any;
     public causeCode: string;
     public causeName: string;
     public causeOtherCode: string;
