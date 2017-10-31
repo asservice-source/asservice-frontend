@@ -12,7 +12,7 @@
               <label class="label-form">{{getLabel('lbl_citizenid')}}</label>
             </div>
             <div class="col-md-7">
-              <input type="text" [(ngModel)]="dataBean.citizenId">
+              <input type="text" [(ngModel)]="dataBean.citizenId" [disabled]="dataBean.citizenId">
             </div>
           </div>
 
