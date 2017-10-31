@@ -221,11 +221,19 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     }
     tmpMember.familyStatusName = familyStatus;
 
+    // console.log('==========================');
+    // console.log(tmpMember);
+    // console.log('==========================');
+
     if (index >= 0) {
       self.tempData[index] = tmpMember;
     } else {
       self.tempData.push(tmpMember);
     }
+
+    // console.log('==========================');
+    // console.log(self.tempData);
+    // console.log('==========================');
 
     self.source.refresh();
 

@@ -47,10 +47,12 @@ import { FilterHeadSurveyComponent } from './filter/filter-head-survey/filter-he
 import { FilterPersonalComponent } from './filter/filter-personal/filter-personal.component';
 import { ActionCustomViewComponent } from './action-custom-table/action-custom-view.component'
 import { LoadingComponent } from './loading/loading.component';
-import {OnlyNumberDirective} from './directives/onlynumber.diretive';
+import { OnlyNumberDirective } from './directives/onlynumber.diretive';
 import { ManagementStaffStaffComponent } from './managements/staff/management-staff-staff/management-staff-staff.component';
 import { ManagementStaffOsmComponent } from './managements/staff/management-staff-osm/management-staff-osm.component';
-import { ManagementStaffVillageComponent } from './managements/staff/management-staff-village/management-staff-village.component'
+import { ManagementStaffVillageComponent } from './managements/staff/management-staff-village/management-staff-village.component';
+import { MyDatePickerModule } from 'mydatepicker';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -92,7 +94,7 @@ import { ManagementStaffVillageComponent } from './managements/staff/management-
     ManagementStaffStaffComponent,
     ManagementStaffOsmComponent,
     ManagementStaffVillageComponent
-    
+
   ],
   imports: [
     BrowserModule,
@@ -102,7 +104,8 @@ import { ManagementStaffVillageComponent } from './managements/staff/management-
     HttpModule,
     ReactiveFormsModule,
     Ng2CompleterModule,
-    Ng2SmartTableModule
+    Ng2SmartTableModule,
+    MyDatePickerModule
   ],
   entryComponents: [
     ActionCustomViewComponent,

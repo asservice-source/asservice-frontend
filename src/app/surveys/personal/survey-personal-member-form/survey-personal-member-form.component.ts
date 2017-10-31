@@ -3,6 +3,7 @@ import { PersonBean } from "../../../beans/person.bean";
 import { ApiHTTPService } from '../../../service/api-http.service';
 import { PersonalMemberBean } from '../../../beans/personal-member.bean';
 import { BaseComponent } from '../../../base-component';
+import { IMyDpOptions } from 'mydatepicker';
 declare var $;
 
 @Component({
@@ -38,6 +39,12 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
 
   public isDisabledActionAdd: boolean = false;
   public isDisplayOccupationOthers = false;
+
+  public myDatePickerOptions: IMyDpOptions = {
+    dateFormat: 'dd.mm.yyyy',
+  };
+
+  public modelBirthDate: any;// = { date: { year: 2018, month: 10, day: 9 } };
 
   constructor() {
     super();
