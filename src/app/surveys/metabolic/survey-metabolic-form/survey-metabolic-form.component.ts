@@ -37,6 +37,12 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
   public drinkType: string;
   public isErrorSmoke = false;
   public isErrorDrink = false;
+  public isErrorWeight = false;
+  public isErrorHeight = false;
+  public isErrorWaistline = false;
+  public isErrorBMI = false;
+  public isErrorBP1 = false;
+  public isErrorBP2 = false;
 
 
   // dataFor;
@@ -182,6 +188,22 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
     this.metabolicbean.healtHistory_isPregnantDiabetes = this.metabolicbean.healtHistory_isPregnantDiabetes || false;
     this.metabolicbean.healtHistory_isOverBpParent = this.metabolicbean.healtHistory_isOverBpParent || false;
 
+    this.metabolicbean.disease_Diabetes = this.metabolicbean.disease_Diabetes;
+    this.metabolicbean.disease_Complication_etc = this.metabolicbean.disease_Complication_etc;
+    this.metabolicbean.disease_Complication_eye = this.metabolicbean.disease_Complication_eye;
+    this.metabolicbean.disease_Complication_kidney = this.metabolicbean.disease_Complication_kidney;
+    this.metabolicbean.disease_Complication_nerve = this.metabolicbean.disease_Complication_nerve;
+    this.metabolicbean.disease_Complication_nervousSys = this.metabolicbean.disease_Complication_nervousSys;
+    this.metabolicbean.disease_OverBP = this.metabolicbean.disease_OverBP;
+
+    console.log(this.metabolicbean.disease_Diabetes);
+    console.log(this.metabolicbean.disease_Complication_etc);
+    console.log(this.metabolicbean.disease_Complication_eye);
+    console.log(this.metabolicbean.disease_Complication_kidney);
+    console.log(this.metabolicbean.disease_Complication_nerve);
+    console.log(this.metabolicbean.disease_Complication_nervousSys);
+    console.log(this.metabolicbean.disease_OverBP);
+
     if (this.metabolicbean.drugHistory_Smoke == undefined) {
       this.metabolicbean.drugHistory_Smoke = '1';
     }
@@ -203,26 +225,62 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
       this.isErrorSmoke = false;  
     }
 
-    // if (this.metabolicbean.drugHistory_Drink == '2' && !this.metabolicbean.drugHistory_numDrink) {
-    //   this.isErrorDrink = true;
-    //   validateform = false;
-    // } else {
-    //   this.isErrorDrink = false;
-    // }
+    if (this.metabolicbean.drugHistory_Drink == '2') {
+      if(!this.metabolicbean.drugHistory_numDrink){
+        this.isErrorDrink = true;
+        validateform = false;
+      }
+      else {
+        this.isErrorDrink = false;    
+      }
+    } else{
+      this.metabolicbean.drugHistory_numDrink = undefined;
+      this.isErrorDrink = false;  
+    }
 
-    // if(this.metabolicbean.drugHistory_Drink == '2'){
-    //   if(!this.metabolicbean.drugHistory_numTobacco){
-    //     this.isErrorDrink = true;
-    //     validateform = false;
-    //   }else{
-    //     this.isErrorDrink = false;
-    //   }
-    // }
+    if(this.metabolicbean.physicalBody_weight == undefined){
+      this.isErrorWeight = true;
+      validateform = false;
+    }else{
+      this.isErrorWeight = false;
+    }
 
+    if(this.metabolicbean.physicalBody_height == undefined){
+      this.isErrorHeight = true;
+      validateform = false;
+    }else{
+      this.isErrorHeight = false;
+    }
 
+    if(this.metabolicbean.physicalBody_waistline == undefined){
+      this.isErrorWaistline = true;
+      validateform = false;
+    }else{
+      this.isErrorWaistline = false;
+    }
 
+    if(this.metabolicbean.physicalBody_BMI == undefined){
+      this.isErrorBMI = true;
+      validateform = false;
+    }else{
+      this.isErrorBMI = false;
+    }
 
+    if(this.metabolicbean.physicalBody_BP1_hg == undefined || this.metabolicbean.physicalBody_BP1_mm == undefined){
+      this.isErrorBP1 = true;
+      validateform = false;
+    }else{
+      this.isErrorBP1 = false;
+    }
 
+    if(this.metabolicbean.physicalBody_BP2_hg == undefined || this.metabolicbean.physicalBody_BP2_mm == undefined){
+      this.isErrorBP2 = true;
+      validateform = false;
+    }else{
+      this.isErrorBP2 = false;
+    }
+
+    return validateform;
   }
 
   addSurvey() {
