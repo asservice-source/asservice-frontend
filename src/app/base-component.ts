@@ -123,6 +123,15 @@ export class BaseComponent implements OnInit {
     public datePickerOptions: IMyDpOptions = {
 
         dateFormat: 'dd/mm/yyyy',
+        dayLabels: {su: 'อา', mo: 'จ', tu: 'อ', we: 'พ', th: 'พฤ', fr: 'ศ', sa: 'ส'},
+        monthLabels: { 1: 'ม.ค.', 2: 'ก.พ.', 3: 'มี.ค', 4: 'เม.ย.', 5: 'พ.ค.', 6: 'มิ.ย.', 7: 'ก.ค.', 8: 'ส.ค.', 9: 'ก.ย.', 10: 'ต.ค.', 11: 'พ.ย.', 12: 'ธ.ค.' },
+        todayBtnTxt: 'วันนี้',
+        sunHighlight: true,
+        satHighlight: true,
+        showClearDateBtn: false,
+        height: '30px',
+        editableDateField: false,
+        openSelectorOnInputClick: true
     };
     public getCurrentDatePickerModel(): any{
         let dateObj = new Date();
