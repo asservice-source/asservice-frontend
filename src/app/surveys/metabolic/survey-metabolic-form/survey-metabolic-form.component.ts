@@ -4,10 +4,10 @@ import { Headers } from '@angular/http';
 import { NgModel } from '@angular/forms';
 import { PersonBean } from './../../../beans/person.bean';
 import { BaseComponent } from '../../../base-component';
-import {MetabolicBean} from '../../../beans/metabolic.bean';
+import { MetabolicBean } from '../../../beans/metabolic.bean';
 import { ApiHTTPService } from '../../../service/api-http.service';
 
-declare var $:any;
+declare var $: any;
 
 @Component({
   selector: 'app-survey-metabolic-form',
@@ -15,16 +15,16 @@ declare var $:any;
   styleUrls: ['./survey-metabolic-form.component.css']
 })
 
-export class SurveyMetabolicFormComponent extends BaseComponent implements OnInit ,AfterViewInit {
+export class SurveyMetabolicFormComponent extends BaseComponent implements OnInit, AfterViewInit {
   @Input() action: string;
   @Input() data: MetabolicBean;
-  
+
 
   @Input() set citizenID(citizenID: string) {
     this.personBean.citizenId = citizenID;
   }
 
-  public metabolicbean:MetabolicBean;
+  public metabolicbean: MetabolicBean;
   public isFindPersonal: boolean = true;
 
   public personBean = new PersonBean();
@@ -32,27 +32,27 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
   public resetFind: number = 1;
   public apiHttp = new ApiHTTPService();
   private api: ApiHTTPService;
-  public healtInsuranceTypeList : any;
+  public healtInsuranceTypeList: any;
+  public smokeType: string;
+  public drinkType: string;
+  public isErrorSmoke = false;
+  public isErrorDrink = false;
 
-
-
-
-  
 
   // dataFor;
 
-  constructor(private http: Http,private changeRef: ChangeDetectorRef) {
+  constructor(private http: Http, private changeRef: ChangeDetectorRef) {
     super();
     this.metabolicbean = new MetabolicBean();
     this.api = new ApiHTTPService();
     this.getHealtinsuranceType();
-    
+
   }
 
   ngOnInit() {
     this.onModalEvent();
-    
-    $('body').on('click','#radioBtn a', function () {
+
+    $('body').on('click', '#radioBtn a', function () {
       var sel = $(this).data('title');
       var tog = $(this).data('toggle');
       $('#' + tog).prop('value', sel);
@@ -61,7 +61,7 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
       $('a[data-toggle="' + tog + '"][data-title="' + sel + '"]').removeClass('notActive').addClass('active');
     })
 
-    $('body').on('click','#radioBtn2 a', function () {
+    $('body').on('click', '#radioBtn2 a', function () {
       var sel = $(this).data('title');
       var tog = $(this).data('toggle');
       $('#' + tog).prop('value', sel);
@@ -72,15 +72,15 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
 
   }
 
-  ngAfterViewInit(){
-    
+  ngAfterViewInit() {
+
   }
 
   getHealtinsuranceType() {
     let self = this;
     let params = {};
     this.api.post('person/health_insurance_list', params, function (resp) {
-      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {   
+      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.healtInsuranceTypeList = resp.response;
         self.healtInsuranceTypeList.id = 89;
       }
@@ -88,25 +88,31 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
     })
   }
 
-  Smoke(T) {
-    if (T == 'Y') {
+  smoke(T) {
+    let b = T;
+    if (T == '2') {
       $("#numTobacco").prop('disabled', false);
-      this.metabolicbean.drugHistory_isSmoke = true;
-
+      this.metabolicbean.drugHistory_Smoke = '2';
+    } else if (T == '1') {
+      $("#numTobacco").prop('disabled', true);
+      this.metabolicbean.drugHistory_Smoke = '1';
     } else {
       $("#numTobacco").prop('disabled', true);
-      this.metabolicbean.drugHistory_isSmoke = false;
+      this.metabolicbean.drugHistory_Smoke = '3';
     }
-
   }
 
-  Drink(T) {
-    if (T == 'Y') {
+  drink(T) {
+    let b = T;
+    if (T == '2') {
       $("#timeDrink").prop('disabled', false);
-      this.metabolicbean.drugHistory_isDrink = true;
+      this.metabolicbean.drugHistory_Drink = '2';
+    } else if (T == '1') {
+      $("#timeDrink").prop('disabled', true);
+      this.metabolicbean.drugHistory_Drink = '1';
     } else {
       $("#timeDrink").prop('disabled', true);
-      this.metabolicbean.drugHistory_isDrink = false;
+      this.metabolicbean.drugHistory_Drink = '3';
     }
   }
 
@@ -136,20 +142,20 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
     this.isShowForm = true;
 
   }
-  onBack(){
+  onBack() {
     this.metabolicbean = new MetabolicBean();
     this.isFindPersonal = true;
     this.isShowForm = false;
-    if(this.ass_action.EDIT == this.action){
+    if (this.ass_action.EDIT == this.action) {
       $('#find-person-md').modal('hide');
     }
   }
 
-  onModalEvent(){
+  onModalEvent() {
     let self = this;
     $('#find-person-md').on('show.bs.modal', function (e) {
-      self.resetFind = self.resetFind+1;
-      if(self.action==self.ass_action.EDIT){
+      self.resetFind = self.resetFind + 1;
+      if (self.action == self.ass_action.EDIT) {
         self.onChoosePersonal(self.data);
       }
 
@@ -159,9 +165,68 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
       console.log("hide.bs.modal");
       self.isShowForm = false;
       self.isFindPersonal = true;
-      self.resetFind = self.resetFind+1;
+      self.resetFind = self.resetFind + 1;
       self.changeRef.detectChanges();
     });
   }
 
+  validateForm() {
+
+    let validateform = true;
+
+    this.metabolicbean.healtHistory_isDiabetesParent = this.metabolicbean.healtHistory_isDiabetesParent || false;
+    this.metabolicbean.healtHistory_isOverBmi = this.metabolicbean.healtHistory_isOverBmi || false;
+    this.metabolicbean.healtHistory_isOverBp = this.metabolicbean.healtHistory_isOverBp || false;
+    this.metabolicbean.healtHistory_isOverFbs = this.metabolicbean.healtHistory_isOverFbs || false;
+    this.metabolicbean.healtHistory_isOvercholesterol = this.metabolicbean.healtHistory_isOvercholesterol || false;
+    this.metabolicbean.healtHistory_isPregnantDiabetes = this.metabolicbean.healtHistory_isPregnantDiabetes || false;
+    this.metabolicbean.healtHistory_isOverBpParent = this.metabolicbean.healtHistory_isOverBpParent || false;
+
+    if (this.metabolicbean.drugHistory_Smoke == undefined) {
+      this.metabolicbean.drugHistory_Smoke = '1';
+    }
+    if (this.metabolicbean.drugHistory_Drink == undefined) {
+      this.metabolicbean.drugHistory_Drink = '1';
+    }
+
+
+    if (this.metabolicbean.drugHistory_Smoke == '2') {
+      if(!this.metabolicbean.drugHistory_numTobacco){
+        this.isErrorSmoke = true;
+        validateform = false;
+      }
+      else {
+        this.isErrorSmoke = false;    
+      }
+    } else{
+      this.metabolicbean.drugHistory_numTobacco = undefined;
+      this.isErrorSmoke = false;  
+    }
+
+    // if (this.metabolicbean.drugHistory_Drink == '2' && !this.metabolicbean.drugHistory_numDrink) {
+    //   this.isErrorDrink = true;
+    //   validateform = false;
+    // } else {
+    //   this.isErrorDrink = false;
+    // }
+
+    // if(this.metabolicbean.drugHistory_Drink == '2'){
+    //   if(!this.metabolicbean.drugHistory_numTobacco){
+    //     this.isErrorDrink = true;
+    //     validateform = false;
+    //   }else{
+    //     this.isErrorDrink = false;
+    //   }
+    // }
+
+
+
+
+
+  }
+
+  addSurvey() {
+    this.validateForm();
+
+  }
 }

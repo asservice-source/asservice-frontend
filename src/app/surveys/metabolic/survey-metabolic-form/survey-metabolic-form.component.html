@@ -11,63 +11,38 @@
 
             <div *ngIf="isShowForm">
                 <div class="row">
-                    <div class="col-md-4 text-right">
+                    <div class="col-md-4 col-md-offset-1">
                         <label id="cid">หมายเลขประจำตัว :</label>
-                    </div>
-
-                    <div class="col-md-2">
                         <label class="value">{{metabolicbean.citizenId}}</label>
                     </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-4 text-right">
+                    <div class="col-md-3">
                         <label>ชื่อ-สกุล :</label>
-                    </div>
-
-                    <div class="col-md-6">
                         <label class="value">{{metabolicbean.fullName}}</label>
                     </div>
+
+                    <div class="col-md-2" style="width: 80px; padding-right: 0px;">
+                            <label class="label-form">สิทธิบัตร:</label>     
+                        </div>
+                        <div class="col-md-2">
+                        <select [(ngModel)]="healtInsuranceTypeList.id">
+                                <option value="0">เลือก</option>
+                                <option *ngFor="let item of healtInsuranceTypeList" value="{{item.id}}">{{item.code}}</option>
+                            </select>
+                        </div>
+
                 </div>
-
                 <div class="row">
-                    <div class="col-md-4 text-right">
+                    <div class="col-md-3 col-md-offset-1" style="width: 180px;">
                         <label>เพศ :</label>
-                    </div>
-                    <div class="col-md-1" style="padding-right: 0px; width: 60px;">
                         <label class="value">{{metabolicbean.genderName}}</label>
-                    </div>
-
-                    <div class="col-md-1 text-right" style="width: 40px; padding-left: 0px;">
                         <label>อายุ :</label>
-                    </div>
-                    <div class="col-md-1">
                         <label class="value">{{metabolicbean.age}} ปี</label>
                     </div>
-                </div>
 
-
-                <div class="row">
-                    <div class="col-md-4 text-right">
+                    <div class="col-md-8">
                         <label class="label-form">ที่อยู่ :</label>
-                    </div>
-
-                    <div class="col-md-5">
-                        <label class="label-form">{{metabolicbean.address}}</label>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-4 text-right">
-                        <label class="label-form">สิทธิบัตร:</label>
-                    </div>
-
-                    <div class="col-md-2">
-                        <select [(ngModel)]="healtInsuranceTypeList.id">
-                            <option value="0">เลือก</option>
-                            <option *ngFor="let item of healtInsuranceTypeList" value="{{item.id}}" >{{item.code}}</option>
-                        </select>
-                    </div>
+                        <label class="value">{{metabolicbean.address}}</label>
+                    </div>      
                 </div>
 
                 <hr>
@@ -76,7 +51,7 @@
                     <div class="col-md-12 col-md-offset-2">
                         <div class="checkbox">
                             <label class="label-form" style="font-size: 1em">
-                                <input type="checkbox" [checked]="healtHistory_isDiabetesParent" (change)="healtHistory_isDiabetesParent = !healtHistory_isDiabetesParent">
+                                <input type="checkbox" [checked]="metabolicbean.healtHistory_isDiabetesParent" (change)="metabolicbean.healtHistory_isDiabetesParent = !metabolicbean.healtHistory_isDiabetesParent">
                                 <span class="cr">
                                     <i class="cr-icon fa fa-check"></i>
                                 </span>
@@ -90,7 +65,7 @@
                     <div class="col-md-12 col-md-offset-2">
                         <div class="checkbox">
                             <label class="label-form" style="font-size: 1em">
-                                <input type="checkbox" [checked]="healtHistory_isOverBmi" (change)="healtHistory_isOverBmi = !healtHistory_isOverBmi">
+                                <input type="checkbox" [checked]="metabolicbean.healtHistory_isOverBmi" (change)="metabolicbean.healtHistory_isOverBmi = !metabolicbean.healtHistory_isOverBmi">
                                 <span class="cr">
                                     <i class="cr-icon fa fa-check"></i>
                                 </span>
@@ -105,7 +80,7 @@
                     <div class="col-md-12 col-md-offset-2">
                         <div class="checkbox">
                             <label class="label-form" style="font-size: 1em">
-                                <input type="checkbox" [checked]="healtHistory_isOverBp" (change)="healtHistory_isOverBp = !healtHistory_isOverBp">
+                                <input type="checkbox" [checked]="metabolicbean.healtHistory_isOverBp" (change)="metabolicbean.healtHistory_isOverBp = !metabolicbean.healtHistory_isOverBp">
                                 <span class="cr">
                                     <i class="cr-icon fa fa-check"></i>
                                 </span>
@@ -120,7 +95,7 @@
                     <div class="col-md-12 col-md-offset-2">
                         <div class="checkbox">
                             <label class="label-form" style="font-size: 1em">
-                                <input type="checkbox" [checked]="healtHistory_isOverFbs" (change)="healtHistory_isOverFbs = !healtHistory_isOverFbs">
+                                <input type="checkbox" [checked]="metabolicbean.healtHistory_isOverFbs" (change)="metabolicbean.healtHistory_isOverFbs = !metabolicbean.healtHistory_isOverFbs">
                                 <span class="cr">
                                     <i class="cr-icon fa fa-check"></i>
                                 </span>
@@ -135,7 +110,7 @@
                     <div class="col-md-12 col-md-offset-2">
                         <div class="checkbox">
                             <label class="label-form" style="font-size: 1em">
-                                <input type="checkbox" [checked]="healtHistory_isOvercholesterol" (change)="healtHistory_isOvercholesterol = !healtHistory_isOvercholesterol">
+                                <input type="checkbox" [checked]="metabolicbean.healtHistory_isOvercholesterol" (change)="metabolicbean.healtHistory_isOvercholesterol = !metabolicbean.healtHistory_isOvercholesterol">
                                 <span class="cr">
                                     <i class="cr-icon fa fa-check"></i>
                                 </span>
@@ -150,7 +125,7 @@
                     <div class="col-md-12 col-md-offset-2">
                         <div class="checkbox">
                             <label class="label-form" style="font-size: 1em">
-                                <input type="checkbox" [checked]="healtHistory_isPregnantDiabetes" (change)="healtHistory_isPregnantDiabetes = !healtHistory_isPregnantDiabetes">
+                                <input type="checkbox" [checked]="metabolicbean.healtHistory_isPregnantDiabetes" (change)="metabolicbean.healtHistory_isPregnantDiabetes = !metabolicbean.healtHistory_isPregnantDiabetes">
                                 <span class="cr">
                                     <i class="cr-icon fa fa-check"></i>
                                 </span>
@@ -164,7 +139,7 @@
                     <div class="col-md-12 col-md-offset-2">
                         <div class="checkbox">
                             <label class="label-form" style="font-size: 1em">
-                                <input type="checkbox" [checked]="healtHistory_isOverBpParent" (change)="healtHistory_isOverBpParent = !healtHistory_isOverBpParent">
+                                <input type="checkbox" [checked]="metabolicbean.healtHistory_isOverBpParent" (change)="metabolicbean.healtHistory_isOverBpParent = !metabolicbean.healtHistory_isOverBpParent">
                                 <span class="cr">
                                     <i class="cr-icon fa fa-check"></i>
                                 </span>
@@ -185,9 +160,9 @@
                     <div class="col-md-3">
                         <div class="input-group">
                             <div id="radioBtn" class="btn-group">
-                                <a class="btn btn-primary btn-sm active" data-toggle="happy" data-title="N" (click)="Smoke('N')">ไม่สูบ</a>
-                                <a class="btn btn-primary btn-sm notActive" data-toggle="happy" data-title="Y" (click)="Smoke('Y')">สูบ</a>
-                                <a class="btn btn-primary btn-sm notActive" data-toggle="happy" data-title="X" (click)="Smoke('X')">เคยแต่เลิกแล้ว</a>
+                                <a class="btn btn-primary btn-sm active" data-toggle="happy" data-title="N" (click)="smoke('1')">ไม่สูบ</a>
+                                <a class="btn btn-primary btn-sm notActive" data-toggle="happy" data-title="Y" (click)="smoke('2')">สูบ</a>
+                                <a class="btn btn-primary btn-sm notActive" data-toggle="happy" data-title="X" (click)="smoke('3')">เคยแต่เลิกแล้ว</a>
                             </div>
                             <input type="hidden" name="happy" id="happy">
                         </div>
@@ -199,7 +174,7 @@
                         </div>
 
                         <div class="col-md-1" style="padding-right: 5px; padding-left: 10px;">
-                            <input type="text" placeholder="จำนวน" id="numTobacco" [(ngModel)]="drugHistory_numTobacco" maxlength="3" [disabled]="true" OnlyNumber="true">
+                            <input type="text" placeholder="จำนวน" id="numTobacco" [(ngModel)]="metabolicbean.drugHistory_numTobacco" maxlength="3" [disabled]="true" OnlyNumber="true">
                         </div>
 
                         <div class="col-md-2" style="padding-left: 0px;">
@@ -207,8 +182,8 @@
                         </div>
                     </div>
 
-                    <div class="row" [hidden]="true">
-                        <div class="col-md-12 col-md-offset-7">
+                    <div class="row" *ngIf="isErrorSmoke">
+                        <div class="col-md-12 col-md-offset-8">
                             <span class="error">กรุณากรอกจำนวนที่สูบ</span>
                         </div>
                     </div>
@@ -222,9 +197,9 @@
                     <div class="col-md-3">
                         <div class="input-group">
                             <div id="radioBtn2" class="btn-group">
-                                <a class="btn btn-primary btn-sm active" data-toggle="happy2" data-title="N" (click)="Drink('N')">ไม่ดื่ม</a>
-                                <a class="btn btn-primary btn-sm notActive2" data-toggle="happy2" data-title="Y" (click)="Drink('Y')">ดื่ม</a>
-                                <a class="btn btn-primary btn-sm notActive2" data-toggle="happy2" data-title="X" (click)="Drink('X')">เคยแต่เลิกแล้ว</a>
+                                <a class="btn btn-primary btn-sm active" data-toggle="happy2" data-title="N" (click)="drink('1')">ไม่ดื่ม</a>
+                                <a class="btn btn-primary btn-sm notActive2" data-toggle="happy2" data-title="Y" (click)="drink('2')">ดื่ม</a>
+                                <a class="btn btn-primary btn-sm notActive2" data-toggle="happy2" data-title="X" (click)="drink('3')">เคยแต่เลิกแล้ว</a>
                             </div>
                             <input type="hidden" name="happy2" id="happy2">
                         </div>
@@ -243,8 +218,8 @@
                             <label class="label-form">ครั้ง/สัปดาห์</label>
                         </div>
 
-                        <div class="row" [hidden]="true">
-                            <div class="col-md-12 col-md-offset-7">
+                        <div class="row" *ngIf="isErrorDrink">
+                            <div class="col-md-12 col-md-offset-8">
                                 <span class="error">กรุณากรอกจำนวนที่ดื่ม</span>
                             </div>
                         </div>
@@ -454,7 +429,7 @@
 
                 <div class="row">
                     <div class="col-md-12 text-center">
-                        <button class="btn btn-sm btn-primary">ยืนยัน</button> &nbsp;&nbsp;
+                        <button class="btn btn-sm btn-primary" (click)="addSurvey()">ยืนยัน</button> &nbsp;&nbsp;
                         <button class="btn btn-sm btn-primary" (click)="onBack()">กลับ</button>
                     </div>
                 </div>

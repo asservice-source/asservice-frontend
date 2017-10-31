@@ -69,7 +69,7 @@
                     </div>
                 </div>
                 <!-- ป่วย -->
-                <div id="sick" [hidden]="patientType== 1?false:true">
+                <div [hidden]="patientType== 1?false:true">
                     <div class="row">
                         <div class="col-md-2 text-right">
                             <label class="label-form">ระบุ</label>
@@ -131,7 +131,7 @@
                     </div>
                 </div>
                 <!-- พิการ -->
-                <div id="disabled" [hidden]="patientType== 2?false:true">
+                <div [hidden]="patientType== 2?false:true">
                     <div class="row">
                         <div class="col-md-2 text-right">
                             <label>ประเภทพิการ</label>
