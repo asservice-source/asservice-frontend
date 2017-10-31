@@ -149,16 +149,17 @@ export class BaseComponent implements OnInit {
             return { date: { year: year, month: month, day: day} };
         } 
     }
-
-
-   /*
+    public getStringDateForDatePickerModel(date: any): string{
+        if(date){
+            return date.year+'-'+this.month2(date.month)+'-'+this.month2(date.day);
+        }
+        return undefined;
+    }
     public month2(m:number):string{
         if(m<10){
-            return 0+''+(m+1);
-        }else if(m==12){
-            return '12';
+            return 0+''+m;
         }
         return ''+m;
     }
-    */
+    
 }
