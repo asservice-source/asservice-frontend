@@ -48,10 +48,12 @@ import { FilterPersonalComponent } from './filter/filter-personal/filter-persona
 import { ActionCustomViewComponent } from './action-custom-table/action-custom-view.component'
 import { LoadingComponent } from './loading/loading.component';
 import { OnlyNumberDirective } from './directives/onlynumber.diretive';
-import { ManagementStaffStaffComponent } from './managements/staff/management-staff-staff/management-staff-staff.component';
+import { ManagementStaffStaffListComponent } from './managements/staff/management-staff-staff/management-staff-staff-list/management-staff-staff-list.component';
+import { ManagementStaffStaffFormComponent } from './managements/staff/management-staff-staff/management-staff-staff-form/management-staff-staff-form.component';
 import { ManagementStaffOsmComponent } from './managements/staff/management-staff-osm/management-staff-osm.component';
 import { ManagementStaffVillageComponent } from './managements/staff/management-staff-village/management-staff-village.component';
 import { MyDatePickerModule } from 'mydatepicker';
+
 
 @NgModule({
   declarations: [
@@ -91,9 +93,10 @@ import { MyDatePickerModule } from 'mydatepicker';
     LoadingComponent,
     ActionCustomViewComponent,
     OnlyNumberDirective,
-    ManagementStaffStaffComponent,
+    ManagementStaffStaffListComponent,
     ManagementStaffOsmComponent,
-    ManagementStaffVillageComponent
+    ManagementStaffVillageComponent,
+    ManagementStaffStaffFormComponent
 
   ],
   imports: [

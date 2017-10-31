@@ -18,7 +18,7 @@ import { SurveyPatientListComponent } from "./../surveys/patient/survey-patient-
 import { SurveyMetabolicListComponent } from "./../surveys/metabolic/survey-metabolic-list/survey-metabolic-list.component";
 import { SurveyMosquitoListComponent } from "./../surveys/mosquito/survey-mosquito-list/survey-mosquito-list.component";
 import { SurveyCancerListComponent } from "./../surveys/cancer/survey-cancer-list/survey-cancer-list.component";
-import { ManagementStaffStaffComponent } from "./../managements/staff/management-staff-staff/management-staff-staff.component";
+import { ManagementStaffStaffListComponent } from "./../managements/staff/management-staff-staff/management-staff-staff-list/management-staff-staff-list.component";
 import { ManagementStaffOsmComponent } from "./../managements/staff/management-staff-osm/management-staff-osm.component";
 import { ManagementStaffVillageComponent } from "./../managements/staff/management-staff-village/management-staff-village.component";
 
@@ -56,7 +56,7 @@ import { ManagementStaffVillageComponent } from "./../managements/staff/manageme
           children: [
             {
               path: 'staffstaff',
-              component: ManagementStaffStaffComponent
+              component: ManagementStaffStaffListComponent
             },
             {
               path: 'staffosm',

@@ -10,7 +10,7 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-          <button type="button" class="btn btn-sm btn-primary">เพิ่มเจ้าหน้าที่ รพ.สต.</button>
+          <button type="button" class="btn btn-sm btn-primary" (click)="onClickAddStaff()">เพิ่มเจ้าหน้าที่ รพ.สต.</button>
         </div>
       </div>
     <div class="row">
@@ -20,5 +20,6 @@
       </div>
     </div>
   </div>
-
 </div>
+
+<app-management-staff-staff-form [dataBean]="staffBean"></app-management-staff-staff-form>
