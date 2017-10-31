@@ -22,6 +22,10 @@ export class BaseComponent implements OnInit {
     public setNg2STDatasource(data: LocalDataSource) {
         this.ng2STDataSource = data;
     }
+    public ng2STDatasource(datas: any):LocalDataSource{
+        this.ng2STDataSource = new LocalDataSource(datas);
+        return this.ng2STDataSource;
+    }
     public getLabel(key: string, lang?: string, defaultValue?: string) {
         ///console.log("label:"+key);
         return this.labelManager.getLabel(key, lang) || defaultValue;
@@ -133,21 +137,29 @@ export class BaseComponent implements OnInit {
         editableDateField: false,
         openSelectorOnInputClick: true
     };
-    public getCurrentDatePickerModel(): any{
-        let dateObj = new Date();
-        let month = dateObj.getUTCMonth() + 1; //months from 1-12
-        let day = dateObj.getUTCDate();
-        let year = dateObj.getUTCFullYear();
-        return { date: { year: year, month: month, day: day} };
+    public getCurrentDatePickerModel(strDate?: string): any{
+        if(strDate){
+            let arr = strDate.split('-');
+            return { date: { year: +arr[0], month: +arr[1], day: +arr[3]} };
+        }else{
+            let dateObj = new Date();
+            let month = dateObj.getUTCMonth() + 1; //months from 1-12
+            let day = dateObj.getUTCDate();
+            let year = dateObj.getUTCFullYear();
+            return { date: { year: year, month: month, day: day} };
+        } 
     }
-   /*
+    public getStringDateForDatePickerModel(date: any): string{
+        if(date){
+            return date.year+'-'+this.month2(date.month)+'-'+this.month2(date.day);
+        }
+        return undefined;
+    }
     public month2(m:number):string{
         if(m<10){
-            return 0+''+(m+1);
-        }else if(m==12){
-            return '12';
+            return 0+''+m;
         }
         return ''+m;
     }
-    */
+    
 }

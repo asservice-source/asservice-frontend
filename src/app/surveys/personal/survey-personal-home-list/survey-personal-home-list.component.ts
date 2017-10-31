@@ -31,7 +31,7 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
       villageNo: {
         title: 'หมู่',
         filter: false,
-        width: '100px',
+        width: '80px',
         type: 'html',
         valuePrepareFunction: (cell, row) => {
           return '<div class="text-center">' + cell + '</div>';
@@ -40,19 +40,28 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
       homeNo: {
         title: 'บ้านเลขที่',
         filter: false,
-        width: '100px',
+        width: '80px',
         type: 'html',
         valuePrepareFunction: (cell, row) => {
           return '<div class="text-center">' + cell + '</div>';
         }
       },
       holderName: {
-        title: 'ชื่อ-สกุล เจ้าของบ้าน',
+        title: 'ชื่อ-สกุล หัวหน้าครอบครัว',
         filter: false,
-        width: '300px'
+        width: '200px'
       },
       memberAmount: {
         title: 'จำนวนสมาชิก',
+        filter: false,
+        width: '110px',
+        type: 'html',
+        valuePrepareFunction: (cell, row) => {
+          return '<div class="text-center">' + cell + '</div>';
+        }
+      },
+      surveyStatus: {
+        title: 'สถานะการสำรวจ',
         filter: false,
         width: '110px',
         type: 'html',

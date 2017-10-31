@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { IMyDpOptions, IMyDateModel } from 'mydatepicker';
 import { PersonBean } from "../../../beans/person.bean";
 import { ApiHTTPService } from '../../../service/api-http.service';
 import { PersonalMemberBean } from '../../../beans/personal-member.bean';
 import { BaseComponent } from '../../../base-component';
-import { IMyDpOptions } from 'mydatepicker';
 declare var $;
 
 @Component({
@@ -15,7 +15,10 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
 
   @Input() action: string;
   @Input() set triggerMember(paramMember: PersonalMemberBean) {
-    this.member = this.strNullToEmpty(paramMember);
+    let self = this;
+
+    self.member = this.strNullToEmpty(paramMember);
+    self.modelBirthDate = self.get
   }
   @Output() memberUpdated = new EventEmitter<PersonalMemberBean>();
   @Output() memberInserted = new EventEmitter<PersonalMemberBean>();
@@ -40,11 +43,7 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
   public isDisabledActionAdd: boolean = false;
   public isDisplayOccupationOthers = false;
 
-  public myDatePickerOptions: IMyDpOptions = {
-    dateFormat: 'dd.mm.yyyy',
-  };
-
-  public modelBirthDate: any;// = { date: { year: 2018, month: 10, day: 9 } };
+  public modelBirthDate: any;
 
   constructor() {
     super();
@@ -241,15 +240,6 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
     });
   }
 
-  onChangeOccupation() {
-    let self = this;
-    if (self.member.occupationId == "010") {
-      self.isDisplayOccupationOthers = true;
-    } else {
-      self.isDisplayOccupationOthers = false;
-    }
-  }
-
   bindDischarge() {
     let self = this;
 
@@ -280,6 +270,22 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
         console.log('survey-personal-member-member-form(bindFamilyStatus) occured error(s) => ' + d.message);
       }
     });
+  }
+
+  onChangeOccupation() {
+    let self = this;
+    if (self.member.occupationId == "010") {
+      self.isDisplayOccupationOthers = true;
+    } else {
+      self.isDisplayOccupationOthers = false;
+    }
+  }
+
+  onChangeDate(event: IMyDateModel) {
+    let self = this;
+
+    // console.log(event);
+    self.member.birthDate = self.getStringDateForDatePickerModel(event.date);
   }
 
   clickSave() {

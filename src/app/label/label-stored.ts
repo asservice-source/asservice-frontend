@@ -16,7 +16,7 @@ export class LabelStored{
         "en": "Cancel"
       },
       "lbl_citizenid": {
-        "th": "หมายเลขประจำตัว",
+        "th": "เลขประจำตัวประชาชน",
         "en": "Citizen ID"
       },
       "lbl_district": {
