@@ -45,9 +45,16 @@ export class ApiHTTPService extends BaseComponent implements OnInit {
     }
 
     api_villageList(hospitalCode5: string, callback?: (doc: any) => void) {
-        this.post(this.getApiUrl('village/villageList')
-            , { hospitalCode: hospitalCode5 }
-            , callback
+        this.post('village/village_no_list_by_hospital'
+            , { 'hospitalCode': hospitalCode5 }
+            , function(resp){
+                if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+                    callback(resp.response);
+                }else{
+                    callback(resp);
+                }
+                
+            }
         );
     }
 

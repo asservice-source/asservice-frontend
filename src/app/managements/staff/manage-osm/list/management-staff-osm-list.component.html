@@ -20,8 +20,9 @@
           <label class="label-form">หมู่บ้าน</label>
         </div>
         <div class="col-md-3">
-          <select [(ngModel)]="ss">
+          <select >
             <option value="">---ทั้งหมด---</option>
+            <option *ngFor="let item of villageList" [value]="item.id">{{item.villageNo}} : {{item.villageName}}</option>
           </select>
         </div>
     </div>

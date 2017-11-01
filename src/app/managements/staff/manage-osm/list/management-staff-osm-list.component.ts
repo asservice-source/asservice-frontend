@@ -3,6 +3,7 @@ import { BaseComponent } from '../../../../base-component';
 import { LocalDataSource } from 'ng2-smart-table';
 import { ActionCustomViewComponent } from '../../../../action-custom-table/action-custom-view.component';
 import { OSMBean } from '../../../../beans/osm.bean';
+import { ApiHTTPService } from '../../../../service/api-http.service';
 declare var $:any;
 @Component({
   selector: 'app-management-staff-osm-list',
@@ -15,6 +16,8 @@ export class ManagementStaffOsmListComponent extends BaseComponent implements On
   public bean: OSMBean;
   public datas: any = [{citizenId: '1411022039443', villageNo: '3', firstName: 'มนีแมน', lastName: 'แสนรักษ์', fullName: 'นายมนีแมน แสนรักษ์', prefixCode: '001', prefixName: 'นาย'}, {citizenId: '9811022039000', villageNo: '1', firstName: 'สมศรี', lastName: 'สองห้องนะ', fullName: 'นายสมศรี สองห้องนะ', prefixCode: '002', prefixName: 'นาย'}];
   public source: LocalDataSource;
+  public villageList: any=[{}];
+  public api: ApiHTTPService = new ApiHTTPService();
   constructor() { 
     super();
     this.bean = new OSMBean();
@@ -53,10 +56,19 @@ export class ManagementStaffOsmListComponent extends BaseComponent implements On
 
   ngOnInit() {
     this.setUpTable();
+    this.setUpVillage();
   }
 
   setUpTable(){
     this.source = super.ng2STDatasource(this.datas);
+  }
+  setUpVillage(){
+    let _self = this.villageList;
+    this.api.api_villageList(this.getHospitalCode(),function(list){
+      console.log(list);
+      _self.villageList = list;
+     
+    });
   }
   onClickAdd(){
     this.bean = new OSMBean();
@@ -68,6 +80,6 @@ export class ManagementStaffOsmListComponent extends BaseComponent implements On
   }
 
   onSearch(){
-    
+
   }
 }
