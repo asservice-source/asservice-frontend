@@ -1,0 +1,48 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <label>การจัดการ เจ้าหน้าที่ อสม.</label>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-12">
+        <label class="value">โรงพยาบาลส่งเสริมสุขภาพ ตำบลบ้านเป็ด อำเภอเมือง จังหวัดขอนแก่น</label>
+      </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2 text-right">
+          <label class="label-form">ชื่อ</label>
+        </div>
+        <div class="col-md-4">
+          <input type="text" [(ngModel)]="ss">
+        </div>
+        <div class="col-md-1 text-right">
+          <label class="label-form">หมู่บ้าน</label>
+        </div>
+        <div class="col-md-3">
+          <select [(ngModel)]="ss">
+            <option value="">---ทั้งหมด---</option>
+          </select>
+        </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <button type="button" class="btn btn-sm btn-primary"  (click)="onSearch()">ค้นหา</button>
+      </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+          <button type="button" class="btn btn-sm btn-primary" (click)="onClickAdd()">เพิ่มเจ้าหน้าที่ อสม.</button>
+        </div>
+      </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <!-- <div class="filter-discription" [innerHtml]=""></div> -->
+        <ng2-smart-table [settings]="settings" [source]="source" (rowSelect)="onRowSelect($event)"></ng2-smart-table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-management-staff-osm-form [bean]="bean"></app-management-staff-osm-form>

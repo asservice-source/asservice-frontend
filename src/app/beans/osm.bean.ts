@@ -1,9 +1,7 @@
-export class OSMBean{
+import { PersonalBasicBean } from "./personal-basic.bean";
 
-    public OSMID: string;
-    public firstName: string;
-    public lastName: string;
-    public fullName: string;
-    public title: string;
+export class OSMBean extends PersonalBasicBean{
+    
+    
 
 }

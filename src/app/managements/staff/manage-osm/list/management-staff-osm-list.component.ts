@@ -1,0 +1,73 @@
+import { Component, OnInit } from '@angular/core';
+import { BaseComponent } from '../../../../base-component';
+import { LocalDataSource } from 'ng2-smart-table';
+import { ActionCustomViewComponent } from '../../../../action-custom-table/action-custom-view.component';
+import { OSMBean } from '../../../../beans/osm.bean';
+declare var $:any;
+@Component({
+  selector: 'app-management-staff-osm-list',
+  templateUrl: './management-staff-osm-list.component.html',
+  styleUrls: ['./management-staff-osm-list.component.css']
+})
+export class ManagementStaffOsmListComponent extends BaseComponent implements OnInit {
+
+  public settings: any;
+  public bean: OSMBean;
+  public datas: any = [{citizenId: '1411022039443', villageNo: '3', firstName: 'มนีแมน', lastName: 'แสนรักษ์', fullName: 'นายมนีแมน แสนรักษ์', prefixCode: '001', prefixName: 'นาย'}, {citizenId: '9811022039000', villageNo: '1', firstName: 'สมศรี', lastName: 'สองห้องนะ', fullName: 'นายสมศรี สองห้องนะ', prefixCode: '002', prefixName: 'นาย'}];
+  public source: LocalDataSource;
+  constructor() { 
+    super();
+    this.bean = new OSMBean();
+    let _self = this;
+    this.settings = this.getTabelSetting({
+      villageNo : { title: 'หมู่บ้าน' ,filter: false, with: '140px'},
+      fullName: {title: this.getLabel('lbl_firstName') +' - '+this.getLabel('lbl_lastName'), filter: false},
+      citizenId: {title: this.getLabel('lbl_citizenid'), filter: false},
+      action: {
+        title: this.getLabel('lbl_action'),
+        filter: false,
+        sort: false,
+        width: '100px',
+        type: 'custom',
+        renderComponent: ActionCustomViewComponent,
+        onComponentInitFunction(instance) {
+       
+          instance.view.subscribe(row => {
+
+           });
+           instance.edit.subscribe(row => {
+            _self.bean = row;
+            _self.onModalForm();
+           });
+           instance.delete.subscribe(row => {
+
+           });
+          instance.action.subscribe((row, cell) => {
+            console.log(row);
+          });
+        }
+      }
+    });
+
+  }
+
+  ngOnInit() {
+    this.setUpTable();
+  }
+
+  setUpTable(){
+    this.source = super.ng2STDatasource(this.datas);
+  }
+  onClickAdd(){
+    this.bean = new OSMBean();
+    this.bean.prefixCode = '';
+    this.onModalForm();
+  }
+  onModalForm(){
+    $('#modalForm').modal('show');
+  }
+
+  onSearch(){
+    
+  }
+}

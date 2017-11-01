@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../../../../base-component';
 import { ActionCustomViewComponent } from '../../../../action-custom-table/action-custom-view.component';
 import { StaffBean } from '../../../../beans/staff.bean';
@@ -12,12 +12,12 @@ declare var $: any;
 export class ManagementStaffStaffListComponent extends BaseComponent implements OnInit {
 
   public settings: any;
-  public staffBean: StaffBean;
-  public staffDatas: any = [{citizenId: '1411022039443', firstName: 'มนีแมน', lastName: 'แสนรักษ์', fullName: 'นายมนีแมน แสนรักษ์', titleId: '1', titleName: 'นาย'}, {citizenId: '9811022039000', firstName: 'สมศรี', lastName: 'สองห้องนะ', fullName: 'นายสมศรี สองห้องนะ', titleId: '1', titleName: 'นาย'}];
+  public bean: StaffBean;
+  public staffDatas: any = [{citizenId: '1411022039443', firstName: 'มนีแมน', lastName: 'แสนรักษ์', fullName: 'นายมนีแมน แสนรักษ์', titleCode: '001', titleName: 'นาย'}, {citizenId: '9811022039000', firstName: 'สมศรี', lastName: 'สองห้องนะ', fullName: 'นายสมศรี สองห้องนะ', titleCode: '002', titleName: 'นาย'}];
   public source: LocalDataSource;
-  constructor(private changeRef: ChangeDetectorRef) {
+  constructor() {
     super();
-    this.staffBean = new StaffBean();
+    this.bean = new StaffBean();
     let _self = this;
     this.settings = this.getTabelSetting({
       fullName: {title: this.getLabel('lbl_firstName') +' - '+this.getLabel('lbl_lastName'), filter: false},
@@ -34,23 +34,24 @@ export class ManagementStaffStaffListComponent extends BaseComponent implements 
         type: 'custom',
         renderComponent: ActionCustomViewComponent,
         onComponentInitFunction(instance) {
-          /*
+          
           instance.view.subscribe(row => {
-             self.doClick(row);
+             
            });
            instance.edit.subscribe(row => {
-             self.doClick(row);
+            _self.bean = row;
+            _self.onModalForm();
            });
            instance.delete.subscribe(row => {
-             self.doClick(row);
+            
            });
-           */
+           
           instance.action.subscribe((row, cell) => {
             console.log(row);
-            if(row && row.action.toUpperCase()==_self.ass_action.EDIT){
-              _self.staffBean = row;
-              _self.onModalForm(_self.ass_action.EDIT);
-            }
+            // if(row && row.action.toUpperCase()==_self.ass_action.EDIT){
+            //   _self.staffBean = row;
+            //   _self.onModalForm();
+            // }
           });
         }
       }
@@ -66,13 +67,13 @@ export class ManagementStaffStaffListComponent extends BaseComponent implements 
   setUpTable(){
     this.source = super.ng2STDatasource(this.staffDatas);
   }
-  onModalForm(action:string){
-    //this.changeRef.detectChanges();
+  onClickAdd(){
+    this.bean = new StaffBean();
+    this.bean.prefixCode = '';
+    this.onModalForm();
+  }
+  onModalForm(){
     $('#modalForm').modal('show');
   }
-  onClickAddStaff(){
-    this.staffBean = new StaffBean();
-    //this.changeRef.detectChanges();
-    $('#modalForm').modal('show');
-  }
+  
 }

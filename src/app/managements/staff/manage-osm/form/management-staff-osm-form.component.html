@@ -3,7 +3,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title" id="myModalLabel">{{dataBean.citizenId?'แก้ไข':'เพิ่ม'}}เจ้าหน้าที่ รพ.สต.</h4>
+          <h4 class="modal-title" id="myModalLabel">{{bean.citizenId?'แก้ไข':'เพิ่ม'}}เจ้าหน้าที่ รพ.สต.</h4>
         </div>
         <div class="modal-body">
 
@@ -12,7 +12,7 @@
               <label class="label-form">{{getLabel('lbl_citizenid')}}</label>
             </div>
             <div class="col-md-7">
-              <input type="text" [(ngModel)]="dataBean.citizenId" [disabled]="dataBean.citizenId">
+              <input type="text" [(ngModel)]="bean.citizenId" [disabled]="bean.citizenId">
             </div>
           </div>
 
@@ -21,8 +21,9 @@
               <label class="label-form">คำนำหน้า</label>
             </div>
             <div class="col-md-4">
-              <select [(ngModel)]="dataBean.titleId">
-                
+              <select [(ngModel)]="bean.prefixCode">
+                <option value="">---เลือก---</option>
+                <option *ngFor="let item of prefixList" [value]="item.code">{{item.name}}</option>
               </select>
             </div>
           </div>
@@ -32,7 +33,7 @@
               <label class="label-form">ชื่อ</label>
             </div>
             <div class="col-md-7">
-              <input type="text" [(ngModel)]="dataBean.firstName">
+              <input type="text" [(ngModel)]="bean.firstName">
             </div>
           </div>
 
@@ -41,7 +42,7 @@
               <label class="label-form">นามสกุล</label>
             </div>
             <div class="col-md-7">
-              <input type="text" [(ngModel)]="dataBean.lastName">
+              <input type="text" [(ngModel)]="bean.lastName">
             </div>
           </div>
 

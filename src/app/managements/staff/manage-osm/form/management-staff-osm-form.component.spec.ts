@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ManagementStaffOsmComponent } from './management-staff-osm.component';
+import { ManagementStaffOsmFormComponent } from './management-staff-osm-form.component';
 
 describe('ManagementStaffOsmComponent', () => {
-  let component: ManagementStaffOsmComponent;
-  let fixture: ComponentFixture<ManagementStaffOsmComponent>;
+  let component: ManagementStaffOsmFormComponent;
+  let fixture: ComponentFixture<ManagementStaffOsmFormComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ManagementStaffOsmComponent ]
+      declarations: [ ManagementStaffOsmFormComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ManagementStaffOsmComponent);
+    fixture = TestBed.createComponent(ManagementStaffOsmFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

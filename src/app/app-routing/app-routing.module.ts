@@ -18,9 +18,9 @@ import { SurveyPatientListComponent } from "./../surveys/patient/survey-patient-
 import { SurveyMetabolicListComponent } from "./../surveys/metabolic/survey-metabolic-list/survey-metabolic-list.component";
 import { SurveyMosquitoListComponent } from "./../surveys/mosquito/survey-mosquito-list/survey-mosquito-list.component";
 import { SurveyCancerListComponent } from "./../surveys/cancer/survey-cancer-list/survey-cancer-list.component";
-import { ManagementStaffStaffListComponent } from "./../managements/staff/management-staff-staff/management-staff-staff-list/management-staff-staff-list.component";
-import { ManagementStaffOsmComponent } from "./../managements/staff/management-staff-osm/management-staff-osm.component";
-import { ManagementStaffVillageComponent } from "./../managements/staff/management-staff-village/management-staff-village.component";
+import { ManagementStaffStaffListComponent } from "./../managements/staff/manage-staff/list/management-staff-staff-list.component";
+import { ManagementStaffOsmListComponent } from "./../managements/staff/manage-osm/list/management-staff-osm-list.component";
+import { ManagementStaffVillageComponent } from "./../managements/staff/manage-village/management-staff-village.component";
 
 @NgModule({
   imports: [
@@ -60,7 +60,7 @@ import { ManagementStaffVillageComponent } from "./../managements/staff/manageme
             },
             {
               path: 'staffosm',
-              component: ManagementStaffOsmComponent
+              component: ManagementStaffOsmListComponent
             },
             {
               path: 'staffvillage',

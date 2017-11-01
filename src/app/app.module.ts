@@ -48,10 +48,11 @@ import { FilterPersonalComponent } from './filter/filter-personal/filter-persona
 import { ActionCustomViewComponent } from './action-custom-table/action-custom-view.component'
 import { LoadingComponent } from './loading/loading.component';
 import { OnlyNumberDirective } from './directives/onlynumber.diretive';
-import { ManagementStaffStaffListComponent } from './managements/staff/management-staff-staff/management-staff-staff-list/management-staff-staff-list.component';
-import { ManagementStaffStaffFormComponent } from './managements/staff/management-staff-staff/management-staff-staff-form/management-staff-staff-form.component';
-import { ManagementStaffOsmComponent } from './managements/staff/management-staff-osm/management-staff-osm.component';
-import { ManagementStaffVillageComponent } from './managements/staff/management-staff-village/management-staff-village.component';
+import { ManagementStaffStaffListComponent } from './managements/staff/manage-staff/list/management-staff-staff-list.component';
+import { ManagementStaffStaffFormComponent } from './managements/staff/manage-staff/form/management-staff-staff-form.component';
+import { ManagementStaffOsmListComponent } from './managements/staff/manage-osm/list/management-staff-osm-list.component';
+import { ManagementStaffOsmFormComponent } from './managements/staff/manage-osm/form/management-staff-osm-form.component';
+import { ManagementStaffVillageComponent } from './managements/staff/manage-village/management-staff-village.component';
 import { MyDatePickerModule } from 'mydatepicker';
 
 
@@ -94,9 +95,11 @@ import { MyDatePickerModule } from 'mydatepicker';
     ActionCustomViewComponent,
     OnlyNumberDirective,
     ManagementStaffStaffListComponent,
-    ManagementStaffOsmComponent,
-    ManagementStaffVillageComponent,
-    ManagementStaffStaffFormComponent
+    ManagementStaffStaffFormComponent,
+    ManagementStaffOsmListComponent,
+    ManagementStaffOsmFormComponent,
+    ManagementStaffVillageComponent
+  
 
   ],
   imports: [
