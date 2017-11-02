@@ -100,7 +100,6 @@ export class FilterFindPersonComponent extends BaseComponent implements OnInit {
     let self = this;
     let params = { "homeId": self.filterBean.homeId};
     this.api.post('homemember/homemember_by_home', params, function (resp) {
-      console.log(resp);
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.personData = resp.response; 
       }
@@ -110,7 +109,6 @@ export class FilterFindPersonComponent extends BaseComponent implements OnInit {
     let self = this;
     let params = { "hospitalCode": super.getHospitalCode() };
     this.api.post('village/village_no_list_by_hospital', params, function (resp) {
-      console.log(self.villageData);
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.villageData = resp.response; 
       }
@@ -120,7 +118,6 @@ export class FilterFindPersonComponent extends BaseComponent implements OnInit {
     let self = this;
     let params = { "id": this.filterBean.villageId};
     this.api.post('osm/osm_list_by_village', params, function (resp) {
-      console.log(resp);
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.osmData = resp.response;
         self.isDisabledOSM = false;
@@ -132,7 +129,6 @@ export class FilterFindPersonComponent extends BaseComponent implements OnInit {
     let self = this;
     let params = { "id": this.filterBean.villageId, "osmId": this.filterBean.osmId};
     this.api.post('home/home_no_list_by_village_or_osm', params, function (resp) {
-      console.log(resp);
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.homeData = resp.response;
         self.isDisabledOSM = false;

@@ -13,7 +13,7 @@ export class ManagementStaffStaffListComponent extends BaseComponent implements 
 
   public settings: any;
   public bean: StaffBean;
-  public staffDatas: any = [{citizenId: '1411022039443', firstName: 'มนีแมน', lastName: 'แสนรักษ์', fullName: 'นายมนีแมน แสนรักษ์', titleCode: '001', titleName: 'นาย'}, {citizenId: '9811022039000', firstName: 'สมศรี', lastName: 'สองห้องนะ', fullName: 'นายสมศรี สองห้องนะ', titleCode: '002', titleName: 'นาย'}];
+  public staffDatas: any = [{citizenId: '1411022039443', firstName: 'มนีแมน', lastName: 'แสนรักษ์', fullName: 'นายมนีแมน แสนรักษ์', prefixCode: '001', prefixName: 'นาย'}, {citizenId: '9811022039000', firstName: 'สมศรี', lastName: 'สองห้องนะ', fullName: 'นายสมศรี สองห้องนะ', prefixCode: '002', prefixName: 'นาย'}];
   public source: LocalDataSource;
   constructor() {
     super();

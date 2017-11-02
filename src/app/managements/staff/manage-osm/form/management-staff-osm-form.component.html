@@ -46,6 +46,64 @@
             </div>
           </div>
 
+          <div class="row">
+            <div class="col-md-4 text-right">
+              <label class="label-form">ตำบล</label>
+            </div>
+            <div class="col-md-7">
+              <input type="text">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4 text-right">
+              <label class="label-form">อำเภอ</label>
+            </div>
+            <div class="col-md-7">
+              <input type="text">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4 text-right">
+              <label class="label-form">จังหวัด</label>
+            </div>
+            <div class="col-md-7">
+              <!-- <ng2-completer [(ngModel)]="province" [datasource]="addressData" [initialValue]="openOnFocus" [minSearchLength]="0"></ng2-completer> -->
+              
+              <div class="input-group">
+                  
+                <ng2-completer #openCloseExample
+                                [(ngModel)]="province"
+                                [datasource]="addressData"
+                                [openOnFocus]="true"
+                                (selected)="onProvinceSelected($event)"
+                                (opened)="onOpened($event)"
+                                (focus)="openCloseFocused = true"
+                                (blur)="openCloseFocused = false"
+                                [minSearchLength]="0"
+                                [placeholder]="'เลือกจังหวัด'"
+                                [autoHighlight]="true"
+                                [clearUnselected]="true"
+                                [selectOnFocus]="true"
+                                [fillHighlighted]="false">
+                </ng2-completer>
+                <span class="chevron fa input-group-addon" 
+                  (click)="onToggle()"
+                  [ngClass]="{'fa-chevron-down': !isOpen, 'fa-chevron-up': isOpen}">
+                </span>
+            </div>
+          </div> 
+        </div>
+
+          <div class="row">
+            <div class="col-md-4 text-right">
+              <label class="label-form">รหัสไปรษณีย์</label>
+            </div>
+            <div class="col-md-4">
+              <input type="text">
+            </div>
+          </div>
 
         </div>
         <div class="modal-footer">

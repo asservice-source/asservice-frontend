@@ -12,12 +12,15 @@ declare var $:any;
 })
 export class ManagementStaffOsmListComponent extends BaseComponent implements OnInit {
 
+  public api: ApiHTTPService = new ApiHTTPService();
   public settings: any;
   public bean: OSMBean;
   public datas: any = [{citizenId: '1411022039443', villageNo: '3', firstName: 'มนีแมน', lastName: 'แสนรักษ์', fullName: 'นายมนีแมน แสนรักษ์', prefixCode: '001', prefixName: 'นาย'}, {citizenId: '9811022039000', villageNo: '1', firstName: 'สมศรี', lastName: 'สองห้องนะ', fullName: 'นายสมศรี สองห้องนะ', prefixCode: '002', prefixName: 'นาย'}];
   public source: LocalDataSource;
-  public villageList: any=[{}];
-  public api: ApiHTTPService = new ApiHTTPService();
+  public villageList: any=[];
+  public searchName: string;
+  public searchVillageId: string = '';
+
   constructor() { 
     super();
     this.bean = new OSMBean();
@@ -63,7 +66,7 @@ export class ManagementStaffOsmListComponent extends BaseComponent implements On
     this.source = super.ng2STDatasource(this.datas);
   }
   setUpVillage(){
-    let _self = this.villageList;
+    let _self = this;
     this.api.api_villageList(this.getHospitalCode(),function(list){
       console.log(list);
       _self.villageList = list;

@@ -21,8 +21,6 @@ export class MainLeftSideComponent implements OnInit {
   setUpMenu(){
     let self = this;
     this.api.post('app/menu',{}, function(response){
-        console.log(response);
-        //self.links = response;
         self.compareMenu(response);
     });
   }
