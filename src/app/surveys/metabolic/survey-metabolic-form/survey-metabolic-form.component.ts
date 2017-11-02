@@ -85,12 +85,11 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
   getHealtinsuranceType() {
     let self = this;
     let params = {};
-    this.api.post('person/health_insurance_list', params, function (resp) {
+    this.api.post('person/health_insurance_type_list', params, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.healtInsuranceTypeList = resp.response;
         self.healtInsuranceTypeList.id = 89;
       }
-
     })
   }
 
@@ -188,13 +187,13 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
     this.metabolicbean.healtHistory_isPregnantDiabetes = this.metabolicbean.healtHistory_isPregnantDiabetes || false;
     this.metabolicbean.healtHistory_isOverBpParent = this.metabolicbean.healtHistory_isOverBpParent || false;
 
-    this.metabolicbean.disease_Diabetes = this.metabolicbean.disease_Diabetes;
-    this.metabolicbean.disease_Complication_etc = this.metabolicbean.disease_Complication_etc;
-    this.metabolicbean.disease_Complication_eye = this.metabolicbean.disease_Complication_eye;
-    this.metabolicbean.disease_Complication_kidney = this.metabolicbean.disease_Complication_kidney;
-    this.metabolicbean.disease_Complication_nerve = this.metabolicbean.disease_Complication_nerve;
-    this.metabolicbean.disease_Complication_nervousSys = this.metabolicbean.disease_Complication_nervousSys;
-    this.metabolicbean.disease_OverBP = this.metabolicbean.disease_OverBP;
+    this.metabolicbean.disease_Diabetes = this.metabolicbean.disease_Diabetes || false;
+    this.metabolicbean.disease_Complication_etc = this.metabolicbean.disease_Complication_etc || false;
+    this.metabolicbean.disease_Complication_eye = this.metabolicbean.disease_Complication_eye || false;
+    this.metabolicbean.disease_Complication_kidney = this.metabolicbean.disease_Complication_kidney || false;
+    this.metabolicbean.disease_Complication_nerve = this.metabolicbean.disease_Complication_nerve || false;
+    this.metabolicbean.disease_Complication_nervousSys = this.metabolicbean.disease_Complication_nervousSys || false;
+    this.metabolicbean.disease_OverBP = this.metabolicbean.disease_OverBP || false;
 
     console.log(this.metabolicbean.disease_Diabetes);
     console.log(this.metabolicbean.disease_Complication_etc);

@@ -27,6 +27,19 @@ export class PatientBean{  action: any;
     public occupationName: string = "";
     public dischargeId: string = "";
     public familyStatus: string = "";
-    public age: string;
+    public age: number;
     public address : string;
+
+    public patientSurveyTypeCode : any;
+    public patientType : string;
+    public diseaseStatusType : string;
+    public patientDate : any;
+    public hInsuranceType : string;
+
+    public disabilityType : string;
+    public disabilityCauseType : string;
+    public remark : string;
+    public telephone : string;
+
+
 }
