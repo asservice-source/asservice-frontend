@@ -19,5 +19,6 @@ export class PersonalBasicBean{
     public amphurName: string;
     public provinceCode: string;
     public provinceName: string;
+    public zipcode: string;
     
 }

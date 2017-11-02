@@ -12,10 +12,22 @@
               <label class="label-form">{{getLabel('lbl_citizenid')}}</label>
             </div>
             <div class="col-md-7">
-              <input type="text" [(ngModel)]="bean.citizenId" [disabled]="bean.citizenId">
+              <input type="text" [(ngModel)]="bean.citizenId" OnlyNumber="true" [disabled]="false">
             </div>
           </div>
-
+          
+          <div class="row">
+            <div class="col-md-4 text-right">
+              <label class="label-form">เพศ</label>
+            </div>
+            <div class="col-md-4">
+              <select [(ngModel)]="bean.genderCode">
+                <option value="">---เลือก---</option>
+                <option *ngFor="let item of genderList" [value]="item.code">{{item.name}}</option>
+              </select>
+            </div>
+          </div>
+          
           <div class="row">
             <div class="col-md-4 text-right">
               <label class="label-form">คำนำหน้า</label>
@@ -48,10 +60,26 @@
 
           <div class="row">
             <div class="col-md-4 text-right">
-              <label class="label-form">ตำบล</label>
+              <label class="label-form">หมู่บ้าน</label>
+            </div>
+            <div class="col-md-7">  
+              <select [(ngModel)]="bean.villageId">
+                <option value="">---เลือก---</option>
+                <option *ngFor="let item of villageList" [value]="item.id">{{item.villageNo}} : {{item.villageName}}</option>
+              </select>
+            </div>
+          </div>
+<!-- 
+          <div class="row">
+            <div class="col-md-4 text-right">
+              <label class="label-form">จังหวัด</label>
             </div>
             <div class="col-md-7">
-              <input type="text">
+               
+              <select [(ngModel)]="bean.provinceCode" (change)="onProvinceChange()" [disabled]="isAddressDisable">
+                <option value="">---เลือก---</option>
+                <option *ngFor="let item of provinces" [value]="item.codeId">{{item.name}}</option>
+              </select>
             </div>
           </div>
 
@@ -60,39 +88,22 @@
               <label class="label-form">อำเภอ</label>
             </div>
             <div class="col-md-7">
-              <input type="text">
+                <select [(ngModel)]="bean.amphurCode" (change)="onAmphurChange()" [disabled]="!bean.provinceCode || isAddressDisable">
+                  <option value="">---เลือก---</option>
+                  <option *ngFor="let item of amphurs" [value]="item.code">{{item.name}}</option>
+                </select>
             </div>
           </div>
 
           <div class="row">
             <div class="col-md-4 text-right">
-              <label class="label-form">จังหวัด</label>
+              <label class="label-form">ตำบล</label>
             </div>
             <div class="col-md-7">
-              <!-- <ng2-completer [(ngModel)]="province" [datasource]="addressData" [initialValue]="openOnFocus" [minSearchLength]="0"></ng2-completer> -->
-              
-              <div class="input-group">
-                  
-                <ng2-completer #openCloseExample
-                                [(ngModel)]="province"
-                                [datasource]="addressData"
-                                [openOnFocus]="true"
-                                (selected)="onProvinceSelected($event)"
-                                (opened)="onOpened($event)"
-                                (focus)="openCloseFocused = true"
-                                (blur)="openCloseFocused = false"
-                                [minSearchLength]="0"
-                                [placeholder]="'เลือกจังหวัด'"
-                                [autoHighlight]="true"
-                                [clearUnselected]="true"
-                                [selectOnFocus]="true"
-                                [fillHighlighted]="false">
-                </ng2-completer>
-                <span class="chevron fa input-group-addon" 
-                  (click)="onToggle()"
-                  [ngClass]="{'fa-chevron-down': !isOpen, 'fa-chevron-up': isOpen}">
-                </span>
-            </div>
+              <select [(ngModel)]="bean.tumpolCode" (change)="onTumbolChange()" [disabled]="!bean.amphurCode || isAddressDisable">
+                <option value="">---เลือก---</option>
+                <option *ngFor="let item of tumbols" [value]="item.code">{{item.name}}</option>
+              </select>
           </div> 
         </div>
 
@@ -101,9 +112,10 @@
               <label class="label-form">รหัสไปรษณีย์</label>
             </div>
             <div class="col-md-4">
-              <input type="text">
+              <input type="text" [(ngModel)]="bean.zipcode" OnlyNumber="true" maxlength="5">
             </div>
-          </div>
+          </div>    
+-->
 
         </div>
         <div class="modal-footer">

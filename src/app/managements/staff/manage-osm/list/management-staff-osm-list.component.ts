@@ -15,7 +15,7 @@ export class ManagementStaffOsmListComponent extends BaseComponent implements On
   public api: ApiHTTPService = new ApiHTTPService();
   public settings: any;
   public bean: OSMBean;
-  public datas: any = [{citizenId: '1411022039443', villageNo: '3', firstName: 'มนีแมน', lastName: 'แสนรักษ์', fullName: 'นายมนีแมน แสนรักษ์', prefixCode: '001', prefixName: 'นาย'}, {citizenId: '9811022039000', villageNo: '1', firstName: 'สมศรี', lastName: 'สองห้องนะ', fullName: 'นายสมศรี สองห้องนะ', prefixCode: '002', prefixName: 'นาย'}];
+  public datas: any = [{citizenId: '1411022039443', genderCode: '2', villageNo: '3', firstName: 'มนีแมน', lastName: 'แสนรักษ์', fullName: 'นายมนีแมน แสนรักษ์', prefixCode: '001', prefixName: 'นาย'}, {citizenId: '9811022039000', genderCode: '1', villageNo: '1', firstName: 'สมศรี', lastName: 'สองห้องนะ', fullName: 'นายสมศรี สองห้องนะ', prefixCode: '002', prefixName: 'นาย'}];
   public source: LocalDataSource;
   public villageList: any=[];
   public searchName: string;
@@ -66,6 +66,7 @@ export class ManagementStaffOsmListComponent extends BaseComponent implements On
     this.source = super.ng2STDatasource(this.datas);
   }
   setUpVillage(){
+    
     let _self = this;
     this.api.api_villageList(this.getHospitalCode(),function(list){
       console.log(list);
@@ -76,6 +77,8 @@ export class ManagementStaffOsmListComponent extends BaseComponent implements On
   onClickAdd(){
     this.bean = new OSMBean();
     this.bean.prefixCode = '';
+    this.bean.villageId = '';
+    this.bean.genderCode = '';
     this.onModalForm();
   }
   onModalForm(){

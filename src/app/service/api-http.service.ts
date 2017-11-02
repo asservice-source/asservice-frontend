@@ -21,7 +21,7 @@ export class ApiHTTPService extends BaseComponent implements OnInit {
         throw new Error("Method not implemented.");
     }
 
-    get(url: string, params?: any, callback?: (doc: any) => void) {
+    get(url: string, params: any, callback: (doc: any) => void) {
         this.http.get(this.getApiUrl(url), params)
             .map(res => res.json())
             .subscribe(
@@ -31,7 +31,7 @@ export class ApiHTTPService extends BaseComponent implements OnInit {
             )
     }
 
-    post(url: string, params?: any, callback?: (doc: any) => void) {
+    public post(url: string, params: any, callback: (doc: any) => void) {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers, method: "post" });
 
@@ -40,22 +40,48 @@ export class ApiHTTPService extends BaseComponent implements OnInit {
             .subscribe(
             data => callback(data),
             err => err,
-            () => console.log('Fetching url ' + url + ' complete for Server Api.')
+            () => console.log('Fetching url Server Api : ' + url)
             )
     }
 
-    api_villageList(hospitalCode5: string, callback?: (doc: any) => void) {
-        this.post('village/village_no_list_by_hospital'
-            , { 'hospitalCode': hospitalCode5 }
+    public callResponse(path: any, params: any, callback: (doc: any) => void){
+        this.post(
+            path
+            , params
             , function(resp){
-                if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+                console.log(resp);
+                if (resp && resp.status.toUpperCase() == "SUCCESS") {
                     callback(resp.response);
                 }else{
-                    callback(resp);
+                    callback([]);
                 }
-                
             }
         );
     }
 
+    public api_villageList(hospitalCode5: string, callback: (doc: any) => void) {
+        this.callResponse('village/village_no_list_by_hospital', {"hospitalCode": hospitalCode5}, callback);
+    }
+    public api_OsmList(villageId: string, callback: (doc: any) => void) {
+        this.callResponse('osm/osm_list_by_village', {"villageId": villageId}, callback);
+    }
+    public api_HomeList(villageId: string, osmId: string, callback: (doc: any) => void) {
+        this.callResponse('home/home_no_list_by_village_or_osm', {"villageId": villageId, "osmId": osmId}, callback);
+    }
+
+    public api_ProvinceList(callback: (doc: any) => void) {
+        this.callResponse('address/province', {}, callback);     
+    }
+
+    public api_AmphurList(provinceCode: string, callback: (doc: any) => void) {
+        this.callResponse('address/amphur', {"provinceCode":provinceCode}, callback);
+    }
+
+    public api_TumbolList(amphurCode: string, callback: (doc: any) => void) {
+        this.callResponse('address/tumbol', {"amphurCode": amphurCode}, callback);
+    }
+    
+    public api_GenderList(callback: (doc: any) => void) {
+        this.callResponse('person/gender_list', {}, callback);
+    }
 }

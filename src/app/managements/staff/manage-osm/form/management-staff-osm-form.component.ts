@@ -1,8 +1,7 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { BaseComponent } from '../../../../base-component';
 import { OSMBean } from '../../../../beans/osm.bean';
 import { ApiHTTPService } from '../../../../service/api-http.service';
-import { CompleterService, CompleterData, CompleterCmp, CompleterItem } from 'ng2-completer';
 
 @Component({
   selector: 'app-management-staff-osm-form',
@@ -15,20 +14,18 @@ export class ManagementStaffOsmFormComponent extends BaseComponent implements On
 
   public api: ApiHTTPService = new ApiHTTPService();
   public prefixList: any = [{}];
-  public addressData: CompleterData;
-  public provinceList: any;
-  public isOpen: boolean = false;
-  @ViewChild("openCloseExample") private openCloseExample: CompleterCmp;
-
-  constructor(private compService: CompleterService) { 
+  public villageList: any;
+  public genderList: any;
+  constructor() { 
     super();
     this.bean = new OSMBean();
-    this.bean.prefixCode = '';
+    
   }
 
   ngOnInit() {
+    this.setupGenger();
     this.setUpPrefix();
-    this.setupProvinceList();
+    this.setUpVillage();
   }
   setUpPrefix(){
     let _self = this;
@@ -41,31 +38,19 @@ export class ManagementStaffOsmFormComponent extends BaseComponent implements On
       }
     });
   }
-
-  setupProvinceList() {
+  setUpVillage(){
     let _self = this;
-    this.api.post('address/province', {}, function (resp) {
-      console.log(resp);
-      if (resp && resp.status.toUpperCase() == "SUCCESS") {
-        _self.provinceList = resp.response;
-        _self.addressData = _self.compService.local(_self.provinceList,'name', 'name');
-      }
-    })
+    this.api.api_villageList(this.getHospitalCode(),function(list){
+      console.log(list);
+      _self.villageList = list;
+     
+    });
   }
- public onProvinceSelected(item: CompleterItem){
-  console.log(item);
- }
-  public onOpened(isOpen: boolean) {
-    this.isOpen = isOpen;
-  }
+  setupGenger(){
+    let _self = this;
+    this.api.api_GenderList(function(response){
+      _self.genderList = response;
+    });
 
-  public onToggle() {
-      if (this.isOpen) {
-          this.openCloseExample.close();
-      } else {
-          this.openCloseExample.open();
-          this.openCloseExample.focus();
-      }
   }
-
 }
