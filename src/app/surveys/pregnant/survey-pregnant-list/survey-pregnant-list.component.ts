@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Http, Response, RequestOptions } from "@angular/http";
 import { Router } from "@angular/router";
 import { BaseComponent } from "./../../../base-component";
@@ -22,8 +22,9 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
   public data;
   public isShowList: boolean = false;
   public source: LocalDataSource = new LocalDataSource();
+  public action: string = this.ass_action.ADD;
 
-  constructor(private http: Http, private router: Router) {
+  constructor(private http: Http, private router: Router,private changeRef: ChangeDetectorRef) {
     super();
     this.loadData();
     this.api = new ApiHTTPService();
@@ -103,6 +104,12 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
     this.source = new LocalDataSource(this.data);
     this.isShowList = true;
     super.setNg2STDatasource(this.source);
+  }
+
+  onModalFrom(action: string){
+    this.action = action;
+    this.changeRef.detectChanges();
+    $('#find-person-md').modal('show');
   }
 
 }

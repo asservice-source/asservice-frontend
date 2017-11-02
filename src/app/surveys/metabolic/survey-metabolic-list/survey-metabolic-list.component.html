@@ -1,13 +1,12 @@
 <div class="panel panel-default">
-    <div style="background-color: rgba(118, 128, 218, 0.25);" class="panel-heading">
-      <label>แบบสำรวจความเสี่ยงโรค Metabolic ประจำปี 2560/1</label>
+    <div class="panel-heading">
+      <label>แบบสำรวจความเสี่ยงโรค Metabolic</label>
     </div>
   
     <div class="panel-body">
-    
+      <div class="row">
      <app-filter-head-survey [surveyTypeCode]="surveyTypeCode" (notifyFilter)="onSearch($event)" (changeFilter)="onChangeFilter($event)"></app-filter-head-survey>
- 
-
+    </div>
       <div class="row">
         <div class="col-sm-12 text-left">
             <button class="btn btn-sm btn-primary" (click)="onModalFrom(ass_action.ADD);">เพิ่มการสำรวจ</button>

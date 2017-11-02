@@ -147,9 +147,20 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
 
 
   onChangePatientSyurvey(){
+
+    if(this.patientbean.patientSurveyTypeCode == 'Patient'){
+      this.patientbean.hInsuranceType = "89";
+    }
+
+    if(this.patientbean.patientSurveyTypeCode == 'Disabled'){
+      this.patientbean.hInsuranceType = "74";
+    }
+
     this.patientbean.patientType = "0";
     this.patientbean.disabilityType = "0";
     this.patientbean.disabilityCauseType = "0";
+    this.patientbean.patientDate = undefined;
+    this.patientbean.remark = undefined;
 
   }
 

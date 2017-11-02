@@ -1,16 +1,50 @@
-<div id="myModal" tabindex="-1" class="modal fade" role="dialog">
+<div id="find-person-md" class="modal fade" role="dialog" data-backdrop="false" data-keyboard="false">
     <div class="modal-lg modal-dialog">
 
         <!-- Modal ADD-->
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">รายละเอียดผู้ตั้งครรภ์</h4>
+                <h4 class="modal-title">แบบสำรวจหญิงตั้งครรภ์</h4>
             </div>
-            <app-filter-find-person [findPersonal]="isFindPersonal" (choosePersonal)="onChoosePersonal($event)"></app-filter-find-person>
-            <hr>
+            <app-filter-find-person [reset]="resetFind" [findPersonal]="isFindPersonal" (choosePersonal)="onChoosePersonal($event)"></app-filter-find-person>
 
             <div *ngIf="isShowForm">
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-1">
+                        <label id="cid">หมายเลขประจำตัว :</label>
+                        <label class="value">{{pregnantbean.citizenId}}</label>
+                    </div>
+                    <div class="col-md-3">
+                        <label>ชื่อ-สกุล :</label>
+                        <label class="value">{{pregnantbean.fullName}}</label>
+                    </div>
+
+                    <!-- <div class="col-md-2" style="width: 80px; padding-right: 0px;">
+                        <label class="label-form">สิทธิบัตร:</label>
+                    </div>
+                    <div class="col-md-2">
+                        <select [(ngModel)]="healtInsuranceTypeList.id">
+                            <option value="0">เลือก</option>
+                            <option *ngFor="let item of healtInsuranceTypeList" value="{{item.id}}">{{item.code}}</option>
+                        </select>
+                    </div> -->
+
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-md-offset-1" style="width: 180px;">
+                        <label>เพศ :</label>
+                        <label class="value">{{pregnantbean.genderName}}</label>
+                        <label>อายุ :</label>
+                        <label class="value">{{pregnantbean.age}} ปี</label>
+                    </div>
+
+                    <div class="col-md-8">
+                        <label class="label-form">ที่อยู่ :</label>
+                        <label class="value">{{pregnantbean.address}}</label>
+                    </div>
+                </div>
+
+                <hr>
                 <div class="row">
                     <div class="col-md-2 text-right">
                         <label class="label-form">สถานะครรภ์</label>
@@ -155,135 +189,3 @@
 
     </div>
 </div>
-
-
-
-
-<!-- 
-<div class="row">
-        <div class="col-md-2 text-right">
-            <label>สถานะครรภ์</label>
-        </div>
-        <div class="col-md-3">
-            <select name="find-dropdownStatusNo" id="find-dropdownStatusNo" [(ngModel)]="mStatusNo" (change)="changStatusNo()">
-              <option value="0">ยังไม่คลอด</option>
-              <option value="1" >คลอดแล้ว</option>
-              <option value="2" >แท้ง</option>
-            </select>
-          </div>
-          
-          <div class="col-md-2 text-right">
-              <label  [hidden]="isDisable">กำหนดคลอด</label>
-              <label  [hidden]="isDisableAbort">หมายเหตุ</label>
-          </div>
-          <div  [hidden]="isDisable" class="col-md-3">
-              <div class="input-group date" data-provide="datepicker">
-                  <input type="text" >
-                  <div class="input-group-addon">
-                    <span class="glyphicon glyphicon-th"></span>
-                  </div>
-                </div>
-          </div>
-          <div  [hidden]="isDisableAbort" class="col-md-3">
-            <input type="text" name="" id="">
-        </div>
-      </div>
-
-
-      <div class="row">
-        <div class="col-md-2 text-right">
-              <label  [hidden]="isDisableBirth">วันคลอด</label>
-        </div>
-          <div  [hidden]="isDisableBirth" class="col-md-3">
-              <div class="input-group date" data-provide="datepicker" >
-                  <input type="text" [disabled]="isDisableBirth">
-                  <div class="input-group-addon">
-                    <span class="glyphicon glyphicon-th"></span>
-                  </div>
-                </div>
-          </div>
-      </div>
-
-      <div class="row">
-          <div class="col-md-2 text-right">
-              <label  [hidden]="isDisableBirth">โรงพยาบาลที่คลอด</label>
-          </div>
-          <div class="col-md-3">
-                <input type="text" name="" id=""  [hidden]="isDisableBirth">
-            </div>
-            <div class="col-md-1 text-right">
-                <label  [hidden]="isDisableBirth">วิธีคลอด</label>
-            </div>
-            <div class="col-md-3">
-                <select  [hidden]="isDisableBirth">
-                <option value="0">คลอดเอง</option>
-                <option value="1">ผ่าคลอด</option>
-                <option value="2" >เครื่องดูด</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="row">
-            
-                  <div class="col-md-2 text-right">
-                      <label  [hidden]="isDisableBirth">ชื่อ-สกุล</label>
-                  </div>
-                  <div class="col-md-2">
-                      <input type="text" placeholder="ชื่อจริง"  [hidden]="isDisableBirth">
-                  </div>
-             
-                  <div class="col-md-3">
-                      <input type="text" placeholder="นามสกุล" [hidden]="isDisableBirth">
-                  </div>
-         </div>
-         <div class="row">
-            
-                  <div class="col-md-2 text-right">
-                      <label  [hidden]="isDisableBirth">เพศ</label>
-                  </div>
-                  <div class="col-md-2">
-                      <select  [hidden]="isDisableBirth">
-                          <option value="0">-เลือกเพศ-</option>
-                          <option value="1">ชาย</option>
-                          <option value="2" >หญิง</option>
-                          </select>
-                  </div>
-                   <div class="col-md-2 text-center ">
-                      <label  [hidden]="isDisableBirth" >กรุ๊ปเลือด</label>
-                      <select style="width: 50%"  [hidden]="isDisableBirth" >
-                          <option value="0">-</option>
-                          <option value="1">A</option>
-                          <option value="2" >B</option>
-                          <option value="2" >AB</option>
-                          <option value="2" >O</option>
-                          </select>
-                  </div> 
-                  <div class="col-md-2 text-center ">
-                      <label  [hidden]="isDisableBirth" >น้ำหนัก</label>
-                              <input style="width: 50%" type="text" name="" id="" [hidden]="isDisableBirth">
-                  </div>              
-          </div>
-
-          <div class="row">
-              
-                    <div class="col-md-2 text-right">
-                        <label style="font-size: 13px"  [hidden]="isDisableBirth">เลขประจำตัวประชาชน</label>
-                    </div>
-                    <div class="col-md-3">
-                        <input type="text" name="" id=""  [hidden]="isDisableBirth">
-                    </div>
-
-            </div>
-  <div >
-
- 
-  <div class="modal-footer">
-      <div class="row">
-          <div class="col-md-12 text-center">
-      <button  class="btn btn-primary">ยืนยัน</button>
-      <button  class="btn btn-primary">รีเซ็ท</button>
-      </div>
-
-    </div>
-  </div>
-</div> -->
