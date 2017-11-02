@@ -21,14 +21,14 @@
                     </div>
 
                     <div class="col-md-2" style="width: 80px; padding-right: 0px;">
-                            <label class="label-form">สิทธิบัตร:</label>     
-                        </div>
-                        <div class="col-md-2">
+                        <label class="label-form">สิทธิบัตร:</label>
+                    </div>
+                    <div class="col-md-2">
                         <select [(ngModel)]="healtInsuranceTypeList.id">
-                                <option value="0">เลือก</option>
-                                <option *ngFor="let item of healtInsuranceTypeList" value="{{item.id}}">{{item.code}}</option>
-                            </select>
-                        </div>
+                            <option value="0">เลือก</option>
+                            <option *ngFor="let item of healtInsuranceTypeList" value="{{item.id}}">{{item.code}}</option>
+                        </select>
+                    </div>
 
                 </div>
                 <div class="row">
@@ -42,7 +42,7 @@
                     <div class="col-md-8">
                         <label class="label-form">ที่อยู่ :</label>
                         <label class="value">{{metabolicbean.address}}</label>
-                    </div>      
+                    </div>
                 </div>
 
                 <hr>
@@ -174,7 +174,8 @@
                         </div>
 
                         <div class="col-md-1" style="padding-right: 5px; padding-left: 10px;">
-                            <input type="text" placeholder="จำนวน" id="numTobacco" [(ngModel)]="metabolicbean.drugHistory_numTobacco" maxlength="3" [disabled]="true" OnlyNumber="true">
+                            <input type="text" placeholder="จำนวน" id="numTobacco" [(ngModel)]="metabolicbean.drugHistory_numTobacco" maxlength="3" [disabled]="true"
+                                OnlyNumber="true">
                         </div>
 
                         <div class="col-md-2" style="padding-left: 0px;">
@@ -211,7 +212,8 @@
                         </div>
 
                         <div class="col-md-1" style="padding-right: 5px; padding-left: 10px;">
-                            <input type="text" placeholder="จำนวน" id="timeDrink" [(ngModel)]="metabolicbean.drugHistory_numDrink" maxlength="2" [disabled]="true" OnlyNumber="true">
+                            <input type="text" placeholder="จำนวน" id="timeDrink" [(ngModel)]="metabolicbean.drugHistory_numDrink" maxlength="2" [disabled]="true"
+                                OnlyNumber="true">
                         </div>
 
                         <div class="col-md-2" style="padding-left: 0px;">

@@ -212,70 +212,70 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
 
 
     if (this.metabolicbean.drugHistory_Smoke == '2') {
-      if(!this.metabolicbean.drugHistory_numTobacco){
+      if (!this.metabolicbean.drugHistory_numTobacco) {
         this.isErrorSmoke = true;
         validateform = false;
       }
       else {
-        this.isErrorSmoke = false;    
+        this.isErrorSmoke = false;
       }
-    } else{
+    } else {
       this.metabolicbean.drugHistory_numTobacco = undefined;
-      this.isErrorSmoke = false;  
+      this.isErrorSmoke = false;
     }
 
     if (this.metabolicbean.drugHistory_Drink == '2') {
-      if(!this.metabolicbean.drugHistory_numDrink){
+      if (!this.metabolicbean.drugHistory_numDrink) {
         this.isErrorDrink = true;
         validateform = false;
       }
       else {
-        this.isErrorDrink = false;    
+        this.isErrorDrink = false;
       }
-    } else{
+    } else {
       this.metabolicbean.drugHistory_numDrink = undefined;
-      this.isErrorDrink = false;  
+      this.isErrorDrink = false;
     }
 
-    if(this.metabolicbean.physicalBody_weight == undefined){
+    if (this.metabolicbean.physicalBody_weight == undefined) {
       this.isErrorWeight = true;
       validateform = false;
-    }else{
+    } else {
       this.isErrorWeight = false;
     }
 
-    if(this.metabolicbean.physicalBody_height == undefined){
+    if (this.metabolicbean.physicalBody_height == undefined) {
       this.isErrorHeight = true;
       validateform = false;
-    }else{
+    } else {
       this.isErrorHeight = false;
     }
 
-    if(this.metabolicbean.physicalBody_waistline == undefined){
+    if (this.metabolicbean.physicalBody_waistline == undefined) {
       this.isErrorWaistline = true;
       validateform = false;
-    }else{
+    } else {
       this.isErrorWaistline = false;
     }
 
-    if(this.metabolicbean.physicalBody_BMI == undefined){
+    if (this.metabolicbean.physicalBody_BMI == undefined) {
       this.isErrorBMI = true;
       validateform = false;
-    }else{
+    } else {
       this.isErrorBMI = false;
     }
 
-    if(this.metabolicbean.physicalBody_BP1_hg == undefined || this.metabolicbean.physicalBody_BP1_mm == undefined){
+    if (this.metabolicbean.physicalBody_BP1_hg == undefined || this.metabolicbean.physicalBody_BP1_mm == undefined) {
       this.isErrorBP1 = true;
       validateform = false;
-    }else{
+    } else {
       this.isErrorBP1 = false;
     }
 
-    if(this.metabolicbean.physicalBody_BP2_hg == undefined || this.metabolicbean.physicalBody_BP2_mm == undefined){
+    if (this.metabolicbean.physicalBody_BP2_hg == undefined || this.metabolicbean.physicalBody_BP2_mm == undefined) {
       this.isErrorBP2 = true;
       validateform = false;
-    }else{
+    } else {
       this.isErrorBP2 = false;
     }
 
@@ -285,5 +285,10 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
   addSurvey() {
     this.validateForm();
 
+    if (this.validateForm() == true) {
+      // send data to api 
+    }
   }
+
+  
 }
