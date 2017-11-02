@@ -26,7 +26,7 @@ export class MetabolicBean{
     public occupationName: string = "";
     public dischargeId: string = "";
     public familyStatus: string = "";
-    public age: string;
+    public age: number;
     public address : string;
   
     public healtHistory_isDiabetesParent: boolean = false;

@@ -72,7 +72,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
     let seft = this;
     this.apiHttp.post('hospital/hospital_list', {}, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-        seft.hospitalList = resp.list;
+        seft.hospitalList = resp.response;
         seft.dataHospitals = seft.completerService.local(resp.list, 'name', 'name');
 
       }
@@ -95,7 +95,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
     let params = { "provinceCode": this.registerBean.provinceID };
     this.api.post('address/amphur', params, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-        self.amphurList = resp.list;
+        self.amphurList = resp.response;
       }
 
     })
@@ -107,7 +107,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
     let params = { "amphurCode": this.registerBean.amphurCode };
     this.api.post('address/tumbol', params, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-        self.tumbolsList = resp.list;
+        self.tumbolsList = resp.response;
       }
 
     })
@@ -184,7 +184,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
     let params = {};
     this.api.post('address/province', params, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-        self.provinceList = resp.list;
+        self.provinceList = resp.response;
       }
 
     })
@@ -195,7 +195,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
     let params = {};
     this.api.post('person/prefix_list', params, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-        self.prefixList = resp.list;
+        self.prefixList = resp.response;
       }
 
     })
@@ -206,7 +206,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
     let params = {};
     this.api.post('hospital/hospital_list', params, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-        self.prefixList = resp.list;
+        self.prefixList = resp.response;
       }
     })
   }
