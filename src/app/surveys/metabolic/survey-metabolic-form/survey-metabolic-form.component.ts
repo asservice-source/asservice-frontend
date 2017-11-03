@@ -195,13 +195,13 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
     this.metabolicbean.disease_Complication_nervousSys = this.metabolicbean.disease_Complication_nervousSys || false;
     this.metabolicbean.disease_OverBP = this.metabolicbean.disease_OverBP || false;
 
-    console.log(this.metabolicbean.disease_Diabetes);
-    console.log(this.metabolicbean.disease_Complication_etc);
-    console.log(this.metabolicbean.disease_Complication_eye);
-    console.log(this.metabolicbean.disease_Complication_kidney);
-    console.log(this.metabolicbean.disease_Complication_nerve);
-    console.log(this.metabolicbean.disease_Complication_nervousSys);
-    console.log(this.metabolicbean.disease_OverBP);
+    // console.log(this.metabolicbean.disease_Diabetes);
+    // console.log(this.metabolicbean.disease_Complication_etc);
+    // console.log(this.metabolicbean.disease_Complication_eye);
+    // console.log(this.metabolicbean.disease_Complication_kidney);
+    // console.log(this.metabolicbean.disease_Complication_nerve);
+    // console.log(this.metabolicbean.disease_Complication_nervousSys);
+    // console.log(this.metabolicbean.disease_OverBP);
 
     if (this.metabolicbean.drugHistory_Smoke == undefined) {
       this.metabolicbean.drugHistory_Smoke = '1';
@@ -284,9 +284,10 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
 
   addSurvey() {
     this.validateForm();
-
     if (this.validateForm() == true) {
-      // send data to api 
+      // let params {
+
+      // }
     }
   }
 
