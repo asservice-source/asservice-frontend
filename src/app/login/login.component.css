@@ -8,84 +8,13 @@
     margin-top: 15px;
     color: #ffffff;
 }
-.form-control {
-    display: block;
-    width: 95%;
-    height: 30px;
-    padding: 6px 6px;
-    font-size: 14px;
-    line-height: 1.42857143;
-    color: #555;
-    background-color: #fff;
-    background-image: none;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-            box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
-         -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-            transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-  }
-
   .navbar-static-top {
   z-index: 1000;
   border-width: 0 0 1px;
   background-color: #42c8fb;
 }
-
-.loggedout_menubar i.fb_logo {
-        background-image: url(/rsrc.php/v3/ys/r/y7nRb1Fhh8Z.png);
-        background-position: 0 0;
-        background-size: 100% 100%;
-    }
-
-    .loggedout_menubar {
-        margin: 0 auto;
-        padding-top: 13px;
-        width: 980px;
-    }
-    
-    .html7magic {
-        padding-top: 8px;
-    
-    }
-    
-    .menu_login_container .inputtext, .menu_login_container .inputpassword {
-        border-color: #1d2a5b;
-        margin: 0;
-        width: 142px;
-    }
-
-    .uiButton {
-        height: 30px;
-        border-radius: 2px;
-        cursor: pointer;
-        display: inline-block;
-        color: white;
-        font-size: 14px;
-        -webkit-font-smoothing: antialiased;
-        font-weight: bold;
-        line-height: 18px;
-        padding: 6px 12px;
-        text-align: center;
-        text-decoration: none;
-        text-shadow: none;
-        vertical-align: top;
-        white-space: nowrap;
-        border: 1px solid #ced0d4;
-        background-color: #4267b2;
-        border-color: #29487d;
-    }
-
-    .uiButtonConfirm {
-        background-color: #5401B2;
-        border-color: #29487d;
-    }
-    .lb-forgot-password{
-        margin-top: 8px;
-        color: #195AC4;
-        text-decoration: none;
-    }
-    .lb-forgot-password:hover{
-        text-decoration:underline; 
-    }
+label.value{
+    font-size: 14px;
+    color: #2d4f84;
+    padding-left: 3px;
+}
