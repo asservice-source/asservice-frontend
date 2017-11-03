@@ -116,10 +116,11 @@ export class FilterHeadSurveyComponent extends BaseComponent implements OnInit {
 
   onSearchFilter() {
 
-    let str = '<b>รอบสำรวจ:</b> ' + this.discription.round;
-    str += ' , <b>หมู่บ้าน:</b> ' + this.discription.village;
-    str += ' , <b>อสม.:</b> ' + this.discription.osm;
-    str += ' , <b>ชื่อ:</b> ' + this.filterBean.name;
+    let str = '<b>ผลลัพธ์การค้นหา </b>';
+    str +='รอบสำรวจ: ' + this.discription.round;
+    str += ' , หมู่บ้าน: ' + this.discription.village;
+    str += ' , อสม.: ' + this.discription.osm;
+    str += ' , ชื่อ: ' + this.filterBean.name;
     this.filterBean.discription = str;
     this.notifyFilter.emit(this.filterBean);
 
