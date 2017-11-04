@@ -1,15 +1,12 @@
 export class VillageBean{
     
-        public villageID: string;
-        public villageNo: string;
+        public villageId: string;
+        public villageNo: number;
         public villageName: string;
+        public homeCount: number;
 
-        constructor(json?: any){
-            if(json){
-                this.villageID = json.villageID;
-                this.villageNo = json.villageNo;
-                this.villageName = json.villageName;
-            }
+        constructor(){
+            
         }
         
     }

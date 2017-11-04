@@ -53,7 +53,8 @@ import { ManagementStaffStaffListComponent } from './managements/staff/manage-st
 import { ManagementStaffStaffFormComponent } from './managements/staff/manage-staff/form/management-staff-staff-form.component';
 import { ManagementStaffOsmListComponent } from './managements/staff/manage-osm/list/management-staff-osm-list.component';
 import { ManagementStaffOsmFormComponent } from './managements/staff/manage-osm/form/management-staff-osm-form.component';
-import { ManagementStaffVillageComponent } from './managements/staff/manage-village/management-staff-village.component';
+import { ManagementStaffVillageListComponent } from './managements/staff/manage-village/list/management-staff-village-list.component';
+import { ManagementStaffVillageFormComponent } from './managements/staff/manage-village/form/management-staff-village-form.component';
 import { MyDatePickerModule } from 'mydatepicker';
 
 
@@ -100,8 +101,8 @@ import { MyDatePickerModule } from 'mydatepicker';
     ManagementStaffStaffFormComponent,
     ManagementStaffOsmListComponent,
     ManagementStaffOsmFormComponent,
-    ManagementStaffVillageComponent
-  
+    ManagementStaffVillageListComponent,
+    ManagementStaffVillageFormComponent
 
   ],
   imports: [

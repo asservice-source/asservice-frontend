@@ -1,45 +1,32 @@
-  <nav class="navbar navbar-static-top" role="navigation">
+<nav class="navbar navbar-static-top" role="navigation">
         <!-- <div class="col-sm-1"> 
                 <img  src="assets/img/anamai-logo-white.png" class="logo-left-top">
         </div> -->
-        <div class="col-sm-6"> 
-                <img  src="assets/img/anamai-logo-white.png" class="logo-left-top">
-                <label class="title-left-header">Survey Smart Service</label> 
-        </div>
-        <div class="col-sm-2">
-                <div class="row">
-                        <label class="html7magic"  style="color: white ;font-weight : normal">อีเมลหรือโทรศัพท์</label>   
+        <div class="row">
+                <div class="col-sm-6"> 
+                        <img  src="assets/img/anamai-logo-white.png" class="logo-left-top">
+                        <label class="title-left-header">Survey Smart Service</label> 
                 </div>
-                <div class="row">
-                        <input class="form-control " type="text" [(ngModel)] = "user.username">
-                </div>
-        </div>
-        <div class="col-sm-2">
-                <div class="row">
-                        <label class="html7magic"  style="color: white ;font-weight : normal">รหัสผ่าน</label>  
-                </div>
-                <div class="row">
-                        <input class="form-control " type="password" [(ngModel)] = "user.password">
-                        
-                </div>
-                <div class="row">
-                        <a href="#">
-                                <label class="lb-forgot-password">ลืมบัญชีผู้ใช้หรือรหัสผ่านใช่ไหม?</label>
-                        </a>
+                <div class="col-sm-6" style="margin-top: 14px;"> 
+                        <div class="row" style="padding-bottom: 0;">
+                                <div class="col-sm-4"><label class="value">เลขประจำตัวประชาชน</label></div>
+                                <div class="col-sm-4"><label class="value">รหัสผ่าน</label></div>
+                        </div>
+                        <div class="row"  style="padding-top: 0;">
+                                <div class="col-md-4">
+                                        <input type="text" [(ngModel)] = "user.username" placeholder="เลขประจำตัวประชาชน">
+                                </div>  
+                                <div class="col-md-4">
+                                        <input type="password" [(ngModel)] = "user.password" placeholder="รหัสผ่าน">
+                                </div> 
+                                <div class="col-md-2">
+                                        <button class="btn btn-sm btn-primary" (click)="login();">เข้าสู่ระบบ</button>
+                                </div> 
+                        </div>
                 </div>
         </div>
-        <div class="col-sm-1">
-                <div class="row">
-                </div>
-                <div class="row">
-                <button style="margin-top: 32px; width: 80px" class="btn btn-primary btn-sm" (click)="login();">Login</button>
-                </div>
-                <div class="row">
-                    </div>
-        </div>
-      
-
-  </nav>
+        
+</nav>
 
 
       

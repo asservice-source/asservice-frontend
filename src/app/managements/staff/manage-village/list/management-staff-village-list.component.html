@@ -1,6 +1,6 @@
 <div class="panel panel-default">
   <div class="panel-heading">
-    <label>การจัดการเจ้าหน้าที่ รพ.สต.</label>
+    <label>การจัดการหมู่บ้านใน รพ.สต.</label>
   </div>
   <div class="panel-body">
     <div class="row">
@@ -10,16 +10,15 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-          <button type="button" class="btn btn-sm btn-primary" (click)="onClickAdd()">เพิ่มเจ้าหน้าที่ รพ.สต.</button>
+          <button type="button" class="btn btn-sm btn-primary" (click)="onClickAdd()">เพิ่มหมู่บ้าน</button>
         </div>
       </div>
     <div class="row">
       <div class="col-lg-12">
-        <!-- <div class="filter-discription" [innerHtml]=""></div> -->
         <ng2-smart-table [settings]="settings" [source]="source" (rowSelect)="onRowSelect($event)"></ng2-smart-table>
       </div>
     </div>
   </div>
 </div>
 
-<app-management-staff-staff-form [bean]="bean"></app-management-staff-staff-form>
+<app-management-staff-village-form [bean]="bean"></app-management-staff-village-form>
