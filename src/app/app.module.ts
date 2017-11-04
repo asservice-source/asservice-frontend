@@ -47,7 +47,8 @@ import { FilterHeadSurveyComponent } from './filter/filter-head-survey/filter-he
 import { FilterPersonalComponent } from './filter/filter-personal/filter-personal.component';
 import { ActionCustomViewComponent } from './action-custom-table/action-custom-view.component'
 import { LoadingComponent } from './loading/loading.component';
-import { OnlyNumberDirective } from './directives/onlynumber.diretive';
+import { OnlyNumberDirective } from './directives/onlynumber.directive';
+import { AutofocusDirective } from './directives/autofocus.directive'
 import { ManagementStaffStaffListComponent } from './managements/staff/manage-staff/list/management-staff-staff-list.component';
 import { ManagementStaffStaffFormComponent } from './managements/staff/manage-staff/form/management-staff-staff-form.component';
 import { ManagementStaffOsmListComponent } from './managements/staff/manage-osm/list/management-staff-osm-list.component';
@@ -94,6 +95,7 @@ import { MyDatePickerModule } from 'mydatepicker';
     LoadingComponent,
     ActionCustomViewComponent,
     OnlyNumberDirective,
+    AutofocusDirective,
     ManagementStaffStaffListComponent,
     ManagementStaffStaffFormComponent,
     ManagementStaffOsmListComponent,

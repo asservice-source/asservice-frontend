@@ -27,19 +27,31 @@ export class RegisterComponent extends BaseComponent implements OnInit {
   public prefixList: any;
   public hospitalList: any;
   public isErrorHospital: boolean = false;
-  public isErrorProvice : boolean = false;
-  public isErrorAmphur : boolean = false;
-  public isErrorTumbol : boolean = false;
+  public isErrorProvice: boolean = false;
+  public isErrorAmphur: boolean = false;
+  public isErrorTumbol: boolean = false;
 
-  public isErrorCode9 : boolean = false;
-  public isErrorCode5 : boolean = false;
-  public isErrorPrefix : boolean = false;
-  public isErrorFirstName : boolean = false;
-  public isErrorLastName : boolean = false;
-  public isErrorEmail : boolean = false;
-  public isErrorPhone : boolean = false;
-  public isErrorCitizenID : boolean = false;
-  
+  public isErrorCode9: boolean = false;
+  public isErrorCode5: boolean = false;
+  public isErrorPrefix: boolean = false;
+  public isErrorFirstName: boolean = false;
+  public isErrorLastName: boolean = false;
+  public isErrorEmail: boolean = false;
+  public isErrorPhone: boolean = false;
+  public isErrorCitizenID: boolean = false;
+
+  public isFocusHospitalname: boolean = false;
+  public isFocusHospitalProvince: boolean = false;
+  public isFocusHospitalAmphur: boolean = false;
+  public isFocusHospitalTumbol: boolean = false;
+  public isFocusHospitalCode9: boolean = false;
+  public isFocusHospitalCode5: boolean = false;
+  public isFocusCitizenId: boolean = false;
+  public isFocusPrefixName: boolean = false;
+  public isFocusName: boolean = false;
+  public isFocusLastName: boolean = false;
+  public isFocusEmail: boolean = false;
+  public isFocusPhone: boolean = false;
 
 
   constructor(private completerService: CompleterService, private changeRef: ChangeDetectorRef) {
@@ -55,12 +67,11 @@ export class RegisterComponent extends BaseComponent implements OnInit {
     this.registerBean.amphurCode = "0";
     this.registerBean.tumbolID = "0";
     this.registerBean.contactPrefix = "0";
-   
 
   }
 
   ngOnInit() {
-  
+
   }
 
   api_register(): void {
@@ -151,7 +162,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
         this.registerBean.contactCitizenId = this.formatForJson(this.registerBean.contactCitizenId);
         this.registerBean.contactTelephone = this.formatForJson(this.registerBean.contactTelephone);
         let params = {
-          code5: this.registerBean.code5, 
+          code5: this.registerBean.code5,
           contactPrefix: this.registerBean.contactPrefix,
           contactFirstName: this.registerBean.contactFirstName,
           contactLastName: this.registerBean.contactLastName,
@@ -213,7 +224,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
 
   validateHostpital() {
     let self = this;
-    
+
     if (!self.isEmpty(self.registerBean.hospitalName)) {
       let obj = {
         addressFail: true,
@@ -243,96 +254,107 @@ export class RegisterComponent extends BaseComponent implements OnInit {
     // }
   }
 
-  validateForm(): boolean{
+  validateForm(): boolean {
     let self = this;
     let validateForm = true;
-  
-      if (self.isEmpty(self.registerBean.hospitalName)) {
-        self.isErrorHospital = true;
-        validateForm = false;
-      } else {
-        self.isErrorHospital = false;
-      }
 
-      if (self.registerBean.provinceID == "0") {
-        self.isErrorProvice = true;
-        validateForm = false;
-      } else {
-        self.isErrorProvice = false;
-      }
+    if (self.isEmpty(self.registerBean.contactTelephone)) {
+      self.isErrorPhone = true;
+      self.isFocusPhone = true;
+      validateForm = false;
+    } else {
+      self.isErrorPhone = false;
+    }
 
-      if (self.registerBean.amphurCode == "0") {
-        self.isErrorAmphur = true;
-        validateForm = false;
-      } else {
-        self.isErrorAmphur = false;
-      }
+    if (self.isEmpty(self.registerBean.contactEmail) || !self.isEmailFormat(self.registerBean.contactEmail)) {
+      self.isErrorEmail = true;
+      self.isFocusEmail = true;
+      validateForm = false;
+    } else {
+      self.isErrorEmail = false;
+    }
 
-      if (self.registerBean.tumbolID == "0") {
-        self.isErrorTumbol = true;
-        validateForm = false;
-      } else {
-        self.isErrorTumbol = false;
-      }
+    if (self.isEmpty(self.registerBean.contactLastName)) {
+      self.isErrorLastName = true;
+      self.isFocusLastName = true;
+      validateForm = false;
+    } else {
+      self.isErrorLastName = false;
+    }
 
-      if (self.isEmpty(self.registerBean.code9) || self.registerBean.code9.length < 9) {
-        self.isErrorCode9 = true;
-        validateForm = false;
-      } else {
-        self.isErrorCode9 = false;
-      }
+    if (self.isEmpty(self.registerBean.contactFirstName)) {
+      self.isErrorFirstName = true;
+      self.isFocusName = true;
+      validateForm = false;
+    } else {
+      self.isErrorFirstName = false;
+    }
 
-      if (self.isEmpty(self.registerBean.code5) || self.registerBean.code5.length < 5) {
-        self.isErrorCode5 = true;
-        validateForm = false;
-      } else {
-        self.isErrorCode5 = false;
-      }
+    if (self.registerBean.contactPrefix == "0") {
+      self.isErrorPrefix = true;
+      self.isFocusPrefixName = true;
+      validateForm = false;
+    } else {
+      self.isErrorPrefix = false;
+    }
 
-      if (self.isEmpty(self.registerBean.contactCitizenId) || self.registerBean.contactCitizenId.length < 17) {
-        self.isErrorCitizenID = true;
-        validateForm = false;
-      } else {
-        self.isErrorCitizenID = false;
-      }
+    if (self.isEmpty(self.registerBean.contactCitizenId) || self.registerBean.contactCitizenId.length < 17) {
+      self.isErrorCitizenID = true;
+      self.isFocusCitizenId = true;
+      validateForm = false;
+    } else {
+      self.isErrorCitizenID = false;
+    }
 
-      if (self.registerBean.contactPrefix == "0") {
-        self.isErrorPrefix = true;
-        validateForm = false;
-      } else {
-        self.isErrorPrefix = false;
-      }
+    if (self.isEmpty(self.registerBean.code5) || self.registerBean.code5.length < 5) {
+      self.isErrorCode5 = true;
+      self.isFocusHospitalCode5 = true;
+      validateForm = false;
+    } else {
+      self.isErrorCode5 = false;
+    }
 
-      if (self.isEmpty(self.registerBean.contactFirstName)) {
-        self.isErrorFirstName = true;
-        validateForm = false;
-      } else {
-        self.isErrorFirstName = false;
-      }
+    if (self.isEmpty(self.registerBean.code9) || self.registerBean.code9.length < 9) {
+      self.isErrorCode9 = true;
+      self.isFocusHospitalCode9 = true;
+      validateForm = false;
+    } else {
+      self.isErrorCode9 = false;
+    }
 
-      if (self.isEmpty(self.registerBean.contactLastName)) {
-        self.isErrorLastName = true;
-        validateForm = false;
-      } else {
-        self.isErrorLastName = false;
-      }
+    if (self.registerBean.tumbolID == "0") {
+      self.isErrorTumbol = true;
+      self.isFocusHospitalTumbol = true;
+      validateForm = false;
+    } else {
+      self.isErrorTumbol = false;
+    }
 
-      if (self.isEmpty(self.registerBean.contactEmail) || !self.isEmailFormat(self.registerBean.contactEmail)) {
-        self.isErrorEmail = true;
-        validateForm = false;
-      } else {
-        self.isErrorEmail = false;
-      }
+    if (self.registerBean.amphurCode == "0") {
+      self.isErrorAmphur = true;
+      self.isFocusHospitalAmphur = true;
+      validateForm = false;
+    } else {
+      self.isErrorAmphur = false;
+    }
+    if (self.registerBean.provinceID == "0") {
+      self.isErrorProvice = true;
+      self.isFocusHospitalProvince = true;
+      validateForm = false;
+    } else {
+      self.isErrorProvice = false;
+    }
 
-      if (self.isEmpty(self.registerBean.contactTelephone)) {
-        self.isErrorPhone = true;
-        validateForm = false;
-      } else {
-        self.isErrorPhone = false;      
-      }
+    if (self.isEmpty(self.registerBean.hospitalName)) {
+      self.isErrorHospital = true;
+      self.isFocusHospitalname = true;
+      validateForm = false;
+    } else {
+      self.isErrorHospital = false;
+    }
 
- return validateForm;
-    
+    return validateForm;
+
   }
 
   formatCitizenID() {
@@ -397,7 +419,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
     }
   }
 
-  formatForJson(value){
+  formatForJson(value) {
     let pure_value = value.split("-");
     let result = pure_value.join('');
 
