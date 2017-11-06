@@ -5,6 +5,7 @@ import { CompleterService, CompleterData } from 'ng2-completer';
 import { RegisterBean } from "../beans/register.bean";
 
 declare var bootbox: any;
+declare var $:any;
 
 @Component({
   selector: 'app-register',
@@ -71,7 +72,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    
   }
 
   api_register(): void {
@@ -131,8 +132,8 @@ export class RegisterComponent extends BaseComponent implements OnInit {
   doRegister() {
     let self = this;
 
-    this.validateForm();
-    console.log(this.validateForm());
+    //this.validateForm();
+    //console.log(this.validateForm());
     if (this.validateForm()) {
       let objvalidate = this.validateHostpital();
       if (objvalidate.addressFail == true) {
@@ -179,14 +180,6 @@ export class RegisterComponent extends BaseComponent implements OnInit {
         })
       }
     }
-
-    // this.hospitalBean.code5 = "94261";
-    // this.hospitalBean.contactPrefix = "003";
-    // this.hospitalBean.contactFirstName = "ittigorn";
-    // this.hospitalBean.contactLastName = "หล่อสัดๆ";
-    // this.hospitalBean.contactCitizenId = "1234567891011";
-    // this.hospitalBean.contactTelephone = "0812345678";
-    // this.hospitalBean.contactEmail = "ittigorn_hotmail.com";
 
   }
 
@@ -257,10 +250,11 @@ export class RegisterComponent extends BaseComponent implements OnInit {
   validateForm(): boolean {
     let self = this;
     let validateForm = true;
+    self.isFocusHospitalname = true;
 
     if (self.isEmpty(self.registerBean.contactTelephone)) {
+      
       self.isErrorPhone = true;
-      self.isFocusPhone = true;
       validateForm = false;
     } else {
       self.isErrorPhone = false;
@@ -268,7 +262,6 @@ export class RegisterComponent extends BaseComponent implements OnInit {
 
     if (self.isEmpty(self.registerBean.contactEmail) || !self.isEmailFormat(self.registerBean.contactEmail)) {
       self.isErrorEmail = true;
-      self.isFocusEmail = true;
       validateForm = false;
     } else {
       self.isErrorEmail = false;
@@ -276,7 +269,6 @@ export class RegisterComponent extends BaseComponent implements OnInit {
 
     if (self.isEmpty(self.registerBean.contactLastName)) {
       self.isErrorLastName = true;
-      self.isFocusLastName = true;
       validateForm = false;
     } else {
       self.isErrorLastName = false;
@@ -284,7 +276,6 @@ export class RegisterComponent extends BaseComponent implements OnInit {
 
     if (self.isEmpty(self.registerBean.contactFirstName)) {
       self.isErrorFirstName = true;
-      self.isFocusName = true;
       validateForm = false;
     } else {
       self.isErrorFirstName = false;
@@ -292,7 +283,6 @@ export class RegisterComponent extends BaseComponent implements OnInit {
 
     if (self.registerBean.contactPrefix == "0") {
       self.isErrorPrefix = true;
-      self.isFocusPrefixName = true;
       validateForm = false;
     } else {
       self.isErrorPrefix = false;
@@ -300,7 +290,6 @@ export class RegisterComponent extends BaseComponent implements OnInit {
 
     if (self.isEmpty(self.registerBean.contactCitizenId) || self.registerBean.contactCitizenId.length < 17) {
       self.isErrorCitizenID = true;
-      self.isFocusCitizenId = true;
       validateForm = false;
     } else {
       self.isErrorCitizenID = false;
@@ -308,7 +297,6 @@ export class RegisterComponent extends BaseComponent implements OnInit {
 
     if (self.isEmpty(self.registerBean.code5) || self.registerBean.code5.length < 5) {
       self.isErrorCode5 = true;
-      self.isFocusHospitalCode5 = true;
       validateForm = false;
     } else {
       self.isErrorCode5 = false;
@@ -316,7 +304,6 @@ export class RegisterComponent extends BaseComponent implements OnInit {
 
     if (self.isEmpty(self.registerBean.code9) || self.registerBean.code9.length < 9) {
       self.isErrorCode9 = true;
-      self.isFocusHospitalCode9 = true;
       validateForm = false;
     } else {
       self.isErrorCode9 = false;
@@ -324,7 +311,6 @@ export class RegisterComponent extends BaseComponent implements OnInit {
 
     if (self.registerBean.tumbolID == "0") {
       self.isErrorTumbol = true;
-      self.isFocusHospitalTumbol = true;
       validateForm = false;
     } else {
       self.isErrorTumbol = false;
@@ -332,14 +318,12 @@ export class RegisterComponent extends BaseComponent implements OnInit {
 
     if (self.registerBean.amphurCode == "0") {
       self.isErrorAmphur = true;
-      self.isFocusHospitalAmphur = true;
       validateForm = false;
     } else {
       self.isErrorAmphur = false;
     }
     if (self.registerBean.provinceID == "0") {
       self.isErrorProvice = true;
-      self.isFocusHospitalProvince = true;
       validateForm = false;
     } else {
       self.isErrorProvice = false;
@@ -347,7 +331,6 @@ export class RegisterComponent extends BaseComponent implements OnInit {
 
     if (self.isEmpty(self.registerBean.hospitalName)) {
       self.isErrorHospital = true;
-      self.isFocusHospitalname = true;
       validateForm = false;
     } else {
       self.isErrorHospital = false;
@@ -372,10 +355,6 @@ export class RegisterComponent extends BaseComponent implements OnInit {
           self.registerBean.contactCitizenId = returnText;
         }
       }
-
-      // if (obj_1 >= patternCitizen.length) {
-      //   self.registerBean.contactCitizenId = self.registerBean.contactCitizenId.substr(0, patternCitizen.length - 1);
-      // }
     }
   }
 
@@ -394,10 +373,6 @@ export class RegisterComponent extends BaseComponent implements OnInit {
           self.registerBean.contactTelephone = returnText;
         }
       }
-
-      // if (obj_1 >= patternPhone.length) {
-      //   self.registerBean.contactTelephone = self.registerBean.contactTelephone.substr(0, patternPhone.length - 1);
-      // }
     }
   }
 

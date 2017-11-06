@@ -19,7 +19,7 @@
           </div>
 
           <div class="col-md-8">
-            <ng2-completer [datasource]="dataHospitals" [minSearchLength]="0" [(ngModel)]="registerBean.hospitalName" placeholder="ชื่อ รพ.สต." [autofocus]="isFocusHospitalname"></ng2-completer>          
+            <ng2-completer [datasource]="dataHospitals" [minSearchLength]="0" [(ngModel)]="registerBean.hospitalName" placeholder="ชื่อ รพ.สต."></ng2-completer>          
               <label class="error col-md-12" *ngIf="isErrorHospital">กรุณาระบุ รพ.สต.</label>
           </div>
         </div>
@@ -31,7 +31,7 @@
           </div>
 
           <div class="col-md-8">
-            <select class="ng-pristine ng-valid ng-touched" [(ngModel)]="registerBean.provinceID" (change)="onProvinceChange()" [autofocus]="isFocusHospitalProvince">
+            <select class="ng-pristine ng-valid ng-touched" [(ngModel)]="registerBean.provinceID" (change)="onProvinceChange()">
               <option value="0">---เลือกจังหวัด---</option>
               <option *ngFor="let item of provinceList" [ngValue]="item.codeId">{{ item.name }}</option>
             </select>
@@ -46,14 +46,14 @@
 
           <div class="col-md-8">
             <div class="col-md-6 " style="padding-left: 0px;">
-              <select class="ng-pristine ng-valid ng-touched" [(ngModel)]="registerBean.amphurCode" (change)="onAmphurChange()" [disabled]="registerBean.provinceID =='0' ?true:false" [autofocus]="isFocusHospitalAmphur">
+              <select class="ng-pristine ng-valid ng-touched" [(ngModel)]="registerBean.amphurCode" (change)="onAmphurChange()" [disabled]="registerBean.provinceID =='0' ?true:false" >
                 <option value="0">เลือกอำเภอ</option>
                 <option *ngFor="let item of amphurList" [value]="item.code">{{ item.name }}</option>
               </select>
               <label class="error col-md-12" *ngIf="isErrorAmphur">กรุณาระบุอำเภอ</label>
             </div>
             <div class="col-md-6 " style="padding-right: 0px;">
-              <select class="ng-pristine ng-valid ng-touched" [(ngModel)]="registerBean.tumbolID" (change)="onTumbolChange()" [disabled]="registerBean.amphurCode == '0'?true:false" [autofocus]="isFocusHospitalTumbol">
+              <select class="ng-pristine ng-valid ng-touched" [(ngModel)]="registerBean.tumbolID" (change)="onTumbolChange()" [disabled]="registerBean.amphurCode == '0'?true:false" >
                 <option value="0">เลือกตำบล</option>
                 <option *ngFor="let item of tumbolsList" [value]="item.codeId">{{ item.name }}</option>
               </select>
@@ -68,8 +68,8 @@
           </div>
 
           <div class="col-md-8 ">
-            <input class="ng-pristine ng-valid ng-touched" type="text" placeholder="รหัส 9 หลัก รพ.สต." [(ngModel)]="registerBean.code9"
-            maxlength="9" [OnlyNumber]="true" [autofocus]="isFocusHospitalCode9" />
+            <input class="ng-pristine ng-valid ng-touched" type="text" placeholder="รหัส 9 หลัก รพ.สต." [(ngModel)]="registerBean.code9" id="xxx2"
+            maxlength="9" [OnlyNumber]="true"  />
             <label class="error col-md-12" *ngIf="isErrorCode9">กรุณาระบุหมายเลขให้ครบ 9 หลัก</label>
           </div>
         </div>
@@ -81,7 +81,7 @@
 
           <div class="col-md-8 ">
             <input class="ng-pristine ng-valid ng-touched" type="text" placeholder="รหัส 5 หลัก" [(ngModel)]="registerBean.code5"
-            maxlength="5" [OnlyNumber]="true" [autofocus]="isFocusHospitalCode5" />
+            maxlength="5" [OnlyNumber]="true" />
             <label class="error col-md-12" *ngIf="isErrorCode5">กรุณาระบุหมายเลขให้ครบ 5 หลัก</label>
           </div>
         </div>
@@ -93,7 +93,7 @@
 
           <div class="col-md-8 ">
             <input class="ng-pristine ng-valid ng-touched" type="text" placeholder="เลขประจำตัว 13 หลัก" [(ngModel)]="registerBean.contactCitizenId"
-            (keypress)="formatCitizenID()" maxlength="17" [OnlyNumber]="true" [autofocus]="isFocusCitizenId" />
+            (keypress)="formatCitizenID()" maxlength="17" [OnlyNumber]="true" />
             <label class="error col-md-12" *ngIf="isErrorCitizenID">กรุณาระบุหมายเลขประจำตัวประชาชน ให้ครบ 13 หลัก</label>
           </div>
         </div>
@@ -104,7 +104,7 @@
           </div>
 
           <div class="col-md-8 ">
-            <select class="ng-pristine ng-valid ng-touched" [(ngModel)]="registerBean.contactPrefix" [autofocus]="isFocusPrefixName">
+            <select class="ng-pristine ng-valid ng-touched" [(ngModel)]="registerBean.contactPrefix" >
               <option value="0">เลือกคำนำหน้า</option>
               <option *ngFor="let item of prefixList" [value]="item.code">{{ item.name }}</option>
             </select>
@@ -118,7 +118,7 @@
           </div>
 
           <div class="col-md-8 ">
-            <input class="ng-pristine ng-valid ng-touched" type="text" placeholder="ชื่อ" [(ngModel)]="registerBean.contactFirstName" [autofocus]="isFocusName">
+            <input class="ng-pristine ng-valid ng-touched" type="text" placeholder="ชื่อ" [(ngModel)]="registerBean.contactFirstName">
             <label class="error col-md-12" *ngIf="isErrorFirstName">กรุณาระบุชื่อจริง</label>
           </div>
         </div>
@@ -129,7 +129,7 @@
           </div>
 
           <div class="col-md-8 ">
-            <input class="ng-pristine ng-valid ng-touched" type="text" placeholder="สกุล" [(ngModel)]="registerBean.contactLastName" [autofocus]="isFocusLastName">
+            <input class="ng-pristine ng-valid ng-touched" type="text" placeholder="สกุล" [(ngModel)]="registerBean.contactLastName" >
             <label class="error col-md-12" *ngIf="isErrorLastName">กรุณาระบุนามสกุล</label>
           </div>
         </div>
@@ -140,7 +140,7 @@
           </div>
 
           <div class="col-md-8 ">
-            <input class="ng-pristine ng-valid ng-touched" type="text" placeholder="อีเมล" [(ngModel)]="registerBean.contactEmail" [autofocus]="isFocusEmail">
+            <input class="ng-pristine ng-valid ng-touched" type="text" placeholder="อีเมล" [(ngModel)]="registerBean.contactEmail" >
             <label class="error col-md-12" *ngIf="isErrorEmail">กรุณาระบุอีเมลให้ถูกต้อง</label>
           </div>
         </div>
@@ -152,7 +152,7 @@
 
           <div class="col-md-8 ">
             <input class="ng-pristine ng-valid ng-touched" type="text" placeholder="เบอร์โทรศัพท์" [(ngModel)]="registerBean.contactTelephone"
-            (keypress)="formatPhoneNumber()" maxlength="12" [OnlyNumber]="true" [autofocus]="isFocusPhone" />
+            (keypress)="formatPhoneNumber()" maxlength="12" [OnlyNumber]="true" />
             <label class="error col-md-12" *ngIf="isErrorPhone">กรุณาระบุเบอร์โทรศัพท์ให้ถูกต้อง</label>
           </div>
         </div>
