@@ -21,7 +21,9 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
     let self = this;
 
     self.member = this.strNullToEmpty(paramMember);
-    self.modelBirthDate = self.getCurrentDatePickerModel(self.member.birthDate);
+    if (self.member && self.member.birthDate) {
+      self.modelBirthDate = self.getCurrentDatePickerModel(self.member.birthDate);
+    }
   }
   @Output() memberUpdated = new EventEmitter<PersonalMemberBean>();
   @Output() memberInserted = new EventEmitter<PersonalMemberBean>();

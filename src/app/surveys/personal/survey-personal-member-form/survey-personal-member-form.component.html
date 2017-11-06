@@ -29,9 +29,9 @@
             <label class="label-form">ประเภทการอยู่อาศัย</label>
           </div>
           <div class="col-md-3">
-            <input type="radio" name="isGuest" [value]="0" [(ngModel)]="member.isGuest"> มีชื่อในสำเนาทะเบียนบ้านจริง
+            <input type="radio" name="isGuest" [value]="false" [(ngModel)]="member.isGuest"> มีชื่อในสำเนาทะเบียนบ้านจริง
             &#09;
-            <input type="radio" name="isGuest" [value]="1" [(ngModel)]="member.isGuest"> ไม่มีชื่อในสำเนาทะเบียนบ้าน แต่ตัวอยู่จริง
+            <input type="radio" name="isGuest" [value]="true" [(ngModel)]="member.isGuest"> ไม่มีชื่อในสำเนาทะเบียนบ้าน แต่ตัวอยู่จริง
           </div>
         </div>
 
