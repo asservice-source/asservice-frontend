@@ -19,7 +19,7 @@
           </div>
 
           <div class="col-md-8">
-            <ng2-completer [datasource]="dataHospitals" [minSearchLength]="0" [(ngModel)]="registerBean.hospitalName" placeholder="ชื่อ รพ.สต."></ng2-completer>          
+            <ng2-completer [datasource]="dataHospitals" [minSearchLength]="1" [(ngModel)]="registerBean.hospitalName" placeholder="ชื่อ รพ.สต."></ng2-completer>          
               <label class="error col-md-12" *ngIf="isErrorHospital">กรุณาระบุ รพ.สต.</label>
           </div>
         </div>

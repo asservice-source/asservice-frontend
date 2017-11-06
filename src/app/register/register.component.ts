@@ -85,8 +85,8 @@ export class RegisterComponent extends BaseComponent implements OnInit {
     this.apiHttp.post('hospital/hospital_list', {}, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         seft.hospitalList = resp.response;
-        seft.dataHospitals = seft.completerService.local(resp.list, 'name', 'name');
-
+        seft.dataHospitals = seft.completerService.local(resp.response, 'hospitalName', 'hospitalName');
+        console.log(seft.hospitalList);
       }
       seft.loadingCMD = 'hide';
     });
@@ -205,15 +205,15 @@ export class RegisterComponent extends BaseComponent implements OnInit {
     })
   }
 
-  getHospitalList() {
-    let self = this;
-    let params = {};
-    this.api.post('hospital/hospital_list', params, function (resp) {
-      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-        self.prefixList = resp.response;
-      }
-    })
-  }
+  // getHospitalList() {
+  //   let self = this;
+  //   let params = {};
+  //   this.api.post('hospital/hospital_list', params, function (resp) {
+  //     if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+  //       self.prefixList = resp.response;
+  //     }
+  //   })
+  // }
 
   validateHostpital() {
     let self = this;
@@ -226,7 +226,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
       };
 
       for (let item of self.hospitalList) {
-        if (item.name.trim == this.registerBean.hospitalName.trim) {
+        if (item.hospitalName.trim == this.registerBean.hospitalName.trim) {
           if (this.registerBean.provinceID == item.provinceCode
             && this.registerBean.amphurCode == item.amphurCode
             && this.registerBean.tumbolID == item.tumbolCode) {
@@ -253,7 +253,6 @@ export class RegisterComponent extends BaseComponent implements OnInit {
     self.isFocusHospitalname = true;
 
     if (self.isEmpty(self.registerBean.contactTelephone)) {
-      
       self.isErrorPhone = true;
       validateForm = false;
     } else {
