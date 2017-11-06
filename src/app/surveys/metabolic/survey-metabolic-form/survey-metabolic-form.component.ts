@@ -283,11 +283,13 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
   }
 
   addSurvey() {
-    this.validateForm();
-    if (this.validateForm() == true) {
-      // let params {
 
-      // }
+    if (this.validateForm() == true) {
+      let params = {
+        hInsuranceTypeID : this.healtInsuranceTypeList,
+        isHeredityMetabolic : this.metabolicbean.healtHistory_isDiabetesParent,
+        isWaistlineOver : this.metabolicbean.healtHistory_isOverBmi
+      }
     }
   }
 

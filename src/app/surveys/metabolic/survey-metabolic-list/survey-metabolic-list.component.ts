@@ -104,6 +104,9 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
 
   ngOnInit() {
     this.loadData();
+    // this.api.api_HomeList('','', function(response){
+      
+    // });
   }
 
   save() {
@@ -112,7 +115,7 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
 
   loadData() {
     let self = this;
-    this.http.get("assets/test-list.json")
+    this.http.get("assets/test-list.json") // retrieve data
       .map(res => res.json())
       .subscribe(function(response){
         self.data = response;
@@ -146,5 +149,6 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
     this.changeRef.detectChanges();
     $('#find-person-md').modal('show');
   }
+ 
 
 }
