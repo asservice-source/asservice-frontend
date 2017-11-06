@@ -22,15 +22,15 @@ $(function(){
   
 });
 
-(function (global) {
-  System.config({
-      paths: {
-          'npm:': 'node_modules/'
-      },
-      map: {
-          'mydatepicker': 'npm:mydatepicker/bundles/mydatepicker.umd.min.js'
-      },
-      packages: {
-      }
-  });
-})(this);
+// (function (global) {
+//   System.config({
+//       paths: {
+//           'npm:': 'node_modules/'
+//       },
+//       map: {
+//           'mydatepicker': 'npm:mydatepicker/bundles/mydatepicker.umd.min.js'
+//       },
+//       packages: {
+//       }
+//   });
+// })(this);

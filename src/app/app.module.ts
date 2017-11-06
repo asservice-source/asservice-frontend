@@ -88,6 +88,7 @@ import { MyDatePickerModule } from 'mydatepicker';
     SurveyCancerFormComponent,
     SurveyPersonalHomeListComponent,
     SurveyPersonalHomeListButtonEditComponent,
+    SurveyPersonalHomeFormComponent,
     SurveyPersonalMemberListComponent,
     SurveyPersonalMemberListButtonEditComponent,
     SurveyPersonalMemberFormComponent,
@@ -102,8 +103,7 @@ import { MyDatePickerModule } from 'mydatepicker';
     ManagementStaffOsmListComponent,
     ManagementStaffOsmFormComponent,
     ManagementStaffVillageListComponent,
-    ManagementStaffVillageFormComponent,
-    SurveyPersonalHomeFormComponent
+    ManagementStaffVillageFormComponent
 
   ],
   imports: [
