@@ -4,7 +4,7 @@ import { LocalDataSource } from 'ng2-smart-table';
 import { Utils, Action } from "./utils.util";
 import * as myconf from "./global-config";
 import * as moment from 'moment'
-import {IMyDpOptions} from 'mydatepicker';
+import { IMyDpOptions } from 'mydatepicker';
 declare var $: any;
 declare var bootbox: any;
 
@@ -22,7 +22,7 @@ export class BaseComponent implements OnInit {
     public setNg2STDatasource(data: LocalDataSource) {
         this.ng2STDataSource = data;
     }
-    public ng2STDatasource(datas: any):LocalDataSource{
+    public ng2STDatasource(datas: any): LocalDataSource {
         this.ng2STDataSource = new LocalDataSource(datas);
         return this.ng2STDataSource;
     }
@@ -53,7 +53,7 @@ export class BaseComponent implements OnInit {
                 perPage: 4
             }
         };
-        
+
         settings.columns = {};
         settings.columns.squenceNo = {
             title: 'ลำดับ',
@@ -95,29 +95,29 @@ export class BaseComponent implements OnInit {
         return moment(dateString).format('DD/MM/YYYY');
     }
     public getAge(birthDate: string) {
-        return moment().diff(birthDate, 'years',false);
+        return moment().diff(birthDate, 'years', false);
     }
-    public isEmpty(value: string): boolean{
-        if(value){
-            if(value.trim().length>0){
+    public isEmpty(value: string): boolean {
+        if (value) {
+            if (value.trim().length > 0) {
                 return false;
             }
         }
         return true;
     }
 
-    isEmailFormat(email:string):boolean {
-        if(email){
+    isEmailFormat(email: string): boolean {
+        if (email) {
             let result = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
             return result.test(email);
         }
         return false;
-        
+
     }
 
-    strNullToEmpty(obj: any): any{
+    strNullToEmpty(obj: any): any {
         for (var key in obj) {
-            if(obj[key] == null || obj[key] == undefined){
+            if (obj[key] == null || obj[key] == undefined) {
                 obj[key] = '';
             }
         }
@@ -127,7 +127,7 @@ export class BaseComponent implements OnInit {
     public datePickerOptions: IMyDpOptions = {
 
         dateFormat: 'dd/mm/yyyy',
-        dayLabels: {su: 'อา', mo: 'จ', tu: 'อ', we: 'พ', th: 'พฤ', fr: 'ศ', sa: 'ส'},
+        dayLabels: { su: 'อา', mo: 'จ', tu: 'อ', we: 'พ', th: 'พฤ', fr: 'ศ', sa: 'ส' },
         monthLabels: { 1: 'ม.ค.', 2: 'ก.พ.', 3: 'มี.ค', 4: 'เม.ย.', 5: 'พ.ค.', 6: 'มิ.ย.', 7: 'ก.ค.', 8: 'ส.ค.', 9: 'ก.ย.', 10: 'ต.ค.', 11: 'พ.ย.', 12: 'ธ.ค.' },
         todayBtnTxt: 'วันนี้',
         sunHighlight: true,
@@ -137,29 +137,29 @@ export class BaseComponent implements OnInit {
         editableDateField: false,
         openSelectorOnInputClick: true
     };
-    public getCurrentDatePickerModel(strDate?: string): any{
-        if(strDate){
+    public getCurrentDatePickerModel(strDate?: string): any {
+        if (strDate) {
             let arr = strDate.split('-');
-            return { date: { year: +arr[0], month: +arr[1], day: +arr[3]} };
-        }else{
+            return { date: { year: +arr[0], month: +arr[1], day: +arr[2] } };
+        } else {
             let dateObj = new Date();
             let month = dateObj.getUTCMonth() + 1; //months from 1-12
             let day = dateObj.getUTCDate();
             let year = dateObj.getUTCFullYear();
-            return { date: { year: year, month: month, day: day} };
-        } 
+            return { date: { year: year, month: month, day: day } };
+        }
     }
-    public getStringDateForDatePickerModel(date: any): string{
-        if(date){
-            return date.year+'-'+this.month2(date.month)+'-'+this.month2(date.day);
+    public getStringDateForDatePickerModel(date: any): string {
+        if (date) {
+            return date.year + '-' + this.month2(date.month) + '-' + this.month2(date.day);
         }
         return undefined;
     }
-    public month2(m:number):string{
-        if(m<10){
-            return 0+''+m;
+    public month2(m: number): string {
+        if (m < 10) {
+            return 0 + '' + m;
         }
-        return ''+m;
+        return '' + m;
     }
-    
+
 }
