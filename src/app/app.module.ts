@@ -37,6 +37,7 @@ import { SurveyMetabolicFormComponent } from './surveys/metabolic/survey-metabol
 import { SurveyMosquitoListComponent } from './surveys/mosquito/survey-mosquito-list/survey-mosquito-list.component';
 import { SurveyMosquitoFormComponent } from './surveys/mosquito/survey-mosquito-form/survey-mosquito-form.component';
 import { SurveyPersonalHomeListComponent, SurveyPersonalHomeListButtonEditComponent } from './surveys/personal/survey-personal-home-list/survey-personal-home-list.component';
+import { SurveyPersonalHomeFormComponent } from './surveys/personal/survey-personal-home-form/survey-personal-home-form.component';
 import { SurveyPersonalMemberListComponent, SurveyPersonalMemberListButtonEditComponent } from './surveys/personal/survey-personal-member-list/survey-personal-member-list.component';
 import { SurveyPersonalMemberFormComponent } from './surveys/personal/survey-personal-member-form/survey-personal-member-form.component';
 import { SurveyCancerListComponent, SurveyCancerListButtonEditComponent } from './surveys/cancer/survey-cancer-list/survey-cancer-list.component';
@@ -56,7 +57,6 @@ import { ManagementStaffOsmFormComponent } from './managements/staff/manage-osm/
 import { ManagementStaffVillageListComponent } from './managements/staff/manage-village/list/management-staff-village-list.component';
 import { ManagementStaffVillageFormComponent } from './managements/staff/manage-village/form/management-staff-village-form.component';
 import { MyDatePickerModule } from 'mydatepicker';
-
 
 @NgModule({
   declarations: [
@@ -102,7 +102,8 @@ import { MyDatePickerModule } from 'mydatepicker';
     ManagementStaffOsmListComponent,
     ManagementStaffOsmFormComponent,
     ManagementStaffVillageListComponent,
-    ManagementStaffVillageFormComponent
+    ManagementStaffVillageFormComponent,
+    SurveyPersonalHomeFormComponent
 
   ],
   imports: [

@@ -5,6 +5,7 @@ export class PersonalMemberBean {
     public genderName: string = "";
     public age: string = "";
 
+    public isGuest: string = "";
     public typeAreaCode: string = "";
     public prefixCode: string = "";
     public firstName: string = "";
@@ -24,6 +25,7 @@ export class PersonalMemberBean {
     public dischargeName: string = "";
     public familyStatusCode: string = "";
     public familyStatusName: string = "";
+    public remark: string = "";
 
     public listPrefix: any = [];
     public listGender: any = [];

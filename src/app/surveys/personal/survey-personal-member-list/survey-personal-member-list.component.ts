@@ -19,14 +19,14 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
   private apiHttp: ApiHTTPService = new ApiHTTPService();
 
   private paramHomeId: string;
+
+  public action: string = this.ass_action.ADD;
   public paramMember: PersonalMemberBean = new PersonalMemberBean();
 
   public settings: any;
   public source: LocalDataSource;
   public isShowTable: boolean = false;
   public tempData: Array<any>;
-
-  public action: string = this.ass_action.ADD;
 
   constructor(private http: Http, private router: Router, private route: ActivatedRoute, private changeRef: ChangeDetectorRef) {
     super();
