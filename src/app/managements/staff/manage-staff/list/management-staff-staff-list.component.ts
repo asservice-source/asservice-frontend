@@ -13,7 +13,7 @@ export class ManagementStaffStaffListComponent extends BaseComponent implements 
 
   public settings: any;
   public bean: StaffBean;
-  public staffDatas: any = [{citizenId: '1411022039443', firstName: 'มนีแมน', lastName: 'แสนรักษ์', fullName: 'นายมนีแมน แสนรักษ์', prefixCode: '001', prefixName: 'นาย'}, {citizenId: '9811022039000', firstName: 'สมศรี', lastName: 'สองห้องนะ', fullName: 'นายสมศรี สองห้องนะ', prefixCode: '002', prefixName: 'นาย'}];
+  public staffDatas: any = [{citizenId: '1411022039443',genderCode: '001', firstName: 'มนีแมน', lastName: 'แสนรักษ์', fullName: 'นายมนีแมน แสนรักษ์', prefixCode: '001', prefixName: 'นาย'}, {citizenId: '9811022039000', genderCode: '001', firstName: 'สมศรี', lastName: 'สองห้องนะ', fullName: 'นายสมศรี สองห้องนะ', prefixCode: '002', prefixName: 'นาย'}];
   public source: LocalDataSource;
   constructor() {
     super();
@@ -70,6 +70,7 @@ export class ManagementStaffStaffListComponent extends BaseComponent implements 
   onClickAdd(){
     this.bean = new StaffBean();
     this.bean.prefixCode = '';
+    this.bean.genderCode = '';
     this.onModalForm();
   }
   onModalForm(){

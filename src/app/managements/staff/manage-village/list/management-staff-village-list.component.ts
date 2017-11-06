@@ -13,7 +13,7 @@ export class ManagementStaffVillageListComponent extends BaseComponent implement
   public settings: any;
   public source: LocalDataSource;
   public bean: VillageBean;
-  public datas: any = [{villageId:'1', villageNo: 1, villageName: 'บ้านหนองหลุบ', homeCount: 215}];
+  public datas: any = [{villageId:'1', villageNo: 1, villageName: 'บ้านหนองหลุบ'}];
   
   constructor() {
     super();
@@ -30,11 +30,7 @@ export class ManagementStaffVillageListComponent extends BaseComponent implement
         filter: false,
         //width: '180px',
       },
-      homeCount: {
-        title: 'จำนวนหลังคาเรือน' ,
-        filter: false,
-        width: '180px',
-      },
+      
       action: {
         title: this.getLabel('lbl_action'),
         filter: false,
