@@ -1,7 +1,7 @@
 export class HospitalBean{
     public code5: string;
     public code9: string;
-    public name: string;
+    public hospitalName: string;
     public hospitalTypeCode: string;
     public address: string;
     public tumbolCode: string;

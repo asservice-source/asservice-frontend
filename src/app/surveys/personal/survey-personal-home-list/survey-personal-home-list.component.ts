@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, EventEmitter, Input, Output } from '@angular/core';
+import { Component, OnInit, AfterViewInit, EventEmitter, Input, Output, ChangeDetectorRef } from '@angular/core';
 import { Http, Headers, RequestOptions } from "@angular/http";
 import { Router } from "@angular/router";
 import { ViewCell, LocalDataSource } from 'ng2-smart-table';
@@ -18,11 +18,14 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
 
   private apiHttp: ApiHTTPService = new ApiHTTPService();
 
+  public action: string = this.ass_action.ADD;
+  public paramHome: PersonalHomeBean = new PersonalHomeBean();
+
   public settings: any;
   public source: LocalDataSource;
   public isShowTable: boolean = false;
 
-  constructor(private http: Http, private router: Router) {
+  constructor(private http: Http, private router: Router, private changeRef: ChangeDetectorRef) {
     super();
 
     let self = this;
@@ -94,7 +97,7 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
 
   }
 
-  clickSearch(event: FilterBean) {
+  onClickSearch(event: FilterBean) {
     let self = this;
 
     let roundId = event.roundId;
@@ -111,6 +114,13 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
     //     self.setNg2STDatasource(self.source);
     //     self.isShowTable = true;
     //   });
+  }
+
+  onClickAdd() {
+    this.paramHome = new PersonalHomeBean();
+    this.action = this.ass_action.ADD;
+    this.changeRef.detectChanges();
+    $("#modalHome").modal({ backdrop: 'static', keyboard: false });
   }
 
   bindHomeList(roundId: string, villageId: string, osmId: string, homeId: string) {

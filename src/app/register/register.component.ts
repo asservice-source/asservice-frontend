@@ -5,6 +5,7 @@ import { CompleterService, CompleterData } from 'ng2-completer';
 import { RegisterBean } from "../beans/register.bean";
 
 declare var bootbox: any;
+declare var $:any;
 
 @Component({
   selector: 'app-register',
@@ -27,19 +28,31 @@ export class RegisterComponent extends BaseComponent implements OnInit {
   public prefixList: any;
   public hospitalList: any;
   public isErrorHospital: boolean = false;
-  public isErrorProvice : boolean = false;
-  public isErrorAmphur : boolean = false;
-  public isErrorTumbol : boolean = false;
+  public isErrorProvice: boolean = false;
+  public isErrorAmphur: boolean = false;
+  public isErrorTumbol: boolean = false;
 
-  public isErrorCode9 : boolean = false;
-  public isErrorCode5 : boolean = false;
-  public isErrorPrefix : boolean = false;
-  public isErrorFirstName : boolean = false;
-  public isErrorLastName : boolean = false;
-  public isErrorEmail : boolean = false;
-  public isErrorPhone : boolean = false;
-  public isErrorCitizenID : boolean = false;
-  
+  public isErrorCode9: boolean = false;
+  public isErrorCode5: boolean = false;
+  public isErrorPrefix: boolean = false;
+  public isErrorFirstName: boolean = false;
+  public isErrorLastName: boolean = false;
+  public isErrorEmail: boolean = false;
+  public isErrorPhone: boolean = false;
+  public isErrorCitizenID: boolean = false;
+
+  public isFocusHospitalname: boolean = false;
+  public isFocusHospitalProvince: boolean = false;
+  public isFocusHospitalAmphur: boolean = false;
+  public isFocusHospitalTumbol: boolean = false;
+  public isFocusHospitalCode9: boolean = false;
+  public isFocusHospitalCode5: boolean = false;
+  public isFocusCitizenId: boolean = false;
+  public isFocusPrefixName: boolean = false;
+  public isFocusName: boolean = false;
+  public isFocusLastName: boolean = false;
+  public isFocusEmail: boolean = false;
+  public isFocusPhone: boolean = false;
 
 
   constructor(private completerService: CompleterService, private changeRef: ChangeDetectorRef) {
@@ -55,12 +68,11 @@ export class RegisterComponent extends BaseComponent implements OnInit {
     this.registerBean.amphurCode = "0";
     this.registerBean.tumbolID = "0";
     this.registerBean.contactPrefix = "0";
-   
 
   }
 
   ngOnInit() {
-  
+    
   }
 
   api_register(): void {
@@ -73,8 +85,8 @@ export class RegisterComponent extends BaseComponent implements OnInit {
     this.apiHttp.post('hospital/hospital_list', {}, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         seft.hospitalList = resp.response;
-        seft.dataHospitals = seft.completerService.local(resp.list, 'name', 'name');
-
+        seft.dataHospitals = seft.completerService.local(resp.response, 'hospitalName', 'hospitalName');
+        console.log(seft.hospitalList);
       }
       seft.loadingCMD = 'hide';
     });
@@ -120,8 +132,8 @@ export class RegisterComponent extends BaseComponent implements OnInit {
   doRegister() {
     let self = this;
 
-    this.validateForm();
-    console.log(this.validateForm());
+    //this.validateForm();
+    //console.log(this.validateForm());
     if (this.validateForm()) {
       let objvalidate = this.validateHostpital();
       if (objvalidate.addressFail == true) {
@@ -151,7 +163,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
         this.registerBean.contactCitizenId = this.formatForJson(this.registerBean.contactCitizenId);
         this.registerBean.contactTelephone = this.formatForJson(this.registerBean.contactTelephone);
         let params = {
-          code5: this.registerBean.code5, 
+          code5: this.registerBean.code5,
           contactPrefix: this.registerBean.contactPrefix,
           contactFirstName: this.registerBean.contactFirstName,
           contactLastName: this.registerBean.contactLastName,
@@ -168,14 +180,6 @@ export class RegisterComponent extends BaseComponent implements OnInit {
         })
       }
     }
-
-    // this.hospitalBean.code5 = "94261";
-    // this.hospitalBean.contactPrefix = "003";
-    // this.hospitalBean.contactFirstName = "ittigorn";
-    // this.hospitalBean.contactLastName = "หล่อสัดๆ";
-    // this.hospitalBean.contactCitizenId = "1234567891011";
-    // this.hospitalBean.contactTelephone = "0812345678";
-    // this.hospitalBean.contactEmail = "ittigorn_hotmail.com";
 
   }
 
@@ -201,19 +205,19 @@ export class RegisterComponent extends BaseComponent implements OnInit {
     })
   }
 
-  getHospitalList() {
-    let self = this;
-    let params = {};
-    this.api.post('hospital/hospital_list', params, function (resp) {
-      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-        self.prefixList = resp.response;
-      }
-    })
-  }
+  // getHospitalList() {
+  //   let self = this;
+  //   let params = {};
+  //   this.api.post('hospital/hospital_list', params, function (resp) {
+  //     if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+  //       self.prefixList = resp.response;
+  //     }
+  //   })
+  // }
 
   validateHostpital() {
     let self = this;
-    
+
     if (!self.isEmpty(self.registerBean.hospitalName)) {
       let obj = {
         addressFail: true,
@@ -222,7 +226,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
       };
 
       for (let item of self.hospitalList) {
-        if (item.name.trim == this.registerBean.hospitalName.trim) {
+        if (item.hospitalName.trim == this.registerBean.hospitalName.trim) {
           if (this.registerBean.provinceID == item.provinceCode
             && this.registerBean.amphurCode == item.amphurCode
             && this.registerBean.tumbolID == item.tumbolCode) {
@@ -243,96 +247,96 @@ export class RegisterComponent extends BaseComponent implements OnInit {
     // }
   }
 
-  validateForm(): boolean{
+  validateForm(): boolean {
     let self = this;
     let validateForm = true;
-  
-      if (self.isEmpty(self.registerBean.hospitalName)) {
-        self.isErrorHospital = true;
-        validateForm = false;
-      } else {
-        self.isErrorHospital = false;
-      }
+    self.isFocusHospitalname = true;
 
-      if (self.registerBean.provinceID == "0") {
-        self.isErrorProvice = true;
-        validateForm = false;
-      } else {
-        self.isErrorProvice = false;
-      }
+    if (self.isEmpty(self.registerBean.contactTelephone)) {
+      self.isErrorPhone = true;
+      validateForm = false;
+    } else {
+      self.isErrorPhone = false;
+    }
 
-      if (self.registerBean.amphurCode == "0") {
-        self.isErrorAmphur = true;
-        validateForm = false;
-      } else {
-        self.isErrorAmphur = false;
-      }
+    if (self.isEmpty(self.registerBean.contactEmail) || !self.isEmailFormat(self.registerBean.contactEmail)) {
+      self.isErrorEmail = true;
+      validateForm = false;
+    } else {
+      self.isErrorEmail = false;
+    }
 
-      if (self.registerBean.tumbolID == "0") {
-        self.isErrorTumbol = true;
-        validateForm = false;
-      } else {
-        self.isErrorTumbol = false;
-      }
+    if (self.isEmpty(self.registerBean.contactLastName)) {
+      self.isErrorLastName = true;
+      validateForm = false;
+    } else {
+      self.isErrorLastName = false;
+    }
 
-      if (self.isEmpty(self.registerBean.code9) || self.registerBean.code9.length < 9) {
-        self.isErrorCode9 = true;
-        validateForm = false;
-      } else {
-        self.isErrorCode9 = false;
-      }
+    if (self.isEmpty(self.registerBean.contactFirstName)) {
+      self.isErrorFirstName = true;
+      validateForm = false;
+    } else {
+      self.isErrorFirstName = false;
+    }
 
-      if (self.isEmpty(self.registerBean.code5) || self.registerBean.code5.length < 5) {
-        self.isErrorCode5 = true;
-        validateForm = false;
-      } else {
-        self.isErrorCode5 = false;
-      }
+    if (self.registerBean.contactPrefix == "0") {
+      self.isErrorPrefix = true;
+      validateForm = false;
+    } else {
+      self.isErrorPrefix = false;
+    }
 
-      if (self.isEmpty(self.registerBean.contactCitizenId) || self.registerBean.contactCitizenId.length < 17) {
-        self.isErrorCitizenID = true;
-        validateForm = false;
-      } else {
-        self.isErrorCitizenID = false;
-      }
+    if (self.isEmpty(self.registerBean.contactCitizenId) || self.registerBean.contactCitizenId.length < 17) {
+      self.isErrorCitizenID = true;
+      validateForm = false;
+    } else {
+      self.isErrorCitizenID = false;
+    }
 
-      if (self.registerBean.contactPrefix == "0") {
-        self.isErrorPrefix = true;
-        validateForm = false;
-      } else {
-        self.isErrorPrefix = false;
-      }
+    if (self.isEmpty(self.registerBean.code5) || self.registerBean.code5.length < 5) {
+      self.isErrorCode5 = true;
+      validateForm = false;
+    } else {
+      self.isErrorCode5 = false;
+    }
 
-      if (self.isEmpty(self.registerBean.contactFirstName)) {
-        self.isErrorFirstName = true;
-        validateForm = false;
-      } else {
-        self.isErrorFirstName = false;
-      }
+    if (self.isEmpty(self.registerBean.code9) || self.registerBean.code9.length < 9) {
+      self.isErrorCode9 = true;
+      validateForm = false;
+    } else {
+      self.isErrorCode9 = false;
+    }
 
-      if (self.isEmpty(self.registerBean.contactLastName)) {
-        self.isErrorLastName = true;
-        validateForm = false;
-      } else {
-        self.isErrorLastName = false;
-      }
+    if (self.registerBean.tumbolID == "0") {
+      self.isErrorTumbol = true;
+      validateForm = false;
+    } else {
+      self.isErrorTumbol = false;
+    }
 
-      if (self.isEmpty(self.registerBean.contactEmail) || !self.isEmailFormat(self.registerBean.contactEmail)) {
-        self.isErrorEmail = true;
-        validateForm = false;
-      } else {
-        self.isErrorEmail = false;
-      }
+    if (self.registerBean.amphurCode == "0") {
+      self.isErrorAmphur = true;
+      validateForm = false;
+    } else {
+      self.isErrorAmphur = false;
+    }
+    if (self.registerBean.provinceID == "0") {
+      self.isErrorProvice = true;
+      validateForm = false;
+    } else {
+      self.isErrorProvice = false;
+    }
 
-      if (self.isEmpty(self.registerBean.contactTelephone)) {
-        self.isErrorPhone = true;
-        validateForm = false;
-      } else {
-        self.isErrorPhone = false;      
-      }
+    if (self.isEmpty(self.registerBean.hospitalName)) {
+      self.isErrorHospital = true;
+      validateForm = false;
+    } else {
+      self.isErrorHospital = false;
+    }
 
- return validateForm;
-    
+    return validateForm;
+
   }
 
   formatCitizenID() {
@@ -350,10 +354,6 @@ export class RegisterComponent extends BaseComponent implements OnInit {
           self.registerBean.contactCitizenId = returnText;
         }
       }
-
-      // if (obj_1 >= patternCitizen.length) {
-      //   self.registerBean.contactCitizenId = self.registerBean.contactCitizenId.substr(0, patternCitizen.length - 1);
-      // }
     }
   }
 
@@ -372,10 +372,6 @@ export class RegisterComponent extends BaseComponent implements OnInit {
           self.registerBean.contactTelephone = returnText;
         }
       }
-
-      // if (obj_1 >= patternPhone.length) {
-      //   self.registerBean.contactTelephone = self.registerBean.contactTelephone.substr(0, patternPhone.length - 1);
-      // }
     }
   }
 
@@ -397,7 +393,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
     }
   }
 
-  formatForJson(value){
+  formatForJson(value) {
     let pure_value = value.split("-");
     let result = pure_value.join('');
 

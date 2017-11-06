@@ -13,6 +13,9 @@ declare var $;
 })
 export class SurveyPersonalMemberFormComponent extends BaseComponent implements OnInit {
 
+  private apiHttp: ApiHTTPService = new ApiHTTPService();
+  public member: PersonalMemberBean = new PersonalMemberBean();
+
   @Input() action: string;
   @Input() set triggerMember(paramMember: PersonalMemberBean) {
     let self = this;
@@ -22,10 +25,6 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
   }
   @Output() memberUpdated = new EventEmitter<PersonalMemberBean>();
   @Output() memberInserted = new EventEmitter<PersonalMemberBean>();
-
-  private apiHttp: ApiHTTPService = new ApiHTTPService();
-
-  public member: PersonalMemberBean = new PersonalMemberBean();
 
   public listTypeArea: any = [];
   public listPrefix: any = [];
@@ -41,7 +40,6 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
   public listFamilyStatus: any = [];
 
   public isDisabledActionAdd: boolean = false;
-  public isDisplayOccupationOthers = false;
 
   public modelBirthDate: any;
 
@@ -64,7 +62,7 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
     self.bindRHGroup();
     self.bindEducation();
     self.bindOccupation();
-    self.bindDischarge();
+    // self.bindDischarge();
     self.bindFamilyStatus();
   }
 
@@ -75,6 +73,7 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
       if (self.action == self.ass_action.EDIT) {
         self.isDisabledActionAdd = true;
       } else {
+        self.defaultValue();
         self.isDisabledActionAdd = false;
       }
     });
@@ -272,13 +271,11 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
     });
   }
 
-  onChangeOccupation() {
-    let self = this;
-    if (self.member.occupationId == "010") {
-      self.isDisplayOccupationOthers = true;
-    } else {
-      self.isDisplayOccupationOthers = false;
-    }
+  defaultValue() {
+    this.member.typeAreaCode = "1";
+    this.member.raceCode = "099";
+    this.member.nationalityCode = "099";
+    this.member.religionCode = "01";
   }
 
   onChangeDate(event: IMyDateModel) {
@@ -288,7 +285,7 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
     self.member.birthDate = self.getStringDateForDatePickerModel(event.date);
   }
 
-  clickSave() {
+  onClickSave() {
     let self = this;
 
     self.member.listPrefix = this.listPrefix;

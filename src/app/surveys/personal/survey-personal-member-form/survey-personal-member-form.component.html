@@ -2,14 +2,15 @@
   <div class="modal-xl modal-dialog">
 
     <div class="modal-content">
+
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">ข้อมูลสมาชิก</h4>
       </div>
 
       <div class="panel-body">
-        
-        <div class="row">
+
+        <!-- <div class="row">
           <div class="col-md-1"></div>
           <div class="col-md-2 text-right">
             <label class="label-form">ประเภทการเข้าอยู่อาศัย</label>
@@ -19,6 +20,18 @@
               <option value="">--เลือกประเภท--</option>
               <option *ngFor="let item of listTypeArea" [value]="item.code">{{item.name}}</option>
             </select>
+          </div>
+        </div> -->
+
+        <div class="row">
+          <div class="col-md-1"></div>
+          <div class="col-md-2 text-right">
+            <label class="label-form">ประเภทการอยู่อาศัย</label>
+          </div>
+          <div class="col-md-3">
+            <input type="radio" name="isGuest" [value]="0" [(ngModel)]="member.isGuest"> มีชื่อในสำเนาทะเบียนบ้านจริง
+            &#09;
+            <input type="radio" name="isGuest" [value]="1" [(ngModel)]="member.isGuest"> ไม่มีชื่อในสำเนาทะเบียนบ้าน แต่ตัวอยู่จริง
           </div>
         </div>
 
@@ -94,7 +107,7 @@
             <label class="label-form">ศาสนา</label>
           </div>
           <div class="col-md-3">
-            <select name="dropdown-race" id="dropdown-race" [(ngModel)]="member.religionCode">
+            <select name="dropdown-religion" id="dropdown-religion" [(ngModel)]="member.religionCode">
               <option value="">--เลือก ศาสนา--</option>
               <option *ngFor="let item of listReligion" [value]="item.code">{{item.name}}</option>
             </select>
@@ -154,25 +167,10 @@
               <option *ngFor="let item of listOccupation" [value]="item.id">{{item.name}}</option>
             </select>
           </div>
-          <div class="col-md-2 text-right" *ngIf="isDisplayOccupationOthers">
-            <label class="label-form">อื่นๆ โปรดระบุ</label>
-          </div>
-          <div class="col-md-3" *ngIf="isDisplayOccupationOthers">
-            <input type="text" class="ng-pristine ng-valid ng-touched">
-          </div>
         </div>
 
         <div class="row">
           <div class="col-md-1"></div>
-          <div class="col-md-2 text-right">
-            <label class="label-form">สถานะอยู่</label>
-          </div>
-          <div class="col-md-3">
-            <select name="dropdown-discharge" id="dropdown-discharge" [(ngModel)]="member.dischargeId">
-              <option value="">--เลือก สถานะอยู่--</option>
-              <option *ngFor="let item of listDischarge" [value]="item.id">{{item.name}}</option>
-            </select>
-          </div>
           <div class="col-md-2 text-right">
             <label class="label-form">ความสัมพันธ์</label>
           </div>
@@ -182,6 +180,15 @@
               <option *ngFor="let item of listFamilyStatus" [value]="item.code">{{item.name}}</option>
             </select>
           </div>
+          <!-- <div class="col-md-2 text-right">
+            <label class="label-form">สถานะอยู่</label>
+          </div>
+          <div class="col-md-3">
+            <select name="dropdown-discharge" id="dropdown-discharge" [(ngModel)]="member.dischargeId">
+              <option value="">--เลือก สถานะอยู่--</option>
+              <option *ngFor="let item of listDischarge" [value]="item.id">{{item.name}}</option>
+            </select>
+          </div> -->
         </div>
 
         <!-- <div class="row">
@@ -194,25 +201,21 @@
           </div>
         </div> -->
 
-        <!-- <div class="row">
+        <div class="row">
           <div class="col-md-1"></div>
           <div class="col-md-2 text-right">
             <label class="label-form">หมายเหตุ</label>
           </div>
           <div class="col-md-7">
-            <textarea style="height: 50px;" class="ng-pristine ng-valid ng-touched" placeholder="ระบุหมายเหตุ ถ้ามี" [(ngModel)]="member.reason"></textarea>
-          </div>
-        </div> -->
-
-        <div class="row text-center">
-          <div class="col-md-12">
-            <button class="btn btn-primary text-center" (click)="clickSave();">บันทึก</button>
-            <button class="btn btn-primary text-center" data-dismiss="modal">ยกเลิก</button>
+            <textarea style="height: 50px;" class="ng-pristine ng-valid ng-touched" placeholder="ระบุหมายเหตุ ถ้ามี" [(ngModel)]="member.remark"></textarea>
           </div>
         </div>
+
       </div>
 
       <div class="modal-footer">
+        <button class="btn btn-primary btn-sm" (click)="onClickSave();">บันทึก</button>
+        <button class="btn btn-primary btn-sm" data-dismiss="modal">ยกเลิก</button>
       </div>
 
     </div>
