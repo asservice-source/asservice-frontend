@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ChangeDetectorRef ,ViewChild} from '@angular/core';
 import { VillageBean } from '../../../../beans/village.bean';
 import { InputValidateInfo } from "../../../../directives/inputvalidate.directive";
+import { BaseComponent } from '../../../../base-component';
 declare var $:any, bootbox:any;
 @Component({
   selector: 'app-management-staff-village-form',
@@ -8,13 +9,14 @@ declare var $:any, bootbox:any;
   styleUrls: ['./management-staff-village-form.component.css']
 })
 
-export class ManagementStaffVillageFormComponent implements OnInit {
+export class ManagementStaffVillageFormComponent extends BaseComponent implements OnInit {
   @Input() bean: VillageBean;
   public isValidate: boolean = false;
   public inputValidate: InputValidateInfo = new InputValidateInfo();
   public isError: boolean = false;
 
   constructor(private changeRef: ChangeDetectorRef) {
+    super();
     this.bean = new VillageBean();
    }
 
@@ -24,20 +26,21 @@ export class ManagementStaffVillageFormComponent implements OnInit {
   onSave(){
     this.inputValidate = new InputValidateInfo();
     this.inputValidate.isCleck = true;
-    if(!this.isError){
-      bootbox.alert('OK');
+
+    if(this.bean.villageNo && this.bean.villageName.trim()){
+       $('#modalForm').modal('hide');
+        bootbox.alert('เพิ่มบ้านสำเร็จ', function(){});
     }
   }
   validation(event: InputValidateInfo){
     if(!event.isPassed){
-      this.isError = true;
+      //this.isError = true;
     }
   }
   bindModal(){
     let _self = this;
     $('#modalForm').on('hide.bs.modal', function(){
-      _self.inputValidate = new InputValidateInfo();
+      _self.clearInputErrorClass();
     });
-    
   }
 }
