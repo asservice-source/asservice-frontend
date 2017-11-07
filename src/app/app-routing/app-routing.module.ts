@@ -9,7 +9,7 @@ import { GuardService } from "./../service/guard.service";
 import { ContentComponent } from "./../content/content.component";
 import { NotfoundComponent } from "./../notfound/notfound.component";
 import { LoginComponent } from "./../login/login.component";
-import { RegisterComponent } from "./../register/register.component";
+import { RegisterComponent } from "./../register/register/register.component";
 import { SurveyPregnantListComponent } from "./../surveys/pregnant/survey-pregnant-list/survey-pregnant-list.component";
 import { SurverDiedListComponent } from "./../surveys/died/survey-died-list/survey-died-list.component";
 import { SurveyPersonalHomeListComponent } from "./../surveys/personal/survey-personal-home-list/survey-personal-home-list.component";

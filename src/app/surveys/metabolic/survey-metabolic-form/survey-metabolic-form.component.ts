@@ -97,12 +97,15 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
     let b = T;
     if (T == '2') {
       $("#numTobacco").prop('disabled', false);
+      $("#numTobaccoPeryear").prop('disabled',false);
       this.metabolicbean.drugHistory_Smoke = '2';
     } else if (T == '1') {
       $("#numTobacco").prop('disabled', true);
+      $("#numTobaccoPeryear").prop('disabled',true);
       this.metabolicbean.drugHistory_Smoke = '1';
     } else {
       $("#numTobacco").prop('disabled', true);
+      $("#numTobaccoPeryear").prop('disabled',true);
       this.metabolicbean.drugHistory_Smoke = '3';
     }
   }
@@ -285,11 +288,20 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
   addSurvey() {
 
     if (this.validateForm() == true) {
-      let params = {
-        hInsuranceTypeID : this.healtInsuranceTypeList,
-        isHeredityMetabolic : this.metabolicbean.healtHistory_isDiabetesParent,
-        isWaistlineOver : this.metabolicbean.healtHistory_isOverBmi
-      }
+      // let params = {
+      //   hInsuranceTypeID : this.healtInsuranceTypeList,
+      //   isHeredityMetabolic : this.metabolicbean.healtHistory_isDiabetesParent,
+      //   isWaistlineOver : this.metabolicbean.healtHistory_isOverBmi,
+      //   isBPOver : this.metabolicbean.healtHistory_isOverBp,
+      //   isFBS : this.metabolicbean.healtHistory_isOverFbs,
+      //   isCholesterol : this.metabolicbean.healtHistory_isOvercholesterol,
+      //   isNewborn4kg : this.metabolicbean.healtHistory_isPregnantDiabetes,
+      //   isHeredityHypertension : this.metabolicbean.healtHistory_isOverBpParent,
+      //   smokingStatusCode : this.metabolicbean.drugHistory_Smoke,
+      //   rollPerDay : this.metabolicbean.drugHistory_numTobacco,
+
+
+      // }
     }
   }
 

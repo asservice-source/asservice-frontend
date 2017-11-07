@@ -1,8 +1,8 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { ApiHTTPService } from "../service/api-http.service";
-import { BaseComponent } from "../base-component";
+import { ApiHTTPService } from "../../service/api-http.service";
+import { BaseComponent } from "../../base-component";
 import { CompleterService, CompleterData } from 'ng2-completer';
-import { RegisterBean } from "../beans/register.bean";
+import { RegisterBean } from "../../beans/register.bean";
 
 declare var bootbox: any;
 declare var $:any;
