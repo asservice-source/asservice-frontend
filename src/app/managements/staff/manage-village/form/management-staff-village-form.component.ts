@@ -11,7 +11,6 @@ declare var $:any, bootbox:any;
 
 export class ManagementStaffVillageFormComponent extends BaseComponent implements OnInit {
   @Input() bean: VillageBean;
-  public isValidate: boolean = false;
   public inputValidate: InputValidateInfo = new InputValidateInfo();
   public isError: boolean = false;
 
@@ -29,7 +28,7 @@ export class ManagementStaffVillageFormComponent extends BaseComponent implement
 
     if(this.bean.villageNo && this.bean.villageName.trim()){
        $('#modalForm').modal('hide');
-        bootbox.alert('เพิ่มบ้านสำเร็จ', function(){});
+        bootbox.alert('บันทึกสำเร็จสำเร็จ', function(){});
     }
   }
   validation(event: InputValidateInfo){

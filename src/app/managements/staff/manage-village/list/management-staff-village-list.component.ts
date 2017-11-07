@@ -66,10 +66,10 @@ export class ManagementStaffVillageListComponent extends BaseComponent implement
   }
 
   onModalForm(){
-    this.bean = new VillageBean();
     $('#modalForm').modal('show');
   }
   onClickAdd(){
+    this.bean = new VillageBean();
     this.onModalForm();
   }
 }
