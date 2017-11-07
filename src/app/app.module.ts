@@ -49,7 +49,8 @@ import { FilterPersonalComponent } from './filter/filter-personal/filter-persona
 import { ActionCustomViewComponent } from './action-custom-table/action-custom-view.component'
 import { LoadingComponent } from './loading/loading.component';
 import { OnlyNumberDirective } from './directives/onlynumber.directive';
-import { AutofocusDirective } from './directives/autofocus.directive'
+import { AutofocusDirective } from './directives/autofocus.directive';
+import { InputValidateDirective } from './directives/inputvalidate.directive';
 import { ManagementStaffStaffListComponent } from './managements/staff/manage-staff/list/management-staff-staff-list.component';
 import { ManagementStaffStaffFormComponent } from './managements/staff/manage-staff/form/management-staff-staff-form.component';
 import { ManagementStaffOsmListComponent } from './managements/staff/manage-osm/list/management-staff-osm-list.component';
@@ -99,6 +100,7 @@ import { RegisterActiveComponent } from './register/register-active/register-act
     ActionCustomViewComponent,
     OnlyNumberDirective,
     AutofocusDirective,
+    InputValidateDirective,
     ManagementStaffStaffListComponent,
     ManagementStaffStaffFormComponent,
     ManagementStaffOsmListComponent,
