@@ -3,7 +3,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title" id="myModalLabel">{{bean.citizenId?'แก้ไข':'เพิ่ม'}}เจ้าหน้าที่ รพ.สต.</h4>
+          <h4 class="modal-title" id="myModalLabel">{{bean.citizenId?'แก้ไข':'เพิ่ม'}}เจ้าหน้าที่ อสม.</h4>
         </div>
         <div class="modal-body">
 
@@ -11,7 +11,7 @@
             <div class="col-md-4 text-right">
               <label class="label-form">{{getLabel('lbl_citizenid')}}</label>
             </div>
-            <div class="col-md-7">
+            <div class="col-md-6">
               <input type="text" [(ngModel)]="bean.citizenId" OnlyNumber="true" [disabled]="false">
             </div>
           </div>
@@ -44,7 +44,7 @@
             <div class="col-md-4 text-right">
               <label class="label-form">ชื่อ</label>
             </div>
-            <div class="col-md-7">
+            <div class="col-md-6">
               <input type="text" [(ngModel)]="bean.firstName">
             </div>
           </div>
@@ -53,8 +53,17 @@
             <div class="col-md-4 text-right">
               <label class="label-form">นามสกุล</label>
             </div>
-            <div class="col-md-7">
+            <div class="col-md-6">
               <input type="text" [(ngModel)]="bean.lastName">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4 text-right">
+              <label class="label-form">วัน/เดือน/ปี เกิด</label>
+            </div>
+            <div class="col-md-5">
+              <my-date-picker name="mydate" [options]="datePickerOptions" [(ngModel)]="bean.birthDate" required></my-date-picker>
             </div>
           </div>
 
@@ -62,7 +71,7 @@
             <div class="col-md-4 text-right">
               <label class="label-form">หมู่บ้าน</label>
             </div>
-            <div class="col-md-7">  
+            <div class="col-md-6">  
               <select [(ngModel)]="bean.villageId">
                 <option value="">---เลือก---</option>
                 <option *ngFor="let item of villageList" [value]="item.id">{{item.villageNo}} : {{item.villageName}}</option>

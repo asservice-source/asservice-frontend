@@ -3,6 +3,7 @@ export class PersonalBasicBean{
     public firstName: string;
     public lastName: string;
     public fullName: string;
+    public birthDate: string;
     public prefixCode: string;
     public prefixName: string;
     public genderCode: string;
