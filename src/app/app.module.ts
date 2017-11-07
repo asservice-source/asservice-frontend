@@ -25,7 +25,7 @@ import { AdminDashboard1Component } from './admin/admin-dashboard1/admin-dashboa
 import { ContentComponent } from './content/content.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
+import { RegisterComponent } from './register/register/register.component';
 import { SurveyPregnantListComponent } from './surveys/pregnant/survey-pregnant-list/survey-pregnant-list.component';
 import { SurveyPregnantFormComponent } from './surveys/pregnant/survey-pregnant-form/survey-pregnant-form.component';
 import { SurverDiedListComponent } from './surveys/died/survey-died-list/survey-died-list.component';
