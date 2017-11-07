@@ -1,0 +1,169 @@
+<app-loading [cmd]="loadingCMD"></app-loading>
+<div class="row" style="background-color: #42c8fb;">
+  <div class="col-md-12" style="text-align:center;    height: 70px;">
+    <label style="text-align: center; font-size: 38px; margin-top:10px; color: white">สร้างบัญชี รพ.สต.</label>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6" style="margin-top:30px">
+      <img src="assets/img/anamai_smart_service_logo_1.png">
+    </div>
+
+    <div class="col-md-6" style="margin-top:30px">
+      <div class="col-md-12">
+
+        <div class="row">
+          <div class="text-right col-md-4">
+            <label class="label-form">ชื่อ รพ.สต.</label>
+          </div>
+
+          <div class="col-md-8">
+            <ng2-completer [datasource]="dataHospitals" [minSearchLength]="1" [(ngModel)]="registerBean.hospitalName" placeholder="ชื่อ รพ.สต."></ng2-completer>          
+              <label class="error col-md-12" *ngIf="isErrorHospital">กรุณาระบุ รพ.สต.</label>
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="text-right col-md-4">
+            <label class="label-form">ที่ตั้ง รพ.สต.</label>
+          </div>
+
+          <div class="col-md-8">
+            <select class="ng-pristine ng-valid ng-touched" [(ngModel)]="registerBean.provinceID" (change)="onProvinceChange()">
+              <option value="0">---เลือกจังหวัด---</option>
+              <option *ngFor="let item of provinceList" [ngValue]="item.codeId">{{ item.name }}</option>
+            </select>
+            <label class="error col-md-12" *ngIf="isErrorProvice">กรุณาระบุจังหวัด</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="text-right col-md-4 ">
+            <label></label>
+          </div>
+
+          <div class="col-md-8">
+            <div class="col-md-6 " style="padding-left: 0px;">
+              <select class="ng-pristine ng-valid ng-touched" [(ngModel)]="registerBean.amphurCode" (change)="onAmphurChange()" [disabled]="registerBean.provinceID =='0' ?true:false" >
+                <option value="0">เลือกอำเภอ</option>
+                <option *ngFor="let item of amphurList" [value]="item.code">{{ item.name }}</option>
+              </select>
+              <label class="error col-md-12" *ngIf="isErrorAmphur">กรุณาระบุอำเภอ</label>
+            </div>
+            <div class="col-md-6 " style="padding-right: 0px;">
+              <select class="ng-pristine ng-valid ng-touched" [(ngModel)]="registerBean.tumbolID" (change)="onTumbolChange()" [disabled]="registerBean.amphurCode == '0'?true:false" >
+                <option value="0">เลือกตำบล</option>
+                <option *ngFor="let item of tumbolsList" [value]="item.codeId">{{ item.name }}</option>
+              </select>
+              <label class="error col-md-12" *ngIf="isErrorTumbol">กรุณาระบุตำบล</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="text-right col-md-4 ">
+            <label class="label-form">รหัส 9 หลัก รพ.สต.</label>
+          </div>
+
+          <div class="col-md-8 ">
+            <input class="ng-pristine ng-valid ng-touched" type="text" placeholder="รหัส 9 หลัก รพ.สต." [(ngModel)]="registerBean.code9" id="xxx2"
+            maxlength="9" [OnlyNumber]="true"  />
+            <label class="error col-md-12" *ngIf="isErrorCode9">กรุณาระบุหมายเลขให้ครบ 9 หลัก</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="text-right col-md-4 ">
+            <label class="label-form">รหัส 5 หลัก</label>
+          </div>
+
+          <div class="col-md-8 ">
+            <input class="ng-pristine ng-valid ng-touched" type="text" placeholder="รหัส 5 หลัก" [(ngModel)]="registerBean.code5"
+            maxlength="5" [OnlyNumber]="true" />
+            <label class="error col-md-12" *ngIf="isErrorCode5">กรุณาระบุหมายเลขให้ครบ 5 หลัก</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="text-right col-md-4 ">
+            <label class="label-form">เลขประจำตัวประชาชน</label>
+          </div>
+
+          <div class="col-md-8 ">
+            <input class="ng-pristine ng-valid ng-touched" type="text" placeholder="เลขประจำตัว 13 หลัก" [(ngModel)]="registerBean.contactCitizenId"
+            (keypress)="formatCitizenID()" maxlength="17" [OnlyNumber]="true" />
+            <label class="error col-md-12" *ngIf="isErrorCitizenID">กรุณาระบุหมายเลขประจำตัวประชาชน ให้ครบ 13 หลัก</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="text-right col-md-4 ">
+            <label class="label-form">คำนำหน้าชื่อ</label>
+          </div>
+
+          <div class="col-md-8 ">
+            <select class="ng-pristine ng-valid ng-touched" [(ngModel)]="registerBean.contactPrefix" >
+              <option value="0">เลือกคำนำหน้า</option>
+              <option *ngFor="let item of prefixList" [value]="item.code">{{ item.name }}</option>
+            </select>
+            <label class="error col-md-12" *ngIf="isErrorPrefix">กรุณาระบุคำนำหน้าชื่อ</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="text-right col-md-4 ">
+            <label class="label-form">ชื่อ</label>
+          </div>
+
+          <div class="col-md-8 ">
+            <input class="ng-pristine ng-valid ng-touched" type="text" placeholder="ชื่อ" [(ngModel)]="registerBean.contactFirstName">
+            <label class="error col-md-12" *ngIf="isErrorFirstName">กรุณาระบุชื่อจริง</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="text-right col-md-4 ">
+            <label class="label-form">สกุล</label>
+          </div>
+
+          <div class="col-md-8 ">
+            <input class="ng-pristine ng-valid ng-touched" type="text" placeholder="สกุล" [(ngModel)]="registerBean.contactLastName" >
+            <label class="error col-md-12" *ngIf="isErrorLastName">กรุณาระบุนามสกุล</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="text-right col-md-4 ">
+            <label class="label-form">อีเมล</label>
+          </div>
+
+          <div class="col-md-8 ">
+            <input class="ng-pristine ng-valid ng-touched" type="text" placeholder="อีเมล" [(ngModel)]="registerBean.contactEmail" >
+            <label class="error col-md-12" *ngIf="isErrorEmail">กรุณาระบุอีเมลให้ถูกต้อง</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="text-right col-md-4 ">
+            <label class="label-form">เบอร์โทรศัพท์</label>
+          </div>
+
+          <div class="col-md-8 ">
+            <input class="ng-pristine ng-valid ng-touched" type="text" placeholder="เบอร์โทรศัพท์" [(ngModel)]="registerBean.contactTelephone"
+            (keypress)="formatPhoneNumber()" maxlength="12" [OnlyNumber]="true" />
+            <label class="error col-md-12" *ngIf="isErrorPhone">กรุณาระบุเบอร์โทรศัพท์ให้ถูกต้อง</label>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-md-offset-5">
+          <button class="btn btn-primary" (click)="doRegister()">สร้างบัญชี รพ.สต.</button>
+          <!-- <button class="btn btn-primary">ยอนกลับ</button> -->
+        </div>
+        
+      </div>
+    </div>
+
+  </div>
+</div>
