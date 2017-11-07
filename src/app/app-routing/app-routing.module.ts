@@ -21,6 +21,7 @@ import { SurveyCancerListComponent } from "./../surveys/cancer/survey-cancer-lis
 import { ManagementStaffStaffListComponent } from "./../managements/staff/manage-staff/list/management-staff-staff-list.component";
 import { ManagementStaffOsmListComponent } from "./../managements/staff/manage-osm/list/management-staff-osm-list.component";
 import { ManagementStaffVillageListComponent } from "./../managements/staff/manage-village/list/management-staff-village-list.component";
+import { RegisterActiveComponent } from './../register/register-active/register-active.component';
 
 @NgModule({
   imports: [
@@ -31,7 +32,16 @@ import { ManagementStaffVillageListComponent } from "./../managements/staff/mana
       },
       {
         path: 'register',
-        component: RegisterComponent
+        children:[
+          {
+            path: '',
+            component: RegisterComponent,
+          },
+          {
+            path: 'active/:tokenId',
+            component: RegisterActiveComponent,
+          }
+        ]
       },
       {
         path: '',
