@@ -175,7 +175,12 @@ export class RegisterComponent extends BaseComponent implements OnInit {
         this.api.post('hospital/register_hospital', params, function (resp) {
           console.log(resp);
           if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-            console.log("ไปแล้วววว++");
+            bootbox.alert({
+              size: "large",
+              title: "<div style='color:#5cb85c;font-weight: bold;'><span class='glyphicon glyphicon-ok'></span> ลงทะเบียนสำเร็จ</div>",
+              message: "กรุณาตรวจสอบอีเมลของท่านเพื่อยืนยันการลงทะเบียน",
+              callback: function () { location.href = '/login' }
+            });
           }
         })
       }
