@@ -32,9 +32,7 @@ export class ManagementStaffVillageFormComponent extends BaseComponent implement
     }
   }
   validation(event: InputValidateInfo){
-    if(!event.isPassed){
-      //this.isError = true;
-    }
+    
   }
   bindModal(){
     let _self = this;

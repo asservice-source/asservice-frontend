@@ -12,7 +12,10 @@
               <label class="label-form">{{getLabel('lbl_citizenid')}}</label>
             </div>
             <div class="col-md-6">
-              <input type="text" [(ngModel)]="bean.citizenId" OnlyNumber="true" [disabled]="false">
+              <div [InputValidate]="InputValidate">
+                <input type="text" [(ngModel)]="bean.citizenId" OnlyNumber="true" [disabled]="false">
+                <label class="error">กรุณาใส่{{getLabel('lbl_citizenid')}}</label>
+              </div>
             </div>
           </div>
 
@@ -21,10 +24,13 @@
               <label class="label-form">เพศ</label>
             </div>
             <div class="col-md-4">
-              <select [(ngModel)]="bean.genderCode">
-                <option value="">---เลือก---</option>
-                <option *ngFor="let item of genderList" [value]="item.code">{{item.name}}</option>
-              </select>
+              <div [InputValidate]="InputValidate">
+                <select [(ngModel)]="bean.genderCode">
+                  <option value="">---เลือก---</option>
+                  <option *ngFor="let item of genderList" [value]="item.code">{{item.name}}</option>
+                </select>
+                <label class="error">กรุณาเลือกเพศ</label>
+              </div>
             </div>
           </div>
           
@@ -33,10 +39,13 @@
               <label class="label-form">คำนำหน้า</label>
             </div>
             <div class="col-md-4">
-              <select [(ngModel)]="bean.prefixCode">
-                <option value="">---เลือก---</option>
-                <option *ngFor="let item of prefixList" [value]="item.code">{{item.name}}</option>
-              </select>
+              <div [InputValidate]="InputValidate">
+                <select [(ngModel)]="bean.prefixCode">
+                  <option value="">---เลือก---</option>
+                  <option *ngFor="let item of prefixList" [value]="item.code">{{item.name}}</option>
+                </select>
+                <label class="error">กรุณาเลือกคำนำหน้า</label>
+              </div>
             </div>
           </div>
 
@@ -45,16 +54,22 @@
               <label class="label-form">ชื่อ</label>
             </div>
             <div class="col-md-6">
-              <input type="text" [(ngModel)]="bean.firstName">
+              <div [InputValidate]="InputValidate">
+                <input type="text" [(ngModel)]="bean.firstName">
+                <label class="error">กรุณาใส่ชื่อ</label>
+              </div>
             </div>
           </div>
 
           <div class="row">
             <div class="col-md-4 text-right">
-              <label class="label-form">นามสกุล</label>
+                <label class="label-form">นามสกุล</label>
             </div>
             <div class="col-md-6">
-              <input type="text" [(ngModel)]="bean.lastName">
+              <div [InputValidate]="InputValidate">
+                <input type="text" [(ngModel)]="bean.lastName">
+                <label class="error">กรุณาใส่นามสกุล</label>
+              </div>
             </div>
           </div>
 
@@ -63,14 +78,17 @@
               <label class="label-form">วัน/เดือน/ปี เกิด</label>
             </div>
             <div class="col-md-5">
-              <my-date-picker name="mydate" [options]="datePickerOptions" [(ngModel)]="bean.birthDate" required></my-date-picker>
+              
+                <my-date-picker name="mydate" [options]="datePickerOptions" [(ngModel)]="bean.birthDate" required></my-date-picker>
+                <label class="error">กรุณาใส่วัน/เดือน/ปี</label>
+              
             </div>
           </div>
 
         </div>
         <div class="modal-footer">
           
-          <button type="button" class="btn btn-sm btn-primary">ตกลง</button>
+          <button type="button" class="btn btn-sm btn-primary" (click)="onSave()">ตกลง</button>
           <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">ยกเลิก</button>
           
         </div>

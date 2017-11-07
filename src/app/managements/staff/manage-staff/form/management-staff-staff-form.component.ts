@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { BaseComponent } from '../../../../base-component';
 import { StaffBean } from '../../../../beans/staff.bean';
 import { ApiHTTPService } from '../../../../service/api-http.service';
+import { InputValidateInfo } from '../../../../directives/inputvalidate.directive';
 
 
 
@@ -16,6 +17,7 @@ export class ManagementStaffStaffFormComponent extends BaseComponent implements 
 
   public prefixList: any = [{}];
   public api: ApiHTTPService = new ApiHTTPService();
+  public InputValidate: InputValidateInfo = new InputValidateInfo();
 
   constructor() {
     super();
@@ -38,5 +40,8 @@ export class ManagementStaffStaffFormComponent extends BaseComponent implements 
       }
     });
   }
-  
+  onSave(){
+    this.InputValidate = new InputValidateInfo();
+    this.InputValidate.isCleck = true;
+  }
 }

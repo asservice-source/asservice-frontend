@@ -1,23 +1,12 @@
-import { Directive, ElementRef, HostListener, Input, Output, EventEmitter, Renderer, ViewContainerRef } from '@angular/core';
+import { Directive, ElementRef, HostListener, Input, Output, EventEmitter, Renderer, ViewContainerRef, ViewRef } from '@angular/core';
 
 @Directive({
   selector: '[InputValidate]'
 })
 
 export class InputValidateDirective{
-    // @Input() set InputValidate(InputValidate: boolean){
-
-    //     if(InputValidate){
-    //         this.onValidate();
-    //         this.isReset = false;
-    //     }else{
-    //         if(this.isReset){
-    //             this.onReset();
-    //             this.isReset = true;
-    //         }
-    //     }
-    // };
     @Input() InputValidate: InputValidateInfo = new InputValidateInfo();
+    @Input() error: string;
     @Output() notify: EventEmitter<InputValidateInfo> = new EventEmitter<InputValidateInfo>(); 
     public isReset: boolean = false;
     constructor(private el: ElementRef,private renderer: Renderer, private viewContainer: ViewContainerRef) { 
@@ -35,13 +24,13 @@ export class InputValidateDirective{
     }
 
     onReset(){
-        let el_label = this.viewContainer.element.nativeElement.lastElementChild;
+        let el_label = this.el.nativeElement.lastElementChild;
         this.renderer.setElementStyle(el_label,'display','none');
     }
     onValidate(){
         console.log(this.viewContainer);
-        let el_label = this.viewContainer.element.nativeElement.lastElementChild;
-        let value: string =  this.viewContainer.element.nativeElement.firstElementChild.value; 
+        let el_label = this.el.nativeElement.lastElementChild;
+        let value: string =  this.el.nativeElement.firstElementChild.value;
         this.InputValidate = new InputValidateInfo();
         this.InputValidate.value = value;
         if(!value.trim()){
