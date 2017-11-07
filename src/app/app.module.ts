@@ -57,6 +57,7 @@ import { ManagementStaffOsmFormComponent } from './managements/staff/manage-osm/
 import { ManagementStaffVillageListComponent } from './managements/staff/manage-village/list/management-staff-village-list.component';
 import { ManagementStaffVillageFormComponent } from './managements/staff/manage-village/form/management-staff-village-form.component';
 import { MyDatePickerModule } from 'mydatepicker';
+import { RegisterActiveComponent } from './register/register-active/register-active.component';
 
 @NgModule({
   declarations: [
@@ -103,7 +104,8 @@ import { MyDatePickerModule } from 'mydatepicker';
     ManagementStaffOsmListComponent,
     ManagementStaffOsmFormComponent,
     ManagementStaffVillageListComponent,
-    ManagementStaffVillageFormComponent
+    ManagementStaffVillageFormComponent,
+    RegisterActiveComponent,
 
   ],
   imports: [
