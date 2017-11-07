@@ -12,7 +12,10 @@
               <label class="label-form">หมู่ที่</label>
             </div>
             <div class="col-md-4">
-              <input type="text" [(ngModel)]="bean.villageNo" OnlyNumber="true">
+              <div [InputValidate]="inputValidate" (notify)="validation($event)">
+                  <input type="text" [(ngModel)]="bean.villageNo" OnlyNumber="true">
+                  <label class="error">กรุณาใส่หมู่ที่</label>
+              </div>
             </div>
           </div>
 
@@ -21,7 +24,10 @@
               <label class="label-form">ชื่อหมู่บ้าน</label>
             </div>
             <div class="col-md-6">
-              <input type="text" [(ngModel)]="bean.villageName">
+              <div [InputValidate]="inputValidate" (notify)="validation($event)">
+                <input type="text" [(ngModel)]="bean.villageName">
+                <label class="error">กรุณาใส่ชื่อหมู่บ้าน</label>
+              </div>
             </div>
           </div>
 
@@ -29,7 +35,7 @@
         </div>
         <div class="modal-footer">
           
-          <button type="button" class="btn btn-sm btn-primary">ตกลง</button>
+          <button type="button" class="btn btn-sm btn-primary" (click)="onSave()">ตกลง</button>
           <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">ยกเลิก</button>
           
         </div>
