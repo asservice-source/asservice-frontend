@@ -43,12 +43,12 @@
 
 					<li *ngIf="idx==0" class="treeview manage-menu-let">
 						<a href="#">
-							<i *ngIf="adminMenus.icon" class="{{adminMenus.icon}}"></i>
-							<span>{{adminMenus.title}}</span>
+							<i *ngIf="staffMenus.icon" class="{{staffMenus.icon}}"></i>
+							<span>{{staffMenus.title}}</span>
 							<i class="fa fa-angle-left pull-right"></i>
 						</a>
 						<ul class="treeview-menu">
-							<ng-container *ngFor="let subitem of adminMenus.sublinks">
+							<ng-container *ngFor="let subitem of staffMenus.sublinks">
 								<li [class.active]="subitem.link[0] === currentUrl">
 									<a *ngIf="!subitem.external" [routerLink]="subitem.link">
 										<i *ngIf="subitem.icon" class="{{subitem.icon}}"></i>

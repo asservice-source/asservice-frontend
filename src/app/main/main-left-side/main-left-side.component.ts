@@ -9,19 +9,20 @@ import { ApiHTTPService } from "../../service/api-http.service";
 export class MainLeftSideComponent implements OnInit {
   //@Input() links: Array<any> = [];
   public surveyMenus: Array<any> = [];
-  public adminMenus: any = {};
+  public staffMenus: any = {};
+  public osmMenus: any = {};
 
   private api: ApiHTTPService = new ApiHTTPService();
   constructor() { }
 
   ngOnInit() {
-    this.setUpMenu();
+    this.setupMenu();
   }
 
-  setUpMenu(){
-    let self = this;
-    this.api.post('app/menu',{}, function(response){
-        self.compareMenu(response);
+  setupMenu(){
+    let _self = this;
+    this.api.api_MenuLeft(function(response){
+      _self.compareMenu(response);
     });
   }
 
@@ -29,10 +30,11 @@ export class MainLeftSideComponent implements OnInit {
     let menuSurveys = [];
     for(let item of menus){
       if(item.menuID==21){
-        this.adminMenus = item;
+        this.staffMenus = item;
+      }else if(item.menuID==25){
+        this.osmMenus = item;
       }else{
         menuSurveys.push(item);
-
       }
     }
     this.surveyMenus = menuSurveys;
