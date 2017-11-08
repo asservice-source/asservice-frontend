@@ -170,6 +170,9 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
       $('a[data-toggle="' + tog + '"][data-title="' + sel + '"]').removeClass('notActive').addClass('active');
     })
 
+
+    ///////////////
+
     $('body').on('click', '#radioBtn2 a', function () {
       var sel = $(this).data('title');
       var tog = $(this).data('toggle');
