@@ -18,7 +18,7 @@ export class ManagementStaffStaffFormComponent extends BaseComponent implements 
   public prefixList: any = [{}];
   public api: ApiHTTPService = new ApiHTTPService();
   public InputValidate: InputValidateInfo = new InputValidateInfo();
-
+  public genderList: any;
   constructor() {
     super();
 
@@ -28,10 +28,12 @@ export class ManagementStaffStaffFormComponent extends BaseComponent implements 
 
   ngOnInit() {
     this.setUpPrefix();
+    this.setUpGender();
+    this.bindModal();
   }
   setUpPrefix(){
     let _self = this;
-    _self.api.post('person/prefix_list', {} , function (data) {
+    this.api.post('person/prefix_list', {} , function (data) {
       console.log(data);
       if (data != null && data.status.toUpperCase() == "SUCCESS") {
         _self.prefixList = data.response;
@@ -40,8 +42,20 @@ export class ManagementStaffStaffFormComponent extends BaseComponent implements 
       }
     });
   }
+  setUpGender(){
+    let _self = this;
+    this.api.api_GenderList(function(response){
+      _self.genderList = response;
+    });
+  }
   onSave(){
     this.InputValidate = new InputValidateInfo();
     this.InputValidate.isCleck = true;
+  }
+  bindModal(){
+    let _self = this;
+    $('#modalForm').on('hide.bs.modal', function(){
+      _self.InputValidate = new InputValidateInfo();
+    });
   }
 }

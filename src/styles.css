@@ -102,8 +102,11 @@ color: white !important;
 .error{
     display: none;
     margin-bottom: 0px;
-    color:red;
-    font-style: italic;
-    font-size: 12px;
-
+    color: #FF0000;
+    font: 13px Arial, sans-serif;
+    padding-left: 2px;
+}
+.error-input{
+    border: 1px solid #af7a7a;
+    background-color: #fff8f8;
 }
