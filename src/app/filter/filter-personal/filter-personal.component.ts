@@ -86,7 +86,7 @@ export class FilterPersonalComponent extends BaseComponent implements OnInit {
     let self = this;
 
     let URL_LIST_OSM: string = "osm/osm_list_by_village";
-    let params = { "id": self.filterBean.villageId };
+    let params = { "villageId": self.filterBean.villageId };
 
     self.apiHttp.post(URL_LIST_OSM, params, function (d) {
       if (d && d.status.toUpperCase() == "SUCCESS") {
@@ -104,7 +104,7 @@ export class FilterPersonalComponent extends BaseComponent implements OnInit {
     let self = this;
 
     let URL_LIST_HOME_NO: string = "home/home_no_list_by_village_or_osm";
-    let params = { "id": villageId, "osmId": osmId };
+    let params = { "villageId": villageId, "osmId": osmId };
 
     self.apiHttp.post(URL_LIST_HOME_NO, params, function (d) {
       if (d && d.status.toUpperCase() == "SUCCESS") {

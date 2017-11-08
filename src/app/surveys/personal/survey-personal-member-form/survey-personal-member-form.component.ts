@@ -42,6 +42,7 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
   public listFamilyStatus: any = [];
 
   public isDisabledActionAdd: boolean = false;
+  public isDisablePersonData: boolean = true;
 
   public modelBirthDate: any;
 
@@ -74,9 +75,11 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
     $("#modalMember").on('show.bs.modal', function (e) {
       if (self.action == self.ass_action.EDIT) {
         self.isDisabledActionAdd = true;
+        self.isDisablePersonData = false;
       } else {
         self.defaultValue();
         self.isDisabledActionAdd = false;
+        self.isDisablePersonData = true;
       }
     });
   }
@@ -287,13 +290,49 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
     self.member.birthDate = self.getStringDateForDatePickerModel(event.date);
   }
 
+  onClickVerify() {
+    let self = this;
+
+    let cid = self.member.citizenId;
+    let personData: PersonalMemberBean;
+
+    // let URL_GET_PERSON_INFO: string = "home/family_status_list";
+    // let params = {};
+
+    // self.apiHttp.post(URL_GET_PERSON_INFO, params, function (d) {
+    //   if (d != null && d.status.toUpperCase() == "SUCCESS") {
+    //     // console.log(d);
+    //     personData = d.response;
+    //   } else {
+    //     console.log('survey-personal-member-member-form(bindFamilyStatus) occured error(s) => ' + d.message);
+    //   }
+    // });
+
+    // if(personData) {
+    //   this.member.prefixCode = personData.prefixCode;
+    //   this.member.firstName = personData.firstName;
+    //   this.member.lastName = personData.lastName;
+    //   this.member.genderCode = personData.genderCode;
+    //   this.member.raceCode = personData.raceCode;
+    //   this.member.nationalityCode = personData.nationalityCode;
+    //   this.member.religionCode = personData.religionCode;
+    //   this.member.bloodTypeId = personData.bloodTypeId;
+    //   this.member.rhGroupId = personData.rhGroupId;
+    //   this.member.birthDate = personData.birthDate;
+    //   this.member.educationCode = personData.educationCode;
+    //   this.member.occupationId = personData.occupationId;
+
+    //   self.isDisablePersonData = false;
+    // }
+  }
+
   onClickSave() {
     let self = this;
 
-    self.member.listPrefix = this.listPrefix;
-    self.member.listGender = this.listGender;
-    self.member.listFamilyStatus = this.listFamilyStatus;
-    self.memberUpdated.emit(this.member);
+    self.member.listPrefix = self.listPrefix;
+    self.member.listGender = self.listGender;
+    self.member.listFamilyStatus = self.listFamilyStatus;
+    self.memberUpdated.emit(self.member);
   }
 
 }
