@@ -68,6 +68,10 @@ export class ApiHTTPService extends BaseComponent implements OnInit {
     public api_HomeList(villageId: string, osmId: string, callback: (doc: any) => void) {
         this.callResponse('home/home_no_list_by_village_or_osm', {"villageId": villageId, "osmId": osmId}, callback);
     }
+    
+    public api_HomeMemberList(homeId: string, callback: (doc: any) => void){
+        this.callResponse('homemember/homemember_by_home', {"homeId": homeId}, callback);
+    }
 
     public api_ProvinceList(callback: (doc: any) => void) {
         this.callResponse('address/province', {}, callback);     
@@ -89,4 +93,6 @@ export class ApiHTTPService extends BaseComponent implements OnInit {
         console.log(headerTypeCode);
         this.callResponse('survey/survey_header_list', {"headerTypeCode": headerTypeCode, "hospitalCode": this.getHospitalCode()}, callback);
     }
+
+
 }

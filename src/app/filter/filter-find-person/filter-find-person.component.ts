@@ -90,47 +90,36 @@ export class FilterFindPersonComponent extends BaseComponent implements OnInit {
   doSearchPerson() {
     this.isDisabledPerson = false;
     this.isShowPersons = true;
-    this.setupPerson();
+    this.setupMemberList();
   }
-  setupPerson(){
-    let self = this;
-    let params = { "homeId": self.filterBean.homeId};
-    this.api.post('homemember/homemember_by_home', params, function (resp) {
-      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-        self.personData = resp.response; 
-      }
-    })
+  setupMemberList(){
+    let _self = this;
+    this.api.api_HomeMemberList(_self.filterBean.homeId, function(response){
+      _self.personData = response; 
+    });
   }
   setupVillage() {
     let self = this;
-    let params = { "hospitalCode": super.getHospitalCode() };
-    this.api.post('village/village_no_list_by_hospital', params, function (resp) {
-      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-        self.villageData = resp.response; 
-      }
+    this.api.api_villageList(super.getHospitalCode(), function (response) {
+      self.villageData = response;
     })
   }
   setupOSM() {
     let self = this;
-    let params = { "id": this.filterBean.villageId};
-    this.api.post('osm/osm_list_by_village', params, function (resp) {
-      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-        self.osmData = resp.response;
-        self.isDisabledOSM = false;
-        self.isDisabledHomeNo = false;
-      } 
+    this.api.api_OsmList(this.filterBean.villageId, function (response) {
+      self.osmData = response;
+      self.isDisabledOSM = false;
+      self.isDisabledHomeNo = false; 
     })
   }
   setupHome(){
     let self = this;
-    let params = { "id": this.filterBean.villageId, "osmId": this.filterBean.osmId};
-    this.api.post('home/home_no_list_by_village_or_osm', params, function (resp) {
-      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-        self.homeData = resp.response;
-        self.isDisabledOSM = false;
-        self.isDisabledHomeNo = false;
-      }
-    })
+    this.api.api_HomeList(this.filterBean.villageId, this.filterBean.osmId
+      , function (response) {
+      self.homeData = response;
+      self.isDisabledOSM = false;
+      self.isDisabledHomeNo = false;
+    });
   }
   onChoosePerson(person: PersonBean) {
     this.isShowFind = false;
