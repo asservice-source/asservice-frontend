@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { LabelManager } from "./label/label-manager";
 import { LocalDataSource } from 'ng2-smart-table';
-import { Utils, Action } from "./utils.util";
+import { Utils, Action, SurveyHeaderTypeCode} from "./utils.util";
 import * as myconf from "./global-config";
 import * as moment from 'moment'
 import { IMyDpOptions } from 'mydatepicker';
@@ -12,6 +12,7 @@ export class BaseComponent implements OnInit {
     public labelManager = new LabelManager();
     public _GLOBAL = myconf;
     public ass_action = Action;
+    public surverHeaderCode = SurveyHeaderTypeCode;
     private ng2STDataSource: LocalDataSource;// = new LocalDataSource();
     constructor() {
 

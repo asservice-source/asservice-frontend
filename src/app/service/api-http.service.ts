@@ -84,4 +84,9 @@ export class ApiHTTPService extends BaseComponent implements OnInit {
     public api_GenderList(callback: (doc: any) => void) {
         this.callResponse('person/gender_list', {}, callback);
     }
+
+    public api_SurveyHeaderList(headerTypeCode: string, callback: (doc: any) => void){
+        console.log(headerTypeCode);
+        this.callResponse('survey/survey_header_list', {"headerTypeCode": headerTypeCode, "hospitalCode": this.getHospitalCode()}, callback);
+    }
 }

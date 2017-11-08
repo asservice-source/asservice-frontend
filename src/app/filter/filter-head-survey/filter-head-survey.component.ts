@@ -15,25 +15,18 @@ declare var $: any;
 })
 export class FilterHeadSurveyComponent extends BaseComponent implements OnInit {
 
-  @Input() set surveyTypeCode(surveyTypeCode: string) {
-    this.typeCode = surveyTypeCode;
-    console.log(this.typeCode);
-  }
-
+  @Input() surveyTypeCode: string;
   @Output() notifyFilter: EventEmitter<FilterHeadSurveyBean> = new EventEmitter<FilterHeadSurveyBean>();
   @Output() changeFilter: EventEmitter<FilterHeadSurveyBean> = new EventEmitter<FilterHeadSurveyBean>();
 
-
   private api: ApiHTTPService;
   public filterBean: FilterHeadSurveyBean;
-  public typeCode: string;
   public villageData: any;
   public osmData: any;
   public isDisabledOSM = true;
   public isDisabledName = true;
-
-  public rounds: any = [{roundId:'1', title: 'ประจำเดือน พฤศจิกายน พ.ศ. 1/2560'},{roundId:'2', title: 'ประจำเดือน พฤศจิกายน พ.ศ. 2/2560'},{roundId:'3', title: 'ประจำเดือน พฤศจิกายน พ.ศ. 3/2560'}]
   public discription: any = {round: '', village: 'ทั้งหมด', osm: 'ทั้งหมด', name: ''};
+  public headerList: any = [];
 
   constructor(private http: Http) {
     super();
@@ -46,41 +39,41 @@ export class FilterHeadSurveyComponent extends BaseComponent implements OnInit {
   } 
 
   ngOnInit() {
-    this.setUpVillage();
-    this.onSearchFilter();
-    for(let item of this.rounds){
-      if(item.roundId==this.filterBean.roundId){
-        this.discription.round = item.title;
+    this.setupHeaderList();
+    this.setupVillage();
+  }
+  setupHeaderList(){
+    let _self = this;
+    this.api.api_SurveyHeaderList(this.surveyTypeCode, function(response){
+      _self.headerList = response;
+      for(let item of _self.headerList){
+        if(item.status == '2'){
+          _self.filterBean.roundId = item.rowGUID;
+          _self.discription.round = item.round;
+          _self.onSearchFilter();
+          break;
+        }
       }
-    }
-    this.onSearchFilter();
-    
+    });
   }
 
-  setUpVillage() { // Get list of village no
+  setupVillage() { // Get list of village no
     let self = this;
-    let params = { "hospitalCode": super.getHospitalCode() };
-    this.api.post('village/village_no_list_by_hospital', params, function (resp) {
-      console.log(self.villageData);
-      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-        self.villageData = resp.response; 
-      }
-    })
+    this.api.api_villageList(this.getHospitalCode(),function(response){
+      self.villageData = response; 
+    });
   }
-  setUpOSM() {
+  setupOSM() {
     
     let self = this;
     self.filterBean.osmId='';
     self.isDisabledOSM = false;
-    let params = { "id": this.filterBean.villageId};
-    this.api.post('osm/osm_list_by_village', params, function (resp) {
-      console.log(resp);
-      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-        self.osmData = resp.response;
-        self.isDisabledOSM = false;
-        self.isDisabledName = false;
-      }
+    this.api.api_OsmList(this.filterBean.villageId, function (response) {
+      self.osmData = response;
+      self.isDisabledOSM = false;
+      self.isDisabledName = false;
     })
+
   }
 
   onChangeRound(select:any) {
@@ -100,8 +93,7 @@ export class FilterHeadSurveyComponent extends BaseComponent implements OnInit {
         this.discription.village = item.text;
       }
     }
-
-    this.setUpOSM();
+    this.setupOSM();
     this.onDropdownChange();
   }
 

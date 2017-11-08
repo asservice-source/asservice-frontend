@@ -23,11 +23,11 @@ export class ManagementStaffOsmFormComponent extends BaseComponent implements On
   }
 
   ngOnInit() {
-    this.setupGenger();
-    this.setUpPrefix();
-    this.setUpVillage();
+    this.setupGender();
+    this.setupPrefix();
+    this.setupVillage();
   }
-  setUpPrefix(){
+  setupPrefix(){
     let _self = this;
     _self.api.post('person/prefix_list', {} , function (data) {
       console.log(data);
@@ -38,7 +38,7 @@ export class ManagementStaffOsmFormComponent extends BaseComponent implements On
       }
     });
   }
-  setUpVillage(){
+  setupVillage(){
     let _self = this;
     this.api.api_villageList(this.getHospitalCode(),function(list){
       console.log(list);
@@ -46,7 +46,7 @@ export class ManagementStaffOsmFormComponent extends BaseComponent implements On
      
     });
   }
-  setupGenger(){
+  setupGender(){
     let _self = this;
     this.api.api_GenderList(function(response){
       _self.genderList = response;

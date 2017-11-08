@@ -15,11 +15,13 @@ declare var $: any;
   styleUrls: ['./filter-find-person.component.css']
 })
 export class FilterFindPersonComponent extends BaseComponent implements OnInit {
+  @Input() findPersonal: boolean;
+  @Input() reset: any;
+  @Output() choosePersonal: EventEmitter<PersonBean> = new EventEmitter<PersonBean>();
 
   private api: ApiHTTPService;
   public isShowFind: boolean = true;
   public isShowPersons: boolean = false;
-
   public filterBean: FilterBean = new FilterBean();
   public personBean: PersonBean;
   public villageData: any;
@@ -30,11 +32,6 @@ export class FilterFindPersonComponent extends BaseComponent implements OnInit {
   public isDisableBtnSearch = true;
   public personData: any = []//[{ citizenId: '1-11-3-2290343-2-4', fullName: 'นายโอดอวย หวยโหย', age: 34, status: 'ผู้อาศัย' }, { citizenId: '6-00-3-2290344-5-0', fullName: 'นายต้องเต ไทบ้านนอก', age: 41, status: 'เจ้าบ้าน' }];
   public homeData: any;
-
-  @Input() findPersonal: boolean;
-  @Input() reset: any;
-
-  @Output() choosePersonal: EventEmitter<PersonBean> = new EventEmitter<PersonBean>();
 
   constructor(private http: Http) {
     super();
@@ -47,7 +44,7 @@ export class FilterFindPersonComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.setUpVillage();
+    this.setupVillage();
   }
   ngOnChanges(changes): void {
     console.log("OnChanges");
@@ -65,8 +62,8 @@ export class FilterFindPersonComponent extends BaseComponent implements OnInit {
 
   changVillageNo() {
     if (this.filterBean.villageId) {
-      this.setUpOSM();
-      this.setUpHome();
+      this.setupOSM();
+      this.setupHome();
     } else {
       this.isDisabledHomeNo = true;
       this.isDisabledOSM = true;
@@ -77,7 +74,7 @@ export class FilterFindPersonComponent extends BaseComponent implements OnInit {
     this.filterChanges();
   }
   changeOSM(){
-    this.setUpHome();
+    this.setupHome();
     this.filterChanges();
     this.filterBean.homeId="";
   }
@@ -93,10 +90,9 @@ export class FilterFindPersonComponent extends BaseComponent implements OnInit {
   doSearchPerson() {
     this.isDisabledPerson = false;
     this.isShowPersons = true;
-    this.setUpPerson();
+    this.setupPerson();
   }
-
-  setUpPerson(){
+  setupPerson(){
     let self = this;
     let params = { "homeId": self.filterBean.homeId};
     this.api.post('homemember/homemember_by_home', params, function (resp) {
@@ -105,7 +101,7 @@ export class FilterFindPersonComponent extends BaseComponent implements OnInit {
       }
     })
   }
-  setUpVillage() {
+  setupVillage() {
     let self = this;
     let params = { "hospitalCode": super.getHospitalCode() };
     this.api.post('village/village_no_list_by_hospital', params, function (resp) {
@@ -114,7 +110,7 @@ export class FilterFindPersonComponent extends BaseComponent implements OnInit {
       }
     })
   }
-  setUpOSM() {
+  setupOSM() {
     let self = this;
     let params = { "id": this.filterBean.villageId};
     this.api.post('osm/osm_list_by_village', params, function (resp) {
@@ -125,7 +121,7 @@ export class FilterFindPersonComponent extends BaseComponent implements OnInit {
       } 
     })
   }
-  setUpHome(){
+  setupHome(){
     let self = this;
     let params = { "id": this.filterBean.villageId, "osmId": this.filterBean.osmId};
     this.api.post('home/home_no_list_by_village_or_osm', params, function (resp) {

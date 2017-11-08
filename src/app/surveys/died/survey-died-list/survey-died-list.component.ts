@@ -18,7 +18,7 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
   // dtOptions: DataTables.Settings = {};
   private api: ApiHTTPService;
   public settings: any;
-  public surveyTypeCode: string = 'DEATH';
+  public surveyTypeCode: string = this.surverHeaderCode.DEATH;
   public isShowList: boolean = false;
   public action: string = this.ass_action.ADD;
   public source: LocalDataSource = new LocalDataSource();
