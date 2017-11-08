@@ -35,7 +35,7 @@ export class FilterHeadSurveyComponent extends BaseComponent implements OnInit {
     this.filterBean.roundId = '1';
     this.filterBean.villageId = '';
     this.filterBean.osmId = '';
-    this.filterBean.name = '';
+    this.filterBean.fullName = '';
   } 
 
   ngOnInit() {
@@ -112,7 +112,7 @@ export class FilterHeadSurveyComponent extends BaseComponent implements OnInit {
     str +='รอบสำรวจ: ' + this.discription.round;
     str += ' , หมู่บ้าน: ' + this.discription.village;
     str += ' , อสม.: ' + this.discription.osm;
-    str += ' , ชื่อ: ' + this.filterBean.name;
+    str += ' , ชื่อ: ' + this.filterBean.fullName;
     this.filterBean.discription = str;
     this.notifyFilter.emit(this.filterBean);
 

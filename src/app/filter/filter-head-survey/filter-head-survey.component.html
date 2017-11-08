@@ -28,7 +28,7 @@
     <div class="col-md-4">
         <select [disabled]="filterBean.villageId==''" [(ngModel)]="filterBean.osmId" #osm (change)="onChangeOSM(osm)">
             <option value="">ทั้งหมด</option>
-            <option *ngFor="let osm of osmData" [value]="osm.citizenId">{{ getFullName(osm.prefix.name, osm.firstName, osm.lastName) }}</option>
+            <option *ngFor="let osm of osmData" [value]="osm.personId">{{osm.fullName}}</option>
         </select>
     </div>
     <div class="col-md-1 text-right">
