@@ -15,7 +15,7 @@
   <div class="col-md-4">
     <select name="filter-villageNo" [(ngModel)]="filterBean.villageId" (change)="onChangeVillageNo()">
       <option value="">--เลือก หมู่บ้าน--</option>
-      <option *ngFor="let village of list_village_no" [value]="village.id">{{ village.villageNo + ' : ' + village.villageName }}</option>
+      <option *ngFor="let village of list_village_no" [value]="village.id">{{ 'หมู่ที่ ' + village.villageNo + ' : ' + village.villageName }}</option>
     </select>
   </div>
 </div>
@@ -28,7 +28,7 @@
   <div class="col-md-4">
     <select name="filter-osmName" [(ngModel)]="filterBean.osmId" (change)="onChangeOSM()" [disabled]="isDisabledOSM">
       <option value="">--เลือก อสม.--</option>
-      <option *ngFor="let osm of list_osm" [value]="osm.citizenId">{{getFullName(osm.prefix.name, osm.firstName, osm.lastName)}}</option>
+      <option *ngFor="let osm of list_osm" [value]="osm.personId">{{ osm.fullName }}</option>
     </select>
   </div>
   <div class="col-md-1 text-right">

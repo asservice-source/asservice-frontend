@@ -51,7 +51,7 @@
                     <div class="col-md-12 col-md-offset-2">
                         <div class="checkbox">
                             <label class="label-form" style="font-size: 1em">
-                                <input type="checkbox" [checked]="metabolicbean.healtHistory_isDiabetesParent" (change)="metabolicbean.healtHistory_isDiabetesParent = !metabolicbean.healtHistory_isDiabetesParent">
+                                <input type="checkbox" [checked]="metabolicbean.isHeredityMetabolic" (change)="metabolicbean.isHeredityMetabolic = !metabolicbean.isHeredityMetabolic">
                                 <span class="cr">
                                     <i class="cr-icon fa fa-check"></i>
                                 </span>
@@ -65,7 +65,7 @@
                     <div class="col-md-12 col-md-offset-2">
                         <div class="checkbox">
                             <label class="label-form" style="font-size: 1em">
-                                <input type="checkbox" [checked]="metabolicbean.healtHistory_isOverBmi" (change)="metabolicbean.healtHistory_isOverBmi = !metabolicbean.healtHistory_isOverBmi">
+                                <input type="checkbox" [checked]="metabolicbean.isWaistlineOver" (change)="metabolicbean.isWaistlineOver = !metabolicbean.isWaistlineOver">
                                 <span class="cr">
                                     <i class="cr-icon fa fa-check"></i>
                                 </span>
@@ -80,7 +80,7 @@
                     <div class="col-md-12 col-md-offset-2">
                         <div class="checkbox">
                             <label class="label-form" style="font-size: 1em">
-                                <input type="checkbox" [checked]="metabolicbean.healtHistory_isOverBp" (change)="metabolicbean.healtHistory_isOverBp = !metabolicbean.healtHistory_isOverBp">
+                                <input type="checkbox" [checked]="metabolicbean.isBPOver" (change)="metabolicbean.isBPOver = !metabolicbean.isBPOver">
                                 <span class="cr">
                                     <i class="cr-icon fa fa-check"></i>
                                 </span>
@@ -95,7 +95,7 @@
                     <div class="col-md-12 col-md-offset-2">
                         <div class="checkbox">
                             <label class="label-form" style="font-size: 1em">
-                                <input type="checkbox" [checked]="metabolicbean.healtHistory_isOverFbs" (change)="metabolicbean.healtHistory_isOverFbs = !metabolicbean.healtHistory_isOverFbs">
+                                <input type="checkbox" [checked]="metabolicbean.isFBS" (change)="metabolicbean.isFBS = !metabolicbean.isFBS">
                                 <span class="cr">
                                     <i class="cr-icon fa fa-check"></i>
                                 </span>
@@ -110,7 +110,7 @@
                     <div class="col-md-12 col-md-offset-2">
                         <div class="checkbox">
                             <label class="label-form" style="font-size: 1em">
-                                <input type="checkbox" [checked]="metabolicbean.healtHistory_isOvercholesterol" (change)="metabolicbean.healtHistory_isOvercholesterol = !metabolicbean.healtHistory_isOvercholesterol">
+                                <input type="checkbox" [checked]="metabolicbean.isCholesterol" (change)="metabolicbean.isCholesterol = !metabolicbean.isCholesterol">
                                 <span class="cr">
                                     <i class="cr-icon fa fa-check"></i>
                                 </span>
@@ -164,7 +164,7 @@
                                 <a class="btn btn-primary btn-sm notActive" data-toggle="happy" data-title="Y" (click)="smoke('2')">สูบ</a>
                                 <a class="btn btn-primary btn-sm notActive" data-toggle="happy" data-title="X" (click)="smoke('3')">เคยแต่เลิกแล้ว</a>
                             </div>
-                            <input type="hidden" name="happy" id="happy">
+                            <input type="hidden" name="happy" id="happy" value="Y">
                         </div>
                     </div>
 
@@ -175,7 +175,7 @@
 
                         <div class="col-md-1" style="padding-right: 5px; padding-left: 10px;">
                             <input type="text" placeholder="จำนวน" id="numTobacco" [(ngModel)]="metabolicbean.drugHistory_numTobacco" maxlength="3" [disabled]="true"
-                                OnlyNumber="true">
+                                [OnlyNumber]="true">
                         </div>
 
                         <div class="col-md-1" style="padding-left: 0px;">
@@ -184,7 +184,7 @@
 
                         <div class="col-md-1" style="padding-right: 5px; padding-left: 10px;">
                             <input type="text" placeholder="จำนวน" id="numTobaccoPeryear" [(ngModel)]="metabolicbean.drugHistory_Packperyear" maxlength="3" [disabled]="true"
-                                OnlyNumber="true">
+                                [OnlyNumber]="true">
                         </div>
 
                         <div class="col-md-1" style="padding-left: 0px;">
@@ -195,7 +195,7 @@
 
                     <div class="row" *ngIf="isErrorSmoke">
                         <div class="col-md-12 col-md-offset-7">
-                            <span class="error">กรุณากรอกจำนวนที่สูบ</span>
+                            <span class="error2">กรุณากรอกจำนวนที่สูบ</span>
                         </div>
                     </div>
                 </div>
@@ -223,7 +223,7 @@
 
                         <div class="col-md-1" style="padding-right: 5px; padding-left: 10px;">
                             <input type="text" placeholder="จำนวน" id="timeDrink" [(ngModel)]="metabolicbean.drugHistory_numDrink" maxlength="2" [disabled]="true"
-                                OnlyNumber="true">
+                                [OnlyNumber]="true">
                         </div>
 
                         <div class="col-md-2" style="padding-left: 0px;">
@@ -232,7 +232,7 @@
 
                         <div class="row" *ngIf="isErrorDrink">
                             <div class="col-md-12 col-md-offset-7">
-                                <span class="error">กรุณากรอกจำนวนที่ดื่ม</span>
+                                <span class="error2">กรุณากรอกจำนวนที่ดื่ม</span>
                             </div>
                         </div>
                     </div>
@@ -248,9 +248,9 @@
                     </div>
 
                     <div class="col-md-2">
-                        <input type="text" placeholder="น้ำหนัก" [(ngModel)]="metabolicbean.physicalBody_weight" OnlyNumber="true" maxlength="3">
+                        <input type="text" placeholder="น้ำหนัก" [(ngModel)]="metabolicbean.physicalBody_weight" [OnlyNumber]="true" maxlength="3">
                         <div class="row" *ngIf="isErrorWeight" style="padding-left: 20px;">
-                            <span class="error">กรุณากรอกน้ำหนัก</span>
+                            <span class="error2">กรุณากรอกน้ำหนัก</span>
                         </div>
                     </div>
 
@@ -263,9 +263,9 @@
                     </div>
 
                     <div class="col-md-2">
-                        <input type="text" placeholder="ส่วนสูง" [(ngModel)]="metabolicbean.physicalBody_height" maxlength="3" OnlyNumber="true">
+                        <input type="text" placeholder="ส่วนสูง" [(ngModel)]="metabolicbean.physicalBody_height" maxlength="3" [OnlyNumber]="true">
                         <div class="row" *ngIf="isErrorHeight" style="padding-left: 20px;">
-                            <span class="error">กรุณากรอกส่วนสูง</span>
+                            <span class="error2">กรุณากรอกส่วนสูง</span>
                         </div>
                     </div>
 
@@ -280,9 +280,9 @@
                     </div>
 
                     <div class="col-md-2">
-                        <input type="text" placeholder="รอบเอว" [(ngModel)]="metabolicbean.physicalBody_waistline" maxlength="3" OnlyNumber="true">
+                        <input type="text" placeholder="รอบเอว" [(ngModel)]="metabolicbean.physicalBody_waistline" maxlength="3" [OnlyNumber]="true">
                         <div class="row" *ngIf="isErrorWaistline" style="padding-left: 20px;">
-                            <span class="error">กรุณากรอกรอบเอว</span>
+                            <span class="error2">กรุณากรอกรอบเอว</span>
                         </div>
                     </div>
 
@@ -295,9 +295,9 @@
                     </div>
 
                     <div class="col-md-2">
-                        <input type="text" placeholder="ดัชนีมวลกาย" [(ngModel)]="metabolicbean.physicalBody_BMI" maxlength="3" OnlyNumber="true">
+                        <input type="text" placeholder="ดัชนีมวลกาย" [(ngModel)]="metabolicbean.physicalBody_BMI" maxlength="3" [OnlyNumber]="true">
                         <div class="row" *ngIf="isErrorBMI" style="padding-left: 20px;">
-                            <span class="error">กรุณากรอกค่าBMI</span>
+                            <span class="error2">กรุณากรอกค่าBMI</span>
                         </div>
                     </div>
 
@@ -312,12 +312,9 @@
                     </div>
 
                     <div class="col-md-2">
-                        <input type="text" placeholder="มม." [(ngModel)]="metabolicbean.physicalBody_BP1_mm" style="width:50px" maxlength="3" OnlyNumber="true">
+                        <input type="text" placeholder="มม." [(ngModel)]="metabolicbean.physicalBody_BP1_mm" style="width:50px" maxlength="3" [OnlyNumber]="true">
                         <label class="label-form">/</label>
-                        <input type="text" placeholder="ปรอท" [(ngModel)]="metabolicbean.physicalBody_BP1_hg" style="width:50px" maxlength="3" OnlyNumber="true">
-                        <div class="row" *ngIf="isErrorBP1" style="padding-left: 20px;">
-                            <span class="error">กรุณากรอกค่า BP</span>
-                        </div>
+                        <input type="text" placeholder="ปรอท" [(ngModel)]="metabolicbean.physicalBody_BP1_hg" style="width:50px" maxlength="3" [OnlyNumber]="true">
                     </div>
 
                     <div class="col-md-1" style="padding-left: 0px;">
@@ -329,12 +326,9 @@
                     </div>
 
                     <div class="col-md-2">
-                        <input type="text" placeholder="มม." [(ngModel)]="metabolicbean.physicalBody_BP2_mm" style="width:50px" maxlength="3" OnlyNumber="true">
+                        <input type="text" placeholder="มม." [(ngModel)]="metabolicbean.physicalBody_BP2_mm" style="width:50px" maxlength="3" [OnlyNumber]="true">
                         <label class="label-form">/</label>
-                        <input type="text" placeholder="ปรอท" [(ngModel)]="metabolicbean.physicalBody_BP2_hg" style="width:50px" maxlength="3" OnlyNumber="true">
-                        <div class="row" *ngIf="isErrorBP2" style="padding-left: 20px;">
-                            <span class="error">กรุณากรอกค่า BP</span>
-                        </div>
+                        <input type="text" placeholder="ปรอท" [(ngModel)]="metabolicbean.physicalBody_BP2_hg" style="width:50px" maxlength="3" [OnlyNumber]="true">       
                     </div>
 
                     <div class="col-md-1" style="padding-left: 0px;">
@@ -342,6 +336,18 @@
                     </div>
                 </div>
 
+                <div class="row">
+                    <div class="col-md-2 col-md-offset-1 text-right">
+                        <label class="label-form">ระดับน้ำตาลในเลือด</label>
+                    </div>
+
+                    <div class="col-md-2">
+                        <input type="text" placeholder="ระดับน้ำตาล" maxlength="3" [OnlyNumber]="true">
+                        <div class="row" *ngIf="isErrorMetabolic" style="padding-left: 20px;">
+                            <span class="error2">กรุณากรอกระดับน้ำตาล</span>
+                        </div>
+                    </div>
+                </div>
 
                 <hr>
                 <!-- ภาวะแทรกซ้อน -->
@@ -378,7 +384,7 @@
                     <div class="col-md-2 col-md-offset-1 text-right">
                         <label class="label-form">ภาวะแทรกซ้อน</label>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <div class="checkbox">
                             <label class="label-form" style="font-size: 1em">
                                 <input type="checkbox" [checked]="metabolicbean.disease_Complication_eye" (change)="metabolicbean.disease_Complication_eye = !metabolicbean.disease_Complication_eye">
@@ -390,7 +396,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <div class="checkbox">
                             <label class="label-form" style="font-size: 1em">
                                 <input type="checkbox" [checked]="metabolicbean.disease_Complication_kidney" (change)="metabolicbean.disease_Complication_kidney = !metabolicbean.disease_Complication_kidney">
@@ -416,7 +422,7 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-2 col-md-offset-3">
+                    <div class="col-md-3 col-md-offset-3">
                         <div class="checkbox">
                             <label class="label-form" style="font-size: 1em">
                                 <input type="checkbox" [checked]="metabolicbean.disease_Complication_nervousSys" (change)="metabolicbean.disease_Complication_nervousSys = !metabolicbean.disease_Complication_nervousSys">
@@ -437,6 +443,11 @@
                                 </span> อื่นๆ</label>
                         </div>
                     </div>
+
+                    <div class="col-md-3" *ngIf="metabolicbean.disease_Complication_etc == true?true:false">
+                        <input type="text" placeholder="ภาวะแทรกซ้อนอื่นๆ"/>
+                    </div>
+
                 </div>
 
                 <div class="row">

@@ -57,25 +57,7 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
 
   ngOnInit() {
     this.onModalEvent();
-
-    $('body').on('click', '#radioBtn a', function () {
-      var sel = $(this).data('title');
-      var tog = $(this).data('toggle');
-      $('#' + tog).prop('value', sel);
-
-      $('a[data-toggle="' + tog + '"]').not('[data-title="' + sel + '"]').removeClass('active').addClass('notActive');
-      $('a[data-toggle="' + tog + '"][data-title="' + sel + '"]').removeClass('notActive').addClass('active');
-    })
-
-    $('body').on('click', '#radioBtn2 a', function () {
-      var sel = $(this).data('title');
-      var tog = $(this).data('toggle');
-      $('#' + tog).prop('value', sel);
-
-      $('a[data-toggle="' + tog + '"]').not('[data-title="' + sel + '"]').removeClass('active').addClass('notActive2');
-      $('a[data-toggle="' + tog + '"][data-title="' + sel + '"]').removeClass('notActive2').addClass('active');
-    })
-
+    this.styleRadio();
   }
 
   ngAfterViewInit() {
@@ -178,15 +160,38 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
     });
   }
 
+  styleRadio(){
+    $('body').on('click', '#radioBtn a', function () {
+      var sel = $(this).data('title');
+      var tog = $(this).data('toggle');
+      $('#' + tog).prop('value', sel);
+
+      $('a[data-toggle="' + tog + '"]').not('[data-title="' + sel + '"]').removeClass('active').addClass('notActive');
+      $('a[data-toggle="' + tog + '"][data-title="' + sel + '"]').removeClass('notActive').addClass('active');
+    })
+
+
+    ///////////////
+
+    $('body').on('click', '#radioBtn2 a', function () {
+      var sel = $(this).data('title');
+      var tog = $(this).data('toggle');
+      $('#' + tog).prop('value', sel);
+
+      $('a[data-toggle="' + tog + '"]').not('[data-title="' + sel + '"]').removeClass('active').addClass('notActive2');
+      $('a[data-toggle="' + tog + '"][data-title="' + sel + '"]').removeClass('notActive2').addClass('active');
+    })
+  }
+
   validateForm() {
 
     let validateform = true;
 
-    this.metabolicbean.healtHistory_isDiabetesParent = this.metabolicbean.healtHistory_isDiabetesParent || false;
-    this.metabolicbean.healtHistory_isOverBmi = this.metabolicbean.healtHistory_isOverBmi || false;
-    this.metabolicbean.healtHistory_isOverBp = this.metabolicbean.healtHistory_isOverBp || false;
-    this.metabolicbean.healtHistory_isOverFbs = this.metabolicbean.healtHistory_isOverFbs || false;
-    this.metabolicbean.healtHistory_isOvercholesterol = this.metabolicbean.healtHistory_isOvercholesterol || false;
+    this.metabolicbean.isHeredityMetabolic = this.metabolicbean.isHeredityMetabolic || false;
+    this.metabolicbean.isWaistlineOver = this.metabolicbean.isWaistlineOver || false;
+    this.metabolicbean.isBPOver = this.metabolicbean.isBPOver || false;
+    this.metabolicbean.isFBS = this.metabolicbean.isFBS || false;
+    this.metabolicbean.isCholesterol = this.metabolicbean.isCholesterol || false;
     this.metabolicbean.healtHistory_isPregnantDiabetes = this.metabolicbean.healtHistory_isPregnantDiabetes || false;
     this.metabolicbean.healtHistory_isOverBpParent = this.metabolicbean.healtHistory_isOverBpParent || false;
 
@@ -215,7 +220,7 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
 
 
     if (this.metabolicbean.drugHistory_Smoke == '2') {
-      if (!this.metabolicbean.drugHistory_numTobacco) {
+      if (!this.metabolicbean.drugHistory_numTobacco || !this.metabolicbean.drugHistory_Packperyear) {
         this.isErrorSmoke = true;
         validateform = false;
       }
@@ -224,6 +229,7 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
       }
     } else {
       this.metabolicbean.drugHistory_numTobacco = undefined;
+      this.metabolicbean.drugHistory_Packperyear = undefined;
       this.isErrorSmoke = false;
     }
 

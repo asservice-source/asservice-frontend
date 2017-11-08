@@ -3,27 +3,23 @@
         <span>ข้อมูลแบบสำรวจลูกน้ำ</span>
     </div>
     <div class="panel-body">
-            <app-filter-head-survey [surveyTypeCode]="surveyTypeCode" (notifyFilter)="onSearch($event)" (changeFilter)="onChangeFilter($event)"></app-filter-head-survey>
-        
+        <app-filter-head-survey [surveyTypeCode]="surveyTypeCode" (notifyFilter)="onSearch($event)" (changeFilter)="onChangeFilter($event)"></app-filter-head-survey>
+
         <div class="row">
             <div class="col-sm-12 text-left">
                 <button data-toggle="modal" data-target="#myModal" class="btn btn-sm btn-primary">เพิ่มการสำรวจ</button>
             </div>
         </div>
 
-      <div class="row" *ngIf="isShowList">
-        <div class="col-lg-12">
-          <div class="panel panel-default">
-            <div class="panel-body">
+        <div class="row" *ngIf="isShowList">
+            <div class="col-lg-12">
                 <div class="row">
                     <ng2-smart-table [settings]="settings" [source]="source" (rowSelect)="onRowSelect($event)"></ng2-smart-table>
                 </div>
             </div>
-          </div>
         </div>
-      </div>
-    </div>
-    
     </div>
 
-    <app-survey-mosquito-form></app-survey-mosquito-form>
+</div>
+
+<app-survey-mosquito-form></app-survey-mosquito-form>

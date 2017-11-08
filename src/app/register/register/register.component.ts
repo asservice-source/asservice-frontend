@@ -3,6 +3,7 @@ import { ApiHTTPService } from "../../service/api-http.service";
 import { BaseComponent } from "../../base-component";
 import { CompleterService, CompleterData } from 'ng2-completer';
 import { RegisterBean } from "../../beans/register.bean";
+import { InputValidateInfo } from '../../directives/inputvalidate.directive';
 
 declare var bootbox: any;
 declare var $:any;
@@ -17,6 +18,7 @@ declare var $:any;
 export class RegisterComponent extends BaseComponent implements OnInit {
 
 
+  public inputValidate: InputValidateInfo = new InputValidateInfo();
   public registerBean: RegisterBean
   public loadingCMD: string = 'hide';
   public dataHospitals: CompleterData;
@@ -252,7 +254,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
     // }
   }
 
-  validateForm(): boolean {
+  validateForm() {
     let self = this;
     let validateForm = true;
     self.isFocusHospitalname = true;
@@ -342,6 +344,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
 
     return validateForm;
 
+    
   }
 
   formatCitizenID() {
