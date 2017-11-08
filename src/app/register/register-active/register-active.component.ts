@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ApiHTTPService } from '../../service/api-http.service';
+declare var bootbox: any;
 
 @Component({
   selector: 'app-register-active',
@@ -8,8 +10,12 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class RegisterActiveComponent implements OnInit {
 
-  public tokenId : any;
-  constructor(private route: ActivatedRoute) { }
+  public tokenId : string;
+  private api: ApiHTTPService;
+
+  constructor(private route: ActivatedRoute) {
+    this.api = new ApiHTTPService();
+   }
 
 
   receiveParameters() {
@@ -20,7 +26,21 @@ export class RegisterActiveComponent implements OnInit {
   
   ngOnInit() {
     this.receiveParameters();
-    console.log(this.tokenId);
+    this.passToken();
+  }
+
+  passToken() {
+    let self = this;
+    let params = {
+      "tokenId" : this.tokenId
+     }
+    this.api.post('hospital/activate_hospital', params, function (resp) {
+      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+        // self.provinceList = resp.response;
+        //bootbox.alert("token ="+this.tokenId);
+      }
+
+    })
   }
 
 }

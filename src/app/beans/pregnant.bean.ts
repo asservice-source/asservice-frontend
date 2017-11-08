@@ -1,4 +1,5 @@
 export class PregnantBean{
+    public action: any;
     public citizenId: string = "";
     public firstName: string = "";
     public lastName: string = "";

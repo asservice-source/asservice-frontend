@@ -41,11 +41,11 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
     let self = this;
     this.settings = this.getTabelSetting({
  
-      name: {
+      fullName: {
         title: 'ชื่อ - นามสกุล',
         filter: false,
       },
-      cID: {
+      citizenId: {
         title: 'เลขประจำตัวประชาชน',
         filter: false,
         width: '200px',
@@ -54,7 +54,7 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
           return '<div class="text-center">'+cell+'</div>'
         }
       },
-      homeID: {
+      homeNo: {
         title: 'บ้านเลขที่',
         filter: false,
         width: '100px',
@@ -63,7 +63,7 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
           return '<div class="text-center">'+value+'</div>'
         }
       },
-      gender: {
+      genderName: {
         title: 'เพศ',
         filter: false,
         width: '70px',
@@ -114,14 +114,30 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
   }
 
   loadData() {
-    let self = this;
-    this.http.get("assets/test-list.json") // retrieve data
-      .map(res => res.json())
-      .subscribe(function(response){
-        self.data = response;
-        console.log(response);
+     let self = this;
+    // this.http.get("assets/test-list.json") // retrieve data
+    //   .map(res => res.json())
+    //   .subscribe(function(response){
+    //     self.data = response;
+    //     self.setUpTable();
+    //   });
+
+    let params = {
+      "documentId": "d4c8abf6-aeac-e711-ab84-005056c00008", 
+      "villageId": "",
+      "osmId": "",
+      "name": ""
+    };
+
+    this.api.post('survey_metabolic/search_metabolic_list', params, function (resp) {
+      console.log(resp);
+      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+        console.log(resp.response);
+        self.data = resp.response;
         self.setUpTable();
-      });
+      }
+    })
+
   }
 
   openModal(key: string) {

@@ -7,6 +7,7 @@ import { ApiHTTPService } from '../../../service/api-http.service';
 import { ActionCustomViewComponent } from '../../../action-custom-table/action-custom-view.component';
 import { FilterHeadSurveyBean } from '../../../beans/filter-head-survey.bean';
 import { LocalDataSource } from 'ng2-smart-table';
+import { PregnantBean} from '../../../beans/pregnant.bean'
 declare var $: any
 
 @Component({
@@ -20,9 +21,11 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
   private api: ApiHTTPService;
   public settings: any;
   public data;
-  public isShowList: boolean = false;
+  public isShowList: boolean = true;
   public source: LocalDataSource = new LocalDataSource();
   public action: string = this.ass_action.ADD;
+  public pregnantbean : PregnantBean = new PregnantBean();
+
 
   constructor(private http: Http, private router: Router,private changeRef: ChangeDetectorRef) {
     super();
@@ -78,20 +81,29 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
         type: 'custom',
         renderComponent: ActionCustomViewComponent,
         onComponentInitFunction(instance) {
-          instance.action.subscribe(row => {
-            alert(row.action);
+          instance.action.subscribe((row: PregnantBean, cell) => {
+            console.log(row);
+            if(row && row.action.toUpperCase()==self.ass_action.EDIT){
+              self.pregnantbean = row;
+              self.onModalFrom(self.ass_action.EDIT);
+            }
           });
         }
       }
     });
   }
   ngOnInit() {
+    this.setUpTable();
   }
 
   loadData() {
+    let self = this;
     this.http.get("assets/test-list.json")
       .map(res => res.json())
-      .subscribe(data => this.data = data);
+      .subscribe(function(response){
+        self.data = response;
+        self.setUpTable();
+      });
 
   }
 
@@ -100,16 +112,19 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
     this.isShowList = false;
   }
   onSearch(event: FilterHeadSurveyBean) {
-    console.log(event);
-    this.source = new LocalDataSource(this.data);
-    this.isShowList = true;
-    super.setNg2STDatasource(this.source);
+   this.setUpTable();
   }
 
   onModalFrom(action: string){
     this.action = action;
     this.changeRef.detectChanges();
     $('#find-person-md').modal('show');
+  }
+
+  setUpTable() {
+    this.source = new LocalDataSource(this.data);
+    this.isShowList = true;
+    super.setNg2STDatasource(this.source);
   }
 
 }

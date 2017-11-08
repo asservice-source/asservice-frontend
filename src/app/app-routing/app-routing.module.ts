@@ -38,7 +38,7 @@ import { RegisterActiveComponent } from './../register/register-active/register-
             component: RegisterComponent,
           },
           {
-            path: 'active/:tokenId',
+            path: 'activate/:tokenId',
             component: RegisterActiveComponent,
           }
         ]
