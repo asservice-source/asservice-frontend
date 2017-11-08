@@ -24,7 +24,7 @@ export class ManagementStaffVillageFormComponent extends BaseComponent implement
   }
   onSave(){
     this.inputValidate = new InputValidateInfo();
-    this.inputValidate.isCleck = true;
+    this.inputValidate.isCheck = true;
 
     if(this.bean.villageNo && this.bean.villageName.trim()){
        $('#modalForm').modal('hide');
@@ -37,7 +37,8 @@ export class ManagementStaffVillageFormComponent extends BaseComponent implement
   bindModal(){
     let _self = this;
     $('#modalForm').on('hide.bs.modal', function(){
-      _self.clearInputErrorClass();
+      //clear input and label error
+      _self.inputValidate = new InputValidateInfo();
     });
   }
 }

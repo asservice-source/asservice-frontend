@@ -163,5 +163,6 @@ export class BaseComponent implements OnInit {
     }
     public clearInputErrorClass(){
         $('label.error').hide();
+        $('.error-input').removeClass('error-input');
     }
 }

@@ -27,11 +27,11 @@ export class ManagementStaffStaffFormComponent extends BaseComponent implements 
    }
 
   ngOnInit() {
-    this.setUpPrefix();
-    this.setUpGender();
+    this.setupPrefix();
+    this.setupGender();
     this.bindModal();
   }
-  setUpPrefix(){
+  setupPrefix(){
     let _self = this;
     this.api.post('person/prefix_list', {} , function (data) {
       console.log(data);
@@ -42,7 +42,7 @@ export class ManagementStaffStaffFormComponent extends BaseComponent implements 
       }
     });
   }
-  setUpGender(){
+  setupGender(){
     let _self = this;
     this.api.api_GenderList(function(response){
       _self.genderList = response;
@@ -50,7 +50,7 @@ export class ManagementStaffStaffFormComponent extends BaseComponent implements 
   }
   onSave(){
     this.InputValidate = new InputValidateInfo();
-    this.InputValidate.isCleck = true;
+    this.InputValidate.isCheck = true;
   }
   bindModal(){
     let _self = this;

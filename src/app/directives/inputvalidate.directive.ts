@@ -19,12 +19,14 @@ export class InputValidateDirective{
         this.onReset();
     }
     ngOnChanges(changes: any){
-        console.log(changes);
-        if(changes.InputValidate.currentValue.isCleck){
-            this.onValidate();
-            this.InputValidate = new InputValidateInfo();
-        }else{
+       
+        if(changes.InputValidate){
+            let inputValis: InputValidateInfo = changes.InputValidate.currentValue;
             this.onReset();
+            if(inputValis.isCheck){
+                this.onValidate();
+                this.InputValidate = new InputValidateInfo();
+            }
         }
     }
 
@@ -35,14 +37,12 @@ export class InputValidateDirective{
         this.renderer2.removeClass(el_input, 'error-input');
     }
     onValidate(){
-        console.log(this.viewContainer);
         let el_label = this.el.nativeElement.lastElementChild;
         let el_input = this.el.nativeElement.firstElementChild;
         let value: string =  el_input.value;
         this.InputValidate = new InputValidateInfo();
         this.InputValidate.value = value;
         if(!value.trim()){
-            console.log(el_label);
             this.InputValidate.isPassed = false;
             this.renderer.setElementStyle(el_label,'display','block');
             this.notify.emit(this.InputValidate);
@@ -57,7 +57,7 @@ export class InputValidateDirective{
     }
 }
 export class InputValidateInfo{
-    public isCleck: boolean;
+    public isCheck: boolean;
     public isPassed: boolean;
     public value: string;
 }
