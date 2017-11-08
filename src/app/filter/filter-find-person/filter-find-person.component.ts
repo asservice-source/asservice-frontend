@@ -38,9 +38,7 @@ export class FilterFindPersonComponent extends BaseComponent implements OnInit {
     this.api = new ApiHTTPService();
     this.personBean = new PersonBean();
     this.personBean.citizenId = "";
-    this.personBean.firstName = "Firstname";
-    this.personBean.lastName = "Lastname";
-    this.personBean.nickName = "Sum";
+    this.personBean.fullName;
   }
 
   ngOnInit() {

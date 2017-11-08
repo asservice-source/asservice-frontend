@@ -16,7 +16,7 @@
       <div class="col-md-4">
           <select name="find-osmName" id="find-osmName" [(ngModel)]="filterBean.osmId" (change)="changeOSM()" [disabled]="isDisabledOSM">
             <option ngValue="">--เลือก อสม.--</option>
-            <option *ngFor="let item of osmData" [ngValue]="item.citizenId">{{getFullName(item.prefix.name, item.firstName, item.lastName)}}</option>
+            <option *ngFor="let item of osmData" [ngValue]="item.citizenId">{{item.fullName}}</option>
         </select>
       </div>
     </div>
