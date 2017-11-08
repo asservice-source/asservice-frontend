@@ -160,11 +160,14 @@
                     <div class="col-md-3">
                         <div class="input-group">
                             <div id="radioBtn" class="btn-group">
-                                <a class="btn btn-primary btn-sm active" data-toggle="happy" data-title="N" (click)="smoke('1')">ไม่สูบ</a>
+                                <!-- <a class="btn btn-primary btn-sm active" data-toggle="happy" data-title="N" (click)="smoke('1')">ไม่สูบ</a>
                                 <a class="btn btn-primary btn-sm notActive" data-toggle="happy" data-title="Y" (click)="smoke('2')">สูบ</a>
-                                <a class="btn btn-primary btn-sm notActive" data-toggle="happy" data-title="X" (click)="smoke('3')">เคยแต่เลิกแล้ว</a>
+                                <a class="btn btn-primary btn-sm notActive" data-toggle="happy" data-title="X" (click)="smoke('3')">เคยแต่เลิกแล้ว</a> -->
+                                <a type="radio" [ngClass]="noSmoke" name="radioSmoke"  (click)="activeBtnsmoke('2');">ไม่สูบ</a>
+                                <a type="radio" [ngClass]="smoke" name="radioSmoke"  (click)="activeBtnsmoke('1');">สูบ</a>
+                                <a type="radio" [ngClass]="afterSmoke" name="radioSmoke"  (click)="activeBtnsmoke('3');">เคยแต่เลิกแล้ว</a>
                             </div>
-                            <input type="hidden" name="happy" id="happy" value="Y">
+                            <!-- <input type="hidden" name="happy" id="happy" value="Y"> -->
                         </div>
                     </div>
 
@@ -208,11 +211,16 @@
                     <div class="col-md-3">
                         <div class="input-group">
                             <div id="radioBtn2" class="btn-group">
-                                <a class="btn btn-primary btn-sm active" data-toggle="happy2" data-title="N" (click)="drink('1')">ไม่ดื่ม</a>
+                                <!-- <a class="btn btn-primary btn-sm active" data-toggle="happy2" data-title="N" (click)="drink('1')">ไม่ดื่ม</a>
                                 <a class="btn btn-primary btn-sm notActive2" data-toggle="happy2" data-title="Y" (click)="drink('2')">ดื่ม</a>
-                                <a class="btn btn-primary btn-sm notActive2" data-toggle="happy2" data-title="X" (click)="drink('3')">เคยแต่เลิกแล้ว</a>
+                                <a class="btn btn-primary btn-sm notActive2" data-toggle="happy2" data-title="X" (click)="drink('3')">เคยแต่เลิกแล้ว</a> -->
+
+                                <!-- <a type="radio" [ngClass]="drink1" name="radioDrink"  (click)="activeBtnDrink('1');">ไม่สูบ</a>
+                                <a type="radio" [ngClass]="drink2" name="radioDrink"  (click)="activeBtnDrink('2');">สูบ</a>
+                                <a type="radio" [ngClass]="drink3" name="radioDrink"  (click)="activeBtnDrink('3');">เคยแต่เลิกแล้ว</a> -->
+
                             </div>
-                            <input type="hidden" name="happy2" id="happy2">
+                            <!-- <input type="hidden" name="happy2" id="happy2"> -->
                         </div>
                     </div>
 

@@ -37,7 +37,7 @@ export class MetabolicBean{
     public healtHistory_isPregnantDiabetes: boolean = false;
     public healtHistory_isOverBpParent: boolean = false;
   
-    public smokingStatus : string ;
+    public smokingStatusId : string ;
     public drugHistory_Smoke: string;
     public drugHistory_Drink: string;
     public drugHistory_numTobacco: Number;

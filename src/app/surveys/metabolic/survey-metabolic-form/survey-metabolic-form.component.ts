@@ -33,7 +33,7 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
   public apiHttp = new ApiHTTPService();
   private api: ApiHTTPService;
   public healtInsuranceTypeList: any;
-  public smokeType: string;
+  //public smokeType: string;
   public drinkType: string;
   public isErrorSmoke = false;
   public isErrorDrink = false;
@@ -43,12 +43,20 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
   public isErrorBMI = false;
   public isErrorBP1 = false;
   public isErrorBP2 = false;
+  public classActive = "btn btn-primary btn-sm active";
+  public classNotactive = "btn btn-primary btn-sm notActive";
+  public smoke = this.classNotactive;
+  public noSmoke = this.classActive;
+  public afterSmoke = this.classNotactive;
+
+
 
 
   // dataFor;
 
   constructor(private http: Http, private changeRef: ChangeDetectorRef) {
     super();
+    console.log(this.metabolicbean);
     this.metabolicbean = new MetabolicBean();
     this.api = new ApiHTTPService();
     this.getHealtinsuranceType();
@@ -57,7 +65,7 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
 
   ngOnInit() {
     this.onModalEvent();
-    this.styleRadio();
+    
   }
 
   ngAfterViewInit() {
@@ -75,22 +83,6 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
     })
   }
 
-  smoke(T) {
-    let b = T;
-    if (T == '2') {
-      $("#numTobacco").prop('disabled', false);
-      $("#numTobaccoPeryear").prop('disabled',false);
-      this.metabolicbean.drugHistory_Smoke = '2';
-    } else if (T == '1') {
-      $("#numTobacco").prop('disabled', true);
-      $("#numTobaccoPeryear").prop('disabled',true);
-      this.metabolicbean.drugHistory_Smoke = '1';
-    } else {
-      $("#numTobacco").prop('disabled', true);
-      $("#numTobaccoPeryear").prop('disabled',true);
-      this.metabolicbean.drugHistory_Smoke = '3';
-    }
-  }
 
   drink(T) {
     let b = T;
@@ -160,7 +152,7 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
     });
   }
 
-  styleRadio(){
+  styleRadio() {
     $('body').on('click', '#radioBtn a', function () {
       var sel = $(this).data('title');
       var tog = $(this).data('toggle');
@@ -219,7 +211,7 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
     }
 
 
-    if (this.metabolicbean.drugHistory_Smoke == '2') {
+    if (this.metabolicbean.smokingStatusId == '2') {
       if (!this.metabolicbean.drugHistory_numTobacco || !this.metabolicbean.drugHistory_Packperyear) {
         this.isErrorSmoke = true;
         validateform = false;
@@ -291,6 +283,32 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
     return validateform;
   }
 
+  activeBtnsmoke(values) {
+
+    if (values == '1') {
+      this.smoke = this.classActive;
+      this.noSmoke = this.classNotactive;
+      this.afterSmoke = this.classNotactive;
+      $("#numTobacco").prop('disabled', false);
+      $("#numTobaccoPeryear").prop('disabled', false);
+      this.metabolicbean.smokingStatusId = '1';
+    } else if (values == '2') {
+      this.noSmoke = this.classActive;
+      this.afterSmoke = this.classNotactive;
+      this.smoke = this.classNotactive;
+      $("#numTobacco").prop('disabled', true);
+      $("#numTobaccoPeryear").prop('disabled', true);
+      this.metabolicbean.smokingStatusId = '2';
+    } else if(values == '3') {
+      this.afterSmoke = this.classActive;
+      this.noSmoke = this.classNotactive;
+      this.smoke = this.classNotactive;
+      $("#numTobacco").prop('disabled', true);
+      $("#numTobaccoPeryear").prop('disabled', true);
+      this.metabolicbean.smokingStatusId = '3';
+    }
+  }
+
   addSurvey() {
 
     if (this.validateForm() == true) {
@@ -311,5 +329,5 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
     }
   }
 
-  
+
 }
