@@ -5,6 +5,8 @@ import { LocalDataSource, ViewCell } from 'ng2-smart-table';
 import { BaseComponent } from '../../../base-component';
 import { ApiHTTPService } from '../../../service/api-http.service';
 import { CancerBean } from '../../../beans/cancer.bean';
+import { FilterHeadSurveyBean } from '../../../beans/filter-head-survey.bean';
+
 declare var $;
 
 @Component({
@@ -19,10 +21,11 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
   isDisable = true;
 
   private apiHttp: ApiHTTPService = new ApiHTTPService();
-
+  
+  public isShowList: boolean = false;
   public settings: any;
-  public source: LocalDataSource;
-
+  //public source: LocalDataSource;
+  public source: LocalDataSource = new LocalDataSource();
   constructor(private http: Http, private router: Router) {
     super();
 
@@ -119,6 +122,17 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
     }
   }
 
+  onChangeFilter(event: FilterHeadSurveyBean) {
+    console.log("ChangeFilter");
+    this.isShowList = false;
+  }
+  onSearch(event: FilterHeadSurveyBean) {
+    console.log(event);
+    //get datas to (__) 
+    this.source = new LocalDataSource();
+    this.isShowList = true;
+    super.setNg2STDatasource(this.source);
+  }
 }
 
 @Component({
@@ -138,4 +152,6 @@ export class SurveyCancerListButtonEditComponent implements ViewCell, OnInit {
   clickEdit() {
     this.action.emit(this.rowData);
   }
+
+  
 }
