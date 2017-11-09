@@ -22,7 +22,7 @@ import { ManagementStaffStaffListComponent } from "./../managements/staff/manage
 import { ManagementStaffOsmListComponent } from "./../managements/staff/manage-osm/list/management-staff-osm-list.component";
 import { ManagementStaffVillageListComponent } from "./../managements/staff/manage-village/list/management-staff-village-list.component";
 import { RegisterActiveComponent } from './../register/register-active/register-active.component';
-
+import { ManagementOsmAreaComponent } from "./../managements/osm/management-osm-area/management-osm-area.component";
 @NgModule({
   imports: [
     RouterModule.forRoot([
@@ -65,17 +65,28 @@ import { RegisterActiveComponent } from './../register/register-active/register-
           path: 'managements',
           children: [
             {
-              path: 'staff/staff',
-              component: ManagementStaffStaffListComponent
+              path: 'staff',
+              children:[{
+                path: 'staff',
+                component: ManagementStaffStaffListComponent
+              },
+              {
+                path: 'osm',
+                component: ManagementStaffOsmListComponent
+              },
+              {
+                path: 'village',
+                component: ManagementStaffVillageListComponent
+              },
+              ]
             },
             {
-              path: 'staff/osm',
-              component: ManagementStaffOsmListComponent
-            },
-            {
-              path: 'staff/village',
-              component: ManagementStaffVillageListComponent
-            },
+              path: 'osm',
+              children:[{
+                path: 'home',
+                component: ManagementOsmAreaComponent
+              }]
+            }
           ]
         },
         {
