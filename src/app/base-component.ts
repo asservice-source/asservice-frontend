@@ -166,4 +166,13 @@ export class BaseComponent implements OnInit {
         $('label.error').hide();
         $('.error-input').removeClass('error-input');
     }
+
+    public cloneObj(source: any): any{
+        let destination:any = {};
+        for (var field in source) {
+            destination[field] = source[field];
+        }
+
+        return destination;
+    }
 }

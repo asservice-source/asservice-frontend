@@ -38,11 +38,12 @@ export class MetabolicBean{
     public healtHistory_isOverBpParent: boolean = false;
   
     public smokingStatusId : string ;
+    public drinkingStatusId : string;
     public drugHistory_Smoke: string;
     public drugHistory_Drink: string;
-    public drugHistory_numTobacco: Number;
-    public drugHistory_Packperyear : number;
-    public drugHistory_numDrink: Number;
+    public rollPerDay: string;
+    public packPerYear : number;
+    public ofterPerWeek: Number;
   
     public physicalBody_weight: Number;
     public physicalBody_height: Number;

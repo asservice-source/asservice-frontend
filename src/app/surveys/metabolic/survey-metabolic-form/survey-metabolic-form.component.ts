@@ -48,6 +48,12 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
   public smoke = this.classNotactive;
   public noSmoke = this.classActive;
   public afterSmoke = this.classNotactive;
+  public drinks = this.classNotactive;
+  public noDrink = this.classActive;
+  public afterDrink = this.classNotactive;
+  public isRollPerDayDisabled = true;
+  public isPackPerYearDisabled = true;
+  public isOfterPerWeekDisabled = true;
 
 
 
@@ -84,21 +90,6 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
   }
 
 
-  drink(T) {
-    let b = T;
-    if (T == '2') {
-      $("#timeDrink").prop('disabled', false);
-      this.metabolicbean.drugHistory_Drink = '2';
-    } else if (T == '1') {
-      $("#timeDrink").prop('disabled', true);
-      this.metabolicbean.drugHistory_Drink = '1';
-    } else {
-      $("#timeDrink").prop('disabled', true);
-      this.metabolicbean.drugHistory_Drink = '3';
-    }
-  }
-
-
   getCitizen(event: PersonBean) {
     if (event.citizenId == '0') {
       this.isShowForm = false;
@@ -119,9 +110,13 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
   }
 
   onChoosePersonal(bean: any): void {
+    console.log(" xxxx xxxx xxxx");
+    console.log(bean);
+    this.metabolicbean = new MetabolicBean();
     this.metabolicbean = bean;
     this.isFindPersonal = false;
     this.isShowForm = true;
+    
 
   }
   onBack() {
@@ -139,6 +134,8 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
       self.resetFind = self.resetFind + 1;
       if (self.action == self.ass_action.EDIT) {
         self.onChoosePersonal(self.data);
+        self.activeBtnsmoke(self.data.smokingStatusId);
+        self.activeBtnDrink(self.data.drinkingStatusId);
       }
 
       self.changeRef.detectChanges();
@@ -152,28 +149,6 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
     });
   }
 
-  styleRadio() {
-    $('body').on('click', '#radioBtn a', function () {
-      var sel = $(this).data('title');
-      var tog = $(this).data('toggle');
-      $('#' + tog).prop('value', sel);
-
-      $('a[data-toggle="' + tog + '"]').not('[data-title="' + sel + '"]').removeClass('active').addClass('notActive');
-      $('a[data-toggle="' + tog + '"][data-title="' + sel + '"]').removeClass('notActive').addClass('active');
-    })
-
-
-    ///////////////
-
-    $('body').on('click', '#radioBtn2 a', function () {
-      var sel = $(this).data('title');
-      var tog = $(this).data('toggle');
-      $('#' + tog).prop('value', sel);
-
-      $('a[data-toggle="' + tog + '"]').not('[data-title="' + sel + '"]').removeClass('active').addClass('notActive2');
-      $('a[data-toggle="' + tog + '"][data-title="' + sel + '"]').removeClass('notActive2').addClass('active');
-    })
-  }
 
   validateForm() {
 
@@ -212,7 +187,7 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
 
 
     if (this.metabolicbean.smokingStatusId == '2') {
-      if (!this.metabolicbean.drugHistory_numTobacco || !this.metabolicbean.drugHistory_Packperyear) {
+      if (!this.metabolicbean.rollPerDay || !this.metabolicbean.packPerYear) {
         this.isErrorSmoke = true;
         validateform = false;
       }
@@ -220,13 +195,13 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
         this.isErrorSmoke = false;
       }
     } else {
-      this.metabolicbean.drugHistory_numTobacco = undefined;
-      this.metabolicbean.drugHistory_Packperyear = undefined;
+      this.metabolicbean.rollPerDay = undefined;
+      this.metabolicbean.packPerYear = undefined;
       this.isErrorSmoke = false;
     }
 
     if (this.metabolicbean.drugHistory_Drink == '2') {
-      if (!this.metabolicbean.drugHistory_numDrink) {
+      if (!this.metabolicbean.ofterPerWeek) {
         this.isErrorDrink = true;
         validateform = false;
       }
@@ -234,7 +209,7 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
         this.isErrorDrink = false;
       }
     } else {
-      this.metabolicbean.drugHistory_numDrink = undefined;
+      this.metabolicbean.ofterPerWeek = undefined;
       this.isErrorDrink = false;
     }
 
@@ -284,28 +259,49 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
   }
 
   activeBtnsmoke(values) {
-
     if (values == '1') {
       this.smoke = this.classActive;
       this.noSmoke = this.classNotactive;
       this.afterSmoke = this.classNotactive;
-      $("#numTobacco").prop('disabled', false);
-      $("#numTobaccoPeryear").prop('disabled', false);
+      this.isRollPerDayDisabled = false;
+      this.isPackPerYearDisabled = false;
       this.metabolicbean.smokingStatusId = '1';
     } else if (values == '2') {
       this.noSmoke = this.classActive;
       this.afterSmoke = this.classNotactive;
       this.smoke = this.classNotactive;
-      $("#numTobacco").prop('disabled', true);
-      $("#numTobaccoPeryear").prop('disabled', true);
+      this.isRollPerDayDisabled = true;
+      this.isPackPerYearDisabled = true;
       this.metabolicbean.smokingStatusId = '2';
     } else if(values == '3') {
       this.afterSmoke = this.classActive;
       this.noSmoke = this.classNotactive;
       this.smoke = this.classNotactive;
-      $("#numTobacco").prop('disabled', true);
-      $("#numTobaccoPeryear").prop('disabled', true);
+      this.isRollPerDayDisabled = true;
+      this.isPackPerYearDisabled = true;
       this.metabolicbean.smokingStatusId = '3';
+    }
+  }
+
+  activeBtnDrink(values) {
+    if (values == '1') {
+      this.drinks = this.classActive;
+      this.noDrink = this.classNotactive;
+      this.afterDrink = this.classNotactive;
+      this.isOfterPerWeekDisabled = false;
+      this.metabolicbean.drinkingStatusId = '1';
+    } else if (values == '2') {
+      this.noDrink = this.classActive;
+      this.afterDrink = this.classNotactive;
+      this.drinks = this.classNotactive;
+      this.isOfterPerWeekDisabled = true;
+      this.metabolicbean.drinkingStatusId = '2';
+    } else if(values == '3') {
+      this.afterDrink = this.classActive;
+      this.noDrink = this.classNotactive;
+      this.drinks = this.classNotactive;
+      this.isOfterPerWeekDisabled = true;
+      this.metabolicbean.drinkingStatusId = '3';
     }
   }
 
