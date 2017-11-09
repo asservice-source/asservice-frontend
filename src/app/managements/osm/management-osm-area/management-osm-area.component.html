@@ -1,0 +1,17 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <label>จัดการเขตความรับผิดชอบ อสม.</label>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-12 text-left">
+        <button class="btn btn-sm btn-primary" (click)="onModalForm(ass_action.ADD);">เพิ่มผู้เสียชีวิต</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <ng2-smart-table [settings]="settings" [source]="source" (rowSelect)="onRowSelect($event)"></ng2-smart-table>
+    </div>
+    </div>
+  </div> 
+</div>
