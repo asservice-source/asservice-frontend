@@ -28,10 +28,29 @@
           <div class="col-md-2 text-right">
             <label class="label-form">ประเภทการอยู่อาศัย</label>
           </div>
-          <div class="col-md-3">
-            <input type="radio" name="isGuest" [value]="false" [(ngModel)]="member.isGuest"> มีชื่อในสำเนาทะเบียนบ้านจริง
-            &#09;
-            <input type="radio" name="isGuest" [value]="true" [(ngModel)]="member.isGuest"> ไม่มีชื่อในสำเนาทะเบียนบ้าน แต่ตัวอยู่จริง
+          <div class="col-md-9">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="radio">
+                  <label class="label-form" style="font-size: 1em">
+                    <input type="radio" name="guestType" id="guest1" value="false" [(ngModel)]="member.isGuest">
+                    <span class="cr">
+                      <i class="cr-icon fa fa-check"></i>
+                    </span>
+                    มีชื่อในสำเนาทะเบียนบ้านจริง
+                  </label>
+                </div>
+                <div class="radio">
+                    <label class="label-form" style="font-size: 1em">
+                      <input type="radio" name="guestType" id="guest2" value="true" [(ngModel)]="member.isGuest">
+                      <span class="cr">
+                        <i class="cr-icon fa fa-check"></i>
+                      </span>
+                      ไม่มีชื่อในสำเนาทะเบียนบ้าน แต่ตัวอยู่จริง
+                    </label>
+                  </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -41,8 +60,12 @@
             <label class="label-form">หมายเลขประจำตัว</label>
           </div>
           <div class="col-md-3">
-            <input type="text" class="ng-pristine ng-valid ng-touched" [OnlyNumber]="true" [(ngModel)]="member.citizenId">
-            <button class="btn btn-primary btn-sm" (click)="onClickVerify">ตรวจสอบ</button>
+            <div class="input-group">
+              <input type="text" class="ng-pristine ng-valid ng-touched form-control" [OnlyNumber]="true" [(ngModel)]="member.citizenId">
+              <span class="input-group-btn">
+                <button class="btn btn-primary btn-flat" (click)="onClickVerify();">ตรวจสอบ</button>
+              </span>
+            </div>
           </div>
           <div class="col-md-2 text-right">
             <label class="label-form">คำนำหน้าชื่อ</label>
@@ -132,7 +155,7 @@
           <div class="col-md-3">
             <select name="dropdown-rhGroup" id="dropdown-rhGroup" [(ngModel)]="member.rhGroupId" [disabled]="isDisablePersonData">
               <option value="">--เลือก RH Group--</option>
-              <option *ngFor="let item of listRHGroup" [value]="item.code">{{item.name}}</option>
+              <option *ngFor="let item of listRHGroup" [value]="item.id">{{item.name}}</option>
             </select>
           </div>
         </div>
@@ -144,7 +167,8 @@
           </div>
           <div class="col-md-3">
             <!-- <input type="text" [(ngModel)]="member.birthDate"> -->
-            <my-date-picker name="mydate" [options]="datePickerOptions" [(ngModel)]="modelBirthDate" (dateChanged)="onChangeDate($event)" [disabled]="isDisablePersonData"></my-date-picker>
+            <my-date-picker name="mydate" [options]="datePickerOptions" [(ngModel)]="modelBirthDate" (dateChanged)="onChangeDate($event)"
+              [disabled]="isDisablePersonData"></my-date-picker>
           </div>
           <div class="col-md-2 text-right">
             <label class="label-form">การศึกษา</label>
@@ -163,7 +187,8 @@
             <label class="label-form">อาชีพ</label>
           </div>
           <div class="col-md-3">
-            <select name="dropdown-occupationCode" id="dropdown-occupationCode" [(ngModel)]="member.occupationId" (change)="onChangeOccupation()" [disabled]="isDisablePersonData">
+            <select name="dropdown-occupationCode" id="dropdown-occupationCode" [(ngModel)]="member.occupationId" (change)="onChangeOccupation()"
+              [disabled]="isDisablePersonData">
               <option value="">--เลือก อาชีพ--</option>
               <option *ngFor="let item of listOccupation" [value]="item.id">{{item.name}}</option>
             </select>
@@ -192,22 +217,53 @@
           </div> -->
         </div>
 
-        <!-- <div class="row">
+        <div class="row">
+          <div class="col-md-1"></div>
+          <div class="col-md-2 text-right">
+            <label class="label-form">สถานะอยู่</label>
+          </div>
+          <div class="col-md-9">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="radio">
+                  <label class="label-form" style="font-size: 1em">
+                    <input type="radio" name="existsType" id="existsType1" value="true" [(ngModel)]="member.isExists">
+                    <span class="cr">
+                      <i class="cr-icon fa fa-check"></i>
+                    </span>
+                    อยู่จริง
+                  </label>
+                </div>
+                <div class="radio">
+                    <label class="label-form" style="font-size: 1em">
+                      <input type="radio" name="existsType" id="existsType2" value="false" [(ngModel)]="member.isExists">
+                      <span class="cr">
+                        <i class="cr-icon fa fa-check"></i>
+                      </span>
+                      ไม่อยู่จริง
+                    </label>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
           <div class="col-md-1"></div>
           <div class="col-md-2 text-right">
             <label class="label-form">โรคประจำตัว</label>
           </div>
           <div class="col-md-3">
-            <input type="text" class="ng-pristine ng-valid ng-touched" [(ngModel)]="member.disease">
+            <input type="text" class="ng-pristine ng-valid ng-touched" [(ngModel)]="member.congenitalDisease">
           </div>
-        </div> -->
+        </div>
 
         <div class="row">
           <div class="col-md-1"></div>
           <div class="col-md-2 text-right">
             <label class="label-form">หมายเหตุ</label>
           </div>
-          <div class="col-md-7">
+          <div class="col-md-3">
             <textarea style="height: 50px;" class="ng-pristine ng-valid ng-touched" placeholder="ระบุหมายเหตุ ถ้ามี" [(ngModel)]="member.remark"></textarea>
           </div>
         </div>

@@ -9,7 +9,7 @@ declare var $;
 @Component({
   selector: 'app-survey-personal-member-form',
   templateUrl: './survey-personal-member-form.component.html',
-  styleUrls: ['./survey-personal-member-form.component.css']
+  styleUrls: ['./survey-personal-member-form.component.css', '../../../checkbox.css']
 })
 export class SurveyPersonalMemberFormComponent extends BaseComponent implements OnInit {
 
@@ -21,8 +21,11 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
     let self = this;
 
     self.member = this.strNullToEmpty(paramMember);
+    self.member.isGuest = self.member.isGuest.toString();
     if (self.member && self.member.birthDate) {
       self.modelBirthDate = self.getCurrentDatePickerModel(self.member.birthDate);
+    } else {
+      self.modelBirthDate = { };
     }
   }
   @Output() memberUpdated = new EventEmitter<PersonalMemberBean>();
@@ -55,7 +58,7 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
 
     self.onModalEvent();
 
-    self.bindTypeArea();
+    // self.bindTypeArea();
     self.bindPrefix();
     self.bindGender();
     self.bindRace();
@@ -277,10 +280,11 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
   }
 
   defaultValue() {
-    this.member.typeAreaCode = "1";
-    this.member.raceCode = "099";
-    this.member.nationalityCode = "099";
-    this.member.religionCode = "01";
+    this.member.isGuest = "false";
+    this.member.isExists = "true";
+    // this.member.raceCode = "099";
+    // this.member.nationalityCode = "099";
+    // this.member.religionCode = "01";
   }
 
   onChangeDate(event: IMyDateModel) {
@@ -324,6 +328,8 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
 
     //   self.isDisablePersonData = false;
     // }
+
+    self.isDisablePersonData = false;
   }
 
   onClickSave() {

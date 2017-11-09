@@ -110,10 +110,9 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
 
     self.apiHttp.post(URL_LIST_HOME_MEMBERS, params, function (d) {
       if (d != null && d.status.toUpperCase() == "SUCCESS") {
-        console.log(d);
+        // console.log(d);
         self.tempData = d.response;
-        self.source = new LocalDataSource(self.tempData);
-        self.setNg2STDatasource(self.source);
+        self.source = self.ng2STDatasource(self.tempData);
         self.isShowTable = true;
       } else {
         console.log('survey-personal-member-list(bindHomeMemberList) occured error(s) => ' + d.message);

@@ -6,6 +6,7 @@ export class PersonalMemberBean {
     public age: string = "";
 
     public isGuest: string = "";
+    public isExists: string = "";
     public typeAreaCode: string = "";
     public prefixCode: string = "";
     public firstName: string = "";
@@ -25,6 +26,7 @@ export class PersonalMemberBean {
     public dischargeName: string = "";
     public familyStatusCode: string = "";
     public familyStatusName: string = "";
+    public congenitalDisease: string = "";
     public remark: string = "";
 
     public listPrefix: any = [];
