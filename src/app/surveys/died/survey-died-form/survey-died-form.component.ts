@@ -7,7 +7,7 @@ declare var $: any;
 @Component({
   selector: 'app-survey-died-form',
   templateUrl: './survey-died-form.component.html',
-  styleUrls: ['./survey-died-form.component.css']
+  styleUrls: ['./survey-died-form.component.css','../../../checkbox.css']
   
 })
 export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,AfterViewInit {
