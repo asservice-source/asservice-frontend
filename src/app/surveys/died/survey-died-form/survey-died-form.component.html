@@ -14,7 +14,7 @@
      <div class="row" *ngIf="isShowForm">
         <div class="col-md-12">
             <div class="row">
-              <div class="col-md-3 text-right">
+              <div class="col-md-4 text-right">
                 <label>ชื่อ</label>
               </div>
               <div class="col-md-5">
@@ -22,15 +22,15 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-md-3 text-right">
+              <div class="col-md-4 text-right">
                 <label>อายุ</label>
               </div>
-              <div class="col-md-3">
+              <div class="col-md-4">
                 <label class="value">{{diedBean.age}}</label>
               </div>
             </div>
             <div class="row">
-              <div class="col-md-3 text-right">
+              <div class="col-md-4 text-right">
                 <label>หมายเลขประจำตัว</label>
               </div>
               <div class="col-md-5">
@@ -38,7 +38,7 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-md-3 text-right">
+              <div class="col-md-4 text-right">
                   <label>ที่อยู่</label>
               </div>
                <div class="col-md-5">
@@ -46,28 +46,67 @@
                </div>
             </div>
           <div class="row">
-            <div class="col-md-3 text-right">
+            <div class="col-md-4 text-right">
               <label>วันที่เสียชีวิต</label>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-4">
               <my-date-picker name="mydate" [options]="datePickerOptions" [(ngModel)]="diedBean.dateDied" required></my-date-picker>
               
             </div>
         </div>
         <div class="row">
-            <div class="col-md-3 text-right">
+            <div class="col-md-4 text-right">
               <label>สาเหตุการเสียชีวิต</label>
             </div>
-            
-            <div class="col-md-5"  *ngIf="diedBean.causeCode!=-9">
-              <select [(ngModel)]="diedBean.causeCode" (change)="onChangeCause()" >
-                <option value="">---เลือกสาเหตุ---</option>
-                <option value="1">อุบัติเหตุทางจราจร</option>
-                <option value="2">ความดันโลหิตสูง</option>
-                <option value="-9">อื่นๆ ระบุ</option>
-              </select>
-              
-            </div>
+
+            <div class="col-md-5">
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="checkbox">
+                    <label class="label-form" style="font-size: 1em">
+                        <input type="checkbox">
+                        <span class="cr">
+                            <i class="cr-icon fa fa-check"></i>
+                        </span>
+                        อุบัติเหตุทางจราจร
+                    </label>
+                  </div> 
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="checkbox">
+                    <label class="label-form" style="font-size: 1em">
+                        <input type="checkbox">
+                        <span class="cr">
+                            <i class="cr-icon fa fa-check"></i>
+                        </span>
+                        ความดันโลหิตสูง
+                    </label>
+                  </div> 
+                </div>
+              </div>
+
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="checkbox">
+                      <label class="label-form" style="font-size: 1em">
+                          <input type="checkbox">
+                          <span class="cr">
+                              <i class="cr-icon fa fa-check"></i>
+                          </span>
+                          อื่นๆ ระบุ
+                      </label>
+                    </div> 
+                  </div>
+                  <div class="col-md-8">
+                    <input type="text">
+                  </div>
+                </div>
+          </div>
+
             <div class="col-md-5" *ngIf="diedBean.causeCode==-9">
                 <div class="input-group date">
                   <input type="text" [(ngModel)]="diedBean.causeOtherCode" placeholder="อื่นๆ ระบุ" >
@@ -79,7 +118,7 @@
 
           </div>
           <div class="row">
-            <div class="col-md-3 text-right">
+            <div class="col-md-4 text-right">
               <label >โรคประจำตัว</label>
             </div>
             <div class="col-md-5">
@@ -91,7 +130,7 @@
           </div>
     
           <div class="row">
-            <div class="col-md-3 text-right">
+            <div class="col-md-4 text-right">
               <label>สถานที่เสียชีวิต</label>
             </div>
     

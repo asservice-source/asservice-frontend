@@ -16,9 +16,9 @@ export class FilterPersonalComponent extends BaseComponent implements OnInit {
   public filterBean: FilterBean;
 
   // List of Data
-  public list_village_no;
-  public list_home_no;
-  public list_osm;
+  public listVillageNo;
+  public listOsm;
+  public listHomeNo;
 
   public isDisabledOSM: boolean = true;
   public isDisabledHomeNo: boolean = true;
@@ -44,8 +44,8 @@ export class FilterPersonalComponent extends BaseComponent implements OnInit {
     self.isDisabledHomeNo = true;
 
     if (self.filterBean.villageId == "") {
-      self.list_osm = [];
-      self.list_home_no = [];
+      self.listOsm = [];
+      self.listHomeNo = [];
 
       self.filterBean.osmId = "";
       self.filterBean.homeId = "";
@@ -69,53 +69,66 @@ export class FilterPersonalComponent extends BaseComponent implements OnInit {
   bindVillageNo() {
     let self = this;
 
-    let URL_LIST_VILLAGE_NO: string = "village/village_no_list_by_hospital";
-    let params = { "hospitalCode": this.getHospitalCode() };
-
-    self.apiHttp.post(URL_LIST_VILLAGE_NO, params, function (d) {
-      if (d && d.status.toUpperCase() == "SUCCESS") {
-        // console.log(d);
-        self.list_village_no = d.response;
-      } else {
-        console.log('filter-personal(bindVillageNo) occured error(s) => ' + d.message);
-      }
+    this.apiHttp.api_villageList(this.getHospitalCode(), function (response) {
+      self.listVillageNo = response;
     });
+    // let URL_LIST_VILLAGE_NO: string = "village/village_no_list_by_hospital";
+    // let params = { "hospitalCode": this.getHospitalCode() };
+
+    // self.apiHttp.post(URL_LIST_VILLAGE_NO, params, function (d) {
+    //   if (d && d.status.toUpperCase() == "SUCCESS") {
+    //     // console.log(d);
+    //     self.list_village_no = d.response;
+    //   } else {
+    //     console.log('filter-personal(bindVillageNo) occured error(s) => ' + d.message);
+    //   }
+    // });
   }
 
   bindOSM(villageId: string) {
     let self = this;
 
-    let URL_LIST_OSM: string = "osm/osm_list_by_village";
-    let params = { "villageId": self.filterBean.villageId };
-
-    self.apiHttp.post(URL_LIST_OSM, params, function (d) {
-      if (d && d.status.toUpperCase() == "SUCCESS") {
-        // console.log(d);
-        self.list_osm = d.response;
-        self.filterBean.osmId = "";
-        self.isDisabledOSM = false;
-      } else {
-        console.log('filter-personal(bindOSM) occured error(s) => ' + d.message);
-      }
+    this.apiHttp.api_OsmList(villageId, function (response) {
+      self.listOsm = response;
+      self.filterBean.osmId = "";
+      self.isDisabledOSM = false;
     });
+    // let URL_LIST_OSM: string = "osm/osm_list_by_village";
+    // let params = { "villageId": self.filterBean.villageId };
+
+    // self.apiHttp.post(URL_LIST_OSM, params, function (d) {
+    //   if (d && d.status.toUpperCase() == "SUCCESS") {
+    //     // console.log(d);
+    //     self.listOsm = d.response;
+    //     self.filterBean.osmId = "";
+    //     self.isDisabledOSM = false;
+    //   } else {
+    //     console.log('filter-personal(bindOSM) occured error(s) => ' + d.message);
+    //   }
+    // });
   }
 
   bindHomeNo(villageId: string, osmId: string) {
     let self = this;
 
-    let URL_LIST_HOME_NO: string = "home/home_no_list_by_village_or_osm";
-    let params = { "villageId": villageId, "osmId": osmId };
-
-    self.apiHttp.post(URL_LIST_HOME_NO, params, function (d) {
-      if (d && d.status.toUpperCase() == "SUCCESS") {
-        // console.log(d);
-        self.list_home_no = d.response;
-        self.filterBean.homeId = "";
-        self.isDisabledHomeNo = false;
-      } else {
-        console.log('filter-personal(bindHomeNo) occured error(s) => ' + d.message);
-      }
+    this.apiHttp.api_HomeList(villageId, osmId, function (response) {
+      self.listHomeNo = response;
+      self.filterBean.homeId = "";
+      self.isDisabledHomeNo = false;
     });
+    // let URL_LIST_HOME_NO: string = "home/home_no_list_by_village_or_osm";
+    // let params = { "villageId": villageId, "osmId": osmId };
+
+    // self.apiHttp.post(URL_LIST_HOME_NO, params, function (d) {
+    //   if (d && d.status.toUpperCase() == "SUCCESS") {
+    //     // console.log(d);
+    //     self.listHomeNo = d.response;
+    //     self.filterBean.homeId = "";
+    //     self.isDisabledHomeNo = false;
+    //   } else {
+    //     console.log('filter-personal(bindHomeNo) occured error(s) => ' + d.message);
+    //   }
+    // });
   }
 
   doSearchFilter() {

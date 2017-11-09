@@ -87,13 +87,13 @@ export class FilterFindPersonComponent extends BaseComponent implements OnInit {
   }
   doSearchPerson() {
     this.isDisabledPerson = false;
-    this.isShowPersons = true;
     this.setupMemberList();
   }
   setupMemberList(){
     let _self = this;
     this.api.api_HomeMemberList(_self.filterBean.homeId, function(response){
       _self.personData = response; 
+      _self.isShowPersons = true;
     });
   }
   setupVillage() {
