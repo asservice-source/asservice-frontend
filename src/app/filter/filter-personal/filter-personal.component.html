@@ -4,9 +4,8 @@
     <label class="label-form">รอบสำรวจ</label>
   </div>
   <div class="col-md-4">
-    <select name="filter-round" id="filter-round" [(ngModel)]="filterBean.roundId">
-      <option value="">ประจำเดือน พฤศจิกายน พ.ศ. 2560</option>
-      <!-- <option *ngFor="let osm of list_osm" [value]="osm.citizenId">{{getFullName(osm.prefix.name, osm.firstName, osm.lastName)}}</option> -->
+    <select #round [(ngModel)]="filterBean.roundId" (change)="onChangeRound(round)">
+      <option *ngFor="let item of listSurvey" [value]="item.rowGUID">{{ item.round }}</option>
     </select>
   </div>
   <div class="col-md-1 text-right">
@@ -44,10 +43,10 @@
 
 <div>
   <div class="row text-center" style="margin-top: 10px;">
-    <button class="btn btn-primary" (click)="doSearchFilter()" id="filter-btnSearch">
+    <button id="filter-btnSearch" class="btn btn-primary" (click)="onSearchFilter()">
       <i class="fa fa-search"> ค้นหา</i>
     </button>
-    <button class="btn btn-primary" (click)="doClearFilter()" id="filter-btnClear">
+    <button id="filter-btnClear" class="btn btn-primary" (click)="onClearFilter()">
       <i class="fa fa-refresh"> ล้างค่า</i>
     </button>
   </div>

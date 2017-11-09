@@ -16,13 +16,13 @@
             <label>ชื่อ-สกุล</label>
           </div>
           <div class="col-md-3">
-            <input type="text" value="นายโสพน สดใส" disabled="disabled">
+            <input type="text" value="" >
           </div>
           <div class="col-md-1 text-right">
             <label>โทรศัพท์</label>
           </div>
           <div class="col-md-3">
-            <input type="text" value="094-647-6484" disabled="disabled">
+            <input type="text" value="" >
           </div>
         </div>
         <div class="row">
@@ -30,13 +30,13 @@
             <label>ชนิดของมะเร็ง</label>
           </div>
           <div class="col-md-3">
-            <input type="text" name="" id="" value="มะเร็งตับ" disabled="disabled">
+            <input type="text" name="" id="" value="" >
           </div>
           <div class="col-md-1 text-right">
             <label>เริ่มป่วย</label>
           </div>
           <div class="col-md-3">
-            <input type="text" value="1/9/2560" disabled="disabled">
+            <input type="text" value="" >
           </div>
         </div>
         <div class="row">
@@ -44,13 +44,13 @@
             <label>รพ.ที่รักษา</label>
           </div>
           <div class="col-md-3">
-            <input type="text" value="โรงพยาบาลขอนแก่นรามฯ">
+            <input type="text" value="">
           </div>
           <div class="col-md-1 text-right">
             <label>อื่นๆ</label>
           </div>
           <div class="col-md-3">
-            <input type="text" value="มีอาการฮากเลือด">
+            <input type="text" value="">
           </div>
         </div>
 
@@ -69,12 +69,13 @@
             <label>วันสำรวจ</label>
           </div>
           <div class="col-md-3">
-            <div class="input-group date" data-provide="datepicker">
+              <my-date-picker name="mydate" [options]="datePickerOptions" [(ngModel)]="modelBirthDate" (dateChanged)="onChangeDate($event)" [disabled]="isDisablePersonData"></my-date-picker>
+            <!-- <div class="input-group date" data-provide="datepicker">
               <input type="text">
               <div class="input-group-addon">
                 <span class="glyphicon glyphicon-th"></span>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>

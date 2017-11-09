@@ -63,13 +63,19 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
           return '<div class="text-center">' + cell + '</div>';
         }
       },
-      surveyStatus: {
+      isSurvey: {
         title: 'สถานะการสำรวจ',
         filter: false,
         width: '110px',
         type: 'html',
         valuePrepareFunction: (cell, row) => {
-          return '<div class="text-center">' + cell + '</div>';
+          var surveyStatus = '';
+          if(cell === true) {
+            surveyStatus = '<div class="text-center" style="color: green;">สำรวจแล้ว</div>';
+          } else {
+            surveyStatus = '<div class="text-center" style="color: red;">ยังไม่สำรวจ</div>';
+          }
+          return surveyStatus;
         }
       },
       action: {
@@ -126,8 +132,8 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
   bindHomeList(roundId: string, villageId: string, osmId: string, homeId: string) {
     let self = this;
 
-    let URL_LIST_HOME: string = "survey_personal/search_home_list";
-    let params = { "roundGUID": roundId, "villageId": villageId, "osmId": osmId, "id": homeId };
+    let URL_LIST_HOME: string = "survey_population/search_population_list";
+    let params = { "documentId": roundId, "villageId": villageId, "osmId": osmId, "homeId": homeId };
 
     self.apiHttp.post(URL_LIST_HOME, params, function (d) {
       if (d != null && d.status.toUpperCase() == "SUCCESS") {
@@ -139,26 +145,6 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
         console.log('survey-personal-home-list(bindHomeList) occured error(s) => ' + d.message);
       }
     });
-  }
-
-  mappingPersonalHomeBean(data: any): Array<PersonalHomeBean> {
-    let self = this;
-
-    let homeList: Array<PersonalHomeBean> = new Array<PersonalHomeBean>();
-    for (let item of data) {
-      if (item) {
-        let home: PersonalHomeBean = new PersonalHomeBean();
-        home.villageNo = item.village.villageNo || '';
-        home.homeNo = item.homeNo || '';
-        if (item.holder && item.holder.prefix) {
-          home.fullName = self.getFullName(item.holder.prefix.name, item.holder.firstName, item.holder.lastName);
-        }
-        home.memberAmount = item.memberAmount || '';
-        home.homeId = item.id || '';
-        homeList.push(home);
-      }
-    }
-    return homeList;
   }
 }
 
