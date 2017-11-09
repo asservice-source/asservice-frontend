@@ -25,7 +25,7 @@ export class FilterHeadSurveyComponent extends BaseComponent implements OnInit {
   public osmData: any;
   public isDisabledOSM = true;
   public isDisabledName = true;
-  public discription: any = {round: '', village: 'ทั้งหมด', osm: 'ทั้งหมด', name: ''};
+  public description: any = {round: '', village: 'ทั้งหมด', osm: 'ทั้งหมด', name: ''};
   public headerList: any = [];
 
   constructor(private http: Http) {
@@ -49,7 +49,7 @@ export class FilterHeadSurveyComponent extends BaseComponent implements OnInit {
       for(let item of _self.headerList){
         if(item.status == '2'){
           _self.filterBean.roundId = item.rowGUID;
-          _self.discription.round = item.round;
+          _self.description.round = item.round;
           _self.onSearchFilter();
           break;
         }
@@ -80,7 +80,7 @@ export class FilterHeadSurveyComponent extends BaseComponent implements OnInit {
     console.log(select);
     for(let item of select.options){
       if(item.value==select.value){
-        this.discription.round = item.text;
+        this.description.round = item.text;
       }
     }
 
@@ -90,7 +90,7 @@ export class FilterHeadSurveyComponent extends BaseComponent implements OnInit {
   onChangeVillage(select: any) {
     for(let item of select.options){
       if(item.value==select.value){
-        this.discription.village = item.text;
+        this.description.village = item.text;
       }
     }
     this.setupOSM();
@@ -100,7 +100,7 @@ export class FilterHeadSurveyComponent extends BaseComponent implements OnInit {
   onChangeOSM(select: any) {
     for(let item of select.options){
       if(item.value==select.value){
-        this.discription.osm = item.text;
+        this.description.osm = item.text;
       }
     }
     this.onDropdownChange();
@@ -109,9 +109,9 @@ export class FilterHeadSurveyComponent extends BaseComponent implements OnInit {
   onSearchFilter() {
 
     let str = '<b>ผลลัพธ์การค้นหา </b>';
-    str +='รอบสำรวจ: ' + this.discription.round;
-    str += ' , หมู่บ้าน: ' + this.discription.village;
-    str += ' , อสม.: ' + this.discription.osm;
+    str +='รอบสำรวจ: ' + this.description.round;
+    str += ' , หมู่บ้าน: ' + this.description.village;
+    str += ' , อสม.: ' + this.description.osm;
     str += ' , ชื่อ: ' + this.filterBean.fullName;
     this.filterBean.discription = str;
     this.notifyFilter.emit(this.filterBean);

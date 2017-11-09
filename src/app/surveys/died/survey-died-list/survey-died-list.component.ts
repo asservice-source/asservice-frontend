@@ -18,7 +18,7 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
   // dtOptions: DataTables.Settings = {};
   private api: ApiHTTPService;
   public settings: any;
-  public surveyTypeCode: string = this.surverHeaderCode.DEATH;
+  public surveyTypeCode: string = this.surveyHeaderCode.DEATH;
   public isShowList: boolean = false;
   public action: string = this.ass_action.ADD;
   public source: LocalDataSource = new LocalDataSource();
@@ -122,7 +122,7 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
           instance.action.subscribe((row: DiedBean, cell) => {
             console.log(row);
             if(row && row.action.toUpperCase()==self.ass_action.EDIT){
-              self.diedBean = row;
+              self.diedBean = self.cloneObj(row);
               self.onModalForm(self.ass_action.EDIT);
             }
           });

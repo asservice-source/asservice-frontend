@@ -46,7 +46,7 @@ export class ManagementStaffVillageListComponent extends BaseComponent implement
              
            });
            instance.edit.subscribe(row => {
-            _self.bean = row;
+            _self.bean = _self.cloneObj(row);
             _self.onModalForm();
            });
            instance.delete.subscribe(row => {

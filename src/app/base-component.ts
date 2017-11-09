@@ -12,7 +12,7 @@ export class BaseComponent implements OnInit {
     public labelManager = new LabelManager();
     public _GLOBAL = myconf;
     public ass_action = Action;
-    public surverHeaderCode = SurveyHeaderTypeCode;
+    public surveyHeaderCode = SurveyHeaderTypeCode;
     private ng2STDataSource: LocalDataSource;// = new LocalDataSource();
     constructor() {
 
