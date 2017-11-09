@@ -28,38 +28,47 @@ export class MetabolicBean{
     public familyStatus: string = "";
     public age: number;
     public address : string;
+    public action: string;
   
     public isHeredityMetabolic: boolean = false;
     public isWaistlineOver: boolean = false;
     public isBPOver: boolean = false;
     public isFBS: boolean = false;
     public isCholesterol: boolean = false;
-    public healtHistory_isPregnantDiabetes: boolean = false;
-    public healtHistory_isOverBpParent: boolean = false;
+    public isNewborn4kg: boolean = false;
+    public isHeredityHypertension: boolean = false;
   
     public smokingStatusId : string ;
     public drinkingStatusId : string;
     public drugHistory_Smoke: string;
     public drugHistory_Drink: string;
     public rollPerDay: string;
-    public packPerYear : number;
-    public ofterPerWeek: Number;
-  
-    public physicalBody_weight: Number;
-    public physicalBody_height: Number;
-    public physicalBody_waistline: Number;
-    public physicalBody_BMI: Number;
-    public physicalBody_BP1_mm: Number;
-    public physicalBody_BP1_hg: Number;
-    public physicalBody_BP2_mm: Number;
-    public physicalBody_BP2_hg: Number;
-  
-    public disease_Diabetes: boolean;
-    public disease_OverBP: boolean;
-    public disease_Complication_eye: boolean;
-    public disease_Complication_kidney: boolean;
-    public disease_Complication_nerve: boolean;
-    public disease_Complication_nervousSys: boolean;
-    public disease_Complication_etc: boolean;
-    public action: string;
+    public packPerYear : string;
+    public ofterPerWeek: string;
+
+    public weight : string;
+    public height : string;
+    public waistline : string;
+    public bmi : string;
+
+    public bp1 : string;
+    public bp1MM : string;
+    public bp1HG : string;
+
+    public bp2 : string;
+    public bp2MM : string;
+    public bp2HG : string;
+
+    public fbs: string;
+
+    public isMetabolic : string;
+    public isHypertension : string;
+    public isEyeComplication : string;
+    public isKidneyComplication : string;
+    public isPeripheralNeuropathy : string;
+    public peripheralName : string;
+    public isNeuropathy : string;
+    public isOther : boolean;
+    public otherComplication : string;
+    
 }
