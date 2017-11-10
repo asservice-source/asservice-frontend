@@ -41,8 +41,8 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
   public isErrorHeight = false;
   public isErrorWaistline = false;
   public isErrorBMI = false;
-  public isErrorBP1 = false;
-  public isErrorBP2 = false;
+  public isErrorOthercomplication = false;
+  public isErrorPeripheralName = false;
   public classActive = "btn btn-primary btn-sm active";
   public classNotactive = "btn btn-primary btn-sm notActive";
   public smoke = this.classNotactive;
@@ -71,7 +71,6 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
 
   ngOnInit() {
     this.onModalEvent();
-    
   }
 
   ngAfterViewInit() {
@@ -116,13 +115,25 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
     this.metabolicbean = bean;
     this.isFindPersonal = false;
     this.isShowForm = true;
-    
+
 
   }
   onBack() {
     this.metabolicbean = new MetabolicBean();
     this.isFindPersonal = true;
     this.isShowForm = false;
+
+    this.isErrorSmoke = false;
+    this.isErrorDrink = false;
+    this.isErrorWeight = false;
+    this.isErrorHeight = false;
+    this.isErrorWaistline = false;
+    this.isErrorBMI = false;
+    this.isErrorOthercomplication = false;
+    this.isErrorPeripheralName = false;
+
+
+
     if (this.ass_action.EDIT == this.action) {
       $('#find-person-md').modal('hide');
     }
@@ -136,6 +147,16 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
         self.onChoosePersonal(self.data);
         self.activeBtnsmoke(self.data.smokingStatusId);
         self.activeBtnDrink(self.data.drinkingStatusId);
+
+        if(self.data.bp1){
+          self.data.bp1MM = self.splitBP(self.data.bp1)[0];
+          self.data.bp1HG = self.splitBP(self.data.bp1)[1];
+        }
+
+        if(self.data.bp2){
+          self.data.bp2MM = self.splitBP(self.data.bp2)[0];
+          self.data.bp2HG = self.splitBP(self.data.bp2)[1];
+        }
       }
 
       self.changeRef.detectChanges();
@@ -159,34 +180,11 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
     this.metabolicbean.isBPOver = this.metabolicbean.isBPOver || false;
     this.metabolicbean.isFBS = this.metabolicbean.isFBS || false;
     this.metabolicbean.isCholesterol = this.metabolicbean.isCholesterol || false;
-    this.metabolicbean.healtHistory_isPregnantDiabetes = this.metabolicbean.healtHistory_isPregnantDiabetes || false;
-    this.metabolicbean.healtHistory_isOverBpParent = this.metabolicbean.healtHistory_isOverBpParent || false;
-
-    this.metabolicbean.disease_Diabetes = this.metabolicbean.disease_Diabetes || false;
-    this.metabolicbean.disease_Complication_etc = this.metabolicbean.disease_Complication_etc || false;
-    this.metabolicbean.disease_Complication_eye = this.metabolicbean.disease_Complication_eye || false;
-    this.metabolicbean.disease_Complication_kidney = this.metabolicbean.disease_Complication_kidney || false;
-    this.metabolicbean.disease_Complication_nerve = this.metabolicbean.disease_Complication_nerve || false;
-    this.metabolicbean.disease_Complication_nervousSys = this.metabolicbean.disease_Complication_nervousSys || false;
-    this.metabolicbean.disease_OverBP = this.metabolicbean.disease_OverBP || false;
-
-    // console.log(this.metabolicbean.disease_Diabetes);
-    // console.log(this.metabolicbean.disease_Complication_etc);
-    // console.log(this.metabolicbean.disease_Complication_eye);
-    // console.log(this.metabolicbean.disease_Complication_kidney);
-    // console.log(this.metabolicbean.disease_Complication_nerve);
-    // console.log(this.metabolicbean.disease_Complication_nervousSys);
-    // console.log(this.metabolicbean.disease_OverBP);
-
-    if (this.metabolicbean.drugHistory_Smoke == undefined) {
-      this.metabolicbean.drugHistory_Smoke = '1';
-    }
-    if (this.metabolicbean.drugHistory_Drink == undefined) {
-      this.metabolicbean.drugHistory_Drink = '1';
-    }
+    this.metabolicbean.isNewborn4kg = this.metabolicbean.isNewborn4kg || false;
+    this.metabolicbean.isHeredityHypertension = this.metabolicbean.isHeredityHypertension || false;
 
 
-    if (this.metabolicbean.smokingStatusId == '2') {
+    if (this.metabolicbean.smokingStatusId == '1') {
       if (!this.metabolicbean.rollPerDay || !this.metabolicbean.packPerYear) {
         this.isErrorSmoke = true;
         validateform = false;
@@ -195,12 +193,10 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
         this.isErrorSmoke = false;
       }
     } else {
-      this.metabolicbean.rollPerDay = undefined;
-      this.metabolicbean.packPerYear = undefined;
       this.isErrorSmoke = false;
     }
 
-    if (this.metabolicbean.drugHistory_Drink == '2') {
+    if (this.metabolicbean.drinkingStatusId == '1') {
       if (!this.metabolicbean.ofterPerWeek) {
         this.isErrorDrink = true;
         validateform = false;
@@ -209,50 +205,41 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
         this.isErrorDrink = false;
       }
     } else {
-      this.metabolicbean.ofterPerWeek = undefined;
       this.isErrorDrink = false;
     }
 
-    if (this.metabolicbean.physicalBody_weight == undefined) {
+    if (this.metabolicbean.weight == undefined) {
       this.isErrorWeight = true;
       validateform = false;
     } else {
       this.isErrorWeight = false;
     }
 
-    if (this.metabolicbean.physicalBody_height == undefined) {
+    if (this.metabolicbean.height == undefined) {
       this.isErrorHeight = true;
       validateform = false;
     } else {
       this.isErrorHeight = false;
     }
 
-    if (this.metabolicbean.physicalBody_waistline == undefined) {
+    if (this.metabolicbean.waistline == undefined) {
       this.isErrorWaistline = true;
       validateform = false;
     } else {
       this.isErrorWaistline = false;
     }
 
-    if (this.metabolicbean.physicalBody_BMI == undefined) {
+    if (this.metabolicbean.bmi == undefined) {
       this.isErrorBMI = true;
       validateform = false;
     } else {
       this.isErrorBMI = false;
     }
 
-    if (this.metabolicbean.physicalBody_BP1_hg == undefined || this.metabolicbean.physicalBody_BP1_mm == undefined) {
-      this.isErrorBP1 = true;
-      validateform = false;
-    } else {
-      this.isErrorBP1 = false;
-    }
-
-    if (this.metabolicbean.physicalBody_BP2_hg == undefined || this.metabolicbean.physicalBody_BP2_mm == undefined) {
-      this.isErrorBP2 = true;
-      validateform = false;
-    } else {
-      this.isErrorBP2 = false;
+    if (this.metabolicbean.isOther == true) {
+      if (!this.metabolicbean.otherComplication) {
+        this.isErrorOthercomplication = true;
+      }
     }
 
     return validateform;
@@ -273,7 +260,7 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
       this.isRollPerDayDisabled = true;
       this.isPackPerYearDisabled = true;
       this.metabolicbean.smokingStatusId = '2';
-    } else if(values == '3') {
+    } else if (values == '3') {
       this.afterSmoke = this.classActive;
       this.noSmoke = this.classNotactive;
       this.smoke = this.classNotactive;
@@ -296,7 +283,7 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
       this.drinks = this.classNotactive;
       this.isOfterPerWeekDisabled = true;
       this.metabolicbean.drinkingStatusId = '2';
-    } else if(values == '3') {
+    } else if (values == '3') {
       this.afterDrink = this.classActive;
       this.noDrink = this.classNotactive;
       this.drinks = this.classNotactive;
@@ -305,25 +292,23 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
     }
   }
 
+  clearSmokeValue() {
+    this.metabolicbean.rollPerDay = undefined;
+    this.metabolicbean.packPerYear = undefined;
+  }
+
+  clearDrinkValue() {
+    this.metabolicbean.ofterPerWeek = undefined;
+  }
   addSurvey() {
 
     if (this.validateForm() == true) {
-      // let params = {
-      //   hInsuranceTypeID : this.healtInsuranceTypeList,
-      //   isHeredityMetabolic : this.metabolicbean.healtHistory_isDiabetesParent,
-      //   isWaistlineOver : this.metabolicbean.healtHistory_isOverBmi,
-      //   isBPOver : this.metabolicbean.healtHistory_isOverBp,
-      //   isFBS : this.metabolicbean.healtHistory_isOverFbs,
-      //   isCholesterol : this.metabolicbean.healtHistory_isOvercholesterol,
-      //   isNewborn4kg : this.metabolicbean.healtHistory_isPregnantDiabetes,
-      //   isHeredityHypertension : this.metabolicbean.healtHistory_isOverBpParent,
-      //   smokingStatusCode : this.metabolicbean.drugHistory_Smoke,
-      //   rollPerDay : this.metabolicbean.drugHistory_numTobacco,
-
-
-      // }
     }
   }
 
+  splitBP(value) {
+    let bp = value.split("/");
+    return bp;
+  }
 
 }

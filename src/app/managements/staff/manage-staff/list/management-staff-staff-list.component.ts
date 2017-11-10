@@ -19,7 +19,7 @@ export class ManagementStaffStaffListComponent extends BaseComponent implements 
     super();
     this.bean = new StaffBean();
     let _self = this;
-    this.settings = this.getTabelSetting({
+    this.settings = this.getTableSetting({
       fullName: {title: this.getLabel('lbl_firstName') +' - '+this.getLabel('lbl_lastName'), filter: false},
       citizenId: {
         title: this.getLabel('lbl_citizenid'),

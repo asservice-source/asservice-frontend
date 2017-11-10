@@ -25,7 +25,7 @@ export class ManagementStaffOsmListComponent extends BaseComponent implements On
     super();
     this.bean = new OSMBean();
     let _self = this;
-    this.settings = this.getTabelSetting({
+    this.settings = this.getTableSetting({
       villageNo : { title: 'หมู่บ้าน' ,filter: false, with: '140px'},
       fullName: {title: this.getLabel('lbl_firstName') +' - '+this.getLabel('lbl_lastName'), filter: false},
       citizenId: {title: this.getLabel('lbl_citizenid'), filter: false},

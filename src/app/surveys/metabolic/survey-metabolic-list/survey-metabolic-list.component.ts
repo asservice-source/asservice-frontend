@@ -39,7 +39,7 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
     super();
     this.api = new ApiHTTPService();
     let self = this;
-    this.settings = this.getTabelSetting({
+    this.settings = this.getTableSetting({
  
       fullName: {
         title: 'ชื่อ - นามสกุล',

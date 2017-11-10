@@ -38,7 +38,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
 
     let self = this;
 
-    self.settings = this.getTabelSetting({
+    self.settings = this.getTableSetting({
       fullName: {
         title: 'ชื่อ-สกุล',
         filter: false,

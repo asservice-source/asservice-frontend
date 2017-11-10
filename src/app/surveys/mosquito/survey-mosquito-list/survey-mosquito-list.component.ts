@@ -101,7 +101,7 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
     super();
     this.api = new ApiHTTPService();
     let self = this;
-    this.settings = this.getTabelSetting({
+    this.settings = this.getTableSetting({
 
       name: {
         title: 'ชื่อาอสาสมัคร',
