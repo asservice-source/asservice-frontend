@@ -37,6 +37,9 @@ export class BaseComponent implements OnInit {
     public getHospitalCode() {
         return "04269";
     }
+    public getUserFullname() {
+        return "อิฐิ กรณ์";
+    }
     public getTableSetting(columns: any) {
         var settings: any = {
             mode: 'external',
@@ -70,18 +73,21 @@ export class BaseComponent implements OnInit {
     }
     private isRefrestData = false;
     public onRowSelect(event): void {
+    
         if (this.isRefrestData) {
             this.isRefrestData = false;
             return;
         }
-        if (this.ng2STDataSource) {
-            this.ng2STDataSource.getElements().then(list => {
-                let page = this.ng2STDataSource.getPaging();
+        let source = event.source
+        if (source) {
+            
+            source.getElements().then(list => {
+                let page = source.getPaging();
                 let startSeq = page.page > 1 ? ((page.perPage * page.page) - page.perPage) + 1 : 1;
                 for (let item of list) {
                     item.squenceNo = '<div class="text-center">' + (startSeq++) + '</div>';
                 }
-                this.ng2STDataSource.refresh();
+                source.refresh();
                 this.isRefrestData = true;
             });
         }

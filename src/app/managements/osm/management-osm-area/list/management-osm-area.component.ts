@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { HomeBean } from '../../../beans/home.bean';
-import { BaseComponent } from '../../../base-component';
-import { ApiHTTPService } from '../../../service/api-http.service';
+import { HomeBean } from '../../../../beans/home.bean';
+import { BaseComponent } from '../../../../base-component';
+import { ApiHTTPService } from '../../../../service/api-http.service';
 import { LocalDataSource } from 'ng2-smart-table';
-import { ActionCustomViewComponent } from '../../../action-custom-table/action-custom-view.component';
+import { ActionCustomViewComponent } from '../../../../action-custom-table/action-custom-view.component';
 
+declare var $:any;
 @Component({
   selector: 'app-management-osm-area',
   templateUrl: './management-osm-area.component.html',
@@ -66,6 +67,9 @@ export class ManagementOsmAreaComponent extends BaseComponent implements OnInit 
 
   }
   onModalForm(){
-
+    $('#modalForm').modal();
+  }
+  onAdd(){
+    this.onModalForm();
   }
 }

@@ -22,7 +22,7 @@ import { ManagementStaffStaffListComponent } from "./../managements/staff/manage
 import { ManagementStaffOsmListComponent } from "./../managements/staff/manage-osm/list/management-staff-osm-list.component";
 import { ManagementStaffVillageListComponent } from "./../managements/staff/manage-village/list/management-staff-village-list.component";
 import { RegisterActiveComponent } from './../register/register-active/register-active.component';
-import { ManagementOsmAreaComponent } from "./../managements/osm/management-osm-area/management-osm-area.component";
+import { ManagementOsmAreaComponent } from "./../managements/osm/management-osm-area/list/management-osm-area.component";
 @NgModule({
   imports: [
     RouterModule.forRoot([
