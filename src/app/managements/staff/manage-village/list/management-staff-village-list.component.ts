@@ -79,4 +79,9 @@ export class ManagementStaffVillageListComponent extends BaseComponent implement
       this.bean = new VillageBean();
       this.onModalForm();
     }
+    onReturnAdd(response: any){
+      if('SUCCESS' == response.status.toUpperCase()){
+        this.setupDataList();
+      }
+    }
 }
