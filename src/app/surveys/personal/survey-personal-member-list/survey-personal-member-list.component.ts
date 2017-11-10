@@ -94,7 +94,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
       }
     });
 
-    self.settings2 = this.getTabelSetting({
+    self.settings2 = this.getTableSetting({
       fullName: {
         title: 'ชื่อ-สกุล',
         filter: false,
