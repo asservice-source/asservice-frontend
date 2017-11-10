@@ -109,7 +109,6 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
   }
 
   onChoosePersonal(bean: any): void {
-    console.log(" xxxx xxxx xxxx");
     console.log(bean);
     this.metabolicbean = new MetabolicBean();
     this.metabolicbean = bean;
@@ -148,12 +147,12 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
         self.activeBtnsmoke(self.data.smokingStatusId);
         self.activeBtnDrink(self.data.drinkingStatusId);
 
-        if(self.data.bp1){
+        if (self.data.bp1) {
           self.data.bp1MM = self.splitBP(self.data.bp1)[0];
           self.data.bp1HG = self.splitBP(self.data.bp1)[1];
         }
 
-        if(self.data.bp2){
+        if (self.data.bp2) {
           self.data.bp2MM = self.splitBP(self.data.bp2)[0];
           self.data.bp2HG = self.splitBP(self.data.bp2)[1];
         }
@@ -183,7 +182,6 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
     this.metabolicbean.isNewborn4kg = this.metabolicbean.isNewborn4kg || false;
     this.metabolicbean.isHeredityHypertension = this.metabolicbean.isHeredityHypertension || false;
 
-
     if (this.metabolicbean.smokingStatusId == '1') {
       if (!this.metabolicbean.rollPerDay || !this.metabolicbean.packPerYear) {
         this.isErrorSmoke = true;
@@ -208,39 +206,69 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
       this.isErrorDrink = false;
     }
 
-    if (this.metabolicbean.weight == undefined) {
+    if (!this.metabolicbean.weight) {
       this.isErrorWeight = true;
       validateform = false;
     } else {
       this.isErrorWeight = false;
     }
 
-    if (this.metabolicbean.height == undefined) {
+    if (!this.metabolicbean.height) {
       this.isErrorHeight = true;
       validateform = false;
     } else {
       this.isErrorHeight = false;
     }
 
-    if (this.metabolicbean.waistline == undefined) {
+    if (!this.metabolicbean.waistline) {
       this.isErrorWaistline = true;
       validateform = false;
     } else {
       this.isErrorWaistline = false;
     }
 
-    if (this.metabolicbean.bmi == undefined) {
+    if (!this.metabolicbean.bmi) {
       this.isErrorBMI = true;
       validateform = false;
     } else {
       this.isErrorBMI = false;
     }
 
+    if (this.metabolicbean.isPeripheralNeuropathy == true) {
+      if (!this.metabolicbean.peripheralName) {
+        this.isErrorPeripheralName = true;
+        validateform = false;
+      } else {
+        this.isErrorPeripheralName = false;
+      }
+    } else {
+      this.metabolicbean.peripheralName = undefined;
+    }
+
     if (this.metabolicbean.isOther == true) {
       if (!this.metabolicbean.otherComplication) {
         this.isErrorOthercomplication = true;
+        validateform = false;
+      } else {
+        this.isErrorOthercomplication = false;
       }
+    } else {
+      this.metabolicbean.otherComplication = undefined;
     }
+
+    if (this.metabolicbean.bp1MM && this.metabolicbean.bp1HG) {
+      this.metabolicbean.bp1 = this.metabolicbean.bp1MM + "/" + this.metabolicbean.bp1HG;
+    } else {
+      this.metabolicbean.bp1 = undefined;
+    }
+
+    if (this.metabolicbean.bp2MM && this.metabolicbean.bp2HG) {
+      this.metabolicbean.bp2 = this.metabolicbean.bp2MM + "/" + this.metabolicbean.bp2HG;
+    } else {
+      this.metabolicbean.bp2 = undefined;
+    }
+
+
 
     return validateform;
   }
@@ -300,15 +328,25 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
   clearDrinkValue() {
     this.metabolicbean.ofterPerWeek = undefined;
   }
-  addSurvey() {
-
-    if (this.validateForm() == true) {
-    }
-  }
 
   splitBP(value) {
     let bp = value.split("/");
     return bp;
+  }
+
+  addSurvey() {
+
+    if (this.validateForm() == true) {
+      let param = this.cloneObj(this.metabolicbean);
+      delete param.bp1MM;
+      delete param.bp1HG;
+      delete param.bp2MM;
+      delete param.bp2HG;
+      // param.isNewborn4kg = param.isNewborn4kg.toString();
+      // console.log("isNewborn4kg =" +param.isNewborn4kg.toString())
+      let params = JSON.stringify(param);
+      console.log(param);
+    }
   }
 
 }

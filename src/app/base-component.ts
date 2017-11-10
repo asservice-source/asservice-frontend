@@ -170,6 +170,7 @@ export class BaseComponent implements OnInit {
     public cloneObj(source: any): any{
         let destination:any = {};
         for (var field in source) {
+            if('squenceNo'==field)continue;
             destination[field] = source[field];
         }
 
