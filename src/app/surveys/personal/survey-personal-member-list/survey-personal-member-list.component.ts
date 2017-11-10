@@ -8,6 +8,7 @@ import { PersonBean } from '../../../beans/person.bean';
 import { ApiHTTPService } from '../../../service/api-http.service';
 import { PersonalMemberBean } from '../../../beans/personal-member.bean';
 declare var $;
+declare var bootbox: any;
 
 @Component({
   selector: 'app-survey-personal-member-list',
@@ -173,8 +174,8 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
       if (d != null && d.status.toUpperCase() == "SUCCESS") {
         // console.log(d);
         let data = d.response;
-        for(let item of data) {
-          if(item && item.isGuest === true) {
+        for (let item of data) {
+          if (item && item.isGuest === true) {
             self.tempData2.push(item);
           } else {
             self.tempData.push(item);
@@ -183,7 +184,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
 
         console.log(self.tempData);
         console.log(self.tempData2);
-        
+
         // self.tempData = d.response;
         self.source = self.ng2STDatasource(self.tempData);
         self.isShowTable = true;
@@ -207,13 +208,38 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
   onUpdatedMember(member: PersonalMemberBean) {
     let self = this;
 
+    let isActionAdd = (self.action == self.ass_action.ADD);
+    let isDuplicated = false;
+
     let index = -1;
     let tmpMember = member;
 
+    let listAll: Array<any> = [];
     for (let item of self.tempData) {
-      if (item.citizenId == member.citizenId) {
-        index = self.tempData.indexOf(item);
+      listAll.push(item);
+    }
+    for (let item of self.tempData2) {
+      listAll.push(item);
+    }
+
+    if (!isActionAdd) {
+      for (let item of listAll) {
+        if (item.citizenId == tmpMember.citizenId) {
+          index = listAll.indexOf(item);
+        }
       }
+    } else {
+      for (let item of listAll) {
+        if (item.citizenId == tmpMember.citizenId) {
+          isDuplicated = true;
+          break;
+        }
+      }
+    }
+
+    if (isDuplicated) {
+      bootbox.alert('Duplicated');
+      return;
     }
 
     let prefix = '';
@@ -230,7 +256,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     let gender = '';
     if (member.listGender) {
       for (let g of member.listGender) {
-        if (g.code == member.genderId) {
+        if (g.id == member.genderId) {
           gender = g.name;
           break;
         }
@@ -249,13 +275,18 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     }
     tmpMember.familyStatusName = familyStatus;
 
-    if (index >= 0) {
-      self.tempData[index] = tmpMember;
+    if (!isActionAdd) {
+      listAll[index] = tmpMember;
     } else {
-      self.tempData.push(tmpMember);
+      if (tmpMember.isGuest.toUpperCase() == 'TRUE') {
+        self.tempData2.push(tmpMember);
+      } else {
+        self.tempData.push(tmpMember);
+      }
     }
 
     self.source.refresh();
+    self.source2.refresh();
 
     $("#modalMember").modal('hide');
   }
