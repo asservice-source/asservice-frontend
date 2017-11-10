@@ -21,7 +21,7 @@ export class ManagementStaffVillageListComponent extends BaseComponent implement
     super();
     this.bean = new VillageBean();
     let _self = this;
-    this.settings = this.getTabelSetting({
+    this.settings = this.getTableSetting({
       villageNo: {
         title: 'หมู่ที่' ,
         filter: false,

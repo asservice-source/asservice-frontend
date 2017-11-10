@@ -37,7 +37,7 @@ export class BaseComponent implements OnInit {
     public getHospitalCode() {
         return "04269";
     }
-    public getTabelSetting(columns: any) {
+    public getTableSetting(columns: any) {
         var settings: any = {
             mode: 'external',
             attr: {

@@ -20,7 +20,7 @@ export class ManagementOsmAreaComponent extends BaseComponent implements OnInit 
   constructor() { 
     super();
     let _self = this;
-    this.settings = this.getTabelSetting({
+    this.settings = this.getTableSetting({
       homeNo: {
         title: "บ้านเลขที่",
         filter: false,

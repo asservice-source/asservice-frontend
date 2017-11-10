@@ -130,7 +130,7 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
       }
     };
 
-    this.settings = this.getTabelSetting(columns);
+    this.settings = this.getTableSetting(columns);
 
   }
   ngOnInit() {
