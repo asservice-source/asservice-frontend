@@ -1,0 +1,44 @@
+  <!-- Modal -->
+  <div class="modal fade" id="modalForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="false" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="myModalLabel">{{bean.villageId?'แก้ไข':'เพิ่ม'}}บ้าน</h4>
+        </div>
+        <div class="modal-body">
+
+          <div class="row">
+            <div class="col-md-4 text-right">
+              <label class="label-form">รหัสบ้าน</label>
+            </div>
+            <div class="col-md-5">
+              <div [InputValidate]="inputValidate" (notify)="validation($event)">
+                  <input type="text" [(ngModel)]="bean.villageNo" OnlyNumber="true">
+                  <label class="error">กรุณาใส่รหัสบ้าน</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4 text-right">
+              <label class="label-form">บ้านเลขที่</label>
+            </div>
+            <div class="col-md-5">
+              <div [InputValidate]="inputValidate" (notify)="validation($event)">
+                <input type="text" [(ngModel)]="bean.villageName">
+                <label class="error">กรุณาใส่บ้านเลขที่</label>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+        <div class="modal-footer">
+          
+          <button type="button" class="btn btn-sm btn-primary" (click)="onSave()">ตกลง</button>
+          <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">ยกเลิก</button>
+          
+        </div>
+      </div>
+    </div>
+  </div>
