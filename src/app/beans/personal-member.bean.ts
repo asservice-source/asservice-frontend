@@ -1,7 +1,7 @@
 export class PersonalMemberBean {    
     public citizenId: string = "";
     public fullName: string = "";
-    public genderCode: string = "";
+    public genderId: string = "";
     public genderName: string = "";
     public age: string = "";
 

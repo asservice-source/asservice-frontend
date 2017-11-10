@@ -26,7 +26,12 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
   public settings: any;
   public source: LocalDataSource;
   public isShowTable: boolean = false;
-  public tempData: Array<any>;
+  public tempData: Array<any> = [];
+
+  public settings2: any;
+  public source2: LocalDataSource;
+  public isShowTable2: boolean = false;
+  public tempData2: Array<any> = [];
 
   constructor(private http: Http, private router: Router, private route: ActivatedRoute, private changeRef: ChangeDetectorRef) {
     super();
@@ -34,6 +39,62 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     let self = this;
 
     self.settings = this.getTabelSetting({
+      fullName: {
+        title: 'ชื่อ-สกุล',
+        filter: false,
+        width: '300px'
+      },
+      citizenId: {
+        title: 'เลขประจำตัวประชาชน',
+        filter: false,
+        width: '300px'
+      },
+      genderName: {
+        title: 'เพศ',
+        filter: false,
+        width: '100px',
+        type: 'html',
+        valuePrepareFunction: (cell, row) => {
+          return '<div class="text-center">' + cell + '</div>';
+        }
+      },
+      age: {
+        title: 'อายุ',
+        filter: false,
+        width: '100px',
+        type: 'html',
+        valuePrepareFunction: (cell, row) => {
+          return '<div class="text-center">' + cell + '</div>';
+        }
+      },
+      familyStatusName: {
+        title: 'สถานะผู้อยู่อาศัย',
+        filter: false,
+        width: '200px',
+        type: 'html',
+        valuePrepareFunction: (cell, row) => {
+          return '<div class="text-center">' + cell + '</div>';
+        }
+      },
+      action: {
+        title: '',
+        filter: false,
+        width: '100px',
+        type: 'custom',
+        renderComponent: SurveyPersonalMemberListButtonEditComponent,
+        onComponentInitFunction(instance) {
+          instance.action.subscribe((row: PersonalMemberBean) => {
+            // console.log(row);
+            self.action = self.ass_action.EDIT;
+            self.paramMember = row;
+            self.changeRef.detectChanges();
+            $("#modalMember").modal({ backdrop: 'static', keyboard: false });
+          });
+        }
+      }
+    });
+
+    self.settings2 = this.getTabelSetting({
       fullName: {
         title: 'ชื่อ-สกุล',
         filter: false,
@@ -111,9 +172,25 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     self.apiHttp.post(URL_LIST_HOME_MEMBERS, params, function (d) {
       if (d != null && d.status.toUpperCase() == "SUCCESS") {
         // console.log(d);
-        self.tempData = d.response;
+        let data = d.response;
+        for(let item of data) {
+          if(item && item.isGuest === true) {
+            self.tempData2.push(item);
+          } else {
+            self.tempData.push(item);
+          }
+        }
+
+        console.log(self.tempData);
+        console.log(self.tempData2);
+        
+        // self.tempData = d.response;
         self.source = self.ng2STDatasource(self.tempData);
         self.isShowTable = true;
+
+        // self.tempData2 = d.response;
+        self.source2 = self.ng2STDatasource(self.tempData2);
+        self.isShowTable2 = true;
       } else {
         console.log('survey-personal-member-list(bindHomeMemberList) occured error(s) => ' + d.message);
       }
@@ -126,54 +203,6 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     //     self.setNg2STDatasource(self.source);
     //   });
   }
-
-  // onUpdatedMember(member: PersonalMemberBean) {
-  //   let self = this;
-
-  //   for (let item of self.tempData) {
-  //     if (item.citizenId == member.citizenId) {
-  //       let index = self.tempData.indexOf(item);
-  //       self.tempData[index] = member;
-
-  //       let prefix = '';
-  //       if (member.listPrefix) {
-  //         for (let p of member.listPrefix) {
-  //           if (p.code == member.prefixCode) {
-  //             prefix = p.name;
-  //             break;
-  //           }
-  //         }
-  //       }
-  //       self.tempData[index].fullName = self.getFullName(prefix, member.firstName, member.lastName);
-
-  //       let gender = '';
-  //       if (member.listGender) {
-  //         for (let g of member.listGender) {
-  //           if (g.code == member.genderCode) {
-  //             gender = g.name;
-  //             break;
-  //           }
-  //         }
-  //       }
-  //       self.tempData[index].genderName = gender;
-
-  //       let familyStatus = '';
-  //       if (member.listFamilyStatus) {
-  //         for (let g of member.listFamilyStatus) {
-  //           if (g.code == member.familyStatusCode) {
-  //             familyStatus = g.name;
-  //             break;
-  //           }
-  //         }
-  //       }
-  //       self.tempData[index].familyStatusName = familyStatus;
-  //     }
-  //   }
-
-  //   self.source.refresh();
-
-  //   $("#modalMember").modal('hide');
-  // }
 
   onUpdatedMember(member: PersonalMemberBean) {
     let self = this;
@@ -201,7 +230,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     let gender = '';
     if (member.listGender) {
       for (let g of member.listGender) {
-        if (g.code == member.genderCode) {
+        if (g.code == member.genderId) {
           gender = g.name;
           break;
         }
@@ -220,99 +249,15 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     }
     tmpMember.familyStatusName = familyStatus;
 
-    // console.log('==========================');
-    // console.log(tmpMember);
-    // console.log('==========================');
-
     if (index >= 0) {
       self.tempData[index] = tmpMember;
     } else {
       self.tempData.push(tmpMember);
     }
 
-    // console.log('==========================');
-    // console.log(self.tempData);
-    // console.log('==========================');
-
     self.source.refresh();
 
     $("#modalMember").modal('hide');
-  }
-
-  mappingPersonalMemberBean(data: any): Array<PersonalMemberBean> {
-    let self = this;
-
-    let memberList: Array<PersonalMemberBean> = new Array<PersonalMemberBean>();
-    for (let item of data) {
-      if (item) {
-        let member: PersonalMemberBean = new PersonalMemberBean();
-
-        member.citizenId = item.citizenId || '';
-
-        if (item.person) {
-
-          if (item.person.prefix) {
-            member.prefixCode = item.person.prefix.code;
-            member.fullName = self.getFullName(item.person.prefix.name, item.person.firstName, item.person.lastName);
-          }
-
-          if (item.person.gender) {
-            member.genderCode = item.person.gender.code;
-            member.genderName = item.person.gender.name;
-          }
-
-          member.birthDate = self.displayFormatDate(item.person.birthDate);
-          member.age = self.getAge(item.person.birthDate).toString();
-
-          if (item.person.typeArea) {
-            member.typeAreaCode = item.person.typeArea.code;
-          }
-
-          member.firstName = item.person.firstName;
-          member.lastName = item.person.lastName;
-
-          if (item.person.race) {
-            member.raceCode = item.person.race.code;
-          }
-
-          if (item.person.nationality) {
-            member.nationalityCode = item.person.nationality.code;
-          }
-
-          if (item.person.religion) {
-            member.religionCode = item.person.religion.code;
-          }
-
-          if (item.person.bloodType) {
-            member.bloodTypeId = item.person.bloodType.id;
-          }
-
-          if (item.person.rhGroup) {
-            member.rhGroupId = item.person.rhGroup.id;
-          }
-
-          if (item.person.education) {
-            member.educationCode = item.person.education.code;
-          }
-
-          if (item.person.occupation) {
-            member.occupationId = item.person.occupation.id;
-          }
-
-          if (item.familyStatus) {
-            member.familyStatusCode = item.familyStatus.code;
-          }
-
-        }
-
-        if (item.discharge) {
-          member.dischargeName = item.discharge.name;
-        }
-
-        memberList.push(member);
-      }
-    }
-    return memberList;
   }
 
   onClickAdd() {

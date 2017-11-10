@@ -313,7 +313,7 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
           self.member.prefixCode = personData.prefixCode;
           self.member.firstName = personData.firstName;
           self.member.lastName = personData.lastName;
-          self.member.genderCode = personData.genderId;
+          self.member.genderId = personData.genderId;
           self.member.raceCode = personData.raceCode;
           self.member.nationalityCode = personData.nationCode;
           self.member.religionCode = personData.religionCode;
