@@ -68,7 +68,7 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
     self.bindRHGroup();
     self.bindEducation();
     self.bindOccupation();
-    // self.bindDischarge();
+    self.bindDischarge();
     self.bindFamilyStatus();
   }
 
