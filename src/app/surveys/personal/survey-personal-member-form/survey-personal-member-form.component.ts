@@ -44,6 +44,7 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
   public listDischarge: any = [];
   public listFamilyStatus: any = [];
 
+  public isDisplayActionEdit: boolean = false;
   public isDisabledActionAdd: boolean = false;
   public isDisablePersonData: boolean = true;
 
@@ -77,10 +78,12 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
 
     $("#modalMember").on('show.bs.modal', function (e) {
       if (self.action == self.ass_action.EDIT) {
+        self.isDisplayActionEdit = true;
         self.isDisabledActionAdd = true;
         self.isDisablePersonData = false;
       } else {
         self.defaultValue();
+        self.isDisplayActionEdit = false;
         self.isDisabledActionAdd = false;
         self.isDisablePersonData = true;
       }
@@ -334,6 +337,20 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
 
   onClickSave() {
     let self = this;
+
+    if (self.action == self.ass_action.ADD) {
+      // let URL_INSERT_PERSON_INFO: string = "person/insert";
+      // let params = { "citizenId": "" };
+
+      // self.apiHttp.post(URL_INSERT_PERSON_INFO, params, function (d) {
+      //   if (d != null && d.status.toUpperCase() == "SUCCESS") {
+      //     console.log(d.response);
+      //     let personId = d.response;
+      //   } else {
+      //     console.log('survey-personal-member-form(insertPerson) occured error(s) => ' + d.message);
+      //   }
+      // });
+    }
 
     self.member.listPrefix = self.listPrefix;
     self.member.listGender = self.listGender;

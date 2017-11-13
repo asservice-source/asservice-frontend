@@ -182,9 +182,6 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
           }
         }
 
-        console.log(self.tempData);
-        console.log(self.tempData2);
-
         // self.tempData = d.response;
         self.source = self.ng2STDatasource(self.tempData);
         self.isShowTable = true;
@@ -263,6 +260,12 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
       }
     }
     tmpMember.genderName = gender;
+
+    if (member.birthDate) {
+      tmpMember.age = self.getAge(member.birthDate).toString();
+    } else {
+      tmpMember.age = '';
+    }
 
     let familyStatus = '';
     if (member.listFamilyStatus) {
