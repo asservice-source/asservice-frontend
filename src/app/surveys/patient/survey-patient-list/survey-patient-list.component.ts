@@ -138,9 +138,8 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
         onComponentInitFunction(instance) {
 
           instance.action.subscribe((row: PatientBean, cell) => {
-            console.log(row);
-            if(row && row.action.toUpperCase()==self.ass_action.EDIT){
-              self.patientbean = row;
+            if (row && row.action.toUpperCase() == self.ass_action.EDIT) {
+              self.patientbean = self.cloneObj(row);
               self.onModalFrom(self.ass_action.EDIT);
             }
           });

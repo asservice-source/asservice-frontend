@@ -25,6 +25,7 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
   public source: LocalDataSource = new LocalDataSource();
   public action: string = this.ass_action.ADD;
   public pregnantbean : PregnantBean = new PregnantBean();
+  
 
 
   constructor(private http: Http, private router: Router,private changeRef: ChangeDetectorRef) {

@@ -112,7 +112,6 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
 
   loadData() {
     let self = this;
-
     let params = {
       "documentId": "d4c8abf6-aeac-e711-ab84-005056c00008",
       "villageId": "",

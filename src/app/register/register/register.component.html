@@ -19,8 +19,8 @@
           </div>
 
           <div class="col-md-8">
-            <ng2-completer [datasource]="dataHospitals" [minSearchLength]="1" [(ngModel)]="registerBean.hospitalName" placeholder="ชื่อ รพ.สต."></ng2-completer>          
-              <label class="error2 col-md-12" *ngIf="isErrorHospital">กรุณาระบุ รพ.สต.</label>
+            <ng2-completer [datasource]="dataHospitals" [minSearchLength]="1" [(ngModel)]="registerBean.hospitalName" placeholder="ชื่อ รพ.สต."></ng2-completer>
+            <label class="error2 col-md-12" *ngIf="isErrorHospital">กรุณาระบุ รพ.สต.</label>
           </div>
         </div>
 
@@ -46,14 +46,14 @@
 
           <div class="col-md-8">
             <div class="col-md-6 " style="padding-left: 0px;">
-              <select class="ng-pristine ng-valid ng-touched" [(ngModel)]="registerBean.amphurCode" (change)="onAmphurChange()" [disabled]="registerBean.provinceID =='0' ?true:false" >
+              <select class="ng-pristine ng-valid ng-touched" [(ngModel)]="registerBean.amphurCode" (change)="onAmphurChange()" [disabled]="registerBean.provinceID =='0' ?true:false">
                 <option value="0">เลือกอำเภอ</option>
                 <option *ngFor="let item of amphurList" [value]="item.code">{{ item.name }}</option>
               </select>
               <label class="error2 col-md-12" *ngIf="isErrorAmphur">กรุณาระบุอำเภอ</label>
             </div>
             <div class="col-md-6 " style="padding-right: 0px;">
-              <select class="ng-pristine ng-valid ng-touched" [(ngModel)]="registerBean.tumbolID" (change)="onTumbolChange()" [disabled]="registerBean.amphurCode == '0'?true:false" >
+              <select class="ng-pristine ng-valid ng-touched" [(ngModel)]="registerBean.tumbolID" (change)="onTumbolChange()" [disabled]="registerBean.amphurCode == '0'?true:false">
                 <option value="0">เลือกตำบล</option>
                 <option *ngFor="let item of tumbolsList" [value]="item.codeId">{{ item.name }}</option>
               </select>
@@ -68,8 +68,8 @@
           </div>
 
           <div class="col-md-8 ">
-            <input class="ng-pristine ng-valid ng-touched" type="text" placeholder="รหัส 9 หลัก รพ.สต." [(ngModel)]="registerBean.code9" id="xxx2"
-            maxlength="9" [OnlyNumber]="true"  />
+            <input class="ng-pristine ng-valid ng-touched" type="text" placeholder="รหัส 9 หลัก รพ.สต." [(ngModel)]="registerBean.code9"
+              id="xxx2" maxlength="9" [OnlyNumber]="true" />
             <label class="error2 col-md-12" *ngIf="isErrorCode9">กรุณาระบุหมายเลขให้ครบ 9 หลัก</label>
           </div>
         </div>
@@ -80,8 +80,8 @@
           </div>
 
           <div class="col-md-8 ">
-            <input class="ng-pristine ng-valid ng-touched" type="text" placeholder="รหัส 5 หลัก" [(ngModel)]="registerBean.code5"
-            maxlength="5" [OnlyNumber]="true" />
+            <input class="ng-pristine ng-valid ng-touched" type="text" placeholder="รหัส 5 หลัก" [(ngModel)]="registerBean.code5" maxlength="5"
+              [OnlyNumber]="true" />
             <label class="error2 col-md-12" *ngIf="isErrorCode5">กรุณาระบุหมายเลขให้ครบ 5 หลัก</label>
           </div>
         </div>
@@ -93,7 +93,7 @@
 
           <div class="col-md-8 ">
             <input class="ng-pristine ng-valid ng-touched" type="text" placeholder="เลขประจำตัว 13 หลัก" [(ngModel)]="registerBean.contactCitizenId"
-            (keypress)="formatCitizenID()" maxlength="17" [OnlyNumber]="true" />
+              (keypress)="formatCitizenID()" maxlength="17" [OnlyNumber]="true" />
             <label class="error2 col-md-12" *ngIf="isErrorCitizenID">กรุณาระบุหมายเลขประจำตัวประชาชนให้ถูกต้อง</label>
           </div>
         </div>
@@ -104,7 +104,7 @@
           </div>
 
           <div class="col-md-8 ">
-            <select class="ng-pristine ng-valid ng-touched" [(ngModel)]="registerBean.contactPrefix" >
+            <select class="ng-pristine ng-valid ng-touched" [(ngModel)]="registerBean.contactPrefix">
               <option value="0">เลือกคำนำหน้า</option>
               <option *ngFor="let item of prefixList" [value]="item.code">{{ item.name }}</option>
             </select>
@@ -129,7 +129,7 @@
           </div>
 
           <div class="col-md-8 ">
-            <input class="ng-pristine ng-valid ng-touched" type="text" placeholder="สกุล" [(ngModel)]="registerBean.contactLastName" >
+            <input class="ng-pristine ng-valid ng-touched" type="text" placeholder="สกุล" [(ngModel)]="registerBean.contactLastName">
             <label class="error2 col-md-12" *ngIf="isErrorLastName">กรุณาระบุนามสกุล</label>
           </div>
         </div>
@@ -140,7 +140,7 @@
           </div>
 
           <div class="col-md-8 ">
-            <input class="ng-pristine ng-valid ng-touched" type="text" placeholder="อีเมล" [(ngModel)]="registerBean.contactEmail" >
+            <input class="ng-pristine ng-valid ng-touched" type="text" placeholder="อีเมล" [(ngModel)]="registerBean.contactEmail">
             <label class="error2 col-md-12" *ngIf="isErrorEmail">กรุณาระบุอีเมลให้ถูกต้อง</label>
           </div>
         </div>
@@ -152,7 +152,7 @@
 
           <div class="col-md-8 ">
             <input class="ng-pristine ng-valid ng-touched" type="text" placeholder="เบอร์โทรศัพท์" [(ngModel)]="registerBean.contactTelephone"
-            (keypress)="formatPhoneNumber()" maxlength="12" [OnlyNumber]="true" />
+              (keypress)="formatPhoneNumber()" maxlength="12" [OnlyNumber]="true" />
             <label class="error2 col-md-12" *ngIf="isErrorPhone">กรุณาระบุเบอร์โทรศัพท์ให้ถูกต้อง</label>
           </div>
         </div>
@@ -161,7 +161,7 @@
           <button class="btn btn-primary" (click)="doRegister()">สร้างบัญชี รพ.สต.</button>
           <!-- <button class="btn btn-primary">ยอนกลับ</button> -->
         </div>
-        
+
       </div>
     </div>
 

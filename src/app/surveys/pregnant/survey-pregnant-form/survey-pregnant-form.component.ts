@@ -37,6 +37,7 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
   }
 
   ngOnInit() {
+    this.onModalEvent();
   }
   changStatusNo() {
     if (this.mStatusNo > 0) {
@@ -57,21 +58,21 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
 
   }
 
-  onModalEvent(){
+  onModalEvent() {
     let self = this;
-    $('#modal-add-died').on('show.bs.modal', function (e) {
-      self.resetFind = self.resetFind+1;
-      if(self.action==self.ass_action.EDIT){
+    $('#find-person-md').on('show.bs.modal', function (e) {
+      self.resetFind = self.resetFind + 1;
+      if (self.action == self.ass_action.EDIT) {
         self.onChoosePersonal(self.data);
       }
 
       self.changeRef.detectChanges();
     })
-    $('#modal-add-died').on('hidden.bs.modal', function () {
+    $('#find-person-md').on('hidden.bs.modal', function () {
       console.log("hide.bs.modal");
       self.isShowForm = false;
       self.isFindPersonal = true;
-      self.resetFind = self.resetFind+1;
+      self.resetFind = self.resetFind + 1;
       self.changeRef.detectChanges();
     });
   }
