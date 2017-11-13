@@ -28,19 +28,19 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
   public surveyTypeCode: string = "METABOLIC";
   public isShowList: boolean = true;
   public source: LocalDataSource = new LocalDataSource();
-  public metabolicbean: MetabolicBean = new  MetabolicBean();
+  public metabolicbean: MetabolicBean = new MetabolicBean();
   public action: string = this.ass_action.ADD;
 
 
   private api: ApiHTTPService;
   public settings: any;
 
-  constructor(private http: Http, private router: Router,private changeRef: ChangeDetectorRef) {
+  constructor(private http: Http, private router: Router, private changeRef: ChangeDetectorRef) {
     super();
     this.api = new ApiHTTPService();
     let self = this;
     this.settings = this.getTableSetting({
- 
+
       fullName: {
         title: 'ชื่อ - นามสกุล',
         filter: false,
@@ -49,36 +49,36 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
         title: 'เลขประจำตัวประชาชน',
         filter: false,
         width: '200px',
-        type:'html',
-        valuePrepareFunction: (cell, row) => { 
-          return '<div class="text-center">'+cell+'</div>'
+        type: 'html',
+        valuePrepareFunction: (cell, row) => {
+          return '<div class="text-center">' +cell+ '</div>'
         }
       },
       homeNo: {
         title: 'บ้านเลขที่',
         filter: false,
         width: '100px',
-        type:'html',
-        valuePrepareFunction: (value) => { 
-          return '<div class="text-center">'+value+'</div>'
+        type: 'html',
+        valuePrepareFunction: (value) => {
+          return '<div class="text-center">' + value + '</div>'
         }
       },
       genderName: {
         title: 'เพศ',
         filter: false,
         width: '70px',
-        type:'html',
-        valuePrepareFunction: (cell, row) => { 
-          return '<div class="text-center">'+cell+'</div>'
+        type: 'html',
+        valuePrepareFunction: (cell, row) => {
+          return '<div class="text-center">' + cell + '</div>'
         }
       },
       age: {
         title: 'อายุ',
         filter: false,
         width: '80px',
-        type:'html',
-        valuePrepareFunction: (cell, row) => { 
-          return '<div class="text-center">'+cell+'</div>'
+        type: 'html',
+        valuePrepareFunction: (cell, row) => {
+          return '<div class="text-center">' + cell + '</div>'
         }
       },
       action: {
@@ -91,8 +91,8 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
         onComponentInitFunction(instance) {
 
           instance.action.subscribe((row: MetabolicBean, cell) => {
-            
-            if(row && row.action.toUpperCase()==self.ass_action.EDIT){
+
+            if (row && row.action.toUpperCase() == self.ass_action.EDIT) {
               self.metabolicbean = self.cloneObj(row);
               self.onModalFrom(self.ass_action.EDIT);
             }
@@ -104,9 +104,6 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
 
   ngOnInit() {
     this.loadData();
-    // this.api.api_HomeList('','', function(response){
-      
-    // });
   }
 
   save() {
@@ -114,16 +111,10 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
   }
 
   loadData() {
-     let self = this;
-    // this.http.get("assets/test-list.json") // retrieve data
-    //   .map(res => res.json())
-    //   .subscribe(function(response){
-    //     self.data = response;
-    //     self.setUpTable();
-    //   });
+    let self = this;
 
     let params = {
-      "documentId": "d4c8abf6-aeac-e711-ab84-005056c00008", 
+      "documentId": "d4c8abf6-aeac-e711-ab84-005056c00008",
       "villageId": "",
       "osmId": "",
       "name": ""
@@ -160,11 +151,45 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
     super.setNg2STDatasource(this.source);
   }
 
-  onModalFrom(action: string){
+  onModalFrom(action: string) {
     this.action = action;
     this.changeRef.detectChanges();
     $('#find-person-md').modal('show');
   }
- 
+
+  // formatCitizenID(cell) {
+  //   let self = this;
+
+  //   if (!self.isEmpty(cell)) {
+  //     let patternCitizen: string = "_-____-_____-__-_";
+  //     let patternCitizen_ex: string = "-";
+  //     let returnText = "";
+  //     let obj_1: number = cell.length;
+  //     let obj_2 = obj_1 - 1;
+  //     for (let i = 0; i < patternCitizen.length; i++) {
+  //       if (obj_2 == i && patternCitizen.charAt(i + 1) == patternCitizen_ex) {
+  //         returnText += cell + patternCitizen_ex;
+  //         cell = returnText;
+  //       }
+  //     }
+  //   }
+  // }
+
+  //    cc_format(value) {
+  //     var v = value.replace(/\s+/g, '').replace(/[^0-9]/gi, '')
+  //     var matches = v.match(/\d{4,16}/g);
+  //     var match = matches && matches[0] || ''
+  //     var parts = []
+
+  //     for (let i=0, len=match.length; i<len; i+=4) {
+  //         parts.push(match.substring(i, i+4))
+  //     }
+
+  //     if (parts.length) {
+  //         return parts.join('-')
+  //     } else {
+  //         return value
+  //     }
+  // }
 
 }

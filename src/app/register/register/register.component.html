@@ -94,7 +94,7 @@
           <div class="col-md-8 ">
             <input class="ng-pristine ng-valid ng-touched" type="text" placeholder="เลขประจำตัว 13 หลัก" [(ngModel)]="registerBean.contactCitizenId"
             (keypress)="formatCitizenID()" maxlength="17" [OnlyNumber]="true" />
-            <label class="error2 col-md-12" *ngIf="isErrorCitizenID">กรุณาระบุหมายเลขประจำตัวประชาชน ให้ครบ 13 หลัก</label>
+            <label class="error2 col-md-12" *ngIf="isErrorCitizenID">กรุณาระบุหมายเลขประจำตัวประชาชนให้ถูกต้อง</label>
           </div>
         </div>
 

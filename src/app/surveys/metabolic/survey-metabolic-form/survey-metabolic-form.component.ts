@@ -53,7 +53,7 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
   public afterDrink = this.classNotactive;
   public isRollPerDayDisabled = true;
   public isPackPerYearDisabled = true;
-  public isOfterPerWeekDisabled = true;
+  public isOftenPerWeekDisabled = true;
 
 
 
@@ -195,7 +195,7 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
     }
 
     if (this.metabolicbean.drinkingStatusId == '1') {
-      if (!this.metabolicbean.ofterPerWeek) {
+      if (!this.metabolicbean.oftenPerWeek) {
         this.isErrorDrink = true;
         validateform = false;
       }
@@ -303,19 +303,19 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
       this.drinks = this.classActive;
       this.noDrink = this.classNotactive;
       this.afterDrink = this.classNotactive;
-      this.isOfterPerWeekDisabled = false;
+      this.isOftenPerWeekDisabled = false;
       this.metabolicbean.drinkingStatusId = '1';
     } else if (values == '2') {
       this.noDrink = this.classActive;
       this.afterDrink = this.classNotactive;
       this.drinks = this.classNotactive;
-      this.isOfterPerWeekDisabled = true;
+      this.isOftenPerWeekDisabled = true;
       this.metabolicbean.drinkingStatusId = '2';
     } else if (values == '3') {
       this.afterDrink = this.classActive;
       this.noDrink = this.classNotactive;
       this.drinks = this.classNotactive;
-      this.isOfterPerWeekDisabled = true;
+      this.isOftenPerWeekDisabled = true;
       this.metabolicbean.drinkingStatusId = '3';
     }
   }
@@ -326,7 +326,7 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
   }
 
   clearDrinkValue() {
-    this.metabolicbean.ofterPerWeek = undefined;
+    this.metabolicbean.oftenPerWeek = undefined;
   }
 
   splitBP(value) {

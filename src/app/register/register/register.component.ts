@@ -133,9 +133,6 @@ export class RegisterComponent extends BaseComponent implements OnInit {
 
   doRegister() {
     let self = this;
-
-    //this.validateForm();
-    //console.log(this.validateForm());
     if (this.validateForm()) {
       let objvalidate = this.validateHostpital();
       if (objvalidate.addressFail == true) {
@@ -255,11 +252,12 @@ export class RegisterComponent extends BaseComponent implements OnInit {
   }
 
   validateForm() {
+
     let self = this;
     let validateForm = true;
     self.isFocusHospitalname = true;
 
-    if (self.isEmpty(self.registerBean.contactTelephone)) {
+    if (self.isEmpty(self.registerBean.contactTelephone) || self.registerBean.contactTelephone.length != 12) {
       self.isErrorPhone = true;
       validateForm = false;
     } else {
@@ -294,21 +292,29 @@ export class RegisterComponent extends BaseComponent implements OnInit {
       self.isErrorPrefix = false;
     }
 
-    if (self.isEmpty(self.registerBean.contactCitizenId) || self.registerBean.contactCitizenId.length < 17) {
+    if (!self.isEmpty(self.registerBean.contactCitizenId)) {
+      if(self.registerBean.contactCitizenId.length == 17){
+        let citi = self.formatForJson(self.registerBean.contactCitizenId);
+        if(self.isValidCitizenIdThailand(citi)){
+          self.isErrorCitizenID = false;
+        }else{
+          self.isErrorCitizenID = true;
+        }
+      }else{
+        self.isErrorCitizenID = true;
+      }
+    }else{
       self.isErrorCitizenID = true;
-      validateForm = false;
-    } else {
-      self.isErrorCitizenID = false;
     }
 
-    if (self.isEmpty(self.registerBean.code5) || self.registerBean.code5.length < 5) {
+    if (self.isEmpty(self.registerBean.code5) || self.registerBean.code5.length != 5) {
       self.isErrorCode5 = true;
       validateForm = false;
     } else {
       self.isErrorCode5 = false;
     }
 
-    if (self.isEmpty(self.registerBean.code9) || self.registerBean.code9.length < 9) {
+    if (self.isEmpty(self.registerBean.code9) || self.registerBean.code9.length != 9) {
       self.isErrorCode9 = true;
       validateForm = false;
     } else {
@@ -404,11 +410,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
   formatForJson(value) {
     let pure_value = value.split("-");
     let result = pure_value.join('');
-
-    // for(let i=0;i<=pure_value.length-1;i++){
-    //      result = result+pure_value[i];
-    // }
     return result;
   }
-
+ 
 }
