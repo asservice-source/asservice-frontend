@@ -61,12 +61,7 @@
                             <label class="label-form">กำหนดคลอด</label>
                         </div>
                         <div class="col-md-3">
-                            <div class="input-group date" data-provide="datepicker">
-                                <input type="text">
-                                <div class="input-group-addon">
-                                    <span class="glyphicon glyphicon-th"></span>
-                                </div>
-                            </div>
+                            <my-date-picker [options]="datePickerOptions" required></my-date-picker>
                         </div>
                     </div>
 
@@ -76,12 +71,7 @@
                             <label class="label-form">วันคลอด</label>
                         </div>
                         <div class="col-md-3">
-                            <div class="input-group date" data-provide="datepicker">
-                                <input type="text">
-                                <div class="input-group-addon">
-                                    <span class="glyphicon glyphicon-th"></span>
-                                </div>
-                            </div>
+                            <my-date-picker [options]="datePickerOptions" required></my-date-picker>
                         </div>
                     </div>
 
