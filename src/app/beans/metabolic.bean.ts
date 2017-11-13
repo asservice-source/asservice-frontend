@@ -65,10 +65,12 @@ export class MetabolicBean{
     public isHypertension : string;
     public isEyeComplication : string;
     public isKidneyComplication : string;
-    public isPeripheralNeuropathy : string;
+    public isPeripheralNeuropathy : boolean;
     public peripheralName : string;
-    public isNeuropathy : string;
+    public isNeuropathy : boolean;
     public isOther : boolean;
     public otherComplication : string;
+
+    public rowGUIDDetailInfo : string;
     
 }
