@@ -323,7 +323,11 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
           self.member.bloodTypeId = personData.bloodTypeID;
           self.member.rhGroupId = personData.rHGroupID;
           self.member.birthDate = personData.birthDate;
-          self.modelBirthDate = self.getCurrentDatePickerModel(personData.birthDate);
+
+          if (personData.birthDate) {
+            self.modelBirthDate = self.getCurrentDatePickerModel(personData.birthDate);
+          }
+
           self.member.educationCode = personData.educationCode;
           self.member.occupationId = personData.occupCode;
 

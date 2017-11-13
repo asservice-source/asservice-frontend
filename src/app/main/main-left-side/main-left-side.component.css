@@ -39,12 +39,12 @@
 }
 
 .sidebar-menu li.manage-menu-let{
-    background-color: #f39c12 !important;
-    border-bottom: 5px solid #f39c12;
+    background-color: #ffbf00 !important;
+    border-bottom: 5px solid #ffbf00;
 }
 .sidebar-menu li.manage-menu-let.active > a{
-    background-color: #f39c12 !important;
+    background-color: #ffbf00 !important;
 }
 .sidebar-menu li.manage-menu-let > a:hover{
-    background-color: #f39c12 !important;
+    background-color: #ffbf00 !important;
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { LabelManager } from "./label/label-manager";
 import { LocalDataSource } from 'ng2-smart-table';
-import { Utils, Action, SurveyHeaderTypeCode} from "./utils.util";
+import { Utils, Action, SurveyHeaderTypeCode } from "./utils.util";
 import * as myconf from "./global-config";
 import * as moment from 'moment'
 import { IMyDpOptions } from 'mydatepicker';
@@ -73,14 +73,14 @@ export class BaseComponent implements OnInit {
     }
     private isRefrestData = false;
     public onRowSelect(event): void {
-    
+
         if (this.isRefrestData) {
             this.isRefrestData = false;
             return;
         }
         let source = event.source
         if (source) {
-            
+
             source.getElements().then(list => {
                 let page = source.getPaging();
                 let startSeq = page.page > 1 ? ((page.perPage * page.page) - page.perPage) + 1 : 1;
@@ -168,18 +168,63 @@ export class BaseComponent implements OnInit {
         }
         return '' + m;
     }
-    public clearInputErrorClass(){
+    public clearInputErrorClass() {
         $('label.error').hide();
         $('.error-input').removeClass('error-input');
     }
 
-    public cloneObj(source: any): any{
-        let destination:any = {};
+    public cloneObj(source: any): any {
+        let destination: any = {};
         for (var field in source) {
-            if('squenceNo'==field)continue;
+            if ('squenceNo' == field) continue;
             destination[field] = source[field];
         }
 
         return destination;
+    }
+
+    public isValidCitizenId(id) {
+        // if (id.length != 13)
+        //     return false;
+
+        // let sum = 0;
+        // for (let i = 0, sum = 0; i < 12; i++)
+        //     sum += parseFloat(id.charAt(i)) * (13 - i);
+
+        // if ((11 - sum % 11) % 10 != parseFloat(id.charAt(12)))
+        //     return false;
+
+        // return true;
+    }
+
+    isValidCitizenIdThailand(s) {
+        let pin = 0, j = 13, pin_num = 0;
+        if (s == "") {
+            return;
+        }
+
+        let ChkPinID = true;
+        if (ChkPinID = false) { 
+            return false; 
+        }
+
+        if (s.length == 13) {
+            for (let i = 0; i < s.length; i++) {
+                if (i != 12) {
+                    pin = s.charAt(i) * j + pin;
+                }
+                j--;
+            }
+            pin_num = (11 - (pin % 11)) % 10;
+            if (s.charAt(12) != pin_num) {
+                // alert("เลขที่บัตรประจำตัวประชาชนไม่ถูกต้อง กรุณาป้อนเลขที่บัตรประจำตัวประชาชนอีกครั้ง");
+                return false;
+            }
+        } else {
+            // alert("เลขที่บัตรประจำตัวประชาชนไม่ถูกต้อง กรุณาป้อนเลขที่บัตรประจำตัวประชาชนอีกครั้ง");
+            return false;
+        }
+
+        return true;
     }
 }

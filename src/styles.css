@@ -110,3 +110,8 @@ color: white !important;
     border: 1px solid #af7a7a;
     background-color: #fff8f8;
 }
+
+.modal-header {
+    background-color: #ffbf00;
+    color: #ffffff;
+}

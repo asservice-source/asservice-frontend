@@ -1,36 +1,23 @@
 $.widget.bridge('uibutton', $.ui.button);
 
 //receive calls from typescript code to update the layouts
-var AdminLTE = (function() {
+var AdminLTE = (function () {
   return {
-    init: function() {
-      $(function(){
+    init: function () {
+      $(function () {
         $.AdminLTE.layout.activate();
         $.AdminLTE.layout.fix();
         $.AdminLTE.layout.fixSidebar();
       });
     }
   }
-})(AdminLTE||{});
+})(AdminLTE || {});
 
 var labelsConfig = undefined;
 
-$(function(){
+$(function () {
   // ng2-smart-table pagine
   $('[aria-label="First"]>span').text('<<');
   $('[aria-label="Last"]>span').text('>>');
-  
-});
 
-// (function (global) {
-//   System.config({
-//       paths: {
-//           'npm:': 'node_modules/'
-//       },
-//       map: {
-//           'mydatepicker': 'npm:mydatepicker/bundles/mydatepicker.umd.min.js'
-//       },
-//       packages: {
-//       }
-//   });
-// })(this);
+});
