@@ -299,12 +299,15 @@ export class RegisterComponent extends BaseComponent implements OnInit {
           self.isErrorCitizenID = false;
         }else{
           self.isErrorCitizenID = true;
+          validateForm = false;
         }
       }else{
         self.isErrorCitizenID = true;
+        validateForm = false;
       }
     }else{
       self.isErrorCitizenID = true;
+      validateForm = false;
     }
 
     if (self.isEmpty(self.registerBean.code5) || self.registerBean.code5.length != 5) {
