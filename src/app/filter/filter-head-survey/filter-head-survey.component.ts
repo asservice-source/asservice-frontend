@@ -32,7 +32,6 @@ export class FilterHeadSurveyComponent extends BaseComponent implements OnInit {
     super();
     this.api = new ApiHTTPService();
     this.filterBean = new FilterHeadSurveyBean();
-    this.filterBean.roundId = '1';
     this.filterBean.villageId = '';
     this.filterBean.osmId = '';
     this.filterBean.fullName = '';
@@ -48,7 +47,7 @@ export class FilterHeadSurveyComponent extends BaseComponent implements OnInit {
       _self.headerList = response;
       for(let item of _self.headerList){
         if(item.status == '2'){
-          _self.filterBean.roundId = item.rowGUID;
+          _self.filterBean.documentId = item.documentId;
           _self.description.round = item.round;
           _self.onSearchFilter();
           break;
@@ -115,7 +114,8 @@ export class FilterHeadSurveyComponent extends BaseComponent implements OnInit {
     str += ' , ชื่อ: ' + this.filterBean.fullName;
     this.filterBean.discription = str;
     this.notifyFilter.emit(this.filterBean);
-
+    console.log("=== Filter Header Search DocumentId ===");
+    console.log(this.filterBean);
   }
 
   onDropdownChange() {

@@ -4,8 +4,8 @@
         <label class="label-form">รอบสำรวจ</label>
     </div>
     <div class="col-md-4">
-        <select [(ngModel)]="filterBean.roundId" #round (change)="onChangeRound(round)">
-            <option *ngFor="let item of headerList" [value]="item.rowGUID">{{item.round}}</option>
+        <select [(ngModel)]="filterBean.documentId" #round (change)="onChangeRound(round)">
+            <option *ngFor="let item of headerList" [value]="item.documentId">{{item.round}}</option>
         </select>
     </div>
     <div class="col-md-1 text-right">
