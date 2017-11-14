@@ -24,7 +24,7 @@
                         <label class="label-form">สิทธิบัตร:</label>
                     </div>
                     <div class="col-md-2">
-                        <select [(ngModel)]="healtInsuranceTypeList.id">
+                        <select [(ngModel)]="metabolicbean.hInsuranceTypeId">
                             <option value="0">เลือก</option>
                             <option *ngFor="let item of healtInsuranceTypeList" value="{{item.id}}">{{item.code}}</option>
                         </select>

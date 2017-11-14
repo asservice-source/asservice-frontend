@@ -103,21 +103,26 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
   }
 
   ngOnInit() {
-    this.loadData();
+    // this.loadData();
   }
 
   save() {
     this.check = true
   }
 
-  loadData() {
+  loadData(event: FilterHeadSurveyBean) {
     let self = this;
+    // self.metabolicbean.documentId = JSON.stringify(self.metabolicbean.documentId);
+    // console.log("============================="+self.metabolicbean.documentId);
     let params = {
-      "documentId": "d4c8abf6-aeac-e711-ab84-005056c00008",
+      "documentId": event.rowGUID,
       "villageId": "",
       "osmId": "",
       "name": ""
     };
+
+    console.log("-------------------------------------------");
+    console.log(event.rowGUID);
 
     this.api.post('survey_metabolic/search_metabolic_list', params, function (resp) {
       console.log(resp);
@@ -141,7 +146,7 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
     this.isShowList = false;
   }
   onSearch(event: FilterHeadSurveyBean) {
-    this.setUpTable();
+    this.loadData(event);
   }
 
   setUpTable() {

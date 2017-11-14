@@ -334,18 +334,68 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
     return bp;
   }
 
-  addSurvey() {
+  // addApi() {
+  //   let self = this;
+  //   let params = {};
+  //   this.api.post('survey_metabolic/ins_upd_metabolic_info', params, function (resp) {
+  //     if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+  //       alert("Fuck");
+  //     }
+  //   })
+  // }
 
+  addSurvey() {
     if (this.validateForm() == true) {
-      let param = this.cloneObj(this.metabolicbean);
-      delete param.bp1MM;
-      delete param.bp1HG;
-      delete param.bp2MM;
-      delete param.bp2HG;
-      // param.isNewborn4kg = param.isNewborn4kg.toString();
-      // console.log("isNewborn4kg =" +param.isNewborn4kg.toString())
-      let params = JSON.stringify(param);
-      console.log(param);
+      let obj = {
+        oftenPerWeek : this.metabolicbean.oftenPerWeek,
+         isMetabolic : this.metabolicbean.isMetabolic,
+         isWaistlineOver : this.metabolicbean.isWaistlineOver,
+         isKidneyComplication : this.metabolicbean.isKidneyComplication,
+         isHypertension : this.metabolicbean.isHypertension,
+         isCholesterol : this.metabolicbean.isCholesterol,
+         isFBS : this.metabolicbean.isFBS,
+         smokingStatusId : this.metabolicbean.smokingStatusId,
+         packPerYear : this.metabolicbean.packPerYear,
+         rollPerDay : this.metabolicbean.rollPerDay,
+         osmId : this.metabolicbean.osmId,
+         waistline : this.metabolicbean.waistline,
+         isBPOver : this.metabolicbean.isBPOver,
+         drinkingStatusId : this.metabolicbean.drinkingStatusId,
+         homeId : this.metabolicbean.homeId,
+         hInsuranceTypeId : this.metabolicbean.hInsuranceTypeId,
+         isHeredityHypertension : this.metabolicbean.isHeredityHypertension,
+         height : this.metabolicbean.height,
+         bp1 : this.metabolicbean.bp1,
+         isHeredityMetabolic : this.metabolicbean.isHeredityMetabolic,
+         bp2 : this.metabolicbean.bp2,
+         isEyeComplication : this.metabolicbean.isEyeComplication,
+         isNeuropathy : this.metabolicbean.isNeuropathy,
+         weight : this.metabolicbean.weight,
+         otherComplication : this.metabolicbean.otherComplication,
+         peripheralName : this.metabolicbean.peripheralName,
+         fbs : this.metabolicbean.fbs,
+         isPeripheralNeuropathy : this.metabolicbean.isPeripheralNeuropathy,
+         documentId : this.metabolicbean.documentId,
+         isNewborn4kg : this.metabolicbean.isNewborn4kg,
+         rowGUID : this.metabolicbean.rowGUID,
+         isOther : this.metabolicbean.isOther,
+         bmi : this.metabolicbean.bmi,
+         personId : this.metabolicbean.personId,
+      }
+      let params = JSON.stringify(obj);
+      console.log(params);
+      this.api.post('survey_metabolic/ins_upd_metabolic_info', params, function (resp) {
+        if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+          alert("Fuck");
+        }
+      })
+
+      //  let headers = new Headers({ 'Content-Type': 'application/json' });
+      //   let options = new RequestOptions({ headers: headers, method: "post" });
+
+      //   this.http.post("http://192.168.2.227:8080/API-ASService/survey_metabolic/ins_upd_metabolic_info", params, options)
+      //       .map(res => res.json())
+      //       .subscribe( data => console.log("pass") )
     }
   }
 

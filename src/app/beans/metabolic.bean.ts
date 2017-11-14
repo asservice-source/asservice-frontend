@@ -29,6 +29,8 @@ export class MetabolicBean{
     public age: number;
     public address : string;
     public action: string;
+    public osmId;
+    public homeId;
   
     public isHeredityMetabolic: boolean = false;
     public isWaistlineOver: boolean = false;
@@ -37,6 +39,8 @@ export class MetabolicBean{
     public isCholesterol: boolean = false;
     public isNewborn4kg: boolean = false;
     public isHeredityHypertension: boolean = false;
+    public rowGUID : string;
+    public personId : string;
   
     public smokingStatusId : string ;
     public drinkingStatusId : string;
@@ -72,5 +76,6 @@ export class MetabolicBean{
     public otherComplication : string;
 
     public rowGUIDDetailInfo : string;
-    
+    public documentId : string;
+    public hInsuranceTypeId : string;
 }
