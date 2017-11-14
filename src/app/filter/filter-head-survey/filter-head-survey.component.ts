@@ -47,7 +47,7 @@ export class FilterHeadSurveyComponent extends BaseComponent implements OnInit {
       _self.headerList = response;
       for(let item of _self.headerList){
         if(item.status == '2'){
-          _self.filterBean.documentId = item.documentId;
+          _self.filterBean.rowGUID = item.rowGUID;
           _self.description.round = item.round;
           _self.onSearchFilter();
           break;
