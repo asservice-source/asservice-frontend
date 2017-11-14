@@ -1,7 +1,7 @@
-import { Component, OnInit ,AfterViewInit, ElementRef, ChangeDetectorRef, Input} from '@angular/core';
+import { Component, OnInit, ElementRef, ChangeDetectorRef, Input} from '@angular/core';
 import { PersonBean } from "../../../beans/person.bean";
 import { BaseComponent } from "../../../base-component";
-import { DiedBean } from '../../../beans/died.bean';
+import { DeadBean } from '../../../beans/dead.bean';
 import {IMyDpOptions} from 'mydatepicker';
 declare var $: any;
 @Component({
@@ -10,64 +10,57 @@ declare var $: any;
   styleUrls: ['./survey-died-form.component.css','../../../checkbox.css']
   
 })
-export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,AfterViewInit {
+export class SurveyDiedFormComponent extends BaseComponent implements OnInit {
   @Input() action: string;
-  @Input() data: DiedBean;
+  @Input() data: DeadBean;
   public isShowForm: boolean = false;
   public isFindPersonal: boolean = true;
   public resetFind: number = 1;
-  public diedBean: DiedBean;
-  //show = false;
+  public bean: DeadBean;
+  public causeList: Array<any> = [{
+    causeCode: 'DIABETES',
+    causeName: 'โรคเบาหวาน',
+    isCause: false,
+  },{
+    causeCode: 'HYPERTENSION',causeName: 'โรคความดันโลหิตสูง',isCause: false,
+  },{
+    causeCode: 'ACCIDENT',causeName: 'อุบัติเหตุ',isCause: false,
+  },{
+    causeCode: 'CANCER',causeName: 'โรคมะเร็ง',isCause: true,
+  },{
+    causeCode: 'OTHER',causeName: 'สาเหตุอื่นๆ',isCause: false,
+  }];
   constructor(private changeRef: ChangeDetectorRef) {
     super();
-    this.diedBean = new DiedBean();
-    this.diedBean.causeCode = '-1';
-
+    this.bean = new DeadBean();
    }
 
   ngOnInit() {
     this.onModalEvent();
   }
-
-  ngAfterViewInit(){
-    
-  }
-  onChangeCause(){
-    
-  }
+  
   onChangePlace(){
     
   }
 
   onChoosePersonal(bean:any):void {
-    console.log('== noti Choose ==');
-    console.log(this.action);
-    console.log(bean);
-    console.log('== == ==');
-
-/*    if(this.ass_action.ADD==this.action){
-      this.diedBean.citizenId = bean.citizenId;
-      this.diedBean.fullName = this.getFullName(bean.person.prefix.name, bean.person.firstName, bean.person.lastName);
-      this.diedBean.birthDate = bean.person.birthDate
-      this.diedBean.age = this.getAge(bean.person.birthDate);
-    }else if(this.ass_action.EDIT==this.action){
-      this.diedBean = bean;
-    }
-    */
-    this.diedBean = bean;
-    if(!this.diedBean.dateDied){
-      this.diedBean.dateDied = super.getCurrentDatePickerModel();
+    this.bean = bean;
+    if(!this.bean.dateDead){
+      
     }
     this.isFindPersonal = false;
     this.isShowForm = true;
   }
   onBack(){
-    this.diedBean = new DiedBean();
+    this.bean = new DeadBean();
     this.isFindPersonal = true;
     this.isShowForm = false;
     if(this.ass_action.EDIT == this.action){
       $('#modal-add-died').modal('hide');
     }
+  }
+  onSave(){
+    console.log(this.causeList);
   }
   onModalEvent(){
     let self = this;

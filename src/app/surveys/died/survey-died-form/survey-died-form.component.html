@@ -18,31 +18,34 @@
                 <label>ชื่อ</label>
               </div>
               <div class="col-md-5">
-                  <label class="value">{{diedBean.fullName}}</label>
+                  <label class="value">{{bean.fullName}}</label>
               </div>
             </div>
-            <div class="row">
-              <div class="col-md-4 text-right">
-                <label>อายุ</label>
-              </div>
-              <div class="col-md-4">
-                <label class="value">{{diedBean.age}}</label>
-              </div>
-            </div>
+            
             <div class="row">
               <div class="col-md-4 text-right">
                 <label>หมายเลขประจำตัว</label>
               </div>
               <div class="col-md-5">
-                <label class="value">{{diedBean.citizenId}}</label>
+                <label class="value">{{bean.citizenId}}</label>
               </div>
             </div>
+
+            <div class="row">
+              <div class="col-md-4 text-right">
+                <label>อายุ</label>
+              </div>
+              <div class="col-md-4">
+                <label class="value">{{bean.age}}</label>
+              </div>
+            </div>
+
             <div class="row">
               <div class="col-md-4 text-right">
                   <label>ที่อยู่</label>
               </div>
                <div class="col-md-5">
-                  <label class="value">11/1 ถ.ดินแดง ตำบลในเมือง อ.เมือง จ.ขอนแก่น</label>
+                  <label class="value">{{bean.address}}</label>
                </div>
             </div>
           <div class="row">
@@ -50,7 +53,7 @@
               <label>วันที่เสียชีวิต</label>
             </div>
             <div class="col-md-4">
-              <my-date-picker name="mydate" [options]="datePickerOptions" [(ngModel)]="diedBean.dateDied" required></my-date-picker>
+              <my-date-picker name="mydate" [options]="datePickerOptions" [(ngModel)]="bean.dateDied" required></my-date-picker>
               
             </div>
         </div>
@@ -60,57 +63,27 @@
             </div>
 
             <div class="col-md-5">
-
-              <div class="row">
+             
+              <div class="row" *ngFor="let item of causeList">
                 <div class="col-md-12">
                   <div class="checkbox">
                     <label class="label-form" style="font-size: 1em">
-                        <input type="checkbox">
+                        <input type="checkbox" name="{{item.causeCode}}" [(ngModel)]="item.isCause">
                         <span class="cr">
                             <i class="cr-icon fa fa-check"></i>
                         </span>
-                        อุบัติเหตุทางจราจร
+                        {{item.causeName}}
                     </label>
                   </div> 
                 </div>
               </div>
-
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="checkbox">
-                    <label class="label-form" style="font-size: 1em">
-                        <input type="checkbox">
-                        <span class="cr">
-                            <i class="cr-icon fa fa-check"></i>
-                        </span>
-                        ความดันโลหิตสูง
-                    </label>
-                  </div> 
-                </div>
-              </div>
-
-                <div class="row">
-                  <div class="col-md-4">
-                    <div class="checkbox">
-                      <label class="label-form" style="font-size: 1em">
-                          <input type="checkbox">
-                          <span class="cr">
-                              <i class="cr-icon fa fa-check"></i>
-                          </span>
-                          อื่นๆ ระบุ
-                      </label>
-                    </div> 
-                  </div>
-                  <div class="col-md-8">
-                    <input type="text">
-                  </div>
-                </div>
+            
           </div>
 
-            <div class="col-md-5" *ngIf="diedBean.causeCode==-9">
+            <div class="col-md-5" *ngIf="bean.causeCode==-9">
                 <div class="input-group date">
-                  <input type="text" [(ngModel)]="diedBean.causeOtherCode" placeholder="อื่นๆ ระบุ" >
-                  <div class="input-group-addon" (click)="diedBean.causeCode=''">
+                  <input type="text" [(ngModel)]="bean.causeOtherCode" placeholder="อื่นๆ ระบุ" >
+                  <div class="input-group-addon" (click)="bean.causeCode=''">
                     <span class="fa fa-remove"></span>
                   </div>
                 </div>
@@ -122,10 +95,35 @@
               <label >โรคประจำตัว</label>
             </div>
             <div class="col-md-5">
-              <select [(ngModel)]="diedBean.disease">
-                  <option value="1">มี</option>
-                  <option value="2">ไม่มี</option>
-                </select>
+              
+              <div class="row">
+
+                <div class="col-md-3">
+                  <div class="radio">
+                    <label class="label-form" style="font-size: 1em">
+                      <input type="radio" name="disease">
+                      <span class="cr">
+                        <i class="cr-icon fa fa-check"></i>
+                      </span>
+                      มี
+                    </label>
+                  </div> 
+                </div>
+
+                <div class="col-md-3">
+                  <div class="radio">
+                    <label class="label-form" style="font-size: 1em">
+                      <input type="radio" name="disease">
+                      <span class="cr">
+                        <i class="cr-icon fa fa-check"></i>
+                      </span>
+                      ไม่มี
+                    </label>
+                  </div> 
+                </div>
+
+              </div>
+
             </div>
           </div>
     
@@ -134,25 +132,25 @@
               <label>สถานที่เสียชีวิต</label>
             </div>
     
-            <div class="col-md-5" *ngIf="diedBean.placeCode!='-9'">
-              <select [(ngModel)]="diedBean.placeCode" (change)="onChangePlace()">
+            <div class="col-md-5" *ngIf="bean.placeCode!='-9'">
+              <select [(ngModel)]="bean.placeCode" (change)="onChangePlace()">
                   <option value="">---เลือกสถานที่---</option>
                   <option value="2">บ้าน</option>
                   <option value="3">แหล่งน้ำ</option>
                   <option value="-9">อื่นๆ</option>
               </select>
             </div>
-            <div class="col-md-5" *ngIf="diedBean.placeCode=='-9'">
+            <div class="col-md-5" *ngIf="bean.placeCode=='-9'">
                 <div class="input-group date">
-                  <input type="text" [(ngModel)]="diedBean.placeOtherName" placeholder="อื่นๆ ระบุ" >
-                  <div class="input-group-addon" (click)="diedBean.placeCode=''">
+                  <input type="text" [(ngModel)]="bean.placeOtherName" placeholder="อื่นๆ ระบุ" >
+                  <div class="input-group-addon" (click)="bean.placeCode=''">
                     <span class="fa fa-remove"></span>
                   </div>
                 </div>
             </div>
         </div>
           <div class="modal-footer">  
-            <button class="btn btn-sm btn-primary">ยืนยัน</button> &nbsp;&nbsp;
+            <button class="btn btn-sm btn-primary" (click)="onSave();">ยืนยัน</button> &nbsp;&nbsp;
             <button class="btn btn-sm btn-primary" (click)="onBack()">{{action==ass_action.EDIT?'ยกเลิก':'กลับ'}}</button>   
           </div>
 

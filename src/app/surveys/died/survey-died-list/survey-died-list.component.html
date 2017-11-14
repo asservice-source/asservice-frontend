@@ -15,7 +15,7 @@
     <div class="row" *ngIf="isShowList">
       <div class="col-lg-12">
         <div class="row" >
-          <div class="filter-discription" [innerHtml]="filterBean.discription"></div>
+          <div class="filter-discription" [innerHtml]="filterBean.description"></div>
           <ng2-smart-table [settings]="settings" [source]="source" (rowSelect)="onRowSelect($event)"></ng2-smart-table>
         </div>
       </div>
@@ -23,4 +23,4 @@
   </div>
 
 </div>
-<app-survey-died-form [action]='action' [data]="diedBean"></app-survey-died-form>
+<app-survey-died-form [action]='action' [data]="bean"></app-survey-died-form>

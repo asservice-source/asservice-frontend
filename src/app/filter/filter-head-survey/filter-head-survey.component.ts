@@ -112,7 +112,7 @@ export class FilterHeadSurveyComponent extends BaseComponent implements OnInit {
     str += ' , หมู่บ้าน: ' + this.description.village;
     str += ' , อสม.: ' + this.description.osm;
     str += ' , ชื่อ: ' + this.filterBean.fullName;
-    this.filterBean.discription = str;
+    this.filterBean.description = str;
     this.notifyFilter.emit(this.filterBean);
     console.log("=== Filter Header Search DocumentId ===");
     console.log(this.filterBean);

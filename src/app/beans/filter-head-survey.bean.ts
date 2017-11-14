@@ -4,5 +4,5 @@ export class FilterHeadSurveyBean {
     public osmId: string = '';
     public rowGUID: string = ''; 
     public fullName: string = '';
-    public discription: string = '';
+    public description: string = '';
 }

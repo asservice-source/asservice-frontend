@@ -1,6 +1,7 @@
 import { Component, OnInit, ReflectiveInjector } from '@angular/core';
 import { Http, RequestOptions, Headers, BrowserXhr, BaseRequestOptions, ResponseOptions, ConnectionBackend, XHRBackend, XSRFStrategy, CookieXSRFStrategy, BaseResponseOptions } from "@angular/http";
 import { BaseComponent } from '../base-component';
+import { FilterHeadSurveyBean } from '../beans/filter-head-survey.bean';
 export class ApiHTTPService extends BaseComponent implements OnInit {
     private http;
     constructor() {
@@ -59,6 +60,16 @@ export class ApiHTTPService extends BaseComponent implements OnInit {
         );
     }
 
+    public api_mapFilterSurveyHeader(filter: FilterHeadSurveyBean): any{
+        return (
+        {
+        "documentId": filter.rowGUID,
+        "villageId": filter.villageId,
+        "osmId": filter.osmId,
+        "name": filter.fullName
+       });
+
+    }
     public api_MenuLeft(callback: (doc: any) => void){
         this.post( 'app/menu'
             , {}

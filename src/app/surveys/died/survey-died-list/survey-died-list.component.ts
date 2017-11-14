@@ -3,8 +3,9 @@ import { BaseComponent } from "../../../base-component";
 import { ApiHTTPService } from "../../../service/api-http.service";
 import { ActionCustomViewComponent } from '../../../action-custom-table/action-custom-view.component';
 import { FilterHeadSurveyBean } from '../../../beans/filter-head-survey.bean';
-import { DiedBean } from '../../../beans/died.bean';
+import { DeadBean } from '../../../beans/dead.bean';
 import { LocalDataSource } from 'ng2-smart-table';
+import { Service_SurveyDead } from '../../../service/service-survey-dead';
 
 declare var $: any;
 
@@ -14,63 +15,22 @@ declare var $: any;
   styleUrls: ['./survey-died-list.component.css']
 })
 export class SurverDiedListComponent extends BaseComponent implements OnInit {
-  // Datatables options
-  // dtOptions: DataTables.Settings = {};
-  private api: ApiHTTPService;
+
+  private apiDead: Service_SurveyDead;
   public settings: any;
   public surveyTypeCode: string = this.surveyHeaderCode.DEATH;
   public isShowList: boolean = false;
   public action: string = this.ass_action.ADD;
-  public source: LocalDataSource = new LocalDataSource();
-  public diedBean: DiedBean = new DiedBean();
-  public filterBean: FilterHeadSurveyBean = new FilterHeadSurveyBean();
-  public datas = [
-    {
-      seq: 1,
-      fullName: "Mr. Leanne Graham",
-      citizenId: "1-4113-00-1349-8-9",
-      causeName: "ลืมหายใจ",
-      causeCode: "1",
-      age: 38,
-    },
-    {
-      seq: 2,
-      fullName: "Mr. Ervin Howell",
-      citizenId: "1-4113-00-1349-8-0",
-      causeName: "ลืมหายใจ",
-      causeCode: "1",
-      age: 37,
-    },
-    {
-      seq: 11,
-      fullName: "Mr. Nicholas DuBuque",
-      citizenId: "1-4113-00-2259-6-4",
-      causeName: "ลืมหายใจ",
-      causeCode: "1",
-      age: 3,
-    },
-    {
-      seq: 12,
-      fullName: "Mr. Nicholas DuBuque",
-      citizenId: "1-4113-00-2254-6-2",
-      causeName: "ลืมหายใจ",
-      causeCode: "1",
-      age: 4,
-    },
-    {
-      seq: 13,
-      fullName: "Mr. Nicholas DuBuque",
-      citizenId: "1-4113-00-3259-6-5",
-      causeName: "ลืมหายใจ",
-      causeCode: "1",
-      age: 42,
-
-    },
-  ];
+  public source: LocalDataSource;
+  public bean: DeadBean = new DeadBean();
+  public datas:any = [];
+  public filterBean: FilterHeadSurveyBean;
 
   constructor(private changeRef: ChangeDetectorRef) {
     super();
-    this.api = new ApiHTTPService();
+    this.source = new LocalDataSource();
+    this.apiDead = new Service_SurveyDead();
+    this.filterBean = new FilterHeadSurveyBean();
     let self = this;
     let columns = {
       fullName: {
@@ -86,7 +46,7 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
           return '<div class="text-center">'+cell+'</div>'
         }
       },
-      cause: {
+      causeOfDeath: {
         title: 'สาเหตุการเสียชีวิต',
         filter: false,
         width: '180px',
@@ -119,10 +79,10 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
              self.doClick(row);
            });
            */
-          instance.action.subscribe((row: DiedBean, cell) => {
+          instance.action.subscribe((row: DeadBean, cell) => {
             console.log(row);
             if(row && row.action.toUpperCase()==self.ass_action.EDIT){
-              self.diedBean = self.cloneObj(row);
+              self.bean = self.cloneObj(row);
               self.onModalForm(self.ass_action.EDIT);
             }
           });
@@ -134,14 +94,18 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
 
   }
   ngOnInit() {
-    this. setUpTable();
+
   }
   onChangeFilter(event: FilterHeadSurveyBean) {
    // this.isShowList = false;
   }
   onSearch(event: FilterHeadSurveyBean) {
     this.filterBean = event;
-    this. setUpTable();
+    let _self = this;
+    this.apiDead.getList(event, function(response){
+      _self.datas = response;
+      _self.setupTable();
+    });
   }
 
   onModalForm(action: string){
@@ -150,7 +114,7 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
     $('#modal-add-died').modal('show');
   }
 
-  setUpTable(){               
+  setupTable(){               
     this.source = new LocalDataSource(this.datas);
     this.isShowList = true;
     super.setNg2STDatasource(this.source);
