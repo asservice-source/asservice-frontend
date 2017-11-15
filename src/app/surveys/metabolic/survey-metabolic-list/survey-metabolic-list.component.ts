@@ -30,7 +30,7 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
   public source: LocalDataSource = new LocalDataSource();
   public metabolicbean: MetabolicBean = new MetabolicBean();
   public action: string = this.ass_action.ADD;
-
+  public filtersearch : FilterHeadSurveyBean;
 
   private api: ApiHTTPService;
   public settings: any;
@@ -103,7 +103,7 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
   }
 
   ngOnInit() {
-    // this.loadData();
+     
   }
 
   save() {
@@ -112,22 +112,17 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
 
   loadData(event: FilterHeadSurveyBean) {
     let self = this;
-    // self.metabolicbean.documentId = JSON.stringify(self.metabolicbean.documentId);
-    // console.log("============================="+self.metabolicbean.documentId);
-    let params = {
+    let param = {
       "documentId": event.rowGUID,
-      "villageId": "",
-      "osmId": "",
-      "name": ""
+      "villageId": event.villageId,
+      "osmId": event.osmId,
+      "name": event.fullName
     };
-
-    console.log("-------------------------------------------");
-    console.log(event.rowGUID);
+    let params = JSON.stringify(param);
 
     this.api.post('survey_metabolic/search_metabolic_list', params, function (resp) {
       console.log(resp);
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-        console.log(resp.response);
         self.data = resp.response;
         self.setUpTable();
       }
@@ -143,9 +138,10 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
 
   onChangeFilter(event: FilterHeadSurveyBean) {
     console.log("ChangeFilter");
-    this.isShowList = false;
+    //this.isShowList = false;
   }
   onSearch(event: FilterHeadSurveyBean) {
+    this.filtersearch = event;
     this.loadData(event);
   }
 
@@ -159,6 +155,12 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
     this.action = action;
     this.changeRef.detectChanges();
     $('#find-person-md').modal('show');
+  }
+
+  reloadData(event : any){
+    if(event){
+      this.loadData(this.filtersearch);
+    }
   }
 
   // formatCitizenID(cell) {

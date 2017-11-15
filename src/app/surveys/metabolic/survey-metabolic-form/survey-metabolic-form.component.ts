@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit, ChangeDetectorRef, Output,EventEmitter } from '@angular/core';
 import { Http, RequestOptions } from '@angular/http';
 import { Headers } from '@angular/http';
 import { NgModel } from '@angular/forms';
@@ -7,7 +7,8 @@ import { BaseComponent } from '../../../base-component';
 import { MetabolicBean } from '../../../beans/metabolic.bean';
 import { ApiHTTPService } from '../../../service/api-http.service';
 
-declare var $: any;
+declare var bootbox: any;
+declare var $:any;
 
 @Component({
   selector: 'app-survey-metabolic-form',
@@ -23,6 +24,8 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
   @Input() set citizenID(citizenID: string) {
     this.personBean.citizenId = citizenID;
   }
+
+  @Output() completed : EventEmitter<any> = new EventEmitter<any>();
 
   public metabolicbean: MetabolicBean;
   public isFindPersonal: boolean = true;
@@ -62,15 +65,16 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
 
   constructor(private http: Http, private changeRef: ChangeDetectorRef) {
     super();
-    console.log(this.metabolicbean);
+    //console.log(this.metabolicbean);
     this.metabolicbean = new MetabolicBean();
     this.api = new ApiHTTPService();
-    this.getHealtinsuranceType();
+    
 
   }
 
   ngOnInit() {
     this.onModalEvent();
+    this.getHealtinsuranceType();
   }
 
   ngAfterViewInit() {
@@ -345,6 +349,7 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
   // }
 
   addSurvey() {
+    let self = this;
     if (this.validateForm() == true) {
       let obj = {
         oftenPerWeek : this.metabolicbean.oftenPerWeek,
@@ -386,16 +391,18 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
       console.log(params);
       this.api.post('survey_metabolic/ins_upd_metabolic_info', params, function (resp) {
         if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-          alert("Fuck");
+          $("#find-person-md").modal('hide');
+          self.completed.emit(true);
+          bootbox.alert({
+            size: "large",
+            title: "<div style='color:#5cb85c;font-weight: bold;'><span class='glyphicon glyphicon-ok'></span> ส่งแบบสำรวจสำเร็จ</div>",
+            message: "ท่านได้ทำการส่งแบบสำรวจความเสี่ยงโรค Metabolic แล้ว",
+            callback: function () { 
+
+           }
+          });
         }
       })
-
-      //  let headers = new Headers({ 'Content-Type': 'application/json' });
-      //   let options = new RequestOptions({ headers: headers, method: "post" });
-
-      //   this.http.post("http://192.168.2.227:8080/API-ASService/survey_metabolic/ins_upd_metabolic_info", params, options)
-      //       .map(res => res.json())
-      //       .subscribe( data => console.log("pass") )
     }
   }
 
