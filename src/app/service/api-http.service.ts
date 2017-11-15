@@ -120,5 +120,8 @@ export class ApiHTTPService extends BaseComponent implements OnInit {
         this.callResponse('survey/survey_header_list', {"headerTypeCode": headerTypeCode, "hospitalCode": this.getHospitalCode()}, callback);
     }
 
+    public api_CancerList(callback: (doc: any) => void){
+        this.callResponse('person/cancer_type_list', {}, callback);
+    }
 
 }

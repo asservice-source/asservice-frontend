@@ -64,7 +64,7 @@
 
             <div class="col-md-5">
              
-              <div class="row" *ngFor="let item of causeList">
+              <!-- <div class="row" *ngFor="let item of causeList">
                 <div class="col-md-12">
                   <div class="checkbox">
                     <label class="label-form" style="font-size: 1em">
@@ -76,8 +76,87 @@
                     </label>
                   </div> 
                 </div>
+              </div> -->
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="checkbox">
+                    <label class="label-form">
+                        <input type="checkbox" [(ngModel)]="bean.isDiabetes">
+                        <span class="cr">
+                            <i class="cr-icon fa fa-check"></i>
+                        </span>
+                        โรคเบาหวาน
+                    </label>
+                  </div> 
+                </div>
               </div>
-            
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="checkbox">
+                    <label class="label-form">
+                        <input type="checkbox" [(ngModel)]="bean.isHypertension">
+                        <span class="cr">
+                            <i class="cr-icon fa fa-check"></i>
+                        </span>
+                        โรคความดันโลหิตสูง
+                    </label>
+                  </div> 
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="checkbox">
+                    <label class="label-form">
+                        <input type="checkbox" [(ngModel)]="bean.isAccident">
+                        <span class="cr">
+                            <i class="cr-icon fa fa-check"></i>
+                        </span>
+                        อุบัติเหตุ
+                    </label>
+                  </div> 
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4" style="padding-right: 0">
+                  <div class="checkbox">
+                    <label class="label-form">
+                        <input type="checkbox" [(ngModel)]="bean.isCancer" >
+                        <span class="cr">
+                            <i class="cr-icon fa fa-check"></i>
+                        </span>
+                        โรคมะเร็ง
+                    </label>
+                  </div> 
+                </div>
+                <div class="col-md-8" style="padding-left: 0">
+                  <select [(ngModel)]="bean.cancerTypeID" [disabled]="!bean.isCancer">
+                    <option value="">---เลือก---</option>
+                    <option *ngFor="let item of cancerList" [value]="item.id">{{item.name}}</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4" style="padding-right: 0">
+                    <div class="checkbox">
+                      <label class="label-form">
+                          <input type="checkbox" [(ngModel)]="isCauseOther">
+                          <span class="cr">
+                              <i class="cr-icon fa fa-check"></i>
+                          </span>
+                          สาเหตุอื่นๆ
+                      </label>
+                    </div> 
+                  </div>
+                <div class="col-md-8" style="padding-left: 0">
+                  <input type="text" [(ngModel)]="bean.causeOther" placeholder="ระบุ สาเหตุอื่นๆ" [disabled]="!isCauseOther">
+                </div>
+              </div>
+
           </div>
 
             <div class="col-md-5" *ngIf="bean.causeCode==-9">
@@ -101,7 +180,7 @@
                 <div class="col-md-3">
                   <div class="radio">
                     <label class="label-form" style="font-size: 1em">
-                      <input type="radio" name="disease">
+                      <input type="radio" name="disease" value="true" [(ngModel)]="bean.isCongenitalDisease" [checked]="bean.isCongenitalDisease">
                       <span class="cr">
                         <i class="cr-icon fa fa-check"></i>
                       </span>
@@ -113,7 +192,7 @@
                 <div class="col-md-3">
                   <div class="radio">
                     <label class="label-form" style="font-size: 1em">
-                      <input type="radio" name="disease">
+                      <input type="radio" name="disease" value="false" [(ngModel)]="bean.isCongenitalDisease" [checked]="!bean.isCongenitalDisease">
                       <span class="cr">
                         <i class="cr-icon fa fa-check"></i>
                       </span>
