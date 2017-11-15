@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ChangeDetectorRef, Input} from '@angular/core';
+import { Component, OnInit, ElementRef, ChangeDetectorRef, Input, AfterViewInit} from '@angular/core';
 import { PersonBean } from "../../../beans/person.bean";
 import { BaseComponent } from "../../../base-component";
 import { DeadBean } from '../../../beans/dead.bean';
@@ -11,7 +11,7 @@ declare var $: any;
   styleUrls: ['./survey-died-form.component.css','../../../checkbox.css']
   
 })
-export class SurveyDiedFormComponent extends BaseComponent implements OnInit {
+export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,AfterViewInit{
   @Input() action: string;
   @Input() data: DeadBean;
   public apiDead : Service_SurveyDead;
@@ -32,8 +32,23 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit {
   ngOnInit() {
     this.onModalEvent();
     this.setupCancerList();
+   
+    
+  
+  }
+
+  ngAfterViewInit(){
+    $(function(){
+      $('.datepicker').datepicker({
+        language:'th',
+        format:'dd/mm/yyyy'
+      });
+    });
   }
   
+  ngOnDestroy(){
+    console.log("++On Destroy++");
+  }
   setupCancerList(){
     let _self = this;
     this.apiDead.apiHTTPService.api_CancerList(function(response){
