@@ -20,9 +20,14 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
   private apiHttp: ApiHTTPService = new ApiHTTPService();
 
   private paramHomeId: string;
+  private paramRound: string;
 
   public action: string = this.ass_action.ADD;
   public paramMember: PersonalMemberBean = new PersonalMemberBean();
+
+  public homeAddress: string = "";
+  public homeTel: string = "";
+  public osmFullName: string = "";
 
   public settings: any;
   public source: LocalDataSource;
@@ -154,6 +159,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
 
   ngOnInit() {
     this.receiveParameters();
+    this.bindHomeInfo();
     this.bindHomeMemberList();
     this.onReadyjQuery();
   }
@@ -161,6 +167,25 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
   receiveParameters() {
     this.route.params.subscribe(params => {
       this.paramHomeId = params['homeId'];
+      this.paramRound = params['roundId'];
+    });
+  }
+
+  bindHomeInfo() {
+    let self = this;
+
+    let URL_LIST_HOME_MEMBERS: string = "home/home_info";
+    let params = { "homeId": this.paramHomeId };
+
+    self.apiHttp.post(URL_LIST_HOME_MEMBERS, params, function (d) {
+      if (d != null && d.status.toUpperCase() == "SUCCESS") {
+        console.log(d);
+        self.homeAddress = d.address;
+        self.homeTel = d.telephone;
+        self.osmFullName = d.OsmFullName;
+      } else {
+        console.log('survey-personal-member-list(bindHomeInfo) occured error(s) => ' + d.message);
+      }
     });
   }
 
