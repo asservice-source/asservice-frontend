@@ -125,7 +125,7 @@ export class BaseComponent implements OnInit {
     strNullToEmpty(obj: any): any {
         for (var key in obj) {
             if (obj[key] == null || obj[key] == undefined) {
-                obj[key] = '';
+                obj[key] = "";
             }
         }
         return obj;

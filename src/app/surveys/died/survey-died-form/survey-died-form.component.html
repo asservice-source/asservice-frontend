@@ -179,8 +179,8 @@
 
                 <div class="col-md-3">
                   <div class="radio">
-                    <label class="label-form" style="font-size: 1em">
-                      <input type="radio" name="disease" value="true" [(ngModel)]="bean.isCongenitalDisease" [checked]="bean.isCongenitalDisease">
+                    <label class="label-form">
+                      <input type="radio" name="disease" [value]="true" [(ngModel)]="bean.isCongenitalDisease">
                       <span class="cr">
                         <i class="cr-icon fa fa-check"></i>
                       </span>
@@ -191,8 +191,8 @@
 
                 <div class="col-md-3">
                   <div class="radio">
-                    <label class="label-form" style="font-size: 1em">
-                      <input type="radio" name="disease" value="false" [(ngModel)]="bean.isCongenitalDisease" [checked]="!bean.isCongenitalDisease">
+                    <label class="label-form">
+                      <input type="radio" name="disease" [value]="false" [(ngModel)]="bean.isCongenitalDisease">
                       <span class="cr">
                         <i class="cr-icon fa fa-check"></i>
                       </span>

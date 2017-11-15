@@ -61,10 +61,7 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit {
       $('#modal-add-died').modal('hide');
     }
   }
-  onSave(){
-    console.log("Saving");
-    console.log(this.bean);
-  }
+  
   onModalEvent(){
     let _self = this;
     $('#modal-add-died').on('show.bs.modal', function (e) {
@@ -87,5 +84,15 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit {
       _self.resetFind = _self.resetFind+1;
       _self.changeRef.detectChanges();
     });
+  }
+
+  onSave(){
+    console.log("Saving");
+    console.log(this.bean);
+    console.log(this.strNullToEmpty(this.apiDead.map(this.bean)));
+    let _self = this;
+    // _self.apiDead.commit_save(_self.bean, function(response){
+
+    // });
   }
 }
