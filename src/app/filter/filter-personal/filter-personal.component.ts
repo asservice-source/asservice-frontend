@@ -114,7 +114,7 @@ export class FilterPersonalComponent extends BaseComponent implements OnInit {
   }
 
   onChangeRound(select: any) {
-    console.log(select);
+    // console.log(select);
     for (let item of select.options) {
       if (item.value == select.value) {
         this.description.round = item.text;
@@ -129,9 +129,10 @@ export class FilterPersonalComponent extends BaseComponent implements OnInit {
   onClearFilter() {
     let self = this;
 
-    this.filterBean.villageId = "";
-    this.filterBean.osmId = "";
-    this.filterBean.homeId = "";
+    self.filterBean.roundId = "";
+    self.filterBean.villageId = "";
+    self.filterBean.osmId = "";
+    self.filterBean.homeId = "";
 
     self.isDisabledOSM = true;
     self.isDisabledHomeNo = true;

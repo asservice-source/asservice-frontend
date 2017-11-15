@@ -21,5 +21,6 @@ export class PersonalBasicBean{
     public provinceCode: string;
     public provinceName: string;
     public zipcode: string;
+    public osmId;
     
 }

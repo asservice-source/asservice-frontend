@@ -21,6 +21,8 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
   public action: string = this.ass_action.ADD;
   public paramHome: PersonalHomeBean = new PersonalHomeBean();
 
+  public filterRoundId: string = "";
+
   public settings: any;
   public source: LocalDataSource;
   public isShowTable: boolean = false;
@@ -70,7 +72,7 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
         type: 'html',
         valuePrepareFunction: (cell, row) => {
           var surveyStatus = '';
-          if(cell === true) {
+          if (cell === true) {
             surveyStatus = '<div class="text-center" style="color: green;">สำรวจแล้ว</div>';
           } else {
             surveyStatus = '<div class="text-center" style="color: red;">ยังไม่สำรวจ</div>';
@@ -88,7 +90,8 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
           instance.action.subscribe((row: PersonalHomeBean) => {
             console.log(row);
             let homeId = row.homeId;
-            self.router.navigate(['/main/surveys/personal-detail', homeId]);
+            let roundId = self.filterRoundId;
+            self.router.navigate(['/main/surveys/personal-detail', homeId, roundId]);
           });
         }
       }
@@ -110,6 +113,7 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
     let villageId = event.villageId;
     let osmId = event.osmId;
     let homeId = event.homeId;
+    self.filterRoundId = roundId;
 
     self.bindHomeList(roundId, villageId, osmId, homeId);
 

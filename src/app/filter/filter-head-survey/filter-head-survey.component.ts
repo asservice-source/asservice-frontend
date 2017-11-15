@@ -46,6 +46,7 @@ export class FilterHeadSurveyComponent extends BaseComponent implements OnInit {
     this.api.api_SurveyHeaderList(this.surveyTypeCode, function(response){
       _self.headerList = response;
       for(let item of _self.headerList){
+        _self.filterBean.status = item.status;
         if(item.status == '2'){
           _self.filterBean.rowGUID = item.rowGUID;
           _self.description.round = item.round;

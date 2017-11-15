@@ -28,6 +28,7 @@ export class PersonalMemberBean {
     public familyStatusName: string = "";
     public congenitalDisease: string = "";
     public remark: string = "";
+    public osmId;
 
     public listPrefix: any = [];
     public listGender: any = [];

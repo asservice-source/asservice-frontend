@@ -65,10 +65,10 @@ export class MetabolicBean{
 
     public fbs: string;
 
-    public isMetabolic : string;
-    public isHypertension : string;
-    public isEyeComplication : string;
-    public isKidneyComplication : string;
+    public isMetabolic : boolean;
+    public isHypertension : boolean;
+    public isEyeComplication : boolean;
+    public isKidneyComplication : boolean;
     public isPeripheralNeuropathy : boolean;
     public peripheralName : string;
     public isNeuropathy : boolean;

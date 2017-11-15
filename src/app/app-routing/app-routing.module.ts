@@ -105,7 +105,7 @@ import { ManagementOsmAreaComponent } from "./../managements/osm/management-osm-
               component: SurveyPersonalHomeListComponent
             },
             {
-              path: 'personal-detail/:homeId',
+              path: 'personal-detail/:homeId/:roundId',
               component: SurveyPersonalMemberListComponent
             },
             {

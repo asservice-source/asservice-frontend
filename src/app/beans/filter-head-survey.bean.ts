@@ -5,4 +5,5 @@ export class FilterHeadSurveyBean {
     public rowGUID: string = ''; 
     public fullName: string = '';
     public description: string = '';
+    public status : string;
 }

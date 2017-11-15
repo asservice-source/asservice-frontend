@@ -25,4 +25,4 @@
 </div>
 
 
-<app-survey-metabolic-form [action]='action' [data]="metabolicbean" (completed)="reloadData($event);"></app-survey-metabolic-form>
+<app-survey-metabolic-form [action]='action' [data]="metabolicbean" [documentId]="documentId" (completed)="reloadData($event);"></app-survey-metabolic-form>
