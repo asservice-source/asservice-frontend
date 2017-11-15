@@ -47,5 +47,6 @@ export class PersonBean {
     public tumbolName: string = "";
     public amphurName: string = "";
     public provinceName: string = "";
+    public osmId;
 
 }

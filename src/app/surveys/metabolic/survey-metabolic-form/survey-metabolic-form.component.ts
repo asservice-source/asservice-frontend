@@ -19,7 +19,7 @@ declare var $:any;
 export class SurveyMetabolicFormComponent extends BaseComponent implements OnInit, AfterViewInit {
   @Input() action: string;
   @Input() data: MetabolicBean;
-
+  @Input() documentId : string;
 
   @Input() set citizenID(citizenID: string) {
     this.personBean.citizenId = citizenID;
@@ -88,6 +88,7 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.healtInsuranceTypeList = resp.response;
         self.healtInsuranceTypeList.id = 89;
+        self.metabolicbean.hInsuranceTypeId=self.healtInsuranceTypeList.id;
       }
     })
   }
@@ -185,6 +186,14 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
     this.metabolicbean.isCholesterol = this.metabolicbean.isCholesterol || false;
     this.metabolicbean.isNewborn4kg = this.metabolicbean.isNewborn4kg || false;
     this.metabolicbean.isHeredityHypertension = this.metabolicbean.isHeredityHypertension || false;
+
+    this.metabolicbean.isEyeComplication = this.metabolicbean.isEyeComplication || false;
+    this.metabolicbean.isMetabolic = this.metabolicbean.isMetabolic || false;
+    this.metabolicbean.isHypertension = this.metabolicbean.isHypertension || false;
+    this.metabolicbean.isKidneyComplication = this.metabolicbean.isKidneyComplication || false;
+    this.metabolicbean.isPeripheralNeuropathy = this.metabolicbean.isPeripheralNeuropathy || false;
+    this.metabolicbean.isNeuropathy = this.metabolicbean.isNeuropathy || false;
+    this.metabolicbean.isOther = this.metabolicbean.isOther || false;
 
     if (this.metabolicbean.smokingStatusId == '1') {
       if (!this.metabolicbean.rollPerDay || !this.metabolicbean.packPerYear) {
@@ -338,58 +347,57 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
     return bp;
   }
 
-  // addApi() {
-  //   let self = this;
-  //   let params = {};
-  //   this.api.post('survey_metabolic/ins_upd_metabolic_info', params, function (resp) {
-  //     if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-  //       alert("Fuck");
-  //     }
-  //   })
-  // }
 
   addSurvey() {
     let self = this;
+
+    console.log(this.documentId);
+    if(this.action == this.ass_action.ADD){
+      this.metabolicbean.documentId = this.documentId;
+    }
+
     if (this.validateForm() == true) {
       let obj = {
-        oftenPerWeek : this.metabolicbean.oftenPerWeek,
-         isMetabolic : this.metabolicbean.isMetabolic,
-         isWaistlineOver : this.metabolicbean.isWaistlineOver,
-         isKidneyComplication : this.metabolicbean.isKidneyComplication,
-         isHypertension : this.metabolicbean.isHypertension,
-         isCholesterol : this.metabolicbean.isCholesterol,
-         isFBS : this.metabolicbean.isFBS,
-         smokingStatusId : this.metabolicbean.smokingStatusId,
-         packPerYear : this.metabolicbean.packPerYear,
-         rollPerDay : this.metabolicbean.rollPerDay,
-         osmId : this.metabolicbean.osmId,
-         waistline : this.metabolicbean.waistline,
-         isBPOver : this.metabolicbean.isBPOver,
-         drinkingStatusId : this.metabolicbean.drinkingStatusId,
-         homeId : this.metabolicbean.homeId,
-         hInsuranceTypeId : this.metabolicbean.hInsuranceTypeId,
-         isHeredityHypertension : this.metabolicbean.isHeredityHypertension,
-         height : this.metabolicbean.height,
-         bp1 : this.metabolicbean.bp1,
-         isHeredityMetabolic : this.metabolicbean.isHeredityMetabolic,
-         bp2 : this.metabolicbean.bp2,
-         isEyeComplication : this.metabolicbean.isEyeComplication,
-         isNeuropathy : this.metabolicbean.isNeuropathy,
-         weight : this.metabolicbean.weight,
-         otherComplication : this.metabolicbean.otherComplication,
-         peripheralName : this.metabolicbean.peripheralName,
-         fbs : this.metabolicbean.fbs,
-         isPeripheralNeuropathy : this.metabolicbean.isPeripheralNeuropathy,
-         documentId : this.metabolicbean.documentId,
-         isNewborn4kg : this.metabolicbean.isNewborn4kg,
-         rowGUID : this.metabolicbean.rowGUID,
-         isOther : this.metabolicbean.isOther,
-         bmi : this.metabolicbean.bmi,
-         personId : this.metabolicbean.personId,
+        "oftenPerWeek" : this.metabolicbean.oftenPerWeek || "",
+         "isMetabolic" : this.metabolicbean.isMetabolic,
+         "isWaistlineOver" : this.metabolicbean.isWaistlineOver,
+         "isKidneyComplication" : this.metabolicbean.isKidneyComplication,
+         "isHypertension" : this.metabolicbean.isHypertension,
+         "isCholesterol" : this.metabolicbean.isCholesterol,
+         "isFBS" : this.metabolicbean.isFBS,
+         "smokingStatusId" : this.metabolicbean.smokingStatusId || "",
+         "packPerYear" : this.metabolicbean.packPerYear || "",
+         "rollPerDay" : this.metabolicbean.rollPerDay || "",
+         "osmId" : this.metabolicbean.osmId || "",
+         "waistline" : this.metabolicbean.waistline || "",
+         "isBPOver" : this.metabolicbean.isBPOver,
+         "drinkingStatusId" : this.metabolicbean.drinkingStatusId || "",
+         "homeId" : this.metabolicbean.homeId || "",
+         "hInsuranceTypeId" : this.metabolicbean.hInsuranceTypeId || "",
+         "isHeredityHypertension" : this.metabolicbean.isHeredityHypertension,
+         "height" : this.metabolicbean.height || "",
+         "bp1" : this.metabolicbean.bp1 || "",
+         "isHeredityMetabolic" : this.metabolicbean.isHeredityMetabolic,
+         "bp2" : this.metabolicbean.bp2 || "",
+         "isEyeComplication" : this.metabolicbean.isEyeComplication,
+         "isNeuropathy" : this.metabolicbean.isNeuropathy,
+         "weight" : this.metabolicbean.weight || "",
+         "otherComplication" : this.metabolicbean.otherComplication || "",
+         "peripheralName" : this.metabolicbean.peripheralName || "",
+         "fbs" : this.metabolicbean.fbs || "",
+         "isPeripheralNeuropathy" : this.metabolicbean.isPeripheralNeuropathy,
+         "documentId" : this.metabolicbean.documentId || "",
+         "isNewborn4kg" : this.metabolicbean.isNewborn4kg,
+         "rowGUID" : this.metabolicbean.rowGUID || "",
+         "isOther" : this.metabolicbean.isOther,
+         "bmi" : this.metabolicbean.bmi || "",
+         "personId" : this.metabolicbean.personId || "",
       }
-      let params = JSON.stringify(obj);
-      console.log(params);
-      this.api.post('survey_metabolic/ins_upd_metabolic_info', params, function (resp) {
+
+      console.log(Object.keys(obj).length);
+      console.log(obj);
+      this.api.post('survey_metabolic/ins_upd_metabolic_info', obj, function (resp) {
+        console.log(resp);
         if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
           $("#find-person-md").modal('hide');
           self.completed.emit(true);
@@ -403,6 +411,17 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
           });
         }
       })
+
+     
+        // let headers = new Headers({ 'Content-Type': 'application/json' });
+        // let options = new RequestOptions({ headers: headers, method: "post" });
+
+        // this.http.post("http://192.168.2.227:8080/API-ASService/survey_metabolic/ins_upd_metabolic_info", obj, options)
+        //     .map(res => res.json())
+        //     .subscribe(
+        //     data => console.log(data)
+        //     )
+
     }
   }
 

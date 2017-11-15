@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { Http, Response, RequestOptions } from "@angular/http";
 import { Router } from "@angular/router";
 import { LocalDataSource } from 'ng2-smart-table';
@@ -20,6 +20,7 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
   public year = '2560';
   public citizenID: string = "0";
 
+
   public data;
   public mooID: number = 0;
   public xxx: string;
@@ -30,10 +31,11 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
   public source: LocalDataSource = new LocalDataSource();
   public metabolicbean: MetabolicBean = new MetabolicBean();
   public action: string = this.ass_action.ADD;
-  public filtersearch : FilterHeadSurveyBean;
+  public filtersearch: FilterHeadSurveyBean;
 
   private api: ApiHTTPService;
   public settings: any;
+  public documentId: string;
 
   constructor(private http: Http, private router: Router, private changeRef: ChangeDetectorRef) {
     super();
@@ -51,7 +53,7 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
         width: '200px',
         type: 'html',
         valuePrepareFunction: (cell, row) => {
-          return '<div class="text-center">' +cell+ '</div>'
+          return '<div class="text-center">' + cell + '</div>'
         }
       },
       homeNo: {
@@ -103,7 +105,6 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
   }
 
   ngOnInit() {
-     
   }
 
   save() {
@@ -142,6 +143,9 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
   }
   onSearch(event: FilterHeadSurveyBean) {
     this.filtersearch = event;
+    if (event.status == '2') {
+      this.documentId = event.rowGUID;
+    }
     this.loadData(event);
   }
 
@@ -157,8 +161,8 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
     $('#find-person-md').modal('show');
   }
 
-  reloadData(event : any){
-    if(event){
+  reloadData(event: any) {
+    if (event) {
       this.loadData(this.filtersearch);
     }
   }
