@@ -175,14 +175,15 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     let self = this;
 
     let URL_LIST_HOME_MEMBERS: string = "home/home_info";
-    let params = { "homeId": this.paramHomeId };
+    let params = { "homeId": parseInt(this.paramHomeId) };
 
     self.apiHttp.post(URL_LIST_HOME_MEMBERS, params, function (d) {
       if (d != null && d.status.toUpperCase() == "SUCCESS") {
         console.log(d);
-        self.homeAddress = d.address;
-        self.homeTel = d.telephone;
-        self.osmFullName = d.OsmFullName;
+        let homeInfo = d.response;
+        self.homeAddress = homeInfo.address;
+        self.homeTel = homeInfo.telephone;
+        self.osmFullName = homeInfo.OsmFullName;
       } else {
         console.log('survey-personal-member-list(bindHomeInfo) occured error(s) => ' + d.message);
       }
@@ -295,7 +296,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     let familyStatus = '';
     if (member.listFamilyStatus) {
       for (let g of member.listFamilyStatus) {
-        if (g.code == member.familyStatusCode) {
+        if (g.code == member.familyStatusId) {
           familyStatus = g.name;
           break;
         }

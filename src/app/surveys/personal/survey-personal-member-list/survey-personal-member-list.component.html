@@ -7,24 +7,26 @@
   <div class="panel-body">
 
 <div class="row">
-  <div class="box-body">
-    <dl class="dl-horizontal">
-      <dt>รอบสำรวจ : </dt>
-      <dd>{{ paramRound }}</dd>
-      <dt>ที่อยู่ : </dt>
-      <dd>{{ homeAddress }}</dd>
-      <dt>เบอร์โทรศัพท์ : </dt>
-      <dd>{{ homeTel }}</dd>
-      <dt>อสม. : </dt>
-      <dd>{{ osmFullName }}</dd>
-    </dl>
+  <div class="col-sm-12">
+    <div class="box-body">
+      <dl class="dl-horizontal">
+        <dt>รอบสำรวจ : </dt>
+        <dd>{{ paramRound }}</dd>
+        <dt>ที่อยู่ : </dt>
+        <dd>{{ homeAddress }}</dd>
+        <dt>เบอร์โทรศัพท์ : </dt>
+        <dd>{{ homeTel }}</dd>
+        <dt>อสม. : </dt>
+        <dd>{{ osmFullName }}</dd>
+      </dl>
+    </div>
   </div>
 </div>
 
     <div class="row">
       <div class="col-sm-12 text-left">
-        <button class="btn btn-primary" (click)="onClickAdd();">เพิ่มสมาชิก</button>
-        <button class="btn btn-primary">พิมพ์เอกสาร</button>
+        <button class="btn btn-primary btn-sm" (click)="onClickAdd();">เพิ่มสมาชิก</button>
+        <button class="btn btn-primary btn-sm">พิมพ์เอกสาร</button>
       </div>
     </div>
 
@@ -48,8 +50,8 @@
 
     <div class="row">
       <div class="col-md-12">
-        <button class="btn btn-primary" (click)="onClickSave();" *ngIf="isShowTable">ส่งข้อมูล</button>
-        <button class="btn btn-primary" (click)="onClickBack();">ย้อนกลับ</button>
+        <button class="btn btn-primary btn-sm" (click)="onClickSave();" *ngIf="isShowTable">ส่งข้อมูล</button>
+        <button class="btn btn-primary btn-sm" (click)="onClickBack();">ย้อนกลับ</button>
       </div>
     </div>
 

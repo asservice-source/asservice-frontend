@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, AfterViewInit, ChangeDetectorRef, Output,EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { Http, RequestOptions } from '@angular/http';
 import { Headers } from '@angular/http';
 import { NgModel } from '@angular/forms';
@@ -8,7 +8,7 @@ import { MetabolicBean } from '../../../beans/metabolic.bean';
 import { ApiHTTPService } from '../../../service/api-http.service';
 
 declare var bootbox: any;
-declare var $:any;
+declare var $: any;
 
 @Component({
   selector: 'app-survey-metabolic-form',
@@ -19,17 +19,18 @@ declare var $:any;
 export class SurveyMetabolicFormComponent extends BaseComponent implements OnInit, AfterViewInit {
   @Input() action: string;
   @Input() data: MetabolicBean;
-  @Input() documentId : string;
+  @Input() documentId: string;
 
   @Input() set citizenID(citizenID: string) {
     this.personBean.citizenId = citizenID;
   }
 
-  @Output() completed : EventEmitter<any> = new EventEmitter<any>();
+  @Output() completed: EventEmitter<any> = new EventEmitter<any>();
 
   public metabolicbean: MetabolicBean;
   public isFindPersonal: boolean = true;
 
+  public code: string = "METABOLIC";
   public personBean = new PersonBean();
   public isShowForm: boolean = false;
   public resetFind: number = 1;
@@ -68,7 +69,7 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
     //console.log(this.metabolicbean);
     this.metabolicbean = new MetabolicBean();
     this.api = new ApiHTTPService();
-    
+
 
   }
 
@@ -88,7 +89,35 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.healtInsuranceTypeList = resp.response;
         self.healtInsuranceTypeList.id = 89;
-        self.metabolicbean.hInsuranceTypeId=self.healtInsuranceTypeList.id;
+        self.metabolicbean.hInsuranceTypeId = self.healtInsuranceTypeList.id;
+      }
+    })
+  }
+
+  isDuplicate() {
+    let self = this;
+    let params = {
+      "headerTypeCode": this.code,
+      "documentId": this.documentId,
+      "personId": this.metabolicbean.personId
+    };
+
+    console.log(params);
+    this.api.post('survey/survey_is_duplicate', params, function (resp) {
+      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+        if (self.action != self.ass_action.EDIT) {
+          if (resp.response.isDuplicate == true) {
+            $('#find-person-md').modal('hide');
+            bootbox.alert({
+              size: "large",
+              title: "<div style='color:white;font-weight: bold;'><span class='glyphicon glyphicon-alert'></span> ไม่ถูกต้อง</div>",
+              message: "คนที่ท่านเลือกได้ทำการสำรวจไปแล้ว",
+              callback: function () {
+
+              }
+            });
+          }
+        }
       }
     })
   }
@@ -114,9 +143,11 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
   }
 
   onChoosePersonal(bean: any): void {
+    console.log("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
     console.log(bean);
     this.metabolicbean = new MetabolicBean();
     this.metabolicbean = bean;
+    this.isDuplicate();
     this.isFindPersonal = false;
     this.isShowForm = true;
 
@@ -135,8 +166,6 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
     this.isErrorBMI = false;
     this.isErrorOthercomplication = false;
     this.isErrorPeripheralName = false;
-
-
 
     if (this.ass_action.EDIT == this.action) {
       $('#find-person-md').modal('hide');
@@ -352,50 +381,50 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
     let self = this;
 
     console.log(this.documentId);
-    if(this.action == this.ass_action.ADD){
+    if (this.action == this.ass_action.ADD) {
       this.metabolicbean.documentId = this.documentId;
     }
 
     if (this.validateForm() == true) {
       let obj = {
-        "oftenPerWeek" : this.metabolicbean.oftenPerWeek || "",
-         "isMetabolic" : this.metabolicbean.isMetabolic,
-         "isWaistlineOver" : this.metabolicbean.isWaistlineOver,
-         "isKidneyComplication" : this.metabolicbean.isKidneyComplication,
-         "isHypertension" : this.metabolicbean.isHypertension,
-         "isCholesterol" : this.metabolicbean.isCholesterol,
-         "isFBS" : this.metabolicbean.isFBS,
-         "smokingStatusId" : this.metabolicbean.smokingStatusId || "",
-         "packPerYear" : this.metabolicbean.packPerYear || "",
-         "rollPerDay" : this.metabolicbean.rollPerDay || "",
-         "osmId" : this.metabolicbean.osmId || "",
-         "waistline" : this.metabolicbean.waistline || "",
-         "isBPOver" : this.metabolicbean.isBPOver,
-         "drinkingStatusId" : this.metabolicbean.drinkingStatusId || "",
-         "homeId" : this.metabolicbean.homeId || "",
-         "hInsuranceTypeId" : this.metabolicbean.hInsuranceTypeId || "",
-         "isHeredityHypertension" : this.metabolicbean.isHeredityHypertension,
-         "height" : this.metabolicbean.height || "",
-         "bp1" : this.metabolicbean.bp1 || "",
-         "isHeredityMetabolic" : this.metabolicbean.isHeredityMetabolic,
-         "bp2" : this.metabolicbean.bp2 || "",
-         "isEyeComplication" : this.metabolicbean.isEyeComplication,
-         "isNeuropathy" : this.metabolicbean.isNeuropathy,
-         "weight" : this.metabolicbean.weight || "",
-         "otherComplication" : this.metabolicbean.otherComplication || "",
-         "peripheralName" : this.metabolicbean.peripheralName || "",
-         "fbs" : this.metabolicbean.fbs || "",
-         "isPeripheralNeuropathy" : this.metabolicbean.isPeripheralNeuropathy,
-         "documentId" : this.metabolicbean.documentId || "",
-         "isNewborn4kg" : this.metabolicbean.isNewborn4kg,
-         "rowGUID" : this.metabolicbean.rowGUID || "",
-         "isOther" : this.metabolicbean.isOther,
-         "bmi" : this.metabolicbean.bmi || "",
-         "personId" : this.metabolicbean.personId || "",
+        "oftenPerWeek": this.metabolicbean.oftenPerWeek || "",
+        "isMetabolic": this.metabolicbean.isMetabolic,
+        "isWaistlineOver": this.metabolicbean.isWaistlineOver,
+        "isKidneyComplication": this.metabolicbean.isKidneyComplication,
+        "isHypertension": this.metabolicbean.isHypertension,
+        "isCholesterol": this.metabolicbean.isCholesterol,
+        "isFBS": this.metabolicbean.isFBS,
+        "smokingStatusId": this.metabolicbean.smokingStatusId || "",
+        "packPerYear": this.metabolicbean.packPerYear || "",
+        "rollPerDay": this.metabolicbean.rollPerDay || "",
+        "osmId": this.metabolicbean.osmId || "",
+        "waistline": this.metabolicbean.waistline || "",
+        "isBPOver": this.metabolicbean.isBPOver,
+        "drinkingStatusId": this.metabolicbean.drinkingStatusId || "",
+        "homeId": this.metabolicbean.homeId || "",
+        "hInsuranceTypeId": this.metabolicbean.hInsuranceTypeId || "",
+        "isHeredityHypertension": this.metabolicbean.isHeredityHypertension,
+        "height": this.metabolicbean.height || "",
+        "bp1": this.metabolicbean.bp1 || "",
+        "isHeredityMetabolic": this.metabolicbean.isHeredityMetabolic,
+        "bp2": this.metabolicbean.bp2 || "",
+        "isEyeComplication": this.metabolicbean.isEyeComplication,
+        "isNeuropathy": this.metabolicbean.isNeuropathy,
+        "weight": this.metabolicbean.weight || "",
+        "otherComplication": this.metabolicbean.otherComplication || "",
+        "peripheralName": this.metabolicbean.peripheralName || "",
+        "fbs": this.metabolicbean.fbs || "",
+        "isPeripheralNeuropathy": this.metabolicbean.isPeripheralNeuropathy,
+        "documentId": this.metabolicbean.documentId || "",
+        "isNewborn4kg": this.metabolicbean.isNewborn4kg,
+        "rowGUID": this.metabolicbean.rowGUID || "",
+        "isOther": this.metabolicbean.isOther,
+        "bmi": this.metabolicbean.bmi || "",
+        "personId": this.metabolicbean.personId || "",
       }
 
       console.log(Object.keys(obj).length);
-      console.log(obj);
+      console.log(JSON.stringify(obj));
       this.api.post('survey_metabolic/ins_upd_metabolic_info', obj, function (resp) {
         console.log(resp);
         if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
@@ -405,22 +434,22 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
             size: "large",
             title: "<div style='color:#5cb85c;font-weight: bold;'><span class='glyphicon glyphicon-ok'></span> ส่งแบบสำรวจสำเร็จ</div>",
             message: "ท่านได้ทำการส่งแบบสำรวจความเสี่ยงโรค Metabolic แล้ว",
-            callback: function () { 
+            callback: function () {
 
-           }
+            }
           });
         }
       })
 
-     
-        // let headers = new Headers({ 'Content-Type': 'application/json' });
-        // let options = new RequestOptions({ headers: headers, method: "post" });
 
-        // this.http.post("http://192.168.2.227:8080/API-ASService/survey_metabolic/ins_upd_metabolic_info", obj, options)
-        //     .map(res => res.json())
-        //     .subscribe(
-        //     data => console.log(data)
-        //     )
+      // let headers = new Headers({ 'Content-Type': 'application/json' });
+      // let options = new RequestOptions({ headers: headers, method: "post" });
+
+      // this.http.post("http://192.168.2.227:8080/API-ASService/survey_metabolic/ins_upd_metabolic_info", obj, options)
+      //     .map(res => res.json())
+      //     .subscribe(
+      //     data => console.log(data)
+      //     )
 
     }
   }

@@ -21,14 +21,25 @@ export class PersonalMemberBean {
     public rhGroupId: string = "";
     public birthDate: string = "";
     public educationCode: string = "";
-    public occupationId: string = "";
+    public occupationCode: string = "";
     public dischargeId: string = "";
     public dischargeName: string = "";
-    public familyStatusCode: string = "";
+    public familyStatusId: string = "";
     public familyStatusName: string = "";
     public congenitalDisease: string = "";
     public remark: string = "";
     public osmId;
+
+    public nickName: string = "";
+    public fatherCID: string = "";
+    public motherCID: string = "";
+    public coupleCID: string = "";
+    public laborCode: string = "";
+    public passport: string = "";
+    public isDead: string = "";
+    public deadDate: string = "";
+
+    public homeId: string = "";
 
     public listPrefix: any = [];
     public listGender: any = [];

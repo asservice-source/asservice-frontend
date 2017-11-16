@@ -93,7 +93,6 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
         onComponentInitFunction(instance) {
 
           instance.action.subscribe((row: MetabolicBean, cell) => {
-
             if (row && row.action.toUpperCase() == self.ass_action.EDIT) {
               self.metabolicbean = self.cloneObj(row);
               self.onModalFrom(self.ass_action.EDIT);
@@ -166,40 +165,5 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
       this.loadData(this.filtersearch);
     }
   }
-
-  // formatCitizenID(cell) {
-  //   let self = this;
-
-  //   if (!self.isEmpty(cell)) {
-  //     let patternCitizen: string = "_-____-_____-__-_";
-  //     let patternCitizen_ex: string = "-";
-  //     let returnText = "";
-  //     let obj_1: number = cell.length;
-  //     let obj_2 = obj_1 - 1;
-  //     for (let i = 0; i < patternCitizen.length; i++) {
-  //       if (obj_2 == i && patternCitizen.charAt(i + 1) == patternCitizen_ex) {
-  //         returnText += cell + patternCitizen_ex;
-  //         cell = returnText;
-  //       }
-  //     }
-  //   }
-  // }
-
-  //    cc_format(value) {
-  //     var v = value.replace(/\s+/g, '').replace(/[^0-9]/gi, '')
-  //     var matches = v.match(/\d{4,16}/g);
-  //     var match = matches && matches[0] || ''
-  //     var parts = []
-
-  //     for (let i=0, len=match.length; i<len; i+=4) {
-  //         parts.push(match.substring(i, i+4))
-  //     }
-
-  //     if (parts.length) {
-  //         return parts.join('-')
-  //     } else {
-  //         return value
-  //     }
-  // }
 
 }

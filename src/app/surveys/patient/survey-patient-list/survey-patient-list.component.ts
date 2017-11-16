@@ -5,7 +5,7 @@ import { ActionCustomViewComponent } from '../../../action-custom-table/action-c
 import { FilterHeadSurveyBean } from '../../../beans/filter-head-survey.bean';
 import { LocalDataSource } from 'ng2-smart-table';
 import {PatientBean} from '../../../beans/patient.bean'
-declare var $;
+declare var $: any;
 
 @Component({
   selector: 'app-survey-patient-list',
@@ -25,56 +25,7 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
   public isShowList: boolean = false;
   public source: LocalDataSource = new LocalDataSource();
   public healtInsuranceID = 7;
-  public datas = [
-    {
-      id: 1,
-      name: "Leanne Graham",
-      citizenId: "1-4113-00-1349-8-9",
-      reason: "อุบัติเหตุทางรถยนต์",
-      gender: "ชาย",
-      age: 38,
-      type: "ติดบ้าน"
-    },
-    {
-      id: 2,
-      name: "Ervin Howell",
-      citizenId: "1-4113-00-1349-8-0",
-      reason: "อุบัติเหตุทางรถยนต์",
-      gender: "ชาย",
-      age: 54,
-      type: "ติดบ้าน"
-
-    },
-    {
-      id: 11,
-      name: "Nicholas DuBuque",
-      citizenId: "1-4113-00-2259-6-4",
-      reason: "อุบัติเหตุทางรถยนต์",
-      gender: "ชาย",
-      age: 32,
-      type: "ติดบ้าน"
-
-    },
-    {
-      id: 12,
-      name: "Nicholas DuBuque",
-      citizenId: "1-4113-00-2254-6-2",
-      reason: "อุบัติเหตุทางรถยนต์",
-      gender: "ชาย",
-      age: 62,
-      type: "ติดบ้าน"
-
-    },
-    {
-      id: 13,
-      name: "Nicholas DuBuque",
-      citizenId: "1-4113-00-3259-6-5",
-      reason: "อุบัติเหตุทางรถยนต์",
-      gender: "ชาย",
-      age: 42,
-      type: "ติดบ้าน"
-    },
-  ];
+  public datas:any = [];
 
   constructor(private changeRef: ChangeDetectorRef) {
     super();
@@ -83,7 +34,7 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
     let self = this;
     this.settings = this.getTableSetting({
 
-      name: {
+      fullName: {
         title: 'ชื่อ - นามสกุล',
         filter: false
       },
@@ -96,7 +47,7 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
           return '<div class="text-center">'+cell+'</div>'
         }
       },
-      reason: {
+      remark: {
         title: 'สาเหตุความพิการ/ป่วย',
         filter: false,
         width: '190px',
@@ -119,7 +70,7 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
           return '<div class="text-center">'+cell+'</div>'
         }
       },
-      type: {
+      patientType: {
         title: 'ประเภท',
         filter: false,
         width: '120px',
@@ -162,10 +113,35 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
 
   onChangeFilter(event: FilterHeadSurveyBean) {
     console.log("ChangeFilter");
-    this.isShowList = false;
+    //this.isShowList = false;
   }
 
   onSearch(event: FilterHeadSurveyBean) {
+      let self = this;
+      let param = {
+        "documentId" : event.rowGUID,
+        "villageId" : event.villageId,
+        "osmId" : event.osmId,
+        "name" :event.fullName,
+        "rowGUID": ""
+      };
+      let params = JSON.stringify(param);
+  
+      this.api.post('survey_patient/filter', params, function (resp) {
+        console.log(resp);
+        if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+
+          for(let item of resp.response){
+            if(resp.response.patientSurveyTypeCode != 'Cancer'){
+              self.datas = resp.response;
+            }
+          }
+          // self.datas = resp.response;
+          // console.log("=========================getPatient============================");
+          // console.log(resp);
+          self.setUpTable();
+        }
+      })
     this.setUpTable();
   }
 

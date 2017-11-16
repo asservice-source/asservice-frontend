@@ -37,11 +37,11 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
     this.getPatientType();
     this.getDisabilityType();
     this.getDisabilityTypeCause()
+   
   }
 
   ngOnInit() {
     this.onModalEvent();
-
   }
 
   ngAfterViewInit() {
@@ -73,7 +73,9 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
     $('#find-person-md').on('show.bs.modal', function (e) {
       self.resetFind = self.resetFind + 1;
       if (self.action == self.ass_action.EDIT) {
+        //self.data.patientSurveyTypeCode.toUpperCase();
         self.onChoosePersonal(self.data);
+        console.log(self.data);
       }
 
       self.changeRef.detectChanges();
@@ -142,9 +144,6 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
 
     })
   }
-
-  
-
 
   onChangePatientSyurvey(){
 
