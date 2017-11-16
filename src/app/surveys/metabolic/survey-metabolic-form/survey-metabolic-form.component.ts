@@ -30,6 +30,7 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
   public metabolicbean: MetabolicBean;
   public isFindPersonal: boolean = true;
 
+  public code : string = "METABOLIC";
   public personBean = new PersonBean();
   public isShowForm: boolean = false;
   public resetFind: number = 1;
@@ -93,6 +94,32 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
     })
   }
 
+  isDuplicate() {
+    let self = this;
+    let params = {
+      "headerTypeCode": this.code,
+      "documentId": this.documentId,
+      "personId": this.metabolicbean.personId
+    };
+
+    console.log(params);
+    this.api.post('survey/survey_is_duplicate', params, function (resp) {
+      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+       if(resp.response.isDuplicate == true){
+        $('#find-person-md').modal('hide');
+        bootbox.alert({
+          size: "large",
+          title: "<div style='color:white;font-weight: bold;'><span class='glyphicon glyphicon-alert'></span> ไม่ถูกต้อง</div>",
+          message: "คนที่ท่านเลือกได้ทำการสำรวจไปแล้ว",
+          callback: function () { 
+
+         }
+        });
+       }
+      }
+    })
+  }
+
 
   getCitizen(event: PersonBean) {
     if (event.citizenId == '0') {
@@ -114,9 +141,11 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
   }
 
   onChoosePersonal(bean: any): void {
+    console.log("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
     console.log(bean);
     this.metabolicbean = new MetabolicBean();
     this.metabolicbean = bean;
+    this.isDuplicate();
     this.isFindPersonal = false;
     this.isShowForm = true;
 
@@ -135,8 +164,6 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
     this.isErrorBMI = false;
     this.isErrorOthercomplication = false;
     this.isErrorPeripheralName = false;
-
-
 
     if (this.ass_action.EDIT == this.action) {
       $('#find-person-md').modal('hide');
@@ -395,7 +422,7 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
       }
 
       console.log(Object.keys(obj).length);
-      console.log(obj);
+      console.log(JSON.stringify(obj));
       this.api.post('survey_metabolic/ins_upd_metabolic_info', obj, function (resp) {
         console.log(resp);
         if (resp != null && resp.status.toUpperCase() == "SUCCESS") {

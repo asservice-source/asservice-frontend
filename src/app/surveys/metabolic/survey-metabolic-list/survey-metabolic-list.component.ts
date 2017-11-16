@@ -93,7 +93,6 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
         onComponentInitFunction(instance) {
 
           instance.action.subscribe((row: MetabolicBean, cell) => {
-
             if (row && row.action.toUpperCase() == self.ass_action.EDIT) {
               self.metabolicbean = self.cloneObj(row);
               self.onModalFrom(self.ass_action.EDIT);
