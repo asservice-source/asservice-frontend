@@ -41,5 +41,4 @@ export class PatientBean{  action: any;
     public remark : string;
     public telephone : string;
 
-
 }
