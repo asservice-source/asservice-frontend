@@ -42,13 +42,13 @@
                         <select [(ngModel)]="patientbean.patientSurveyTypeCode" (change)="onChangePatientSyurvey();">
                             <option value="0">--เลือกประเภท--</option>
                             <ng-container *ngFor="let item of surveyStatusTypeList">
-                                <option *ngIf="item.code !='Cancer'" value="{{item.code}}">{{item.name}}</option>
+                                <option *ngIf="item.code !='Cancer'" value="{{item.code.toUpperCase()}}">{{item.name}}</option>
                             </ng-container>
                         </select>
                     </div>
                 </div>
                 <!-- ป่วย -->
-                <div *ngIf="patientbean.patientSurveyTypeCode == 'Patient'">
+                <div *ngIf="patientbean.patientSurveyTypeCode == 'PATIENT'">
                     <div class="row">
                         <div class="col-md-2 text-right">
                             <label class="label-form">ระบุ</label>
@@ -98,7 +98,7 @@
                     </div>
                 </div>
                 <!-- พิการ -->
-                <div *ngIf="patientbean.patientSurveyTypeCode == 'Disabled'">
+                <div *ngIf="patientbean.patientSurveyTypeCode == 'DISABLED'">
                     <div class="row">
                         <div class="col-md-2 text-right">
                             <label class="label-form">ประเภทพิการ</label>

@@ -34,7 +34,7 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
     let self = this;
     this.settings = this.getTableSetting({
 
-      name: {
+      fullName: {
         title: 'ชื่อ - นามสกุล',
         filter: false
       },
@@ -47,7 +47,7 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
           return '<div class="text-center">'+cell+'</div>'
         }
       },
-      reason: {
+      remark: {
         title: 'สาเหตุความพิการ/ป่วย',
         filter: false,
         width: '190px',
@@ -70,7 +70,7 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
           return '<div class="text-center">'+cell+'</div>'
         }
       },
-      type: {
+      patientType: {
         title: 'ประเภท',
         filter: false,
         width: '120px',
@@ -113,7 +113,7 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
 
   onChangeFilter(event: FilterHeadSurveyBean) {
     console.log("ChangeFilter");
-    this.isShowList = false;
+    //this.isShowList = false;
   }
 
   onSearch(event: FilterHeadSurveyBean) {
@@ -130,9 +130,15 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
       this.api.post('survey_patient/filter', params, function (resp) {
         console.log(resp);
         if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-          self.datas = resp.response;
-          console.log("=====================================================");
-          console.log(self.datas);
+
+          for(let item of resp.response){
+            if(resp.response.patientSurveyTypeCode != 'Cancer'){
+              self.datas = resp.response;
+            }
+          }
+          // self.datas = resp.response;
+          // console.log("=========================getPatient============================");
+          // console.log(resp);
           self.setUpTable();
         }
       })
