@@ -59,7 +59,7 @@ export class BaseComponent implements OnInit {
         };
 
         settings.columns = {};
-        settings.columns.squenceNo = {
+        settings.columns.sequenceNo = {
             title: 'ลำดับ',
             filter: false,
             sort: false,
@@ -162,6 +162,26 @@ export class BaseComponent implements OnInit {
         }
         return undefined;
     }
+    public convertDateTimeSQL_to_DisplayDateTime(strDate?: string): any {
+        let dateTimeObject: any = {date:"", time:{minutes:"00", seconds:"00"}};
+        if (strDate) {
+            let arrDT = strDate.split(" ");
+            let arrD = arrDT[0].split('-');
+            let arrT = arrDT[1].split(':');
+            dateTimeObject.date =  arrD[2] +"/"+arrD[1]+"/"+arrD[0];
+            dateTimeObject.time.minutes=arrT[0];
+            dateTimeObject.time.seconds=arrT[1];
+        } else {
+            // let dateObj = new Date();
+            // let month = dateObj.getUTCMonth() + 1; //months from 1-12
+            // let day = dateObj.getUTCDate();
+            // let year = dateObj.getUTCFullYear();
+            
+        }
+
+        return dateTimeObject;
+
+    }
     public month2(m: number): string {
         if (m < 10) {
             return 0 + '' + m;
@@ -176,28 +196,14 @@ export class BaseComponent implements OnInit {
     public cloneObj(source: any): any {
         let destination: any = {};
         for (var field in source) {
-            if ('squenceNo' == field) continue;
+            if ('sequenceNo' == field) continue;
             destination[field] = source[field];
         }
 
         return destination;
     }
 
-    public isValidCitizenId(id) {
-        // if (id.length != 13)
-        //     return false;
-
-        // let sum = 0;
-        // for (let i = 0, sum = 0; i < 12; i++)
-        //     sum += parseFloat(id.charAt(i)) * (13 - i);
-
-        // if ((11 - sum % 11) % 10 != parseFloat(id.charAt(12)))
-        //     return false;
-
-        // return true;
-    }
-
-    isValidCitizenIdThailand(s) {
+    isValidCitizenIdThailand(s): boolean {
         let pin = 0, j = 13, pin_num = 0;
         if (s == "") {
             return;
@@ -226,5 +232,21 @@ export class BaseComponent implements OnInit {
         }
 
         return true;
+    }
+
+    numberAppendPrefix(number:number, max?:number): string{
+        let strResult: string = ""+number;
+        if(max){
+            let prefix = "";
+            let length = (""+number).length;
+            let ans = (max-length)
+            if(ans>0){
+                for(let i=0; i<ans; i++){
+                    prefix+="0";
+                }
+                strResult = prefix+""+number;
+            }
+        }
+        return strResult;
     }
 }

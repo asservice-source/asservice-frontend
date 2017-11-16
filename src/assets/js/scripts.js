@@ -19,10 +19,5 @@ $(function () {
   // ng2-smart-table pagine
   $('[aria-label="First"]>span').text('<<');
   $('[aria-label="Last"]>span').text('>>');
-
-  $('.datepicker').datepicker({
-    language:'th',
-    format:'dd/mm/yyyy'
-  });
   
 });

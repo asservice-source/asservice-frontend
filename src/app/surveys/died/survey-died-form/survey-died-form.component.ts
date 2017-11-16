@@ -14,14 +14,20 @@ declare var $: any;
 export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,AfterViewInit{
   @Input() action: string;
   @Input() data: DeadBean;
+  public bean: DeadBean;
   public apiDead : Service_SurveyDead;
   public isShowForm: boolean = false;
   public isFindPersonal: boolean = true;
   public resetFind: number = 1;
-  public bean: DeadBean;
   public isCauseOther: boolean = false;
   public cancerList: Array<any>;
-  
+  public deadPlaceList: Array<any> = [{code:"1", name:"บ้าน"}, {code:"2", name:"โรงพยาบาล"}, {code:"3", name:"ถนน"}, {code:"4", name:"แหล่งน้ำ"}, {code:"9", name:"อื่นๆ"}];
+  public timeMimute = Array.from(Array(24),(x,i)=>i);
+  public timeSec = Array.from(Array(60),(x,i)=>i);
+  public mDateDead: string;
+  public mMinutes: string;
+  public mSeconds: string;
+
   constructor(private changeRef: ChangeDetectorRef) {
     super();
     this.bean = new DeadBean();
@@ -32,23 +38,17 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
   ngOnInit() {
     this.onModalEvent();
     this.setupCancerList();
-   
-    
-  
   }
 
   ngAfterViewInit(){
-    $(function(){
-      $('.datepicker').datepicker({
-        language:'th',
-        format:'dd/mm/yyyy'
-      });
-    });
+    this.setCalendarThai();
   }
-  
-  ngOnDestroy(){
-    console.log("++On Destroy++");
+
+  onDateChanged(event: any){
+    console.log(event);
+    //console.log($('body .inputnoteditable').val());
   }
+
   setupCancerList(){
     let _self = this;
     this.apiDead.apiHTTPService.api_CancerList(function(response){
@@ -56,17 +56,21 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
     });
   }
 
-  onChangePlace(){
-    
-  }
-
   onChoosePersonal(bean: DeadBean):void {
+    
     this.bean = bean;
-    if(!this.bean.dateDead){
-      
+    if(!this.bean.deathPlaceCode){
+      this.bean.deathPlaceCode = "9";
+    }
+    if(this.action==this.ass_action.EDIT){
+      let dateObj = this.convertDateTimeSQL_to_DisplayDateTime(this.bean.dateDead);
+      this.mDateDead = dateObj.date;
+      this.mMinutes = dateObj.time.minutes;
+      this.mSeconds = dateObj.time.seconds;
     }
     this.isFindPersonal = false;
     this.isShowForm = true;
+    console.log(this.bean);
   }
   onBack(){
     this.bean = new DeadBean();
@@ -80,6 +84,7 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
   onModalEvent(){
     let _self = this;
     $('#modal-add-died').on('show.bs.modal', function (e) {
+      
       _self.resetFind = _self.resetFind+1;
       if(_self.action==_self.ass_action.EDIT){
         if(!_self.isEmpty(_self.data.causeOther)){
@@ -109,5 +114,49 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
     // _self.apiDead.commit_save(_self.bean, function(response){
 
     // });
+  }
+
+
+  setCalendarThai(){
+
+    $('body').on('click','.inputnoteditable', function(){
+      console.log($(this).val());
+      let year = +($('button.yearlabel').first().text());
+      let thaiYear = year+543;
+      $('button.yearlabel').first().text(thaiYear);
+      console.log(thaiYear);
+    });
+    $('body').on('click','button.btnpicker', function(){
+      let year = +($('button.yearlabel').first().text());
+      let thaiYear = year+543;
+      $('button.yearlabel').first().text(thaiYear);
+      console.log(thaiYear);
+
+    });
+    $('body').on('click','button[aria-label="Next Year"]', function(){
+      console.log($(this).val());
+      let thaiYear = +($('button.yearlabel').first().text());
+      thaiYear += 1;
+      $('button.yearlabel').first().text(thaiYear);
+      console.log(thaiYear);
+    });
+    $('body').on('click','button[aria-label="Previous Year"]', function(){
+      console.log($(this).val());
+      let thaiYear = +($('button.yearlabel').first().text());
+      thaiYear -= 1;
+      $('button.yearlabel').first().text(thaiYear);
+      console.log(thaiYear);
+    });
+
+    // $('body').on('click','button.yearlabel', function(){
+    //   console.log('CLICK');
+    //   $.each($(".yearvalue"), function(){
+    //     let year = +($(this).text());
+    //     let yearThai = year+543;
+    //     $(this).text(yearThai);
+    //   });
+    // });
+
+  
   }
 }

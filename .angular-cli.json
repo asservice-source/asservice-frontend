@@ -44,9 +44,8 @@
         "../node_modules/icheck/icheck.js",
         "../node_modules/admin-lte/dist/js/app.js",
         "../node_modules/bootbox/bootbox.js",
-        "assets/bootstrap-datepicker/js/bootstrap-datepicker.js",
-        "assets/bootstrap-datepicker-thai/js/bootstrap-datepicker.js",
-        "assets/bootstrap-datepicker-thai/js/locales/bootstrap-datepicker.th.js",
+        "../node_modules/daterangepicker/daterangepicker.js",
+        "../node_modules/bootstrap-datepicker/js/bootstrap-datepicker.js",
          "assets/js/scripts.js"
       ],
       "environmentSource": "environments/environment.ts",

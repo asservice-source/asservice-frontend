@@ -54,19 +54,24 @@
               <label>วันที่เสียชีวิต</label>
             </div>
             <div class="col-md-2">
-                <input type="text" value="02/16/12" data-date-format="mm/dd/yy" class="datepicker" >
+              <my-date-picker name="mydate" [options]="datePickerOptions"
+              [(ngModel)]="mDateDead" (dateChanged)="onDateChanged($event)" required></my-date-picker>
             </div>
-            <div class="col-md-1 text-right">
+            <div class="col-md-1 text-right"  style="width: 40px; padding: 0;">
                 <label>เวลา</label>
             </div>
-            <div class="col-md-1">
-                <select>
-
+            <div class="col-md-1" style="padding-right: 0;">
+                <select [(ngModel)]="mMinutes">
+                  <option *ngFor="let number of timeMimute" [value]="numberAppendPrefix(number,2)">{{numberAppendPrefix(number,2)}}</option>
                 </select>
             </div>
-            <div class="col-md-1">
-                <select>
-                  
+            <div class="col-md-1 text-center" style="width: 20px; padding: 0;">
+              <label>:</label>
+            </div>
+            <div class="col-md-1" style="padding-left: 0;">
+                <select [(ngModel)]="mSeconds">
+                  <option *ngFor="let number of timeSec" [value]="numberAppendPrefix(number,2)">{{numberAppendPrefix(number,2)}}</option>
+        
                 </select>
             </div>
         </div>
@@ -225,18 +230,16 @@
               <label>สถานที่เสียชีวิต</label>
             </div>
     
-            <div class="col-md-5" *ngIf="bean.placeCode!='-9'">
-              <select [(ngModel)]="bean.placeCode" (change)="onChangePlace()">
+            <div class="col-md-5" *ngIf="bean.deathPlaceCode!='9'">
+              <select [(ngModel)]="bean.deathPlaceCode">
                   <option value="">---เลือกสถานที่---</option>
-                  <option value="2">บ้าน</option>
-                  <option value="3">แหล่งน้ำ</option>
-                  <option value="-9">อื่นๆ</option>
+                  <option *ngFor="let item of deadPlaceList" [value]="item.code">{{item.name}}</option>
               </select>
             </div>
-            <div class="col-md-5" *ngIf="bean.placeCode=='-9'">
+            <div class="col-md-5" *ngIf="bean.deathPlaceCode=='9'">
                 <div class="input-group date">
-                  <input type="text" [(ngModel)]="bean.placeOtherName" placeholder="อื่นๆ ระบุ" >
-                  <div class="input-group-addon" (click)="bean.placeCode=''">
+                  <input type="text" [(ngModel)]="bean.placeOther" placeholder="อื่นๆ ระบุ" >
+                  <div class="input-group-addon" (click)="bean.deathPlaceCode=''">
                     <span class="fa fa-remove"></span>
                   </div>
                 </div>
