@@ -179,7 +179,7 @@
             <label class="label-form">อาชีพ</label>
           </div>
           <div class="col-md-3">
-            <select name="dropdown-occupationCode" id="dropdown-occupationCode" [(ngModel)]="member.occupationId" (change)="onChangeOccupation()"
+            <select name="dropdown-occupationCode" id="dropdown-occupationCode" [(ngModel)]="member.occupationCode" (change)="onChangeOccupation()"
               [disabled]="isDisablePersonData">
               <option value="">--เลือก อาชีพ--</option>
               <option *ngFor="let item of listOccupation" [value]="item.id">{{item.name}}</option>
@@ -205,9 +205,9 @@
             <label class="label-form">ความสัมพันธ์</label>
           </div>
           <div class="col-md-3">
-            <select name="dropdown-familyStatus" id="dropdown-familyStatus" [(ngModel)]="member.familyStatusCode">
+            <select name="dropdown-familyStatus" id="dropdown-familyStatus" [(ngModel)]="member.familyStatusId">
               <option value="">--เลือก ความสัมพันธ์--</option>
-              <option *ngFor="let item of listFamilyStatus" [value]="item.code">{{item.name}}</option>
+              <option *ngFor="let item of listFamilyStatus" [value]="item.id">{{item.name}}</option>
             </select>
           </div>
           <!-- <div *ngIf="isDisplayActionEdit">

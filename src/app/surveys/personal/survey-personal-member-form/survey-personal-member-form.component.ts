@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { IMyDpOptions, IMyDateModel } from 'mydatepicker';
 import { PersonBean } from "../../../beans/person.bean";
-import { ApiHTTPService } from '../../../service/api-http.service';
 import { PersonalMemberBean } from '../../../beans/personal-member.bean';
 import { BaseComponent } from '../../../base-component';
+import { Service_SurveyPersonal } from '../../../service/service-survey-personal';
 declare var $;
 
 @Component({
@@ -13,7 +13,8 @@ declare var $;
 })
 export class SurveyPersonalMemberFormComponent extends BaseComponent implements OnInit {
 
-  private apiHttp: ApiHTTPService = new ApiHTTPService();
+  // private apiHttp: ApiHTTPService = new ApiHTTPService();
+  private apiHttp: Service_SurveyPersonal = new Service_SurveyPersonal();
   public member: PersonalMemberBean = new PersonalMemberBean();
 
   @Input() action: string;
@@ -78,11 +79,15 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
 
     $("#modalMember").on('show.bs.modal', function (e) {
       if (self.action == self.ass_action.EDIT) {
+        self.member.isExists = "true";
+
         self.isDisplayActionEdit = true;
         self.isDisabledActionAdd = true;
         self.isDisablePersonData = false;
       } else {
-        self.defaultValue();
+        self.member.isGuest = "false";
+        self.member.isExists = "true";
+
         self.isDisplayActionEdit = false;
         self.isDisabledActionAdd = false;
         self.isDisablePersonData = true;
@@ -329,7 +334,7 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
           }
 
           self.member.educationCode = personData.educationCode;
-          self.member.occupationId = personData.occupCode;
+          self.member.occupationCode = personData.occupCode;
 
           self.isDisablePersonData = false;
         }
@@ -343,23 +348,18 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
     let self = this;
 
     if (self.action == self.ass_action.ADD) {
-      // let URL_INSERT_PERSON_INFO: string = "person/insert";
-      // let params = { "citizenId": "" };
-
-      // self.apiHttp.post(URL_INSERT_PERSON_INFO, params, function (d) {
-      //   if (d != null && d.status.toUpperCase() == "SUCCESS") {
-      //     console.log(d.response);
-      //     let personId = d.response;
-      //   } else {
-      //     console.log('survey-personal-member-form(insertPerson) occured error(s) => ' + d.message);
-      //   }
-      // });
+      self.apiHttp.commit_save(self.member, function(){
+        self.member.listPrefix = self.listPrefix;
+        self.member.listGender = self.listGender;
+        self.member.listFamilyStatus = self.listFamilyStatus;
+        self.memberUpdated.emit(self.member);
+      });
+    } else {
+      self.member.listPrefix = self.listPrefix;
+      self.member.listGender = self.listGender;
+      self.member.listFamilyStatus = self.listFamilyStatus;
+      self.memberUpdated.emit(self.member);
     }
-
-    self.member.listPrefix = self.listPrefix;
-    self.member.listGender = self.listGender;
-    self.member.listFamilyStatus = self.listFamilyStatus;
-    self.memberUpdated.emit(self.member);
   }
 
 }

@@ -7,6 +7,7 @@ import { FilterBean } from "../../../beans/filter.bean";
 import { PersonalHomeBean } from '../../../beans/personal-home.bean';
 import { ApiHTTPService } from '../../../service/api-http.service';
 import { BaseComponent } from '../../../base-component';
+import { HomeBean } from '../../../beans/home.bean';
 declare var $: any;
 
 @Component({
@@ -19,6 +20,7 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
   private apiHttp: ApiHTTPService = new ApiHTTPService();
 
   public action: string = this.ass_action.ADD;
+  public homeBean: HomeBean = new HomeBean();
   public paramHome: PersonalHomeBean = new PersonalHomeBean();
 
   public filterRoundId: string = "";
@@ -130,7 +132,8 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
     this.paramHome = new PersonalHomeBean();
     this.action = this.ass_action.ADD;
     this.changeRef.detectChanges();
-    $("#modalHome").modal({ backdrop: 'static', keyboard: false });
+    // $("#modalHome").modal({ backdrop: 'static', keyboard: false });
+    $("app-management-osm-area-form #modalForm").modal({ backdrop: 'static', keyboard: false });
   }
 
   bindHomeList(roundId: string, villageId: string, osmId: string, homeId: string) {
