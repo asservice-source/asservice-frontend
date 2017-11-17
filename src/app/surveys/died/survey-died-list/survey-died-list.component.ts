@@ -25,6 +25,7 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
   public bean: DeadBean = new DeadBean();
   public datas:any = [];
   public filterBean: FilterHeadSurveyBean;
+  public cuurentDocumentId: string;
 
   constructor(private changeRef: ChangeDetectorRef) {
     super();
@@ -94,26 +95,37 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
 
   }
   ngOnInit() {
-
+    
   }
   onChangeFilter(event: FilterHeadSurveyBean) {
-   // this.isShowList = false;
+
   }
   onSearch(event: FilterHeadSurveyBean) {
+    this.loading = true;
     this.filterBean = event;
+    if(this.isEmpty(this.cuurentDocumentId)){
+      this.cuurentDocumentId = event.rowGUID;
+    }
     let _self = this;
     this.apiDead.getList(event, function(response){
       _self.datas = response;
       _self.setupTable();
+      _self.loading = false;
     });
   }
 
   onModalForm(action: string){
     this.action = action;
+    if(action==this.ass_action.ADD){
+      this.bean.documentId = this.cuurentDocumentId;
+    }
     this.changeRef.detectChanges();
     $('#modal-add-died').modal('show');
   }
-
+  onCommit(event: any){
+    console.log(">>> OnCommit");
+    this.onSearch(this.filterBean);
+  }
   setupTable(){               
     this.source = new LocalDataSource(this.datas);
     this.isShowList = true;

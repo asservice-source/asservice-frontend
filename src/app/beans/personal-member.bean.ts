@@ -31,14 +31,18 @@ export class PersonalMemberBean {
     public osmId;
 
     public nickName: string = "";
-    public fatherCID: string = "";
-    public motherCID: string = "";
-    public coupleCID: string = "";
+    public fatherCid: string = "";
+    public motherCid: string = "";
+    public coupleCid: string = "";
     public laborCode: string = "";
     public passport: string = "";
     public isDead: string = "";
     public deadDate: string = "";
 
+    public mStatusCode: string = "";
+    public vStatusCode: string = "";
+
+    public personId: string = "";
     public homeId: string = "";
 
     public listPrefix: any = [];

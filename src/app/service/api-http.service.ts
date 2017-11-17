@@ -3,7 +3,7 @@ import { Http, RequestOptions, Headers, BrowserXhr, BaseRequestOptions, Response
 import { BaseComponent } from '../base-component';
 import { FilterHeadSurveyBean } from '../beans/filter-head-survey.bean';
 export class ApiHTTPService extends BaseComponent implements OnInit {
-    private http;
+    public http;
     constructor() {
         super();
 
@@ -122,6 +122,10 @@ export class ApiHTTPService extends BaseComponent implements OnInit {
 
     public api_CancerList(callback: (doc: any) => void){
         this.callResponse('person/cancer_type_list', {}, callback);
+    }
+
+    public api_DeathPlaceList(callback: (doc: any) => void){
+        this.callResponse('survey/survey_death_place_list', {}, callback);
     }
 
 }

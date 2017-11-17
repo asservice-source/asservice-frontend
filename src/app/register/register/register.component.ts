@@ -20,7 +20,6 @@ export class RegisterComponent extends BaseComponent implements OnInit {
 
   public inputValidate: InputValidateInfo = new InputValidateInfo();
   public registerBean: RegisterBean
-  public loadingCMD: string = 'hide';
   public dataHospitals: CompleterData;
   public apiHttp = new ApiHTTPService();
   private api: ApiHTTPService;
@@ -90,7 +89,6 @@ export class RegisterComponent extends BaseComponent implements OnInit {
         seft.dataHospitals = seft.completerService.local(resp.response, 'hospitalName', 'hospitalName');
         console.log(seft.hospitalList);
       }
-      seft.loadingCMD = 'hide';
     });
   }
 
