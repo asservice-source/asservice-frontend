@@ -5,6 +5,7 @@ import { Utils, Action, SurveyHeaderTypeCode } from "./utils.util";
 import * as myconf from "./global-config";
 import * as moment from 'moment'
 import { IMyDpOptions } from 'mydatepicker';
+import { ANIMATION_TYPES } from './ng2-loading/ngx-loading.config';
 declare var $: any;
 declare var bootbox: any;
 
@@ -13,7 +14,10 @@ export class BaseComponent implements OnInit {
     public _GLOBAL = myconf;
     public ass_action = Action;
     public surveyHeaderCode = SurveyHeaderTypeCode;
+    public loading: boolean = false;
+
     private ng2STDataSource: LocalDataSource;// = new LocalDataSource();
+    
     constructor() {
 
     }
@@ -204,7 +208,11 @@ export class BaseComponent implements OnInit {
 
         return destination;
     }
-
+    formatCitizenId(cid:string): string{
+        if(this.isEmpty(cid) && cid.length==13) return cid;
+        let arr = cid.split('');
+        return arr[0]+'-'+arr[1]+arr[2]+arr[3]+arr[4]+'-'+arr[5]+arr[6]+arr[7]+arr[8]+arr[9]+'-'+arr[10]+arr[11]+'-'+arr[12];
+    }
     isValidCitizenIdThailand(s): boolean {
         let pin = 0, j = 13, pin_num = 0;
         if (s == "") {
@@ -250,5 +258,9 @@ export class BaseComponent implements OnInit {
             }
         }
         return strResult;
+    }
+
+    loadingConfig(): any{
+        return {fullScreenBackdrop: true, animationType: ANIMATION_TYPES.rotatingPlane}
     }
 }

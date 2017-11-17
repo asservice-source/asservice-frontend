@@ -20,5 +20,9 @@ export class DeadBean{
     public citizenId: string;
     public causeOfDeath: string;
     public address: string;
+    public mDateDead: any;
+    public mMinutes: string;
+    public mSeconds: string;
+    public isCauseOther: boolean;
     public action: string;
 }

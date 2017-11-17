@@ -47,7 +47,6 @@ import { FilterFindPersonComponent } from './filter/filter-find-person/filter-fi
 import { FilterHeadSurveyComponent } from './filter/filter-head-survey/filter-head-survey.component';
 import { FilterPersonalComponent } from './filter/filter-personal/filter-personal.component';
 import { ActionCustomViewComponent } from './action-custom-table/action-custom-view.component'
-import { LoadingComponent } from './loading/loading.component';
 import { OnlyNumberDirective } from './directives/onlynumber.directive';
 import { AutofocusDirective } from './directives/autofocus.directive';
 import { InputValidateDirective } from './directives/inputvalidate.directive';
@@ -61,7 +60,9 @@ import { MyDatePickerModule } from 'mydatepicker';
 import { RegisterActiveComponent } from './register/register-active/register-active.component';
 import { ManagementOsmAreaComponent } from './managements/osm/management-osm-area/list/management-osm-area.component';
 import { ManagementOsmAreaFormComponent } from './managements/osm/management-osm-area/form/management-osm-area-form.component';
-import { LoadingModule } from 'ngx-loading';
+import { LoadingComponent} from './ng2-loading/ngx-loading.component'
+import { LoadingConfigService } from './ng2-loading/ngx-loading.service'
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -98,7 +99,6 @@ import { LoadingModule } from 'ngx-loading';
     SurveyPersonalMemberFormComponent,
     SurveyMosquitoFormComponent,
     SurveyPatientFormComponent,
-    LoadingComponent,
     ActionCustomViewComponent,
     OnlyNumberDirective,
     AutofocusDirective,
@@ -112,7 +112,8 @@ import { LoadingModule } from 'ngx-loading';
     RegisterActiveComponent,
     ManagementOsmAreaComponent,
     ManagementOsmAreaFormComponent,
-
+    LoadingComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -124,7 +125,7 @@ import { LoadingModule } from 'ngx-loading';
     Ng2CompleterModule,
     Ng2SmartTableModule,
     MyDatePickerModule,
-    LoadingModule.forRoot({fullScreenBackdrop: true})
+    
   ],
   entryComponents: [
     ActionCustomViewComponent,
@@ -132,7 +133,7 @@ import { LoadingModule } from 'ngx-loading';
     SurveyPersonalMemberListButtonEditComponent,
     SurveyCancerListButtonEditComponent
   ],
-  providers: [],
+  providers: [LoadingConfigService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

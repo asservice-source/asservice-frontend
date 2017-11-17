@@ -14,9 +14,6 @@ span.value, label.value{
     font-weight: normal;
 }
 
-.label-form{
-
-}
 .panel-default>.panel-heading {
     background-color: #e4e7e8;
     height: 38px ;
@@ -115,6 +112,6 @@ color: white !important;
     background-color: #ffbf00;
     color: #ffffff;
 }
-.backdrop.full-screen{
+/* .backdrop.full-screen{
     z-index: 9991;
-}
+} */
