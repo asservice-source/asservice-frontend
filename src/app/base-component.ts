@@ -85,7 +85,7 @@ export class BaseComponent implements OnInit {
                 let page = source.getPaging();
                 let startSeq = page.page > 1 ? ((page.perPage * page.page) - page.perPage) + 1 : 1;
                 for (let item of list) {
-                    item.squenceNo = '<div class="text-center">' + (startSeq++) + '</div>';
+                    item.sequenceNo = '<div class="text-center">' + (startSeq++) + '</div>';
                 }
                 source.refresh();
                 this.isRefrestData = true;
@@ -146,8 +146,14 @@ export class BaseComponent implements OnInit {
     };
     public getCurrentDatePickerModel(strDate?: string): any {
         if (strDate) {
-            let arr = strDate.split('-');
-            return { date: { year: +arr[0], month: +arr[1], day: +arr[2] } };
+            let arrDT = strDate.split(' ');
+            let arrD = [];
+            if(arrDT[0].length>=8){
+                arrD = arrDT[0].split('-');
+            }else{
+                arrD = strDate[0].split('-');
+            }
+            return { date: { year: +arrD[0], month: +arrD[1], day: +arrD[2] } };
         } else {
             let dateObj = new Date();
             let month = dateObj.getUTCMonth() + 1; //months from 1-12
@@ -156,12 +162,14 @@ export class BaseComponent implements OnInit {
             return { date: { year: year, month: month, day: day } };
         }
     }
+
     public getStringDateForDatePickerModel(date: any): string {
         if (date) {
-            return date.year + '-' + this.month2(date.month) + '-' + this.month2(date.day);
+            return date.year + '-' + this.numberAppendPrefix(date.month,2) + '-' + this.numberAppendPrefix(date.day, 2);
         }
         return undefined;
     }
+
     public convertDateTimeSQL_to_DisplayDateTime(strDate?: string): any {
         let dateTimeObject: any = {date:"", time:{minutes:"00", seconds:"00"}};
         if (strDate) {
@@ -181,12 +189,6 @@ export class BaseComponent implements OnInit {
 
         return dateTimeObject;
 
-    }
-    public month2(m: number): string {
-        if (m < 10) {
-            return 0 + '' + m;
-        }
-        return '' + m;
     }
     public clearInputErrorClass() {
         $('label.error').hide();

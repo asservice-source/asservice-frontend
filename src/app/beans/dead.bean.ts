@@ -5,7 +5,7 @@ export class DeadBean{
     public personId: string;
     public hospDeath: string;
     public age: number;
-    public dateDead: any;
+    public deathDate: any;
     public isDiabetes: boolean;
     public isHypertension: boolean;
     public isAccident: boolean;

@@ -24,7 +24,7 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
   public deadPlaceList: Array<any> = [{code:"1", name:"บ้าน"}, {code:"2", name:"โรงพยาบาล"}, {code:"3", name:"ถนน"}, {code:"4", name:"แหล่งน้ำ"}, {code:"9", name:"อื่นๆ"}];
   public timeMimute = Array.from(Array(24),(x,i)=>i);
   public timeSec = Array.from(Array(60),(x,i)=>i);
-  public mDateDead: string;
+  public mDateDead: any;
   public mMinutes: string;
   public mSeconds: string;
 
@@ -44,10 +44,7 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
     this.setCalendarThai();
   }
 
-  onDateChanged(event: any){
-    console.log(event);
-    //console.log($('body .inputnoteditable').val());
-  }
+  
 
   setupCancerList(){
     let _self = this;
@@ -63,13 +60,15 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
       this.bean.deathPlaceCode = "9";
     }
     if(this.action==this.ass_action.EDIT){
-      let dateObj = this.convertDateTimeSQL_to_DisplayDateTime(this.bean.dateDead);
-      this.mDateDead = dateObj.date;
+      let dateObj = this.convertDateTimeSQL_to_DisplayDateTime(this.bean.deathDate);
+      this.mDateDead = this.getCurrentDatePickerModel(this.bean.deathDate);
       this.mMinutes = dateObj.time.minutes;
       this.mSeconds = dateObj.time.seconds;
+
     }
     this.isFindPersonal = false;
     this.isShowForm = true;
+    console.log(">>> Choose Person");
     console.log(this.bean);
   }
   onBack(){
@@ -80,7 +79,10 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
       $('#modal-add-died').modal('hide');
     }
   }
-  
+  onDateChanged(event: any){
+    console.log(event);
+    this.mDateDead = event;
+  }
   onModalEvent(){
     let _self = this;
     $('#modal-add-died').on('show.bs.modal', function (e) {
@@ -109,6 +111,8 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
   onSave(){
     console.log("Saving");
     console.log(this.bean);
+    let date = this.mDateDead.date;    
+    this.bean.deathDate = (date.year+'-'+date.month+'-'+date.day)+' '+this.mMinutes+':'+this.mSeconds+':00.0';
     console.log(this.strNullToEmpty(this.apiDead.map(this.bean)));
     let _self = this;
     // _self.apiDead.commit_save(_self.bean, function(response){
