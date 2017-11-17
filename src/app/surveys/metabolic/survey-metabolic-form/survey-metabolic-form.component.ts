@@ -233,6 +233,8 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
         this.isErrorSmoke = false;
       }
     } else {
+      this.metabolicbean.rollPerDay = "";
+      this.metabolicbean.packPerYear = "";
       this.isErrorSmoke = false;
     }
 
@@ -245,6 +247,7 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
         this.isErrorDrink = false;
       }
     } else {
+      this.metabolicbean.oftenPerWeek = "";
       this.isErrorDrink = false;
     }
 

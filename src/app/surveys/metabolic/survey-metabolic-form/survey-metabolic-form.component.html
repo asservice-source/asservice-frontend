@@ -4,13 +4,13 @@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">ฟอ์มคัดกรองผู้ป่วย metabolic</h4>
+                <h4 class="modal-title">ฟอร์มคัดกรองผู้ป่วย metabolic</h4>
             </div>
 
             <app-filter-find-person [reset]="resetFind" [findPersonal]="isFindPersonal" (choosePersonal)="onChoosePersonal($event)"></app-filter-find-person>
 
             <div *ngIf="isShowForm">
-                <div class="row">
+                <!-- <div class="row">
                     <div class="col-md-4 col-md-offset-1">
                         <label id="cid">หมายเลขประจำตัว :</label>
                         <label class="value">{{metabolicbean.citizenId}}</label>
@@ -43,9 +43,32 @@
                         <label class="label-form">ที่อยู่ :</label>
                         <label class="value">{{metabolicbean.address}}</label>
                     </div>
-                </div>
+                </div> -->
+                <div class="row">
+                    <div class="col-md-11 col-md-offset-1">
+                      <div class="box-body">
+                        <dl class="dl-horizontal">
+                          <dt>หมายเลขประจำตัว : </dt>
+                          <dd>{{ metabolicbean.citizenId }}</dd>
+                          <dt>ชื่อ-สกุล : </dt>
+                          <dd>{{ metabolicbean.fullName }}</dd>
+                          <dt>เพศ : </dt>
+                          <dd>{{ metabolicbean.genderName }}</dd>
+                          <dt>อายุ : </dt>
+                          <dd>{{ metabolicbean.age }}</dd>
+                          <dt>ที่อยู่ : </dt>
+                          <dd>{{ metabolicbean.address }}</dd>
+                          <dt>สิทธิบัตร : </dt>
+                          <dd> <select [(ngModel)]="metabolicbean.hInsuranceTypeId">
+                            <option value="0">เลือก</option>
+                            <option *ngFor="let item of healtInsuranceTypeList" value="{{item.id}}">{{item.code}}</option>
+                        </select></dd>
+                        </dl>
+                      </div>
+                    </div>
+                  </div>
 
-                <hr>
+                <hr style=" margin-top: 0px">
                 <!-- ประวัติสุขภาพ -->
                 <div class="row">
                     <div class="col-md-12 col-md-offset-2">

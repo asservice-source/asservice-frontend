@@ -356,7 +356,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
     
   }
 
-  formatCitizenID() {
+  formatInputCitizenID() {
     let self = this;
 
     if (!self.isEmpty(self.registerBean.contactCitizenId)) {
@@ -369,6 +369,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
         if (obj_2 == i && patternCitizen.charAt(i + 1) == patternCitizen_ex) {
           returnText += self.registerBean.contactCitizenId + patternCitizen_ex;
           self.registerBean.contactCitizenId = returnText;
+          //console.log(self.registerBean.contactCitizenId);
         }
       }
     }

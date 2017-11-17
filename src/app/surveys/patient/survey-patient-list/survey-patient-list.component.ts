@@ -4,7 +4,7 @@ import { ApiHTTPService } from '../../../service/api-http.service';
 import { ActionCustomViewComponent } from '../../../action-custom-table/action-custom-view.component';
 import { FilterHeadSurveyBean } from '../../../beans/filter-head-survey.bean';
 import { LocalDataSource } from 'ng2-smart-table';
-import {PatientBean} from '../../../beans/patient.bean'
+import { PatientBean } from '../../../beans/patient.bean'
 declare var $: any;
 
 @Component({
@@ -17,7 +17,7 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
   public patientType: number = 0;
   public isShowsick: boolean = true;
   public surveyTypeCode: string = "PATIENT";
-  public patientbean : PatientBean = new PatientBean();
+  public patientbean: PatientBean = new PatientBean();
   public action: string = this.ass_action.ADD;
 
   private api: ApiHTTPService;
@@ -25,7 +25,7 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
   public isShowList: boolean = false;
   public source: LocalDataSource = new LocalDataSource();
   public healtInsuranceID = 7;
-  public datas:any = [];
+  public datas: any = [];
 
   constructor(private changeRef: ChangeDetectorRef) {
     super();
@@ -42,9 +42,9 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
         title: 'เลขประจำตัวประชาชน',
         filter: false,
         width: '200px',
-        type:'html',
-        valuePrepareFunction: (cell, row) => { 
-          return '<div class="text-center">'+cell+'</div>'
+        type: 'html',
+        valuePrepareFunction: (cell, row) => {
+          return '<div class="text-center">' + cell + '</div>'
         }
       },
       remark: {
@@ -56,27 +56,27 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
         title: 'เพศ',
         filter: false,
         width: '70px',
-        type:'html',
-        valuePrepareFunction: (cell, row) => { 
-          return '<div class="text-center">'+cell+'</div>'
+        type: 'html',
+        valuePrepareFunction: (cell, row) => {
+          return '<div class="text-center">' + cell + '</div>'
         }
       },
       age: {
         title: 'อายุ',
         filter: false,
         width: '70px',
-        type:'html',
-        valuePrepareFunction: (cell, row) => { 
-          return '<div class="text-center">'+cell+'</div>'
+        type: 'html',
+        valuePrepareFunction: (cell, row) => {
+          return '<div class="text-center">' + cell + '</div>'
         }
       },
       patientType: {
         title: 'ประเภท',
         filter: false,
         width: '120px',
-        type:'html',
-        valuePrepareFunction: (cell, row) => { 
-          return '<div class="text-center">'+cell+'</div>'
+        type: 'html',
+        valuePrepareFunction: (cell, row) => {
+          return '<div class="text-center">' + cell + '</div>'
         }
       },
       action: {
@@ -90,6 +90,8 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
 
           instance.action.subscribe((row: PatientBean, cell) => {
             if (row && row.action.toUpperCase() == self.ass_action.EDIT) {
+              // console.log(self.getCurrentDatePickerModel(row.patientDate));
+              // row.patientDate = self.getCurrentDatePickerModel(row.patientDate);
               self.patientbean = self.cloneObj(row);
               self.onModalFrom(self.ass_action.EDIT);
             }
@@ -117,31 +119,31 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
   }
 
   onSearch(event: FilterHeadSurveyBean) {
-      let self = this;
-      let param = {
-        "documentId" : event.rowGUID,
-        "villageId" : event.villageId,
-        "osmId" : event.osmId,
-        "name" :event.fullName,
-        "rowGUID": ""
-      };
-      let params = JSON.stringify(param);
-  
-      this.api.post('survey_patient/filter', params, function (resp) {
-        console.log(resp);
-        if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+    let self = this;
+    let param = {
+      "documentId": event.rowGUID,
+      "villageId": event.villageId,
+      "osmId": event.osmId,
+      "name": event.fullName,
+      "rowGUID": ""
+    };
+    let params = JSON.stringify(param);
 
-          for(let item of resp.response){
-            if(resp.response.patientSurveyTypeCode != 'Cancer'){
-              self.datas = resp.response;
-            }
+    this.api.post('survey_patient/filter', params, function (resp) {
+      console.log(resp);
+      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+
+        for (let item of resp.response) {
+          if (resp.response.patientSurveyTypeCode != 'Cancer') {
+            self.datas = resp.response;
           }
-          // self.datas = resp.response;
-          // console.log("=========================getPatient============================");
-          // console.log(resp);
-          self.setUpTable();
         }
-      })
+        // self.datas = resp.response;
+        // console.log("=========================getPatient============================");
+        // console.log(resp);
+        self.setUpTable();
+      }
+    })
     this.setUpTable();
   }
 
@@ -151,7 +153,7 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
     super.setNg2STDatasource(this.source);
   }
 
-  onModalFrom(action: string){
+  onModalFrom(action: string) {
     this.action = action;
     this.changeRef.detectChanges();
     $('#find-person-md').modal('show');

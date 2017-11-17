@@ -33,12 +33,22 @@ export class PatientBean{  action: any;
     public patientSurveyTypeCode : any;
     public patientType : string;
     public diseaseStatusType : string;
-    public patientDate : any;
+    public patientDate : string;
     public hInsuranceType : string;
 
     public disabilityType : string;
     public disabilityCauseType : string;
     public remark : string;
     public telephone : string;
+    public operationDate : string;
+    public homeID : string;
+
+    public patientTypeId : string;
+    public rowGUID : string;
+    public personID : string;
+    public documentID : string;
+    public osmId : string;
+    public cancerTypeID : string;
+    public diseaseStatusTypeID : string;
 
 }

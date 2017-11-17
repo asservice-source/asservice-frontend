@@ -140,6 +140,9 @@ button.accordion[aria-expanded="false"]:after {
     background-color: white;    
 }
 
+.dl-horizontal {
+    margin-bottom: 0;
+}
 
 
 

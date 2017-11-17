@@ -74,7 +74,9 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
       self.resetFind = self.resetFind + 1;
       if (self.action == self.ass_action.EDIT) {
         //self.data.patientSurveyTypeCode.toUpperCase();
+        //self.data.patientDate = self.getCurrentDatePickerModel(self.data.patientDate);
         self.onChoosePersonal(self.data);
+        
         console.log(self.data);
       }
 
@@ -147,11 +149,11 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
 
   onChangePatientSyurvey(){
 
-    if(this.patientbean.patientSurveyTypeCode == 'Patient'){
+    if(this.patientbean.patientSurveyTypeCode == 'PATIENT'){
       this.patientbean.hInsuranceType = "89";
     }
 
-    if(this.patientbean.patientSurveyTypeCode == 'Disabled'){
+    if(this.patientbean.patientSurveyTypeCode == 'DABLED'){
       this.patientbean.hInsuranceType = "74";
     }
 
@@ -163,5 +165,31 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
 
   }
 
+
+  addSurvey(){
+    let self = this;
+
+    let params = {
+      "rowGUID": this.patientbean.rowGUID,
+      "personID": this.patientbean.personID,
+      "documentID": this.patientbean.documentID,
+      "osmId": this.patientbean.osmId,
+      "operationDate" : this.patientbean.operationDate,
+      "homeID" : this.patientbean.homeID,
+      "cancerTypeID" : this.patientbean.cancerTypeID,
+      "diseaseStatusTypeID" : this.patientbean.diseaseStatusTypeID,
+      "patientDate" : this.patientbean.patientDate,
+      "patientTypeID" : this.patientbean.patientTypeId,
+      // "hInsuranceTypeID"
+    };
+
+    this.api.post('survey_patient/ins_upd', params, function (resp) {
+      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+        console.log(resp);
+      }
+
+    })
+
+  }
 
 }
