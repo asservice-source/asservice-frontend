@@ -21,23 +21,26 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
   public resetFind: number = 1;
   public isCauseOther: boolean = false;
   public cancerList: Array<any>;
-  public deadPlaceList: Array<any> = [{code:"1", name:"บ้าน"}, {code:"2", name:"โรงพยาบาล"}, {code:"3", name:"ถนน"}, {code:"4", name:"แหล่งน้ำ"}, {code:"9", name:"อื่นๆ"}];
+  public deadPlaceList: Array<any>;
   public timeMimute = Array.from(Array(24),(x,i)=>i);
   public timeSec = Array.from(Array(60),(x,i)=>i);
   public mDateDead: any;
   public mMinutes: string;
   public mSeconds: string;
+  public loading: boolean = true;
 
   constructor(private changeRef: ChangeDetectorRef) {
     super();
     this.bean = new DeadBean();
     this.apiDead = new Service_SurveyDead();
     this.cancerList = new Array<any>();
+    this.deadPlaceList = new Array<any>();
    }
 
   ngOnInit() {
     this.onModalEvent();
     this.setupCancerList();
+    this.setupPlaceList();
   }
 
   ngAfterViewInit(){
@@ -53,6 +56,12 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
     });
   }
 
+  setupPlaceList(){
+    let _self = this;
+    this.apiDead.apiHTTPService.api_DeathPlaceList(function(response){
+      _self.deadPlaceList = response;
+    });
+  }
   onChoosePersonal(bean: DeadBean):void {
     
     this.bean = bean;

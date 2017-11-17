@@ -61,7 +61,7 @@ import { MyDatePickerModule } from 'mydatepicker';
 import { RegisterActiveComponent } from './register/register-active/register-active.component';
 import { ManagementOsmAreaComponent } from './managements/osm/management-osm-area/list/management-osm-area.component';
 import { ManagementOsmAreaFormComponent } from './managements/osm/management-osm-area/form/management-osm-area-form.component';
-
+import { LoadingModule } from 'ngx-loading';
 @NgModule({
   declarations: [
     AppComponent,
@@ -123,7 +123,8 @@ import { ManagementOsmAreaFormComponent } from './managements/osm/management-osm
     ReactiveFormsModule,
     Ng2CompleterModule,
     Ng2SmartTableModule,
-    MyDatePickerModule
+    MyDatePickerModule,
+    LoadingModule.forRoot({fullScreenBackdrop: true})
   ],
   entryComponents: [
     ActionCustomViewComponent,
