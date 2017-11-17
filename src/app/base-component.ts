@@ -5,6 +5,7 @@ import { Utils, Action, SurveyHeaderTypeCode } from "./utils.util";
 import * as myconf from "./global-config";
 import * as moment from 'moment'
 import { IMyDpOptions } from 'mydatepicker';
+import { ANIMATION_TYPES } from './ng2-loading/ngx-loading.config';
 declare var $: any;
 declare var bootbox: any;
 
@@ -13,7 +14,10 @@ export class BaseComponent implements OnInit {
     public _GLOBAL = myconf;
     public ass_action = Action;
     public surveyHeaderCode = SurveyHeaderTypeCode;
+    public loading: boolean = false;
+
     private ng2STDataSource: LocalDataSource;// = new LocalDataSource();
+    
     constructor() {
 
     }
@@ -85,7 +89,7 @@ export class BaseComponent implements OnInit {
                 let page = source.getPaging();
                 let startSeq = page.page > 1 ? ((page.perPage * page.page) - page.perPage) + 1 : 1;
                 for (let item of list) {
-                    item.squenceNo = '<div class="text-center">' + (startSeq++) + '</div>';
+                    item.sequenceNo = '<div class="text-center">' + (startSeq++) + '</div>';
                 }
                 source.refresh();
                 this.isRefrestData = true;
@@ -146,8 +150,14 @@ export class BaseComponent implements OnInit {
     };
     public getCurrentDatePickerModel(strDate?: string): any {
         if (strDate) {
-            let arr = strDate.split('-');
-            return { date: { year: +arr[0], month: +arr[1], day: +arr[2] } };
+            let arrDT = strDate.split(' ');
+            let arrD = [];
+            if(arrDT[0].length>=8){
+                arrD = arrDT[0].split('-');
+            }else{
+                arrD = strDate[0].split('-');
+            }
+            return { date: { year: +arrD[0], month: +arrD[1], day: +arrD[2] } };
         } else {
             let dateObj = new Date();
             let month = dateObj.getUTCMonth() + 1; //months from 1-12
@@ -156,12 +166,14 @@ export class BaseComponent implements OnInit {
             return { date: { year: year, month: month, day: day } };
         }
     }
+
     public getStringDateForDatePickerModel(date: any): string {
         if (date) {
-            return date.year + '-' + this.month2(date.month) + '-' + this.month2(date.day);
+            return date.year + '-' + this.numberAppendPrefix(date.month,2) + '-' + this.numberAppendPrefix(date.day, 2);
         }
         return undefined;
     }
+
     public convertDateTimeSQL_to_DisplayDateTime(strDate?: string): any {
         let dateTimeObject: any = {date:"", time:{minutes:"00", seconds:"00"}};
         if (strDate) {
@@ -182,12 +194,6 @@ export class BaseComponent implements OnInit {
         return dateTimeObject;
 
     }
-    public month2(m: number): string {
-        if (m < 10) {
-            return 0 + '' + m;
-        }
-        return '' + m;
-    }
     public clearInputErrorClass() {
         $('label.error').hide();
         $('.error-input').removeClass('error-input');
@@ -202,7 +208,11 @@ export class BaseComponent implements OnInit {
 
         return destination;
     }
-
+    formatCitizenId(cid:string): string{
+        if(this.isEmpty(cid) && cid.length==13) return cid;
+        let arr = cid.split('');
+        return arr[0]+'-'+arr[1]+arr[2]+arr[3]+arr[4]+'-'+arr[5]+arr[6]+arr[7]+arr[8]+arr[9]+'-'+arr[10]+arr[11]+'-'+arr[12];
+    }
     isValidCitizenIdThailand(s): boolean {
         let pin = 0, j = 13, pin_num = 0;
         if (s == "") {
@@ -248,5 +258,9 @@ export class BaseComponent implements OnInit {
             }
         }
         return strResult;
+    }
+
+    loadingConfig(): any{
+        return {fullScreenBackdrop: true, animationType: ANIMATION_TYPES.rotatingPlane}
     }
 }

@@ -1,10 +1,11 @@
-import { Component, OnInit, ElementRef, ChangeDetectorRef, Input, AfterViewInit} from '@angular/core';
+import { Component, OnInit, ElementRef, ChangeDetectorRef, Input, AfterViewInit, Output, EventEmitter} from '@angular/core';
 import { PersonBean } from "../../../beans/person.bean";
 import { BaseComponent } from "../../../base-component";
 import { DeadBean } from '../../../beans/dead.bean';
 import {IMyDpOptions} from 'mydatepicker';
 import { Service_SurveyDead } from '../../../service/service-survey-dead';
 declare var $: any;
+declare var bootbox: any;
 @Component({
   selector: 'app-survey-died-form',
   templateUrl: './survey-died-form.component.html',
@@ -14,40 +15,38 @@ declare var $: any;
 export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,AfterViewInit{
   @Input() action: string;
   @Input() data: DeadBean;
+  @Output() commit: EventEmitter<any>;
   public bean: DeadBean;
   public apiDead : Service_SurveyDead;
   public isShowForm: boolean = false;
   public isFindPersonal: boolean = true;
   public resetFind: number = 1;
-  public isCauseOther: boolean = false;
   public cancerList: Array<any>;
-  public deadPlaceList: Array<any> = [{code:"1", name:"บ้าน"}, {code:"2", name:"โรงพยาบาล"}, {code:"3", name:"ถนน"}, {code:"4", name:"แหล่งน้ำ"}, {code:"9", name:"อื่นๆ"}];
+  public deadPlaceList: Array<any>;
   public timeMimute = Array.from(Array(24),(x,i)=>i);
   public timeSec = Array.from(Array(60),(x,i)=>i);
-  public mDateDead: string;
-  public mMinutes: string;
-  public mSeconds: string;
+
 
   constructor(private changeRef: ChangeDetectorRef) {
     super();
+    this.commit = new EventEmitter<any>();
     this.bean = new DeadBean();
     this.apiDead = new Service_SurveyDead();
     this.cancerList = new Array<any>();
+    this.deadPlaceList = new Array<any>();
    }
 
   ngOnInit() {
     this.onModalEvent();
     this.setupCancerList();
+    this.setupPlaceList();
   }
 
   ngAfterViewInit(){
     this.setCalendarThai();
   }
 
-  onDateChanged(event: any){
-    console.log(event);
-    //console.log($('body .inputnoteditable').val());
-  }
+  
 
   setupCancerList(){
     let _self = this;
@@ -56,20 +55,31 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
     });
   }
 
-  onChoosePersonal(bean: DeadBean):void {
-    
-    this.bean = bean;
-    if(!this.bean.deathPlaceCode){
-      this.bean.deathPlaceCode = "9";
-    }
+  setupPlaceList(){
+    let _self = this;
+    this.apiDead.apiHTTPService.api_DeathPlaceList(function(response){
+      _self.deadPlaceList = response;
+    });
+  }
+  onChoosePersonal(mBean: DeadBean):void {
+    this.bean = mBean;
     if(this.action==this.ass_action.EDIT){
-      let dateObj = this.convertDateTimeSQL_to_DisplayDateTime(this.bean.dateDead);
-      this.mDateDead = dateObj.date;
-      this.mMinutes = dateObj.time.minutes;
-      this.mSeconds = dateObj.time.seconds;
+      let dateObj = this.convertDateTimeSQL_to_DisplayDateTime(this.bean.deathDate);
+      this.bean.mDateDead = this.getCurrentDatePickerModel(this.bean.deathDate);
+      this.bean.mMinutes = dateObj.time.minutes;
+      this.bean.mSeconds = dateObj.time.seconds;
+      if(this.bean.causeOther && !this.isEmpty(this.bean.causeOther)){
+        this.bean.isCauseOther = true;
+      }else{
+        this.bean.isCauseOther = false;
+      }
+      
+    }else{
+      this.bean.deathPlaceCode = "";
     }
     this.isFindPersonal = false;
     this.isShowForm = true;
+    console.log(">>> Choose Person");
     console.log(this.bean);
   }
   onBack(){
@@ -80,18 +90,21 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
       $('#modal-add-died').modal('hide');
     }
   }
-  
+  onDateChanged(event: any){
+    console.log(event);
+    this.bean.mDateDead = event;
+  }
   onModalEvent(){
     let _self = this;
     $('#modal-add-died').on('show.bs.modal', function (e) {
       
       _self.resetFind = _self.resetFind+1;
       if(_self.action==_self.ass_action.EDIT){
-        if(!_self.isEmpty(_self.data.causeOther)){
-          _self.isCauseOther = true;
-        }else{
-          _self.isCauseOther = false;
-        }
+        // if(!_self.isEmpty(_self.data.causeOther)){
+        //   _self.bean.isCauseOther = true;
+        // }else{
+        //   _self.bean.isCauseOther = false;
+        // }
         _self.onChoosePersonal(_self.data);
        
       }
@@ -107,16 +120,28 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
   }
 
   onSave(){
+    
+    let date = this.bean.mDateDead.date;    
+    this.bean.deathDate = (date.year+'-'+date.month+'-'+date.day)+' '+this.bean.mMinutes+':'+this.bean.mSeconds+':00.0';
     console.log("Saving");
-    console.log(this.bean);
-    console.log(this.strNullToEmpty(this.apiDead.map(this.bean)));
+    console.log( this.bean);
     let _self = this;
-    // _self.apiDead.commit_save(_self.bean, function(response){
-
-    // });
+    _self.loading = true;
+   _self.apiDead.commit_save(this.strNullToEmpty(this.apiDead.map(this.bean)),
+    function(response){
+        _self.loading = false;
+        if(response.status.toUpperCase()=="SUCCESS"){
+          $('#modal-add-died').modal('hide');
+          bootbox.alert("บันทึกข้อมูลสำเร็จ", function(){
+            _self.commit.emit(response);
+          });
+        }else{
+          bootbox.alert("บันทึกข้อมูลไม่สำเร็จ");
+        }
+        console.log("SAVED...");
+        console.log(response);
+      });
   }
-
-
   setCalendarThai(){
 
     $('body').on('click','.inputnoteditable', function(){

@@ -27,7 +27,7 @@
                 <label>หมายเลขประจำตัว</label>
               </div>
               <div class="col-md-5">
-                <label class="value">{{bean.citizenId}}</label>
+                <label class="value">{{formatCitizenId(bean.citizenId)}}</label>
               </div>
             </div>
 
@@ -55,13 +55,13 @@
             </div>
             <div class="col-md-2">
               <my-date-picker name="mydate" [options]="datePickerOptions"
-              [(ngModel)]="mDateDead" (dateChanged)="onDateChanged($event)" required></my-date-picker>
+              [(ngModel)]="bean.mDateDead" (dateChanged)="onDateChanged($event)" required></my-date-picker>
             </div>
             <div class="col-md-1 text-right"  style="width: 40px; padding: 0;">
                 <label>เวลา</label>
             </div>
             <div class="col-md-1" style="padding-right: 0;">
-                <select [(ngModel)]="mMinutes">
+                <select [(ngModel)]="bean.mMinutes">
                   <option *ngFor="let number of timeMimute" [value]="numberAppendPrefix(number,2)">{{numberAppendPrefix(number,2)}}</option>
                 </select>
             </div>
@@ -69,7 +69,7 @@
               <label>:</label>
             </div>
             <div class="col-md-1" style="padding-left: 0;">
-                <select [(ngModel)]="mSeconds">
+                <select [(ngModel)]="bean.mSeconds">
                   <option *ngFor="let number of timeSec" [value]="numberAppendPrefix(number,2)">{{numberAppendPrefix(number,2)}}</option>
         
                 </select>
@@ -163,7 +163,7 @@
                 <div class="col-md-4" style="padding-right: 0">
                     <div class="checkbox">
                       <label class="label-form">
-                          <input type="checkbox" [(ngModel)]="isCauseOther">
+                          <input type="checkbox" [(ngModel)]="bean.isCauseOther" (click)="bean.causeOther=''">
                           <span class="cr">
                               <i class="cr-icon fa fa-check"></i>
                           </span>
@@ -172,7 +172,7 @@
                     </div> 
                   </div>
                 <div class="col-md-8" style="padding-left: 0">
-                  <input type="text" [(ngModel)]="bean.causeOther" placeholder="ระบุ สาเหตุอื่นๆ" [disabled]="!isCauseOther">
+                  <input type="text" [(ngModel)]="bean.causeOther" placeholder="ระบุ สาเหตุอื่นๆ" [disabled]="!bean.isCauseOther">
                 </div>
               </div>
 
@@ -257,3 +257,6 @@
 <!-- End panel-body -->
   </div>
 </div>
+
+
+<ngx-loading [show]="loading" [config]="loadingConfig()"></ngx-loading>

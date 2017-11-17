@@ -17,7 +17,7 @@ export class Service_SurveyDead{
             "documentID": bean.documentId, //"3BAA6996-A8AD-E711-AB84-005056C00008",
             "osmId": bean.osmId, //"0848DE88-BAC2-E711-AB84-005056C00008",
             "personId": bean.personId, //"7006AF7A-CFC2-E711-AB84-005056C00008",
-            "deathDate": bean.dateDead, //"2017-11-13 10:08:00.0",
+            "deathDate": bean.deathDate, //"2017-11-13 10:08:00.0",
             "hospDeath": bean.hospDeath,//"อิอิ",
             "age": bean.age, //44,
             "isDiabetes": bean.isDiabetes, //true,

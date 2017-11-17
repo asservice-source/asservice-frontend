@@ -124,4 +124,8 @@ export class ApiHTTPService extends BaseComponent implements OnInit {
         this.callResponse('person/cancer_type_list', {}, callback);
     }
 
+    public api_DeathPlaceList(callback: (doc: any) => void){
+        this.callResponse('survey/survey_death_place_list', {}, callback);
+    }
+
 }
