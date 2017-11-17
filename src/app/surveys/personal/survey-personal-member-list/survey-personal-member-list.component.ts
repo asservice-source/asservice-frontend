@@ -148,6 +148,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
           instance.action.subscribe((row: PersonalMemberBean) => {
             // console.log(row);
             self.action = self.ass_action.EDIT;
+            row.homeId = self.paramHomeId;
             self.paramMember = row;
             self.changeRef.detectChanges();
             $("#modalMember").modal({ backdrop: 'static', keyboard: false });
@@ -183,7 +184,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
         let homeInfo = d.response;
         self.homeAddress = homeInfo.address;
         self.homeTel = homeInfo.telephone;
-        self.osmFullName = homeInfo.OsmFullName;
+        self.osmFullName = homeInfo.osmFullName;
       } else {
         console.log('survey-personal-member-list(bindHomeInfo) occured error(s) => ' + d.message);
       }
@@ -249,6 +250,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
       for (let item of listAll) {
         if (item.citizenId == tmpMember.citizenId) {
           index = listAll.indexOf(item);
+
         }
       }
     } else {
@@ -296,7 +298,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     let familyStatus = '';
     if (member.listFamilyStatus) {
       for (let g of member.listFamilyStatus) {
-        if (g.code == member.familyStatusId) {
+        if (g.id == member.familyStatusId) {
           familyStatus = g.name;
           break;
         }
@@ -305,7 +307,30 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     tmpMember.familyStatusName = familyStatus;
 
     if (!isActionAdd) {
-      listAll[index] = tmpMember;
+      // listAll[index] = tmpMember;
+      let deleteIndex1 = -1;
+      for (let item of self.tempData) {
+        if (item.isGuest) {
+          self.tempData2.push(item);
+          deleteIndex1 = self.tempData.indexOf(item)
+        }
+      }
+      if (deleteIndex1 > 0) {
+        self.tempData.splice(deleteIndex1, 1);
+      }
+
+
+      let deleteIndex2 = -1;
+      for (let item of self.tempData2) {
+        if (!item.isGuest) {
+          self.tempData.push(item);
+          deleteIndex2 = self.tempData2.indexOf(item)
+        }
+      }
+      if (deleteIndex2 > 0) {
+        self.tempData2.splice(deleteIndex2, 1);
+      }
+
     } else {
       if (tmpMember.isGuest.toUpperCase() == 'TRUE') {
         self.tempData2.push(tmpMember);
@@ -314,7 +339,12 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
       }
     }
 
+    console.log(self.tempData);
+    console.log(self.tempData2);
+
+    self.source = self.ng2STDatasource(self.tempData);
     self.source.refresh();
+    self.source2 = self.ng2STDatasource(self.tempData2);
     self.source2.refresh();
 
     $("#modalMember").modal('hide');
@@ -322,6 +352,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
 
   onClickAdd() {
     this.paramMember = new PersonalMemberBean();
+    this.paramMember.homeId = this.paramHomeId;
     this.action = this.ass_action.ADD;
     this.changeRef.detectChanges();
     $("#modalMember").modal({ backdrop: 'static', keyboard: false });

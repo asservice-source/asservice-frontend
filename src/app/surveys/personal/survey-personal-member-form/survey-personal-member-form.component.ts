@@ -16,12 +16,13 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
   // private apiHttp: ApiHTTPService = new ApiHTTPService();
   private apiHttp: Service_SurveyPersonal = new Service_SurveyPersonal();
   public member: PersonalMemberBean = new PersonalMemberBean();
+  public textButtonVerify: string = "ตรวจสอบ";
 
   @Input() action: string;
   @Input() set triggerMember(paramMember: PersonalMemberBean) {
     let self = this;
 
-    self.member = this.strNullToEmpty(paramMember);
+    self.member = self.strNullToEmpty(paramMember);
     self.member.isGuest = self.member.isGuest.toString();
     if (self.member && self.member.birthDate) {
       self.modelBirthDate = self.getCurrentDatePickerModel(self.member.birthDate);
@@ -44,6 +45,10 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
   public listOccupation: any = [];
   public listDischarge: any = [];
   public listFamilyStatus: any = [];
+
+  public isDisabledCitizenId: boolean = true;
+  public isDisplayButtonVerifyCitizenId: boolean = true;
+  public isDisplayButtonEditCitizenId: boolean = false;
 
   public isDisplayActionEdit: boolean = false;
   public isDisabledActionAdd: boolean = false;
@@ -81,12 +86,16 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
       if (self.action == self.ass_action.EDIT) {
         self.member.isExists = "true";
 
+        self.toggleCitizenId(true);
+
         self.isDisplayActionEdit = true;
         self.isDisabledActionAdd = true;
         self.isDisablePersonData = false;
       } else {
         self.member.isGuest = "false";
         self.member.isExists = "true";
+
+        self.toggleCitizenId(false);
 
         self.isDisplayActionEdit = false;
         self.isDisabledActionAdd = false;
@@ -302,7 +311,21 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
     self.member.birthDate = self.getStringDateForDatePickerModel(event.date);
   }
 
-  onClickVerify() {
+  toggleCitizenId(flag: boolean) {
+    let self = this;
+
+    if (flag === true) {
+      self.isDisabledCitizenId = true;
+      self.isDisplayButtonVerifyCitizenId = false;
+      self.isDisplayButtonEditCitizenId = true;
+    } else {
+      self.isDisabledCitizenId = false;
+      self.isDisplayButtonVerifyCitizenId = true;
+      self.isDisplayButtonEditCitizenId = false;
+    }
+  }
+
+  onClickVerifyCitizenId() {
     let self = this;
 
     let cid = self.member.citizenId;
@@ -318,6 +341,7 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
 
         if (personData) {
           personData = self.strNullToEmpty(personData);
+          self.member.personId = personData.personId;
           self.member.prefixCode = personData.prefixCode;
           self.member.firstName = personData.firstName;
           self.member.lastName = personData.lastName;
@@ -336,6 +360,25 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
           self.member.educationCode = personData.educationCode;
           self.member.occupationCode = personData.occupCode;
 
+          self.toggleCitizenId(true);
+          self.isDisablePersonData = false;
+        } else {
+          self.member.personId = '';
+          self.member.prefixCode = '';
+          self.member.firstName = '';
+          self.member.lastName = '';
+          self.member.genderId = '';
+          self.member.raceCode = '';
+          self.member.nationalityCode = '';
+          self.member.religionCode = '';
+          self.member.bloodTypeId = '';
+          self.member.rhGroupId = '';
+          self.member.birthDate = '';
+          self.modelBirthDate = {};
+          self.member.educationCode = '';
+          self.member.occupationCode = '';
+
+          self.toggleCitizenId(true);
           self.isDisablePersonData = false;
         }
       } else {
@@ -344,22 +387,35 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
     });
   }
 
+  onClickEditCitizenId(){
+    let self = this;
+
+    self.toggleCitizenId(false);
+    self.isDisablePersonData = true;
+  }
+
   onClickSave() {
     let self = this;
 
-    if (self.action == self.ass_action.ADD) {
-      self.apiHttp.commit_save(self.member, function(){
+    self.apiHttp.commit_save(self.member, function (d) {
+      console.log(d);
+      if (d != null && d.status.toUpperCase() == "SUCCESS") {
+        self.member.personId = d.response.personId;
         self.member.listPrefix = self.listPrefix;
         self.member.listGender = self.listGender;
         self.member.listFamilyStatus = self.listFamilyStatus;
+        console.log(self.member);
         self.memberUpdated.emit(self.member);
-      });
-    } else {
-      self.member.listPrefix = self.listPrefix;
-      self.member.listGender = self.listGender;
-      self.member.listFamilyStatus = self.listFamilyStatus;
-      self.memberUpdated.emit(self.member);
-    }
+      } else {
+        alert(d.message);
+      }
+    });
+
+    // self.member.listPrefix = self.listPrefix;
+    // self.member.listGender = self.listGender;
+    // self.member.listFamilyStatus = self.listFamilyStatus;
+    // self.memberUpdated.emit(self.member);
+
   }
 
 }

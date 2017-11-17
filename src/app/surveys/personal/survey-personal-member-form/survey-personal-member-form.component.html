@@ -26,44 +26,14 @@
         <div class="row">
           <div class="col-md-1"></div>
           <div class="col-md-2 text-right">
-            <label class="label-form">ประเภทการอยู่อาศัย</label>
-          </div>
-          <div class="col-md-9">
-            <div class="row">
-              <div class="col-md-12">
-                <div class="radio">
-                  <label class="label-form" style="font-size: 1em">
-                    <input type="radio" name="guestType" id="guest1" value="false" [(ngModel)]="member.isGuest">
-                    <span class="cr">
-                      <i class="cr-icon fa fa-check"></i>
-                    </span>
-                    มีชื่อในสำเนาทะเบียนบ้านจริง
-                  </label>
-                </div>
-                <div class="radio">
-                  <label class="label-form" style="font-size: 1em">
-                    <input type="radio" name="guestType" id="guest2" value="true" [(ngModel)]="member.isGuest">
-                    <span class="cr">
-                      <i class="cr-icon fa fa-check"></i>
-                    </span>
-                    ไม่มีชื่อในสำเนาทะเบียนบ้าน แต่ตัวอยู่จริง
-                  </label>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-1"></div>
-          <div class="col-md-2 text-right">
             <label class="label-form">หมายเลขประจำตัว</label>
           </div>
           <div class="col-md-3">
             <div class="input-group">
-              <input type="text" class="ng-pristine ng-valid ng-touched form-control" [OnlyNumber]="true" [(ngModel)]="member.citizenId">
+              <input type="text" class="ng-pristine ng-valid ng-touched form-control" [OnlyNumber]="true" [disabled]="isDisabledCitizenId" [(ngModel)]="member.citizenId">
               <span class="input-group-btn">
-                <button class="btn btn-primary btn-flat" (click)="onClickVerify();">ตรวจสอบ</button>
+                <button class="btn btn-primary btn-flat" (click)="onClickVerifyCitizenId();" *ngIf="isDisplayButtonVerifyCitizenId">ตรวจสอบ</button>
+                <button class="btn btn-primary btn-flat" (click)="onClickEditCitizenId();" *ngIf="isDisplayButtonEditCitizenId">แก้ไข</button>
               </span>
             </div>
           </div>
@@ -179,10 +149,9 @@
             <label class="label-form">อาชีพ</label>
           </div>
           <div class="col-md-3">
-            <select name="dropdown-occupationCode" id="dropdown-occupationCode" [(ngModel)]="member.occupationCode" (change)="onChangeOccupation()"
-              [disabled]="isDisablePersonData">
+            <select name="dropdown-occupationCode" id="dropdown-occupationCode" [(ngModel)]="member.occupationCode" [disabled]="isDisablePersonData">
               <option value="">--เลือก อาชีพ--</option>
-              <option *ngFor="let item of listOccupation" [value]="item.id">{{item.name}}</option>
+              <option *ngFor="let item of listOccupation" [value]="item.code">{{item.name}}</option>
             </select>
           </div>
         </div>
@@ -196,6 +165,37 @@
             <!-- <input type="text" [(ngModel)]="member.birthDate"> -->
             <my-date-picker name="mydate" [options]="datePickerOptions" [(ngModel)]="modelBirthDate" (dateChanged)="onChangeDate($event)"
               [disabled]="isDisablePersonData"></my-date-picker>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-1"></div>
+          <div class="col-md-2 text-right">
+            <label class="label-form">ประเภทการอยู่อาศัย</label>
+          </div>
+          <div class="col-md-9">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="radio">
+                  <label class="label-form" style="font-size: 1em">
+                    <input type="radio" name="guestType" id="guest1" value="false" [(ngModel)]="member.isGuest">
+                    <span class="cr">
+                      <i class="cr-icon fa fa-check"></i>
+                    </span>
+                    มีชื่อในสำเนาทะเบียนบ้านจริง
+                  </label>
+                </div>
+                <div class="radio">
+                  <label class="label-form" style="font-size: 1em">
+                    <input type="radio" name="guestType" id="guest2" value="true" [(ngModel)]="member.isGuest">
+                    <span class="cr">
+                      <i class="cr-icon fa fa-check"></i>
+                    </span>
+                    ไม่มีชื่อในสำเนาทะเบียนบ้าน แต่ตัวอยู่จริง
+                  </label>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 

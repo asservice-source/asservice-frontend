@@ -3,7 +3,7 @@ import { Http, RequestOptions, Headers, BrowserXhr, BaseRequestOptions, Response
 import { BaseComponent } from '../base-component';
 import { FilterHeadSurveyBean } from '../beans/filter-head-survey.bean';
 export class ApiHTTPService extends BaseComponent implements OnInit {
-    private http;
+    public http;
     constructor() {
         super();
 
