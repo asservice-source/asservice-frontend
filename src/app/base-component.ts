@@ -17,6 +17,8 @@ export class BaseComponent implements OnInit {
     public surveyHeaderCode = SurveyHeaderTypeCode;
     public loading: boolean = false;
     private ng2STDataSource: LocalDataSource;// = new LocalDataSource();
+    public rowPerPage: number = 10;
+
     
     constructor() {
 
@@ -59,7 +61,7 @@ export class BaseComponent implements OnInit {
             hideSubHeader: true,
             pager: {
                 display: true,
-                perPage: 4
+                perPage: this.rowPerPage
             }
         };
 
