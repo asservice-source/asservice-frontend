@@ -1,18 +1,19 @@
 import { ApiHTTPService } from "./api-http.service";
 import { PersonalMemberBean } from "../beans/personal-member.bean";
 import { RequestOptions,Headers } from "@angular/http";
+import { BaseComponent } from "../base-component";
 
 export class Service_SurveyPersonal extends ApiHTTPService {
 
     public attr: any;
-
+    public base : BaseComponent;
     constructor() {
     super();
+    this.base = new BaseComponent();
     }
 
     public map(bean: PersonalMemberBean): any {
         let self = this;
-
         self.attr =
         {
             "citizenId": bean.citizenId,
@@ -59,7 +60,7 @@ export class Service_SurveyPersonal extends ApiHTTPService {
 
     public commit_save(bean: PersonalMemberBean, callback: (doc: any) => void) {
         let self = this;
-        let parameters = self.strNullToEmpty(self.map(bean));
+        let parameters = self.base.strNullToEmpty(self.map(bean));
         console.log(parameters);
 
         self.post('survey_population/population_add_home_member', parameters, callback);

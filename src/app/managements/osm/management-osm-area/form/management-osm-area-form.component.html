@@ -13,7 +13,7 @@
             </div>
             <div class="col-md-5">
               <div [InputValidate]="inputValidate" (notify)="validation($event)">
-                  <input type="text" [(ngModel)]="bean.villageNo" OnlyNumber="true">
+                  <input type="text" [(ngModel)]="bean.homeRegisterID" OnlyNumber="true">
                   <label class="error">กรุณาใส่รหัสบ้าน</label>
               </div>
             </div>
@@ -25,12 +25,29 @@
             </div>
             <div class="col-md-5">
               <div [InputValidate]="inputValidate" (notify)="validation($event)">
-                <input type="text" [(ngModel)]="bean.villageName">
+                <input type="text" [(ngModel)]="bean.homeNo">
                 <label class="error">กรุณาใส่บ้านเลขที่</label>
               </div>
             </div>
           </div>
 
+          <div class="row">
+            <div class="col-md-4 text-right">
+              <label class="label-form">ถนน</label>
+            </div>
+            <div class="col-md-5">
+              <input type="text" [(ngModel)]="bean.road">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4 text-right">
+              <label class="label-form">ตรอก/ซอย</label>
+            </div>
+            <div class="col-md-5">
+              <input type="text" [(ngModel)]="bean.soi">
+            </div>
+          </div>
 
         </div>
         <div class="modal-footer">

@@ -1,11 +1,14 @@
 import { Component, OnInit, ReflectiveInjector } from '@angular/core';
 import { Http, RequestOptions, Headers, BrowserXhr, BaseRequestOptions, ResponseOptions, ConnectionBackend, XHRBackend, XSRFStrategy, CookieXSRFStrategy, BaseResponseOptions } from "@angular/http";
-import { BaseComponent } from '../base-component';
 import { FilterHeadSurveyBean } from '../beans/filter-head-survey.bean';
-export class ApiHTTPService extends BaseComponent implements OnInit {
+import * as myconf from "../global-config";
+import { BaseComponent } from '../base-component';
+export class ApiHTTPService implements OnInit {
     public http;
+    public baseComp: BaseComponent;
     constructor() {
-        super();
+        
+        this.baseComp = new BaseComponent();
 
         let injector = ReflectiveInjector.resolveAndCreate([
             Http,
@@ -21,9 +24,9 @@ export class ApiHTTPService extends BaseComponent implements OnInit {
     ngOnInit(): void {
         throw new Error("Method not implemented.");
     }
-
+   
     get(url: string, params: any, callback: (doc: any) => void) {
-        this.http.get(this.getApiUrl(url), params)
+        this.http.get(this.baseComp.getApiUrl(url), params)
             .map(res => res.json())
             .subscribe(
             data => callback(data),
@@ -36,7 +39,7 @@ export class ApiHTTPService extends BaseComponent implements OnInit {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers, method: "post" });
 
-        this.http.post(this.getApiUrl(url), params, options)
+        this.http.post(this.baseComp.getApiUrl(url), params, options)
             .map(res => res.json())
             .subscribe(
             data => callback(data),
@@ -117,7 +120,7 @@ export class ApiHTTPService extends BaseComponent implements OnInit {
 
     public api_SurveyHeaderList(headerTypeCode: string, callback: (doc: any) => void){
         console.log(headerTypeCode);
-        this.callResponse('survey/survey_header_list', {"headerTypeCode": headerTypeCode, "hospitalCode": this.getHospitalCode()}, callback);
+        this.callResponse('survey/survey_header_list', {"headerTypeCode": headerTypeCode, "hospitalCode": this.baseComp.getHospitalCode()}, callback);
     }
 
     public api_CancerList(callback: (doc: any) => void){
