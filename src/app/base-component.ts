@@ -16,7 +16,6 @@ export class BaseComponent implements OnInit {
     public ass_action = Action;
     public surveyHeaderCode = SurveyHeaderTypeCode;
     public loading: boolean = false;
-    public apiHTTPService: ApiHTTPService;
     private ng2STDataSource: LocalDataSource;// = new LocalDataSource();
     
     constructor() {
@@ -282,17 +281,5 @@ export class BaseComponent implements OnInit {
             message: message,
             callback: callback
         });
-    }
-
-    getRound(headerTypeCode: string, documentId: string, callback: (doc:any)=>void): any{
-        this.apiHTTPService.api_SurveyHeaderList(headerTypeCode, function(response){
-            for(let item of response){
-                if(documentId == item.rowGUID){
-                    return item;
-                }
-            }
-        });
-
-        return {};
     }
 }
