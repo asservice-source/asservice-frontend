@@ -5,7 +5,7 @@ import { Utils, Action, SurveyHeaderTypeCode } from "./utils.util";
 import * as myconf from "./global-config";
 import * as moment from 'moment'
 import { IMyDpOptions } from 'mydatepicker';
-import { ANIMATION_TYPES } from './ng2-loading/ngx-loading.config';
+import { ANIMATION_TYPES } from './ng2-loading/ass-loading.config';
 import { ApiHTTPService } from './service/api-http.service';
 declare var $: any;
 declare var bootbox: any;

@@ -11,6 +11,7 @@ declare var $:any;
   styleUrls: ['./management-staff-village-list.component.css']
 })
 export class ManagementStaffVillageListComponent extends BaseComponent implements OnInit {
+  public action: string;
   public api: ApiHTTPService = new ApiHTTPService();
   public settings: any;
   public source: LocalDataSource;
@@ -19,6 +20,7 @@ export class ManagementStaffVillageListComponent extends BaseComponent implement
   
   constructor() {
     super();
+    this.action = this.ass_action.ADD;
     this.bean = new VillageBean();
     let _self = this;
     this.settings = this.getTableSetting({
@@ -47,7 +49,7 @@ export class ManagementStaffVillageListComponent extends BaseComponent implement
            });
            instance.edit.subscribe(row => {
             _self.bean = _self.cloneObj(row);
-            _self.onModalForm();
+            _self.onModalForm(_self.ass_action.EDIT);
            });
            instance.delete.subscribe(row => {
             
@@ -67,17 +69,22 @@ export class ManagementStaffVillageListComponent extends BaseComponent implement
       this.setupDataList();
     }
     setupDataList(){
+      
       let _self = this;
+      _self.loading = true;
       this.api.api_villageList(this.getHospitalCode(),function(response){
         _self.source = _self.ng2STDatasource(response);
+        _self.loading = false;
       });
     }
-    onModalForm(){
+    onModalForm(action: string){
+      this.action = action;
       $('#modalForm').modal('show');
     }
     onClickAdd(){
+     
       this.bean = new VillageBean();
-      this.onModalForm();
+      this.onModalForm(this.ass_action.ADD);
     }
     onReturnAdd(response: any){
       if('SUCCESS' == response.status.toUpperCase()){

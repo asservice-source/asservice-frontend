@@ -1,4 +1,5 @@
 export class PersonalBasicBean{
+    public personId: string;
     public citizenId: string;
     public firstName: string;
     public lastName: string;
@@ -6,7 +7,7 @@ export class PersonalBasicBean{
     public birthDate: string;
     public prefixCode: string;
     public prefixName: string;
-    public genderCode: string;
+    public genderId: string;
     public genderName: string;
     public hospitalCode5: string;
     public address: string;
@@ -21,6 +22,8 @@ export class PersonalBasicBean{
     public provinceCode: string;
     public provinceName: string;
     public zipcode: string;
-    public osmId;
+    public osmId: string;
+    public userRoleId: string;
+    public userActive: boolean;
     
 }
