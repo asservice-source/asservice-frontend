@@ -61,16 +61,16 @@
                 <label>เวลา</label>
             </div>
             <div class="col-md-1" style="padding-right: 0;">
-                <select [(ngModel)]="bean.mMinutes">
-                  <option *ngFor="let number of timeMimute" [value]="numberAppendPrefix(number,2)">{{numberAppendPrefix(number,2)}}</option>
+                <select [(ngModel)]="bean.mHours">
+                  <option *ngFor="let number of timeHours" [value]="numberAppendPrefix(number,2)">{{numberAppendPrefix(number,2)}}</option>
                 </select>
             </div>
             <div class="col-md-1 text-center" style="width: 20px; padding: 0;">
               <label>:</label>
             </div>
             <div class="col-md-1" style="padding-left: 0;">
-                <select [(ngModel)]="bean.mSeconds">
-                  <option *ngFor="let number of timeSec" [value]="numberAppendPrefix(number,2)">{{numberAppendPrefix(number,2)}}</option>
+                <select [(ngModel)]="bean.mMins">
+                  <option *ngFor="let number of timeMins" [value]="numberAppendPrefix(number,2)">{{numberAppendPrefix(number,2)}}</option>
         
                 </select>
             </div>
@@ -153,7 +153,7 @@
                 </div>
                 <div class="col-md-8" style="padding-left: 0">
                   <select [(ngModel)]="bean.cancerTypeID" [disabled]="!bean.isCancer">
-                    <option value="">---เลือก---</option>
+                    <option [value]="0">---เลือก---</option>
                     <option *ngFor="let item of cancerList" [value]="item.id">{{item.name}}</option>
                   </select>
                 </div>

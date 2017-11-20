@@ -25,7 +25,7 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
   public bean: DeadBean = new DeadBean();
   public datas:any = [];
   public filterBean: FilterHeadSurveyBean;
-  public cuurentDocumentId: string;
+  public currentDocumentId: string;
 
   constructor(private changeRef: ChangeDetectorRef) {
     super();
@@ -103,8 +103,8 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
   onSearch(event: FilterHeadSurveyBean) {
     this.loading = true;
     this.filterBean = event;
-    if(this.isEmpty(this.cuurentDocumentId)){
-      this.cuurentDocumentId = event.rowGUID;
+    if(this.isEmpty(this.currentDocumentId)){
+      this.currentDocumentId = event.rowGUID;
     }
     let _self = this;
     this.apiDead.getList(event, function(response){
@@ -116,9 +116,6 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
 
   onModalForm(action: string){
     this.action = action;
-    if(action==this.ass_action.ADD){
-      this.bean.documentId = this.cuurentDocumentId;
-    }
     this.changeRef.detectChanges();
     $('#modal-add-died').modal('show');
   }

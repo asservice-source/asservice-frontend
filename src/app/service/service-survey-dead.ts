@@ -1,12 +1,13 @@
 import { DeadBean } from "../beans/dead.bean";
 import { ApiHTTPService } from "./api-http.service";
 import { FilterHeadSurveyBean } from "../beans/filter-head-survey.bean";
+import { BaseComponent } from "../base-component";
 
 export class Service_SurveyDead{
 
    public attr: any;
    public apiHTTPService: ApiHTTPService = new ApiHTTPService();
-
+   private baseComp: BaseComponent = new BaseComponent();
    constructor(){
     
    }
@@ -35,15 +36,16 @@ export class Service_SurveyDead{
    }
    public getList(filter: FilterHeadSurveyBean, callback: (doc: any) => void){
        let parameter = this.apiHTTPService.api_mapFilterSurveyHeader(filter);
-       console.log("parameter = = = ");
-       console.log(parameter);
+       
         this.apiHTTPService.callResponse('survey_death/search_death_info_list'
         , parameter
         , callback);
     }
 
    public commit_save(bean: DeadBean, callback: (doc: any) => void){
-        let parameter = this.map(bean);
+        let parameter = this.baseComp.strNullToEmpty(this.map(bean));
+        console.log(" = = = parameter = = = survey_death/ins_upd_death_info");
+        console.log(parameter);
         this.apiHTTPService.post('survey_death/ins_upd_death_info', parameter , callback);
    }
 

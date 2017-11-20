@@ -15,6 +15,7 @@ declare var bootbox: any;
 export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,AfterViewInit{
   @Input() action: string;
   @Input() data: DeadBean;
+  @Input() currentDocumentId: string;
   @Output() commit: EventEmitter<any>;
   public bean: DeadBean;
   public apiDead : Service_SurveyDead;
@@ -23,8 +24,8 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
   public resetFind: number = 1;
   public cancerList: Array<any>;
   public deadPlaceList: Array<any>;
-  public timeMimute = Array.from(Array(24),(x,i)=>i);
-  public timeSec = Array.from(Array(60),(x,i)=>i);
+  public timeHours = Array.from(Array(24),(x,i)=>i);
+  public timeMins = Array.from(Array(60),(x,i)=>i);
 
 
   constructor(private changeRef: ChangeDetectorRef) {
@@ -46,8 +47,6 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
     this.setCalendarThai();
   }
 
-  
-
   setupCancerList(){
     let _self = this;
     this.apiDead.apiHTTPService.api_CancerList(function(response){
@@ -66,8 +65,8 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
     if(this.action==this.ass_action.EDIT){
       let dateObj = this.convertDateTimeSQL_to_DisplayDateTime(this.bean.deathDate);
       this.bean.mDateDead = this.getCurrentDatePickerModel(this.bean.deathDate);
-      this.bean.mMinutes = dateObj.time.minutes;
-      this.bean.mSeconds = dateObj.time.seconds;
+      this.bean.mHours = dateObj.time.hours;
+      this.bean.mMins = dateObj.time.minutes;
       if(this.bean.causeOther && !this.isEmpty(this.bean.causeOther)){
         this.bean.isCauseOther = true;
       }else{
@@ -75,12 +74,13 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
       }
       
     }else{
+      this.bean.cancerTypeID = 0;
       this.bean.deathPlaceCode = "";
+      this.bean.mHours = '00';
+      this.bean.mMins = '00';
     }
     this.isFindPersonal = false;
     this.isShowForm = true;
-    console.log(">>> Choose Person");
-    console.log(this.bean);
   }
   onBack(){
     this.bean = new DeadBean();
@@ -91,27 +91,19 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
     }
   }
   onDateChanged(event: any){
-    console.log(event);
     this.bean.mDateDead = event;
   }
   onModalEvent(){
     let _self = this;
     $('#modal-add-died').on('show.bs.modal', function (e) {
-      
       _self.resetFind = _self.resetFind+1;
       if(_self.action==_self.ass_action.EDIT){
-        // if(!_self.isEmpty(_self.data.causeOther)){
-        //   _self.bean.isCauseOther = true;
-        // }else{
-        //   _self.bean.isCauseOther = false;
-        // }
         _self.onChoosePersonal(_self.data);
-       
       }
       _self.changeRef.detectChanges();
     })
     $('#modal-add-died').on('hidden.bs.modal', function () {
-      console.log("hide.bs.modal");
+      
       _self.isShowForm = false;
       _self.isFindPersonal = true;
       _self.resetFind = _self.resetFind+1;
@@ -122,23 +114,26 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
   onSave(){
     
     let date = this.bean.mDateDead.date;    
-    this.bean.deathDate = (date.year+'-'+date.month+'-'+date.day)+' '+this.bean.mMinutes+':'+this.bean.mSeconds+':00.0';
-    console.log("Saving");
-    console.log( this.bean);
+    this.bean.deathDate = (date.year+'-'+date.month+'-'+date.day)+' '+this.bean.mHours+':'+this.bean.mMins+':00.0';
+    if(this.action==this.ass_action.ADD){
+      this.bean.documentId = this.currentDocumentId;
+    }
     let _self = this;
     _self.loading = true;
-   _self.apiDead.commit_save(this.strNullToEmpty(this.apiDead.map(this.bean)),
+   _self.apiDead.commit_save(this.bean,
     function(response){
         _self.loading = false;
         if(response.status.toUpperCase()=="SUCCESS"){
           $('#modal-add-died').modal('hide');
-          bootbox.alert("บันทึกข้อมูลสำเร็จ", function(){
+          _self.message_success('ทำรายการสำเร็จ','แจ้งการเสียชีวิต : '+_self.bean.fullName, function(){
             _self.commit.emit(response);
           });
+
+         
         }else{
-          bootbox.alert("บันทึกข้อมูลไม่สำเร็จ");
+          _self.message_error('ไม่สามารถทำรายการได้',''+response.message, function(){});
         }
-        console.log("SAVED...");
+        console.log("Saved Response...");
         console.log(response);
       });
   }

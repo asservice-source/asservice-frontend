@@ -112,6 +112,7 @@ color: white !important;
     background-color: #ffbf00;
     color: #ffffff;
 }
-/* .backdrop.full-screen{
-    z-index: 9991;
-} */
+.bootbox-title{
+    color: #FFF;
+    font-weight: bold;
+}

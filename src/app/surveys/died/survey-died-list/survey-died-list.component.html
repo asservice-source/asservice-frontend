@@ -23,5 +23,5 @@
   </div>
 
 </div>
-<app-survey-died-form [action]='action' [data]="bean" (commit)="onCommit($event);"></app-survey-died-form>
+<app-survey-died-form [action]='action' [data]="bean" [currentDocumentId]="currentDocumentId" (commit)="onCommit($event);"></app-survey-died-form>
 <ngx-loading [show]="loading" [config]="loadingConfig()"></ngx-loading>

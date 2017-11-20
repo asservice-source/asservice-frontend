@@ -6,6 +6,7 @@ import * as myconf from "./global-config";
 import * as moment from 'moment'
 import { IMyDpOptions } from 'mydatepicker';
 import { ANIMATION_TYPES } from './ng2-loading/ngx-loading.config';
+import { ApiHTTPService } from './service/api-http.service';
 declare var $: any;
 declare var bootbox: any;
 
@@ -15,11 +16,11 @@ export class BaseComponent implements OnInit {
     public ass_action = Action;
     public surveyHeaderCode = SurveyHeaderTypeCode;
     public loading: boolean = false;
-
+    public apiHTTPService: ApiHTTPService;
     private ng2STDataSource: LocalDataSource;// = new LocalDataSource();
     
     constructor() {
-
+        this.apiHTTPService = new ApiHTTPService();
     }
     ngOnInit() {
 
@@ -181,8 +182,8 @@ export class BaseComponent implements OnInit {
             let arrD = arrDT[0].split('-');
             let arrT = arrDT[1].split(':');
             dateTimeObject.date =  arrD[2] +"/"+arrD[1]+"/"+arrD[0];
-            dateTimeObject.time.minutes=arrT[0];
-            dateTimeObject.time.seconds=arrT[1];
+            dateTimeObject.time.hours=arrT[0];
+            dateTimeObject.time.minutes=arrT[1];
         } else {
             // let dateObj = new Date();
             // let month = dateObj.getUTCMonth() + 1; //months from 1-12
@@ -262,5 +263,35 @@ export class BaseComponent implements OnInit {
 
     loadingConfig(): any{
         return {fullScreenBackdrop: true, animationType: ANIMATION_TYPES.rotatingPlane}
+    }
+
+    message_success(title: string, message: string, callback?: (doc: any) => void){
+        bootbox.alert({
+            size: "large",
+            title: "<div class='bootbox-title'><span class='fa fa-check' style='color: #14b713;'></span> "+title+"</div>",
+            message: message,
+            callback: callback
+        });
+    }
+    
+    message_error(title: string, message: string, callback?: (doc: any) => void){
+        bootbox.alert({
+            size: "large",
+            title: "<div class='bootbox-title'><span class='fa fa-close' style='color: #d02626;'></span> "+title+"</div>",
+            message: message,
+            callback: callback
+        });
+    }
+
+    getRound(headerTypeCode: string, documentId: string, callback: (doc:any)=>void): any{
+        this.apiHTTPService.api_SurveyHeaderList(headerTypeCode, function(response){
+            for(let item of response){
+                if(documentId == item.rowGUID){
+                    return item;
+                }
+            }
+        });
+
+        return {};
     }
 }
