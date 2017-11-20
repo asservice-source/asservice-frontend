@@ -82,12 +82,6 @@ export class ApiHTTPService  implements OnInit {
     public api_villageList(hospitalCode5: string, callback: (doc: any) => void) {
         this.callResponse('village/village_no_list_by_hospital', {"hospitalCode": hospitalCode5}, callback);
     }
-    
-    public api_villageAdd(params, callback: (doc: any) => void){
-        this.post('village/add_village', params, function(response){
-            callback(response);
-        });
-    }
 
     public api_OsmList(villageId: string, callback: (doc: any) => void) {
         this.callResponse('osm/osm_list_by_village', {"villageId": villageId}, callback);
@@ -129,15 +123,17 @@ export class ApiHTTPService  implements OnInit {
     }
 
     public getRound_byDocumentId(headerTypeCode: string, documentId: string, callback: (doc:any)=>void): any{
+        let round = {};
         this.api_SurveyHeaderList(headerTypeCode, function(response){
             for(let item of response){
                 if(documentId == item.rowGUID){
-                    return item;
+                    round = item;
+                    break;
                 }
             }
         });
 
-        return {};
+        return round;
     }
 
 }
