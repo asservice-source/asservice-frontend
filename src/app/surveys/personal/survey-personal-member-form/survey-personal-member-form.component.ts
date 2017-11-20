@@ -43,6 +43,9 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
   public listOccupation: any = [];
   public listDischarge: any = [];
   public listFamilyStatus: any = [];
+  public listProvince: any = [];
+  public listDistrict: any = [];
+  public listSubDistrict: any = [];
 
   public isDisabledCitizenId: boolean = true;
   public isDisplayButtonVerifyCitizenId: boolean = true;
@@ -75,6 +78,7 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
     self.bindOccupation();
     self.bindDischarge();
     self.bindFamilyStatus();
+    self.bindProvince();
   }
 
   onModalEvent() {
@@ -294,6 +298,14 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
     });
   }
 
+  bindProvince() {
+    let self = this;
+
+    self.apiHttp.api_ProvinceList(function (d) {
+      self.listProvince = d;
+    });
+  }
+
   defaultValue() {
     this.member.isGuest = false;
     this.member.isExists = true;
@@ -307,6 +319,10 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
 
     // console.log(event);
     self.member.birthDate = self.getStringDateForDatePickerModel(event.date);
+  }
+
+  onChangeProvince(event) {
+    let self = this;
   }
 
   toggleCitizenId(flag: boolean) {
