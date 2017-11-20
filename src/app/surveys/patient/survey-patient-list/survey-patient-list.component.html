@@ -21,4 +21,4 @@
     </div>
 </div>
 
-<app-survey-patient-form [action]='action' [data]="patientbean"></app-survey-patient-form>
+<app-survey-patient-form [action]='action' [data]="patientbean" [documentId]="documentId" (completed)="reloadData($event);"></app-survey-patient-form>

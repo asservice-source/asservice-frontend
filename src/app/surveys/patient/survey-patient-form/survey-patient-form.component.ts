@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, AfterViewInit, Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, AfterViewInit, Input,Output, EventEmitter  } from '@angular/core';
 import { PatientBean } from '../../../beans/patient.bean'
 import { Http } from '@angular/http';
 import { BaseComponent } from '../../../base-component';
@@ -14,6 +14,9 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
 
   @Input() action: string;
   @Input() data: PatientBean;
+  @Input() documentId: string;
+
+  @Output() completed: EventEmitter<any> = new EventEmitter<any>();
 
   public isFindPersonal: boolean = true;
   public isShowForm: boolean = false;
@@ -36,7 +39,7 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
     this.getSurveyStatusType();
     this.getPatientType();
     this.getDisabilityType();
-    this.getDisabilityTypeCause()
+    this.getDisabilityTypeCause();
    
   }
 
@@ -50,8 +53,16 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
 
   onChoosePersonal(bean: any): void {
     this.patientbean = bean;
+    
+    if(this.action == this.ass_action.ADD){
+      this.patientbean.patientSurveyTypeCode = "0";
+      this.patientbean.disabilityCauseTypeID ="0";
+      this.patientbean.disabilityTypeID ="0";
+      this.patientbean.patientTypeId ="0";
+      this.patientbean.patientDate = this.getCurrentDatePickerModel();
+    }
 
-    this.patientbean.patientSurveyTypeCode = this.patientbean.patientSurveyTypeCode || "0";
+    //this.patientbean.patientSurveyTypeCode = this.patientbean.patientSurveyTypeCode || "0";
     // this.patientbean.patientType = this.patientbean.patientType || "0";
     // this.patientbean.disabilityType = this.patientbean.disabilityType || "0";
     // this.patientbean.disabilityCauseType = this.patientbean.disabilityCauseType || "0";
@@ -80,9 +91,9 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
         console.log(self.data);
       }
 
-      if (self.action == self.ass_action.ADD) {
-        self.data.patientDate = self.getCurrentDatePickerModel();
-      }
+      // if (self.action == self.ass_action.ADD) {
+      //   self.data.patientDate = self.getCurrentDatePickerModel();
+      // }
 
       self.changeRef.detectChanges();
     })
@@ -152,20 +163,17 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
   }
 
   onChangePatientSyurvey(){
-
-    if(this.patientbean.patientSurveyTypeCode == 'PATIENT'){
-      this.patientbean.hInsuranceType = "89";
+    if(this.action == this.ass_action.ADD){
+      if(this.patientbean.patientSurveyTypeCode == 'Patient'){
+        this.patientbean.hInsuranceTypeID = "89";
+      }
+      else{
+        this.patientbean.hInsuranceTypeID = "74";
+      }
     }
+  }
 
-    if(this.patientbean.patientSurveyTypeCode == 'DABLED'){
-      this.patientbean.hInsuranceType = "74";
-    }
-
-    // this.patientbean.patientType = "0";
-    // this.patientbean.disabilityType = "0";
-    // this.patientbean.disabilityCauseType = "0";
-    // this.patientbean.patientDate = undefined;
-    // this.patientbean.remark = undefined;
+  validate(){
 
   }
 
@@ -173,26 +181,42 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
   addSurvey(){
     let self = this;
 
+    
+    console.log(this.documentId);
+    if (this.action == this.ass_action.ADD) {
+      this.patientbean.documentID = this.documentId;
+    }
+
+
     let params = {
-      "rowGUID": this.patientbean.rowGUID,
-      "personID": this.patientbean.personID,
-      "documentID": this.patientbean.documentID,
-      "osmId": this.patientbean.osmId,
-      "operationDate" : this.patientbean.operationDate,
-      "homeID" : this.patientbean.homeID,
-      "cancerTypeID" : this.patientbean.cancerTypeID,
-      "diseaseStatusTypeID" : this.patientbean.diseaseStatusTypeID,
-      "patientDate" : this.patientbean.patientDate,
-      "patientTypeID" : this.patientbean.patientTypeId,
-      // "hInsuranceTypeID"
+      "rowGUID" : this.patientbean.rowGUID
+      ,"personID" : this.patientbean.personID
+      ,"documentID" : this.patientbean.documentID
+      ,"osmId" : this.patientbean.osmId
+      ,"homeID" : this.patientbean.homeID
+      ,"cancerTypeID" : this.patientbean.cancerTypeID
+      ,"diseaseStatusTypeID" : this.patientbean.disabilityCauseTypeID
+      ,"patientDate": this.patientbean.patientDate  
+      ,"patientTypeID": this.patientbean.patientTypeId
+      ,"hInsuranceTypeID": this.patientbean.hInsuranceTypeID
+      ,"patientSurveyTypeCode": this.patientbean.patientSurveyTypeCode
+      ,"disabilityTypeID" : this.patientbean.disabilityCauseTypeID 
+      ,"disabilityCauseTypeID": this.patientbean.disabilityCauseTypeID
+      ,"treatmentPlace" : this.patientbean.treatmentPlace
+      ,"remark": this.patientbean.remark
+      ,"telephone": this.patientbean.telephone
+      ,"latitude": this.patientbean.latitude
+      ,"longitude": this.patientbean.longitude
     };
 
-    this.api.post('survey_patient/ins_upd', params, function (resp) {
-      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-        console.log(resp);
-      }
+    console.log(params);
 
-    })
+    // this.api.post('survey_patient/ins_upd', params, function (resp) {
+    //   if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+    //     console.log(resp);
+    //   }
+
+    // })
 
   }
 

@@ -141,8 +141,9 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
     //this.isShowList = false;
   }
   onSearch(event: FilterHeadSurveyBean) {
+    console.log("statusID ====="+this.documentId);
     this.filtersearch = event;
-    if (event.status == '2') {
+    if (this.isEmpty(this.documentId)) {
       this.documentId = event.rowGUID;
     }
     this.loadData(event);
