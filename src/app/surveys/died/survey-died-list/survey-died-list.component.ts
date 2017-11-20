@@ -136,10 +136,12 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
       if(resp){
         _self.apiDead.commit_del(bean.rowGUID, function(response){
           if(response && response.status.toUpperCase()=='SUCCESS'){
-            _self.message_success('', 'ยกเลิกแจ้งการเสียชีวิต : ' + bean.fullName + ' เรียบร้อย');
+            _self.message_success('', 'ยกเลิกแจ้งการเสียชีวิต : ' + bean.fullName + ' เรียบร้อย', function(){
+              _self.onSearch(this.filterBean);
+            });
 
           }else{
-            _self.message_success('', 'ไม่สามารถยกเลิกแจ้งการเสียชีวิต : ' + bean.fullName + ' ได้');
+            _self.message_error('', 'ไม่สามารถยกเลิกแจ้งการเสียชีวิต : ' + bean.fullName + ' ได้');
           }
         });
       }

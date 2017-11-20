@@ -123,17 +123,15 @@ export class ApiHTTPService  implements OnInit {
     }
 
     public getRound_byDocumentId(headerTypeCode: string, documentId: string, callback: (doc:any)=>void): any{
-        let round = {};
         this.api_SurveyHeaderList(headerTypeCode, function(response){
             for(let item of response){
                 if(documentId == item.rowGUID){
-                    round = item;
+                    callback(item);
                     break;
                 }
             }
         });
-
-        return round;
+        callback({});
     }
 
 }
