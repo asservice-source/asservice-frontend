@@ -171,6 +171,19 @@
         <div class="row">
           <div class="col-md-1"></div>
           <div class="col-md-2 text-right">
+            <label class="label-form">จังหวัด</label>
+          </div>
+          <div class="col-md-3">
+            <select class="ng-pristine ng-valid ng-touched" [(ngModel)]="member.provinceID" (change)="onChangeProvince()">
+              <option value="0">---เลือกจังหวัด---</option>
+              <option *ngFor="let item of listProvince" [ngValue]="item.codeId">{{ item.name }}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-1"></div>
+          <div class="col-md-2 text-right">
             <label class="label-form">ประเภทการอยู่อาศัย</label>
           </div>
           <div class="col-md-9">

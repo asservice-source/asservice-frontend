@@ -180,8 +180,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     let self = this;
 
     self.apiHttp.getRound_byDocumentId(self.surveyHeaderCode.POPULATION, self.paramRoundId, function (d) {
-      console.log(d);
-      self.roundName = d.response.name;
+      self.roundName = d.name;
     });
   }
 
@@ -392,7 +391,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
       listAll.push(item);
     }
 
-    self.apiHttp.commit_save_survey(self.paramHomeId, self.paramRoundId, listAll, function () {
+    self.apiHttp.commit_save_survey(self.paramHomeId, self.paramRoundId, listAll, function (d) {
       alert('x');
     });
   }
