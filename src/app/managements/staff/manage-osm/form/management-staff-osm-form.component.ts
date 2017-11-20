@@ -3,6 +3,7 @@ import { BaseComponent } from '../../../../base-component';
 import { OSMBean } from '../../../../beans/osm.bean';
 import { ApiHTTPService } from '../../../../service/api-http.service';
 import { InputValidateInfo } from '../../../../directives/inputvalidate.directive';
+import { Service_UserStaffAndOSM } from '../../../../service/service-user-staff-osm';
 
 @Component({
   selector: 'app-management-staff-osm-form',
@@ -13,7 +14,7 @@ export class ManagementStaffOsmFormComponent extends BaseComponent implements On
 
   @Input() bean: OSMBean;
 
-  public api: ApiHTTPService = new ApiHTTPService();
+  public api: Service_UserStaffAndOSM;
   public prefixList: any = [{}];
   public villageList: any;
   public genderList: any;
@@ -21,6 +22,7 @@ export class ManagementStaffOsmFormComponent extends BaseComponent implements On
   constructor() { 
     super();
     this.bean = new OSMBean();
+    this.api = new Service_UserStaffAndOSM();
     
   }
 
@@ -65,5 +67,12 @@ export class ManagementStaffOsmFormComponent extends BaseComponent implements On
   onSave(){
     this.inputValidate = new InputValidateInfo();
     this.inputValidate.isCheck = true;
+
+    if(this.isValidCitizenIdThailand(this.bean.citizenId)){
+
+    }
+    // this.api.commit_save(this.bean, function(response){
+      
+    // });
   }
 }

@@ -17,3 +17,15 @@ export class SurveyHeaderTypeCode{
     public  static POPULATION: string = 'POPULATION';
     public  static PREGNANT: string = 'PREGNANT';
 }
+
+export class SimpleValidateForm{
+
+    isEmpty(obj: any){
+        for(let key in obj){
+            let value = obj[key];
+            if(value.toString().length){
+                
+            }
+        }
+    }
+}
