@@ -3,13 +3,10 @@ import { Http, RequestOptions, Headers, BrowserXhr, BaseRequestOptions, Response
 import { FilterHeadSurveyBean } from '../beans/filter-head-survey.bean';
 import * as myconf from "../global-config";
 import { BaseComponent } from '../base-component';
-export class ApiHTTPService implements OnInit {
+export class ApiHTTPService  implements OnInit {
+    public base: BaseComponent = new BaseComponent();
     public http;
-    public baseComp: BaseComponent;
     constructor() {
-        
-        this.baseComp = new BaseComponent();
-
         let injector = ReflectiveInjector.resolveAndCreate([
             Http,
             BrowserXhr,
@@ -26,7 +23,7 @@ export class ApiHTTPService implements OnInit {
     }
    
     get(url: string, params: any, callback: (doc: any) => void) {
-        this.http.get(this.baseComp.getApiUrl(url), params)
+        this.http.get(this.base.getApiUrl(url), params)
             .map(res => res.json())
             .subscribe(
             data => callback(data),
@@ -39,7 +36,7 @@ export class ApiHTTPService implements OnInit {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers, method: "post" });
 
-        this.http.post(this.baseComp.getApiUrl(url), params, options)
+        this.http.post(this.base.getApiUrl(url), params, options)
             .map(res => res.json())
             .subscribe(
             data => callback(data),
@@ -120,7 +117,7 @@ export class ApiHTTPService implements OnInit {
 
     public api_SurveyHeaderList(headerTypeCode: string, callback: (doc: any) => void){
         console.log(headerTypeCode);
-        this.callResponse('survey/survey_header_list', {"headerTypeCode": headerTypeCode, "hospitalCode": this.baseComp.getHospitalCode()}, callback);
+        this.callResponse('survey/survey_header_list', {"headerTypeCode": headerTypeCode, "hospitalCode": this.base.getHospitalCode()}, callback);
     }
 
     public api_CancerList(callback: (doc: any) => void){
@@ -129,6 +126,18 @@ export class ApiHTTPService implements OnInit {
 
     public api_DeathPlaceList(callback: (doc: any) => void){
         this.callResponse('survey/survey_death_place_list', {}, callback);
+    }
+
+    public getRound_byDocumentId(headerTypeCode: string, documentId: string, callback: (doc:any)=>void): any{
+        this.api_SurveyHeaderList(headerTypeCode, function(response){
+            for(let item of response){
+                if(documentId == item.rowGUID){
+                    return item;
+                }
+            }
+        });
+
+        return {};
     }
 
 }

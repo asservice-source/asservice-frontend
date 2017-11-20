@@ -11,7 +11,7 @@ declare var $: any;
 declare var bootbox: any;
 
 export class BaseComponent implements OnInit {
-    public labelManager = new LabelManager();
+    public labelManager:LabelManager;
     public _GLOBAL = myconf;
     public ass_action = Action;
     public surveyHeaderCode = SurveyHeaderTypeCode;
@@ -20,7 +20,8 @@ export class BaseComponent implements OnInit {
     private ng2STDataSource: LocalDataSource;// = new LocalDataSource();
     
     constructor() {
-        this.apiHTTPService = new ApiHTTPService();
+
+        this.labelManager = new LabelManager();
     }
     ngOnInit() {
 
