@@ -5,7 +5,7 @@ import { Utils, Action, SurveyHeaderTypeCode } from "./utils.util";
 import * as myconf from "./global-config";
 import * as moment from 'moment'
 import { IMyDpOptions } from 'mydatepicker';
-import { ANIMATION_TYPES } from './ng2-loading/ngx-loading.config';
+import { ANIMATION_TYPES } from './ng2-loading/ass-loading.config';
 import { ApiHTTPService } from './service/api-http.service';
 declare var $: any;
 declare var bootbox: any;
@@ -17,6 +17,8 @@ export class BaseComponent implements OnInit {
     public surveyHeaderCode = SurveyHeaderTypeCode;
     public loading: boolean = false;
     private ng2STDataSource: LocalDataSource;// = new LocalDataSource();
+    public rowPerPage: number = 10;
+
     
     constructor() {
 
@@ -59,7 +61,7 @@ export class BaseComponent implements OnInit {
             hideSubHeader: true,
             pager: {
                 display: true,
-                perPage: 4
+                perPage: this.rowPerPage
             }
         };
 
@@ -266,6 +268,7 @@ export class BaseComponent implements OnInit {
     }
 
     message_success(title: string, message: string, callback?: (doc: any) => void){
+        title = title || 'ทำรายการสำเร็จ';
         bootbox.alert({
             size: "large",
             title: "<div class='bootbox-title'><span class='fa fa-check' style='color: #14b713;'></span> "+title+"</div>",
@@ -275,9 +278,19 @@ export class BaseComponent implements OnInit {
     }
     
     message_error(title: string, message: string, callback?: (doc: any) => void){
+        title = title || 'ไม่สามารถทำรายการได้';
         bootbox.alert({
             size: "large",
             title: "<div class='bootbox-title'><span class='fa fa-close' style='color: #d02626;'></span> "+title+"</div>",
+            message: message,
+            callback: callback
+        });
+    }
+    message_comfirm(title: string, message: string, callback?: (doc: any) => void){
+        title = title || 'ยืนยันการทำรายการ';
+        bootbox.confirm({
+            size: "large",
+            title: "<div class='bootbox-title'><span class='fa fa-question' style='color: #2a7ec7;'></span> "+title+"</div>",
             message: message,
             callback: callback
         });

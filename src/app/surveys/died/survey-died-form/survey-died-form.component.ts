@@ -49,14 +49,14 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
 
   setupCancerList(){
     let _self = this;
-    this.apiDead.apiHTTPService.api_CancerList(function(response){
+    this.apiDead.api_CancerList(function(response){
       _self.cancerList = response;
     });
   }
 
   setupPlaceList(){
     let _self = this;
-    this.apiDead.apiHTTPService.api_DeathPlaceList(function(response){
+    this.apiDead.api_DeathPlaceList(function(response){
       _self.deadPlaceList = response;
     });
   }
@@ -74,7 +74,7 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
       }
       
     }else{
-      this.bean.cancerTypeID = 0;
+      this.bean.cancerTypeID = "";
       this.bean.deathPlaceCode = "";
       this.bean.mHours = '00';
       this.bean.mMins = '00';
@@ -125,13 +125,17 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
         _self.loading = false;
         if(response.status.toUpperCase()=="SUCCESS"){
           $('#modal-add-died').modal('hide');
-          _self.message_success('ทำรายการสำเร็จ','แจ้งการเสียชีวิต : '+_self.bean.fullName, function(){
+          _self.message_success('','แจ้งการเสียชีวิต : '+_self.bean.fullName, function(){
             _self.commit.emit(response);
           });
 
          
         }else{
-          _self.message_error('ไม่สามารถทำรายการได้',''+response.message, function(){});
+          let msg = response.message;
+          if(response.message.indexOf('Duplicated')>=0){
+            msg = 'ทำรายการซ้ำ : '+_self.bean.fullName + ' มีการแจ้งเสียชีวิตไปแล้ว';
+          }
+          _self.message_error('',''+msg, function(){});
         }
         console.log("Saved Response...");
         console.log(response);

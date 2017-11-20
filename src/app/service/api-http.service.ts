@@ -40,7 +40,7 @@ export class ApiHTTPService  implements OnInit {
             .map(res => res.json())
             .subscribe(
             data => callback(data),
-            err => err,
+            err => callback(err),
             () => console.log('Fetching url Server Api : ' + url)
             )
     }
@@ -51,7 +51,7 @@ export class ApiHTTPService  implements OnInit {
             , params
             , function(resp){
                 console.log(resp);
-                if (resp && resp.status.toUpperCase() == "SUCCESS") {
+                if (resp && resp.status.toString().toUpperCase() == "SUCCESS") {
                     callback(resp.response);
                 }else{
                     callback([]);
@@ -81,12 +81,6 @@ export class ApiHTTPService  implements OnInit {
 
     public api_villageList(hospitalCode5: string, callback: (doc: any) => void) {
         this.callResponse('village/village_no_list_by_hospital', {"hospitalCode": hospitalCode5}, callback);
-    }
-    
-    public api_villageAdd(params, callback: (doc: any) => void){
-        this.post('village/add_village', params, function(response){
-            callback(response);
-        });
     }
 
     public api_OsmList(villageId: string, callback: (doc: any) => void) {
@@ -132,12 +126,12 @@ export class ApiHTTPService  implements OnInit {
         this.api_SurveyHeaderList(headerTypeCode, function(response){
             for(let item of response){
                 if(documentId == item.rowGUID){
-                    return item;
+                    callback(item);
+                    break;
                 }
             }
         });
-
-        return {};
+        callback({});
     }
 
 }

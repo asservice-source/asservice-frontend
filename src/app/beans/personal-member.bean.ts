@@ -5,8 +5,8 @@ export class PersonalMemberBean {
     public genderName: string = "";
     public age: string = "";
 
-    public isGuest: string = "";
-    public isExists: string = "";
+    public isGuest: boolean = false;
+    public isExists: boolean = false;
     public typeAreaCode: string = "";
     public prefixCode: string = "";
     public firstName: string = "";

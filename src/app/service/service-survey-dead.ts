@@ -3,13 +3,12 @@ import { ApiHTTPService } from "./api-http.service";
 import { FilterHeadSurveyBean } from "../beans/filter-head-survey.bean";
 import { BaseComponent } from "../base-component";
 
-export class Service_SurveyDead{
+export class Service_SurveyDead extends ApiHTTPService {
 
    public attr: any;
-   public apiHTTPService: ApiHTTPService = new ApiHTTPService();
    private baseComp: BaseComponent = new BaseComponent();
    constructor(){
-    
+    super();
    }
    public map(bean: DeadBean): any{
         this.attr = 
@@ -35,9 +34,9 @@ export class Service_SurveyDead{
         return  this.attr;
    }
    public getList(filter: FilterHeadSurveyBean, callback: (doc: any) => void){
-       let parameter = this.apiHTTPService.api_mapFilterSurveyHeader(filter);
+       let parameter = this.api_mapFilterSurveyHeader(filter);
        
-        this.apiHTTPService.callResponse('survey_death/search_death_info_list'
+        this.callResponse('survey_death/search_death_info_list'
         , parameter
         , callback);
     }
@@ -46,11 +45,11 @@ export class Service_SurveyDead{
         let parameter = this.baseComp.strNullToEmpty(this.map(bean));
         console.log(" = = = parameter = = = survey_death/ins_upd_death_info");
         console.log(parameter);
-        this.apiHTTPService.post('survey_death/ins_upd_death_info', parameter , callback);
+        this.post('survey_death/ins_upd_death_info', parameter , callback);
    }
 
    public commit_del(rowGUID: string, callback: (doc: any) => void){
         let parameter = {"rowGUID": rowGUID};
-        this.apiHTTPService.post('survey_death/del_death_info', parameter , callback);
+        this.post('survey_death/del_death_info', parameter , callback);
     }
 }

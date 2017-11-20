@@ -73,20 +73,22 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
           instance.view.subscribe(row => {
              self.doClick(row);
            });
+            */
            instance.edit.subscribe(row => {
-             self.doClick(row);
+            self.bean = self.cloneObj(row);
+            self.onModalForm(self.ass_action.EDIT);
            });
            instance.delete.subscribe(row => {
-             self.doClick(row);
+            self.onDelete(row);
            });
-           */
-          instance.action.subscribe((row: DeadBean, cell) => {
-            console.log(row);
-            if(row && row.action.toUpperCase()==self.ass_action.EDIT){
-              self.bean = self.cloneObj(row);
-              self.onModalForm(self.ass_action.EDIT);
-            }
-          });
+          
+          // instance.action.subscribe((row: DeadBean, cell) => {
+          //   console.log(row);
+          //   if(row && row.action.toUpperCase()==self.ass_action.EDIT){
+          //     self.bean = self.cloneObj(row);
+          //     self.onModalForm(self.ass_action.EDIT);
+          //   }
+          // });
         }
       }
     };
@@ -124,8 +126,25 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
     this.onSearch(this.filterBean);
   }
   setupTable(){               
-    this.source = new LocalDataSource(this.datas);
-    this.isShowList = true;
-    super.setNg2STDatasource(this.source);
+    this.source = super.ng2STDatasource(this.datas);
+    this.isShowList = true; 
+  }
+
+  onDelete(bean: DeadBean){
+    let _self = this;
+    _self.message_comfirm('', 'ต้องการยกเลิกแจ้งการเสียชีวิต : '+ bean.fullName + ' ใช่หรือไม่', function(resp){
+      if(resp){
+        _self.apiDead.commit_del(bean.rowGUID, function(response){
+          if(response && response.status.toUpperCase()=='SUCCESS'){
+            _self.message_success('', 'ยกเลิกแจ้งการเสียชีวิต : ' + bean.fullName + ' เรียบร้อย', function(){
+              _self.onSearch(this.filterBean);
+            });
+
+          }else{
+            _self.message_error('', 'ไม่สามารถยกเลิกแจ้งการเสียชีวิต : ' + bean.fullName + ' ได้');
+          }
+        });
+      }
+    });
   }
 }

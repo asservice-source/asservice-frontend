@@ -10,7 +10,7 @@ export class DeadBean{
     public isHypertension: boolean;
     public isAccident: boolean;
     public isCancer: boolean;
-    public cancerTypeID: number;
+    public cancerTypeID: string;
     public causeOther: string;
     public isCongenitalDisease: boolean;
     public deathPlaceCode: string;
