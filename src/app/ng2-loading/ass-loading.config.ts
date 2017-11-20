@@ -1,4 +1,4 @@
-import { ILoadingConfig } from "./ngx-loading.interface";
+import { ILoadingConfig } from "./ass-loading.interface";
 
 export class LoadingConfig implements ILoadingConfig {
     backdropBorderRadius?: string;

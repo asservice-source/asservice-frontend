@@ -70,7 +70,7 @@ export class ManagementStaffStaffListComponent extends BaseComponent implements 
   onClickAdd(){
     this.bean = new StaffBean();
     this.bean.prefixCode = '';
-    this.bean.genderCode = '';
+    this.bean.genderId = '';
     this.onModalForm();
   }
   onModalForm(){

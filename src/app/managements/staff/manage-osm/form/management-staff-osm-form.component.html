@@ -3,7 +3,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title" id="myModalLabel">{{bean.citizenId?'แก้ไข':'เพิ่ม'}}เจ้าหน้าที่ อสม.</h4>
+          <h4 class="modal-title" id="myModalLabel">{{bean.personId?'แก้ไข':'เพิ่ม'}}เจ้าหน้าที่ อสม.</h4>
         </div>
         <div class="modal-body">
 
@@ -21,10 +21,13 @@
               <label class="label-form">เพศ</label>
             </div>
             <div class="col-md-4">
-              <select [(ngModel)]="bean.genderCode">
-                <option value="">---เลือก---</option>
-                <option *ngFor="let item of genderList" [value]="item.code">{{item.name}}</option>
-              </select>
+                <div [InputValidate]="inputValidate">
+                    <select [(ngModel)]="bean.genderCode">
+                        <option value="">---เลือก---</option>
+                        <option *ngFor="let item of genderList" [value]="item.code">{{item.name}}</option>
+                      </select>
+                    <label class="error">กรุณาเลือกเพศ</label>
+                </div>
             </div>
           </div>
           
@@ -33,10 +36,13 @@
               <label class="label-form">คำนำหน้า</label>
             </div>
             <div class="col-md-4">
-              <select [(ngModel)]="bean.prefixCode">
-                <option value="">---เลือก---</option>
-                <option *ngFor="let item of prefixList" [value]="item.code">{{item.name}}</option>
-              </select>
+              <div [InputValidate]="inputValidate">
+                <select [(ngModel)]="bean.prefixCode">
+                  <option value="">---เลือก---</option>
+                  <option *ngFor="let item of prefixList" [value]="item.code">{{item.name}}</option>
+                </select>
+                <label class="error">กรุณาเลือกคำนำหน้า</label>
+              </div>
             </div>
           </div>
 
@@ -45,7 +51,10 @@
               <label class="label-form">ชื่อ</label>
             </div>
             <div class="col-md-6">
-              <input type="text" [(ngModel)]="bean.firstName">
+              <div [InputValidate]="inputValidate">
+                <input type="text" [(ngModel)]="bean.firstName">
+                <label class="error">กรุณาใส่ชื่อ</label>
+              </div>
             </div>
           </div>
 
@@ -54,7 +63,10 @@
               <label class="label-form">นามสกุล</label>
             </div>
             <div class="col-md-6">
-              <input type="text" [(ngModel)]="bean.lastName">
+              <div [InputValidate]="inputValidate">
+                <input type="text" [(ngModel)]="bean.lastName">
+                <label class="error"></label>
+              </div>
             </div>
           </div>
 
@@ -72,64 +84,20 @@
               <label class="label-form">หมู่บ้าน</label>
             </div>
             <div class="col-md-6">  
-              <select [(ngModel)]="bean.villageId">
-                <option value="">---เลือก---</option>
-                <option *ngFor="let item of villageList" [value]="item.id">{{item.villageNo}} : {{item.villageName}}</option>
-              </select>
-            </div>
-          </div>
-<!-- 
-          <div class="row">
-            <div class="col-md-4 text-right">
-              <label class="label-form">จังหวัด</label>
-            </div>
-            <div class="col-md-7">
-               
-              <select [(ngModel)]="bean.provinceCode" (change)="onProvinceChange()" [disabled]="isAddressDisable">
-                <option value="">---เลือก---</option>
-                <option *ngFor="let item of provinces" [value]="item.codeId">{{item.name}}</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-4 text-right">
-              <label class="label-form">อำเภอ</label>
-            </div>
-            <div class="col-md-7">
-                <select [(ngModel)]="bean.amphurCode" (change)="onAmphurChange()" [disabled]="!bean.provinceCode || isAddressDisable">
+              <div [InputValidate]="inputValidate">
+                <select [(ngModel)]="bean.villageId">
                   <option value="">---เลือก---</option>
-                  <option *ngFor="let item of amphurs" [value]="item.code">{{item.name}}</option>
+                  <option *ngFor="let item of villageList" [value]="item.id">{{item.villageNo}} : {{item.villageName}}</option>
                 </select>
+                <label class="error">กรุณาเลือกหมู่บ้าน</label>
+              </div>
             </div>
           </div>
-
-          <div class="row">
-            <div class="col-md-4 text-right">
-              <label class="label-form">ตำบล</label>
-            </div>
-            <div class="col-md-7">
-              <select [(ngModel)]="bean.tumpolCode" (change)="onTumbolChange()" [disabled]="!bean.amphurCode || isAddressDisable">
-                <option value="">---เลือก---</option>
-                <option *ngFor="let item of tumbols" [value]="item.code">{{item.name}}</option>
-              </select>
-          </div> 
-        </div>
-
-          <div class="row">
-            <div class="col-md-4 text-right">
-              <label class="label-form">รหัสไปรษณีย์</label>
-            </div>
-            <div class="col-md-4">
-              <input type="text" [(ngModel)]="bean.zipcode" OnlyNumber="true" maxlength="5">
-            </div>
-          </div>    
--->
 
         </div>
         <div class="modal-footer">
           
-          <button type="button" class="btn btn-sm btn-primary">ตกลง</button>
+          <button type="button" class="btn btn-sm btn-primary" (click)="onSave();">ตกลง</button>
           <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">ยกเลิก</button>
           
         </div>

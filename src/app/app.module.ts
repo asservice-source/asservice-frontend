@@ -60,8 +60,8 @@ import { MyDatePickerModule } from 'mydatepicker';
 import { RegisterActiveComponent } from './register/register-active/register-active.component';
 import { ManagementOsmAreaComponent } from './managements/osm/management-osm-area/list/management-osm-area.component';
 import { ManagementOsmAreaFormComponent } from './managements/osm/management-osm-area/form/management-osm-area-form.component';
-import { LoadingComponent} from './ng2-loading/ngx-loading.component'
-import { LoadingConfigService } from './ng2-loading/ngx-loading.service'
+import { LoadingComponent} from './ng2-loading/ass-loading.component'
+import { LoadingConfigService } from './ng2-loading/ass-loading.service'
 
 @NgModule({
   declarations: [

@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { BaseComponent } from '../../../../base-component';
 import { OSMBean } from '../../../../beans/osm.bean';
 import { ApiHTTPService } from '../../../../service/api-http.service';
+import { InputValidateInfo } from '../../../../directives/inputvalidate.directive';
 
 @Component({
   selector: 'app-management-staff-osm-form',
@@ -16,6 +17,7 @@ export class ManagementStaffOsmFormComponent extends BaseComponent implements On
   public prefixList: any = [{}];
   public villageList: any;
   public genderList: any;
+  public inputValidate: InputValidateInfo = new InputValidateInfo();
   constructor() { 
     super();
     this.bean = new OSMBean();
@@ -26,6 +28,7 @@ export class ManagementStaffOsmFormComponent extends BaseComponent implements On
     this.setupGender();
     this.setupPrefix();
     this.setupVillage();
+    this.bindModalForm();
   }
   setupPrefix(){
     let _self = this;
@@ -52,5 +55,15 @@ export class ManagementStaffOsmFormComponent extends BaseComponent implements On
       _self.genderList = response;
     });
 
+  }
+  bindModalForm(){
+    let _self = this;
+    $('#modalForm').on('hidden.bs.modal', function(){
+      _self.inputValidate = new InputValidateInfo();
+    });
+  }
+  onSave(){
+    this.inputValidate = new InputValidateInfo();
+    this.inputValidate.isCheck = true;
   }
 }

@@ -1,11 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { LoadingConfigService } from './ngx-loading.service';
-import { LoadingConfig, ANIMATION_TYPES } from './ngx-loading.config';
-import { ILoadingConfig } from './ngx-loading.interface';
+import { LoadingConfigService } from './ass-loading.service';
+import { LoadingConfig, ANIMATION_TYPES } from './ass-loading.config';
+import { ILoadingConfig } from './ass-loading.interface';
 
 @Component({
-    selector: 'ngx-loading',
+    selector: 'ass-loading',
     template: `
         <div *ngIf="show" class="backdrop" [ngClass]="{'full-screen' : loadingConfig?.fullScreenBackdrop == true}" [ngStyle]="{'border-radius': loadingConfig?.backdropBorderRadius, 'background-color': loadingConfig?.backdropBackgroundColour}"></div>
         <div *ngIf="show">

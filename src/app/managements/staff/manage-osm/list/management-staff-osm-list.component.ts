@@ -78,7 +78,7 @@ export class ManagementStaffOsmListComponent extends BaseComponent implements On
     this.bean = new OSMBean();
     this.bean.prefixCode = '';
     this.bean.villageId = '';
-    this.bean.genderCode = '';
+    this.bean.genderId = '';
     this.onModalForm();
   }
   onModalForm(){

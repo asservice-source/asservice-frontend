@@ -21,4 +21,5 @@
   </div>
 </div>
 
-<app-management-staff-village-form [bean]="bean" (onAdd)="onReturnAdd($event)"></app-management-staff-village-form>
+<app-management-staff-village-form [bean]="bean" [action]="action" (onAdd)="onReturnAdd($event)"></app-management-staff-village-form>
+<ass-loading [show]="loading" [config]="loadingConfig()"></ass-loading>

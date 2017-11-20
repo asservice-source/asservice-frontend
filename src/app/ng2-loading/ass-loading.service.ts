@@ -1,7 +1,7 @@
 import { Injectable, Inject, Optional } from '@angular/core';
 
-import {LoadingConfig } from './ngx-loading.config';
-import {ILoadingConfig } from './ngx-loading.interface';
+import {LoadingConfig } from './ass-loading.config';
+import {ILoadingConfig } from './ass-loading.interface';
 
 @Injectable()
 export class LoadingConfigService {
