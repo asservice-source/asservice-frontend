@@ -49,14 +49,14 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
 
   setupCancerList(){
     let _self = this;
-    this.apiDead.apiHTTPService.api_CancerList(function(response){
+    this.apiDead.api_CancerList(function(response){
       _self.cancerList = response;
     });
   }
 
   setupPlaceList(){
     let _self = this;
-    this.apiDead.apiHTTPService.api_DeathPlaceList(function(response){
+    this.apiDead.api_DeathPlaceList(function(response){
       _self.deadPlaceList = response;
     });
   }
@@ -125,7 +125,7 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
         _self.loading = false;
         if(response.status.toUpperCase()=="SUCCESS"){
           $('#modal-add-died').modal('hide');
-          _self.message_success('ทำรายการสำเร็จ','แจ้งการเสียชีวิต : '+_self.bean.fullName, function(){
+          _self.message_success('','แจ้งการเสียชีวิต : '+_self.bean.fullName, function(){
             _self.commit.emit(response);
           });
 
@@ -135,7 +135,7 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
           if(response.message.indexOf('Duplicated')>=0){
             msg = 'ทำรายการซ้ำ : '+_self.bean.fullName + ' มีการแจ้งเสียชีวิตไปแล้ว';
           }
-          _self.message_error('ไม่สามารถทำรายการได้',''+msg, function(){});
+          _self.message_error('',''+msg, function(){});
         }
         console.log("Saved Response...");
         console.log(response);

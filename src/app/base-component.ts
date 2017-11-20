@@ -266,6 +266,7 @@ export class BaseComponent implements OnInit {
     }
 
     message_success(title: string, message: string, callback?: (doc: any) => void){
+        title = title || 'ทำรายการสำเร็จ';
         bootbox.alert({
             size: "large",
             title: "<div class='bootbox-title'><span class='fa fa-check' style='color: #14b713;'></span> "+title+"</div>",
@@ -275,9 +276,19 @@ export class BaseComponent implements OnInit {
     }
     
     message_error(title: string, message: string, callback?: (doc: any) => void){
+        title = title || 'ไม่สามารถทำรายการได้';
         bootbox.alert({
             size: "large",
             title: "<div class='bootbox-title'><span class='fa fa-close' style='color: #d02626;'></span> "+title+"</div>",
+            message: message,
+            callback: callback
+        });
+    }
+    message_comfirm(title: string, message: string, callback?: (doc: any) => void){
+        title = title || 'ยืนยันการทำรายการ';
+        bootbox.confirm({
+            size: "large",
+            title: "<div class='bootbox-title'><span class='fa fa-question' style='color: #2a7ec7;'></span> "+title+"</div>",
             message: message,
             callback: callback
         });

@@ -40,7 +40,7 @@ export class ApiHTTPService  implements OnInit {
             .map(res => res.json())
             .subscribe(
             data => callback(data),
-            err => err,
+            err => callback(err),
             () => console.log('Fetching url Server Api : ' + url)
             )
     }
@@ -51,7 +51,7 @@ export class ApiHTTPService  implements OnInit {
             , params
             , function(resp){
                 console.log(resp);
-                if (resp && resp.status.toUpperCase() == "SUCCESS") {
+                if (resp && resp.status.toString().toUpperCase() == "SUCCESS") {
                     callback(resp.response);
                 }else{
                     callback([]);

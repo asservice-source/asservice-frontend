@@ -12,7 +12,10 @@
               <label class="label-form">{{getLabel('lbl_citizenid')}}</label>
             </div>
             <div class="col-md-6">
-              <input type="text" [(ngModel)]="bean.citizenId" OnlyNumber="true" [disabled]="false">
+              <div [InputValidate]="inputValidate">
+                <input type="text" [(ngModel)]="bean.citizenId" OnlyNumber="true" [disabled]="false">
+                <label class="error">กรุณาใส่หมายเลขประชาชน</label>
+              </div>
             </div>
           </div>
           
@@ -21,13 +24,13 @@
               <label class="label-form">เพศ</label>
             </div>
             <div class="col-md-4">
-                <div [InputValidate]="inputValidate">
-                    <select [(ngModel)]="bean.genderCode">
-                        <option value="">---เลือก---</option>
-                        <option *ngFor="let item of genderList" [value]="item.code">{{item.name}}</option>
-                      </select>
-                    <label class="error">กรุณาเลือกเพศ</label>
-                </div>
+              <div [InputValidate]="inputValidate">
+                <select [(ngModel)]="bean.genderId">
+                  <option value="">---เลือก---</option>
+                  <option *ngFor="let item of genderList" [value]="item.id">{{item.name}}</option>
+                </select>
+                <label class="error">กรุณาเลือกเพศ</label>
+              </div>
             </div>
           </div>
           
