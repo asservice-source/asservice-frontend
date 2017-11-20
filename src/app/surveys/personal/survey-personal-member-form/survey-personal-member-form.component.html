@@ -178,7 +178,7 @@
               <div class="col-md-12">
                 <div class="radio">
                   <label class="label-form" style="font-size: 1em">
-                    <input type="radio" name="guestType" id="guest1" value="false" [(ngModel)]="member.isGuest">
+                    <input type="radio" name="guestType" id="guest1" [value]="false" [(ngModel)]="member.isGuest">
                     <span class="cr">
                       <i class="cr-icon fa fa-check"></i>
                     </span>
@@ -187,7 +187,7 @@
                 </div>
                 <div class="radio">
                   <label class="label-form" style="font-size: 1em">
-                    <input type="radio" name="guestType" id="guest2" value="true" [(ngModel)]="member.isGuest">
+                    <input type="radio" name="guestType" id="guest2" [value]="true" [(ngModel)]="member.isGuest">
                     <span class="cr">
                       <i class="cr-icon fa fa-check"></i>
                     </span>
@@ -231,7 +231,7 @@
           <div class="col-md-1">
             <div class="radio">
               <label class="label-form" style="font-size: 1em">
-                <input type="radio" name="existsType" id="existsType1" value="true" [(ngModel)]="member.isExists">
+                <input type="radio" name="existsType" id="existsType1" [value]="true" [(ngModel)]="member.isExists">
                 <span class="cr">
                   <i class="cr-icon fa fa-check"></i>
                 </span>
@@ -242,7 +242,7 @@
           <div class="col-md-2">
             <div class="radio">
               <label class="label-form" style="font-size: 1em">
-                <input type="radio" name="existsType" id="existsType2" value="false" [(ngModel)]="member.isExists">
+                <input type="radio" name="existsType" id="existsType2" [value]="false" [(ngModel)]="member.isExists">
                 <span class="cr">
                   <i class="cr-icon fa fa-check"></i>
                 </span>

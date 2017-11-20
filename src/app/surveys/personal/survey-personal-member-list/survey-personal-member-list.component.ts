@@ -5,8 +5,9 @@ import { ActivatedRoute } from '@angular/router';
 import { ViewCell, LocalDataSource } from 'ng2-smart-table';
 import { BaseComponent } from '../../../base-component';
 import { PersonBean } from '../../../beans/person.bean';
-import { ApiHTTPService } from '../../../service/api-http.service';
 import { PersonalMemberBean } from '../../../beans/personal-member.bean';
+// import { ApiHTTPService } from '../../../service/api-http.service';
+import { Service_SurveyPersonal } from '../../../service/service-survey-personal';
 declare var $;
 declare var bootbox: any;
 
@@ -17,14 +18,16 @@ declare var bootbox: any;
 })
 export class SurveyPersonalMemberListComponent extends BaseComponent implements OnInit {
 
-  private apiHttp: ApiHTTPService = new ApiHTTPService();
+  // private apiHttp: ApiHTTPService = new ApiHTTPService();
+  private apiHttp: Service_SurveyPersonal = new Service_SurveyPersonal();
 
   private paramHomeId: string;
-  private paramRound: string;
+  private paramRoundId: string;
 
   public action: string = this.ass_action.ADD;
   public paramMember: PersonalMemberBean = new PersonalMemberBean();
 
+  public roundName: string = "";
   public homeAddress: string = "";
   public homeTel: string = "";
   public osmFullName: string = "";
@@ -160,6 +163,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
 
   ngOnInit() {
     this.receiveParameters();
+    this.bindRoundName();
     this.bindHomeInfo();
     this.bindHomeMemberList();
     this.onReadyjQuery();
@@ -168,7 +172,16 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
   receiveParameters() {
     this.route.params.subscribe(params => {
       this.paramHomeId = params['homeId'];
-      this.paramRound = params['roundId'];
+      this.paramRoundId = params['roundId'];
+    });
+  }
+
+  bindRoundName() {
+    let self = this;
+
+    self.apiHttp.getRound_byDocumentId(self.surveyHeaderCode.POPULATION, self.paramRoundId, function (d) {
+      console.log(d);
+      self.roundName = d.response.name;
     });
   }
 
@@ -247,12 +260,11 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     }
 
     if (!isActionAdd) {
-      for (let item of listAll) {
-        if (item.citizenId == tmpMember.citizenId) {
-          index = listAll.indexOf(item);
-
-        }
-      }
+      // for (let item of listAll) {
+      //   if (item.citizenId == tmpMember.citizenId) {
+      //     index = listAll.indexOf(item);
+      //   }
+      // }
     } else {
       for (let item of listAll) {
         if (item.citizenId == tmpMember.citizenId) {
@@ -309,42 +321,49 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     if (!isActionAdd) {
       // listAll[index] = tmpMember;
       let deleteIndex1 = -1;
+      let pushItem1 = null;
       for (let item of self.tempData) {
-        if (item.isGuest) {
-          self.tempData2.push(item);
+        if (item.isGuest == true) {
+          pushItem1 = item;
           deleteIndex1 = self.tempData.indexOf(item)
         }
       }
-      if (deleteIndex1 > 0) {
-        self.tempData.splice(deleteIndex1, 1);
-      }
-
 
       let deleteIndex2 = -1;
+      let pushItem2 = null;
       for (let item of self.tempData2) {
-        if (!item.isGuest) {
-          self.tempData.push(item);
+        if (item.isGuest == false) {
+          pushItem2 = item;
           deleteIndex2 = self.tempData2.indexOf(item)
         }
       }
-      if (deleteIndex2 > 0) {
+
+      if (deleteIndex1 >= 0) {
+        self.tempData.splice(deleteIndex1, 1);
+      }
+      if (deleteIndex2 >= 0) {
         self.tempData2.splice(deleteIndex2, 1);
       }
 
+      if (pushItem1 != null) {
+        self.tempData2.push(pushItem1);
+      }
+      if (pushItem2 != null) {
+        self.tempData.push(pushItem2);
+      }
+
     } else {
-      if (tmpMember.isGuest.toUpperCase() == 'TRUE') {
+      if (tmpMember.isGuest == true) {
         self.tempData2.push(tmpMember);
       } else {
         self.tempData.push(tmpMember);
       }
     }
 
-    console.log(self.tempData);
-    console.log(self.tempData2);
+    // console.log(self.tempData);
+    // console.log(self.tempData2);
 
-    self.source = self.ng2STDatasource(self.tempData);
     self.source.refresh();
-    self.source2 = self.ng2STDatasource(self.tempData2);
     self.source2.refresh();
 
     $("#modalMember").modal('hide');
@@ -363,7 +382,19 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
   }
 
   onClickSave() {
+    let self = this;
 
+    let listAll: Array<any> = [];
+    for (let item of self.tempData) {
+      listAll.push(item);
+    }
+    for (let item of self.tempData2) {
+      listAll.push(item);
+    }
+
+    self.apiHttp.commit_save_survey(self.paramHomeId, self.paramRoundId, listAll, function () {
+      alert('x');
+    });
   }
 
   onClickBack() {

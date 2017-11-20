@@ -16,14 +16,12 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
   // private apiHttp: ApiHTTPService = new ApiHTTPService();
   private apiHttp: Service_SurveyPersonal = new Service_SurveyPersonal();
   public member: PersonalMemberBean = new PersonalMemberBean();
-  public textButtonVerify: string = "ตรวจสอบ";
 
   @Input() action: string;
   @Input() set triggerMember(paramMember: PersonalMemberBean) {
     let self = this;
 
     self.member = self.strNullToEmpty(paramMember);
-    self.member.isGuest = self.member.isGuest.toString();
     if (self.member && self.member.birthDate) {
       self.modelBirthDate = self.getCurrentDatePickerModel(self.member.birthDate);
     } else {
@@ -84,7 +82,7 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
 
     $("#modalMember").on('show.bs.modal', function (e) {
       if (self.action == self.ass_action.EDIT) {
-        self.member.isExists = "true";
+        self.member.isExists = true;
 
         self.toggleCitizenId(true);
 
@@ -92,8 +90,8 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
         self.isDisabledActionAdd = true;
         self.isDisablePersonData = false;
       } else {
-        self.member.isGuest = "false";
-        self.member.isExists = "true";
+        self.member.isGuest = false;
+        self.member.isExists = true;
 
         self.toggleCitizenId(false);
 
@@ -297,8 +295,8 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
   }
 
   defaultValue() {
-    this.member.isGuest = "false";
-    this.member.isExists = "true";
+    this.member.isGuest = false;
+    this.member.isExists = true;
     // this.member.raceCode = "099";
     // this.member.nationalityCode = "099";
     // this.member.religionCode = "01";
@@ -387,7 +385,7 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
     });
   }
 
-  onClickEditCitizenId(){
+  onClickEditCitizenId() {
     let self = this;
 
     self.toggleCitizenId(false);
@@ -397,25 +395,26 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
   onClickSave() {
     let self = this;
 
-    self.apiHttp.commit_save(self.member, function (d) {
-      console.log(d);
-      if (d != null && d.status.toUpperCase() == "SUCCESS") {
-        self.member.personId = d.response.personId;
-        self.member.listPrefix = self.listPrefix;
-        self.member.listGender = self.listGender;
-        self.member.listFamilyStatus = self.listFamilyStatus;
-        console.log(self.member);
-        self.memberUpdated.emit(self.member);
-      } else {
-        alert(d.message);
-      }
-    });
-
-    // self.member.listPrefix = self.listPrefix;
-    // self.member.listGender = self.listGender;
-    // self.member.listFamilyStatus = self.listFamilyStatus;
-    // self.memberUpdated.emit(self.member);
-
+    if (self.action == self.ass_action.ADD) {
+      self.apiHttp.commit_save(self.member, function (d) {
+        console.log(d);
+        if (d != null && d.status.toUpperCase() == "SUCCESS") {
+          self.member.personId = d.response.personId;
+          self.member.listPrefix = self.listPrefix;
+          self.member.listGender = self.listGender;
+          self.member.listFamilyStatus = self.listFamilyStatus;
+          console.log(self.member);
+          self.memberUpdated.emit(self.member);
+        } else {
+          alert(d.message);
+        }
+      });
+    } else {
+      self.member.listPrefix = self.listPrefix;
+      self.member.listGender = self.listGender;
+      self.member.listFamilyStatus = self.listFamilyStatus;
+      self.memberUpdated.emit(self.member);
+    }
   }
 
 }
