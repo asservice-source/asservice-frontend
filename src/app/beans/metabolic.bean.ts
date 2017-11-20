@@ -48,11 +48,11 @@ export class MetabolicBean{
     public drugHistory_Drink: string;
     public rollPerDay: string;
     public packPerYear : string;
-    public oftenPerWeek: string;
+    public oftenPerWeek: number;
 
-    public weight : string;
-    public height : string;
-    public waistline : string;
+    public weight : number;
+    public height : number;
+    public waistline : number;
     public bmi : string;
 
     public bp1 : string;

@@ -74,10 +74,14 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
       self.resetFind = self.resetFind + 1;
       if (self.action == self.ass_action.EDIT) {
         //self.data.patientSurveyTypeCode.toUpperCase();
-        //self.data.patientDate = self.getCurrentDatePickerModel(self.data.patientDate);
+        self.data.patientDate = self.getCurrentDatePickerModel(self.data.patientDate);
         self.onChoosePersonal(self.data);
         
         console.log(self.data);
+      }
+
+      if (self.action == self.ass_action.ADD) {
+        self.data.patientDate = self.getCurrentDatePickerModel();
       }
 
       self.changeRef.detectChanges();
@@ -157,11 +161,11 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
       this.patientbean.hInsuranceType = "74";
     }
 
-    this.patientbean.patientType = "0";
-    this.patientbean.disabilityType = "0";
-    this.patientbean.disabilityCauseType = "0";
-    this.patientbean.patientDate = undefined;
-    this.patientbean.remark = undefined;
+    // this.patientbean.patientType = "0";
+    // this.patientbean.disabilityType = "0";
+    // this.patientbean.disabilityCauseType = "0";
+    // this.patientbean.patientDate = undefined;
+    // this.patientbean.remark = undefined;
 
   }
 

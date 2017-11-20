@@ -70,7 +70,7 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
           return '<div class="text-center">' + cell + '</div>'
         }
       },
-      patientType: {
+      patientTypeName: {
         title: 'ประเภท',
         filter: false,
         width: '120px',

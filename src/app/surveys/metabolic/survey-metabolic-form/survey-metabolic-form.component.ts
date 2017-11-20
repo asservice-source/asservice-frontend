@@ -69,8 +69,6 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
     //console.log(this.metabolicbean);
     this.metabolicbean = new MetabolicBean();
     this.api = new ApiHTTPService();
-
-
   }
 
   ngOnInit() {
@@ -82,14 +80,23 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
 
   }
 
+  calculateBMI() {
+    if (this.metabolicbean.height && this.metabolicbean.weight) {
+      let H = this.metabolicbean.height / 100;
+      let W = this.metabolicbean.weight;
+      let result = W / (H * H);
+      this.metabolicbean.bmi = result.toFixed(2);
+    }
+  }
+
   getHealtinsuranceType() {
     let self = this;
     let params = {};
     this.api.post('person/health_insurance_type_list', params, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.healtInsuranceTypeList = resp.response;
-        self.healtInsuranceTypeList.id = 89;
-        self.metabolicbean.hInsuranceTypeId = self.healtInsuranceTypeList.id;
+        // self.healtInsuranceTypeList.id = 89;
+        // self.metabolicbean.hInsuranceTypeId = self.healtInsuranceTypeList.id;
       }
     })
   }
@@ -143,10 +150,13 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
   }
 
   onChoosePersonal(bean: any): void {
-    console.log("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
+    console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
     console.log(bean);
     this.metabolicbean = new MetabolicBean();
     this.metabolicbean = bean;
+    if (this.ass_action.ADD == this.action) {
+      this.metabolicbean.hInsuranceTypeId = "89";
+    }
     this.isDuplicate();
     this.isFindPersonal = false;
     this.isShowForm = true;
@@ -173,6 +183,7 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
   }
 
   onModalEvent() {
+
     let self = this;
     $('#find-person-md').on('show.bs.modal', function (e) {
       self.resetFind = self.resetFind + 1;
@@ -191,6 +202,10 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
           self.data.bp2HG = self.splitBP(self.data.bp2)[1];
         }
       }
+
+      // if (self.action == self.ass_action.ADD){
+      //   this.metabolicbean.hInsuranceTypeId = 89;
+      //  }
 
       self.changeRef.detectChanges();
     })
@@ -239,7 +254,7 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
     }
 
     if (this.metabolicbean.drinkingStatusId == '1') {
-      if (!this.metabolicbean.oftenPerWeek) {
+      if (!this.metabolicbean.oftenPerWeek || this.metabolicbean.oftenPerWeek >= 255) {
         this.isErrorDrink = true;
         validateform = false;
       }
@@ -247,18 +262,18 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
         this.isErrorDrink = false;
       }
     } else {
-      this.metabolicbean.oftenPerWeek = "";
+      this.metabolicbean.oftenPerWeek = undefined;
       this.isErrorDrink = false;
     }
 
-    if (!this.metabolicbean.weight) {
+    if (!this.metabolicbean.weight || this.metabolicbean.weight >= 255) {
       this.isErrorWeight = true;
       validateform = false;
     } else {
       this.isErrorWeight = false;
     }
 
-    if (!this.metabolicbean.height) {
+    if (!this.metabolicbean.height || this.metabolicbean.height >= 255) {
       this.isErrorHeight = true;
       validateform = false;
     } else {
