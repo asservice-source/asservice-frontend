@@ -26,6 +26,8 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
   public source: LocalDataSource = new LocalDataSource();
   public healtInsuranceID = 7;
   public datas: any = [];
+  public filtersearch: FilterHeadSurveyBean;
+  public documentId: string;
 
   constructor(private changeRef: ChangeDetectorRef) {
     super();
@@ -90,8 +92,6 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
 
           instance.action.subscribe((row: PatientBean, cell) => {
             if (row && row.action.toUpperCase() == self.ass_action.EDIT) {
-              // console.log(self.getCurrentDatePickerModel(row.patientDate));
-              // row.patientDate = self.getCurrentDatePickerModel(row.patientDate);
               self.patientbean = self.cloneObj(row);
               self.onModalFrom(self.ass_action.EDIT);
             }
@@ -102,7 +102,7 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
   }
 
   ngOnInit() {
-    this.setUpTable();
+    //this.setUpTable();
   }
 
   checkPatient() {
@@ -118,7 +118,7 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
     //this.isShowList = false;
   }
 
-  onSearch(event: FilterHeadSurveyBean) {
+  loadData(event: FilterHeadSurveyBean){
     let self = this;
     let param = {
       "documentId": event.rowGUID,
@@ -130,21 +130,24 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
     let params = JSON.stringify(param);
 
     this.api.post('survey_patient/filter', params, function (resp) {
-      console.log(resp);
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-
+        self.datas = [];
         for (let item of resp.response) {
-          if (resp.response.patientSurveyTypeCode != 'Cancer') {
-            self.datas = resp.response;
-          }
+          if (item.patientSurveyTypeCode != 'Cancer') {          
+            self.datas.push(item);
+          } 
         }
-        // self.datas = resp.response;
-        // console.log("=========================getPatient============================");
-        // console.log(resp);
         self.setUpTable();
       }
     })
-    this.setUpTable();
+  }
+
+  onSearch(event: FilterHeadSurveyBean) {
+    this.filtersearch = event;
+    if (event.status == '2') {
+      this.documentId = event.rowGUID;
+    }
+    this.loadData(event);
   }
 
   setUpTable() {
@@ -157,6 +160,12 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
     this.action = action;
     this.changeRef.detectChanges();
     $('#find-person-md').modal('show');
+  }
+
+  reloadData(event: any) {
+    if (event) {
+      this.loadData(this.filtersearch);
+    }
   }
 
 }

@@ -30,13 +30,13 @@ export class PatientBean{  action: any;
     public age: number;
     public address : string;
 
-    public patientSurveyTypeCode : any;
-    public patientType : string;
+    public patientSurveyTypeCode : string;
     public diseaseStatusType : string;
     public patientDate : string;
-    public hInsuranceType : string;
+    public hInsuranceTypeID : string;
+    public disabilityCauseTypeID : string;
 
-    public disabilityType : string;
+    public disabilityTypeID : string;
     public disabilityCauseType : string;
     public remark : string;
     public telephone : string;
@@ -50,5 +50,9 @@ export class PatientBean{  action: any;
     public osmId : string;
     public cancerTypeID : string;
     public diseaseStatusTypeID : string;
+
+    public treatmentPlace : string;
+    public latitude : string;
+    public longitude : string;
 
 }

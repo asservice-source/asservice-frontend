@@ -10,45 +10,42 @@
 
             <div *ngIf="isShowForm">
                 <div class="row">
-                    <div class="col-md-4 col-md-offset-1">
-                        <label id="cid">หมายเลขประจำตัว :</label>
-                        <label class="value">{{patientbean.citizenId}}</label>
-                    </div>
-                    <div class="col-md-3">
-                        <label>ชื่อ-สกุล :</label>
-                        <label class="value">{{patientbean.fullName}}</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3 col-md-offset-1" style="width: 180px;">
-                        <label>เพศ :</label>
-                        <label class="value">{{patientbean.genderName}}</label>
-                        <label>อายุ :</label>
-                        <label class="value">{{patientbean.age}} ปี</label>
+                        <div class="col-md-11 col-md-offset-1">
+                            <div class="box-body">
+                                <dl class="dl-horizontal">
+                                    <dt>หมายเลขประจำตัว : </dt>
+                                    <dd>{{ patientbean.citizenId }}</dd>
+                                    <dt>ชื่อ-สกุล : </dt>
+                                    <dd>{{ patientbean.fullName }}</dd>
+                                    <dt>เพศ : </dt>
+                                    <dd>{{ patientbean.gender }}</dd>
+                                    <dt>อายุ : </dt>
+                                    <dd>{{ patientbean.age }}</dd>
+                                    <dt>ที่อยู่ : </dt>
+                                    <dd>{{ patientbean.address }}</dd>
+                                </dl>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="col-md-8">
-                        <label class="label-form">ที่อยู่ :</label>
-                        <label class="value">{{patientbean.address}}</label>
-                    </div>
-                </div>
+                    <hr style=" margin-top: 0px">
 
-                <hr>
-                <div class="row">
-                    <div class="col-md-4 text-right">
-                        <label class="label-form">ประเภท</label>
-                    </div>
-                    <div class="col-md-4">
-                        <select [(ngModel)]="patientbean.patientSurveyTypeCode" (change)="onChangePatientSyurvey();">
-                            <option value="0">--เลือกประเภท--</option>
-                            <ng-container *ngFor="let item of surveyStatusTypeList">
-                                <option *ngIf="item.code !='Cancer'" value="{{item.code.toUpperCase()}}">{{item.name}}</option>
-                            </ng-container>
-                        </select>
-                    </div>
-                </div>
+                    <div class="row">
+                            <div class="col-md-4 text-right">
+                                <label class="label-form">ประเภท</label>
+                            </div>
+                            <div class="col-md-4">
+                                <select [(ngModel)]="patientbean.patientSurveyTypeCode" (change)="onChangePatientSyurvey();">
+                                    <option value="0">--เลือกประเภท--</option>
+                                    <ng-container *ngFor="let item of surveyStatusTypeList">
+                                        <option value="{{item.code}}" *ngIf="item.code !='Cancer'">{{item.name}}</option>
+                                    </ng-container>
+                                </select>
+                            </div>
+                        </div>
+
                 <!-- ป่วย -->
-                <div *ngIf="patientbean.patientSurveyTypeCode == 'PATIENT'">
+                <div *ngIf="patientbean.patientSurveyTypeCode == 'Patient'">
                     <div class="row">
                         <div class="col-md-2 text-right">
                             <label class="label-form">ระบุโรค/อาการ</label>
@@ -56,10 +53,10 @@
                         <div class="col-md-3">
                             <input type="text" [(ngModel)]="patientbean.remark">
                             <div class="row" *ngIf="isErrorRemark">
-                                    <div class="col-md-12">
-                                        <span class="error">กรุณาระบุอาการป่วย</span>
-                                    </div>
+                                <div class="col-md-12">
+                                    <span class="error">กรุณาระบุอาการป่วย</span>
                                 </div>
+                            </div>
                         </div>
 
                         <div class="col-md-2 text-right">
@@ -71,10 +68,10 @@
                                 <option *ngFor="let item of patientTypeList" value="{{item.id}}">{{item.name}}</option>
                             </select>
                             <div class="row" *ngIf="isErrorPatientType">
-                                    <div class="col-md-12">
-                                        <span class="error">กรุณาเลือกประเภท</span>
-                                    </div>
+                                <div class="col-md-12">
+                                    <span class="error">กรุณาเลือกประเภท</span>
                                 </div>
+                            </div>
                         </div>
                     </div>
 
@@ -83,7 +80,7 @@
                             <label class="label-form">สิทธิบัตร</label>
                         </div>
                         <div class="col-md-3">
-                            <select [(ngModel)]="patientbean.hInsuranceType">
+                            <select [(ngModel)]="patientbean.hInsuranceTypeID">
                                 <option value="0">--เลือก--</option>
                                 <option *ngFor="let item of healtInsuranceTypeList" value="{{item.id}}">{{item.code}}</option>
                             </select>
@@ -92,42 +89,51 @@
                             <label class="label-form">วันที่ป่วย</label>
                         </div>
 
-                        <div class="col-md-3">
+                        <div class="col-md-3" style="height: 27px;">
                             <my-date-picker [options]="datePickerOptions" [(ngModel)]="patientbean.patientDate" required></my-date-picker>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2 text-right">
+                            <label class="label-form">สถานที่รักษา</label>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" [(ngModel)]="patientbean.treatmentPlace">
                         </div>
                     </div>
                 </div>
                 <!-- พิการ -->
-                <div *ngIf="patientbean.patientSurveyTypeCode == 'DISABLED'">
+                <div *ngIf="patientbean.patientSurveyTypeCode == 'Disabled'">
                     <div class="row">
                         <div class="col-md-2 text-right">
                             <label class="label-form">ประเภทพิการ</label>
                         </div>
                         <div class="col-md-4">
-                            <select [(ngModel)]="patientbean.disabilityType">
+                            <select [(ngModel)]="patientbean.disabilityTypeID">
                                 <option value="0">--เลือกประเภท--</option>
-                                <option *ngFor="let item of disabilityTypeList" value="item.id">{{item.name}}</option>
+                                <option *ngFor="let item of disabilityTypeList" value="{{item.id}}">{{item.name}}</option>
                             </select>
                             <div class="row" *ngIf="isErrorDisabilityType">
-                                    <div class="col-md-12">
-                                        <span class="error">กรุณาเลือกประเภทความพิการ</span>
-                                    </div>
-                                </div>    
+                                <div class="col-md-12">
+                                    <span class="error">กรุณาเลือกประเภทความพิการ</span>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="col-md-1 text-right">
                             <label class="label-form">สาเหตุ</label>
                         </div>
                         <div class="col-md-3">
-                            <select [(ngModel)]="patientbean.disabilityCauseType">
+                            <select [(ngModel)]="patientbean.disabilityCauseTypeID">
                                 <option value="0">--เลือกประเภท--</option>
-                                <option *ngFor="let item of disabilityTypeCause" value="item.id">{{item.name}}</option>
+                                <option *ngFor="let item of disabilityTypeCause" value="{{item.id}}">{{item.name}}</option>
                             </select>
                             <div class="row" *ngIf="disabilityCauseType">
-                                    <div class="col-md-12">
-                                        <span class="error">กรุณาเลือกสาเหตุความพิการ</span>
-                                    </div>
+                                <div class="col-md-12">
+                                    <span class="error">กรุณาเลือกสาเหตุความพิการ</span>
                                 </div>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -146,11 +152,11 @@
                                 <option value="0">--เลือกประเภท--</option>
                                 <option *ngFor="let item of patientTypeList" value="{{item.id}}">{{item.name}}</option>
                             </select>
-                            <div class="row" *ngIf="isErrorPatientType" >
-                                    <div class="col-md-12">
-                                        <span class="error">กรุณาเลือกประเภท</span>
-                                    </div>
+                            <div class="row" *ngIf="isErrorPatientType">
+                                <div class="col-md-12">
+                                    <span class="error">กรุณาเลือกประเภท</span>
                                 </div>
+                            </div>
                         </div>
 
                     </div>
@@ -160,7 +166,7 @@
                             <label class="label-form">สิทธิบัตร</label>
                         </div>
                         <div class="col-md-3">
-                            <select [(ngModel)]="patientbean.hInsuranceType">
+                            <select [(ngModel)]="patientbean.hInsuranceTypeID">
                                 <option value="0">--เลือก--</option>
                                 <option *ngFor="let item of healtInsuranceTypeList" value="{{item.id}}">{{item.code}}</option>
                             </select>
@@ -170,14 +176,19 @@
                             <label class="label-form">วันที่พิการ</label>
                         </div>
 
-                        <div class="col-md-3">
+                        <div class="col-md-3" style="height: 27px;">
                             <my-date-picker [options]="datePickerOptions" [(ngModel)]="patientbean.patientDate" required></my-date-picker>
                         </div>
 
                     </div>
 
                     <div class="row">
-                        
+                        <div class="col-md-2 text-right">
+                            <label class="label-form">สถานที่รักษา</label>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" [(ngModel)]="patientbean.treatmentPlace">
+                        </div>
                     </div>
                 </div>
 
