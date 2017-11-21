@@ -172,7 +172,7 @@ export class BaseComponent implements OnInit {
 
     public getStringDateForDatePickerModel(date: any): string {
         if (date) {
-            return date.year + '-' + this.numberAppendPrefix(date.month,2) + '-' + this.numberAppendPrefix(date.day, 2);
+            return date.date.year + '-' + this.numberAppendPrefix(date.date.month,2) + '-' + this.numberAppendPrefix(date.date.day, 2);
         }
         return undefined;
     }
