@@ -1,5 +1,5 @@
 import { PersonalBasicBean } from "./personal-basic.bean";
 
-export class StaffBean extends PersonalBasicBean{
+export class StaffUserBean extends PersonalBasicBean{
 
 }

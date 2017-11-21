@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ManagementStaffOsmListComponent } from './management-staff-osm-list.component';
+import { ManagementStaffUserListComponent } from './management-staff-user-list.component';
 
 describe('ManagementStaffOsmComponent', () => {
-  let component: ManagementStaffOsmListComponent;
-  let fixture: ComponentFixture<ManagementStaffOsmListComponent>;
+  let component: ManagementStaffUserListComponent;
+  let fixture: ComponentFixture<ManagementStaffUserListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ManagementStaffOsmListComponent ]
+      declarations: [ ManagementStaffUserListComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ManagementStaffOsmListComponent);
+    fixture = TestBed.createComponent(ManagementStaffUserListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

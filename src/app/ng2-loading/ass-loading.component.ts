@@ -15,8 +15,9 @@ import { ILoadingConfig } from './ass-loading.interface';
                 <div class="bounce3" [ngStyle]="{'background-color': loadingConfig?.tertiaryColour}"></div>
             </div>
 
-            <div class="spinner-sk-rotateplane" *ngIf="getAnimationType(loadingConfig?.animationType) === ANIMATION_TYPES.rotatingPlane" [ngStyle]="{'background-color': loadingConfig?.primaryColour}" [ngClass]="{'full-screen' : loadingConfig?.fullScreenBackdrop == true}"></div>
-
+            <!-- <div class="spinner-sk-rotateplane" *ngIf="getAnimationType(loadingConfig?.animationType) === ANIMATION_TYPES.rotatingPlane" [ngStyle]="{'background-color': loadingConfig?.primaryColour}" [ngClass]="{'full-screen' : loadingConfig?.fullScreenBackdrop == true}"></div>-->
+            <div [ngStyle]="{'background-color': loadingConfig?.primaryColour}" [ngClass]="{'full-screen' : loadingConfig?.fullScreenBackdrop == true}"><img src='assets/img/loader2.gif' width='100'></div>
+           
             <div class="spinner-rectangle-bounce" *ngIf="getAnimationType(loadingConfig?.animationType) === ANIMATION_TYPES.rectangleBounce" [ngClass]="{'full-screen' : loadingConfig?.fullScreenBackdrop == true}">
                 <div class="rect1" [ngStyle]="{'background-color': loadingConfig?.primaryColour}"></div>
                 <div class="rect2" [ngStyle]="{'background-color': loadingConfig?.primaryColour}"></div>
@@ -280,10 +281,10 @@ export class LoadingComponent implements OnInit {
     };
 
     private defaultConfig: ILoadingConfig = {
-        animationType: ANIMATION_TYPES.threeBounce,
-        backdropBackgroundColour: 'rgba(0, 0, 0, 0.3)',
+        animationType: ANIMATION_TYPES.rotatingPlane,
+        backdropBackgroundColour: 'rgba(0, 0, 0, 0.4)',
         backdropBorderRadius: '0px',
-        fullScreenBackdrop: false,
+        fullScreenBackdrop: true,
         primaryColour: '#ffffff',
         secondaryColour: '#ffffff',
         tertiaryColour: '#ffffff'

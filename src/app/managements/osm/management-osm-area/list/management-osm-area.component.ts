@@ -13,13 +13,15 @@ declare var $:any;
 })
 export class ManagementOsmAreaComponent extends BaseComponent implements OnInit {
 
-  public bean: HomeBean = new HomeBean();
+  public bean: HomeBean;
+  public action: string;
   public api: ApiHTTPService = new ApiHTTPService();
   public settings: any;
   public source: LocalDataSource = new LocalDataSource();
 
   constructor() { 
     super();
+    this.bean = new HomeBean();
     let _self = this;
     this.settings = this.getTableSetting({
       homeNo: {
@@ -50,7 +52,7 @@ export class ManagementOsmAreaComponent extends BaseComponent implements OnInit 
            });
            instance.edit.subscribe(row => {
             _self.bean = _self.cloneObj(row);
-            _self.onModalForm();
+            _self.onModalForm(_self.ass_action.EDIT);
            });
            instance.delete.subscribe(row => {
 
@@ -64,12 +66,23 @@ export class ManagementOsmAreaComponent extends BaseComponent implements OnInit 
   }
 
   ngOnInit() {
-
+    this.setupHomeList();
   }
-  onModalForm(){
+  setupHomeList(){
+    //TODO Call API HomeList
+  }
+  onModalForm(action:string){
+    this.action = action;
     $('#modalForm').modal();
   }
   onAdd(){
-    this.onModalForm();
+    this.bean = new HomeBean();
+    this.bean.homeRegisterID = "";
+    this.bean.homeNo = "";
+    this.bean.soi = "";
+    this.bean.road = "";
+    this.bean.latitude = "";
+    this.bean.longitude = "";
+    this.onModalForm(this.ass_action.ADD);
   }
 }

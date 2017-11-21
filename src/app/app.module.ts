@@ -50,10 +50,8 @@ import { ActionCustomViewComponent } from './action-custom-table/action-custom-v
 import { OnlyNumberDirective } from './directives/onlynumber.directive';
 import { AutofocusDirective } from './directives/autofocus.directive';
 import { InputValidateDirective } from './directives/inputvalidate.directive';
-import { ManagementStaffStaffListComponent } from './managements/staff/manage-staff/list/management-staff-staff-list.component';
-import { ManagementStaffStaffFormComponent } from './managements/staff/manage-staff/form/management-staff-staff-form.component';
-import { ManagementStaffOsmListComponent } from './managements/staff/manage-osm/list/management-staff-osm-list.component';
-import { ManagementStaffOsmFormComponent } from './managements/staff/manage-osm/form/management-staff-osm-form.component';
+import { ManagementStaffUserFormComponent } from './managements/staff/manage-staff-user/form/management-staff-user-form.component';
+import { ManagementStaffUserListComponent } from './managements/staff/manage-staff-user/list/management-staff-user-list.component';
 import { ManagementStaffVillageListComponent } from './managements/staff/manage-village/list/management-staff-village-list.component';
 import { ManagementStaffVillageFormComponent } from './managements/staff/manage-village/form/management-staff-village-form.component';
 import { MyDatePickerModule } from 'mydatepicker';
@@ -103,10 +101,8 @@ import { LoadingConfigService } from './ng2-loading/ass-loading.service'
     OnlyNumberDirective,
     AutofocusDirective,
     InputValidateDirective,
-    ManagementStaffStaffListComponent,
-    ManagementStaffStaffFormComponent,
-    ManagementStaffOsmListComponent,
-    ManagementStaffOsmFormComponent,
+    ManagementStaffUserFormComponent,
+    ManagementStaffUserListComponent,
     ManagementStaffVillageListComponent,
     ManagementStaffVillageFormComponent,
     RegisterActiveComponent,

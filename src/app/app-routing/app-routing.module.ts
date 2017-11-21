@@ -18,8 +18,7 @@ import { SurveyPatientListComponent } from "./../surveys/patient/survey-patient-
 import { SurveyMetabolicListComponent } from "./../surveys/metabolic/survey-metabolic-list/survey-metabolic-list.component";
 import { SurveyMosquitoListComponent } from "./../surveys/mosquito/survey-mosquito-list/survey-mosquito-list.component";
 import { SurveyCancerListComponent } from "./../surveys/cancer/survey-cancer-list/survey-cancer-list.component";
-import { ManagementStaffStaffListComponent } from "./../managements/staff/manage-staff/list/management-staff-staff-list.component";
-import { ManagementStaffOsmListComponent } from "./../managements/staff/manage-osm/list/management-staff-osm-list.component";
+import { ManagementStaffUserListComponent } from "./../managements/staff/manage-staff-user/list/management-staff-user-list.component";
 import { ManagementStaffVillageListComponent } from "./../managements/staff/manage-village/list/management-staff-village-list.component";
 import { RegisterActiveComponent } from './../register/register-active/register-active.component';
 import { ManagementOsmAreaComponent } from "./../managements/osm/management-osm-area/list/management-osm-area.component";
@@ -66,18 +65,16 @@ import { ManagementOsmAreaComponent } from "./../managements/osm/management-osm-
           children: [
             {
               path: 'staff',
-              children:[{
-                path: 'staff',
-                component: ManagementStaffStaffListComponent
+              children:[
+                {
+                  path: 'village',
+                  component: ManagementStaffVillageListComponent
+                },
+                {
+                path: ':roleName',
+                component: ManagementStaffUserListComponent
               },
-              {
-                path: 'osm',
-                component: ManagementStaffOsmListComponent
-              },
-              {
-                path: 'village',
-                component: ManagementStaffVillageListComponent
-              },
+              
               ]
             },
             {
