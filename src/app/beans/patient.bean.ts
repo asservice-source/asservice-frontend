@@ -29,6 +29,7 @@ export class PatientBean{  action: any;
     public familyStatus: string = "";
     public age: number;
     public address : string;
+    public gender : string;
 
     public patientSurveyTypeCode : string;
     public diseaseStatusType : string;
@@ -41,12 +42,12 @@ export class PatientBean{  action: any;
     public remark : string;
     public telephone : string;
     public operationDate : string;
-    public homeID : string;
+    public homeId : string;
 
     public patientTypeId : string;
     public rowGUID : string;
-    public personID : string;
-    public documentID : string;
+    public personId : string;
+    public documentId : string;
     public osmId : string;
     public cancerTypeID : string;
     public diseaseStatusTypeID : string;

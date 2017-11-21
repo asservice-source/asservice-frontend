@@ -1,9 +1,10 @@
-import { Component, OnInit, ChangeDetectorRef, AfterViewInit, Input,Output, EventEmitter  } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, AfterViewInit, Input, Output, EventEmitter } from '@angular/core';
 import { PatientBean } from '../../../beans/patient.bean'
 import { Http } from '@angular/http';
 import { BaseComponent } from '../../../base-component';
 import { ApiHTTPService } from '../../../service/api-http.service';
 declare var $: any;
+declare var bootbox: any;
 
 @Component({
   selector: 'app-survey-patient-form',
@@ -25,10 +26,11 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
   private api: ApiHTTPService;
   public healtInsuranceTypeList: any;
   public surveyStatusTypeList: any;
-  public patientTypeList:any;
-  public disabilityTypeList : any;
-  public disabilityTypeCause : any;
-
+  public patientTypeList: any;
+  public disabilityTypeList: any;
+  public disabilityTypeCause: any;
+  public diseaseStatusTypeList: any;
+  public code: string = "PATIENT";
 
 
   constructor(private http: Http, private changeRef: ChangeDetectorRef) {
@@ -40,7 +42,8 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
     this.getPatientType();
     this.getDisabilityType();
     this.getDisabilityTypeCause();
-   
+    this.getDiseaseStatusType();
+
   }
 
   ngOnInit() {
@@ -52,20 +55,19 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
   }
 
   onChoosePersonal(bean: any): void {
+    console.log("poooooooooooooooooooooooooooooooooooooooooooooooooo");
+    console.log(bean);
     this.patientbean = bean;
-    
-    if(this.action == this.ass_action.ADD){
-      this.patientbean.patientSurveyTypeCode = "0";
-      this.patientbean.disabilityCauseTypeID ="0";
-      this.patientbean.disabilityTypeID ="0";
-      this.patientbean.patientTypeId ="0";
+
+    if (this.action == this.ass_action.ADD) {
+      this.patientbean.patientSurveyTypeCode = "";
+      this.patientbean.disabilityCauseTypeID = "";
+      this.patientbean.disabilityTypeID = "";
+      this.patientbean.patientTypeId = "";
+      this.patientbean.diseaseStatusTypeID = "";
       this.patientbean.patientDate = this.getCurrentDatePickerModel();
     }
-
-    //this.patientbean.patientSurveyTypeCode = this.patientbean.patientSurveyTypeCode || "0";
-    // this.patientbean.patientType = this.patientbean.patientType || "0";
-    // this.patientbean.disabilityType = this.patientbean.disabilityType || "0";
-    // this.patientbean.disabilityCauseType = this.patientbean.disabilityCauseType || "0";
+    this.isDuplicate();
     this.isFindPersonal = false;
     this.isShowForm = true;
 
@@ -84,17 +86,9 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
     $('#find-person-md').on('show.bs.modal', function (e) {
       self.resetFind = self.resetFind + 1;
       if (self.action == self.ass_action.EDIT) {
-        //self.data.patientSurveyTypeCode.toUpperCase();
         self.data.patientDate = self.getCurrentDatePickerModel(self.data.patientDate);
         self.onChoosePersonal(self.data);
-        
-        console.log(self.data);
       }
-
-      // if (self.action == self.ass_action.ADD) {
-      //   self.data.patientDate = self.getCurrentDatePickerModel();
-      // }
-
       self.changeRef.detectChanges();
     })
     $('#find-person-md').on('hidden.bs.modal', function () {
@@ -162,61 +156,112 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
     })
   }
 
-  onChangePatientSyurvey(){
-    if(this.action == this.ass_action.ADD){
-      if(this.patientbean.patientSurveyTypeCode == 'Patient'){
+  getDiseaseStatusType() {
+    let self = this;
+    let params = {};
+    this.api.post('person/disease_status_type_list', params, function (resp) {
+      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+        self.diseaseStatusTypeList = resp.response;
+      }
+
+    })
+  }
+
+  onChangePatientSyurvey() {
+    if (this.action == this.ass_action.ADD) {
+      if (this.patientbean.patientSurveyTypeCode == 'Patient') {
         this.patientbean.hInsuranceTypeID = "89";
       }
-      else{
+      else {
         this.patientbean.hInsuranceTypeID = "74";
       }
     }
   }
 
-  validate(){
+  validate() {
 
   }
 
-
-  addSurvey(){
+  isDuplicate() {
     let self = this;
-
-    
-    console.log(this.documentId);
-    if (this.action == this.ass_action.ADD) {
-      this.patientbean.documentID = this.documentId;
-    }
-
-
     let params = {
-      "rowGUID" : this.patientbean.rowGUID
-      ,"personID" : this.patientbean.personID
-      ,"documentID" : this.patientbean.documentID
-      ,"osmId" : this.patientbean.osmId
-      ,"homeID" : this.patientbean.homeID
-      ,"cancerTypeID" : this.patientbean.cancerTypeID
-      ,"diseaseStatusTypeID" : this.patientbean.disabilityCauseTypeID
-      ,"patientDate": this.patientbean.patientDate  
-      ,"patientTypeID": this.patientbean.patientTypeId
-      ,"hInsuranceTypeID": this.patientbean.hInsuranceTypeID
-      ,"patientSurveyTypeCode": this.patientbean.patientSurveyTypeCode
-      ,"disabilityTypeID" : this.patientbean.disabilityCauseTypeID 
-      ,"disabilityCauseTypeID": this.patientbean.disabilityCauseTypeID
-      ,"treatmentPlace" : this.patientbean.treatmentPlace
-      ,"remark": this.patientbean.remark
-      ,"telephone": this.patientbean.telephone
-      ,"latitude": this.patientbean.latitude
-      ,"longitude": this.patientbean.longitude
+      "headerTypeCode": this.code,
+      "documentId": this.documentId,
+      "personId": this.patientbean.personId
     };
 
+    console.log(JSON.stringify(params));
+    this.api.post('survey/survey_is_duplicate', params, function (resp) {
+      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+        if (self.action != self.ass_action.EDIT) {
+          if (resp.response.isDuplicate == true) {
+            $('#find-person-md').modal('hide');
+            bootbox.alert({
+              size: "large",
+              title: "<div style='color:white;font-weight: bold;'><span class='glyphicon glyphicon-alert'></span> ไม่ถูกต้อง</div>",
+              message: "คนที่ท่านเลือกได้ทำการสำรวจไปแล้ว",
+              callback: function () {
+
+              }
+            });
+          }
+        }
+      }
+    })
+  }
+
+
+  addSurvey() {
+    let self = this;
+    console.log(this.documentId);
+    if (this.action == this.ass_action.ADD) {
+      this.patientbean.documentId = this.documentId;
+    }
+
+    if (this.patientbean.patientSurveyTypeCode == 'Patient') {
+      this.patientbean.disabilityTypeID = "";
+      this.patientbean.disabilityCauseTypeID = "";
+    }
+
+    let obj = {
+      "rowGUID": this.patientbean.rowGUID
+      , "personID": this.patientbean.personId
+      , "documentID": this.patientbean.documentId
+      , "osmId": this.patientbean.osmId
+      , "homeID": this.patientbean.homeId
+      , "cancerTypeID": this.patientbean.cancerTypeID
+      , "diseaseStatusTypeID": this.patientbean.diseaseStatusTypeID
+      , "patientDate": this.getStringDateForDatePickerModel(this.patientbean.patientDate)
+      , "patientTypeID": this.patientbean.patientTypeId
+      , "hInsuranceTypeID": this.patientbean.hInsuranceTypeID
+      , "patientSurveyTypeCode": this.patientbean.patientSurveyTypeCode
+      , "disabilityTypeID": this.patientbean.disabilityTypeID
+      , "disabilityCauseTypeID": this.patientbean.disabilityCauseTypeID
+      , "treatmentPlace": this.patientbean.treatmentPlace
+      , "remark": this.patientbean.remark
+      , "telephone": this.patientbean.telephone
+      , "latitude": this.patientbean.latitude
+      , "longitude": this.patientbean.longitude
+    };
+
+
+    let params = this.strNullToEmpty(obj);
     console.log(params);
 
-    // this.api.post('survey_patient/ins_upd', params, function (resp) {
-    //   if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-    //     console.log(resp);
-    //   }
-
-    // })
+    this.api.post('survey_patient/ins_upd', params, function (resp) {
+      console.log(resp);
+      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+        $("#find-person-md").modal('hide');
+        self.completed.emit(true);
+        bootbox.alert({
+          size: "large",
+          title: "<div style='color:#5cb85c;font-weight: bold;'><span class='glyphicon glyphicon-ok'></span> ส่งแบบสำรวจสำเร็จ</div>",
+          message: "ท่านได้ทำการส่งแบบสำรวจความเสี่ยงโรค Metabolic แล้ว",
+          callback: function () {
+          }
+        });
+      }
+    })
 
   }
 

@@ -144,7 +144,7 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
 
   onSearch(event: FilterHeadSurveyBean) {
     this.filtersearch = event;
-    if (event.status == '2') {
+    if (this.isEmpty(this.documentId)) {
       this.documentId = event.rowGUID;
     }
     this.loadData(event);
