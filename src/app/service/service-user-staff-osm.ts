@@ -49,7 +49,7 @@ export class Service_UserStaffAndOSM extends ApiHTTPService{
 
     public staff_findList(name: string, callback:(doc: any) => void): any{
         let parameter = {"name": name, "code5": this.base.getHospitalCode()};
-        this.post('/user/find/staff', parameter, function(response){
+        this.callResponse('/user/find/staff', parameter, function(response){
             console.log(response);
             callback(response);
         });

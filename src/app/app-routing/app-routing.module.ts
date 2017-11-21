@@ -65,14 +65,16 @@ import { ManagementOsmAreaComponent } from "./../managements/osm/management-osm-
           children: [
             {
               path: 'staff',
-              children:[{
+              children:[
+                {
+                  path: 'village',
+                  component: ManagementStaffVillageListComponent
+                },
+                {
                 path: ':roleName',
                 component: ManagementStaffUserListComponent
               },
-              {
-                path: 'village',
-                component: ManagementStaffVillageListComponent
-              },
+              
               ]
             },
             {

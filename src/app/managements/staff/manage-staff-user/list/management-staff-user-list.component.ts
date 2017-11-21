@@ -32,24 +32,6 @@ export class ManagementStaffUserListComponent extends BaseComponent implements O
     this.api = new Service_UserStaffAndOSM();
     this.bean = new StaffUserBean();
     let _self = this;
-    this.activatedRoute.params.subscribe(params => {
-      this.titlePanel = 'การจัดการ เจ้าหน้าที่';
-      let roleName = params['roleName'];
-      console.log("roleName >>> " + roleName);
-      if('staff'==roleName){
-        this.isStaff = true;
-        this.titlePanel += " รพ.สต.";
-      }else if('osm'==roleName){
-        this.isStaff = false;
-        this.titlePanel += " อสม.";
-      }else{
-        bootbox.alert('ข้อมูลไม่ถูกต้อง',function(){
-          location.href = '/';
-        });
-      }
-    });
-
-
     this.settings = this.getTableSetting({
       villageNo : { title: 'หมู่บ้าน' ,filter: false, with: '140px'},
       fullName: {title: this.getLabel('lbl_firstName') +' - '+this.getLabel('lbl_lastName'), filter: false},
@@ -83,21 +65,46 @@ export class ManagementStaffUserListComponent extends BaseComponent implements O
   }
 
   ngOnInit() {
-  
-
-    this.setupTable();
-    this.setupVillage();
+    this.activatedRoute.params.subscribe(params => {
+      this.titlePanel = 'การจัดการ เจ้าหน้าที่';
+      let roleName = params['roleName'];
+      console.log("roleName >>> " + roleName);
+      if('staff'==roleName){
+        this.isStaff = true;
+        this.titlePanel += " รพ.สต.";
+        this.setupTable();
+      }else if('osm'==roleName){
+        this.isStaff = false;
+        this.titlePanel += " อสม.";
+        this.setupTable();
+        this.setupVillage();
+      }else{
+        bootbox.alert('ข้อมูลไม่ถูกต้อง',function(){
+          location.href = '/';
+        });
+      }
+    });
   }
 
   setupTable(){
     let _self = this;
     _self.loading = true;
-    this.api.osm_findList(_self.searchName, _self.searchVillageId, function(response){
-      _self.loading = false;
-      _self.datas = response;
-      _self.source = _self.ng2STDatasource(_self.datas);
-      
-    });
+    if(this.isStaff){
+      this.api.staff_findList(_self.searchName,  function(response){
+        _self.loading = false;
+        _self.datas = response;
+        _self.source = _self.ng2STDatasource(_self.datas);
+        
+      });
+    }else{
+      this.api.osm_findList(_self.searchName, _self.searchVillageId, function(response){
+        _self.loading = false;
+        _self.datas = response;
+        _self.source = _self.ng2STDatasource(_self.datas);
+        
+      });
+    }
+    
     
   }
   setupVillage(){
