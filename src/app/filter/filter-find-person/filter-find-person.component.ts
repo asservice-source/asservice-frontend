@@ -2,7 +2,6 @@ import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { BaseComponent } from "../../base-component";
 import { PersonBean } from "../../beans/person.bean";
 import { VillageBean } from '../../beans/village.bean';
-import { OSMBean } from '../../beans/osm.bean';
 import { HomeBean } from '../../beans/home.bean';
 import { RequestOptions, Headers, Http } from '@angular/http';
 import { ApiHTTPService } from '../../service/api-http.service';

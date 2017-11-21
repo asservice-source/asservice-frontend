@@ -152,7 +152,7 @@
                   </div> 
                 </div>
                 <div class="col-md-8" style="padding-left: 0">
-                  <select [(ngModel)]="bean.cancerTypeID" [disabled]="!bean.isCancer">
+                  <select [(ngModel)]="bean.cancerTypeID" *ngIf="bean.isCancer">
                     <option value="">---เลือก---</option>
                     <option *ngFor="let item of cancerList" [value]="item.id">{{item.name}}</option>
                   </select>
@@ -163,7 +163,7 @@
                 <div class="col-md-4" style="padding-right: 0">
                     <div class="checkbox">
                       <label class="label-form">
-                          <input type="checkbox" [(ngModel)]="bean.isCauseOther" (click)="bean.causeOther=''">
+                          <input type="checkbox" [(ngModel)]="bean.isCauseOther">
                           <span class="cr">
                               <i class="cr-icon fa fa-check"></i>
                           </span>
@@ -172,7 +172,7 @@
                     </div> 
                   </div>
                 <div class="col-md-8" style="padding-left: 0">
-                  <input type="text" [(ngModel)]="bean.causeOther" placeholder="ระบุ สาเหตุอื่นๆ" [disabled]="!bean.isCauseOther">
+                  <input type="text" [(ngModel)]="bean.causeOther" placeholder="ระบุ สาเหตุอื่นๆ" *ngIf="bean.isCauseOther">
                 </div>
               </div>
 

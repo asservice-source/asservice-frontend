@@ -69,11 +69,12 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
         type: 'custom',
         renderComponent: ActionCustomViewComponent,
         onComponentInitFunction(instance) {
-          /*
+          
           instance.view.subscribe(row => {
-             self.doClick(row);
+            self.bean = self.cloneObj(row);
+            self.onModalForm(self.ass_action.EDIT);
            });
-            */
+            
            instance.edit.subscribe(row => {
             self.bean = self.cloneObj(row);
             self.onModalForm(self.ass_action.EDIT);

@@ -19,7 +19,7 @@ export class Service_UserStaffAndOSM extends ApiHTTPService{
                 ,"prefixCode": bean.prefixCode
                 ,"firstName": bean.firstName
                 ,"lastName": bean.lastName
-                ,"birthDate": bean.birthDate
+                ,"birthDate": this.baseComp.getStringDateForDatePickerModel(bean.birthDate)
                 ,"villageId": bean.villageId
                 ,"code5": bean.hospitalCode5
                 ,"userRoleId": bean.userRoleId
@@ -33,6 +33,27 @@ export class Service_UserStaffAndOSM extends ApiHTTPService{
         let parameter = this.baseComp.strNullToEmpty(this.map(bean));
         console.log(" = = = parameter = = = user/insert_update");
         console.log(parameter);
-        this.post('user/insert_update', parameter , callback);
-    }  
+        this.post('user/insert_update', parameter , function(response){
+            console.log(response);
+            callback(response);
+        });
+    } 
+
+    public osm_findList(name: string, villageId: string, callback:(doc: any) => void): any{
+        let parameter = {"name": name, "villageId": villageId, "code5": this.base.getHospitalCode()};
+        this.callResponse('/user/find/osm', parameter, function(response){
+            console.log(response);
+            callback(response);
+        });
+    }
+
+    public staff_findList(name: string, callback:(doc: any) => void): any{
+        let parameter = {"name": name, "code5": this.base.getHospitalCode()};
+        this.post('/user/find/staff', parameter, function(response){
+            console.log(response);
+            callback(response);
+        });
+    }
+    
+    
 }

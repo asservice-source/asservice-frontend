@@ -2,29 +2,54 @@ import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../../../../base-component';
 import { LocalDataSource } from 'ng2-smart-table';
 import { ActionCustomViewComponent } from '../../../../action-custom-table/action-custom-view.component';
-import { OSMBean } from '../../../../beans/osm.bean';
+import { StaffUserBean } from '../../../../beans/staff-user.bean';
 import { ApiHTTPService } from '../../../../service/api-http.service';
+import { Service_UserStaffAndOSM } from '../../../../service/service-user-staff-osm';
+import { ActivatedRoute } from '@angular/router';
 declare var $:any;
+declare var bootbox:any;
 @Component({
-  selector: 'app-management-staff-osm-list',
-  templateUrl: './management-staff-osm-list.component.html',
-  styleUrls: ['./management-staff-osm-list.component.css']
+  selector: 'app-management-staff-user-list',
+  templateUrl: './management-staff-user-list.component.html',
+  styleUrls: ['./management-staff-user-list.component.css']
 })
-export class ManagementStaffOsmListComponent extends BaseComponent implements OnInit {
+export class ManagementStaffUserListComponent extends BaseComponent implements OnInit {
 
-  public api: ApiHTTPService = new ApiHTTPService();
+  public api: Service_UserStaffAndOSM;
+  public action: string;
   public settings: any;
-  public bean: OSMBean;
+  public bean: StaffUserBean;
   public datas: any = [{citizenId: '1411022039443', genderCode: '2', villageNo: '3', firstName: 'มนีแมน', lastName: 'แสนรักษ์', fullName: 'นายมนีแมน แสนรักษ์', prefixCode: '001', prefixName: 'นาย'}, {citizenId: '9811022039000', genderCode: '1', villageNo: '1', firstName: 'สมศรี', lastName: 'สองห้องนะ', fullName: 'นายสมศรี สองห้องนะ', prefixCode: '002', prefixName: 'นาย'}];
   public source: LocalDataSource;
   public villageList: any=[];
   public searchName: string;
   public searchVillageId: string = '';
+  public isStaff: boolean= false;
+  public titlePanel: string = '';
 
-  constructor() { 
+  constructor(private activatedRoute: ActivatedRoute) { 
     super();
-    this.bean = new OSMBean();
+    this.api = new Service_UserStaffAndOSM();
+    this.bean = new StaffUserBean();
     let _self = this;
+    this.activatedRoute.params.subscribe(params => {
+      this.titlePanel = 'การจัดการ เจ้าหน้าที่';
+      let roleName = params['roleName'];
+      console.log("roleName >>> " + roleName);
+      if('staff'==roleName){
+        this.isStaff = true;
+        this.titlePanel += " รพ.สต.";
+      }else if('osm'==roleName){
+        this.isStaff = false;
+        this.titlePanel += " อสม.";
+      }else{
+        bootbox.alert('ข้อมูลไม่ถูกต้อง',function(){
+          location.href = '/';
+        });
+      }
+    });
+
+
     this.settings = this.getTableSetting({
       villageNo : { title: 'หมู่บ้าน' ,filter: false, with: '140px'},
       fullName: {title: this.getLabel('lbl_firstName') +' - '+this.getLabel('lbl_lastName'), filter: false},
@@ -43,7 +68,7 @@ export class ManagementStaffOsmListComponent extends BaseComponent implements On
            });
            instance.edit.subscribe(row => {
             _self.bean = _self.cloneObj(row);
-            _self.onModalForm();
+            _self.onModalForm(_self.ass_action.EDIT);
            });
            instance.delete.subscribe(row => {
 
@@ -58,14 +83,24 @@ export class ManagementStaffOsmListComponent extends BaseComponent implements On
   }
 
   ngOnInit() {
-    this.setUpTable();
-    this.setUpVillage();
+  
+
+    this.setupTable();
+    this.setupVillage();
   }
 
-  setUpTable(){
-    this.source = super.ng2STDatasource(this.datas);
+  setupTable(){
+    let _self = this;
+    _self.loading = true;
+    this.api.osm_findList(_self.searchName, _self.searchVillageId, function(response){
+      _self.loading = false;
+      _self.datas = response;
+      _self.source = _self.ng2STDatasource(_self.datas);
+      
+    });
+    
   }
-  setUpVillage(){
+  setupVillage(){
     
     let _self = this;
     this.api.api_villageList(this.getHospitalCode(),function(list){
@@ -75,17 +110,29 @@ export class ManagementStaffOsmListComponent extends BaseComponent implements On
     });
   }
   onClickAdd(){
-    this.bean = new OSMBean();
+    this.bean = new StaffUserBean();
+    this.bean.citizenId = '';
+    this.bean.firstName = '';
+    this.bean.lastName = '';
     this.bean.prefixCode = '';
     this.bean.villageId = '';
     this.bean.genderId = '';
-    this.onModalForm();
+    this.bean.birthDate = '';
+    this.onModalForm(this.ass_action.ADD);
   }
-  onModalForm(){
+  onModalForm(action: string){
+    this.action = action;
     $('#modalForm').modal('show');
   }
 
   onSearch(){
-
+    this.setupTable();
+  }
+  
+  onSuccess(event: any){
+    console.log(event);
+    if(event.success){
+      this.setupTable();
+    }
   }
 }

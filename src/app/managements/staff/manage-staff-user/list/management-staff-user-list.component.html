@@ -1,6 +1,6 @@
 <div class="panel panel-default">
   <div class="panel-heading">
-    <label>การจัดการ เจ้าหน้าที่ อสม.</label>
+    <label>{{titlePanel}}</label>
   </div>
   <div class="panel-body">
     <div class="row">
@@ -46,4 +46,5 @@
   </div>
 </div>
 
-<app-management-staff-osm-form [bean]="bean"></app-management-staff-osm-form>
+<app-management-staff-user-form [bean]="bean" [action]="action" [isStaff]="isStaff" (success)="onSuccess($event);"></app-management-staff-user-form>
+<ass-loading [show]="loading"></ass-loading>

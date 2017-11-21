@@ -7,4 +7,6 @@ export class HomeBean{
         public road:string;
         public soi: string;
         public holderFullName: string;
+        public latitude: string;
+        public longitude: string;
     }

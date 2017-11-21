@@ -42,6 +42,7 @@ export class Service_SurveyDead extends ApiHTTPService {
     }
 
    public commit_save(bean: DeadBean, callback: (doc: any) => void){
+       
         let parameter = this.baseComp.strNullToEmpty(this.map(bean));
         console.log(" = = = parameter = = = survey_death/ins_upd_death_info");
         console.log(parameter);
