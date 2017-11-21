@@ -117,6 +117,13 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
     if(this.action==this.ass_action.ADD){
       this.bean.documentId = this.currentDocumentId;
     }
+    
+    if(!this.bean.isCancer){
+      this.bean.cancerTypeID = "";
+    }
+    if(!this.bean.isCauseOther){
+      this.bean.causeOther = "";
+    }
     let _self = this;
     _self.loading = true;
    _self.apiDead.commit_save(this.bean,

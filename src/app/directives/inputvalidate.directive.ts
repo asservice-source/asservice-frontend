@@ -1,4 +1,5 @@
 import { Directive, ElementRef, HostListener, Input, Output, EventEmitter, Renderer, ViewContainerRef, ViewRef, Renderer2 } from '@angular/core';
+import { BaseComponent } from '../base-component';
 
 @Directive({
   selector: '[InputValidate]'
@@ -6,11 +7,13 @@ import { Directive, ElementRef, HostListener, Input, Output, EventEmitter, Rende
 
 export class InputValidateDirective{
     @Input() InputValidate: InputValidateInfo = new InputValidateInfo();
+    @Input() citizenId: boolean;
     @Input() error: string;
     @Output() notify: EventEmitter<InputValidateInfo> = new EventEmitter<InputValidateInfo>(); 
     public isReset: boolean = false;
+    private baseComponent: BaseComponent;
     constructor(private el: ElementRef,private renderer: Renderer, private renderer2 :Renderer2 , private viewContainer: ViewContainerRef) { 
-    
+        this.baseComponent = new BaseComponent();
     }
     @HostListener('keypress', ['$event']) onKeyPress(event) {
         this.onReset();
@@ -42,7 +45,7 @@ export class InputValidateDirective{
         let value: string =  el_input.value;
         this.InputValidate = new InputValidateInfo();
         this.InputValidate.value = value;
-        if(!value.trim()){
+        if(!value.trim() || (this.citizenId && !this.baseComponent.isValidCitizenIdThailand(value))){
             this.InputValidate.isPassed = false;
             this.renderer.setElementStyle(el_label,'display','block');
             this.notify.emit(this.InputValidate);

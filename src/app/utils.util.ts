@@ -19,13 +19,33 @@ export class SurveyHeaderTypeCode{
 }
 
 export class SimpleValidateForm{
-
-    isEmpty(obj: any){
+    
+    getObjectEmpty(obj: any, ignores?: Array<any>):any{
+        let objs = [];
         for(let key in obj){
+            console.log('getObjectEmpty');
+            if(this.isHash(key, ignores)){
+                console.log('continue >> ' + key);
+                continue;
+            }
             let value = obj[key];
-            if(value.toString().length){
-                
+            if(value.toString().trim().length<1){
+                objs.push(key);
+                console.log('push');
             }
         }
+        return objs;
+    }
+
+    isHash(key: any, ignores: Array<any>): boolean{
+        if(ignores){
+            for(let item of ignores){
+                if(key==item){
+                    return true;
+                }
+            }
+        }
+       
+        return false;
     }
 }

@@ -217,11 +217,11 @@ export class BaseComponent implements OnInit {
         return arr[0]+'-'+arr[1]+arr[2]+arr[3]+arr[4]+'-'+arr[5]+arr[6]+arr[7]+arr[8]+arr[9]+'-'+arr[10]+arr[11]+'-'+arr[12];
     }
     isValidCitizenIdThailand(s): boolean {
-        let pin = 0, j = 13, pin_num = 0;
-        if (s == "") {
-            return;
+        if (this.isEmpty(s)) {
+            return false;
         }
 
+        let pin = 0, j = 13, pin_num = 0;
         let ChkPinID = true;
         if (ChkPinID = false) { 
             return false; 

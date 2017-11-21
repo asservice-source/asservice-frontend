@@ -280,10 +280,10 @@ export class LoadingComponent implements OnInit {
     };
 
     private defaultConfig: ILoadingConfig = {
-        animationType: ANIMATION_TYPES.threeBounce,
-        backdropBackgroundColour: 'rgba(0, 0, 0, 0.3)',
+        animationType: ANIMATION_TYPES.rotatingPlane,
+        backdropBackgroundColour: 'rgba(0, 0, 0, 0.4)',
         backdropBorderRadius: '0px',
-        fullScreenBackdrop: false,
+        fullScreenBackdrop: true,
         primaryColour: '#ffffff',
         secondaryColour: '#ffffff',
         tertiaryColour: '#ffffff'
