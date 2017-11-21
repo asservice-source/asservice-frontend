@@ -109,7 +109,7 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
       "personId": this.metabolicbean.personId
     };
 
-    console.log(params);
+    console.log(JSON.stringify(params));
     this.api.post('survey/survey_is_duplicate', params, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         if (self.action != self.ass_action.EDIT) {
@@ -444,7 +444,6 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
       console.log(Object.keys(obj).length);
       console.log(JSON.stringify(obj));
       this.api.post('survey_metabolic/ins_upd_metabolic_info', obj, function (resp) {
-        console.log(resp);
         if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
           $("#find-person-md").modal('hide');
           self.completed.emit(true);
