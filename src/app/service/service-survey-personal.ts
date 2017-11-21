@@ -43,8 +43,18 @@ export class Service_SurveyPersonal extends ApiHTTPService {
                 "personId": bean.personId,
                 "homeId": bean.homeId,
                 "isGuest": bean.isGuest,
+                "isExists": bean.isExists,
                 "mStatusCode": bean.mStatusCode,
-                "vStatusCode": bean.vStatusCode
+                "vStatusCode": bean.vStatusCode,
+                "congenitalDisease": bean.congenitalDisease,
+                "remark": bean.remark,
+
+                "homeNo": bean.homeNo,
+                "mooNo": bean.mooNo,
+                "road": bean.road,
+                "provinceCode": bean.provinceCode,
+                "amphurCode": bean.amphurCode,
+                "tumbolCode": bean.tumbolCode
             };
         params = self.base.strNullToEmpty(params);
 
@@ -65,7 +75,9 @@ export class Service_SurveyPersonal extends ApiHTTPService {
         let parameters = self.base.strNullToEmpty(self.map(bean));
         console.log(parameters);
 
-        self.post('survey_population/population_add_home_member', parameters, callback);
+        self.post('survey_population/population_add_home_member', parameters, function(d){
+            callback(d);
+        });
 
         // let headers = new Headers({ 'Content-Type': 'application/json' });
         // let options = new RequestOptions({ headers: headers, method: "post" });
@@ -79,7 +91,7 @@ export class Service_SurveyPersonal extends ApiHTTPService {
         //     )
     }
 
-    public commit_save_survey(homeId: string, roundId: string, beanList: Array<any>, callback: (doc: any) => void) {
+    public commit_save_survey(homeId: string, osmId: string, roundId: string, beanList: Array<any>, callback: (doc: any) => void) {
         let self = this;
 
         let list = [];
@@ -92,6 +104,7 @@ export class Service_SurveyPersonal extends ApiHTTPService {
         self.attr =
             {
                 "homeId": homeId,
+                "osmId": osmId,
                 "documentId": roundId,
                 "list": list
             };
@@ -100,7 +113,9 @@ export class Service_SurveyPersonal extends ApiHTTPService {
         // console.log(parameters);
         console.log(JSON.stringify(parameters));
 
-        // self.post('survey_population/population_add_home_member', parameters, callback);
+        self.post('survey_population/ins_upd_population_info', parameters, function(d){
+            callback(d);
+        });
     }
 
     // public commit_del(rowGUID: string, callback: (doc: any) => void) {

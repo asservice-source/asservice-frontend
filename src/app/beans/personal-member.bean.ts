@@ -45,6 +45,14 @@ export class PersonalMemberBean {
     public personId: string = "";
     public homeId: string = "";
 
+    public homeNo: string = "";
+    public mooNo: string = "";
+    public road: string = "";
+    public provinceCode: string = "";
+    public amphurCode: string = "";
+    public tumbolCode: string = "";
+    public zipCode: string = "";
+
     public listPrefix: any = [];
     public listGender: any = [];
     public listFamilyStatus: any = [];

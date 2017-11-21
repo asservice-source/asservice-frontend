@@ -307,11 +307,13 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
   }
 
   defaultValue() {
-    this.member.isGuest = false;
-    this.member.isExists = true;
-    // this.member.raceCode = "099";
-    // this.member.nationalityCode = "099";
-    // this.member.religionCode = "01";
+    let self = this;
+
+    self.member.isGuest = false;
+    self.member.isExists = true;
+    // self.member.raceCode = "099";
+    // self.member.nationalityCode = "099";
+    // self.member.religionCode = "01";
   }
 
   onChangeDate(event: IMyDateModel) {
@@ -323,6 +325,33 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
 
   onChangeProvince(event) {
     let self = this;
+
+    let params = { "provinceCode": self.member.provinceCode };
+    self.apiHttp.post('address/amphur', params, function (resp) {
+      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+        self.listDistrict = resp.response;
+      }
+    });
+
+    self.member.amphurCode = "";
+    self.member.tumbolCode = "";
+  }
+
+  onChangeDistrict() {
+    let self = this;
+
+    let params = { "amphurCode": self.member.amphurCode };
+    self.apiHttp.post('address/tumbol', params, function (resp) {
+      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+        self.listSubDistrict = resp.response;
+      }
+    });
+
+    self.member.tumbolCode = "";
+  }
+
+  onChangeSubDistrict() {
+
   }
 
   toggleCitizenId(flag: boolean) {
@@ -369,6 +398,8 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
 
           if (personData.birthDate) {
             self.modelBirthDate = self.getCurrentDatePickerModel(personData.birthDate);
+          } else {
+            self.member.birthDate = '';
           }
 
           self.member.educationCode = personData.educationCode;
@@ -411,18 +442,20 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
   onClickSave() {
     let self = this;
 
+    // console.log(JSON.stringify(self.member));
+
     if (self.action == self.ass_action.ADD) {
       self.apiHttp.commit_save(self.member, function (d) {
-        console.log(d);
+        // console.log(d);
         if (d != null && d.status.toUpperCase() == "SUCCESS") {
           self.member.personId = d.response.personId;
           self.member.listPrefix = self.listPrefix;
           self.member.listGender = self.listGender;
           self.member.listFamilyStatus = self.listFamilyStatus;
-          console.log(self.member);
           self.memberUpdated.emit(self.member);
+          self.message_success('', 'เพิ่มข้อมูลบุคคล : ' + self.member.fullName + ' สำเร็จ');
         } else {
-          alert(d.message);
+          self.message_error('', 'เพิ่มข้อมูลบุคคล : ' + self.member.fullName + ' ไม่สำเร็จ');
         }
       });
     } else {
@@ -430,6 +463,7 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
       self.member.listGender = self.listGender;
       self.member.listFamilyStatus = self.listFamilyStatus;
       self.memberUpdated.emit(self.member);
+      self.message_success('', 'แก้ไขข้อมูลบุคคล : ' + self.member.fullName);
     }
   }
 

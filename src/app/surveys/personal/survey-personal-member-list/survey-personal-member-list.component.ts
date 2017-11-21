@@ -30,6 +30,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
   public roundName: string = "";
   public homeAddress: string = "";
   public homeTel: string = "";
+  public osmId: string = "";
   public osmFullName: string = "";
 
   public settings: any;
@@ -95,7 +96,10 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
           instance.action.subscribe((row: PersonalMemberBean) => {
             // console.log(row);
             self.action = self.ass_action.EDIT;
+            row.homeId = self.paramHomeId;
             self.paramMember = row;
+            self.paramMember = self.strNullToEmpty(self.paramMember);
+
             self.changeRef.detectChanges();
             $("#modalMember").modal({ backdrop: 'static', keyboard: false });
           });
@@ -153,6 +157,8 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
             self.action = self.ass_action.EDIT;
             row.homeId = self.paramHomeId;
             self.paramMember = row;
+            self.paramMember = self.strNullToEmpty(self.paramMember);
+
             self.changeRef.detectChanges();
             $("#modalMember").modal({ backdrop: 'static', keyboard: false });
           });
@@ -196,6 +202,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
         let homeInfo = d.response;
         self.homeAddress = homeInfo.address;
         self.homeTel = homeInfo.telephone;
+        self.osmId = homeInfo.osmId;
         self.osmFullName = homeInfo.osmFullName;
       } else {
         console.log('survey-personal-member-list(bindHomeInfo) occured error(s) => ' + d.message);
@@ -275,6 +282,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
 
     if (isDuplicated) {
       bootbox.alert('Duplicated');
+      self.message_error('', 'ไม่สามารถเพิ่มยข้อมูลได้เนื่องจากมีข้อมูลซ้ำซ้อน');
       return;
     }
 
@@ -391,8 +399,13 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
       listAll.push(item);
     }
 
-    self.apiHttp.commit_save_survey(self.paramHomeId, self.paramRoundId, listAll, function (d) {
-      alert('x');
+    self.apiHttp.commit_save_survey(self.paramHomeId, self.osmId, self.paramRoundId, listAll, function (d) {
+      console.log(d);
+      if (d != null && d.status.toUpperCase() == "SUCCESS") {
+        self.message_success('', 'เพิ่มข้อมูลการสำรวจสำเร็จ');
+      } else {
+        self.message_error('', 'เพิ่มข้อมูลการสำรวจไม่สำเร็จ');
+      }
     });
   }
 
