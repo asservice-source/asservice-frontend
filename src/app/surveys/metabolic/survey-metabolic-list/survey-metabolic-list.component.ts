@@ -91,12 +91,18 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
         type: 'custom',
         renderComponent: ActionCustomViewComponent,
         onComponentInitFunction(instance) {
+          instance.edit.subscribe((row: MetabolicBean, cell) => {
+            self.metabolicbean = self.cloneObj(row);
+            self.onModalFrom(self.ass_action.EDIT);
+          });
 
-          instance.action.subscribe((row: MetabolicBean, cell) => {
-            if (row && row.action.toUpperCase() == self.ass_action.EDIT) {
-              self.metabolicbean = self.cloneObj(row);
-              self.onModalFrom(self.ass_action.EDIT);
-            }
+          instance.delete.subscribe((row: MetabolicBean, cell) => {
+            self.message_comfirm("", "ต้องการยกเลิกการทำรายการสำรวจของ : " + row.fullName + " ใช่หรือไม่", function (resp) {
+              if (resp) {
+                self.actionDelete(row.rowGUID);
+                self.loadData(self.filtersearch);
+              }
+            });
           });
         }
       }
@@ -130,6 +136,21 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
 
   }
 
+
+  actionDelete(rowguid) {
+    let self = this;
+    let param = {
+      "rowGUID": rowguid
+    };
+
+    this.api.post('survey_metabolic/del_metabolic_info', param, function (resp) {
+      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+
+      }
+    })
+  }
+
+
   openModal(key: string) {
     this.citizenID = key;
     $("#addMetabolicSurvey").modal('show');
@@ -141,7 +162,7 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
     //this.isShowList = false;
   }
   onSearch(event: FilterHeadSurveyBean) {
-    console.log("statusID ====="+this.documentId);
+    console.log("statusID =====" + this.documentId);
     this.filtersearch = event;
     if (this.isEmpty(this.documentId)) {
       this.documentId = event.rowGUID;
