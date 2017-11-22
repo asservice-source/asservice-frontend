@@ -4,6 +4,7 @@ import { BaseComponent } from '../../../../base-component';
 import { ApiHTTPService } from '../../../../service/api-http.service';
 import { LocalDataSource } from 'ng2-smart-table';
 import { ActionCustomViewComponent } from '../../../../action-custom-table/action-custom-view.component';
+import { Service_Home } from '../../../../service/service-home';
 
 declare var $:any;
 @Component({
@@ -15,13 +16,14 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
 
   public bean: HomeBean;
   public action: string;
-  public api: ApiHTTPService = new ApiHTTPService();
+  public api: Service_Home;
   public settings: any;
   public source: LocalDataSource = new LocalDataSource();
 
   constructor() { 
     super();
     this.bean = new HomeBean();
+    this.api = new Service_Home();
     let _self = this;
     this.settings = this.getTableSetting({
       homeNo: {
@@ -69,7 +71,12 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
     this.setupHomeList();
   }
   setupHomeList(){
-    //TODO Call API HomeList
+    let villageId = "";
+    let osmId = "2A13A59B-BAC2-E711-AB84-005056C00008";
+    let _self = this;
+    this.api.getList(villageId, osmId, function(response){
+      _self.source = _self.ng2STDatasource(response);
+    });
   }
   onModalForm(action:string){
     this.action = action;

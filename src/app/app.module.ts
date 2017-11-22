@@ -56,8 +56,8 @@ import { ManagementStaffVillageListComponent } from './managements/staff/manage-
 import { ManagementStaffVillageFormComponent } from './managements/staff/manage-village/form/management-staff-village-form.component';
 import { MyDatePickerModule } from 'mydatepicker';
 import { RegisterActiveComponent } from './register/register-active/register-active.component';
-import { ManagementOsmAreaComponent } from './managements/osm/management-osm-area/list/management-osm-area.component';
-import { ManagementOsmAreaFormComponent } from './managements/osm/management-osm-area/form/management-osm-area-form.component';
+import { ManagementHomeComponent } from './managements/osm/management-home/list/management-home.component';
+import { ManagementHomeFormComponent } from './managements/osm/management-home/form/management-home-form.component';
 import { LoadingComponent} from './ng2-loading/ass-loading.component'
 import { LoadingConfigService } from './ng2-loading/ass-loading.service';
 import { FilterFindMosquitoComponent } from './filter/filter-find-mosquito/filter-find-mosquito.component';
@@ -107,8 +107,8 @@ import { FilterFindMosquitoComponent } from './filter/filter-find-mosquito/filte
     ManagementStaffVillageListComponent,
     ManagementStaffVillageFormComponent,
     RegisterActiveComponent,
-    ManagementOsmAreaComponent,
-    ManagementOsmAreaFormComponent,
+    ManagementHomeComponent,
+    ManagementHomeFormComponent,
     LoadingComponent,
     FilterFindMosquitoComponent,
     
