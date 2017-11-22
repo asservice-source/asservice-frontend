@@ -54,14 +54,16 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
       _self.api.commit_save(_self.bean, function(response){
         console.log(response);
         let strAction = _self.action==_self.ass_action.ADD?'เพิ่ม':'แก้ไข';
+        let success = false;
         if(response && response.status.toString().toUpperCase()=='SUCCESS'){
           _self.message_success('','ทำการ'+strAction+'บ้านเลขที่ ' + _self.bean.homeNo + ' เรียบร้อย', function(){
-          _self.success.emit({"success": true, "response": response});
+            success = true;
           });
         }else{
           _self.message_error('','ไม่สามารถ'+strAction+'บ้านเลขที่ ' + _self.bean.homeNo + ' ได้');
+          success = false;
         }
-
+        _self.success.emit({"success": success, "response": response});
       });
     }
 
