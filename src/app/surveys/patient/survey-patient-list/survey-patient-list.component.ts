@@ -34,6 +34,7 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
 
     this.api = new ApiHTTPService();
     let self = this;
+    this.filtersearch = new FilterHeadSurveyBean();
     this.settings = this.getTableSetting({
 
       fullName: {
@@ -90,12 +91,19 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
         renderComponent: ActionCustomViewComponent,
         onComponentInitFunction(instance) {
 
-          instance.action.subscribe((row: PatientBean, cell) => {
-            if (row && row.action.toUpperCase() == self.ass_action.EDIT) {
+          instance.edit.subscribe((row: PatientBean, cell) => {
               self.patientbean = self.cloneObj(row);
               self.onModalFrom(self.ass_action.EDIT);
-            }
           });
+
+          instance.delete.subscribe((row: PatientBean, cell) => {
+            self.message_comfirm("", "ต้องการยกเลิกการทำรายการสำรวจของ : " + row.fullName + " ใช่หรือไม่", function (resp) {
+              if (resp) {
+                self.actionDelete(row.rowGUID);
+                self.loadData(self.filtersearch);
+              }
+            });
+        });
         }
       }
     });
@@ -166,6 +174,17 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
     if (event) {
       this.loadData(this.filtersearch);
     }
+  }
+
+  actionDelete(rowguid) {
+    let self = this;
+    let param = {
+      "rowGUID": rowguid
+    };
+    this.api.post('survey_patient/del', param, function (resp) {
+      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+      }
+    })
   }
 
 }

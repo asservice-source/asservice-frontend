@@ -42,7 +42,7 @@ import { SurveyPersonalMemberListComponent, SurveyPersonalMemberListButtonEditCo
 import { SurveyPersonalMemberFormComponent } from './surveys/personal/survey-personal-member-form/survey-personal-member-form.component';
 import { SurveyCancerListComponent, SurveyCancerListButtonEditComponent } from './surveys/cancer/survey-cancer-list/survey-cancer-list.component';
 import { SurveyCancerFormComponent } from './surveys/cancer/survey-cancer-form/survey-cancer-form.component';
-import { FilterFindMosquitoComponent } from './filter/filter-find-mosquito/filter-find-mosquito.component';
+import { FilterHeadMosquitoComponent } from './filter/filter-head-mosquito/filter-head-mosquito.component';
 import { FilterFindPersonComponent } from './filter/filter-find-person/filter-find-person.component';
 import { FilterHeadSurveyComponent } from './filter/filter-head-survey/filter-head-survey.component';
 import { FilterPersonalComponent } from './filter/filter-personal/filter-personal.component';
@@ -59,7 +59,8 @@ import { RegisterActiveComponent } from './register/register-active/register-act
 import { ManagementOsmAreaComponent } from './managements/osm/management-osm-area/list/management-osm-area.component';
 import { ManagementOsmAreaFormComponent } from './managements/osm/management-osm-area/form/management-osm-area-form.component';
 import { LoadingComponent} from './ng2-loading/ass-loading.component'
-import { LoadingConfigService } from './ng2-loading/ass-loading.service'
+import { LoadingConfigService } from './ng2-loading/ass-loading.service';
+import { FilterFindMosquitoComponent } from './filter/src/app/filter/filter-find-mosquito/filter-find-mosquito.component'
 
 @NgModule({
   declarations: [
@@ -74,7 +75,7 @@ import { LoadingConfigService } from './ng2-loading/ass-loading.service'
     NotfoundComponent,
     LoginComponent,
     RegisterComponent,
-    FilterFindMosquitoComponent,
+    FilterHeadMosquitoComponent,
     FilterFindPersonComponent,
     FilterHeadSurveyComponent,
     FilterPersonalComponent,
@@ -109,6 +110,7 @@ import { LoadingConfigService } from './ng2-loading/ass-loading.service'
     ManagementOsmAreaComponent,
     ManagementOsmAreaFormComponent,
     LoadingComponent,
+    FilterFindMosquitoComponent,
     
   ],
   imports: [

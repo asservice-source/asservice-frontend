@@ -41,6 +41,7 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
     super();
     this.api = new ApiHTTPService();
     let self = this;
+    this. filtersearch = new FilterHeadSurveyBean();
     this.settings = this.getTableSetting({
 
       fullName: {
@@ -145,7 +146,6 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
 
     this.api.post('survey_metabolic/del_metabolic_info', param, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-
       }
     })
   }
@@ -162,7 +162,6 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
     //this.isShowList = false;
   }
   onSearch(event: FilterHeadSurveyBean) {
-    console.log("statusID =====" + this.documentId);
     this.filtersearch = event;
     if (this.isEmpty(this.documentId)) {
       this.documentId = event.rowGUID;
