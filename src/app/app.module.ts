@@ -60,7 +60,7 @@ import { ManagementOsmAreaComponent } from './managements/osm/management-osm-are
 import { ManagementOsmAreaFormComponent } from './managements/osm/management-osm-area/form/management-osm-area-form.component';
 import { LoadingComponent} from './ng2-loading/ass-loading.component'
 import { LoadingConfigService } from './ng2-loading/ass-loading.service';
-import { FilterFindMosquitoComponent } from './filter/src/app/filter/filter-find-mosquito/filter-find-mosquito.component'
+import { FilterFindMosquitoComponent } from './filter/filter-find-mosquito/filter-find-mosquito.component';
 
 @NgModule({
   declarations: [
