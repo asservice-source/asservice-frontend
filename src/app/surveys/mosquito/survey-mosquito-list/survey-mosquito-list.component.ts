@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ChangeDetectorRef } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
 import { ActionCustomViewComponent } from '../../../action-custom-table/action-custom-view.component';
 import { BaseComponent } from '../../../base-component';
 import { ApiHTTPService } from '../../../service/api-http.service';
 import { FilterHeadSurveyBean } from '../../../beans/filter-head-survey.bean';
+
+declare var $: any;
 
 @Component({
   selector: 'app-survey-mosquito-list',
@@ -18,6 +20,7 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
   public source: LocalDataSource = new LocalDataSource();
   private api: ApiHTTPService;
   public settings: any;
+  public action: string = this.ass_action.ADD;
 
   public datas = [
     {
@@ -97,7 +100,7 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
   ];
 
   isDisable = true;
-  constructor() {
+  constructor(private changeRef: ChangeDetectorRef) {
     super();
     this.api = new ApiHTTPService();
     let self = this;
@@ -179,5 +182,12 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
     this.source = new LocalDataSource(this.datas);
     this.isShowList = true;
     super.setNg2STDatasource(this.source);
+  }
+
+  onModalFrom(action: string) {
+    console.log("fuck");
+    this.action = action;
+    this.changeRef.detectChanges();
+    $('#find-person-md').modal('show');
   }
 }
