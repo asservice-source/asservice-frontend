@@ -86,6 +86,7 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
     $('#find-person-md').on('show.bs.modal', function (e) {
       self.resetFind = self.resetFind + 1;
       if (self.action == self.ass_action.EDIT) {
+        self.data.telephone = self.formatPhoneToDisplay(self.data.telephone);
         self.data.patientDate = self.getCurrentDatePickerModel(self.data.patientDate);
         self.onChoosePersonal(self.data);
       }
@@ -210,9 +211,46 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
     })
   }
 
+  formatPhoneNumber() {
+    let self = this;
+
+    if (!self.isEmpty(self.patientbean.telephone)) {
+      let patternPhone: string = "__-____-____";
+      let patternPhone_ex: string = "-";
+      let returnText = "";
+      let obj_1: number = self.patientbean.telephone.length;
+      let obj_2 = obj_1 - 1;
+      for (let i = 0; i < patternPhone.length; i++) {
+        if (obj_2 == i && patternPhone.charAt(i + 1) == patternPhone_ex) {
+          returnText += self.patientbean.telephone + patternPhone_ex;
+          self.patientbean.telephone = returnText;
+        }
+      }
+    }
+  }
+
+  formatForJson(value) {
+    let pure_value = value.split("-");
+    let result = pure_value.join('');
+    return result;
+  }
+
+
+  formatPhoneToDisplay(phone): string{
+    // if(this.isEmpty(phone) && phone.length==10) return phone;
+    if(!this.isEmpty(phone)){
+    let arr = phone.split('');
+    return arr[0]+arr[1]+'-'+arr[2]+arr[3]+arr[4]+arr[5]+'-'+arr[6]+arr[7]+arr[8]+arr[9];
+    }
+}
 
   addSurvey() {
     let self = this;
+
+    if(!self.isEmpty(self.patientbean.telephone)){
+      self.patientbean.telephone = self.formatForJson(self.patientbean.telephone);
+    }
+
     console.log(this.documentId);
     if (this.action == this.ass_action.ADD) {
       this.patientbean.documentId = this.documentId;

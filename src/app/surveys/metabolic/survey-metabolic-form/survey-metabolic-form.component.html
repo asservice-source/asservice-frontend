@@ -37,21 +37,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div class="row">
-                    <div class="col-md-11 col-md-offset-1">
-                        <div class="box-body">
-                            <dl class="dl-horizontal">
-                                <dt>สิทธิบัตร : </dt>
-                                <dd class="col-md-2" style="margin-left:0px;">
-                                    <select [(ngModel)]="metabolicbean.hInsuranceTypeId">
-                                        <option value="0">เลือก</option>
-                                        <option *ngFor="let item of healtInsuranceTypeList" value="{{item.id}}">{{item.code}}</option>
-                                    </select>
-                                </dd>
-                            </dl>
-                        </div>
-                    </div>
-                </div> -->
 
                 <hr style=" margin-top: 0px">
                 <!-- ประวัติสุขภาพ -->
@@ -464,21 +449,12 @@
                             <span class="error2">กรุณาระบุภาวะแทรกซ้อน</span>
                         </div>
                     </div>
-
-
                 </div>
-
-                <div class="row">
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12 text-center">
-                        <button class="btn btn-sm btn-primary" (click)="addSurvey()">ยืนยัน</button> &nbsp;&nbsp;
-                        <button class="btn btn-sm btn-primary" (click)="onBack()">กลับ</button>
-                    </div>
-                </div>
+                    <div class="modal-footer">
+                        <button style="width: 90px;" class="btn btn-sm btn-primary" (click)="addSurvey()">ยืนยัน</button> &nbsp;&nbsp;
+                        <button style="width: 90px;" class="btn btn-sm btn-primary" (click)="onBack()">กลับ</button>
+                    </div>       
             </div>
-
         </div>
     </div>
 </div>
