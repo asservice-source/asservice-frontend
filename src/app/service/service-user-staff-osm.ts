@@ -10,7 +10,7 @@ export class Service_UserStaffAndOSM extends ApiHTTPService{
    constructor(){
     super();
    }
-   public map(bean: PersonalBasicBean): any{
+   public map(isStaff:boolean, bean: PersonalBasicBean): any{
         this.attr = 
             {
                 "personId": bean.personId
@@ -25,12 +25,14 @@ export class Service_UserStaffAndOSM extends ApiHTTPService{
                 ,"userRoleId": bean.userRoleId
                 ,"active": bean.userActive
             };
-
+        if(isStaff){
+            delete this.attr["villageId"];
+        }
         return this.attr;
    }
 
-   public commit_save(bean: PersonalBasicBean, callback: (doc: any) => void){
-        let parameter = this.baseComp.strNullToEmpty(this.map(bean));
+   public commit_save(isStaff:boolean, bean: PersonalBasicBean, callback: (doc: any) => void){
+        let parameter = this.baseComp.strNullToEmpty(this.map(isStaff, bean));
         console.log(" = = = parameter = = = user/insert_update");
         console.log(parameter);
         this.post('user/insert_update', parameter , function(response){

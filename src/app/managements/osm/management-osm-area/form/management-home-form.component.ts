@@ -5,11 +5,11 @@ import { BaseComponent } from '../../../../base-component';
 import { SimpleValidateForm } from "../../../../utils.util";
 
 @Component({
-  selector: 'app-management-osm-area-form',
-  templateUrl: './management-osm-area-form.component.html',
-  styleUrls: ['./management-osm-area-form.component.css']
+  selector: 'app-management-home-form',
+  templateUrl: './management-home-form.component.html',
+  styleUrls: ['./management-home-form.component.css']
 })
-export class ManagementOsmAreaFormComponent extends BaseComponent implements OnInit {
+export class ManagementHomeFormComponent extends BaseComponent implements OnInit {
 
   @Input() bean: HomeBean;
   @Input() action: string;

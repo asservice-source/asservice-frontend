@@ -117,17 +117,21 @@ export class ManagementStaffUserListComponent extends BaseComponent implements O
     });
   }
   onClickAdd(){
-    this.bean = new StaffUserBean();
-    this.bean.citizenId = '';
-    this.bean.firstName = '';
-    this.bean.lastName = '';
-    this.bean.prefixCode = '';
-    this.bean.villageId = '';
-    this.bean.genderId = '';
-    this.bean.birthDate = '';
     this.onModalForm(this.ass_action.ADD);
   }
   onModalForm(action: string){
+    if(this.ass_action.EDIT==action){
+      this.bean.birthDate = this.getCurrentDatePickerModel(this.bean.birthDate);
+    }else if(this.ass_action.ADD==action){
+      this.bean = new StaffUserBean();
+      this.bean.citizenId = '';
+      this.bean.firstName = '';
+      this.bean.lastName = '';
+      this.bean.prefixCode = '';
+      this.bean.villageId = '';
+      this.bean.genderId = '';
+      this.bean.birthDate = '';
+    }
     this.action = action;
     $('#modalForm').modal('show');
   }

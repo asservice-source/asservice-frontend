@@ -7,11 +7,11 @@ import { ActionCustomViewComponent } from '../../../../action-custom-table/actio
 
 declare var $:any;
 @Component({
-  selector: 'app-management-osm-area',
-  templateUrl: './management-osm-area.component.html',
-  styleUrls: ['./management-osm-area.component.css']
+  selector: 'app-management-home',
+  templateUrl: './management-home.component.html',
+  styleUrls: ['./management-home.component.css']
 })
-export class ManagementOsmAreaComponent extends BaseComponent implements OnInit {
+export class ManagementHomeComponent extends BaseComponent implements OnInit {
 
   public bean: HomeBean;
   public action: string;
@@ -77,7 +77,7 @@ export class ManagementOsmAreaComponent extends BaseComponent implements OnInit 
   }
   onAdd(){
     this.bean = new HomeBean();
-    this.bean.homeRegisterID = "";
+    this.bean.homeRegisterId = "";
     this.bean.homeNo = "";
     this.bean.soi = "";
     this.bean.road = "";
