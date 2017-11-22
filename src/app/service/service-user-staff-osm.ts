@@ -36,15 +36,21 @@ export class Service_UserStaffAndOSM extends ApiHTTPService{
         console.log(" = = = parameter = = = user/insert_update");
         console.log(parameter);
         this.post('user/insert_update', parameter , function(response){
-            console.log(response);
             callback(response);
         });
     } 
 
+    public commit_del(userId: string, callback: (doc: any)=>void){
+        let parameter = {"deleteId": userId};
+        console.log(" = = = parameter = = = user/insert_update");
+        console.log(parameter);
+        this.post('user/insert_update', parameter, function(response){
+            callback(response);
+        });
+    }
     public osm_findList(name: string, villageId: string, callback:(doc: any) => void): any{
         let parameter = {"name": name, "villageId": villageId, "code5": this.base.getHospitalCode()};
         this.callResponse('/user/find/osm', parameter, function(response){
-            console.log(response);
             callback(response);
         });
     }

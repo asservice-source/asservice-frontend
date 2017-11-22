@@ -6,6 +6,7 @@ import { StaffUserBean } from '../../../../beans/staff-user.bean';
 import { ApiHTTPService } from '../../../../service/api-http.service';
 import { Service_UserStaffAndOSM } from '../../../../service/service-user-staff-osm';
 import { ActivatedRoute } from '@angular/router';
+import { HomeBean } from '../../../../beans/home.bean';
 declare var $:any;
 declare var bootbox:any;
 @Component({
@@ -31,47 +32,62 @@ export class ManagementStaffUserListComponent extends BaseComponent implements O
     super();
     this.api = new Service_UserStaffAndOSM();
     this.bean = new StaffUserBean();
-    let _self = this;
-    this.settings = this.getTableSetting({
-      villageNo : { title: 'หมู่บ้าน' ,filter: false, with: '140px'},
-      fullName: {title: this.getLabel('lbl_firstName') +' - '+this.getLabel('lbl_lastName'), filter: false},
-      citizenId: {title: this.getLabel('lbl_citizenid'), filter: false},
-      action: {
-        title: this.getLabel('lbl_action'),
-        filter: false,
-        sort: false,
-        width: '100px',
-        type: 'custom',
-        renderComponent: ActionCustomViewComponent,
-        onComponentInitFunction(instance) {
-       
-          instance.view.subscribe(row => {
-
-           });
-           instance.edit.subscribe(row => {
-            _self.bean = _self.cloneObj(row);
-            _self.onModalForm(_self.ass_action.EDIT);
-           });
-           instance.delete.subscribe(row => {
-
-           });
-          instance.action.subscribe((row, cell) => {
-            console.log(row);
-          });
-        }
-      }
-    });
-
   }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
+      let _self = this;
+      this.settings = this.getTableSetting({
+         fullName: {title: this.getLabel('lbl_firstName') +' - '+this.getLabel('lbl_lastName'), filter: false},
+         citizenId: {
+           title: this.getLabel('lbl_citizenid')
+           , filter: false
+           ,type: "html"
+           ,valuePrepareFunction: (cell, row) => { 
+             return _self.formatCitizenId(cell);
+             }
+          },
+         villageNo : {
+           title: 'หมู่บ้าน' 
+           ,filter: false
+           , with: '150px'
+           ,type: "html"
+           ,valuePrepareFunction: (cell, row) => { 
+             return 'หมู่ที่ '+ cell + ' ' + row.villageName;
+             }
+          },
+          action: {
+           title: this.getLabel('lbl_action'),
+           filter: false,
+           sort: false,
+           width: '100px',
+           type: 'custom',
+           renderComponent: ActionCustomViewComponent,
+           onComponentInitFunction(instance) {
+             instance.view.subscribe(row => {
+   
+              });
+              instance.edit.subscribe(row => {
+               _self.bean = _self.cloneObj(row);
+               _self.onModalForm(_self.ass_action.EDIT);
+              });
+              instance.delete.subscribe(row => {
+                _self.onClickDelete(row);
+              });
+             instance.action.subscribe((row, cell) => {
+               console.log(row);
+             });
+           }
+         }
+       });
+
       this.titlePanel = 'การจัดการ เจ้าหน้าที่';
       let roleName = params['roleName'];
       console.log("roleName >>> " + roleName);
       if('staff'==roleName){
         this.isStaff = true;
         this.titlePanel += " รพ.สต.";
+        delete this.settings.columns.villageNo;
         this.setupTable();
       }else if('osm'==roleName){
         this.isStaff = false;
@@ -119,6 +135,20 @@ export class ManagementStaffUserListComponent extends BaseComponent implements O
   onClickAdd(){
     this.onModalForm(this.ass_action.ADD);
   }
+  onClickDelete(row:any){
+    let _self = this;
+    console.log("= = Click Delete = =");
+    console.log(row);
+     this.api.commit_del(row.userId, function(response){
+      if(response && response.status.toString().toUpperCase()=='SUCCESS'){
+        _self.message_success('','ลบเจ้าหน้าที่ ' + row.fullName +' เรียบร้อย' , function(){
+          _self.setupTable();
+        });
+      }else{
+        _self.message_error('','ไม่สามารถลบเจ้าหน้าที่ ' + row.fullName +' ได้' );
+      }
+     });
+  }
   onModalForm(action: string){
     if(this.ass_action.EDIT==action){
       this.bean.birthDate = this.getCurrentDatePickerModel(this.bean.birthDate);
@@ -146,4 +176,5 @@ export class ManagementStaffUserListComponent extends BaseComponent implements O
       this.setupTable();
     }
   }
+
 }

@@ -8,7 +8,7 @@
         <label class="value">โรงพยาบาลส่งเสริมสุขภาพ ตำบลบ้านเป็ด อำเภอเมือง จังหวัดขอนแก่น</label>
       </div>
     </div>
-
+<div *ngIf="!isStaff">
     <div class="row">
         <div class="col-md-2 text-right">
           <label class="label-form">ชื่อ</label>
@@ -31,10 +31,11 @@
         <button type="button" class="btn btn-sm btn-primary"  (click)="onSearch()">ค้นหา</button>
       </div>
     </div>
+</div>
 
     <div class="row">
         <div class="col-md-12">
-          <button type="button" class="btn btn-sm btn-primary" (click)="onClickAdd()">เพิ่มเจ้าหน้าที่ อสม.</button>
+          <button type="button" class="btn btn-sm btn-primary" (click)="onClickAdd()">เพิ่มเจ้าหน้าที่ {{isStaff?'รพ.สต.':'อสม.'}}</button>
         </div>
       </div>
     <div class="row">

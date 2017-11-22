@@ -71,8 +71,8 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
     this.setupHomeList();
   }
   setupHomeList(){
-    let villageId = "";
-    let osmId = "2A13A59B-BAC2-E711-AB84-005056C00008";
+    let villageId = "11";
+    let osmId = "";//"2A13A59B-BAC2-E711-AB84-005056C00008";
     let _self = this;
     this.api.getList(villageId, osmId, function(response){
       _self.source = _self.ng2STDatasource(response);
@@ -84,12 +84,17 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
   }
   onAdd(){
     this.bean = new HomeBean();
-    this.bean.homeRegisterId = "";
+    this.bean.registrationId = "";
     this.bean.homeNo = "";
     this.bean.soi = "";
     this.bean.road = "";
     this.bean.latitude = "";
     this.bean.longitude = "";
     this.onModalForm(this.ass_action.ADD);
+  }
+
+  onSuccess(event:any){
+    console.log("ON-SUCCESS");
+    console.log(event);
   }
 }

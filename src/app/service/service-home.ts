@@ -13,7 +13,7 @@ export class Service_Home extends ApiHTTPService{
     public map(bean: HomeBean):any{
         this.attr = {
         "id":"",
-        "registrationId": bean.homeRegisterId,
+        "registrationId": bean.registrationId,
         "homeTypeId": bean.homeTypeId,
         "homeNo": bean.homeNo,
         "villageId":  bean.villageId,
@@ -24,7 +24,7 @@ export class Service_Home extends ApiHTTPService{
         "latitude": bean.latitude,
         "longitude": bean.longitude,
         "osmId": bean.osmId,
-        "holderId": bean.holderId
+        "holderId": ""
         }
         return this.attr;
     }

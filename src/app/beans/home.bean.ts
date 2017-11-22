@@ -1,7 +1,7 @@
 export class HomeBean{
     
         public homeID: string;
-        public homeRegisterId: string;
+        public registrationId: string;
         public homeNo: string;
         public holderId: string;
         public road:string;
