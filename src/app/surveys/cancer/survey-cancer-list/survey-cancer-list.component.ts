@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Http, Headers, RequestOptions } from "@angular/http";
 import { Router } from "@angular/router";
 import { LocalDataSource, ViewCell } from 'ng2-smart-table';
@@ -7,6 +7,7 @@ import { ApiHTTPService } from '../../../service/api-http.service';
 import { CancerBean } from '../../../beans/cancer.bean';
 import { FilterHeadSurveyBean } from '../../../beans/filter-head-survey.bean';
 import { FilterBean } from "../../../beans/filter.bean";
+import { ActionCustomViewComponent } from '../../../action-custom-table/action-custom-view.component';
 
 declare var $;
 
@@ -17,25 +18,37 @@ declare var $;
 })
 export class SurveyCancerListComponent extends BaseComponent implements OnInit {
 
+  public cancerType: number = 0;
+  public isShowsick: boolean = true;
+  public cancerTypeCode: string = "Cencer";
+  public cancerbean: CancerBean = new CancerBean();
+  public action: string = this.ass_action.ADD;
+
+  private api: ApiHTTPService;
+  public settings: any;
+  public isShowList: boolean = false;
+  public source: LocalDataSource = new LocalDataSource();
+  public healtInsuranceID = 7;
+  public datas: any = [];
+  public filtersearch: FilterHeadSurveyBean;
+  public documentId: string;
+
   mStatusNo = 0;
-
   isDisable = true;
-
- 
 
   private apiHttp: ApiHTTPService = new ApiHTTPService();
   private paramHomeId: string;
 
-  public isShowList: boolean = false;
-  public settings: any;
-  //public source: LocalDataSource;
-  public source: LocalDataSource = new LocalDataSource();
+  
   public isShowTable: boolean = false;
   public tempData: Array<any> = [];
-  constructor(private http: Http, private router: Router) {
+
+  constructor(private changeRef: ChangeDetectorRef) {
     super();
 
+    this.filtersearch = new FilterHeadSurveyBean();
     let self = this;
+    this.api = new ApiHTTPService();
 
     self.settings = self.getTableSetting({
       fullName: {
@@ -82,12 +95,26 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
         title: '',
         filter: false,
         type: 'custom',
-        renderComponent: SurveyCancerListButtonEditComponent,
+        renderComponent: ActionCustomViewComponent,
         onComponentInitFunction(instance) {
           instance.action.subscribe((row: CancerBean) => {
             
             $("#modalCancer").modal({ backdrop: 'static', keyboard: false });
           });
+
+          instance.edit.subscribe((row: CancerBean, cell) => {
+            self.cancerbean = self.cloneObj(row);
+            self.onModalFrom(self.ass_action.EDIT);
+        });
+
+        instance.delete.subscribe((row: CancerBean, cell) => {
+          self.message_comfirm("", "ต้องการยกเลิกการทำรายการสำรวจของ : " + row.fullName + " ใช่หรือไม่", function (resp) {
+            if (resp) {
+              self.actionDelete(row.cancerType);
+              self.loadData(self.filtersearch);
+            }
+          });
+         });
         }
       }
     });
@@ -97,63 +124,73 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
   ngOnInit(): void {
     
   }
-
-  onClickSearch(event: FilterBean) {
+  onChangeFilter(event: FilterHeadSurveyBean) {
+    console.log("ChangeFilter");
+    this.isShowList = false;
+  }
+  loadData(event: FilterHeadSurveyBean){
     let self = this;
+    let param = {
+      "documentId": event.rowGUID,
+      "villageId": event.villageId,
+      "osmId": event.osmId,
+      "name": event.fullName,
+      "rowGUID": ""
+    };
+    let params = JSON.stringify(param);
 
-    let roundId = event.roundId;
-    let villageId = event.villageId;
-    let osmId = event.osmId;
-    let homeId = event.homeId;
-
-    self.bindCancerList(roundId, villageId, osmId, homeId);
-
-    // this.http.get("assets/data_test/data_home_personal.json")
-    //   .map(res => res.json())
-    //   .subscribe((data) => {
-    //     self.source = new LocalDataSource(data);
-    //     self.setNg2STDatasource(self.source);
-    //     self.isShowTable = true;
-    //   });
+    this.api.post('survey_cancer/filter', params, function (resp) {
+      console.log("loadData" + resp);
+      
+      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+        self.datas = [];
+        for (let item of resp.response) {
+          if (item.cancerSurveyTypeCode == 'Cancer') {          
+            self.datas.push(item);
+          } 
+        }
+        self.setUpTable();
+      }
+    })
   }
 
+  setUpTable() {
+    this.source = new LocalDataSource(this.datas);
+    this.isShowList = true;
+    super.setNg2STDatasource(this.source);
+  }
 
-  bindCancerList(roundId: string, villageId: string, osmId: string, homeId: string) {
+  actionDelete(rowguid) {
     let self = this;
+    let param = {
+      "rowGUID": rowguid
+    };
+    this.api.post('survey_cancer/del', param, function (resp) {
+      console.log("actionDelete" + resp);
 
-    // let URL_LIST_CANCER: string = "homemember/homemember_by_home";
-    // let params = {};
-
-    // self.apiHttp.post(URL_LIST_CANCER, params, function (d) {
-    //   if (d != null && d.status.toUpperCase() == "SUCCESS") {
-    //     console.log(d);
-    //     self.source = new LocalDataSource(d.list);
-    //     self.setNg2STDatasource(self.source);
-    //   } else {
-    //     console.log('survey-cancer-list(bindCancerList) occured error(s) => ' + d.message);
-    //   }
-    // });
-    
-    let URL_LIST_CANCER: string = "survey_population/search_population_list";
-    let params = { "documentId": roundId, "villageId": villageId, "osmId": osmId, "homeId": homeId };
-
-    self.apiHttp.post(URL_LIST_CANCER, params, function (d) {
-      if (d != null && d.status.toUpperCase() == "SUCCESS") {
-        console.log(d);
-        self.source = new LocalDataSource(d.response);
-        self.setNg2STDatasource(self.source);
-        self.isShowTable = true;
-      } else {
-        console.log('survey-personal-home-list(bindHomeList) occured error(s) => ' + d.message);
+      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
       }
-    });
+    })
+  }
 
-    // this.http.get("assets/data_test/data_cancer_list.json")
-    //   .map(res => res.json())
-    //   .subscribe((data) => {
-    //     self.source = new LocalDataSource(data);
-    //     self.setNg2STDatasource(self.source);
-    //   });
+  onModalFrom(action: string) {
+    this.action = action;
+    this.changeRef.detectChanges();
+    $('#find-person-md').modal('show');
+  }
+
+  onSearch(event: FilterHeadSurveyBean) {
+    this.filtersearch = event;
+    if (this.isEmpty(this.documentId)) {
+      this.documentId = event.rowGUID;
+    }
+    this.loadData(event);
+  }
+
+  reloadData(event: any) {
+    if (event) {
+      this.loadData(this.filtersearch);
+    }
   }
 
   changStatusNo() {
@@ -165,36 +202,6 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
     }
   }
 
-  onChangeFilter(event: FilterHeadSurveyBean) {
-    console.log("ChangeFilter");
-    this.isShowList = false;
-  }
-  onSearch(event: FilterHeadSurveyBean) {
-    console.log(event);
-    //get datas to (__) 
-    this.source = new LocalDataSource();
-    this.isShowList = true;
-    super.setNg2STDatasource(this.source);
-  }
-}
-
-@Component({
-  template: "<button (click)=\"clickEdit();\" style=\"padding-top: 0px; padding-bottom: 0px\" class=\"btn btn-primary\">แก้ไข</button>",
-})
-export class SurveyCancerListButtonEditComponent implements ViewCell, OnInit {
-  renderValue: string;
-
-  @Input() value: string | number;
-  @Input() rowData: any;
-  @Output() action: EventEmitter<any> = new EventEmitter();
-
-  ngOnInit() {
-    this.renderValue = this.value.toString();
-  }
-
-  clickEdit() {
-    this.action.emit(this.rowData);
-  }
-
   
 }
+

@@ -11,73 +11,62 @@
       </div>
 
       <div>
+          <div class="row">
+              <div class="col-md-3 text-right">
+                <label>ประเภทมะเร็ง</label>
+              </div>
+              <div class="col-md-3">
+                <select>
+                  <option value="0">==กรุณาเลือก==</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                </select>
+              </div>
+              <div class="col-md-1 text-right">
+                <label>วันที่เป็น</label>
+              </div>
+              <div class="col-md-3">
+                  <!-- <my-date-picker name="mydate" [options]="datePickerOptions" [(ngModel)]="modelBirthDate" (dateChanged)="onChangeDate($event)" [disabled]="isDisablePersonData"></my-date-picker> -->
+                  <my-date-picker [options]="datePickerOptions" [(ngModel)]="cancerbean.canecerDate" required></my-date-picker>
+                </div>
+           </div>
+
         <div class="row">
           <div class="col-md-3 text-right">
-            <label>ชื่อ-สกุล</label>
+            <label>สถานที่รักษา</label>
           </div>
           <div class="col-md-3">
-            <input type="text" value="" >
+            <input type="text" [(ngModel)]="cancerbean.treatmentPlace">
           </div>
           <div class="col-md-1 text-right">
-            <label>โทรศัพท์</label>
+            <label>สิทธิบัตร</label>
           </div>
           <div class="col-md-3">
-            <input type="text" value="" >
+            <!-- <input type="text" value="" > -->
+            <select [(ngModel)]="patientbean.hInsuranceTypeID">
+                <option value="">--เลือก--</option>
+                <option *ngFor="let item of healtInsuranceTypeList" value="{{item.id}}">{{item.code}}</option>
+            </select>
           </div>
+          
         </div>
+
         <div class="row">
           <div class="col-md-3 text-right">
-            <label>ชนิดของมะเร็ง</label>
+            <label>โทรศัพท์ </label>
           </div>
           <div class="col-md-3">
-            <input type="text" name="" id="" value="" >
-          </div>
-          <div class="col-md-1 text-right">
-            <label>เริ่มป่วย</label>
-          </div>
-          <div class="col-md-3">
-            <input type="text" value="" >
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-3 text-right">
-            <label>รพ.ที่รักษา</label>
-          </div>
-          <div class="col-md-3">
-            <input type="text" value="">
+            <input type="text" [(ngModel)]="cencerbean.telephone">
           </div>
           <div class="col-md-1 text-right">
             <label>อื่นๆ</label>
           </div>
           <div class="col-md-3">
-            <input type="text" value="">
+            <input type="text" value="" >
           </div>
         </div>
 
-        <div class="row">
-          <div class="col-md-3 text-right">
-            <label>สถานะการสำรวจ</label>
-          </div>
-          <div class="col-md-3">
-            <select>
-              <option value="0">==กรุณาเลือก==</option>
-              <option value="1">กำลังรักษา</option>
-              <option value="2">หายแล้ว</option>
-            </select>
-          </div>
-          <div class="col-md-1 text-right">
-            <label>วันสำรวจ</label>
-          </div>
-          <div class="col-md-3">
-              <my-date-picker name="mydate" [options]="datePickerOptions" [(ngModel)]="modelBirthDate" (dateChanged)="onChangeDate($event)" [disabled]="isDisablePersonData"></my-date-picker>
-            <!-- <div class="input-group date" data-provide="datepicker">
-              <input type="text">
-              <div class="input-group-addon">
-                <span class="glyphicon glyphicon-th"></span>
-              </div>
-            </div> -->
-          </div>
-        </div>
+
       </div>
 
       <div class="modal-footer">
