@@ -26,21 +26,23 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
   }
 
   ngOnInit() {
-    
+    this.bindModalForm();
   }
   bindModalForm(){
     let _self = this;
     $('#modalForm').on('show.bs.modal', function(){
-      if(_self.action==_self.ass_action.ADD){
-      }
-      console.log(_self.action);
+      console.log('show.bs.modal >> Action:'+_self.action);
+    });
+    $('#modalForm').on('hidden.bs.modal', function(){
+      console.log('hidden.bs.modal');
+      _self.inputValidate = new InputValidateInfo();
     });
   }
   onSave(){
     this.inputValidate = new InputValidateInfo();
     this.inputValidate.isCheck = true;
     let simpleValidate = new SimpleValidateForm();
-    this.bean.homeTypeId = '01';
+    this.bean.homeTypeCode = '01';
     this.bean.villageId = '11';
     this.bean.osmId = '891037A9-36CF-E711-AB84-005056C00008';
     let _self = this;
@@ -49,21 +51,26 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
       ignores.push('id');
     }
     let arr = simpleValidate.getObjectEmpty(_self.api.map(_self.bean), ignores);
-    console.log(arr);
     if(arr.length<=0){
       _self.api.commit_save(_self.bean, function(response){
         console.log(response);
         let strAction = _self.action==_self.ass_action.ADD?'เพิ่ม':'แก้ไข';
-        let success = false;
         if(response && response.status.toString().toUpperCase()=='SUCCESS'){
-          _self.message_success('','ทำการ'+strAction+'บ้านเลขที่ ' + _self.bean.homeNo + ' เรียบร้อย', function(){
-            success = true;
+          _self.message_success('','ทำการ'+strAction+'บ้านเลขที่ <b>' + _self.bean.homeNo + '</b> เรียบร้อย', function(){
+            _self.success.emit({"success": true, "response": response});
           });
         }else{
-          _self.message_error('','ไม่สามารถ'+strAction+'บ้านเลขที่ ' + _self.bean.homeNo + ' ได้');
-          success = false;
+          let msg = '';
+          if(response.message.toUpperCase().indexOf('DUPLICATED')>=0){
+            msg = 'บ้านเลขที่ <b>'+_self.bean.homeNo + '</b> ซ้ำ กรุณาใส่บ้านเลขที่อื่น';
+          }else{
+            msg = 'ไม่สามารถ'+strAction+'บ้านเลขที่ <b>' + _self.bean.homeNo + '</b> ได้';
+          }
+
+          _self.message_error('',msg);
+          _self.success.emit({"success": false, "response": response});
         }
-        _self.success.emit({"success": success, "response": response});
+        
       });
     }
 

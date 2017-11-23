@@ -61,6 +61,7 @@ import { ManagementHomeFormComponent } from './managements/osm/management-home/f
 import { LoadingComponent} from './ng2-loading/ass-loading.component'
 import { LoadingConfigService } from './ng2-loading/ass-loading.service';
 import { FilterFindMosquitoComponent } from './filter/filter-find-mosquito/filter-find-mosquito.component';
+import { UiDatePickerDirective } from './directives/datepicker.directive';
 
 @NgModule({
   declarations: [
@@ -110,7 +111,7 @@ import { FilterFindMosquitoComponent } from './filter/filter-find-mosquito/filte
     ManagementHomeFormComponent,
     LoadingComponent,
     FilterFindMosquitoComponent,
-    
+    UiDatePickerDirective
   ],
   imports: [
     BrowserModule,

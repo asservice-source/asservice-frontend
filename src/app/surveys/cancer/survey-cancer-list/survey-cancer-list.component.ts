@@ -20,7 +20,7 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
 
   public cancerType: number = 0;
   public isShowsick: boolean = true;
-  public cancerTypeCode: string = "Cencer";
+  public surveyTypeCode: string = "CANCER";
   public cancerbean: CancerBean = new CancerBean();
   public action: string = this.ass_action.ADD;
 
@@ -46,11 +46,11 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
   constructor(private changeRef: ChangeDetectorRef) {
     super();
 
-    this.filtersearch = new FilterHeadSurveyBean();
     let self = this;
     this.api = new ApiHTTPService();
+    this.filtersearch = new FilterHeadSurveyBean();
+    this.settings = this.getTableSetting({
 
-    self.settings = self.getTableSetting({
       fullName: {
         title: 'ชื่อ-สกุล',
         filter: false,
@@ -63,32 +63,20 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
           return '<div class="text-center">' + cell + '</div>';
         }
       },
-      cancerType: {
+      cancerTypeName: {
         title: 'ชนิดของมะเร็ง',
         filter: false,
       },
-      hospital: {
-        title: 'รพ.ที่รักษา',
-        filter: false
-      },
-      sickDate: {
+      patientDate: {
         title: 'วันที่ป่วย',
         filter: false
       },
-      telNo: {
+      telephone: {
         title: 'เบอร์ติดต่อ',
         filter: false
       },
-      others: {
-        title: 'อื่นๆ',
-        filter: false
-      },
-      status: {
+      diseaseStatusTypeName: {
         title: 'สถานะ',
-        filter: false
-      },
-      inputDate: {
-        title: 'วันที่ลงข้อมูล',
         filter: false
       },
       action: {
@@ -139,13 +127,15 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
     };
     let params = JSON.stringify(param);
 
-    this.api.post('survey_cancer/filter', params, function (resp) {
-      console.log("loadData" + resp);
+    this.api.post('survey_patient/filter', params, function (resp) {
+      console.log("loadData ==== " + resp.status);
       
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.datas = [];
+        console.log(resp);
         for (let item of resp.response) {
-          if (item.cancerSurveyTypeCode == 'Cancer') {          
+          console.log("dataCancer2 ____________ " + item.patientSurveyTypeCode);
+          if (item.patientSurveyTypeCode == 'Cancer') {          
             self.datas.push(item);
           } 
         }
@@ -165,8 +155,8 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
     let param = {
       "rowGUID": rowguid
     };
-    this.api.post('survey_cancer/del', param, function (resp) {
-      console.log("actionDelete" + resp);
+    this.api.post('survey_patient/del', param, function (resp) {
+      console.log("actionDelete ==== " + resp);
 
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
       }

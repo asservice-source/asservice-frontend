@@ -80,10 +80,11 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
   }
   onModalForm(action:string){
     this.action = action;
-    $('#modalForm').modal();
+    $('#modalForm').modal('show');
   }
   onAdd(){
     this.bean = new HomeBean();
+    this.bean.homeId = "";
     this.bean.registrationId = "";
     this.bean.homeNo = "";
     this.bean.soi = "";
@@ -96,5 +97,10 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
   onSuccess(event:any){
     console.log("ON-SUCCESS");
     console.log(event);
+    if(event.success){
+      this.setupHomeList();
+      $('#modalForm').modal('hide');
+    }
+    
   }
 }

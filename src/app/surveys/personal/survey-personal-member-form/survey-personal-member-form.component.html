@@ -156,9 +156,9 @@
                 <label class="label-form">วันเดือนปี เกิด</label>
               </div>
               <div class="col-md-3">
-                <!-- <input type="text" [(ngModel)]="member.birthDate"> -->
-                <my-date-picker name="mydate" [options]="datePickerOptions" [(ngModel)]="modelBirthDate" (dateChanged)="onChangeDate($event)"
-                  [disabled]="isDisablePersonData"></my-date-picker>
+                <input type="text" uiDatePicker [(ngModel)]="member.birthDate">
+                <!-- <my-date-picker name="mydate" [options]="datePickerOptions" [(ngModel)]="modelBirthDate" (dateChanged)="onChangeDate($event)"
+                  [disabled]="isDisablePersonData"></my-date-picker> -->
               </div>
             </div>
 

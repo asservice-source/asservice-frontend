@@ -1,6 +1,6 @@
 export class HomeBean{
     
-        public homeID: string;
+        public homeId: string;
         public registrationId: string;
         public homeNo: string;
         public holderId: string;
@@ -9,7 +9,7 @@ export class HomeBean{
         public holderFullName: string;
         public latitude: string;
         public longitude: string;
-        public homeTypeId: string;
+        public homeTypeCode: string;
         public villageId: string;
         public name: string;
         public telephone: string;
