@@ -22,11 +22,11 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
     let self = this;
 
     self.member = self.strNullToEmpty(paramMember);
-    if (self.member && self.member.birthDate) {
-      self.modelBirthDate = self.getCurrentDatePickerModel(self.member.birthDate);
-    } else {
-      self.modelBirthDate = {};
-    }
+    // if (self.member && self.member.birthDate) {
+    //   self.modelBirthDate = self.getCurrentDatePickerModel(self.member.birthDate);
+    // } else {
+    //   self.modelBirthDate = {};
+    // }
   }
   @Output() memberUpdated = new EventEmitter<PersonalMemberBean>();
   @Output() memberInserted = new EventEmitter<PersonalMemberBean>();
@@ -55,7 +55,7 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
   public isDisabledActionAdd: boolean = false;
   public isDisablePersonData: boolean = true;
 
-  public modelBirthDate: any;
+  // public modelBirthDate: any;
 
   constructor() {
     super();
@@ -396,11 +396,11 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
           self.member.rhGroupId = personData.rHGroupID;
           self.member.birthDate = personData.birthDate;
 
-          if (personData.birthDate) {
-            self.modelBirthDate = self.getCurrentDatePickerModel(personData.birthDate);
-          } else {
-            self.member.birthDate = '';
-          }
+          // if (personData.birthDate) {
+          //   self.modelBirthDate = self.getCurrentDatePickerModel(personData.birthDate);
+          // } else {
+          //   self.member.birthDate = '';
+          // }
 
           self.member.educationCode = personData.educationCode;
           self.member.occupationCode = personData.occupCode;
@@ -419,7 +419,7 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
           self.member.bloodTypeId = '';
           self.member.rhGroupId = '';
           self.member.birthDate = '';
-          self.modelBirthDate = {};
+          // self.modelBirthDate = {};
           self.member.educationCode = '';
           self.member.occupationCode = '';
 
