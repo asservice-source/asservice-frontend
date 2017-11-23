@@ -90,9 +90,11 @@ export class FilterFindPersonComponent extends BaseComponent implements OnInit {
   }
   setupMemberList(){
     let _self = this;
+    _self.loading = true;
     this.api.api_HomeMemberList(_self.filterBean.homeId, function(response){
       _self.personData = response; 
       _self.isShowPersons = true;
+      _self.loading = false;
     });
   }
   setupVillage() {

@@ -29,7 +29,7 @@ export class SimpleValidateForm{
                 continue;
             }
             let value = obj[key];
-            if(value.toString().trim().length<1){
+            if(value==null || value==undefined || value.toString().trim().length<1){
                 objs.push(key);
                 console.log('push');
             }

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ManagementOsmAreaComponent } from './management-osm-area.component';
+import { ManagementHomeComponent } from './management-home.component';
 
 describe('ManagementOsmAreaComponent', () => {
-  let component: ManagementOsmAreaComponent;
-  let fixture: ComponentFixture<ManagementOsmAreaComponent>;
+  let component: ManagementHomeComponent;
+  let fixture: ComponentFixture<ManagementHomeComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ManagementOsmAreaComponent ]
+      declarations: [ ManagementHomeComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ManagementOsmAreaComponent);
+    fixture = TestBed.createComponent(ManagementHomeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

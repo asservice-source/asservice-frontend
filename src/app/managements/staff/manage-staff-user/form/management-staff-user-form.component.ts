@@ -39,13 +39,9 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
   }
   setupPrefix(){
     let _self = this;
-    _self.api.post('person/prefix_list', {} , function (data) {
-      console.log(data);
-      if (data != null && data.status.toUpperCase() == "SUCCESS") {
-        _self.prefixList = data.response;
-      } else {
-        console.log('error(s) => ' + data.message);
-      }
+    _self.api.api_PrefixNameList(function (response) {
+      console.log(response);
+      _self.prefixList = response;
     });
   }
   setupVillage(){
@@ -68,6 +64,9 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
     $('#modalForm').on('hidden.bs.modal', function(){
       _self.inputValidate = new InputValidateInfo();
     });
+    $('#modalForm').on('show.bs.modal', function(){
+      console.log(_self.bean);
+    });
   }
   onSave(){
     this.inputValidate = new InputValidateInfo();
@@ -75,25 +74,39 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
     let valid = new SimpleValidateForm();
     this.bean.hospitalCode5 = this.getHospitalCode();
     this.bean.userActive = true;
-    this.bean.userRoleId = this.isStaff?'3':'5';
+    let roleName = "";
+    let fullName = this.getFullName('', this.bean.firstName, this.bean.lastName);
+    if(this.isStaff){
+      this.bean.villageId;
+      this.bean.userRoleId ='3';
+      roleName = "รพ.สต."
+    }else{
+      this.bean.userRoleId = '5';
+      roleName = "อสม."
+    }
     
-    if(this.isValidCitizenIdThailand(this.bean.citizenId)){
-    //if(true){
-      let arr = valid.getObjectEmpty(this.bean,[]);
+    
+    //if(this.isValidCitizenIdThailand(this.bean.citizenId)){
+    if(true){
+      let ignores = this.action==this.ass_action.ADD?['personId']:[];
+      if(this.isStaff){
+        ignores.push('villageId');
+      }
+      let arr = valid.getObjectEmpty(this.api.map(this.isStaff,this.bean),ignores);
       console.log(arr);
       if(arr.length<=0){
         let _self = this;
         _self.loading = true;
-        this.api.commit_save(this.bean, function(response){
+        this.api.commit_save(this.isStaff ,this.bean, function(response){
           _self.loading = false;
           let success = false;
           if(response && response.status.toString().toUpperCase()=='SUCCESS'){
             success = true;
             $('#modalForm').modal('hide');
-            _self.message_success('','เพิ่มเจ้าหน้าที่ อสม. ' + _self.bean.fullName + ' สำเร็จ');
+            _self.message_success('','เพิ่มเจ้าหน้าที่ ' + roleName + ' ' + fullName + ' สำเร็จ');
           }else{
             success = false;
-            _self.message_error('','ไม่สามารถเพิ่มเจ้าหน้าที่ อสม. ' + _self.bean.fullName + ' ได้'
+            _self.message_error('','ไม่สามารถเพิ่มเจ้าหน้าที่ '+ roleName + ' ' + fullName + ' ได้'
               , function(){
                 
               });

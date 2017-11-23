@@ -21,7 +21,7 @@ import { SurveyCancerListComponent } from "./../surveys/cancer/survey-cancer-lis
 import { ManagementStaffUserListComponent } from "./../managements/staff/manage-staff-user/list/management-staff-user-list.component";
 import { ManagementStaffVillageListComponent } from "./../managements/staff/manage-village/list/management-staff-village-list.component";
 import { RegisterActiveComponent } from './../register/register-active/register-active.component';
-import { ManagementOsmAreaComponent } from "./../managements/osm/management-osm-area/list/management-osm-area.component";
+import { ManagementHomeComponent } from "./../managements/osm/management-home/list/management-home.component";
 @NgModule({
   imports: [
     RouterModule.forRoot([
@@ -81,7 +81,7 @@ import { ManagementOsmAreaComponent } from "./../managements/osm/management-osm-
               path: 'osm',
               children:[{
                 path: 'home',
-                component: ManagementOsmAreaComponent
+                component: ManagementHomeComponent
               }]
             }
           ]
