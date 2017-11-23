@@ -131,15 +131,15 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
         _self.loading = false;
         if(response.status.toUpperCase()=="SUCCESS"){
           $('#modal-add-died').modal('hide');
-          _self.message_success('','แจ้งการเสียชีวิต : '+_self.bean.fullName, function(){
+          _self.message_success('','แจ้งการเสียชีวิต <b>'+_self.bean.fullName + '</b> เรียบร้อย', function(){
             _self.commit.emit(response);
           });
 
          
         }else{
           let msg = response.message;
-          if(response.message.indexOf('Duplicated')>=0){
-            msg = 'ทำรายการซ้ำ : '+_self.bean.fullName + ' มีการแจ้งเสียชีวิตไปแล้ว';
+          if(response.message.toUpperCase().indexOf('DUPLICATED')>=0){
+            msg = 'ทำรายการซ้ำ : <b>'+_self.bean.fullName + '</b> มีการแจ้งเสียชีวิตไปแล้ว';
           }
           _self.message_error('',''+msg, function(){});
         }

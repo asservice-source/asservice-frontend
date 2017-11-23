@@ -133,16 +133,16 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
 
   onDelete(bean: DeadBean){
     let _self = this;
-    _self.message_comfirm('', 'ต้องการยกเลิกแจ้งการเสียชีวิต : '+ bean.fullName + ' ใช่หรือไม่', function(resp){
+    _self.message_comfirm('', 'ต้องการยกเลิกแจ้งการเสียชีวิต <b>'+ bean.fullName + '</b> ใช่หรือไม่', function(resp){
       if(resp){
         _self.apiDead.commit_del(bean.rowGUID, function(response){
           if(response && response.status.toUpperCase()=='SUCCESS'){
-            _self.message_success('', 'ยกเลิกแจ้งการเสียชีวิต : ' + bean.fullName + ' เรียบร้อย', function(){
+            _self.message_success('', 'ยกเลิกแจ้งการเสียชีวิต <b>' + bean.fullName + '</b> เรียบร้อย', function(){
               _self.onSearch(this.filterBean);
             });
 
           }else{
-            _self.message_error('', 'ไม่สามารถยกเลิกแจ้งการเสียชีวิต : ' + bean.fullName + ' ได้');
+            _self.message_error('', 'ไม่สามารถยกเลิกแจ้งการเสียชีวิต <b>' + bean.fullName + '</b> ได้');
           }
         });
       }

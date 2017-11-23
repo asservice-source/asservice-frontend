@@ -12,9 +12,9 @@ export class Service_Home extends ApiHTTPService{
     }
     public map(bean: HomeBean):any{
         this.attr = {
-        "id":"",
+        "id": bean.homeId,
         "registrationId": bean.registrationId,
-        "homeTypeId": bean.homeTypeId,
+        "homeTypeCode": bean.homeTypeCode,
         "homeNo": bean.homeNo,
         "villageId":  bean.villageId,
         "name": bean.name,
@@ -30,6 +30,8 @@ export class Service_Home extends ApiHTTPService{
     }
     public commit_save(bean: HomeBean, callback:(doc:any)=>void){
         let parameter = this.base.strNullToEmpty(this.map(bean));
+        console.log('<<<< Params >>>>');
+        console.log(parameter);
         this.post('home/ins_upd_home', parameter, function(response){
             console.log(response);
             callback(response);
