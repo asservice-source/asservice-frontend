@@ -14,4 +14,6 @@ export class HomeBean{
         public name: string;
         public telephone: string;
         public osmId: string;
+        public address : string;
+
     }

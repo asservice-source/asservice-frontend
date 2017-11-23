@@ -31,6 +31,8 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
   public disabilityTypeCause: any;
   public diseaseStatusTypeList: any;
   public code: string = "PATIENT";
+  public isErrorDisabilityType : boolean = true;
+  public disabilityCauseType : boolean = true;
 
 
   constructor(private http: Http, private changeRef: ChangeDetectorRef) {

@@ -4,5 +4,6 @@ export class MosquitoBean{
     public totalSurvey : string;
     public totalDetect : string;
     public locateTypeid : string;
+    public address : string;
     
 }

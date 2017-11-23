@@ -26,16 +26,17 @@
     <div class="row">
 
       <div class="col-md-2 col-md-offset-3">
-        <button type="button" class="btn btn-sm btn-primary" [disabled]="!findhomebean.homeTypeId || !findhomebean.villageId">ค้นหารายชื่อสถานที่</button>
+        <button type="button" class="btn btn-sm btn-primary" [disabled]="!findhomebean.homeTypeId || !findhomebean.villageId"
+         (click)="searchPlace(); unlock();">ค้นหารายชื่อสถานที่</button>
       </div>
 
       <div class="col-md-1 text-right">
         <label class="label-form">สถานที่</label>
       </div>
       <div class="col-md-3">
-        <select [(ngModel)]="findhomebean.homeId" [disabled]="isHomeDisable">
+        <select [(ngModel)]="findhomebean.homeId" [disabled]="isHomeDisable" (change)="onChoosePlace();">
           <option ngValue="">--เลือกสถานที่--</option>
-          <option *ngFor="let item of HomeNameData" [value]="item.id">{{item.name}}</option>
+          <option *ngFor="let item of HomeNameData" [value]="item.homeId">{{item.name}}</option>
           <option ngValue="0">อื่นๆ</option>
         </select>
       </div>

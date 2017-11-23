@@ -5,3 +5,8 @@
 .dl-horizontal {
     margin-bottom: 0;
 }
+
+.error2{
+    color: red;
+    font: italic  13px Arial, sans-serif;
+}

@@ -1,7 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { BaseComponent } from '../../base-component';
 import { ApiHTTPService } from '../../service/api-http.service';
 import {findHomeBean} from '../../beans/findhome.bean';
+import { HomeBean } from '../../beans/home.bean';
+
+declare var $: any;
 
 @Component({
   selector: 'app-filter-find-mosquito',
@@ -12,7 +15,7 @@ export class FilterFindMosquitoComponent extends BaseComponent implements OnInit
 
   @Input() findHome: boolean;
   @Input() reset: any;
-
+  @Output() choosePlace: EventEmitter<HomeBean> = new EventEmitter<HomeBean>();
 
   public villageData : any;
   private api: ApiHTTPService;
@@ -21,10 +24,13 @@ export class FilterFindMosquitoComponent extends BaseComponent implements OnInit
   public HomeNameData : any;
   public isHomeDisable : boolean = true;
   public findhomebean: findHomeBean = new findHomeBean();
+  public homeBean : HomeBean;
 
   constructor() {
     super();
     this.api = new ApiHTTPService();
+    this.homeBean = new HomeBean();
+    this.isHomeDisable = true;
     this.setupVillage();
     this.setupHomeType();
    }
@@ -34,17 +40,17 @@ export class FilterFindMosquitoComponent extends BaseComponent implements OnInit
   }
 
   ngOnChanges(changes): void {
-    console.log("OnChanges");
-    console.log(changes);
+    // console.log("OnChanges");
+    // console.log(changes);
     if (changes['findHome']) {
       this.isShowFind = this.findHome;
       
     }
-    // if(changes['reset']){
-    //   this.filterBean.villageId = "";
-    //   this.changVillageNo();
+    if(changes['reset']){
+      this.findhomebean.villageId = "";
+      this.searchPlace();
       
-    // }
+    }
   }
 
   setupVillage() {
@@ -65,6 +71,14 @@ export class FilterFindMosquitoComponent extends BaseComponent implements OnInit
     })
   }
 
+  searchPlace(){
+    this.setupHomeName();
+  }
+
+  unlock(){
+    this.isHomeDisable = false;
+  }
+
   setupHomeName(){
     let self = this;
     let params = {
@@ -77,6 +91,27 @@ export class FilterFindMosquitoComponent extends BaseComponent implements OnInit
         self.HomeNameData = resp.response;
       }
     })
+  }
+
+getHomeDetail(){
+  let self = this;
+  let params ={
+    "homeId" : this.findhomebean.homeId
+  }
+  this.api.post('home/home_info', params, function (resp) {
+    if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+      console.log(resp.response);
+      self.homeBean = resp.response;
+    }
+  })
+}  
+
+  onChoosePlace(homeBean : HomeBean){
+    this.getHomeDetail();
+    console.log(homeBean);
+
+    this.isShowFind = false;
+    this.choosePlace.emit(homeBean);
   }
 
   // changeForHomename(){
