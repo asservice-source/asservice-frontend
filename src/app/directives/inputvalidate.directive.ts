@@ -8,6 +8,7 @@ import { BaseComponent } from '../base-component';
 export class InputValidateDirective{
     @Input() InputValidate: InputValidateInfo = new InputValidateInfo();
     @Input() citizenId: boolean;
+    @Input() fixLength: number;
     @Input() error: string;
     @Output() notify: EventEmitter<InputValidateInfo> = new EventEmitter<InputValidateInfo>(); 
     public isReset: boolean = false;
@@ -45,7 +46,7 @@ export class InputValidateDirective{
         let value: string =  el_input.value;
         this.InputValidate = new InputValidateInfo();
         this.InputValidate.value = value;
-        if(!value.trim() || (this.citizenId && !this.baseComponent.isValidCitizenIdThailand(value))){
+        if(!value.trim() || (this.citizenId && !this.baseComponent.isValidCitizenIdThailand(value)) || (this.fixLength && this.fixLength>0 && value.trim().length!=this.fixLength)){
             this.InputValidate.isPassed = false;
             this.renderer.setElementStyle(el_label,'display','block');
             this.notify.emit(this.InputValidate);

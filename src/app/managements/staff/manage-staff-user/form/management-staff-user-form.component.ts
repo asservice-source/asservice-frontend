@@ -99,20 +99,18 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
         _self.loading = true;
         this.api.commit_save(this.isStaff ,this.bean, function(response){
           _self.loading = false;
-          let success = false;
           if(response && response.status.toString().toUpperCase()=='SUCCESS'){
-            success = true;
             $('#modalForm').modal('hide');
-            _self.message_success('','เพิ่มเจ้าหน้าที่ ' + roleName + ' ' + fullName + ' สำเร็จ');
+            _self.message_success('','เพิ่มเจ้าหน้าที่ ' + roleName + ' ' + fullName + ' สำเร็จ', function(){
+              _self.success.emit({"success": true, "response": response});
+            });
           }else{
-            success = false;
-            _self.message_error('','ไม่สามารถเพิ่มเจ้าหน้าที่ '+ roleName + ' ' + fullName + ' ได้'
-              , function(){
-                
-              });
+            _self.message_error('','ไม่สามารถเพิ่มเจ้าหน้าที่ '+ roleName + ' ' + fullName + ' ได้', function(){
+              _self.success.emit({"success": false, "response": response});
+            });
           }
         
-          _self.success.emit({"success": success, "response": response});
+          
         });
       }else{
 

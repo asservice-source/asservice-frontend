@@ -40,7 +40,7 @@ import { SurveyPersonalHomeListComponent, SurveyPersonalHomeListButtonEditCompon
 import { SurveyPersonalHomeFormComponent } from './surveys/personal/survey-personal-home-form/survey-personal-home-form.component';
 import { SurveyPersonalMemberListComponent, SurveyPersonalMemberListButtonEditComponent } from './surveys/personal/survey-personal-member-list/survey-personal-member-list.component';
 import { SurveyPersonalMemberFormComponent } from './surveys/personal/survey-personal-member-form/survey-personal-member-form.component';
-import { SurveyCancerListComponent, SurveyCancerListButtonEditComponent } from './surveys/cancer/survey-cancer-list/survey-cancer-list.component';
+import { SurveyCancerListComponent } from './surveys/cancer/survey-cancer-list/survey-cancer-list.component';
 import { SurveyCancerFormComponent } from './surveys/cancer/survey-cancer-form/survey-cancer-form.component';
 import { FilterHeadMosquitoComponent } from './filter/filter-head-mosquito/filter-head-mosquito.component';
 import { FilterFindPersonComponent } from './filter/filter-find-person/filter-find-person.component';
@@ -89,7 +89,6 @@ import { UiDatePickerDirective } from './directives/datepicker.directive';
     SurveyDiedFormComponent,
     SurveyMosquitoListComponent,
     SurveyCancerListComponent,
-    SurveyCancerListButtonEditComponent,
     SurveyCancerFormComponent,
     SurveyPersonalHomeListComponent,
     SurveyPersonalHomeListButtonEditComponent,
@@ -129,8 +128,7 @@ import { UiDatePickerDirective } from './directives/datepicker.directive';
   entryComponents: [
     ActionCustomViewComponent,
     SurveyPersonalHomeListButtonEditComponent,
-    SurveyPersonalMemberListButtonEditComponent,
-    SurveyCancerListButtonEditComponent
+    SurveyPersonalMemberListButtonEditComponent
   ],
   providers: [LoadingConfigService],
   bootstrap: [AppComponent]

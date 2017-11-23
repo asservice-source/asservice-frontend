@@ -12,9 +12,9 @@
               <label class="label-form">รหัสบ้าน</label>
             </div>
             <div class="col-md-5">
-              <div [InputValidate]="inputValidate">
-                  <input type="text" [(ngModel)]="bean.registrationId" OnlyNumber="true">
-                  <label class="error">กรุณาใส่รหัสบ้าน</label>
+              <div [InputValidate]="inputValidate" [fixLength]="11">
+                  <input type="text" [(ngModel)]="bean.registrationId" [OnlyNumber]="true" maxlength="11">
+                  <label class="error">กรุณาใส่รหัสบ้านให้ถูกต้อง</label>
               </div>
             </div>
           </div>
@@ -54,7 +54,7 @@
               <label class="label-form">เบอร์โทรศัพท์</label>
             </div>
             <div class="col-md-5">
-              <input type="text" [(ngModel)]="bean.telephone">
+              <input type="text" [(ngModel)]="bean.telephone" [OnlyNumber]="true">
             </div>
           </div>
 
