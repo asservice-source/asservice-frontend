@@ -6,7 +6,7 @@
             <div class="modal-header">
                 <h4 class="modal-title">ฟอร์มสำรวจลูกน้ำยุงลาย</h4>
             </div>
-            <app-filter-find-mosquito></app-filter-find-mosquito>
+            <app-filter-find-mosquito [findHome]="isFindHome" ></app-filter-find-mosquito>
 
             <div class="row text-center">
                 <button class="btn btn-sm btn-primary" type="button" data-toggle="collapse" data-target="#collapseMosquito" aria-expanded="false"
@@ -198,7 +198,7 @@
                         </div>
                         <div class="row text-center">
                             <button type="buttoon" class="btn btn-primary btn-sm">ยืนยัน</button>
-                            <button type="buttoon" class="btn btn-primary btn-sm">กลับ</button>
+                            <button type="buttoon" class="btn btn-primary btn-sm" (click)="onBack()">กลับ</button>
                         </div>
                     </div>
                 </div>

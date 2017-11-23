@@ -185,7 +185,6 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
   }
 
   onModalFrom(action: string) {
-    console.log("fuck");
     this.action = action;
     this.changeRef.detectChanges();
     $('#find-person-md').modal('show');
