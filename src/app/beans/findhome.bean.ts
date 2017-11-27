@@ -3,4 +3,5 @@ export class findHomeBean {
     public homeId: string = "";
     public homeName: string = "";
     public homeTypeId : string = "";
+    public homeTypeName : string;
 }

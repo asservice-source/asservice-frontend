@@ -13,14 +13,14 @@
                     <div class="col-md-11 col-md-offset-1">
                         <div class="box-body">
                             <dl class="dl-horizontal">
-                                    <dt>หมายเลขประจำตัว : </dt>
-                                    <dd>{{ mosquitobean.address }}</dd>
+                                <dt>ที่อยู่ : </dt>
+                                <dd>{{ mosquitobean.address }}</dd>
+                                <dt>ประเภท : </dt>
+                                <dd>{{ mosquitobean.homeTypeName }}</dd>
                             </dl>
                         </div>
                     </div>
                 </div>
-
-                <hr style=" margin-top: 0px">
 
                 <div class="row">
                     <div class="col-md-12">
@@ -398,7 +398,7 @@
                     </div>
                 </div>
             </div> -->
-            <div class="row text-center">
+                <div class="row text-center">
                     <button type="buttoon" class="btn btn-primary btn-sm">ยืนยัน</button>
                     <button type="buttoon" class="btn btn-primary btn-sm" (click)="onBack()">กลับ</button>
                 </div>

@@ -15,7 +15,8 @@
         <label class="label-form">ประเภท</label>
       </div>
       <div class="col-md-3">
-        <select [(ngModel)]="findhomebean.homeTypeId">
+          <!-- (change)="changetable();" -->
+        <select [(ngModel)]="findhomebean.homeTypeId" >
           <option ngValue="">--เลือกประเภท--</option>
           <option *ngFor="let item of HomeTypeData" [value]="item.code">{{item.name}}</option>
         </select>

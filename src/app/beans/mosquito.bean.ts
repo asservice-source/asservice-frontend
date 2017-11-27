@@ -5,5 +5,5 @@ export class MosquitoBean{
     public totalDetect : string;
     public locateTypeid : string;
     public address : string;
-    
+    public homeTypeName : string;
 }
