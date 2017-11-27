@@ -7,7 +7,7 @@ export class GuardService {
     user = new UserService();
     constructor(private router:Router,) { }
     canActivate(){
-        if(!localStorage.getItem("login")){
+        if(!localStorage.getItem("lg")){
             this.router.navigate(["login"]);
             return false;
         }else{
