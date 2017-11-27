@@ -139,15 +139,15 @@ export class ManagementStaffUserListComponent extends BaseComponent implements O
     let _self = this;
     console.log("= = Click Delete = =");
     console.log(row);
-    _self.message_comfirm('','ต้องการลบเจ้าหน้าที่ <b>' + row.fullName +'</b> ใช่หรือไม่',function(result){
+    _self.message_comfirm('','ต้องการลบ <b>' + row.fullName +'</b> ใช่หรือไม่',function(result){
       if(result){
         this.api.commit_del(row.userId, function(response){
           if(response && response.status.toString().toUpperCase()=='SUCCESS'){
-            _self.message_success('','ลบเจ้าหน้าที่ <b>' + row.fullName +'</b> เรียบร้อย' , function(){
+            _self.message_success('','ลบ <b>' + row.fullName +'</b> เรียบร้อย' , function(){
               _self.setupTable();
             });
           }else{
-            _self.message_error('','ไม่สามารถลบเจ้าหน้าที่ <b>' + row.fullName +'</b> ได้' );
+            _self.message_error('','ไม่สามารถลบ <b>' + row.fullName +'</b> ได้' );
           }
          });
       }

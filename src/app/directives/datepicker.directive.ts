@@ -28,7 +28,7 @@ export class UiDatePickerDirective implements ControlValueAccessor {
         $(this.el.nativeElement).datepicker({
             changeMonth: true,
             changeYear: true,
-            dateFormat: 'dd/mm/yy'
+            dateFormat: 'dd-mm-yy'
         }).on('change', (e: any) => {
             this.onChange(e.target.value);
         });

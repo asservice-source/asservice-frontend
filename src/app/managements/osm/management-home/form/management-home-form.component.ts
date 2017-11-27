@@ -46,12 +46,12 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
     this.bean.villageId = '11';
     this.bean.osmId = '891037A9-36CF-E711-AB84-005056C00008';
     let _self = this;
-    let ignores = ["holderId","name","road","soi","telephone","latitude","longitude"];
+    let ignores = ["name","road","soi","telephone","latitude","longitude"];
     if(_self.action == _self.ass_action.ADD){
       ignores.push('id');
     }
     let arr = simpleValidate.getObjectEmpty(_self.api.map(_self.bean), ignores);
-    if(arr.length<=0){
+    if(arr.length<=0 && _self.bean.registrationId.trim().length==11){
       _self.api.commit_save(_self.bean, function(response){
         let strAction = _self.action==_self.ass_action.ADD?'เพิ่ม':'แก้ไข';
         if(response && response.status.toString().toUpperCase()=='SUCCESS'){

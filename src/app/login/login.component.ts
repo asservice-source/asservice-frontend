@@ -59,10 +59,11 @@ export class LoginComponent implements OnInit {
     // })
 
     if (this.fixUser == strUser && this.fixPass == strPass) {
-      localStorage.setItem("login", "1");
+      localStorage.setItem("lg", "1");
+      localStorage.setItem("rid", "2");
       self.router.navigate([""]);
     } else {
-      localStorage.setItem("login", "0");
+      localStorage.clear();
     }
   }
 

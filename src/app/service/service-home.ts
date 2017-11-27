@@ -23,8 +23,7 @@ export class Service_Home extends ApiHTTPService{
         "telephone": bean.telephone,
         "latitude": bean.latitude,
         "longitude": bean.longitude,
-        "osmId": bean.osmId,
-        "holderId": ""
+        "osmId": bean.osmId
         }
         return this.attr;
     }
