@@ -3,6 +3,7 @@ import { BaseComponent } from '../../base-component';
 import { ApiHTTPService } from '../../service/api-http.service';
 import {findHomeBean} from '../../beans/findhome.bean';
 import { HomeBean } from '../../beans/home.bean';
+import { LocalDataSource, ViewCell } from 'ng2-smart-table';
 
 declare var $: any;
 
@@ -25,30 +26,54 @@ export class FilterFindMosquitoComponent extends BaseComponent implements OnInit
   public isHomeDisable : boolean = true;
   public findhomebean: findHomeBean = new findHomeBean();
   public homeBean : HomeBean;
+  public source: LocalDataSource = new LocalDataSource();
+  public settings: any;
+  public isShowPlace : boolean = false;
 
   constructor() {
     super();
     this.api = new ApiHTTPService();
     this.homeBean = new HomeBean();
     this.isHomeDisable = true;
-    this.setupVillage();
-    this.setupHomeType();
+    this.settings = this.getTableSetting({
+      
+            name: {
+              title: 'สถานที่',
+              filter: false
+            },
+            action: {
+              title: '',
+              filter: false,
+              width: '100px',
+              type: 'custom',
+              renderComponent: SelectHomeListButton,
+              onComponentInitFunction(instance) {
+                instance.action.subscribe((row: HomeBean) => {
+                  console.log(row);
+                  // let homeId = row.homeId;
+                  // let roundId = self.filterRoundId;
+                  // self.router.navigate(['/main/surveys/personal-detail', homeId, roundId]);
+                });
+              }
+            }
+          });
    }
 
   ngOnInit() {
-    
+    this.setupVillage();
+    this.setupHomeType();
   }
 
   ngOnChanges(changes): void {
-    // console.log("OnChanges");
-    // console.log(changes);
+    console.log("OnChanges");
+    console.log(changes);
     if (changes['findHome']) {
       this.isShowFind = this.findHome;
       
     }
     if(changes['reset']){
       this.findhomebean.villageId = "";
-      this.searchPlace();
+      //this.searchPlace();
       
     }
   }
@@ -87,42 +112,53 @@ export class FilterFindMosquitoComponent extends BaseComponent implements OnInit
     };
     this.api.post('home/home_list_by_village_hometype', params, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-        console.log(resp.response);
+       
         self.HomeNameData = resp.response;
       }
+      console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+      console.log(resp);
+      self.setUpTable();
     })
   }
 
-getHomeDetail(){
-  let self = this;
-  let params ={
-    "homeId" : this.findhomebean.homeId
-  }
-  this.api.post('home/home_info', params, function (resp) {
-    if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-      console.log(resp.response);
-      self.homeBean = resp.response;
-    }
-  })
-}  
-
-  onChoosePlace(homeBean : HomeBean){
-    this.getHomeDetail();
-    console.log(homeBean);
-
-    this.isShowFind = false;
-    this.choosePlace.emit(homeBean);
+  setUpTable() {
+    this.source = super.ng2STDatasource(this.HomeNameData);
+    this.isShowPlace = true;
   }
 
-  // changeForHomename(){
-  //   this.setupHomeName();
+  // onChoosePlace(homeBean : HomeBean){
+  //   // this.getHomeDetail();
+  //   console.log(homeBean);
+
+  //   this.isShowFind = false;
+  //   this.choosePlace.emit(homeBean);
   // }
 
-  addHome(){
-    if(this.findhomebean.homeId == "0"){
+  filterChanges(){
+    this.isShowPlace = false;
+  }
+  // addHome(){
+  //   if(this.findhomebean.homeId == "0"){
 
-    }
-    
+  //   }
+  // }
+}
+
+@Component({
+  template: "<div class=\"text-center\"><button (click)=\"onChoosePlace();\" style=\"padding-top: 0px; padding-bottom: 0px\" class=\"btn btn-primary\">จัดการสมาชิก</button></div>",
+})
+export class SelectHomeListButton implements ViewCell, OnInit {
+  renderValue: string;
+
+  @Input() value: string | number;
+  @Input() rowData: any;
+  @Output() action: EventEmitter<any> = new EventEmitter();
+
+  ngOnInit() {
+    // this.renderValue = this.value.toString();
   }
 
+  onChoosePlace() {
+     this.action.emit(this.rowData);
+  }
 }

@@ -30,7 +30,7 @@
          (click)="searchPlace(); unlock();">ค้นหารายชื่อสถานที่</button>
       </div>
 
-      <div class="col-md-1 text-right">
+      <!-- <div class="col-md-1 text-right">
         <label class="label-form">สถานที่</label>
       </div>
       <div class="col-md-3">
@@ -39,9 +39,15 @@
           <option *ngFor="let item of HomeNameData" [value]="item.homeId">{{item.name}}</option>
           <option ngValue="0">อื่นๆ</option>
         </select>
-      </div>
+      </div> -->
 
     </div>
+    <div class="row" *ngIf="isShowPlace">
+      <div class="col-md-12">
+      <ng2-smart-table [settings]="settings" [source]="source" (rowSelect)="onRowSelect($event)"></ng2-smart-table>
+    </div>
+    </div>
+
     <div class="modal-footer">
       <button type="button" data-dismiss="modal" class="btn btn-sm btn-primary">ยกเลิก</button>
     </div>

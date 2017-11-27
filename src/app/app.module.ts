@@ -60,7 +60,7 @@ import { ManagementHomeComponent } from './managements/osm/management-home/list/
 import { ManagementHomeFormComponent } from './managements/osm/management-home/form/management-home-form.component';
 import { LoadingComponent} from './ng2-loading/ass-loading.component'
 import { LoadingConfigService } from './ng2-loading/ass-loading.service';
-import { FilterFindMosquitoComponent } from './filter/filter-find-mosquito/filter-find-mosquito.component';
+import { FilterFindMosquitoComponent , SelectHomeListButton} from './filter/filter-find-mosquito/filter-find-mosquito.component';
 import { UiDatePickerDirective } from './directives/datepicker.directive';
 
 @NgModule({
@@ -111,7 +111,8 @@ import { UiDatePickerDirective } from './directives/datepicker.directive';
     ManagementHomeFormComponent,
     LoadingComponent,
     FilterFindMosquitoComponent,
-    UiDatePickerDirective
+    UiDatePickerDirective,
+    SelectHomeListButton
   ],
   imports: [
     BrowserModule,
@@ -128,7 +129,8 @@ import { UiDatePickerDirective } from './directives/datepicker.directive';
   entryComponents: [
     ActionCustomViewComponent,
     SurveyPersonalHomeListButtonEditComponent,
-    SurveyPersonalMemberListButtonEditComponent
+    SurveyPersonalMemberListButtonEditComponent,
+    SelectHomeListButton
   ],
   providers: [LoadingConfigService],
   bootstrap: [AppComponent]
