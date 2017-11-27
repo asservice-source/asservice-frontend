@@ -39,8 +39,20 @@ export class Service_Home extends ApiHTTPService{
     }
 
     public getList(villageId: string, osmId: string, callback: (doc: any) => void){
-        this.api_HomeList(villageId, osmId, function(response){
-            callback(response);
+        
+        let parameter = {
+            "villageId": villageId,
+            "osmId": osmId
+           }
+        let _self = this;
+        this.post('/home/home_list_by_village_or_osm', parameter, function(response){
+            console.log(parameter);
+            console.log(response);
+            if(response && response.status.toString().toUpperCase()=='SUCCESS'){
+                callback(response.response);
+            }else{
+                _self.baseComp.message_servNotRespond('', response.message);
+            }
         });
     }
 

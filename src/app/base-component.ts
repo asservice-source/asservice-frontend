@@ -276,7 +276,16 @@ export class BaseComponent implements OnInit {
             callback: callback
         });
     }
-    
+       
+    message_comfirm(title: string, message: string, callback?: (doc: any) => void){
+        title = title || 'ยืนยันการทำรายการ';
+        bootbox.confirm({
+            size: "large",
+            title: "<div class='bootbox-title'><span class='fa fa-question' style='color: #2a7ec7;'></span> "+title+"</div>",
+            message: message,
+            callback: callback
+        });
+    }
     message_error(title: string, message: string, callback?: (doc: any) => void){
         title = title || 'ไม่สามารถทำรายการได้';
         bootbox.alert({
@@ -286,11 +295,12 @@ export class BaseComponent implements OnInit {
             callback: callback
         });
     }
-    message_comfirm(title: string, message: string, callback?: (doc: any) => void){
-        title = title || 'ยืนยันการทำรายการ';
-        bootbox.confirm({
+    message_servNotRespond(title: string, message: string, callback?: (doc: any) => void){
+        title = title || 'Server Not Responding';
+        message = message || 'ไม่สามารถดึงข้อมูลได้';
+        bootbox.alert({
             size: "large",
-            title: "<div class='bootbox-title'><span class='fa fa-question' style='color: #2a7ec7;'></span> "+title+"</div>",
+            title: "<div class='bootbox-title'><span class='fa fa-close' style='color: #d02626;'></span> "+title+"</div>",
             message: message,
             callback: callback
         });

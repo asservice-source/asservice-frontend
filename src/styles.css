@@ -116,3 +116,8 @@ color: white !important;
     color: #FFF;
     font-weight: bold;
 }
+
+.header-info .row{
+    padding-top: 0;
+    padding-bottom: 0;
+}
