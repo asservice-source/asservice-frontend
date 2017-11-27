@@ -53,7 +53,6 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
     let arr = simpleValidate.getObjectEmpty(_self.api.map(_self.bean), ignores);
     if(arr.length<=0){
       _self.api.commit_save(_self.bean, function(response){
-        console.log(response);
         let strAction = _self.action==_self.ass_action.ADD?'เพิ่ม':'แก้ไข';
         if(response && response.status.toString().toUpperCase()=='SUCCESS'){
           _self.message_success('','ทำการ'+strAction+'บ้านเลขที่ <b>' + _self.bean.homeNo + '</b> เรียบร้อย', function(){
@@ -61,12 +60,13 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
           });
         }else{
           let msg = '';
-          if(response.message.toUpperCase().indexOf('DUPLICATED')>=0){
+          if(response.message.toUpperCase().indexOf('DUPLICATED[REGISTRATIONID]')>=0){
+            msg = 'รหัสบ้าน <b>'+_self.bean.registrationId + '</b> ซ้ำ กรุณาใส่รหัสบ้านอื่น';
+          }else if(response.message.toUpperCase().indexOf('DUPLICATED[HOMENO]')>=0){
             msg = 'บ้านเลขที่ <b>'+_self.bean.homeNo + '</b> ซ้ำ กรุณาใส่บ้านเลขที่อื่น';
           }else{
             msg = 'ไม่สามารถ'+strAction+'บ้านเลขที่ <b>' + _self.bean.homeNo + '</b> ได้';
           }
-
           _self.message_error('',msg);
           _self.success.emit({"success": false, "response": response});
         }

@@ -31,15 +31,11 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
         filter: false,
         width: '120px',
       },
-      holderName:{
+      holderFullName:{
         title: "เจ้าบ้าน",
         filter: false,
       },
-      memberAmont:{
-        title: "จำนวนสมาชิก",
-        filter: false,
-        width: '160px',
-      },
+      
       action: {
         title: this.getLabel('lbl_action'),
         filter: false,
@@ -74,8 +70,10 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
     let villageId = "11";
     let osmId = "";//"2A13A59B-BAC2-E711-AB84-005056C00008";
     let _self = this;
+    _self.loading = true;
     this.api.getList(villageId, osmId, function(response){
       _self.source = _self.ng2STDatasource(response);
+      _self.loading = false;
     });
   }
   onModalForm(action:string){
