@@ -26,6 +26,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
 
   public action: string = this.ass_action.ADD;
   public paramMember: PersonalMemberBean = new PersonalMemberBean();
+  public cloneMember: PersonalMemberBean = new PersonalMemberBean();
 
   public roundName: string = "";
   public homeAddress: string = "";
@@ -97,7 +98,8 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
             // console.log(row);
             self.action = self.ass_action.EDIT;
             row.homeId = self.paramHomeId;
-            self.paramMember = self.cloneObj(row);
+            self.cloneMember = self.cloneObj(row);
+            self.paramMember = row;
             self.paramMember = self.strNullToEmpty(self.paramMember);
 
             self.changeRef.detectChanges();
@@ -156,7 +158,8 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
             // console.log(row);
             self.action = self.ass_action.EDIT;
             row.homeId = self.paramHomeId;
-            self.paramMember = self.cloneObj(row);
+            self.cloneMember = self.cloneObj(row);
+            self.paramMember = row;
             self.paramMember = self.strNullToEmpty(self.paramMember);
 
             self.changeRef.detectChanges();
@@ -249,6 +252,8 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
 
   onUpdatedMember(member: PersonalMemberBean) {
     let self = this;
+
+    self.copyObj(member, self.paramMember);
 
     let isActionAdd = (self.action == self.ass_action.ADD);
     let isDuplicated = false;
@@ -381,7 +386,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     self.action = this.ass_action.ADD;
     self.paramMember = new PersonalMemberBean();
     self.paramMember.homeId = this.paramHomeId;
-    
+
     self.changeRef.detectChanges();
     $("#modalMember").modal({ backdrop: 'static', keyboard: false });
   }

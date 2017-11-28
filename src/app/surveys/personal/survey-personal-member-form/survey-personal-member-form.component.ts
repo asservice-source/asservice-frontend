@@ -316,7 +316,7 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
   onChangeDate(event: IMyDateModel) {
     let self = this;
 
-    // console.log(event);
+    console.log(event);
     self.member.birthDate = self.getStringDateForDatePickerModel(event.date);
   }
 
