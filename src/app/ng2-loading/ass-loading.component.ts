@@ -26,7 +26,7 @@ export class LoadingComponent implements OnInit {
     };
 
     private defaultConfig: ILoadingConfig = {
-        animationType: ANIMATION_TYPES.rotatingPlane,
+        animationType: ANIMATION_TYPES.threeBounce,
         backdropBackgroundColour: 'rgba(0, 0, 0, 0.4)',
         backdropBorderRadius: '0px',
         fullScreenBackdrop: true,

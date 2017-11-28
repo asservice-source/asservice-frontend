@@ -7,8 +7,8 @@
                 <div class="bounce3" [ngStyle]="{'background-color': loadingConfig?.tertiaryColour}"></div>
             </div>
 
-            <div class="spinner-sk-rotateplane" *ngIf="getAnimationType(loadingConfig?.animationType) === ANIMATION_TYPES.rotatingPlane" [ngStyle]="{'background-color': loadingConfig?.primaryColour}" [ngClass]="{'full-screen' : loadingConfig?.fullScreenBackdrop == true}"></div>-->
-            <!-- <div class="spinner-sk-rotateplane" [ngStyle]="{'background-color': loadingConfig?.primaryColour}" [ngClass]="{'full-screen' : loadingConfig?.fullScreenBackdrop == true}"><img src='assets/img/loader2.gif' width='100'></div>-->
+            <div class="spinner-sk-rotateplane" *ngIf="getAnimationType(loadingConfig?.animationType) === ANIMATION_TYPES.rotatingPlane" [ngStyle]="{'background-color': loadingConfig?.primaryColour}" [ngClass]="{'full-screen' : loadingConfig?.fullScreenBackdrop == true}"></div>
+    
            
             <div class="spinner-rectangle-bounce" *ngIf="getAnimationType(loadingConfig?.animationType) === ANIMATION_TYPES.rectangleBounce" [ngClass]="{'full-screen' : loadingConfig?.fullScreenBackdrop == true}">
                 <div class="rect1" [ngStyle]="{'background-color': loadingConfig?.primaryColour}"></div>

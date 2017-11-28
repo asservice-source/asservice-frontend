@@ -46,14 +46,14 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
         onComponentInitFunction(instance) {
        
           instance.view.subscribe(row => {
-
+            _self.message_error('','<h3>ยังดูไม่ได้ครับ รอแป๊บ..</h3>');
            });
            instance.edit.subscribe(row => {
             _self.bean = _self.cloneObj(row);
             _self.onModalForm(_self.ass_action.EDIT);
            });
            instance.delete.subscribe(row => {
-
+            _self.message_error('','<h3>ยังลบไม่ได้ครับ รอแป๊บ..</h3>');
            });
           instance.action.subscribe((row, cell) => {
             console.log(row);

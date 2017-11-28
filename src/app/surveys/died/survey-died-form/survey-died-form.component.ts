@@ -113,7 +113,7 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
 
   onSave(){
     let date = this.bean.mDateDead.date;    
-    this.bean.deathDate = this.getStringDateForDatePickerModel(this.bean.mDateDead)+' '+this.bean.mHours+':'+this.bean.mMins+':00.0';
+    this.bean.deathDate = this.getStringDateForDatePickerModel(this.bean.mDateDead.date)+' '+this.bean.mHours+':'+this.bean.mMins+':00.0';
     if(this.action==this.ass_action.ADD){
       this.bean.documentId = this.currentDocumentId;
     }
