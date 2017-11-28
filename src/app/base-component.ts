@@ -187,7 +187,7 @@ export class BaseComponent implements OnInit {
 
     public getStringDateForDatePickerModel(date: any): string {
         if (date) {
-            return date.date.year + '-' + this.numberAppendPrefix(date.date.month, 2) + '-' + this.numberAppendPrefix(date.date.day, 2);
+            return date.year + '-' + this.numberAppendPrefix(date.month, 2) + '-' + this.numberAppendPrefix(date.day, 2);
         }
         return "";
     }
@@ -226,11 +226,22 @@ export class BaseComponent implements OnInit {
 
         return destination;
     }
+
+    public copyObj(source: any, destination: any): any {
+        for (var field in source) {
+            if ('sequenceNo' == field) continue;
+            destination[field] = source[field];
+        }
+
+        return destination;
+    }
+
     formatCitizenId(cid: string): string {
         if (this.isEmpty(cid) && cid.length == 13) return cid;
         let arr = cid.split('');
         return arr[0] + '-' + arr[1] + arr[2] + arr[3] + arr[4] + '-' + arr[5] + arr[6] + arr[7] + arr[8] + arr[9] + '-' + arr[10] + arr[11] + '-' + arr[12];
     }
+    
     isValidCitizenIdThailand(s): boolean {
         if (this.isEmpty(s)) {
             return false;
