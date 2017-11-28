@@ -9,7 +9,7 @@
     <div class="panel panel-default">
       <div class="panel-body">
 
-        <div class="row">
+        <div class="row" *ngIf="isShowInfo">
           <div class="col-sm-12">
             <div class="box-body">
               <dl class="dl-horizontal">
@@ -66,3 +66,4 @@
 </div>
 
 <app-survey-personal-member-form [action]="action" [triggerMember]="cloneMember" (memberUpdated)="onUpdatedMember($event)"></app-survey-personal-member-form>
+<ass-loading [show]="loading"></ass-loading>

@@ -139,6 +139,8 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
   bindHomeList(roundId: string, villageId: string, osmId: string, homeId: string) {
     let self = this;
 
+    self.loading = true;
+    
     let URL_LIST_HOME: string = "survey_population/search_population_list";
     let params = { "documentId": roundId, "villageId": villageId, "osmId": osmId, "homeId": homeId };
 
@@ -151,6 +153,7 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
       } else {
         console.log('survey-personal-home-list(bindHomeList) occured error(s) => ' + d.message);
       }
+      self.loading = false;
     });
   }
 }

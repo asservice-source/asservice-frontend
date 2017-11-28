@@ -44,6 +44,8 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
   public isShowTable2: boolean = false;
   public tempData2: Array<any> = [];
 
+  public isShowInfo: boolean = false;
+
   constructor(private http: Http, private router: Router, private route: ActivatedRoute, private changeRef: ChangeDetectorRef) {
     super();
 
@@ -189,6 +191,10 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
 
     self.apiHttp.getRound_byDocumentId(self.surveyHeaderCode.POPULATION, self.paramRoundId, function (d) {
       self.roundName = d.name;
+
+      if(!self.isEmpty(self.homeAddress)) {
+        self.isShowInfo = true;
+      }
     });
   }
 
@@ -209,11 +215,17 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
       } else {
         console.log('survey-personal-member-list(bindHomeInfo) occured error(s) => ' + d.message);
       }
+
+      if(!self.isEmpty(self.roundName)) {
+        self.isShowInfo = true;
+      }
     });
   }
 
   bindHomeMemberList() {
     let self = this;
+
+    self.loading = true;
 
     let URL_LIST_HOME_MEMBERS: string = "homemember/homemember_by_home";
     let params = { "homeId": this.paramHomeId };
@@ -240,6 +252,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
       } else {
         console.log('survey-personal-member-list(bindHomeMemberList) occured error(s) => ' + d.message);
       }
+      self.loading = false;
     });
 
     // this.http.get("assets/data_test/data_personal.json")
