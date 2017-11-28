@@ -37,7 +37,6 @@ import { SurveyMetabolicFormComponent } from './surveys/metabolic/survey-metabol
 import { SurveyMosquitoListComponent } from './surveys/mosquito/survey-mosquito-list/survey-mosquito-list.component';
 import { SurveyMosquitoFormComponent } from './surveys/mosquito/survey-mosquito-form/survey-mosquito-form.component';
 import { SurveyPersonalHomeListComponent, SurveyPersonalHomeListButtonEditComponent } from './surveys/personal/survey-personal-home-list/survey-personal-home-list.component';
-import { SurveyPersonalHomeFormComponent } from './surveys/personal/survey-personal-home-form/survey-personal-home-form.component';
 import { SurveyPersonalMemberListComponent, SurveyPersonalMemberListButtonEditComponent } from './surveys/personal/survey-personal-member-list/survey-personal-member-list.component';
 import { SurveyPersonalMemberFormComponent } from './surveys/personal/survey-personal-member-form/survey-personal-member-form.component';
 import { SurveyCancerListComponent } from './surveys/cancer/survey-cancer-list/survey-cancer-list.component';
@@ -92,7 +91,6 @@ import { UiDatePickerDirective } from './directives/datepicker.directive';
     SurveyCancerFormComponent,
     SurveyPersonalHomeListComponent,
     SurveyPersonalHomeListButtonEditComponent,
-    SurveyPersonalHomeFormComponent,
     SurveyPersonalMemberListComponent,
     SurveyPersonalMemberListButtonEditComponent,
     SurveyPersonalMemberFormComponent,
