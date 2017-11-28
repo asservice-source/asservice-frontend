@@ -4,6 +4,7 @@ import { Http } from '@angular/http';
 import { BaseComponent } from '../../../base-component';
 import { ApiHTTPService } from '../../../service/api-http.service';
 import { InputValidateInfo } from '../../../directives/inputvalidate.directive';
+import { SimpleValidateForm } from '../../../utils.util';
 declare var $: any;
 declare var bootbox: any;
 
@@ -35,7 +36,7 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
   public isErrorDisabilityType: any;//
   public disabilityCauseType: boolean = true;
   public inputValidate: InputValidateInfo = new InputValidateInfo();
-  
+
 
   constructor(private http: Http, private changeRef: ChangeDetectorRef) {
     super();
@@ -88,6 +89,7 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
   onModalEvent() {
     let self = this;
     $('#find-person-md').on('show.bs.modal', function (e) {
+      self.inputValidate = new InputValidateInfo();
       self.resetFind = self.resetFind + 1;
       if (self.action == self.ass_action.EDIT) {
         self.data.telephone = self.formatPhoneToDisplay(self.data.telephone);
@@ -98,6 +100,7 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
     })
     $('#find-person-md').on('hidden.bs.modal', function () {
       console.log("hide.bs.modal");
+      self.inputValidate = new InputValidateInfo();
       self.isShowForm = false;
       self.isFindPersonal = true;
       self.resetFind = self.resetFind + 1;
@@ -175,9 +178,11 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
   onChangePatientSyurvey() {
     if (this.action == this.ass_action.ADD) {
       if (this.patientbean.patientSurveyTypeCode == 'Patient') {
+        this.inputValidate = new InputValidateInfo();
         this.patientbean.hInsuranceTypeID = "89";
       }
       else {
+        this.inputValidate = new InputValidateInfo();
         this.patientbean.hInsuranceTypeID = "74";
       }
     }
@@ -244,51 +249,82 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
     }
   }
 
-  validate() {
+  validate(obj:any): boolean {
     let validate = true;
-   
+
     ///////
-
-
+    this.inputValidate = new InputValidateInfo();
+    this.inputValidate.isCheck = true;
+    let simpVal: SimpleValidateForm = new SimpleValidateForm();
+    let ignore = ["documentID", "cancerTypeID", "diseaseStatusTypeID", "patientTypeID", "disabilityTypeID", "disabilityCauseTypeID", "treatmentPlace", "remark", "telephone", "latitude", "longitude"];
+    
+    if(this.patientbean.patientSurveyTypeCode=='Disabled'){
+      ignore = ["cancerTypeID", "latitude", "longitude"];
+    }else{
+      ignore = ["cancerTypeID","disabilityTypeID", "disabilityCauseTypeID", "latitude", "longitude"];
+    }
+    
+    if(this.action == this.ass_action.ADD){
+      ignore.push("rowGUID");
+      
+    }
+    let objs = simpVal.getObjectEmpty(obj,ignore);
+    console.log(objs);
+    if(objs.length>0){
+      validate = false;
+    }else{
+      validate = true;
+    }
     return validate;
   }
 
-  addSurvey() {
+  addSurvey(): void {
     let self = this;
+    let documentId;
+    let disabilityTypeID;
+    let disabilityCauseTypeID;
+    if (this.action == this.ass_action.ADD) {
+      documentId = this.documentId;
+    }else{
+      documentId = this.patientbean.documentId;
+    }
 
+    if (this.patientbean.patientSurveyTypeCode == 'Patient') {
+      disabilityTypeID = "";
+      disabilityCauseTypeID = "";
+    }else{
+      disabilityTypeID = this.patientbean.disabilityTypeID;
+      disabilityCauseTypeID = this.patientbean.disabilityCauseTypeID;
+    }
 
-    if (this.validate()) {
-      if (!self.isEmpty(self.patientbean.telephone)) {
-        self.patientbean.telephone = self.formatForJson(self.patientbean.telephone);
-      }
-      console.log(this.documentId);
-      if (this.action == this.ass_action.ADD) {
-        this.patientbean.documentId = this.documentId;
-      }
-      if (this.patientbean.patientSurveyTypeCode == 'Patient') {
-        this.patientbean.disabilityTypeID = "";
-        this.patientbean.disabilityCauseTypeID = "";
-      }
-      let obj = {
-        "rowGUID": this.patientbean.rowGUID
-        , "personID": this.patientbean.personId
-        , "documentID": this.patientbean.documentId
-        , "osmId": this.patientbean.osmId
-        , "homeID": this.patientbean.homeId
-        , "cancerTypeID": this.patientbean.cancerTypeID
-        , "diseaseStatusTypeID": this.patientbean.diseaseStatusTypeID
-        , "patientDate": this.getStringDateForDatePickerModel(this.patientbean.patientDate)
-        , "patientTypeID": this.patientbean.patientTypeId
-        , "hInsuranceTypeID": this.patientbean.hInsuranceTypeID
-        , "patientSurveyTypeCode": this.patientbean.patientSurveyTypeCode
-        , "disabilityTypeID": this.patientbean.disabilityTypeID
-        , "disabilityCauseTypeID": this.patientbean.disabilityCauseTypeID
-        , "treatmentPlace": this.patientbean.treatmentPlace
-        , "remark": this.patientbean.remark
-        , "telephone": this.patientbean.telephone
-        , "latitude": this.patientbean.latitude
-        , "longitude": this.patientbean.longitude
-      };
+    if (!self.isEmpty(self.patientbean.telephone)) {
+      self.patientbean.telephone = self.formatForJson(self.patientbean.telephone);
+    }
+
+    let obj = {
+      "rowGUID": this.patientbean.rowGUID
+      , "personID": this.patientbean.personId
+      , "documentID": documentId
+      , "osmId": this.patientbean.osmId
+      , "homeID": this.patientbean.homeID
+      , "cancerTypeID": this.patientbean.cancerTypeID
+      , "diseaseStatusTypeID": this.patientbean.diseaseStatusTypeID
+      , "patientDate": this.getStringDateForDatePickerModel(this.patientbean.patientDate.date)
+      , "patientTypeID": this.patientbean.patientTypeId
+      , "hInsuranceTypeID": this.patientbean.hInsuranceTypeID
+      , "patientSurveyTypeCode": this.patientbean.patientSurveyTypeCode
+      , "disabilityTypeID": disabilityTypeID
+      , "disabilityCauseTypeID": disabilityCauseTypeID
+      , "treatmentPlace": this.patientbean.treatmentPlace
+      , "remark": this.patientbean.remark
+      , "telephone": this.patientbean.telephone
+      , "latitude": this.patientbean.latitude
+      , "longitude": this.patientbean.longitude
+    };
+
+    console.log(obj);
+
+    if (this.validate(obj)) {
       let params = this.strNullToEmpty(obj);
       console.log(params);
       this.api.post('survey_patient/ins_upd', params, function (resp) {
@@ -299,13 +335,14 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
           bootbox.alert({
             size: "large",
             title: "<div style='color:#5cb85c;font-weight: bold;'><span class='glyphicon glyphicon-ok'></span> ส่งแบบสำรวจสำเร็จ</div>",
-            message: "ท่านได้ทำการส่งแบบสำรวจความเสี่ยงโรค Metabolic แล้ว",
+            message: "ท่านได้ทำการส่งแบบสำรวจผู้พิการ และผู้ป่วยติดเตียง แล้ว",
             callback: function () {
             }
           });
         }
       })
     }
+    
   }
 
 }

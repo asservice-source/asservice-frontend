@@ -436,6 +436,7 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
     // console.log(JSON.stringify(self.member));
 
     if (self.action == self.ass_action.ADD) {
+      self.loading = true;
       self.apiHttp.commit_save(self.member, function (d) {
         // console.log(d);
         if (d != null && d.status.toUpperCase() == "SUCCESS") {
@@ -448,13 +449,16 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
         } else {
           self.message_error('', 'เพิ่มข้อมูลบุคคล : ' + self.member.fullName + ' ไม่สำเร็จ');
         }
+        self.loading = false;
       });
     } else {
+      self.loading = true;
       self.member.listPrefix = self.listPrefix;
       self.member.listGender = self.listGender;
       self.member.listFamilyStatus = self.listFamilyStatus;
       self.memberUpdated.emit(self.member);
       self.message_success('', 'แก้ไขข้อมูลบุคคล : ' + self.member.fullName);
+      self.loading = false;
     }
   }
 
