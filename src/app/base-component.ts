@@ -27,13 +27,7 @@ export class BaseComponent implements OnInit {
     ngOnInit() {
 
     }
-    public setNg2STDatasource(data: LocalDataSource) {
-        this.ng2STDataSource = data;
-    }
-    public ng2STDatasource(datas: any): LocalDataSource {
-        this.ng2STDataSource = new LocalDataSource(datas);
-        return this.ng2STDataSource;
-    }
+    
     public getLabel(key: string, lang?: string, defaultValue?: string) {
         ///console.log("label:"+key);
         return this.labelManager.getLabel(key, lang) || defaultValue;
@@ -78,6 +72,13 @@ export class BaseComponent implements OnInit {
         }
         return settings;
     }
+    public setNg2STDatasource(source: LocalDataSource) {
+        this.ng2STDataSource = source;
+    }
+    public ng2STDatasource(source: any): LocalDataSource {
+        this.ng2STDataSource = new LocalDataSource(source);
+        return this.ng2STDataSource;
+    }
     private isRefrestData = false;
     public onRowSelect(event): void {
 
@@ -85,6 +86,7 @@ export class BaseComponent implements OnInit {
             this.isRefrestData = false;
             return;
         }
+        $("#btn-view-child").html("จัดการสมาชิก");
         let source = event.source
         if (source) {
 

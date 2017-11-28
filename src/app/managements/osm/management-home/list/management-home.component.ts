@@ -5,6 +5,7 @@ import { ApiHTTPService } from '../../../../service/api-http.service';
 import { LocalDataSource } from 'ng2-smart-table';
 import { ActionCustomViewComponent } from '../../../../action-custom-table/action-custom-view.component';
 import { Service_Home } from '../../../../service/service-home';
+import { ViewChildButtonComponent } from '../../../../view-child-button-smart-table/view-child-button.component';
 
 declare var $:any;
 @Component({
@@ -35,7 +36,20 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
         title: "เจ้าบ้าน",
         filter: false,
       },
-      
+      choose:{
+        title: 'XXX',
+        filter: false,
+        sort: false,
+        width: '120px',
+        type: 'custom',
+        renderComponent: ViewChildButtonComponent,
+        onComponentInitFunction(instance) {  
+          instance.click.subscribe(row => {
+            console.log(row);
+           });
+
+          }
+      },
       action: {
         title: this.getLabel('lbl_action'),
         filter: false,
