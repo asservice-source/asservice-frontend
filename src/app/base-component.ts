@@ -290,7 +290,7 @@ export class BaseComponent implements OnInit {
     }
 
     loadingConfig(): any {
-        return { fullScreenBackdrop: true, animationType: ANIMATION_TYPES.rotatingPlane }
+        return { fullScreenBackdrop: true, animationType: ANIMATION_TYPES.threeBounce }
     }
 
     message_success(title: string, message: string, callback?: (doc: any) => void) {

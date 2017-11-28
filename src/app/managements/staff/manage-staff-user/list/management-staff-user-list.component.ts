@@ -141,7 +141,7 @@ export class ManagementStaffUserListComponent extends BaseComponent implements O
     console.log(row);
     _self.message_comfirm('','ต้องการลบ <b>' + row.fullName +'</b> ใช่หรือไม่',function(result){
       if(result){
-        this.api.commit_del(row.userId, function(response){
+        _self.api.commit_del(row.userId, function(response){
           if(response && response.status.toString().toUpperCase()=='SUCCESS'){
             _self.message_success('','ลบ <b>' + row.fullName +'</b> เรียบร้อย' , function(){
               _self.setupTable();

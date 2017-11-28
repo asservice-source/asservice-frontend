@@ -61,45 +61,58 @@ export class RegisterComponent extends BaseComponent implements OnInit {
 
     this.api = new ApiHTTPService();
     this.registerBean = new RegisterBean();
-    this.api_hospital();
-    // this.api_province();
-    this.getProvinceList();
-    this.getPrefixName();
     this.registerBean.provinceID = "0";
     this.registerBean.amphurCode = "0";
     this.registerBean.tumbolID = "0";
     this.registerBean.contactPrefix = "0";
 
   }
-
   ngOnInit() {
-    
+    this.api_hospital();
+    this.getProvinceList();
+    this.getPrefixName();
   }
-
-  api_register(): void {
-
-  }
-
   api_hospital() {
-    //this.loadingCMD = 'show';
-    let seft = this;
+    this.loading = true;
+    let self = this;
     this.apiHttp.post('hospital/hospital_list', {}, function (resp) {
+      
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-        seft.hospitalList = resp.response;
-        seft.dataHospitals = seft.completerService.local(resp.response, 'hospitalName', 'hospitalName');
-        console.log(seft.hospitalList);
+        self.hospitalList = resp.response;
+        self.dataHospitals = self.completerService.local(resp.response, 'hospitalName', 'hospitalName');
+        console.log(self.hospitalList);
+      }
+
+      if(self.provinceList){
+        self.loading = false;
+      }
+
+    });
+  }
+
+  getProvinceList() {
+    let self = this;
+    let params = {};
+    this.api.post('address/province', params, function (resp) {
+      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+        self.provinceList = resp.response;
+      }
+      if(self.hospitalList){
+        self.loading = false;
       }
     });
   }
 
-  // api_province() : void {
+  getPrefixName() {
+    let self = this;
+    let params = {};
+    this.api.post('person/prefix_list', params, function (resp) {
+      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+        self.prefixList = resp.response;
+      }
 
-  //   let seft = this;
-  //   this.apiHttp.get('address/province', {} ,function(data){
-  //     seft.provinceList = data;
-  //   });
-  // }
-
+    })
+  }
   onProvinceChange() {
     let self = this;
     self.registerBean.amphurCode = "0";
@@ -169,7 +182,9 @@ export class RegisterComponent extends BaseComponent implements OnInit {
           contactEmail: this.registerBean.contactEmail
         };
         console.log(params);
+        self.loading = true;
         this.api.post('hospital/register_hospital', params, function (resp) {
+          self.loading = false;
           console.log(resp);
           if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
             bootbox.alert({
@@ -185,37 +200,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
 
   }
 
-  getProvinceList() {
-    let self = this;
-    let params = {};
-    this.api.post('address/province', params, function (resp) {
-      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-        self.provinceList = resp.response;
-      }
-
-    })
-  }
-
-  getPrefixName() {
-    let self = this;
-    let params = {};
-    this.api.post('person/prefix_list', params, function (resp) {
-      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-        self.prefixList = resp.response;
-      }
-
-    })
-  }
-
-  // getHospitalList() {
-  //   let self = this;
-  //   let params = {};
-  //   this.api.post('hospital/hospital_list', params, function (resp) {
-  //     if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-  //       self.prefixList = resp.response;
-  //     }
-  //   })
-  // }
+  
 
   validateHostpital() {
     let self = this;

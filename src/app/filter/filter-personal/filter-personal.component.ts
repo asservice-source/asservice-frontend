@@ -17,7 +17,7 @@ export class FilterPersonalComponent extends BaseComponent implements OnInit {
 
   // List of Data
   public description: any = { round: '', village: 'ทั้งหมด', osm: 'ทั้งหมด', name: '' };
-  public listSurvey: any = [];
+  public listRound: any = [];
   public listVillageNo;
   public listOsm;
   public listHomeNo;
@@ -34,7 +34,7 @@ export class FilterPersonalComponent extends BaseComponent implements OnInit {
   ngOnInit() {
     let self = this;
 
-    self.bindSurvey();
+    self.bindRound();
     self.bindVillageNo();
 
     self.onSearchFilter();
@@ -69,19 +69,27 @@ export class FilterPersonalComponent extends BaseComponent implements OnInit {
     self.bindHomeNo(self.filterBean.villageId, self.filterBean.osmId);
   }
 
-  bindSurvey() {
+  bindRound() {
     let self = this;
 
     this.apiHttp.api_SurveyHeaderList(self.surveyHeaderCode.POPULATION, function (response) {
-      self.listSurvey = response;
-      for (let item of self.listSurvey) {
-        if (item.status == '2') {
-          self.filterBean.roundId = item.rowGUID;
-          self.description.round = item.round;
-          self.onSearchFilter();
-          break;
-        }
+      self.listRound = response;
+
+      let currentRound = self.getCurrentRound(self.listRound);
+      if (currentRound) {
+        self.filterBean.roundId = currentRound.rowGUID;
+        self.description.round = currentRound.round;
+        self.onSearchFilter();
       }
+
+      // for (let item of self.listRound) {
+      //   if (item.status == '2') { // รอบปัจจุบัน
+      //     self.filterBean.roundId = item.rowGUID;
+      //     self.description.round = item.round;
+      //     self.onSearchFilter();
+      //     break;
+      //   }
+      // }
     });
   }
 
@@ -114,22 +122,42 @@ export class FilterPersonalComponent extends BaseComponent implements OnInit {
   }
 
   onChangeRound(select: any) {
-    // console.log(select);
+    let self = this;
+
     for (let item of select.options) {
       if (item.value == select.value) {
-        this.description.round = item.text;
+        self.description.round = item.text;
+      }
+    }
+  }
+
+  public getCurrentRound(listRound) {
+    let self = this;
+
+    for (let item of listRound) {
+      if (item.status == '2') { // รอบปัจจุบัน
+        return item;
       }
     }
   }
 
   onSearchFilter() {
-    this.notifyFilter.emit(this.filterBean);
+    let self = this;
+
+    self.notifyFilter.emit(self.filterBean);
   }
 
   onClearFilter() {
     let self = this;
 
-    self.filterBean.roundId = "";
+    let currentRound = self.getCurrentRound(self.listRound);
+    if (currentRound) {
+      self.filterBean.roundId = currentRound.rowGUID;
+      self.description.round = currentRound.round;
+    } else {
+      self.filterBean.roundId = "";
+    }
+
     self.filterBean.villageId = "";
     self.filterBean.osmId = "";
     self.filterBean.homeId = "";

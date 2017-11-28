@@ -5,9 +5,9 @@ import { ViewCell, LocalDataSource } from 'ng2-smart-table';
 import { ActionCustomViewComponent } from '../../../action-custom-table/action-custom-view.component';
 import { FilterBean } from "../../../beans/filter.bean";
 import { PersonalHomeBean } from '../../../beans/personal-home.bean';
-import { ApiHTTPService } from '../../../service/api-http.service';
-import { BaseComponent } from '../../../base-component';
 import { HomeBean } from '../../../beans/home.bean';
+import { BaseComponent } from '../../../base-component';
+import { ApiHTTPService } from '../../../service/api-http.service';
 declare var $: any;
 
 @Component({
@@ -90,7 +90,7 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
         renderComponent: SurveyPersonalHomeListButtonEditComponent,
         onComponentInitFunction(instance) {
           instance.action.subscribe((row: PersonalHomeBean) => {
-            console.log(row);
+            // console.log(row);
             let homeId = row.homeId;
             let roundId = self.filterRoundId;
             self.router.navigate(['/main/surveys/personal-detail', homeId, roundId]);
@@ -132,7 +132,7 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
     this.paramHome = new PersonalHomeBean();
     this.action = this.ass_action.ADD;
     this.changeRef.detectChanges();
-    // $("#modalHome").modal({ backdrop: 'static', keyboard: false });
+    
     $("app-management-osm-area-form #modalForm").modal({ backdrop: 'static', keyboard: false });
   }
 
