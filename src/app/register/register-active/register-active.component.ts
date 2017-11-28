@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiHTTPService } from '../../service/api-http.service';
+import { BaseComponent } from '../../base-component';
 declare var bootbox: any;
 
 @Component({
@@ -8,13 +9,14 @@ declare var bootbox: any;
   templateUrl: './register-active.component.html',
   styleUrls: ['./register-active.component.css']
 })
-export class RegisterActiveComponent implements OnInit {
+export class RegisterActiveComponent extends BaseComponent implements OnInit {
 
   public tokenId : string;
   private api: ApiHTTPService;
   public text : string;
 
   constructor(private route: ActivatedRoute) {
+    super();
     this.api = new ApiHTTPService();
    }
 
@@ -37,11 +39,13 @@ export class RegisterActiveComponent implements OnInit {
      }
     this.api.post('hospital/activate_hospital', params, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-        // self.provinceList = resp.response;
-        //bootbox.alert("token ="+this.tokenId);
-        self.text = "ผ่าน";
+        self.message_success("","ยืนยันการสมัครสมาชิกสำเร็จ",function (){
+          location.href = "/login";
+        });
       }else{
-        self.text = "ไม่ผ่าน";
+        self.message_error("","Token หมดอายุ",function(){
+          location.href = "/register";
+        })
       }
 
     })
