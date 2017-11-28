@@ -20,13 +20,9 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
   @Input() action: string;
   @Input() set triggerMember(paramMember: PersonalMemberBean) {
     let self = this;
-
+    
     self.member = self.strNullToEmpty(paramMember);
-    // if (self.member && self.member.birthDate) {
-    //   self.modelBirthDate = self.getCurrentDatePickerModel(self.member.birthDate);
-    // } else {
-    //   self.modelBirthDate = {};
-    // }
+    self.modelBirthDate = self.getDatePickerModel(self.member.birthDate);
   }
   @Output() memberUpdated = new EventEmitter<PersonalMemberBean>();
   @Output() memberInserted = new EventEmitter<PersonalMemberBean>();
@@ -55,7 +51,7 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
   public isDisabledActionAdd: boolean = false;
   public isDisablePersonData: boolean = true;
 
-  // public modelBirthDate: any;
+  public modelBirthDate: any = null;
 
   constructor() {
     super();
@@ -94,6 +90,7 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
         self.isDisabledActionAdd = true;
         self.isDisablePersonData = false;
       } else {
+        self.modelBirthDate = null;
         self.member.isGuest = false;
         self.member.isExists = true;
 
@@ -395,13 +392,7 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
           self.member.bloodTypeId = personData.bloodTypeID;
           self.member.rhGroupId = personData.rHGroupID;
           self.member.birthDate = personData.birthDate;
-
-          // if (personData.birthDate) {
-          //   self.modelBirthDate = self.getCurrentDatePickerModel(personData.birthDate);
-          // } else {
-          //   self.member.birthDate = '';
-          // }
-
+          self.modelBirthDate = self.getDatePickerModel(personData.birthDate);
           self.member.educationCode = personData.educationCode;
           self.member.occupationCode = personData.occupCode;
 
@@ -419,7 +410,7 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
           self.member.bloodTypeId = '';
           self.member.rhGroupId = '';
           self.member.birthDate = '';
-          // self.modelBirthDate = {};
+          self.modelBirthDate = null;
           self.member.educationCode = '';
           self.member.occupationCode = '';
 

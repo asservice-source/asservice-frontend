@@ -1,8 +1,8 @@
 import { AdminModule } from './admin/admin.module';
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { NgModule } from '@angular/core';
 import { Ng2CompleterModule } from "ng2-completer";
 import { Ng2SmartTableModule } from "ng2-smart-table";
 import { HttpModule } from '@angular/http';
@@ -37,7 +37,6 @@ import { SurveyMetabolicFormComponent } from './surveys/metabolic/survey-metabol
 import { SurveyMosquitoListComponent } from './surveys/mosquito/survey-mosquito-list/survey-mosquito-list.component';
 import { SurveyMosquitoFormComponent } from './surveys/mosquito/survey-mosquito-form/survey-mosquito-form.component';
 import { SurveyPersonalHomeListComponent, SurveyPersonalHomeListButtonEditComponent } from './surveys/personal/survey-personal-home-list/survey-personal-home-list.component';
-import { SurveyPersonalHomeFormComponent } from './surveys/personal/survey-personal-home-form/survey-personal-home-form.component';
 import { SurveyPersonalMemberListComponent, SurveyPersonalMemberListButtonEditComponent } from './surveys/personal/survey-personal-member-list/survey-personal-member-list.component';
 import { SurveyPersonalMemberFormComponent } from './surveys/personal/survey-personal-member-form/survey-personal-member-form.component';
 import { SurveyCancerListComponent } from './surveys/cancer/survey-cancer-list/survey-cancer-list.component';
@@ -61,7 +60,6 @@ import { ManagementHomeFormComponent } from './managements/osm/management-home/f
 import { LoadingComponent} from './ng2-loading/ass-loading.component'
 import { LoadingConfigService } from './ng2-loading/ass-loading.service';
 import { FilterFindMosquitoComponent , SelectHomeListButton} from './filter/filter-find-mosquito/filter-find-mosquito.component';
-import { UiDatePickerDirective } from './directives/datepicker.directive';
 
 @NgModule({
   declarations: [
@@ -92,7 +90,6 @@ import { UiDatePickerDirective } from './directives/datepicker.directive';
     SurveyCancerFormComponent,
     SurveyPersonalHomeListComponent,
     SurveyPersonalHomeListButtonEditComponent,
-    SurveyPersonalHomeFormComponent,
     SurveyPersonalMemberListComponent,
     SurveyPersonalMemberListButtonEditComponent,
     SurveyPersonalMemberFormComponent,
@@ -111,7 +108,6 @@ import { UiDatePickerDirective } from './directives/datepicker.directive';
     ManagementHomeFormComponent,
     LoadingComponent,
     FilterFindMosquitoComponent,
-    UiDatePickerDirective,
     SelectHomeListButton
   ],
   imports: [
@@ -123,8 +119,7 @@ import { UiDatePickerDirective } from './directives/datepicker.directive';
     ReactiveFormsModule,
     Ng2CompleterModule,
     Ng2SmartTableModule,
-    MyDatePickerModule,
-    
+    MyDatePickerModule
   ],
   entryComponents: [
     ActionCustomViewComponent,

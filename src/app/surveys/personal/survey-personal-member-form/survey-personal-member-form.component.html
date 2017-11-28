@@ -156,9 +156,8 @@
                 <label class="label-form">วันเดือนปี เกิด</label>
               </div>
               <div class="col-md-3">
-                <input type="text" uiDatePicker [(ngModel)]="member.birthDate">
-                <!-- <my-date-picker name="mydate" [options]="datePickerOptions" [(ngModel)]="modelBirthDate" (dateChanged)="onChangeDate($event)"
-                  [disabled]="isDisablePersonData"></my-date-picker> -->
+                <my-date-picker name="birthDate" [options]="datePickerOptions" [(ngModel)]="modelBirthDate" (dateChanged)="onChangeDate($event)"
+                  [disabled]="isDisablePersonData"></my-date-picker>
               </div>
             </div>
 
@@ -261,14 +260,14 @@
               </div>
 
               <div class="row">
-                  <div class="col-md-1"></div>
-                  <div class="col-md-2 text-right">
-                    <label class="label-form">รหัสไปรษณีย์</label>
-                  </div>
-                  <div class="col-md-3">
-                    <input type="text" class="ng-pristine ng-valid ng-touched" [(ngModel)]="member.zipCode">
-                  </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-2 text-right">
+                  <label class="label-form">รหัสไปรษณีย์</label>
                 </div>
+                <div class="col-md-3">
+                  <input type="text" class="ng-pristine ng-valid ng-touched" [(ngModel)]="member.zipCode">
+                </div>
+              </div>
 
             </div>
 

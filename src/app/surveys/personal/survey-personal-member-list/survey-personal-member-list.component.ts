@@ -97,7 +97,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
             // console.log(row);
             self.action = self.ass_action.EDIT;
             row.homeId = self.paramHomeId;
-            self.paramMember = row;
+            self.paramMember = self.cloneObj(row);
             self.paramMember = self.strNullToEmpty(self.paramMember);
 
             self.changeRef.detectChanges();
@@ -156,7 +156,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
             // console.log(row);
             self.action = self.ass_action.EDIT;
             row.homeId = self.paramHomeId;
-            self.paramMember = row;
+            self.paramMember = self.cloneObj(row);
             self.paramMember = self.strNullToEmpty(self.paramMember);
 
             self.changeRef.detectChanges();
@@ -172,7 +172,6 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     this.bindRoundName();
     this.bindHomeInfo();
     this.bindHomeMemberList();
-    this.onReadyjQuery();
   }
 
   receiveParameters() {
@@ -377,10 +376,13 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
   }
 
   onClickAdd() {
-    this.paramMember = new PersonalMemberBean();
-    this.paramMember.homeId = this.paramHomeId;
-    this.action = this.ass_action.ADD;
-    this.changeRef.detectChanges();
+    let self = this;
+
+    self.action = this.ass_action.ADD;
+    self.paramMember = new PersonalMemberBean();
+    self.paramMember.homeId = this.paramHomeId;
+    
+    self.changeRef.detectChanges();
     $("#modalMember").modal({ backdrop: 'static', keyboard: false });
   }
 
@@ -415,19 +417,6 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
 
   onModalForm(row: PersonalMemberBean) {
     $("#modalMember").modal({ backdrop: 'static', keyboard: false });
-  }
-
-  onReadyjQuery() {
-
-    $(function () {
-
-      $('.datepicker').datepicker({
-        format: 'mm/dd/yyyy',
-        startDate: '-3d'
-      });
-
-    });
-
   }
 
 }

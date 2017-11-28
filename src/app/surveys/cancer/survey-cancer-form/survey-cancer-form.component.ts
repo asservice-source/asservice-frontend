@@ -129,8 +129,7 @@ export class SurveyCancerFormComponent extends BaseComponent implements OnInit, 
       this.isFindPersonal = true;
       this.isShowForm = false;
       if (this.ass_action.EDIT == this.action) {
-        // $('#find-person-md').model('hide');
-        $('#find-person-md').model('hide');
+        $('#find-person-md').modal('hide');
       }
     }
   
@@ -314,35 +313,36 @@ export class SurveyCancerFormComponent extends BaseComponent implements OnInit, 
         this.cancerbean.disabilityCauseTypeID = "";
       }
   
-      let obj = {
-        "rowGUID": this.cancerbean.rowGUID
-        , "personID": this.cancerbean.personId
-        , "documentID": this.cancerbean.documentId
-        , "osmId": this.cancerbean.osmId
-        , "homeID": this.cancerbean.homeId
-        , "cancerTypeID": this.cancerbean.cancerTypeID
-        , "diseaseStatusTypeID": this.cancerbean.diseaseStatusTypeID
-        , "cancerDate": this.getStringDateForDatePickerModel(this.cancerbean.cancerDate)
-        , "cancerTypeId": this.cancerbean.cancerTypeId
-        , "hInsuranceTypeID": this.cancerbean.hInsuranceTypeID
-        , "cancerSurveyTypeCode": this.cancerbean.patientSurveyTypeCode
-        , "disabilityTypeID": this.cancerbean.disabilityTypeID
-        , "disabilityCauseTypeID": this.cancerbean.disabilityCauseTypeID
-        , "treatmentPlace": this.cancerbean.treatmentPlace
-        , "remark": this.cancerbean.remark
-        , "telephone": this.cancerbean.telephone
-        , "latitude": this.cancerbean.latitude
-        , "longitude": this.cancerbean.longitude
-      };
   
+      let obj = {
+        
+          "rowGUID" : this.cancerbean.rowGUID
+          ,"personID" : this.cancerbean.personId
+          ,"documentID" : this.cancerbean.documentId
+          ,"osmId" : this.cancerbean.osmId
+          ,"homeID" : this.cancerbean.homeId
+          ,"cancerTypeID" : this.cancerbean.cancerTypeId
+          ,"diseaseStatusTypeID": this.cancerbean.diseaseStatusTypeID
+          ,"patientDate" : this.getStringDateForDatePickerModel(this.cancerbean.cancerDate)
+          ,"patientSurveyTypeCode" : "Cancer"
+          ,"hInsuranceTypeID" : this.cancerbean.hInsuranceTypeID
+          , "treatmentPlace": this.cancerbean.treatmentPlace
+          , "remark": this.cancerbean.remark
+          , "telephone": this.cancerbean.telephone
+          , "latitude": this.cancerbean.latitude
+          , "longitude": this.cancerbean.longitude
+      };
+
   
       let params = this.strNullToEmpty(obj);
+      let params2 = JSON.stringify(params);
       console.log(params);
-  
+      console.log(params2);
+
       this.api.post('survey_patient/ins_upd', params, function (resp) {
         console.log(resp);
         if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-          $("#find-person-md").model('hide');
+          $("#find-person-md").modal('hide');
           self.completed.emit(true);
           bootbox.alert({
             size: "large",
