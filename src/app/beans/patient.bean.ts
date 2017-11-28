@@ -33,7 +33,7 @@ export class PatientBean{  action: any;
 
     public patientSurveyTypeCode : string;
     public diseaseStatusType : string;
-    public patientDate : string;
+    public patientDate : any;
     public hInsuranceTypeID : string;
     public disabilityCauseTypeID : string;
 
@@ -42,7 +42,7 @@ export class PatientBean{  action: any;
     public remark : string;
     public telephone : string;
     public operationDate : string;
-    public homeId : string;
+    public homeID : string;
 
     public patientTypeId : string;
     public rowGUID : string;
