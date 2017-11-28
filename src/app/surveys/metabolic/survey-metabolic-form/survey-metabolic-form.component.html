@@ -166,7 +166,7 @@
                         </div>
 
                         <div class="col-md-1" style="padding-right: 5px; padding-left: 10px;">
-                            <input type="text" placeholder="จำนวน" [(ngModel)]="metabolicbean.rollPerDay" maxlength="2" [disabled]="isRollPerDayDisabled"
+                            <input [ngClass]="errorSmoke" type="text" placeholder="จำนวน" [(ngModel)]="metabolicbean.rollPerDay" maxlength="2" [disabled]="isRollPerDayDisabled"
                                 [OnlyNumber]="true">
                         </div>
 
@@ -175,7 +175,7 @@
                         </div>
 
                         <div class="col-md-1" style="padding-right: 5px; padding-left: 10px;">
-                            <input type="text" placeholder="จำนวน" [(ngModel)]="metabolicbean.packPerYear" maxlength="3" [disabled]="isPackPerYearDisabled"
+                            <input [ngClass]="errorSmoke" type="text" placeholder="จำนวน" [(ngModel)]="metabolicbean.packPerYear" maxlength="3" [disabled]="isPackPerYearDisabled"
                                 [OnlyNumber]="true">
                         </div>
 
@@ -185,9 +185,9 @@
 
                     </div>
 
-                    <div class="row" *ngIf="isErrorSmoke">
+                    <div *ngIf="isErrorSmoke">
                         <div class="col-md-12 col-md-offset-7">
-                            <span class="error2">กรุณากรอกจำนวนที่สูบ</span>
+                            <label class="error2">กรุณาใส่จำนวนที่สูบ</label>
                         </div>
                     </div>
                 </div>
@@ -213,7 +213,7 @@
                         </div>
 
                         <div class="col-md-1" style="padding-right: 5px; padding-left: 10px;">
-                            <input type="text" placeholder="จำนวน" [(ngModel)]="metabolicbean.oftenPerWeek" maxlength="2" [disabled]="isOftenPerWeekDisabled"
+                            <input [ngClass]="errorDrink" type="text" placeholder="จำนวน" [(ngModel)]="metabolicbean.oftenPerWeek" maxlength="2" [disabled]="isOftenPerWeekDisabled"
                                 [OnlyNumber]="true">
                         </div>
 
@@ -221,9 +221,9 @@
                             <label class="label-form">ครั้ง/สัปดาห์</label>
                         </div>
 
-                        <div class="row" *ngIf="isErrorDrink">
+                        <div *ngIf="isErrorDrink">
                             <div class="col-md-12 col-md-offset-7">
-                                <span class="error2">กรุณากรอกจำนวนที่ดื่ม</span>
+                                <label class="error2">กรุณาใส่จำนวนที่ดื่ม</label>
                             </div>
                         </div>
                     </div>
@@ -234,16 +234,18 @@
                 <!-- การตรวจร่างกาย -->
 
                 <div class="row">
+                   
                     <div class="col-md-2 col-md-offset-1 text-right">
                         <label class="label-form">น้ำหนัก</label>
                     </div>
 
                     <div class="col-md-2">
-                        <input type="text" placeholder="น้ำหนัก" [(ngModel)]="metabolicbean.weight" [OnlyNumber]="true" maxlength="3" (blur)="calculateBMI();">
-                        <div class="row" *ngIf="isErrorWeight" style="padding-left: 20px;">
-                            <span class="error2">กรุณากรอกน้ำหนักให้ถูกต้อง</span>
-                        </div>
+                        <input [ngClass]="errorWeight" type="text" placeholder="น้ำหนัก" [(ngModel)]="metabolicbean.weight" [OnlyNumber]="true" maxlength="3" (blur)="calculateBMI();">
+                        <div *ngIf="isErrorWeight">
+                                <label class="error2">กรุณาใส่น้ำหนัก</label>
+                            </div>
                     </div>
+                   
 
                     <div class="col-md-1" style="padding-left: 0px;">
                         <label class="label-form">กิโลกรัม</label>
@@ -254,9 +256,9 @@
                     </div>
 
                     <div class="col-md-2">
-                        <input type="text" placeholder="ส่วนสูง" [(ngModel)]="metabolicbean.height" maxlength="3" [OnlyNumber]="true" (blur)="calculateBMI();">
-                        <div class="row" *ngIf="isErrorHeight" style="padding-left: 20px;">
-                            <span class="error2">กรุณากรอกส่วนสูงให้ถูกต้อง</span>
+                        <input [ngClass]="errorHeight" type="text" placeholder="ส่วนสูง" [(ngModel)]="metabolicbean.height" maxlength="3" [OnlyNumber]="true" (blur)="calculateBMI();">
+                        <div *ngIf="isErrorHeight">
+                            <label class="error2">กรุณาใส่ส่วนสูง</label>
                         </div>
                     </div>
 
@@ -271,9 +273,9 @@
                     </div>
 
                     <div class="col-md-2">
-                        <input type="text" placeholder="รอบเอว" [(ngModel)]="metabolicbean.waistline" maxlength="3" [OnlyNumber]="true">
-                        <div class="row" *ngIf="isErrorWaistline" style="padding-left: 20px;">
-                            <span class="error2">กรุณากรอกรอบเอวให้ถูกต้อง</span>
+                        <input [ngClass]="errorWaistline" type="text" placeholder="รอบเอว" [(ngModel)]="metabolicbean.waistline" maxlength="3" [OnlyNumber]="true">
+                        <div *ngIf="isErrorWaistline">
+                            <label class="error2">กรุณาใส่รอบเอว</label>
                         </div>
                     </div>
 
@@ -286,9 +288,9 @@
                     </div>
 
                     <div class="col-md-2">
-                        <input type="text" placeholder="ดัชนีมวลกาย" [(ngModel)]="metabolicbean.bmi" maxlength="2" [OnlyNumber]="true" [disabled] = "true">
+                        <input [ngClass]="errorBMI" type="text" placeholder="ดัชนีมวลกาย" [(ngModel)]="metabolicbean.bmi" maxlength="2" [OnlyNumber]="true" [disabled] = "true">
                         <div class="row" *ngIf="isErrorBMI" style="padding-left: 20px;">
-                            <span class="error2">กรุณากรอกค่าBMI</span>
+                            <span class="error2">กรุณาใส่ค่าBMI</span>
                         </div>
                     </div>
 
@@ -426,9 +428,9 @@
                         </div>
                     </div>
                     <div class="col-md-3" *ngIf="metabolicbean.isPeripheralNeuropathy == true?true:false">
-                        <input class="label-form" type="text" placeholder="กรุณาระบุชื่อโรคประสาท" [(ngModel)]="metabolicbean.peripheralName" />
-                        <div class="row" *ngIf="isErrorPeripheralName" style="padding-left: 20px;">
-                            <span class="error2">กรุณาระบุชื่อโรคประสาท</span>
+                        <input [ngClass]="errorPeripheralName" type="text" placeholder="กรุณาระบุชื่อโรคประสาท" [(ngModel)]="metabolicbean.peripheralName" />
+                        <div *ngIf="isErrorPeripheralName" >
+                            <label class="error2">กรุณาใส่ชื่อโรคประสาท</label>
                         </div>
                     </div>
                 </div>
@@ -444,9 +446,9 @@
                         </div>
                     </div>
                     <div class="col-md-3" *ngIf="metabolicbean.isOther == true?true:false">
-                        <input class="label-form" type="text" placeholder="ภาวะแทรกซ้อนอื่นๆ" [(ngModel)]="metabolicbean.otherComplication" />
-                        <div class="row" *ngIf="isErrorOthercomplication" style="padding-left: 20px;">
-                            <span class="error2">กรุณาระบุภาวะแทรกซ้อน</span>
+                        <input [ngClass]="errorOthercomplication" type="text" placeholder="ภาวะแทรกซ้อนอื่นๆ" [(ngModel)]="metabolicbean.otherComplication" />
+                        <div *ngIf="isErrorOthercomplication">
+                            <label class="error2">กรุณาใส่ภาวะแทรกซ้อน</label>
                         </div>
                     </div>
                 </div>
