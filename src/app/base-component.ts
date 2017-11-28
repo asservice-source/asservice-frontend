@@ -11,7 +11,7 @@ declare var $: any;
 declare var bootbox: any;
 
 export class BaseComponent implements OnInit {
-    public labelManager:LabelManager;
+    public labelManager: LabelManager;
     public _GLOBAL = myconf;
     public ass_action = Action;
     public surveyHeaderCode = SurveyHeaderTypeCode;
@@ -19,7 +19,7 @@ export class BaseComponent implements OnInit {
     private ng2STDataSource: LocalDataSource;// = new LocalDataSource();
     public rowPerPage: number = 10;
 
-    
+
     constructor() {
 
         this.labelManager = new LabelManager();
@@ -139,7 +139,6 @@ export class BaseComponent implements OnInit {
     }
 
     public datePickerOptions: IMyDpOptions = {
-
         dateFormat: 'dd/mm/yyyy',
         dayLabels: { su: 'อา', mo: 'จ', tu: 'อ', we: 'พ', th: 'พฤ', fr: 'ศ', sa: 'ส' },
         monthLabels: { 1: 'ม.ค.', 2: 'ก.พ.', 3: 'มี.ค', 4: 'เม.ย.', 5: 'พ.ค.', 6: 'มิ.ย.', 7: 'ก.ค.', 8: 'ส.ค.', 9: 'ก.ย.', 10: 'ต.ค.', 11: 'พ.ย.', 12: 'ธ.ค.' },
@@ -151,13 +150,29 @@ export class BaseComponent implements OnInit {
         editableDateField: false,
         openSelectorOnInputClick: true
     };
+
+    public getDatePickerModel(strDate?: string): any {
+        if (strDate) {
+            let arrDT = strDate.split(' ');
+            let arrD = [];
+            if (arrDT[0].length >= 8) {
+                arrD = arrDT[0].split('-');
+            } else {
+                arrD = strDate[0].split('-');
+            }
+            return { date: { year: +arrD[0], month: +arrD[1], day: +arrD[2] } };
+        } else {
+            return null;
+        }
+    }
+
     public getCurrentDatePickerModel(strDate?: string): any {
         if (strDate) {
             let arrDT = strDate.split(' ');
             let arrD = [];
-            if(arrDT[0].length>=8){
+            if (arrDT[0].length >= 8) {
                 arrD = arrDT[0].split('-');
-            }else{
+            } else {
                 arrD = strDate[0].split('-');
             }
             return { date: { year: +arrD[0], month: +arrD[1], day: +arrD[2] } };
@@ -172,26 +187,26 @@ export class BaseComponent implements OnInit {
 
     public getStringDateForDatePickerModel(date: any): string {
         if (date) {
-            return date.date.year + '-' + this.numberAppendPrefix(date.date.month,2) + '-' + this.numberAppendPrefix(date.date.day, 2);
+            return date.date.year + '-' + this.numberAppendPrefix(date.date.month, 2) + '-' + this.numberAppendPrefix(date.date.day, 2);
         }
-        return undefined;
+        return "";
     }
 
     public convertDateTimeSQL_to_DisplayDateTime(strDate?: string): any {
-        let dateTimeObject: any = {date:"", time:{minutes:"00", seconds:"00"}};
+        let dateTimeObject: any = { date: "", time: { minutes: "00", seconds: "00" } };
         if (strDate) {
             let arrDT = strDate.split(" ");
             let arrD = arrDT[0].split('-');
             let arrT = arrDT[1].split(':');
-            dateTimeObject.date =  arrD[2] +"/"+arrD[1]+"/"+arrD[0];
-            dateTimeObject.time.hours=arrT[0];
-            dateTimeObject.time.minutes=arrT[1];
+            dateTimeObject.date = arrD[2] + "/" + arrD[1] + "/" + arrD[0];
+            dateTimeObject.time.hours = arrT[0];
+            dateTimeObject.time.minutes = arrT[1];
         } else {
             // let dateObj = new Date();
             // let month = dateObj.getUTCMonth() + 1; //months from 1-12
             // let day = dateObj.getUTCDate();
             // let year = dateObj.getUTCFullYear();
-            
+
         }
 
         return dateTimeObject;
@@ -211,10 +226,10 @@ export class BaseComponent implements OnInit {
 
         return destination;
     }
-    formatCitizenId(cid:string): string{
-        if(this.isEmpty(cid) && cid.length==13) return cid;
+    formatCitizenId(cid: string): string {
+        if (this.isEmpty(cid) && cid.length == 13) return cid;
         let arr = cid.split('');
-        return arr[0]+'-'+arr[1]+arr[2]+arr[3]+arr[4]+'-'+arr[5]+arr[6]+arr[7]+arr[8]+arr[9]+'-'+arr[10]+arr[11]+'-'+arr[12];
+        return arr[0] + '-' + arr[1] + arr[2] + arr[3] + arr[4] + '-' + arr[5] + arr[6] + arr[7] + arr[8] + arr[9] + '-' + arr[10] + arr[11] + '-' + arr[12];
     }
     isValidCitizenIdThailand(s): boolean {
         if (this.isEmpty(s)) {
@@ -223,8 +238,8 @@ export class BaseComponent implements OnInit {
 
         let pin = 0, j = 13, pin_num = 0;
         let ChkPinID = true;
-        if (ChkPinID = false) { 
-            return false; 
+        if (ChkPinID = false) {
+            return false;
         }
 
         if (s.length == 13) {
@@ -247,60 +262,60 @@ export class BaseComponent implements OnInit {
         return true;
     }
 
-    numberAppendPrefix(number:number, max?:number): string{
-        let strResult: string = ""+number;
-        if(max){
+    numberAppendPrefix(number: number, max?: number): string {
+        let strResult: string = "" + number;
+        if (max) {
             let prefix = "";
-            let length = (""+number).length;
-            let ans = (max-length)
-            if(ans>0){
-                for(let i=0; i<ans; i++){
-                    prefix+="0";
+            let length = ("" + number).length;
+            let ans = (max - length)
+            if (ans > 0) {
+                for (let i = 0; i < ans; i++) {
+                    prefix += "0";
                 }
-                strResult = prefix+""+number;
+                strResult = prefix + "" + number;
             }
         }
         return strResult;
     }
 
-    loadingConfig(): any{
-        return {fullScreenBackdrop: true, animationType: ANIMATION_TYPES.rotatingPlane}
+    loadingConfig(): any {
+        return { fullScreenBackdrop: true, animationType: ANIMATION_TYPES.rotatingPlane }
     }
 
-    message_success(title: string, message: string, callback?: (doc: any) => void){
+    message_success(title: string, message: string, callback?: (doc: any) => void) {
         title = title || 'ทำรายการสำเร็จ';
         bootbox.alert({
             size: "large",
-            title: "<div class='bootbox-title'><span class='fa fa-check' style='color: #14b713;'></span> "+title+"</div>",
+            title: "<div class='bootbox-title'><span class='fa fa-check' style='color: #14b713;'></span> " + title + "</div>",
             message: message,
             callback: callback
         });
     }
-       
-    message_comfirm(title: string, message: string, callback?: (doc: any) => void){
+
+    message_comfirm(title: string, message: string, callback?: (doc: any) => void) {
         title = title || 'ยืนยันการทำรายการ';
         bootbox.confirm({
             size: "large",
-            title: "<div class='bootbox-title'><span class='fa fa-question' style='color: #2a7ec7;'></span> "+title+"</div>",
+            title: "<div class='bootbox-title'><span class='fa fa-question' style='color: #2a7ec7;'></span> " + title + "</div>",
             message: message,
             callback: callback
         });
     }
-    message_error(title: string, message: string, callback?: (doc: any) => void){
+    message_error(title: string, message: string, callback?: (doc: any) => void) {
         title = title || 'ไม่สามารถทำรายการได้';
         bootbox.alert({
             size: "large",
-            title: "<div class='bootbox-title'><span class='fa fa-close' style='color: #d02626;'></span> "+title+"</div>",
+            title: "<div class='bootbox-title'><span class='fa fa-close' style='color: #d02626;'></span> " + title + "</div>",
             message: message,
             callback: callback
         });
     }
-    message_servNotRespond(title: string, message: string, callback?: (doc: any) => void){
+    message_servNotRespond(title: string, message: string, callback?: (doc: any) => void) {
         title = title || 'Server Not Responding';
         message = message || 'ไม่สามารถดึงข้อมูลได้';
         bootbox.alert({
             size: "large",
-            title: "<div class='bootbox-title'><span class='fa fa-close' style='color: #d02626;'></span> "+title+"</div>",
+            title: "<div class='bootbox-title'><span class='fa fa-close' style='color: #d02626;'></span> " + title + "</div>",
             message: message,
             callback: callback
         });

@@ -1,8 +1,8 @@
 import { AdminModule } from './admin/admin.module';
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { NgModule } from '@angular/core';
 import { Ng2CompleterModule } from "ng2-completer";
 import { Ng2SmartTableModule } from "ng2-smart-table";
 import { HttpModule } from '@angular/http';
@@ -60,7 +60,6 @@ import { ManagementHomeFormComponent } from './managements/osm/management-home/f
 import { LoadingComponent} from './ng2-loading/ass-loading.component'
 import { LoadingConfigService } from './ng2-loading/ass-loading.service';
 import { FilterFindMosquitoComponent , SelectHomeListButton} from './filter/filter-find-mosquito/filter-find-mosquito.component';
-import { UiDatePickerDirective } from './directives/datepicker.directive';
 
 @NgModule({
   declarations: [
@@ -109,7 +108,6 @@ import { UiDatePickerDirective } from './directives/datepicker.directive';
     ManagementHomeFormComponent,
     LoadingComponent,
     FilterFindMosquitoComponent,
-    UiDatePickerDirective,
     SelectHomeListButton
   ],
   imports: [
@@ -121,8 +119,7 @@ import { UiDatePickerDirective } from './directives/datepicker.directive';
     ReactiveFormsModule,
     Ng2CompleterModule,
     Ng2SmartTableModule,
-    MyDatePickerModule,
-    
+    MyDatePickerModule
   ],
   entryComponents: [
     ActionCustomViewComponent,
