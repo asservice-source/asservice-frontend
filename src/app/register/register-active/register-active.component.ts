@@ -12,6 +12,7 @@ export class RegisterActiveComponent implements OnInit {
 
   public tokenId : string;
   private api: ApiHTTPService;
+  public text : string;
 
   constructor(private route: ActivatedRoute) {
     this.api = new ApiHTTPService();
@@ -38,6 +39,9 @@ export class RegisterActiveComponent implements OnInit {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         // self.provinceList = resp.response;
         //bootbox.alert("token ="+this.tokenId);
+        self.text = "ผ่าน";
+      }else{
+        self.text = "ไม่ผ่าน";
       }
 
     })

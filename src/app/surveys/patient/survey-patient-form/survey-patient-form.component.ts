@@ -3,6 +3,7 @@ import { PatientBean } from '../../../beans/patient.bean'
 import { Http } from '@angular/http';
 import { BaseComponent } from '../../../base-component';
 import { ApiHTTPService } from '../../../service/api-http.service';
+import { InputValidateInfo } from '../../../directives/inputvalidate.directive';
 declare var $: any;
 declare var bootbox: any;
 
@@ -31,9 +32,10 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
   public disabilityTypeCause: any;
   public diseaseStatusTypeList: any;
   public code: string = "PATIENT";
-  public isErrorDisabilityType : boolean = true;
-  public disabilityCauseType : boolean = true;
-
+  public isErrorDisabilityType: any;//
+  public disabilityCauseType: boolean = true;
+  public inputValidate: InputValidateInfo = new InputValidateInfo();
+  
 
   constructor(private http: Http, private changeRef: ChangeDetectorRef) {
     super();
@@ -181,10 +183,6 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
     }
   }
 
-  validate() {
-
-  }
-
   isDuplicate() {
     let self = this;
     let params = {
@@ -238,71 +236,76 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
   }
 
 
-  formatPhoneToDisplay(phone): string{
+  formatPhoneToDisplay(phone): string {
     // if(this.isEmpty(phone) && phone.length==10) return phone;
-    if(!this.isEmpty(phone)){
-    let arr = phone.split('');
-    return arr[0]+arr[1]+'-'+arr[2]+arr[3]+arr[4]+arr[5]+'-'+arr[6]+arr[7]+arr[8]+arr[9];
+    if (!this.isEmpty(phone)) {
+      let arr = phone.split('');
+      return arr[0] + arr[1] + '-' + arr[2] + arr[3] + arr[4] + arr[5] + '-' + arr[6] + arr[7] + arr[8] + arr[9];
     }
-}
+  }
+
+  validate() {
+    let validate = true;
+   
+    ///////
+
+
+    return validate;
+  }
 
   addSurvey() {
     let self = this;
 
-    if(!self.isEmpty(self.patientbean.telephone)){
-      self.patientbean.telephone = self.formatForJson(self.patientbean.telephone);
-    }
 
-    console.log(this.documentId);
-    if (this.action == this.ass_action.ADD) {
-      this.patientbean.documentId = this.documentId;
-    }
-
-    if (this.patientbean.patientSurveyTypeCode == 'Patient') {
-      this.patientbean.disabilityTypeID = "";
-      this.patientbean.disabilityCauseTypeID = "";
-    }
-
-    let obj = {
-      "rowGUID": this.patientbean.rowGUID
-      , "personID": this.patientbean.personId
-      , "documentID": this.patientbean.documentId
-      , "osmId": this.patientbean.osmId
-      , "homeID": this.patientbean.homeId
-      , "cancerTypeID": this.patientbean.cancerTypeID
-      , "diseaseStatusTypeID": this.patientbean.diseaseStatusTypeID
-      , "patientDate": this.getStringDateForDatePickerModel(this.patientbean.patientDate)
-      , "patientTypeID": this.patientbean.patientTypeId
-      , "hInsuranceTypeID": this.patientbean.hInsuranceTypeID
-      , "patientSurveyTypeCode": this.patientbean.patientSurveyTypeCode
-      , "disabilityTypeID": this.patientbean.disabilityTypeID
-      , "disabilityCauseTypeID": this.patientbean.disabilityCauseTypeID
-      , "treatmentPlace": this.patientbean.treatmentPlace
-      , "remark": this.patientbean.remark
-      , "telephone": this.patientbean.telephone
-      , "latitude": this.patientbean.latitude
-      , "longitude": this.patientbean.longitude
-    };
-
-
-    let params = this.strNullToEmpty(obj);
-    console.log(params);
-
-    this.api.post('survey_patient/ins_upd', params, function (resp) {
-      console.log(resp);
-      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-        $("#find-person-md").modal('hide');
-        self.completed.emit(true);
-        bootbox.alert({
-          size: "large",
-          title: "<div style='color:#5cb85c;font-weight: bold;'><span class='glyphicon glyphicon-ok'></span> ส่งแบบสำรวจสำเร็จ</div>",
-          message: "ท่านได้ทำการส่งแบบสำรวจความเสี่ยงโรค Metabolic แล้ว",
-          callback: function () {
-          }
-        });
+    if (this.validate()) {
+      if (!self.isEmpty(self.patientbean.telephone)) {
+        self.patientbean.telephone = self.formatForJson(self.patientbean.telephone);
       }
-    })
-
+      console.log(this.documentId);
+      if (this.action == this.ass_action.ADD) {
+        this.patientbean.documentId = this.documentId;
+      }
+      if (this.patientbean.patientSurveyTypeCode == 'Patient') {
+        this.patientbean.disabilityTypeID = "";
+        this.patientbean.disabilityCauseTypeID = "";
+      }
+      let obj = {
+        "rowGUID": this.patientbean.rowGUID
+        , "personID": this.patientbean.personId
+        , "documentID": this.patientbean.documentId
+        , "osmId": this.patientbean.osmId
+        , "homeID": this.patientbean.homeId
+        , "cancerTypeID": this.patientbean.cancerTypeID
+        , "diseaseStatusTypeID": this.patientbean.diseaseStatusTypeID
+        , "patientDate": this.getStringDateForDatePickerModel(this.patientbean.patientDate)
+        , "patientTypeID": this.patientbean.patientTypeId
+        , "hInsuranceTypeID": this.patientbean.hInsuranceTypeID
+        , "patientSurveyTypeCode": this.patientbean.patientSurveyTypeCode
+        , "disabilityTypeID": this.patientbean.disabilityTypeID
+        , "disabilityCauseTypeID": this.patientbean.disabilityCauseTypeID
+        , "treatmentPlace": this.patientbean.treatmentPlace
+        , "remark": this.patientbean.remark
+        , "telephone": this.patientbean.telephone
+        , "latitude": this.patientbean.latitude
+        , "longitude": this.patientbean.longitude
+      };
+      let params = this.strNullToEmpty(obj);
+      console.log(params);
+      this.api.post('survey_patient/ins_upd', params, function (resp) {
+        console.log(resp);
+        if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+          $("#find-person-md").modal('hide');
+          self.completed.emit(true);
+          bootbox.alert({
+            size: "large",
+            title: "<div style='color:#5cb85c;font-weight: bold;'><span class='glyphicon glyphicon-ok'></span> ส่งแบบสำรวจสำเร็จ</div>",
+            message: "ท่านได้ทำการส่งแบบสำรวจความเสี่ยงโรค Metabolic แล้ว",
+            callback: function () {
+            }
+          });
+        }
+      })
+    }
   }
 
 }

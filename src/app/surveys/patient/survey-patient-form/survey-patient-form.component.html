@@ -38,7 +38,7 @@
                         <select [(ngModel)]="patientbean.patientSurveyTypeCode" (change)="onChangePatientSyurvey();">
                             <option value="">--เลือกประเภท--</option>
                             <ng-container *ngFor="let item of surveyStatusTypeList">
-                                <option value="{{item.code}}" *ngIf="item.code =='Cancer'">{{item.name}}</option>
+                                <option value="{{item.code}}" *ngIf="item.code !='Cancer'">{{item.name}}</option>
                             </ng-container>
                         </select>
                     </div>
@@ -114,13 +114,13 @@
                     </div>
 
                     <div class="row">
-                            <div class="col-md-2 text-right">
-                                <label class="label-form">เบอร์โทรศัพท์</label>
-                            </div>
-                            <div class="col-md-3">
-                                <input type="text" [(ngModel)]="patientbean.telephone" (keypress)="formatPhoneNumber()" maxlength="12" [OnlyNumber]="true"> 
-                            </div>
+                        <div class="col-md-2 text-right">
+                            <label class="label-form">เบอร์โทรศัพท์</label>
                         </div>
+                        <div class="col-md-3">
+                            <input type="text" [(ngModel)]="patientbean.telephone" (keypress)="formatPhoneNumber()" maxlength="12" [OnlyNumber]="true">
+                        </div>
+                    </div>
                 </div>
                 <!-- พิการ -->
                 <div *ngIf="patientbean.patientSurveyTypeCode == 'Disabled'">
@@ -129,14 +129,12 @@
                             <label class="label-form">ประเภทพิการ</label>
                         </div>
                         <div class="col-md-4">
-                            <select [(ngModel)]="patientbean.disabilityTypeID">
-                                <option value="">--เลือกประเภท--</option>
-                                <option *ngFor="let item of disabilityTypeList" value="{{item.id}}">{{item.name}}</option>
-                            </select>
-                            <div class="row" *ngIf="isErrorDisabilityType">
-                                <div class="col-md-12">
-                                    <span class="error2">กรุณาเลือกประเภทความพิการ</span>
-                                </div>
+                            <div [InputValidate]="inputValidate">
+                                <select [(ngModel)]="patientbean.disabilityTypeID">
+                                    <option value="">--เลือกประเภท--</option>
+                                    <option *ngFor="let item of disabilityTypeList" value="{{item.id}}">{{item.name}}</option>
+                                    </select>
+                                    <label class="error">กรุณาเลือกประเภทความพิการ</label>
                             </div>
                         </div>
 
@@ -148,11 +146,9 @@
                                 <option value="">--เลือกประเภท--</option>
                                 <option *ngFor="let item of disabilityTypeCause" value="{{item.id}}">{{item.name}}</option>
                             </select>
-                            <div class="row" *ngIf="disabilityCauseType">
-                                <div class="col-md-12">
-                                    <span class="error2">กรุณาเลือกสาเหตุความพิการ</span>
-                                </div>
-                            </div>
+                            <!-- <div *ngIf="disabilityCauseType">
+                                <span class="error2">กรุณาเลือกสาเหตุความพิการ</span>
+                            </div> -->
                         </div>
                     </div>
                     <div class="row">
@@ -221,17 +217,17 @@
                     </div>
 
                     <div class="row">
-                            <div class="col-md-2 text-right">
-                                <label class="label-form">เบอร์โทรศัพท์</label>
-                            </div>
-                            <div class="col-md-3">
-                                <input type="text" [(ngModel)]="patientbean.telephone" (keypress)="formatPhoneNumber()" maxlength="12" [OnlyNumber]="true">
-                            </div>
+                        <div class="col-md-2 text-right">
+                            <label class="label-form">เบอร์โทรศัพท์</label>
                         </div>
+                        <div class="col-md-3">
+                            <input type="text" [(ngModel)]="patientbean.telephone" (keypress)="formatPhoneNumber()" maxlength="12" [OnlyNumber]="true">
+                        </div>
+                    </div>
 
                 </div>
 
-               
+
 
                 <div class="modal-footer">
                     <ng-container *ngIf="patientbean.patientSurveyTypeCode == ''?false : true">
