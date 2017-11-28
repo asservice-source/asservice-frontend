@@ -5,7 +5,7 @@
   </div>
   <div class="col-md-4">
     <select #round [(ngModel)]="filterBean.roundId" (change)="onChangeRound(round)">
-      <option *ngFor="let item of listSurvey" [value]="item.rowGUID">{{ item.round }}</option>
+      <option *ngFor="let item of listRound" [value]="item.rowGUID">{{ item.round }}</option>
     </select>
   </div>
   <div class="col-md-1 text-right">
