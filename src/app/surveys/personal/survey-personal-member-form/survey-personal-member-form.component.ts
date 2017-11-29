@@ -23,6 +23,7 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
     let self = this;
 
     self.member = self.strNullToEmpty(paramMember);
+    self.bindPrefix(self.member.genderId);
     self.modelBirthDate = self.getDatePickerModel(self.member.birthDate);
   }
   @Output() memberUpdated = new EventEmitter<PersonalMemberBean>();
@@ -67,7 +68,7 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
     self.onModalEvent();
 
     // self.bindTypeArea();
-    self.bindPrefix();
+    self.bindPrefix("");
     self.bindGender();
     self.bindRace();
     self.bindNationality();
@@ -124,11 +125,11 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
     });
   }
 
-  bindPrefix() {
+  bindPrefix(genderId) {
     let self = this;
 
     let URL_LIST_PREFIX: string = "person/prefix_list";
-    let params = {};
+    let params = { "genderId": genderId };
 
     self.apiHttp.post(URL_LIST_PREFIX, params, function (d) {
       if (d != null && d.status.toUpperCase() == "SUCCESS") {
@@ -319,7 +320,11 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
   }
 
   onChangeGender() {
+    let self = this;
 
+    self.bindPrefix(self.member.genderId);
+
+    self.member.prefixCode = "";
   }
 
   onChangeBirthDate(event: IMyDateModel) {
@@ -432,10 +437,11 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
             if (isConfirm) {
               personData = self.strNullToEmpty(personData);
               self.member.personId = personData.personId;
+              self.member.genderId = personData.genderId;
+              self.bindPrefix(self.member.genderId);
               self.member.prefixCode = personData.prefixCode;
               self.member.firstName = personData.firstName;
               self.member.lastName = personData.lastName;
-              self.member.genderId = personData.genderId;
               self.member.raceCode = personData.raceCode;
               self.member.nationalityCode = personData.nationCode;
               self.member.religionCode = personData.religionCode;
@@ -469,6 +475,10 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
 
     self.toggleCitizenId(false);
     self.isDisablePersonData = true;
+  }
+
+  isValidClickSave() {
+
   }
 
   onClickSave() {

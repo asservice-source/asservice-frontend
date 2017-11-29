@@ -37,7 +37,16 @@
             </div>
 
             <div class="row">
-              <div class="col-md-1"></div>
+                <div class="col-md-1"></div>
+                <div class="col-md-2 text-right">
+                  <label class="label-form">เพศ</label>
+                </div>
+                <div class="col-md-3">
+                  <select name="dropdown-gender" id="dropdown-gender" [(ngModel)]="member.genderId" (change)="onChangeGender()" [disabled]="isDisablePersonData">
+                    <option value="">--เลือก เพศ--</option>
+                    <option *ngFor="let item of listGender" [value]="item.id">{{item.name}}</option>
+                  </select>
+                </div>
               <div class="col-md-2 text-right">
                 <label class="label-form">คำนำหน้าชื่อ</label>
               </div>
@@ -71,13 +80,11 @@
             <div class="row">
               <div class="col-md-1"></div>
               <div class="col-md-2 text-right">
-                <label class="label-form">เพศ</label>
+                <label class="label-form">วันเดือนปี เกิด</label>
               </div>
               <div class="col-md-3">
-                <select name="dropdown-gender" id="dropdown-gender" [(ngModel)]="member.genderId" [disabled]="isDisablePersonData">
-                  <option value="">--เลือก เพศ--</option>
-                  <option *ngFor="let item of listGender" [value]="item.id">{{item.name}}</option>
-                </select>
+                <my-date-picker name="birthDate" [options]="datePickerOptions" [(ngModel)]="modelBirthDate" (dateChanged)="onChangeBirthDate($event)"
+                  [disabled]="isDisablePersonData"></my-date-picker>
               </div>
               <div class="col-md-2 text-right">
                 <label class="label-form">เชื้อชาติ</label>
@@ -153,17 +160,6 @@
                   <option value="">--เลือก อาชีพ--</option>
                   <option *ngFor="let item of listOccupation" [value]="item.code">{{item.name}}</option>
                 </select>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-md-1"></div>
-              <div class="col-md-2 text-right">
-                <label class="label-form">วันเดือนปี เกิด</label>
-              </div>
-              <div class="col-md-3">
-                <my-date-picker name="birthDate" [options]="datePickerOptions" [(ngModel)]="modelBirthDate" (dateChanged)="onChangeBirthDate($event)"
-                  [disabled]="isDisablePersonData"></my-date-picker>
               </div>
             </div>
 
