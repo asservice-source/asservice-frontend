@@ -35,14 +35,21 @@ export class InputValidateDirective{
     }
 
     onReset(){
-        let el_label = this.el.nativeElement.lastElementChild;
-        let el_input = this.el.nativeElement.firstElementChild;
+        let el_label = this.el.nativeElement.querySelector('.error');
+        let el_input = this.el.nativeElement.querySelector('input') || this.el.nativeElement.querySelector('select') || this.el.nativeElement.querySelector('textarea');
+        if(!el_label || !el_input){
+            return;
+        }
         this.renderer.setElementStyle(el_label,'display','none');
         this.renderer2.removeClass(el_input, 'error-input');
     }
     onValidate(){
-        let el_label = this.el.nativeElement.lastElementChild;
-        let el_input = this.el.nativeElement.firstElementChild;
+        //let el_label = this.el.nativeElement.lastElementChild;
+        let el_label = this.el.nativeElement.querySelector('.error');
+        let el_input = this.el.nativeElement.querySelector('input')  || this.el.nativeElement.querySelector('select') || this.el.nativeElement.querySelector('textarea');
+        if(!el_label || !el_input){
+            return;
+        }
         let value: string =  el_input.value;
         this.InputValidate = new InputValidateInfo();
         this.InputValidate.value = value;

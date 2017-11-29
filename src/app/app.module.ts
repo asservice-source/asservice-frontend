@@ -60,6 +60,7 @@ import { ManagementHomeFormComponent } from './managements/osm/management-home/f
 import { LoadingComponent} from './ng2-loading/ass-loading.component'
 import { LoadingConfigService } from './ng2-loading/ass-loading.service';
 import { FilterFindMosquitoComponent , SelectHomeListButton} from './filter/filter-find-mosquito/filter-find-mosquito.component';
+import { ViewChildButtonComponent } from './view-child-button-smart-table/view-child-button.component';
 
 @NgModule({
   declarations: [
@@ -108,7 +109,8 @@ import { FilterFindMosquitoComponent , SelectHomeListButton} from './filter/filt
     ManagementHomeFormComponent,
     LoadingComponent,
     FilterFindMosquitoComponent,
-    SelectHomeListButton
+    SelectHomeListButton,
+    ViewChildButtonComponent
   ],
   imports: [
     BrowserModule,
@@ -125,7 +127,8 @@ import { FilterFindMosquitoComponent , SelectHomeListButton} from './filter/filt
     ActionCustomViewComponent,
     SurveyPersonalHomeListButtonEditComponent,
     SurveyPersonalMemberListButtonEditComponent,
-    SelectHomeListButton
+    SelectHomeListButton,
+    ViewChildButtonComponent
   ],
   providers: [LoadingConfigService],
   bootstrap: [AppComponent]

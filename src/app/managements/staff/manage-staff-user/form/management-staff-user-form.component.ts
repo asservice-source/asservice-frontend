@@ -23,6 +23,7 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
   public villageList: any;
   public genderList: any;
   public inputValidate: InputValidateInfo = new InputValidateInfo();
+  public isShowVerify: boolean = true;
   constructor() { 
     super();
     this.bean = new StaffUserBean();
@@ -37,9 +38,16 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
     this.setupVillage();
     this.bindModalForm();
   }
+  setupGender(){
+    let _self = this;
+    this.api.api_GenderList(function(response){
+      _self.genderList = response;
+    });
+
+  }
   setupPrefix(){
     let _self = this;
-    _self.api.api_PrefixNameList(function (response) {
+    _self.api.api_PrefixNameList(_self.bean.genderId, function (response) {
       console.log(response);
       _self.prefixList = response;
     });
@@ -52,13 +60,7 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
      
     });
   }
-  setupGender(){
-    let _self = this;
-    this.api.api_GenderList(function(response){
-      _self.genderList = response;
-    });
-
-  }
+  
   bindModalForm(){
     let _self = this;
     $('#modalForm').on('hidden.bs.modal', function(){
@@ -67,6 +69,15 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
     $('#modalForm').on('show.bs.modal', function(){
       console.log(_self.bean);
     });
+  }
+  onGenderChange(){
+    this.bean.prefixCode="";
+  }
+  onClickVerifyCitizenId(){
+
+  }
+  onClickEditCitizenId(){
+    
   }
   onSave(){
     this.inputValidate = new InputValidateInfo();

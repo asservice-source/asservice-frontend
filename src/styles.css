@@ -62,7 +62,6 @@ table{
 }
 table.table-bordered>thead {
     background-color: #4aa3df;
-   
 }
 
 .table-bordered > thead > tr > th, table > thead > tr > th .ng2-smart-sort-link{
