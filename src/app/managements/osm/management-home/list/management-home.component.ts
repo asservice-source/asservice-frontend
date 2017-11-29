@@ -1,10 +1,12 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
 import { HomeBean } from '../../../../beans/home.bean';
 import { BaseComponent } from '../../../../base-component';
 import { ApiHTTPService } from '../../../../service/api-http.service';
 import { LocalDataSource } from 'ng2-smart-table';
 import { ActionCustomViewComponent } from '../../../../action-custom-table/action-custom-view.component';
 import { Service_Home } from '../../../../service/service-home';
+import { ViewCell } from 'ng2-smart-table';
 
 declare var $:any;
 @Component({
@@ -20,7 +22,7 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
   public settings: any;
   public source: LocalDataSource = new LocalDataSource();
 
-  constructor() { 
+  constructor(private router: Router) { 
     super();
     this.bean = new HomeBean();
     this.api = new Service_Home();
@@ -44,7 +46,9 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
         renderComponent: ViewChildTableHomeManagement,
         onComponentInitFunction(instance) {  
           instance.click.subscribe(row => {
-            console.log(row);
+            
+            _self.onMemberManage(row);
+            
            });
 
           }
@@ -114,10 +118,15 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
     }
     
   }
+
+  onMemberManage(row: any){
+    this.router.navigate(['main/managements/osm/home/member',row.homeId]);
+    //location.href='main/managements/osm/home/member/1';
+  }
 }
 
 
-import { ViewCell } from 'ng2-smart-table';
+
 @Component({
     selector: 'app-view-child-table-home-management',
     template: '<div class="text-center"><button type="button" (click)="onClick()" class="btn btn-sm btn-primary">จัดการสมาชิก</button></div>',
