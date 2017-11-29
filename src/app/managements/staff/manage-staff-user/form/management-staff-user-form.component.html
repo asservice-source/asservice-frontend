@@ -13,7 +13,13 @@
             </div>
             <div class="col-md-6">
               <div [InputValidate]="inputValidate" [citizenId]="true">
-                <input type="text" [(ngModel)]="bean.citizenId" [OnlyNumber]="true" maxlength="13" [disabled]="false">
+                <div class="input-group">
+                  <input type="text" [(ngModel)]="bean.citizenId" [OnlyNumber]="true" maxlength="13" [disabled]="false">
+                  <span class="input-group-btn">
+                    <button class="btn btn-primary btn-sm btn-flat" (click)="onClickVerifyCitizenId();" *ngIf="isShowVerify">ตรวจสอบ</button>
+                    <button class="btn btn-primary btn-sm btn-flat" (click)="onClickEditCitizenId();" *ngIf="!isShowVerify">แก้ไข</button>
+                  </span>
+                </div>
                 <label class="error">กรุณาใส่หมายเลขประชาชนเป็นตัวเลข 13 หลัก</label>
               </div>
             </div>
@@ -25,7 +31,7 @@
             </div>
             <div class="col-md-4">
               <div [InputValidate]="inputValidate">
-                <select [(ngModel)]="bean.genderId">
+                <select [(ngModel)]="bean.genderId" (change)="onGenderChange()">
                   <option value="">---เลือก---</option>
                   <option *ngFor="let item of genderList" [value]="item.id">{{item.name}}</option>
                 </select>
@@ -40,7 +46,7 @@
             </div>
             <div class="col-md-4">
               <div [InputValidate]="inputValidate">
-                <select [(ngModel)]="bean.prefixCode">
+                <select [(ngModel)]="bean.prefixCode" [disabled]="!bean.genderId">
                   <option value="">---เลือก---</option>
                   <option *ngFor="let item of prefixList" [value]="item.code">{{item.name}}</option>
                 </select>
@@ -78,7 +84,10 @@
               <label class="label-form">วัน/เดือน/ปี เกิด</label>
             </div>
             <div class="col-md-5">
-              <my-date-picker name="mydate" [options]="datePickerOptions" [(ngModel)]="bean.birthDate" required></my-date-picker>
+              <div [InputValidate]="inputValidate">
+                <my-date-picker name="mydate" [options]="datePickerOptions" [(ngModel)]="bean.birthDate" required></my-date-picker>
+                <label class="error">กรุณาเลือก วัน/เดือน/ปี เกิด</label>
+              </div>
             </div>
           </div>
 

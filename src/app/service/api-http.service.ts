@@ -109,8 +109,8 @@ export class ApiHTTPService  implements OnInit {
         this.callResponse('person/gender_list', {}, callback);
     }
 
-    public api_PrefixNameList(callback: (doc: any) => void) {
-        this.callResponse('person/prefix_list', {}, callback);
+    public api_PrefixNameList(genderId: string,callback: (doc: any) => void) {
+        this.callResponse('person/prefix_list', {"genderId": genderId}, callback);
     }
 
     public api_SurveyHeaderList(headerTypeCode: string, callback: (doc: any) => void){
@@ -124,6 +124,13 @@ export class ApiHTTPService  implements OnInit {
 
     public api_DeathPlaceList(callback: (doc: any) => void){
         this.callResponse('survey/survey_death_place_list', {}, callback);
+    }
+    public api_PersonByCitizenId(citizenId: string, callback: (doc: any) => void){
+        let parameter = {"citizenId": citizenId};
+        this.post('person/person_by_citizenid', parameter, function(response){
+            console.log(response);
+            callback(response);
+        });
     }
 
     public getRound_byDocumentId(headerTypeCode: string, documentId: string, callback: (doc:any)=>void): any{
