@@ -105,11 +105,25 @@
               </div>
             </div>
           </div>
+
+          <div class="row">
+            <div class="col-md-4 text-right">
+              <label>สถานะผู้ใช้</label>
+            </div>
+            <div class="col-md-6">
+              <select type="text" [(ngModel)]="bean.userActive">
+                <option [value]="true">พร้อมใช้งาน</option>
+                <option [value]="false">ปิดการใช้งาน</option>
+              </select>
+            </div>
+          </div>
+
+
       </div>
         </div>
         <div class="modal-footer">
           
-          <button type="button" class="btn btn-sm btn-primary" (click)="onSave();">ตกลง</button>
+          <button type="button" class="btn btn-sm btn-primary" (click)="onSave();" [disabled]="!isVerify" >ตกลง</button>
           <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">ยกเลิก</button>
           
         </div>

@@ -158,6 +158,7 @@ export class ManagementStaffUserListComponent extends BaseComponent implements O
 
     }else if(this.ass_action.ADD==action){
       this.bean = new StaffUserBean();
+      this.bean.personId = '';
       this.bean.citizenId = '';
       this.bean.firstName = '';
       this.bean.lastName = '';
@@ -165,8 +166,11 @@ export class ManagementStaffUserListComponent extends BaseComponent implements O
       this.bean.villageId = '';
       this.bean.genderId = '';
       this.bean.birthDate = '';
+      this.bean.userActive = true;
     }
     this.action = action;
+    console.log("CCCCCCCCCCCC . ."+this.action);
+    
     this.detectChange.detectChanges();
     $('#modalForm').modal('show');
   }
