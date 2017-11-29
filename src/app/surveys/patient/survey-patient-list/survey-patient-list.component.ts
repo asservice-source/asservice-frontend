@@ -110,7 +110,6 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
   }
 
   ngOnInit() {
-    //this.setUpTable();
   }
 
   checkPatient() {

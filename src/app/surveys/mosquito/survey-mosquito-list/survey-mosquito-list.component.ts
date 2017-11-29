@@ -3,7 +3,7 @@ import { LocalDataSource } from 'ng2-smart-table';
 import { ActionCustomViewComponent } from '../../../action-custom-table/action-custom-view.component';
 import { BaseComponent } from '../../../base-component';
 import { ApiHTTPService } from '../../../service/api-http.service';
-import { FilterHeadSurveyBean } from '../../../beans/filter-head-survey.bean';
+import { FilterHeadMosquitoBean } from '../../../beans/filter-head-mosquito.bean';
 
 declare var $: any;
 
@@ -15,103 +15,27 @@ declare var $: any;
 export class SurveyMosquitoListComponent extends BaseComponent implements OnInit {
 
   mLocationNo = 0;
-  public surveyTypeCode: string = 'MOSQUITO';
+  public surveyTypeCode: string = "MONITORHICI";
   public isShowList: boolean = false;
   public source: LocalDataSource = new LocalDataSource();
   private api: ApiHTTPService;
   public settings: any;
   public action: string = this.ass_action.ADD;
+  public filtersearch: FilterHeadMosquitoBean;
+  public documentId: string;
 
-  public datas = [
-    {
-      id: 1,
-      name: "Leanne Graham",
-      citizenId: "1-4113-00-1349-8-9",
-      reason: "อุบัติเหตุทางรถยนต์",
-      gender: "ชาย",
-      age: 38,
-      type: "ติดบ้าน",
-      homeNo: "112/1",
-      totalSurvey: "25",
-      totalDetect: 13,
-      localType: "สถานศาสนา",
-      totalCI: "53.57"
-    },
-    {
-      id: 2,
-      name: "Ervin Howell",
-      citizenId: "1-4113-00-1349-8-0",
-      reason: "อุบัติเหตุทางรถยนต์",
-      gender: "ชาย",
-      age: 54,
-      type: "ติดบ้าน",
-      homeNo: "24/9",
-      totalSurvey: "44",
-      totalDetect: 12,
-      localType: "โรงเรียน",
-      totalCI: "53.57"
-
-    },
-    {
-      id: 11,
-      name: "Nicholas DuBuque",
-      citizenId: "1-4113-00-2259-6-4",
-      reason: "อุบัติเหตุทางรถยนต์",
-      gender: "ชาย",
-      age: 32,
-      type: "ติดบ้าน",
-      homeNo: "58/7",
-      totalSurvey: "29",
-      totalDetect: 7,
-      localType: "หลังคาเรือน",
-      totalCI: "53.57"
-
-    },
-    {
-      id: 12,
-      name: "Nicholas DuBuque",
-      citizenId: "1-4113-00-2254-6-2",
-      reason: "อุบัติเหตุทางรถยนต์",
-      gender: "ชาย",
-      age: 62,
-      type: "ติดบ้าน",
-      homeNo: "55/12",
-      totalSurvey: "50",
-      totalDetect: 12,
-      localType: "ศูนย์เด็กเล็ก",
-      totalCI: "53.57"
-
-    },
-    {
-      id: 13,
-      name: "Nicholas DuBuque",
-      citizenId: "1-4113-00-3259-6-5",
-      reason: "อุบัติเหตุทางรถยนต์",
-      gender: "ชาย",
-      age: 42,
-      type: "ติดบ้าน",
-      homeNo: "222/2",
-      totalSurvey: "88",
-      totalDetect: 22,
-      localType: "หน่วยราชการ",
-      totalCI: "53.57"
-
-    },
-  ];
+  public datas :any = [];
 
   isDisable = true;
   constructor(private changeRef: ChangeDetectorRef) {
     super();
     this.api = new ApiHTTPService();
     let self = this;
+    this. filtersearch = new FilterHeadMosquitoBean();
     this.settings = this.getTableSetting({
 
-      name: {
-        title: 'ชื่อาอสาสมัคร',
-        filter: false
-      },
       homeNo: {
-        title: 'เลขที่',
+        title: 'ชื่อ/บ้านเลขที่',
         filter: false,
         width: '120px',
         type:'html',
@@ -119,8 +43,8 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
           return '<div class="text-center">'+cell+'</div>'
         }
       },
-      localType: {
-        title: 'สถานที่',
+      locatTypeId: {
+        title: 'ประเภท',
         filter: false,
         width: '160px',
       },
@@ -173,15 +97,25 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
     }
   }
 
-  onChangeFilter(event: FilterHeadSurveyBean) {
+  onChangeFilter(event: FilterHeadMosquitoBean) {
     console.log("ChangeFilter");
-    this.isShowList = false;
+    //this.isShowList = false;
   }
-  onSearch(event: FilterHeadSurveyBean) {
-    console.log(event);
-    this.source = new LocalDataSource(this.datas);
-    this.isShowList = true;
-    super.setNg2STDatasource(this.source);
+
+
+  // onSearch(event: FilterHeadSurveyBean) {
+  //   console.log(event);
+  //   this.source = new LocalDataSource(this.datas);
+  //   this.isShowList = true;
+  //   super.setNg2STDatasource(this.source);
+  // }
+
+  onSearch(event: FilterHeadMosquitoBean) {
+    this.filtersearch = event;
+    if (this.isEmpty(this.documentId)) {
+      this.documentId = event.rowGUID;
+    }
+    this.loadData(event);
   }
 
   onModalFrom(action: string) {
@@ -189,4 +123,33 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
     this.changeRef.detectChanges();
     $('#find-person-md').modal('show');
   }
+
+  loadData(event: FilterHeadMosquitoBean) {
+    let self = this;
+    let param = {   
+        "documentId":event.rowGUID,
+        "villageId":event.villageId,
+        "homeTypeCode": event.homeType,
+        "osmId":event.osmId,
+        "homeId":event.homeId
+    };
+    let params = JSON.stringify(param);
+
+    this.api.post('survey_hici/search_hici_info_list', params, function (resp) {
+      console.log(resp);
+      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+        self.datas = resp.response;
+        console.log(self.datas);
+        self.setUpTable();
+      }
+    })
+
+  }
+
+  setUpTable() {
+    this.source = new LocalDataSource(this.datas);
+    this.isShowList = true;
+    super.setNg2STDatasource(this.source);
+  }
+
 }
