@@ -397,6 +397,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     let self = this;
 
     self.action = this.ass_action.ADD;
+    self.cloneMember = new PersonalMemberBean();
     self.paramMember = new PersonalMemberBean();
     self.paramMember.homeId = this.paramHomeId;
 

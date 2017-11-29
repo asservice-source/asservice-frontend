@@ -104,6 +104,7 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
         self.isDisabledActionAdd = false;
         self.isDisablePersonData = true;
       }
+      self.validateVerify = new InputValidateInfo();
     });
   }
 

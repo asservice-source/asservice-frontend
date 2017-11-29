@@ -56,7 +56,7 @@
               </div>
               <div class="col-md-3">
                 <div [InputValidate]="validateSave">
-                  <input type="text" class="ng-pristine ng-valid ng-touched" [(ngModel)]="member.firstName" [disabled]="isDisablePersonData">
+                  <input type="text" class="ng-pristine ng-valid ng-touched" minlength="50" [(ngModel)]="member.firstName" [disabled]="isDisablePersonData">
                   <label class="error">กรุณาระบุ ชื่อจริง</label>
                 </div>
               </div>
