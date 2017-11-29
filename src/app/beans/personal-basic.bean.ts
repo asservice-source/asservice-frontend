@@ -23,7 +23,7 @@ export class PersonalBasicBean{
     public provinceName: string;
     public zipcode: string;
     public osmId: string;
-    public userRoleId: string;
-    public userActive: boolean;
+    public roleId: string;
+    public isActive: boolean;
     
 }

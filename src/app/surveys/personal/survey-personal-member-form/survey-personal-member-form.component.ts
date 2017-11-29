@@ -4,6 +4,7 @@ import { PersonBean } from "../../../beans/person.bean";
 import { PersonalMemberBean } from '../../../beans/personal-member.bean';
 import { BaseComponent } from '../../../base-component';
 import { Service_SurveyPersonal } from '../../../service/service-survey-personal';
+import { InputValidateInfo } from '../../../directives/inputvalidate.directive';
 declare var $;
 
 @Component({
@@ -20,8 +21,9 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
   @Input() action: string;
   @Input() set triggerMember(paramMember: PersonalMemberBean) {
     let self = this;
-    
+
     self.member = self.strNullToEmpty(paramMember);
+    self.bindPrefix(self.member.genderId);
     self.modelBirthDate = self.getDatePickerModel(self.member.birthDate);
   }
   @Output() memberUpdated = new EventEmitter<PersonalMemberBean>();
@@ -53,6 +55,9 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
 
   public modelBirthDate: any = null;
 
+  public validateVerify: InputValidateInfo = new InputValidateInfo();
+  public validateSave: InputValidateInfo = new InputValidateInfo();
+
   constructor() {
     super();
   }
@@ -63,7 +68,7 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
     self.onModalEvent();
 
     // self.bindTypeArea();
-    self.bindPrefix();
+    self.bindPrefix("");
     self.bindGender();
     self.bindRace();
     self.bindNationality();
@@ -100,6 +105,7 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
         self.isDisabledActionAdd = false;
         self.isDisablePersonData = true;
       }
+      self.validateVerify = new InputValidateInfo();
     });
   }
 
@@ -119,11 +125,11 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
     });
   }
 
-  bindPrefix() {
+  bindPrefix(genderId) {
     let self = this;
 
     let URL_LIST_PREFIX: string = "person/prefix_list";
-    let params = {};
+    let params = { "genderId": genderId };
 
     self.apiHttp.post(URL_LIST_PREFIX, params, function (d) {
       if (d != null && d.status.toUpperCase() == "SUCCESS") {
@@ -313,10 +319,18 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
     // self.member.religionCode = "01";
   }
 
-  onChangeDate(event: IMyDateModel) {
+  onChangeGender() {
     let self = this;
 
-    console.log(event);
+    self.bindPrefix(self.member.genderId);
+
+    self.member.prefixCode = "";
+  }
+
+  onChangeBirthDate(event: IMyDateModel) {
+    let self = this;
+
+    // console.log(event);
     self.member.birthDate = self.getStringDateForDatePickerModel(event.date);
   }
 
@@ -365,11 +379,50 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
     }
   }
 
-  onClickVerifyCitizenId() {
+  clearPersonalData() {
+    let self = this;
+
+    self.member.personId = '';
+    self.member.prefixCode = '';
+    self.member.firstName = '';
+    self.member.lastName = '';
+    self.member.genderId = '';
+    self.member.raceCode = '';
+    self.member.nationalityCode = '';
+    self.member.religionCode = '';
+    self.member.bloodTypeId = '';
+    self.member.rhGroupId = '';
+    self.member.birthDate = '';
+    self.modelBirthDate = null;
+    self.member.educationCode = '';
+    self.member.occupationCode = '';
+
+    self.toggleCitizenId(true);
+    self.isDisablePersonData = false;
+  }
+
+  isValidClickVerify(cid: any) {
+    let self = this;
+
+    self.validateVerify = new InputValidateInfo();
+    self.validateVerify.isCheck = true;
+
+    if (!self.isValidCitizenIdThailand(cid)) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  onClickVerifyCitizenId(): void {
     let self = this;
 
     let cid = self.member.citizenId;
     let personData: any;
+
+    if (!self.isValidClickVerify(cid)) {
+      return;
+    }
 
     let URL_GET_PERSON_INFO: string = "person/person_by_citizenid";
     let params = { "citizenId": cid };
@@ -380,39 +433,31 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
         personData = d.response;
 
         if (personData) {
-          personData = self.strNullToEmpty(personData);
-          self.member.personId = personData.personId;
-          self.member.prefixCode = personData.prefixCode;
-          self.member.firstName = personData.firstName;
-          self.member.lastName = personData.lastName;
-          self.member.genderId = personData.genderId;
-          self.member.raceCode = personData.raceCode;
-          self.member.nationalityCode = personData.nationCode;
-          self.member.religionCode = personData.religionCode;
-          self.member.bloodTypeId = personData.bloodTypeID;
-          self.member.rhGroupId = personData.rHGroupID;
-          self.member.birthDate = personData.birthDate;
-          self.modelBirthDate = self.getDatePickerModel(personData.birthDate);
-          self.member.educationCode = personData.educationCode;
-          self.member.occupationCode = personData.occupCode;
+          self.message_comfirm('', 'หมายเลขประจำตัว "' + cid + '" มีข้อมูลแล้ว คุณต้องการดึงข้อมูลหรือไม่ ?', function (isConfirm) {
+            if (isConfirm) {
+              personData = self.strNullToEmpty(personData);
+              self.member.personId = personData.personId;
+              self.member.genderId = personData.genderId;
+              self.bindPrefix(self.member.genderId);
+              self.member.prefixCode = personData.prefixCode;
+              self.member.firstName = personData.firstName;
+              self.member.lastName = personData.lastName;
+              self.member.raceCode = personData.raceCode;
+              self.member.nationalityCode = personData.nationCode;
+              self.member.religionCode = personData.religionCode;
+              self.member.bloodTypeId = personData.bloodTypeID;
+              self.member.rhGroupId = personData.rHGroupID;
+              self.member.birthDate = personData.birthDate;
+              self.modelBirthDate = self.getDatePickerModel(personData.birthDate);
+              self.member.educationCode = personData.educationCode;
+              self.member.occupationCode = personData.occupCode;
 
-          self.toggleCitizenId(true);
-          self.isDisablePersonData = false;
+              self.toggleCitizenId(true);
+              self.isDisablePersonData = false;
+            }
+          });
         } else {
-          self.member.personId = '';
-          self.member.prefixCode = '';
-          self.member.firstName = '';
-          self.member.lastName = '';
-          self.member.genderId = '';
-          self.member.raceCode = '';
-          self.member.nationalityCode = '';
-          self.member.religionCode = '';
-          self.member.bloodTypeId = '';
-          self.member.rhGroupId = '';
-          self.member.birthDate = '';
-          self.modelBirthDate = null;
-          self.member.educationCode = '';
-          self.member.occupationCode = '';
+          self.clearPersonalData();
 
           self.toggleCitizenId(true);
           self.isDisablePersonData = false;
@@ -426,8 +471,14 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
   onClickEditCitizenId() {
     let self = this;
 
+    self.clearPersonalData();
+
     self.toggleCitizenId(false);
     self.isDisablePersonData = true;
+  }
+
+  isValidClickSave() {
+
   }
 
   onClickSave() {

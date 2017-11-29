@@ -19,11 +19,11 @@ export class Service_UserStaffAndOSM extends ApiHTTPService{
                 ,"prefixCode": bean.prefixCode
                 ,"firstName": bean.firstName
                 ,"lastName": bean.lastName
-                ,"birthDate": this.baseComp.getStringDateForDatePickerModel(bean.birthDate)
+                ,"birthDate": bean.birthDate
                 ,"villageId": bean.villageId
                 ,"code5": bean.hospitalCode5
-                ,"userRoleId": bean.userRoleId
-                ,"active": bean.userActive
+                ,"userRoleId": bean.roleId
+                ,"active": bean.isActive
             };
         if(isStaff){
             delete this.attr["villageId"];

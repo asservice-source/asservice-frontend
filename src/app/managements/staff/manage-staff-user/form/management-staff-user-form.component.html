@@ -17,14 +17,14 @@
                   <input type="text" [(ngModel)]="bean.citizenId" [OnlyNumber]="true" maxlength="13" [disabled]="false">
                   <span class="input-group-btn">
                     <button class="btn btn-primary btn-sm btn-flat" (click)="onClickVerifyCitizenId();" *ngIf="isShowVerify">ตรวจสอบ</button>
-                    <button class="btn btn-primary btn-sm btn-flat" (click)="onClickEditCitizenId();" *ngIf="!isShowVerify">แก้ไข</button>
+                    <button class="btn btn-primary btn-sm btn-flat" (click)="onClickEditCitizenId();" *ngIf="false">แก้ไข</button>
                   </span>
                 </div>
                 <label class="error">กรุณาใส่หมายเลขประชาชนเป็นตัวเลข 13 หลัก</label>
               </div>
             </div>
           </div>
-          
+      <div *ngIf="isVerify">
           <div class="row">
             <div class="col-md-4 text-right">
               <label class="label-form">เพศ</label>
@@ -85,7 +85,7 @@
             </div>
             <div class="col-md-5">
               <div [InputValidate]="inputValidate">
-                <my-date-picker name="mydate" [options]="datePickerOptions" [(ngModel)]="bean.birthDate" required></my-date-picker>
+                <my-date-picker name="mydate" [options]="datePickerOptions" [(ngModel)]="mBirthDate" required></my-date-picker>
                 <label class="error">กรุณาเลือก วัน/เดือน/ปี เกิด</label>
               </div>
             </div>
@@ -106,10 +106,24 @@
             </div>
           </div>
 
+          <div class="row">
+            <div class="col-md-4 text-right">
+              <label>สถานะผู้ใช้</label>
+            </div>
+            <div class="col-md-6">
+              <select type="text" [(ngModel)]="bean.isActive">
+                <option [value]="true">พร้อมใช้งาน</option>
+                <option [value]="false">ปิดการใช้งาน</option>
+              </select>
+            </div>
+          </div>
+
+
+      </div>
         </div>
         <div class="modal-footer">
           
-          <button type="button" class="btn btn-sm btn-primary" (click)="onSave();">ตกลง</button>
+          <button type="button" class="btn btn-sm btn-primary" (click)="onSave();" [disabled]="!isVerify" >ตกลง</button>
           <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">ยกเลิก</button>
           
         </div>

@@ -36,6 +36,20 @@ export class SimpleValidateForm{
         }
         return objs;
     }
+    getObjectEmpty_byFilds(obj: any, filds?: Array<any>):any{
+        if(!filds){
+            return [];
+        }
+        let objs = [];
+        for(let item of filds){
+            let value = obj[item];
+            if(value==null || value==undefined || value.toString().trim().length<1){
+                objs.push(item);
+                console.log('push');
+            }
+        }
+        return objs;
+    }
 
     isHash(key: any, ignores: Array<any>): boolean{
         if(ignores){

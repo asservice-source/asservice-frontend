@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { BaseComponent } from '../../../../base-component';
 import { LocalDataSource } from 'ng2-smart-table';
 import { ActionCustomViewComponent } from '../../../../action-custom-table/action-custom-view.component';
@@ -28,7 +28,7 @@ export class ManagementStaffUserListComponent extends BaseComponent implements O
   public isStaff: boolean= false;
   public titlePanel: string = '';
 
-  constructor(private activatedRoute: ActivatedRoute) { 
+  constructor(private activatedRoute: ActivatedRoute, private detectChange: ChangeDetectorRef) { 
     super();
     this.api = new Service_UserStaffAndOSM();
     this.bean = new StaffUserBean();
@@ -56,6 +56,16 @@ export class ManagementStaffUserListComponent extends BaseComponent implements O
              return 'หมู่ที่ '+ cell + ' ' + row.villageName;
              }
           },
+          isActive : {
+            title: 'สถานะผู้ใช้' 
+            ,filter: false
+            , with: '120px'
+            ,type: "html"
+            ,valuePrepareFunction: (cell, row) => { 
+
+              return cell?'<span class="text-active">พร้อมใช้งาน</span>':'<span class="text-inactive">ปิดการใช้งาน</span>';
+              }
+           },
           action: {
            title: this.getLabel('lbl_action'),
            filter: false,
@@ -155,9 +165,10 @@ export class ManagementStaffUserListComponent extends BaseComponent implements O
   }
   onModalForm(action: string){
     if(this.ass_action.EDIT==action){
-      this.bean.birthDate = this.getCurrentDatePickerModel(this.bean.birthDate);
+
     }else if(this.ass_action.ADD==action){
       this.bean = new StaffUserBean();
+      this.bean.personId = '';
       this.bean.citizenId = '';
       this.bean.firstName = '';
       this.bean.lastName = '';
@@ -165,8 +176,12 @@ export class ManagementStaffUserListComponent extends BaseComponent implements O
       this.bean.villageId = '';
       this.bean.genderId = '';
       this.bean.birthDate = '';
+      this.bean.isActive = true;
     }
     this.action = action;
+    console.log("CCCCCCCCCCCC . ."+this.action);
+    
+    this.detectChange.detectChanges();
     $('#modalForm').modal('show');
   }
 
