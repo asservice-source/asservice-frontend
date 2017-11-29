@@ -70,6 +70,14 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
       _self.inputValidate = new InputValidateInfo();
     });
     $('#modalForm').on('show.bs.modal', function(){
+      console.log(_self.bean);
+      if(_self.bean.personId){
+        _self.action = _self.ass_action.EDIT;
+      }else{
+        _self.action = _self.ass_action.ADD;
+      }
+
+      console.log(">>>> ACT == "+_self.action);
       if(_self.action==_self.ass_action.EDIT){
         _self.oldCitizenId = _self.bean.citizenId;
         _self.isShowVerify = false;
@@ -87,6 +95,7 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
     this.setupPrefix();
   }
   onClickVerifyCitizenId(){
+    this.oldCitizenId = this.bean.citizenId;
     this.inputValidate = new InputValidateInfo();
     this.inputValidate.isCheck = true;
     //if(this.isValidCitizenIdThailand(this.bean.citizenId)){
@@ -129,7 +138,6 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
     this.inputValidate.isCheck = true;
     let valid = new SimpleValidateForm();
     this.bean.hospitalCode5 = this.getHospitalCode();
-    this.bean.userActive = true;
     let roleName = "";
     let fullName = this.getFullName('', this.bean.firstName, this.bean.lastName);
     if(this.isStaff){
