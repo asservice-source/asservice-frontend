@@ -22,8 +22,8 @@ export class Service_UserStaffAndOSM extends ApiHTTPService{
                 ,"birthDate": bean.birthDate
                 ,"villageId": bean.villageId
                 ,"code5": bean.hospitalCode5
-                ,"userRoleId": bean.userRoleId
-                ,"active": bean.userActive
+                ,"userRoleId": bean.roleId
+                ,"active": bean.active
             };
         if(isStaff){
             delete this.attr["villageId"];

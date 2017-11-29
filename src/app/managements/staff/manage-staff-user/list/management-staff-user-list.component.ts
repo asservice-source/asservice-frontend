@@ -166,7 +166,7 @@ export class ManagementStaffUserListComponent extends BaseComponent implements O
       this.bean.villageId = '';
       this.bean.genderId = '';
       this.bean.birthDate = '';
-      this.bean.userActive = true;
+      this.bean.active = true;
     }
     this.action = action;
     console.log("CCCCCCCCCCCC . ."+this.action);
