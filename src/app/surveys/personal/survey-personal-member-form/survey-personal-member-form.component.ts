@@ -95,6 +95,13 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
         self.isDisplayActionEdit = true;
         self.isDisabledActionAdd = true;
         self.isDisablePersonData = false;
+
+        if (!self.isEmpty(self.member.provinceCode)) {
+          self.bindDistrict(self.member.provinceCode);
+        }
+        if (!self.isEmpty(self.member.amphurCode)) {
+          self.bindSubDistrict(self.member.amphurCode);
+        }
       } else {
         self.modelBirthDate = null;
         self.member.isGuest = false;
@@ -301,6 +308,28 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
     });
   }
 
+  bindDistrict(provinceCode) {
+    let self = this;
+
+    let params = { "provinceCode": provinceCode };
+    self.apiHttp.post('address/amphur', params, function (resp) {
+      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+        self.listDistrict = resp.response;
+      }
+    });
+  }
+
+  bindSubDistrict(districtCode) {
+    let self = this;
+
+    let params = { "amphurCode": districtCode };
+    self.apiHttp.post('address/tumbol', params, function (resp) {
+      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+        self.listSubDistrict = resp.response;
+      }
+    });
+  }
+
   defaultValue() {
     let self = this;
 
@@ -326,7 +355,7 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
     self.member.birthDate = self.getStringDateForDatePickerModel(event.date);
   }
 
-  onChangeProvince(event) {
+  onChangeProvince() {
     let self = this;
 
     let params = { "provinceCode": self.member.provinceCode };
@@ -468,7 +497,7 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
     let self = this;
 
     self.validateVerify = new InputValidateInfo();
-    
+
     self.clearPersonalData();
 
     self.toggleCitizenId(false);
