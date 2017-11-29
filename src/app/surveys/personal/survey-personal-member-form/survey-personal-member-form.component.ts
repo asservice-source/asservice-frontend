@@ -5,6 +5,7 @@ import { PersonalMemberBean } from '../../../beans/personal-member.bean';
 import { BaseComponent } from '../../../base-component';
 import { Service_SurveyPersonal } from '../../../service/service-survey-personal';
 import { InputValidateInfo } from '../../../directives/inputvalidate.directive';
+import { SimpleValidateForm } from '../../../utils.util';
 declare var $;
 
 @Component({
@@ -48,6 +49,7 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
   public isDisabledCitizenId: boolean = true;
   public isDisplayButtonVerifyCitizenId: boolean = true;
   public isDisplayButtonEditCitizenId: boolean = false;
+  public isDisabledButtonSave: boolean = true;
 
   public isDisplayActionEdit: boolean = false;
   public isDisabledActionAdd: boolean = false;
@@ -67,7 +69,6 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
 
     self.onModalEvent();
 
-    // self.bindTypeArea();
     self.bindPrefix("");
     self.bindGender();
     self.bindRace();
@@ -106,21 +107,12 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
         self.isDisablePersonData = true;
       }
       self.validateVerify = new InputValidateInfo();
-    });
-  }
+      self.validateSave = new InputValidateInfo();
 
-  bindTypeArea() {
-    let self = this;
-
-    let URL_LIST_TYPE_AREA: string = "person/type_area_list";
-    let params = {};
-
-    self.apiHttp.post(URL_LIST_TYPE_AREA, params, function (d) {
-      if (d != null && d.status.toUpperCase() == "SUCCESS") {
-        // console.log(d);
-        self.listTypeArea = d.response;
+      if (!self.isEmpty(self.member.citizenId)) {
+        self.isDisabledButtonSave = false;
       } else {
-        console.log('survey-personal-member-member-form(bindTypeArea) occured error(s) => ' + d.message);
+        self.isDisabledButtonSave = true;
       }
     });
   }
@@ -417,10 +409,13 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
   onClickVerifyCitizenId(): void {
     let self = this;
 
+    self.validateVerify = new InputValidateInfo();
+
     let cid = self.member.citizenId;
     let personData: any;
 
     if (!self.isValidClickVerify(cid)) {
+      self.isDisabledButtonSave = true;
       return;
     }
 
@@ -462,6 +457,7 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
           self.toggleCitizenId(true);
           self.isDisablePersonData = false;
         }
+        self.isDisabledButtonSave = false;
       } else {
         console.log('survey-personal-member-form(onClickVerify) occured error(s) => ' + d.message);
       }
@@ -471,20 +467,39 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
   onClickEditCitizenId() {
     let self = this;
 
+    self.validateVerify = new InputValidateInfo();
+    
     self.clearPersonalData();
 
     self.toggleCitizenId(false);
     self.isDisablePersonData = true;
+    self.isDisabledButtonSave = true;
   }
 
-  isValidClickSave() {
+  isValidClickSave(bean) {
+    let self = this;
 
+    let simpValidate = new SimpleValidateForm();
+    let validateFields = ["genderId", "prefixCode", "firstName", "lastName", "birthDate", "raceCode", "nationalityCode", "religionCode", "bloodTypeId"];
+
+    self.validateSave = new InputValidateInfo();
+    self.validateSave.isCheck = true;
+
+    let errors = simpValidate.getObjectEmpty_byFilds(bean, validateFields);
+    if (errors.length > 0) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
   onClickSave() {
     let self = this;
 
     // console.log(JSON.stringify(self.member));
+    if (!self.isValidClickSave(self.member)) {
+      return;
+    }
 
     if (self.action == self.ass_action.ADD) {
       self.loading = true;
