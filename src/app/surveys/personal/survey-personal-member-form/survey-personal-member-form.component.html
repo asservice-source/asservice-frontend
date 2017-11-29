@@ -22,13 +22,16 @@
                 <label class="label-form">หมายเลขประจำตัว</label>
               </div>
               <div class="col-md-3">
-                <div class="input-group">
-                  <input type="text" class="ng-pristine ng-valid ng-touched form-control" [OnlyNumber]="true" [disabled]="isDisabledCitizenId"
-                    [(ngModel)]="member.citizenId">
-                  <span class="input-group-btn">
-                    <button class="btn btn-primary btn-flat" (click)="onClickVerifyCitizenId();" *ngIf="isDisplayButtonVerifyCitizenId">ตรวจสอบ</button>
-                    <button class="btn btn-primary btn-flat" (click)="onClickEditCitizenId();" *ngIf="isDisplayButtonEditCitizenId">แก้ไข</button>
-                  </span>
+                <div [InputValidate]="validateVerify" [citizenId]="true">
+                  <div class="input-group">
+                    <input type="text" class="ng-pristine ng-valid ng-touched form-control" minlength="13" maxlength="13" [OnlyNumber]="true"
+                      [disabled]="isDisabledCitizenId" [(ngModel)]="member.citizenId">
+                    <span class="input-group-btn">
+                      <button class="btn btn-primary" (click)="onClickVerifyCitizenId();" *ngIf="isDisplayButtonVerifyCitizenId">ตรวจสอบ</button>
+                      <button class="btn btn-primary" (click)="onClickEditCitizenId();" *ngIf="isDisplayButtonEditCitizenId">แก้ไข</button>
+                    </span>
+                  </div>
+                  <label class="error">กรุณาใส่หมายเลขประชาชนเป็นตัวเลข 13 หลัก</label>
                 </div>
               </div>
             </div>
@@ -52,7 +55,10 @@
                 <label class="label-form">ชื่อจริง</label>
               </div>
               <div class="col-md-3">
-                <input type="text" class="ng-pristine ng-valid ng-touched" [(ngModel)]="member.firstName" [disabled]="isDisablePersonData">
+                <div [InputValidate]="validateSave">
+                  <input type="text" class="ng-pristine ng-valid ng-touched" [(ngModel)]="member.firstName" [disabled]="isDisablePersonData">
+                  <label class="error">กรุณาระบุ ชื่อจริง</label>
+                </div>
               </div>
               <div class="col-md-2 text-right">
                 <label class="label-form">นามสกุล</label>
@@ -156,7 +162,7 @@
                 <label class="label-form">วันเดือนปี เกิด</label>
               </div>
               <div class="col-md-3">
-                <my-date-picker name="birthDate" [options]="datePickerOptions" [(ngModel)]="modelBirthDate" (dateChanged)="onChangeDate($event)"
+                <my-date-picker name="birthDate" [options]="datePickerOptions" [(ngModel)]="modelBirthDate" (dateChanged)="onChangeBirthDate($event)"
                   [disabled]="isDisablePersonData"></my-date-picker>
               </div>
             </div>
