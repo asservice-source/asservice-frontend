@@ -24,6 +24,6 @@ export class PersonalBasicBean{
     public zipcode: string;
     public osmId: string;
     public roleId: string;
-    public active: boolean;
+    public isActive: boolean;
     
 }

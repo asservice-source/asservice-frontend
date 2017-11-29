@@ -56,6 +56,16 @@ export class ManagementStaffUserListComponent extends BaseComponent implements O
              return 'หมู่ที่ '+ cell + ' ' + row.villageName;
              }
           },
+          isActive : {
+            title: 'สถานะผู้ใช้' 
+            ,filter: false
+            , with: '120px'
+            ,type: "html"
+            ,valuePrepareFunction: (cell, row) => { 
+
+              return cell?'<span class="text-active">พร้อมใช้งาน</span>':'<span class="text-inactive">ปิดการใช้งาน</span>';
+              }
+           },
           action: {
            title: this.getLabel('lbl_action'),
            filter: false,
@@ -166,7 +176,7 @@ export class ManagementStaffUserListComponent extends BaseComponent implements O
       this.bean.villageId = '';
       this.bean.genderId = '';
       this.bean.birthDate = '';
-      this.bean.active = true;
+      this.bean.isActive = true;
     }
     this.action = action;
     console.log("CCCCCCCCCCCC . ."+this.action);
