@@ -24,6 +24,8 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
   public genderList: any;
   public inputValidate: InputValidateInfo = new InputValidateInfo();
   public isShowVerify: boolean = true;
+  public isVerify: boolean = false;
+  public mBirthDate: any;
   constructor() { 
     super();
     this.bean = new StaffUserBean();
@@ -34,7 +36,6 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
 
   ngOnInit() {
     this.setupGender();
-    this.setupPrefix();
     this.setupVillage();
     this.bindModalForm();
   }
@@ -42,20 +43,20 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
     let _self = this;
     this.api.api_GenderList(function(response){
       _self.genderList = response;
+      _self.setupPrefix();
     });
 
   }
   setupPrefix(){
+    this.bean.prefixCode="";
     let _self = this;
     _self.api.api_PrefixNameList(_self.bean.genderId, function (response) {
-      console.log(response);
       _self.prefixList = response;
     });
   }
   setupVillage(){
     let _self = this;
     this.api.api_villageList(this.getHospitalCode(),function(list){
-      console.log(list);
       _self.villageList = list;
      
     });
@@ -67,19 +68,56 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
       _self.inputValidate = new InputValidateInfo();
     });
     $('#modalForm').on('show.bs.modal', function(){
-      console.log(_self.bean);
+      if(_self.action==_self.ass_action.EDIT){
+        console.log("_self.action >> "+_self.action);
+        _self.isVerify = true;
+      }
+      if(_self.bean.birthDate){
+        _self.mBirthDate = _self.getCurrentDatePickerModel(_self.bean.birthDate);
+      }else{
+        _self.mBirthDate = null;
+      } 
     });
   }
   onGenderChange(){
-    this.bean.prefixCode="";
+    this.setupPrefix();
   }
   onClickVerifyCitizenId(){
-
+    this.inputValidate = new InputValidateInfo();
+    this.inputValidate.isCheck = true;
+    //if(this.isValidCitizenIdThailand(this.bean.citizenId)){
+    if(this.bean.citizenId){
+      this.inputValidate = new InputValidateInfo();
+      let _self = this;
+      _self.loading = true;
+      this.api.api_PersonByCitizenId(this.bean.citizenId, function(response){
+        _self.loading = false;
+        if(response.status.toString().toUpperCase()=="SUCCESS"){
+          if(response.response){
+            let msg = 'มีข้อมูลหมายเลขประชาชน <b>'+ _self.bean.citizenId +'</b> อยู่แล้ว คุณต้องการดึงข้อมูลมาแก้ไข ใช่หรือไม่?';
+            _self.message_comfirm('', msg, function(result){
+              if(result){
+                _self.isVerify = true;
+                _self.bean = response.response;
+                _self.mBirthDate = _self.getCurrentDatePickerModel(_self.bean.birthDate);
+              }else{
+                _self.isVerify = false;
+              }
+            });
+          }else{
+            _self.isVerify = true;
+          }
+        }else{
+          _self.message_error('', 'ไม่สามารถตรวจสอบข้อมูลได้');
+        }
+      });
+    }
   }
   onClickEditCitizenId(){
-    
+
   }
   onSave(){
+    this.bean.birthDate = this.getStringDateForDatePickerModel(this.mBirthDate);
     this.inputValidate = new InputValidateInfo();
     this.inputValidate.isCheck = true;
     let valid = new SimpleValidateForm();
@@ -120,8 +158,6 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
               _self.success.emit({"success": false, "response": response});
             });
           }
-        
-          
         });
       }else{
 
