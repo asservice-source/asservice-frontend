@@ -227,7 +227,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
 
     self.loading = true;
 
-    let URL_LIST_HOME_MEMBERS: string = "homemember/homemember_by_home";
+    let URL_LIST_HOME_MEMBERS: string = "survey_population/homemember_by_home";
     let params = { "documentId": self.paramRoundId,"homeId": self.paramHomeId };
 
     self.apiHttp.post(URL_LIST_HOME_MEMBERS, params, function (d) {
