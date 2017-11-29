@@ -124,7 +124,7 @@
                             <label class="label-form">เบอร์โทรศัพท์</label>
                         </div>
                         <div class="col-md-3">
-                            <div [InputValidate]="inputValidate">
+                            <div [InputValidate]="inputValidate" [fixLength]="12">
                                 <input type="text" [(ngModel)]="patientbean.telephone" (keypress)="formatPhoneNumber()" maxlength="12" [OnlyNumber]="true">
                                 <label class="error">กรุณาใส่เบอร์โทรศัพท์</label>
                             </div>
@@ -240,7 +240,7 @@
                             <label class="label-form">เบอร์โทรศัพท์</label>
                         </div>
                         <div class="col-md-3">
-                            <div [InputValidate]="inputValidate">
+                            <div [InputValidate]="inputValidate" [fixLength]="12">
                                 <input type="text" [(ngModel)]="patientbean.telephone" (keypress)="formatPhoneNumber()" maxlength="12" [OnlyNumber]="true">
                                 <label class="error">กรุณาใส่เบอร์โทรศัพท์</label>
                             </div>
@@ -248,9 +248,6 @@
                     </div>
 
                 </div>
-
-
-
                 <div class="modal-footer">
                     <ng-container *ngIf="patientbean.patientSurveyTypeCode == ''?false : true">
                         <button class="btn btn-sm btn-primary" (click)="addSurvey()">ยืนยัน</button> &nbsp;&nbsp;

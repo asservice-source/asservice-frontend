@@ -249,31 +249,33 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
     }
   }
 
-  validate(obj:any): boolean {
+  validate(obj: any): boolean {
     let validate = true;
 
-    ///////
     this.inputValidate = new InputValidateInfo();
     this.inputValidate.isCheck = true;
     let simpVal: SimpleValidateForm = new SimpleValidateForm();
     let ignore = ["documentID", "cancerTypeID", "diseaseStatusTypeID", "patientTypeID", "disabilityTypeID", "disabilityCauseTypeID", "treatmentPlace", "remark", "telephone", "latitude", "longitude"];
-    
-    if(this.patientbean.patientSurveyTypeCode=='Disabled'){
+
+    if (this.patientbean.patientSurveyTypeCode == 'Disabled') {
       ignore = ["cancerTypeID", "latitude", "longitude"];
-    }else{
-      ignore = ["cancerTypeID","disabilityTypeID", "disabilityCauseTypeID", "latitude", "longitude"];
+    } else {
+      ignore = ["cancerTypeID", "disabilityTypeID", "disabilityCauseTypeID", "latitude", "longitude"];
     }
-    
-    if(this.action == this.ass_action.ADD){
+
+    if (this.action == this.ass_action.ADD) {
       ignore.push("rowGUID");
-      
     }
-    let objs = simpVal.getObjectEmpty(obj,ignore);
+    let objs = simpVal.getObjectEmpty(obj, ignore);
     console.log(objs);
-    if(objs.length>0){
+    if (objs.length > 0) {
       validate = false;
-    }else{
-      validate = true;
+    } else {
+      if (this.patientbean.telephone.length < 12) {
+        validate = false;
+      }else{
+        validate = true;
+      }
     }
     return validate;
   }
@@ -285,21 +287,21 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
     let disabilityCauseTypeID;
     if (this.action == this.ass_action.ADD) {
       documentId = this.documentId;
-    }else{
+    } else {
       documentId = this.patientbean.documentId;
     }
 
     if (this.patientbean.patientSurveyTypeCode == 'Patient') {
       disabilityTypeID = "";
       disabilityCauseTypeID = "";
-    }else{
+    } else {
       disabilityTypeID = this.patientbean.disabilityTypeID;
       disabilityCauseTypeID = this.patientbean.disabilityCauseTypeID;
     }
 
-    if (!self.isEmpty(self.patientbean.telephone)) {
-      self.patientbean.telephone = self.formatForJson(self.patientbean.telephone);
-    }
+    // if (!self.isEmpty(self.patientbean.telephone)) {
+    //   self.patientbean.telephone = self.formatForJson(self.patientbean.telephone);
+    // }
 
     let obj = {
       "rowGUID": this.patientbean.rowGUID
@@ -325,10 +327,14 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
     console.log(obj);
 
     if (this.validate(obj)) {
+
+      if (!self.isEmpty(obj["telephone"])) {
+        obj["telephone"] = self.formatForJson(obj["telephone"]);
+      }
+
       let params = this.strNullToEmpty(obj);
       console.log(params);
       this.api.post('survey_patient/ins_upd', params, function (resp) {
-        console.log(resp);
         if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
           $("#find-person-md").modal('hide');
           self.completed.emit(true);
@@ -342,7 +348,7 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
         }
       })
     }
-    
+
   }
 
 }
