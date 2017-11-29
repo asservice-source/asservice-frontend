@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { HomeBean } from '../../../../beans/home.bean';
 import { BaseComponent } from '../../../../base-component';
 import { ApiHTTPService } from '../../../../service/api-http.service';
 import { LocalDataSource } from 'ng2-smart-table';
 import { ActionCustomViewComponent } from '../../../../action-custom-table/action-custom-view.component';
 import { Service_Home } from '../../../../service/service-home';
-import { ViewChildButtonComponent } from '../../../../view-child-button-smart-table/view-child-button.component';
 
 declare var $:any;
 @Component({
@@ -37,12 +36,12 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
         filter: false,
       },
       choose:{
-        title: 'XXX',
+        title: 'จัดการสมาชิกในบ้าน',
         filter: false,
         sort: false,
-        width: '120px',
+        width: '160px',
         type: 'custom',
-        renderComponent: ViewChildButtonComponent,
+        renderComponent: ViewChildTableHomeManagement,
         onComponentInitFunction(instance) {  
           instance.click.subscribe(row => {
             console.log(row);
@@ -116,3 +115,24 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
     
   }
 }
+
+
+import { ViewCell } from 'ng2-smart-table';
+@Component({
+    selector: 'app-view-child-table-home-management',
+    template: '<div class="text-center"><button type="button" (click)="onClick()" class="btn btn-sm btn-primary">จัดการสมาชิก</button></div>',
+    styles: ['']
+  })
+  export class ViewChildTableHomeManagement implements OnInit ,ViewCell{
+    renderValue: string;
+    @Input() value: string | number;
+    @Input() rowData: any;
+    @Output() click: EventEmitter<any> = new EventEmitter();
+
+    ngOnInit() {
+      this.renderValue = this.value.toString();
+    }
+    onClick() {
+      this.click.emit(this.rowData);
+    }
+  }

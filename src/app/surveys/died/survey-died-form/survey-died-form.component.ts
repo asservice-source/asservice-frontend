@@ -74,6 +74,7 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
       }
       
     }else{
+      this.bean.mDateDead = this.getCurrentDatePickerModel();
       this.bean.cancerTypeID = "";
       this.bean.deathPlaceCode = "";
       this.bean.mHours = '00';

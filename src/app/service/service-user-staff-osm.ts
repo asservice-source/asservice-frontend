@@ -23,7 +23,7 @@ export class Service_UserStaffAndOSM extends ApiHTTPService{
                 ,"villageId": bean.villageId
                 ,"code5": bean.hospitalCode5
                 ,"userRoleId": bean.roleId
-                ,"active": bean.active
+                ,"active": bean.isActive
             };
         if(isStaff){
             delete this.attr["villageId"];

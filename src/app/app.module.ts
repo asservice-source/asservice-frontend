@@ -45,7 +45,7 @@ import { FilterHeadMosquitoComponent } from './filter/filter-head-mosquito/filte
 import { FilterFindPersonComponent } from './filter/filter-find-person/filter-find-person.component';
 import { FilterHeadSurveyComponent } from './filter/filter-head-survey/filter-head-survey.component';
 import { FilterPersonalComponent } from './filter/filter-personal/filter-personal.component';
-import { ActionCustomViewComponent } from './action-custom-table/action-custom-view.component'
+import { ActionCustomViewComponent, ActionCustomView_2_Component } from './action-custom-table/action-custom-view.component'
 import { OnlyNumberDirective } from './directives/onlynumber.directive';
 import { AutofocusDirective } from './directives/autofocus.directive';
 import { InputValidateDirective } from './directives/inputvalidate.directive';
@@ -55,12 +55,11 @@ import { ManagementStaffVillageListComponent } from './managements/staff/manage-
 import { ManagementStaffVillageFormComponent } from './managements/staff/manage-village/form/management-staff-village-form.component';
 import { MyDatePickerModule } from 'mydatepicker';
 import { RegisterActiveComponent } from './register/register-active/register-active.component';
-import { ManagementHomeComponent } from './managements/osm/management-home/list/management-home.component';
+import { ManagementHomeComponent, ViewChildTableHomeManagement } from './managements/osm/management-home/list/management-home.component';
 import { ManagementHomeFormComponent } from './managements/osm/management-home/form/management-home-form.component';
 import { LoadingComponent} from './ng2-loading/ass-loading.component'
 import { LoadingConfigService } from './ng2-loading/ass-loading.service';
 import { FilterFindMosquitoComponent , SelectHomeListButton} from './filter/filter-find-mosquito/filter-find-mosquito.component';
-import { ViewChildButtonComponent } from './view-child-button-smart-table/view-child-button.component';
 
 @NgModule({
   declarations: [
@@ -97,6 +96,7 @@ import { ViewChildButtonComponent } from './view-child-button-smart-table/view-c
     SurveyMosquitoFormComponent,
     SurveyPatientFormComponent,
     ActionCustomViewComponent,
+    ActionCustomView_2_Component,
     OnlyNumberDirective,
     AutofocusDirective,
     InputValidateDirective,
@@ -110,7 +110,7 @@ import { ViewChildButtonComponent } from './view-child-button-smart-table/view-c
     LoadingComponent,
     FilterFindMosquitoComponent,
     SelectHomeListButton,
-    ViewChildButtonComponent
+    ViewChildTableHomeManagement
   ],
   imports: [
     BrowserModule,
@@ -125,10 +125,11 @@ import { ViewChildButtonComponent } from './view-child-button-smart-table/view-c
   ],
   entryComponents: [
     ActionCustomViewComponent,
+    ActionCustomView_2_Component,
     SurveyPersonalHomeListButtonEditComponent,
     SurveyPersonalMemberListButtonEditComponent,
     SelectHomeListButton,
-    ViewChildButtonComponent
+    ViewChildTableHomeManagement
   ],
   providers: [LoadingConfigService],
   bootstrap: [AppComponent]

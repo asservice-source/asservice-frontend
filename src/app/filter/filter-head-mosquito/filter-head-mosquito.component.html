@@ -1,60 +1,59 @@
 <div class="row">
     <div class="col-md-2 text-right">
-        <label class="label-form">เลือกหมู่</label>
+        <label class="label-form">รอบสำรวจ</label>
     </div>
     <div class="col-md-4">
-        <select [(ngModel)]="villageNo">
-            <option ngValue="0">--เลือกหมู่--</option>
-            <option ngValue="1">1</option>
-            <option ngValue="2">2</option>
+        <select [(ngModel)]="filterBean.rowGUID" #round (change)="onChangeRound(round)">
+            <option *ngFor="let item of headerList" [value]="item.rowGUID">{{item.round}}</option>
+        </select>
+    </div>
+    <div class="col-md-1 text-right">
+        <label class="label-form">หมู่บ้าน</label>
+    </div>
+    <div class="col-md-4">
+        <select [(ngModel)]="filterBean.villageId" #village (change)="onChangeVillage(village)">
+            <option value="">ทั้งหมด</option>
+            <option *ngFor="let village of villageData" [value]="village.id">{{village.villageName}}</option>
         </select>
     </div>
 
-    <div class="col-md-1 text-right">
-        <label class="label-form">สถานที่</label>
-    </div>
+</div>
 
-    <div class="col-md-3">
-        <select [(ngModel)]="locationType" (change)="changLocationNo()" [disabled]="villageNo == '0'?true:false">
-            <option ngValue="0">--เลือกสถานที่--</option>
-            <option ngValue="1">บ้าน</option>
-            <option ngValue="2">ศาสนสถาน</option>
-            <option ngValue="3">โรงเรียน</option>
-            <option ngValue="4">โรงพยาบาล</option>
-            <option ngValue="5">โรงงาน</option>
-            <option ngValue="6">โรงแรม</option>
-            <option ngValue="7">อื่นๆ</option>
+<div class="row">
+    <div class="col-md-2 text-right">
+        <label class="label-form">ประเภทสถานที่</label>
+    </div>
+    <div class="col-md-4">
+        <select [(ngModel)]="filterBean.homeType" #hometype (change)="onChangeHometype(hometype);">
+            <option value="">ทั้งหมด</option>
+            <option *ngFor="let hometype of HomeTypeData" [value]="hometype.code">{{hometype.name}}</option>
+        </select>
+    </div>
+    <div class="col-md-1 text-right">
+        <label class="label-form">อสม.</label>
+    </div>
+    <div class="col-md-4">
+        <select [disabled]="filterBean.villageId==''" [(ngModel)]="filterBean.osmId" #osm (change)="onChangeOSM(osm)">
+            <option value="">ทั้งหมด</option>
+            <option *ngFor="let osm of osmData" [value]="osm.personId">{{osm.fullName}}</option>
         </select>
     </div>
 </div>
 
 <div class="row">
-    <div class="col-md-2 text-right" *ngIf="locationType == '1'? true:false">
-        <label class="label-form">บ้านเลขที่</label>
+    <div class="col-md-2 text-right">
+        <label class="label-form">สถานที่</label>
     </div>
-
-    <div class="col-md-2 text-right" *ngIf="locationType == '1'? false:true">
-        <label class="label-form">ชื่อสถานที่</label>
-    </div>
-
-    <div class="col-md-4" >
-        <select [(ngModel)]="HomeNo" [disabled]="locationType == '0'? true:false" >
-            <option ngValue="0">--เลือก บ้านเลขที่--</option>
-            <option ngValue="1">11/11</option>
-            <option ngValue="2">อื่นๆ</option>
+    <div class="col-md-4">
+        <select [disabled]="filterBean.villageId == '' || filterBean.homeType == '' " [(ngModel)]="filterBean.homeId" #homedata (change)="onChangeHomename(homedata)">
+            <option value="">ทั้งหมด</option>
+            <option *ngFor="let homedata of HomeNameData" [value]="homedata.homeId">{{homedata.name}}</option>
         </select>
     </div>
-
-    <div *ngIf="HomeNo == '2'? true:false">
-            <div class="col-md-1 text-right">
-                <label class="label-form">ชื่อ</label>
-            </div>
-            <div class="col-md-3">
-                <input type="text" [maxLength]="nameLength">
-            </div>
-            <div class="col-md-1">
-                <button type="buttoon" class="btn btn-primary btn-sm">เพิ่ม</button>
-            </div>
-        </div>
 </div>
 
+<div class="row">
+    <div class="col-md-12 text-center">
+        <button class="btn btn-primary btn-sm" (click)="onSearchFilter()" id="filter-btnSearch">แสดงข้อมูล</button>
+    </div>
+</div>

@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { BaseComponent } from '../../../../base-component';
 import { LocalDataSource } from 'ng2-smart-table';
-import { ActionCustomViewComponent } from '../../../../action-custom-table/action-custom-view.component';
+import { ActionCustomView_2_Component } from '../../../../action-custom-table/action-custom-view.component';
 import { StaffUserBean } from '../../../../beans/staff-user.bean';
 import { ApiHTTPService } from '../../../../service/api-http.service';
 import { Service_UserStaffAndOSM } from '../../../../service/service-user-staff-osm';
@@ -56,17 +56,24 @@ export class ManagementStaffUserListComponent extends BaseComponent implements O
              return 'หมู่ที่ '+ cell + ' ' + row.villageName;
              }
           },
+          isActive : {
+            title: 'สถานะผู้ใช้' 
+            ,filter: false
+            , with: '120px'
+            ,type: "html"
+            ,valuePrepareFunction: (cell, row) => { 
+
+              return cell?'<div class="text-active text-center">พร้อมใช้งาน</div>':'<div class="text-inactive text-center">ปิดการใช้งาน</div>';
+              }
+           },
           action: {
            title: this.getLabel('lbl_action'),
            filter: false,
            sort: false,
            width: '100px',
            type: 'custom',
-           renderComponent: ActionCustomViewComponent,
+           renderComponent: ActionCustomView_2_Component,
            onComponentInitFunction(instance) {
-             instance.view.subscribe(row => {
-   
-              });
               instance.edit.subscribe(row => {
                _self.bean = _self.cloneObj(row);
                _self.onModalForm(_self.ass_action.EDIT);
@@ -166,7 +173,7 @@ export class ManagementStaffUserListComponent extends BaseComponent implements O
       this.bean.villageId = '';
       this.bean.genderId = '';
       this.bean.birthDate = '';
-      this.bean.active = true;
+      this.bean.isActive = true;
     }
     this.action = action;
     console.log("CCCCCCCCCCCC . ."+this.action);
