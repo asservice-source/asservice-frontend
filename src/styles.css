@@ -120,3 +120,11 @@ color: white !important;
     padding-top: 0;
     padding-bottom: 0;
 }
+
+
+.text-active{
+    color: #05841b
+}
+.text-inactive{
+    color: #c70707;
+}
