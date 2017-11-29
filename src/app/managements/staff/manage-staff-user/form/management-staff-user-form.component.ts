@@ -26,6 +26,8 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
   public isShowVerify: boolean = true;
   public isVerify: boolean = false;
   public mBirthDate: any;
+  public oldCitizenId: string;
+  public actionName: string;
   constructor() { 
     super();
     this.bean = new StaffUserBean();
@@ -69,14 +71,16 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
     });
     $('#modalForm').on('show.bs.modal', function(){
       if(_self.action==_self.ass_action.EDIT){
-        console.log("_self.action >> "+_self.action);
+        _self.oldCitizenId = _self.bean.citizenId;
+        _self.isShowVerify = false;
         _self.isVerify = true;
-      }
-      if(_self.bean.birthDate){
-        _self.mBirthDate = _self.getCurrentDatePickerModel(_self.bean.birthDate);
       }else{
-        _self.mBirthDate = null;
-      } 
+        _self.isShowVerify = true;
+        _self.isVerify = false;
+      }
+      
+      _self.setDatePickerModel();
+
     });
   }
   onGenderChange(){
@@ -97,9 +101,12 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
             let msg = 'มีข้อมูลหมายเลขประชาชน <b>'+ _self.bean.citizenId +'</b> อยู่แล้ว คุณต้องการดึงข้อมูลมาแก้ไข ใช่หรือไม่?';
             _self.message_comfirm('', msg, function(result){
               if(result){
+                _self.action = _self.ass_action.EDIT;
                 _self.isVerify = true;
                 _self.bean = response.response;
-                _self.mBirthDate = _self.getCurrentDatePickerModel(_self.bean.birthDate);
+                _self.setDatePickerModel();
+                _self.oldCitizenId = _self.bean.citizenId;
+                console.log(_self.bean);
               }else{
                 _self.isVerify = false;
               }
@@ -117,7 +124,7 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
 
   }
   onSave(){
-    this.bean.birthDate = this.getStringDateForDatePickerModel(this.mBirthDate);
+    this.bean.birthDate = this.getStringDateForDatePickerModel(this.mBirthDate.date);
     this.inputValidate = new InputValidateInfo();
     this.inputValidate.isCheck = true;
     let valid = new SimpleValidateForm();
@@ -133,7 +140,8 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
       this.bean.userRoleId = '5';
       roleName = "อสม."
     }
-    
+
+    this.actionName = this.action==this.ass_action.ADD?'เพิ่ม':'แก้ไข';
     
     //if(this.isValidCitizenIdThailand(this.bean.citizenId)){
     if(true){
@@ -146,23 +154,47 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
       if(arr.length<=0){
         let _self = this;
         _self.loading = true;
-        this.api.commit_save(this.isStaff ,this.bean, function(response){
-          _self.loading = false;
-          if(response && response.status.toString().toUpperCase()=='SUCCESS'){
-            $('#modalForm').modal('hide');
-            _self.message_success('','เพิ่มเจ้าหน้าที่ ' + roleName + ' ' + fullName + ' สำเร็จ', function(){
-              _self.success.emit({"success": true, "response": response});
-            });
+
+        this.api.api_PersonByCitizenId(_self.bean.citizenId, function(response){
+          if(response.status.toString().toUpperCase()=="SUCCESS"){
+            if(response.response && response.response.citizenId != _self.oldCitizenId){
+              _self.loading = false;
+              _self.message_error('', 'หมายเลขบัตรประจำตัว <b>'+ _self.bean.citizenId +'</b> ซ้ำ');
+            }else{
+              // Save To API
+              _self.api.commit_save(_self.isStaff ,_self.bean, function(response){
+                _self.loading = false;
+                if(response && response.status.toString().toUpperCase()=='SUCCESS'){
+                  $('#modalForm').modal('hide');
+                  _self.message_success('',_self.actionName+'เจ้าหน้าที่ ' + roleName + ' ' + fullName + ' สำเร็จ', function(){
+                    _self.success.emit({"success": true, "response": response});
+                  });
+                }else{
+                  _self.message_error('','ไม่สามารถ'+_self.actionName+'เจ้าหน้าที่ '+ roleName + ' ' + fullName + ' ได้', function(){
+                    _self.success.emit({"success": false, "response": response});
+                  });
+                }
+              });
+
+            }
           }else{
-            _self.message_error('','ไม่สามารถเพิ่มเจ้าหน้าที่ '+ roleName + ' ' + fullName + ' ได้', function(){
-              _self.success.emit({"success": false, "response": response});
-            });
+            _self.loading = false;
+            _self.message_error('', 'ไม่สามารถตรวจสอบข้อมูลเลขประชาชนได้');
           }
+    
         });
       }else{
-
+        // Invalidate
       }
     }
     
+  }
+
+  setDatePickerModel(){
+      if(this.bean.birthDate){
+        this.mBirthDate = this.getCurrentDatePickerModel(this.bean.birthDate);
+      }else{
+        this.mBirthDate = null;
+      } 
   }
 }
