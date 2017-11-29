@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { BaseComponent } from '../../../../base-component';
 import { LocalDataSource } from 'ng2-smart-table';
-import { ActionCustomViewComponent } from '../../../../action-custom-table/action-custom-view.component';
+import { ActionCustomView_2_Component } from '../../../../action-custom-table/action-custom-view.component';
 import { StaffUserBean } from '../../../../beans/staff-user.bean';
 import { ApiHTTPService } from '../../../../service/api-http.service';
 import { Service_UserStaffAndOSM } from '../../../../service/service-user-staff-osm';
@@ -63,7 +63,7 @@ export class ManagementStaffUserListComponent extends BaseComponent implements O
             ,type: "html"
             ,valuePrepareFunction: (cell, row) => { 
 
-              return cell?'<span class="text-active">พร้อมใช้งาน</span>':'<span class="text-inactive">ปิดการใช้งาน</span>';
+              return cell?'<div class="text-active text-center">พร้อมใช้งาน</div>':'<div class="text-inactive text-center">ปิดการใช้งาน</div>';
               }
            },
           action: {
@@ -72,11 +72,8 @@ export class ManagementStaffUserListComponent extends BaseComponent implements O
            sort: false,
            width: '100px',
            type: 'custom',
-           renderComponent: ActionCustomViewComponent,
+           renderComponent: ActionCustomView_2_Component,
            onComponentInitFunction(instance) {
-             instance.view.subscribe(row => {
-   
-              });
               instance.edit.subscribe(row => {
                _self.bean = _self.cloneObj(row);
                _self.onModalForm(_self.ass_action.EDIT);
