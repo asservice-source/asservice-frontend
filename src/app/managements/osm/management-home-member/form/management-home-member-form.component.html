@@ -1,0 +1,68 @@
+<!-- Modal -->
+<div class="modal fade" id="modalForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="false" data-keyboard="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">{{bean.personId?'แก้ไข':'เพิ่ม'}}สมาชิก</h4>
+      </div>
+      <div class="modal-body">
+      <div class="row">
+          <div class="col-md-4 text-right">
+            <label class="label-form">{{getLabel('lbl_citizenid')}}</label>
+          </div>
+          <div class="col-md-6">
+            <div [InputValidate]="inputValidate" [citizenId]="true">
+              <div class="input-group">
+                <input type="text" [(ngModel)]="bean.citizenId" [OnlyNumber]="true" maxlength="13" [disabled]="false">
+                <span class="input-group-btn">
+                  <button class="btn btn-primary btn-sm btn-flat" (click)="onClickVerifyCitizenId();" *ngIf="isShowVerify">ตรวจสอบ</button>
+                  <button class="btn btn-primary btn-sm btn-flat" (click)="onClickEditCitizenId();" *ngIf="false">แก้ไข</button>
+                </span>
+              </div>
+              <label class="error">กรุณาใส่หมายเลขประชาชนเป็นตัวเลข 13 หลัก</label>
+            </div>
+          </div>
+        </div>
+    
+        <div *ngIf="isVerify">
+          <div class="row">
+            <div class="col-md-2 text-right">
+              <label class="label-form">เพศ</label>
+            </div>
+            <div class="col-md-4">
+              <div [InputValidate]="inputValidate">
+                <select [(ngModel)]="bean.genderId" (change)="onGenderChange()">
+                  <option value="">---เลือก---</option>
+                  <option *ngFor="let item of genderList" [value]="item.id">{{item.name}}</option>
+                </select>
+                <label class="error">กรุณาเลือกเพศ</label>
+              </div>
+            </div>
+            <div class="col-md-2 text-right">
+              <label class="label-form">คำนำหน้า</label>
+            </div>
+            <div class="col-md-4">
+              <div [InputValidate]="inputValidate">
+                <select [(ngModel)]="bean.prefixCode">
+                  <option value="">---เลือก---</option>
+                  <option *ngFor="let item of prefixList" [value]="item.id">{{item.name}}</option>
+                </select>
+                <label class="error">กรุณาเลือกคำนำหน้า</label>
+              </div>
+            </div>
+          </div>
+  
+    
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-primary" (click)="onSave()">ตกลง</button>
+        <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">ยกเลิก</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ass-loading [show]="loading" ></ass-loading>

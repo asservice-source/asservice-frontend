@@ -112,5 +112,10 @@ export class ManagementHomeMemberComponent extends BaseComponent implements OnIn
       _self.loading = false;
     });
   }
-  
+  onModalShow(){
+    $('#modalForm').modal();
+  }
+  onClickAdd(){
+    this.onModalShow();
+  }
 }

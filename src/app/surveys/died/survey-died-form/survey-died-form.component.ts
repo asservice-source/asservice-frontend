@@ -107,6 +107,7 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
       _self.changeRef.detectChanges();
     })
     $('#modal-add-died').on('hidden.bs.modal', function () {
+      $("#isCongenitalDisease").hide();
       _self.inputValidate = new InputValidateInfo();
       _self.isShowForm = false;
       _self.isFindPersonal = true;

@@ -28,7 +28,12 @@
 
       </div>
     </div>
-
+    <div class="row">
+      <div class="col-md-12">
+        <button type="button" (click)="onClickAdd()" class="btn btn-sm btn-primary">เพิ่มสมาชิกใหม่</button>
+      </div>
+    </div>
     <ng2-smart-table [settings]="settings" [source]="source" (rowSelect)="onRowSelect($event)"></ng2-smart-table>
 </div>
+<app-management-home-member-form [bean]="bean"></app-management-home-member-form>
 <ass-loading [show]="loading" ></ass-loading>
