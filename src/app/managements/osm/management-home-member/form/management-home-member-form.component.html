@@ -1,6 +1,6 @@
 <!-- Modal -->
 <div class="modal fade" id="modalForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="false" data-keyboard="false">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title" id="myModalLabel">{{bean.personId?'แก้ไข':'เพิ่ม'}}สมาชิก</h4>
@@ -16,7 +16,6 @@
                 <input type="text" [(ngModel)]="bean.citizenId" [OnlyNumber]="true" maxlength="13" [disabled]="false">
                 <span class="input-group-btn">
                   <button class="btn btn-primary btn-sm btn-flat" (click)="onClickVerifyCitizenId();" *ngIf="isShowVerify">ตรวจสอบ</button>
-                  <button class="btn btn-primary btn-sm btn-flat" (click)="onClickEditCitizenId();" *ngIf="false">แก้ไข</button>
                 </span>
               </div>
               <label class="error">กรุณาใส่หมายเลขประชาชนเป็นตัวเลข 13 หลัก</label>

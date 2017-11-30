@@ -4,6 +4,7 @@ import { LocalDataSource } from 'ng2-smart-table';
 import { ActionCustomViewComponent } from '../../../../action-custom-table/action-custom-view.component';
 import { Service_HomeMember } from '../../../../service/service-home-member';
 import { ActivatedRoute } from '@angular/router';
+import { PersonalBasicBean } from '../../../../beans/personal-basic.bean';
 
 
 declare var $:any;
@@ -14,14 +15,16 @@ declare var $:any;
 })
 export class ManagementHomeMemberComponent extends BaseComponent implements OnInit {
 
-
+  public bean: PersonalBasicBean;
   public settings: any;
   public source: LocalDataSource = new LocalDataSource();
   public api: Service_HomeMember;
   public homeInfo: any;
   public isShowInfo: boolean = false;
+
   constructor(private activatedRoute: ActivatedRoute) { 
     super();
+    this.bean = new PersonalBasicBean();
     this.api = new Service_HomeMember();
     let _self = this;
     this.settings = this.getTableSetting({
