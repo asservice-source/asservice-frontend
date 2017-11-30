@@ -202,14 +202,7 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
         if (self.action != self.ass_action.EDIT) {
           if (resp.response.isDuplicate == true) {
             $('#find-person-md').modal('hide');
-            bootbox.alert({
-              size: "large",
-              title: "<div style='color:white;font-weight: bold;'><span class='glyphicon glyphicon-alert'></span> ไม่ถูกต้อง</div>",
-              message: "คนที่ท่านเลือกได้ทำการสำรวจไปแล้ว",
-              callback: function () {
-
-              }
-            });
+            self.message_error('', 'คนที่ท่านเลือกได้ทำการสำรวจไปแล้ว');
           }
         }
       }
@@ -273,7 +266,7 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
     } else {
       if (this.patientbean.telephone.length < 12) {
         validate = false;
-      }else{
+      } else {
         validate = true;
       }
     }
@@ -298,11 +291,6 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
       disabilityTypeID = this.patientbean.disabilityTypeID;
       disabilityCauseTypeID = this.patientbean.disabilityCauseTypeID;
     }
-
-    // if (!self.isEmpty(self.patientbean.telephone)) {
-    //   self.patientbean.telephone = self.formatForJson(self.patientbean.telephone);
-    // }
-
     let obj = {
       "rowGUID": this.patientbean.rowGUID
       , "personID": this.patientbean.personId
@@ -327,28 +315,26 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
     console.log(obj);
 
     if (this.validate(obj)) {
-
       if (!self.isEmpty(obj["telephone"])) {
         obj["telephone"] = self.formatForJson(obj["telephone"]);
       }
-
       let params = this.strNullToEmpty(obj);
       console.log(params);
-      this.api.post('survey_patient/ins_upd', params, function (resp) {
-        if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-          $("#find-person-md").modal('hide');
-          self.completed.emit(true);
-          bootbox.alert({
-            size: "large",
-            title: "<div style='color:#5cb85c;font-weight: bold;'><span class='glyphicon glyphicon-ok'></span> ส่งแบบสำรวจสำเร็จ</div>",
-            message: "ท่านได้ทำการส่งแบบสำรวจผู้พิการ และผู้ป่วยติดเตียง แล้ว",
-            callback: function () {
+
+      self.message_comfirm('', 'ยืนยันการทำแบบสำรวจ', function (confirm) {
+        self.inputValidate = new InputValidateInfo();
+        if (confirm) {
+          self.api.post('survey_patient/ins_upd', params, function (resp) {
+            if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+              $("#find-person-md").modal('hide');
+              self.completed.emit(true);
+              self.message_success('', 'ท่านได้ทำการส่งแบบสำรวจผู้พิการ และผู้ป่วยติดเตียงแล้ว')
             }
-          });
+          })
         }
       })
-    }
 
+    }
   }
 
 }

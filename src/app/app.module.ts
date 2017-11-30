@@ -53,7 +53,8 @@ import { ManagementStaffUserFormComponent } from './managements/staff/manage-sta
 import { ManagementStaffUserListComponent } from './managements/staff/manage-staff-user/list/management-staff-user-list.component';
 import { ManagementStaffVillageListComponent } from './managements/staff/manage-village/list/management-staff-village-list.component';
 import { ManagementStaffVillageFormComponent } from './managements/staff/manage-village/form/management-staff-village-form.component';
-import { MyDatePickerModule } from 'mydatepicker';
+// import { MyDatePickerModule } from 'mydatepicker';
+import { MyDatePickerModule } from 'mydatepicker-thai';
 import { RegisterActiveComponent } from './register/register-active/register-active.component';
 import { ManagementHomeComponent, ViewChildTableHomeManagement } from './managements/osm/management-home/list/management-home.component';
 import { ManagementHomeFormComponent } from './managements/osm/management-home/form/management-home-form.component';
