@@ -52,7 +52,7 @@
                         </div>
                         <div class="col-md-3">
                             <div [InputValidate]="inputValidate">
-                                <input type="text" [(ngModel)]="patientbean.remark">
+                                <input type="text" [(ngModel)]="patientbean.remark" maxlength="255">
                                 <label class="error">กรุณาระบุอาการป่วย</label>
                             </div>
                         </div>
@@ -100,7 +100,7 @@
                         </div>
                         <div class="col-md-3">
                             <div [InputValidate]="inputValidate">
-                                <input type="text" [(ngModel)]="patientbean.treatmentPlace">
+                                <input type="text" [(ngModel)]="patientbean.treatmentPlace" maxlength="255">
                                 <label class="error">กรุณาเลือกสถานที่รักษา</label>
                             </div>
                         </div>
@@ -167,7 +167,7 @@
                         </div>
                         <div class="col-md-3">
                             <div [InputValidate]="inputValidate">
-                                <input type="text" [(ngModel)]="patientbean.remark">
+                                <input type="text" [(ngModel)]="patientbean.remark" maxlength="255">
                                 <label class="error">กรุณาใส่โรค/อาการ</label>
                             </div>
                         </div>
@@ -216,7 +216,7 @@
                         </div>
                         <div class="col-md-3">
                             <div [InputValidate]="inputValidate">
-                                <input type="text" [(ngModel)]="patientbean.treatmentPlace">
+                                <input type="text" [(ngModel)]="patientbean.treatmentPlace" maxlength="255">
                                 <label class="error">กรุณาใส่สถานที่รักษา</label>
                             </div>
                         </div>
