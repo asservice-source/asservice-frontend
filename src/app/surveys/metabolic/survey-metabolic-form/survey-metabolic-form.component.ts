@@ -126,14 +126,7 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
         if (self.action != self.ass_action.EDIT) {
           if (resp.response.isDuplicate == true) {
             $('#find-person-md').modal('hide');
-            bootbox.alert({
-              size: "large",
-              title: "<div style='color:white;font-weight: bold;'><span class='glyphicon glyphicon-alert'></span> ไม่ถูกต้อง</div>",
-              message: "คนที่ท่านเลือกได้ทำการสำรวจไปแล้ว",
-              callback: function () {
-
-              }
-            });
+            self.message_error('', 'คนที่ท่านเลือกได้ทำการสำรวจไปแล้ว')
           }
         }
       }
@@ -275,7 +268,7 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
       }
       else {
         this.isErrorDrink = false;
-        this.errorDrink ="";
+        this.errorDrink = "";
       }
     } else {
       this.metabolicbean.oftenPerWeek = undefined;
@@ -472,30 +465,22 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
 
       console.log(Object.keys(obj).length);
       console.log(JSON.stringify(obj));
-      this.api.post('survey_metabolic/ins_upd_metabolic_info', obj, function (resp) {
-        if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-          $("#find-person-md").modal('hide');
-          self.completed.emit(true);
-          bootbox.alert({
-            size: "large",
-            title: "<div style='color:#5cb85c;font-weight: bold;'><span class='glyphicon glyphicon-ok'></span> ส่งแบบสำรวจสำเร็จ</div>",
-            message: "ท่านได้ทำการส่งแบบสำรวจความเสี่ยงโรค Metabolic แล้ว",
-            callback: function () {
 
+      self.message_comfirm('', 'ยืนยันการทำแบบสำรวจ', function (confirm) {
+        if (confirm) {
+          self.api.post('survey_metabolic/ins_upd_metabolic_info', obj, function (resp) {
+            if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+              $("#find-person-md").modal('hide');
+              self.completed.emit(true);
+              self.message_success('', 'ท่านได้ทำการส่งแบบสำรวจความเสี่ยงโรค Metabolic แล้ว', function () {
+
+              })
             }
-          });
-        }
+          })
+        } 
       })
 
 
-      // let headers = new Headers({ 'Content-Type': 'application/json' });
-      // let options = new RequestOptions({ headers: headers, method: "post" });
-
-      // this.http.post("http://192.168.2.227:8080/API-ASService/survey_metabolic/ins_upd_metabolic_info", obj, options)
-      //     .map(res => res.json())
-      //     .subscribe(
-      //     data => console.log(data)
-      //     )
 
     }
   }
