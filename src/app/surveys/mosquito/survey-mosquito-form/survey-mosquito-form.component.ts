@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit, Input, ChangeDetectorRef } from '@angular/core';
 import { BaseComponent } from '../../../base-component';
 import { MosquitoBean } from '../../../beans/mosquito.bean';
+import { ApiHTTPService } from '../../../service/api-http.service';
 
 declare var $: any;
 @Component({
@@ -16,6 +17,8 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
   public isFindHome: boolean = true;
   public isShowForm: boolean = false;
   public resetFind: number = 1;
+  private api: ApiHTTPService;
+  public containerTypeList : any;
 
   public mosquitobean : MosquitoBean;
 
@@ -26,10 +29,12 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
   constructor(private changeRef: ChangeDetectorRef) {
     super();
     this.mosquitobean = new MosquitoBean();
+    this.api = new ApiHTTPService();
    }
 
   ngOnInit() {
     this.onModalEvent();
+    this.getContainerType();
   }
 
   onBack() {
@@ -66,5 +71,22 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
       self.changeRef.detectChanges();
     });
   }
+
+  getContainerType(){
+    let self = this;
+    let params = {};
+    this.api.post('survey_hici/container_type_list', params, function (resp) {
+      console.log(resp);
+      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+        self.containerTypeList = resp.response;
+        console.log(self.containerTypeList);
+
+      }
+    })
+  }
+
+ 
+
+  // http://192.168.1.203:8080/api-asservice-front/survey_hici/container_type_list
 
 }
