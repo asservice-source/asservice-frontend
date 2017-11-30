@@ -133,6 +133,14 @@ export class ApiHTTPService  implements OnInit {
         });
     }
 
+    public api_HomrInfo(homeId: any, callback: (doc: any) => void){
+        let parameter = {"homeId": +homeId};
+        this.post('home/home_info', parameter, function(response){
+            console.log(response);
+            callback(response);
+        });
+    }
+
     public getRound_byDocumentId(headerTypeCode: string, documentId: string, callback: (doc:any)=>void): any{
         this.api_SurveyHeaderList(headerTypeCode, function(response){
             for(let item of response){

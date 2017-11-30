@@ -36,7 +36,7 @@
                 <label>อายุ</label>
               </div>
               <div class="col-md-4">
-                <label class="value">{{bean.age}}</label>
+                <label class="value">{{bean.age}} ปี</label>
               </div>
             </div>
 
@@ -54,8 +54,11 @@
               <label>วันที่เสียชีวิต</label>
             </div>
             <div class="col-md-2">
-              <my-date-picker name="mydate" [options]="datePickerOptions"
+              <div [InputValidate]="inputValidate">
+                <my-date-picker name="mydate" [options]="datePickerOptions"
               [(ngModel)]="bean.mDateDead" (dateChanged)="onDateChanged($event)" required></my-date-picker>
+                <label class="error">กรุณาเลือก ันที่เสียชีวิต</label>
+              </div>
             </div>
             <div class="col-md-1 text-right"  style="width: 40px; padding: 0;">
                 <label>เวลา</label>
@@ -82,20 +85,6 @@
             </div>
 
             <div class="col-md-5">
-             
-              <!-- <div class="row" *ngFor="let item of causeList">
-                <div class="col-md-12">
-                  <div class="checkbox">
-                    <label class="label-form" style="font-size: 1em">
-                        <input type="checkbox" name="{{item.causeCode}}" [(ngModel)]="item.isCause">
-                        <span class="cr">
-                            <i class="cr-icon fa fa-check"></i>
-                        </span>
-                        {{item.causeName}}
-                    </label>
-                  </div> 
-                </div>
-              </div> -->
 
               <div class="row">
                 <div class="col-md-12">
@@ -152,10 +141,13 @@
                   </div> 
                 </div>
                 <div class="col-md-8" style="padding-left: 0">
-                  <select [(ngModel)]="bean.cancerTypeID" *ngIf="bean.isCancer">
-                    <option value="">---เลือก---</option>
-                    <option *ngFor="let item of cancerList" [value]="item.id">{{item.name}}</option>
-                  </select>
+                  <div [InputValidate]="inputValidate">
+                    <select [(ngModel)]="bean.cancerTypeID" *ngIf="bean.isCancer">
+                      <option value="">---เลือก---</option>
+                      <option *ngFor="let item of cancerList" [value]="item.id">{{item.name}}</option>
+                    </select>
+                    <label class="error">กรุณาเลือกโรคมะร็ง</label>
+                  </div>
                 </div>
               </div>
 
@@ -218,10 +210,10 @@
                       ไม่มี
                     </label>
                   </div> 
+                  
                 </div>
-
               </div>
-
+              <label class="error" id="isCongenitalDisease">กรุณาเลือกโรคประจำตัว</label>
             </div>
           </div>
     
@@ -231,18 +223,24 @@
             </div>
     
             <div class="col-md-5" *ngIf="bean.deathPlaceCode!='9'">
-              <select [(ngModel)]="bean.deathPlaceCode">
-                  <option value="">---เลือกสถานที่---</option>
-                  <option *ngFor="let item of deadPlaceList" [value]="item.code">{{item.name}}</option>
-              </select>
+                <div [InputValidate]="inputValidate">
+                  <select [(ngModel)]="bean.deathPlaceCode">
+                      <option value="">---เลือก---</option>
+                      <option *ngFor="let item of deadPlaceList" [value]="item.code">{{item.name}}</option>
+                  </select>
+                  <label class="error">กรุณาเลือกสถานที่เสียชีวิต</label>
+                </div>
             </div>
             <div class="col-md-5" *ngIf="bean.deathPlaceCode=='9'">
+              <div [InputValidate]="inputValidate">
                 <div class="input-group date">
                   <input type="text" [(ngModel)]="bean.placeOther" placeholder="อื่นๆ ระบุ" >
                   <div class="input-group-addon" (click)="bean.deathPlaceCode=''">
                     <span class="fa fa-remove"></span>
                   </div>
                 </div>
+                <label class="error">กรุณาใส่สถานที่เสียชีวิต</label>
+              </div>
             </div>
         </div>
           <div class="modal-footer">  
