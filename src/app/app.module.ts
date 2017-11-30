@@ -60,6 +60,7 @@ import { ManagementHomeFormComponent } from './managements/osm/management-home/f
 import { LoadingComponent} from './ng2-loading/ass-loading.component'
 import { LoadingConfigService } from './ng2-loading/ass-loading.service';
 import { FilterFindMosquitoComponent , SelectHomeListButton} from './filter/filter-find-mosquito/filter-find-mosquito.component';
+import { ManagementHomeMemberComponent } from "./managements/osm/management-home-member/list/management-home-member.component";
 
 @NgModule({
   declarations: [
@@ -110,7 +111,8 @@ import { FilterFindMosquitoComponent , SelectHomeListButton} from './filter/filt
     LoadingComponent,
     FilterFindMosquitoComponent,
     SelectHomeListButton,
-    ViewChildTableHomeManagement
+    ViewChildTableHomeManagement,
+    ManagementHomeMemberComponent
   ],
   imports: [
     BrowserModule,
