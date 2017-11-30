@@ -129,18 +129,22 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
   }
 
   onClickAdd() {
-    this.paramHome = new PersonalHomeBean();
-    this.action = this.ass_action.ADD;
-    this.changeRef.detectChanges();
-    
-    $("app-management-osm-area-form #modalForm").modal({ backdrop: 'static', keyboard: false });
+    let self = this;
+
+    // this.paramHome = new PersonalHomeBean();
+    // this.action = this.ass_action.ADD;
+    // this.changeRef.detectChanges();
+
+    // $("app-management-osm-area-form #modalForm").modal({ backdrop: 'static', keyboard: false });
+
+    self.router.navigate(['/main/managements/osm/home']);
   }
 
   bindHomeList(roundId: string, villageId: string, osmId: string, homeId: string) {
     let self = this;
 
     self.loading = true;
-    
+
     let URL_LIST_HOME: string = "survey_population/search_population_list";
     let params = { "documentId": roundId, "villageId": villageId, "osmId": osmId, "homeId": homeId };
 
