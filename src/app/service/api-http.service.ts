@@ -140,17 +140,44 @@ export class ApiHTTPService  implements OnInit {
             callback(response);
         });
     }
-
+    public api_RaceList(callback: (doc: any) => void){
+        this.callResponse('person/race_list',{}, callback);
+    }
+    public api_NationalityList(callback: (doc: any) => void){
+        this.callResponse('person/nationality_list',{}, callback);
+    }
+    public api_ReligionList(callback: (doc: any) => void){
+        this.callResponse('person/religion_list',{}, callback);
+    }
+    public api_BloodTypeList(callback: (doc: any) => void){
+        this.callResponse('person/blood_type_list',{}, callback);
+    }
+    public api_RHGroupList(callback: (doc: any) => void){
+        this.callResponse('person/rhgroup_list',{}, callback);
+    }
+    public api_EducationList(callback: (doc: any) => void){
+        this.callResponse('person/education_list',{}, callback);
+    }
+    public api_OccupationList(callback: (doc: any) => void){
+        this.callResponse('person/occupation_list',{}, callback);
+    }
+    public api_FamilyStatusList(callback: (doc: any) => void){
+        this.callResponse('home/family_status_list',{}, callback);
+    }
+    
     public getRound_byDocumentId(headerTypeCode: string, documentId: string, callback: (doc:any)=>void): any{
+        let mitem = {};
         this.api_SurveyHeaderList(headerTypeCode, function(response){
             for(let item of response){
                 if(documentId == item.rowGUID){
-                    callback(item);
+                    mitem = item;
                     break;
+
                 }
             }
+            callback(mitem);
+            return;
         });
-        callback({});
     }
 
 }

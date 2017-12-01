@@ -79,7 +79,8 @@
             </div>
             <div class="col-md-4">
               <div [InputValidate]="inputValidate">
-                <input type="text" [(ngModel)]="bean.birthDate">
+                  <my-date-picker [options]="datePickerOptions" [(ngModel)]="modelBirthDate" (dateChanged)="onChangeBirthDate($event)"
+                  [disabled]="isDisablePersonData"></my-date-picker>
                 <label class="error">กรุณาเลือกวันเดือนปี เกิด</label>
               </div>
             </div>
@@ -91,6 +92,7 @@
               <div [InputValidate]="inputValidate">
                 <select type="text" [(ngModel)]="bean.raceCode">
                   <option value="">---เลือก---</option>
+                  <option *ngFor="let item of raceList" [value]="item.code">{{item.name}}</option>
                 </select>
                 <label class="error">กรุณาเลือกเชื้อชาติ</label>
               </div>
@@ -105,6 +107,7 @@
               <div [InputValidate]="inputValidate">
                 <select type="text" [(ngModel)]="bean.nationalityCode">
                   <option value="">---เลือก---</option>
+                  <option *ngFor="let item of nationalityList" [value]="item.code">{{item.name}}</option>
                 </select>
                 <label class="error">กรุณาเลือกสัญชาติ</label>
               </div>
@@ -117,6 +120,7 @@
               <div [InputValidate]="inputValidate">
                 <select type="text" [(ngModel)]="bean.religionCode">
                   <option value="">---เลือก---</option>
+                  <option *ngFor="let item of religionList" [value]="item.code">{{item.name}}</option>
                 </select>
                 <label class="error">กรุณาเลือกศาสนา</label>
               </div>
@@ -131,6 +135,7 @@
               <div [InputValidate]="inputValidate">
                 <select type="text" [(ngModel)]="bean.bloodTypeId">
                   <option value="">---เลือก---</option>
+                  <option *ngFor="let item of bloodTypeList" [value]="item.id">{{item.name}}</option>
                 </select>
                 <label class="error">กรุณาเลือกกรุ๊ปเลือด</label>
               </div>
@@ -143,6 +148,7 @@
               <div [InputValidate]="inputValidate">
                 <select type="text" [(ngModel)]="bean.rhGroupId">
                   <option value="">---เลือก---</option>
+                  <option *ngFor="let item of rhGroupList" [value]="item.id">{{item.name}}</option>
                 </select>
                 <label class="error">กรุณาเลือก RH Group</label>
               </div>
@@ -157,6 +163,7 @@
               <div [InputValidate]="inputValidate">
                 <select type="text" [(ngModel)]="bean.educationCode">
                   <option value="">---เลือก---</option>
+                  <option *ngFor="let item of educationList" [value]="item.code">{{item.name}}</option>
                 </select>
                 <label class="error">กรุณาเลือกการศึกษา</label>
               </div>
@@ -169,6 +176,7 @@
               <div [InputValidate]="inputValidate">
                 <select type="text" [(ngModel)]="bean.occupationCode">
                   <option value="">---เลือก---</option>
+                  <option *ngFor="let item of occupationList" [value]="item.code">{{item.name}}</option>
                 </select>
                 <label class="error">กรุณาเลือกอาชีพ</label>
               </div>
@@ -183,13 +191,24 @@
               <div [InputValidate]="inputValidate">
                 <select type="text" [(ngModel)]="bean.familyStatusId">
                   <option value="">---เลือก---</option>
+                  <option *ngFor="let item of familyStatusList" [value]="item.id">{{item.name}}</option>
                 </select>
                 <label class="error">กรุณาเลือกความสัมพันธ์</label>
               </div>
             </div>
+            <div class="col-md-2 text-right" style="padding-left: 0;">
+              <label>ประเภทการอยู่อาศัย</label>
+            </div>
+            <div class="col-md-4">
+              <div [InputValidate]="inputValidate">
+                <select type="text" [(ngModel)]="bean.isGuest">
+                  <option value="">---เลือก---</option>
+                </select>
+                <label class="error">กรุณาเลือกประเภทการอยู่อาศัย</label>
+              </div>
+            </div>
+            
           </div>
-
-
         </div>
       </div>
       <div class="modal-footer">

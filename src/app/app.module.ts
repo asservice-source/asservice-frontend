@@ -42,7 +42,7 @@ import { SurveyPersonalMemberFormComponent } from './surveys/personal/survey-per
 import { SurveyCancerListComponent } from './surveys/cancer/survey-cancer-list/survey-cancer-list.component';
 import { SurveyCancerFormComponent } from './surveys/cancer/survey-cancer-form/survey-cancer-form.component';
 import { FilterHeadMosquitoComponent } from './filter/filter-head-mosquito/filter-head-mosquito.component';
-import { FilterFindPersonComponent } from './filter/filter-find-person/filter-find-person.component';
+import { FilterFindPersonComponent, FilterFindPersonButtonChooseComponent } from './filter/filter-find-person/filter-find-person.component';
 import { FilterHeadSurveyComponent } from './filter/filter-head-survey/filter-head-survey.component';
 import { FilterPersonalComponent } from './filter/filter-personal/filter-personal.component';
 import { ActionCustomViewComponent, ActionCustomView_2_Component } from './action-custom-table/action-custom-view.component'
@@ -79,6 +79,7 @@ import { ManagementHomeMemberFormComponent } from './managements/osm/management-
     RegisterComponent,
     FilterHeadMosquitoComponent,
     FilterFindPersonComponent,
+    FilterFindPersonButtonChooseComponent,
     FilterHeadSurveyComponent,
     FilterPersonalComponent,
     SurveyPregnantListComponent,
@@ -134,7 +135,8 @@ import { ManagementHomeMemberFormComponent } from './managements/osm/management-
     SurveyPersonalHomeListButtonEditComponent,
     SurveyPersonalMemberListButtonEditComponent,
     SelectHomeListButton,
-    ViewChildTableHomeManagement
+    ViewChildTableHomeManagement,
+    FilterFindPersonButtonChooseComponent
   ],
   providers: [LoadingConfigService],
   bootstrap: [AppComponent]

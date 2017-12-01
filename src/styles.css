@@ -131,3 +131,7 @@ table .btn-sm{
 .text-inactive{
     color: #c70707;
 }
+
+.dl-horizontal {
+    margin-bottom: 0;
+}
