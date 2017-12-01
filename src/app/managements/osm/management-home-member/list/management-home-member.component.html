@@ -1,9 +1,39 @@
 <div class="panel panel-default">
   <div class="panel-heading">
-    <label><<<<>>>>></label>
+    <label>จัดการสมาชิกในบ้าน</label>
   </div>
   <div class="panel-body">
-    <div class="header-info">
-  </div> 
+
+    <div class="panel panel-default" *ngIf="isShowInfo">
+      <div class="panel-body">
+
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="box-body">
+              <dl class="dl-horizontal">
+                <dt>บ้านเลขที่ : </dt>
+                <dd>{{ homeInfo.homeNo }}</dd>
+                <dt>รหัสบ้าน : </dt>
+                <dd>{{ homeInfo.registrationId }}</dd>
+                <dt>ที่อยู่ : </dt>
+                <dd>{{ homeInfo.address }}</dd>
+                <dt>เบอร์โทรศัพท์ : </dt>
+                <dd>{{ homeInfo.telephone }}</dd>
+                <dt>อสม. : </dt>
+                <dd>{{ homeInfo.osmFullName }}</dd>
+              </dl>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <button type="button" (click)="onClickAdd()" class="btn btn-sm btn-primary">เพิ่มสมาชิกใหม่</button>
+      </div>
+    </div>
+    <ng2-smart-table [settings]="settings" [source]="source" (rowSelect)="onRowSelect($event)"></ng2-smart-table>
 </div>
+<app-management-home-member-form [bean]="bean" [action]="action"></app-management-home-member-form>
 <ass-loading [show]="loading" ></ass-loading>

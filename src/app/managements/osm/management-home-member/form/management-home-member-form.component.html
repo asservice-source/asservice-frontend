@@ -1,0 +1,203 @@
+<!-- Modal -->
+<div class="modal fade" id="modalForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="false" data-keyboard="false">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">{{bean.personId?'แก้ไข':'เพิ่ม'}}สมาชิก</h4>
+      </div>
+      <div class="modal-body" style="padding-right: 40px">
+      <div class="row">
+          <div class="col-md-4 text-right">
+            <label class="label-form">{{getLabel('lbl_citizenid')}}</label>
+          </div>
+          <div class="col-md-5">
+            <div [InputValidate]="inputValidate" [citizenId]="true">
+              <div class="input-group">
+                <input type="text" [(ngModel)]="bean.citizenId" [OnlyNumber]="true" maxlength="13" [disabled]="false">
+                <span class="input-group-btn">
+                  <button class="btn btn-primary btn-sm btn-flat" (click)="onClickVerifyCitizenId();" *ngIf="isShowVerify">ตรวจสอบ</button>
+                </span>
+              </div>
+              <label class="error">กรุณาใส่หมายเลขประชาชนเป็นตัวเลข 13 หลัก</label>
+            </div>
+          </div>
+        </div>
+    <br>
+        <div *ngIf="isVerify">
+          <div class="row">
+            <div class="col-md-2 text-right">
+              <label class="label-form">เพศ</label>
+            </div>
+            <div class="col-md-4">
+              <div [InputValidate]="inputValidate">
+                <select [(ngModel)]="bean.genderId" (change)="onGenderChange()">
+                  <option value="">---เลือก---</option>
+                  <option *ngFor="let item of genderList" [value]="item.id">{{item.name}}</option>
+                </select>
+                <label class="error">กรุณาเลือกเพศ</label>
+              </div>
+            </div>
+            <div class="col-md-2 text-right">
+              <label class="label-form">คำนำหน้า</label>
+            </div>
+            <div class="col-md-4">
+              <div [InputValidate]="inputValidate">
+                <select [(ngModel)]="bean.prefixCode">
+                  <option value="">---เลือก---</option>
+                  <option *ngFor="let item of prefixList" [value]="item.code">{{item.name}}</option>
+                </select>
+                <label class="error">กรุณาเลือกคำนำหน้า</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-2 text-right">
+              <label>ชื่อ</label>
+            </div>
+            <div class="col-md-4">
+              <div [InputValidate]="inputValidate">
+                <input type="text" [(ngModel)]="bean.firstName">
+                <label class="error">กรุณาใส่ชื่อ</label>
+              </div>
+            </div>
+
+            <div class="col-md-2 text-right">
+              <label>นามสกุล</label>
+            </div>
+            <div class="col-md-4">
+              <div [InputValidate]="inputValidate">
+                <input type="text" [(ngModel)]="bean.lastName">
+                <label class="error">กรุณาใส่นามสกุล</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-2 text-right">
+              <label>วันเดือนปี เกิด</label>
+            </div>
+            <div class="col-md-4">
+              <div [InputValidate]="inputValidate">
+                <input type="text" [(ngModel)]="bean.birthDate">
+                <label class="error">กรุณาเลือกวันเดือนปี เกิด</label>
+              </div>
+            </div>
+
+            <div class="col-md-2 text-right">
+              <label>เชื้อชาติ</label>
+            </div>
+            <div class="col-md-4">
+              <div [InputValidate]="inputValidate">
+                <select type="text" [(ngModel)]="bean.raceCode">
+                  <option value="">---เลือก---</option>
+                </select>
+                <label class="error">กรุณาเลือกเชื้อชาติ</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-2 text-right">
+              <label>สัญชาติ</label>
+            </div>
+            <div class="col-md-4">
+              <div [InputValidate]="inputValidate">
+                <select type="text" [(ngModel)]="bean.nationalityCode">
+                  <option value="">---เลือก---</option>
+                </select>
+                <label class="error">กรุณาเลือกสัญชาติ</label>
+              </div>
+            </div>
+
+            <div class="col-md-2 text-right">
+              <label>ศาสนา</label>
+            </div>
+            <div class="col-md-4">
+              <div [InputValidate]="inputValidate">
+                <select type="text" [(ngModel)]="bean.religionCode">
+                  <option value="">---เลือก---</option>
+                </select>
+                <label class="error">กรุณาเลือกศาสนา</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-2 text-right">
+              <label>กรุ๊ปเลือด</label>
+            </div>
+            <div class="col-md-4">
+              <div [InputValidate]="inputValidate">
+                <select type="text" [(ngModel)]="bean.bloodTypeId">
+                  <option value="">---เลือก---</option>
+                </select>
+                <label class="error">กรุณาเลือกกรุ๊ปเลือด</label>
+              </div>
+            </div>
+
+            <div class="col-md-2 text-right">
+              <label>RH Group</label>
+            </div>
+            <div class="col-md-4">
+              <div [InputValidate]="inputValidate">
+                <select type="text" [(ngModel)]="bean.rhGroupId">
+                  <option value="">---เลือก---</option>
+                </select>
+                <label class="error">กรุณาเลือก RH Group</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-2 text-right">
+              <label>การศึกษา</label>
+            </div>
+            <div class="col-md-4">
+              <div [InputValidate]="inputValidate">
+                <select type="text" [(ngModel)]="bean.educationCode">
+                  <option value="">---เลือก---</option>
+                </select>
+                <label class="error">กรุณาเลือกการศึกษา</label>
+              </div>
+            </div>
+
+            <div class="col-md-2 text-right">
+              <label>อาชีพ</label>
+            </div>
+            <div class="col-md-4">
+              <div [InputValidate]="inputValidate">
+                <select type="text" [(ngModel)]="bean.occupationCode">
+                  <option value="">---เลือก---</option>
+                </select>
+                <label class="error">กรุณาเลือกอาชีพ</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-2 text-right">
+              <label>ความสัมพันธ์</label>
+            </div>
+            <div class="col-md-4">
+              <div [InputValidate]="inputValidate">
+                <select type="text" [(ngModel)]="bean.familyStatusId">
+                  <option value="">---เลือก---</option>
+                </select>
+                <label class="error">กรุณาเลือกความสัมพันธ์</label>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-primary" (click)="onSave()">ตกลง</button>
+        <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">ยกเลิก</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ass-loading [show]="loading" ></ass-loading>

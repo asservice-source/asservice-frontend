@@ -4,6 +4,8 @@ import { BaseComponent } from "../../../base-component";
 import { DeadBean } from '../../../beans/dead.bean';
 import {IMyDpOptions} from 'mydatepicker';
 import { Service_SurveyDead } from '../../../service/service-survey-dead';
+import { InputValidateInfo } from '../../../directives/inputvalidate.directive';
+import { SimpleValidateForm } from '../../../utils.util';
 declare var $: any;
 declare var bootbox: any;
 @Component({
@@ -26,7 +28,7 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
   public deadPlaceList: Array<any>;
   public timeHours = Array.from(Array(24),(x,i)=>i);
   public timeMins = Array.from(Array(60),(x,i)=>i);
-
+  public inputValidate: InputValidateInfo = new InputValidateInfo();
 
   constructor(private changeRef: ChangeDetectorRef) {
     super();
@@ -61,6 +63,7 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
     });
   }
   onChoosePersonal(mBean: DeadBean):void {
+
     this.bean = mBean;
     if(this.action==this.ass_action.EDIT){
       let dateObj = this.convertDateTimeSQL_to_DisplayDateTime(this.bean.deathDate);
@@ -104,7 +107,8 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
       _self.changeRef.detectChanges();
     })
     $('#modal-add-died').on('hidden.bs.modal', function () {
-      
+      $("#isCongenitalDisease").hide();
+      _self.inputValidate = new InputValidateInfo();
       _self.isShowForm = false;
       _self.isFindPersonal = true;
       _self.resetFind = _self.resetFind+1;
@@ -113,40 +117,58 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
   }
 
   onSave(){
+    this.inputValidate = new InputValidateInfo();
+    this.inputValidate.isCheck = true;
     let date = this.bean.mDateDead.date;    
     this.bean.deathDate = this.getStringDateForDatePickerModel(this.bean.mDateDead.date)+' '+this.bean.mHours+':'+this.bean.mMins+':00.0';
+  
     if(this.action==this.ass_action.ADD){
       this.bean.documentId = this.currentDocumentId;
     }
-    
+    let fieldsCheck = ["deathDate","deathPlaceCode"]
     if(!this.bean.isCancer){
       this.bean.cancerTypeID = "";
+    }else{
+      fieldsCheck.push("cancerTypeID");
     }
     if(!this.bean.isCauseOther){
       this.bean.causeOther = "";
+    }else{
+      fieldsCheck.push("placeOther");
     }
-    let _self = this;
-    _self.loading = true;
-   _self.apiDead.commit_save(this.bean,
-    function(response){
-        _self.loading = false;
-        if(response.status.toUpperCase()=="SUCCESS"){
-          $('#modal-add-died').modal('hide');
-          _self.message_success('','แจ้งการเสียชีวิต <b>'+_self.bean.fullName + '</b> เรียบร้อย', function(){
-            _self.commit.emit(response);
-          });
+    let simpvalidate: SimpleValidateForm = new SimpleValidateForm();
+    let objs = simpvalidate.getObjectEmpty_byFilds(this.apiDead.map(this.bean), fieldsCheck);
+    if(this.bean.isCongenitalDisease == undefined){
+      objs.push("isCongenitalDisease");
+      $("#isCongenitalDisease").show();
+    }else{
+      $("#isCongenitalDisease").hide();
+    }
+    if(objs.length<=0){
 
-         
-        }else{
-          let msg = response.message;
-          if(response.message.toUpperCase().indexOf('DUPLICATED')>=0){
-            msg = 'ทำรายการซ้ำ : <b>'+_self.bean.fullName + '</b> มีการแจ้งเสียชีวิตไปแล้ว';
+      let _self = this;
+      _self.loading = true;
+     _self.apiDead.commit_save(this.bean,
+      function(response){
+          _self.loading = false;
+          if(response.status.toUpperCase()=="SUCCESS"){
+            $('#modal-add-died').modal('hide');
+            _self.message_success('','แจ้งการเสียชีวิต <b>'+_self.bean.fullName + '</b> เรียบร้อย', function(){
+              _self.commit.emit(response);
+            });
+  
+           
+          }else{
+            let msg = response.message;
+            if(response.message.toUpperCase().indexOf('DUPLICATED')>=0){
+              msg = 'ทำรายการซ้ำ : <b>'+_self.bean.fullName + '</b> มีการแจ้งเสียชีวิตไปแล้ว';
+            }
+            _self.message_error('',''+msg, function(){});
           }
-          _self.message_error('',''+msg, function(){});
-        }
-        console.log("Saved Response...");
-        console.log(response);
-      });
+          console.log("Saved Response...");
+          console.log(response);
+        });
+    }
   }
   setCalendarThai(){
 
