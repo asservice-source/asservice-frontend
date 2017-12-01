@@ -118,5 +118,7 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
     });
   }
 
-  
+  onSave(){
+    
+  }
 }
