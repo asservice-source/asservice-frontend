@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef} from '@angular/core';
 import { BaseComponent } from '../../../../base-component';
 import { LocalDataSource } from 'ng2-smart-table';
 import { ActionCustomViewComponent } from '../../../../action-custom-table/action-custom-view.component';
@@ -23,7 +23,7 @@ export class ManagementHomeMemberComponent extends BaseComponent implements OnIn
   public homeInfo: any;
   public isShowInfo: boolean = false;
 
-  constructor(private activatedRoute: ActivatedRoute) { 
+  constructor(private activatedRoute: ActivatedRoute, private changeRef: ChangeDetectorRef) { 
     super();
     this.bean = new PersonalBasicBean();
     this.api = new Service_HomeMember();
@@ -127,7 +127,7 @@ export class ManagementHomeMemberComponent extends BaseComponent implements OnIn
     }else{
       
     }
-    console.log(this.bean);
+    this.changeRef.detectChanges();
     $('#modalForm').modal();
   }
   onClickAdd(){
