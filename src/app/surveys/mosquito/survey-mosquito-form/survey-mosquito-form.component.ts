@@ -18,19 +18,19 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
   public isShowForm: boolean = false;
   public resetFind: number = 1;
   private api: ApiHTTPService;
-  public containerTypeList : any;
+  public containerTypeList: any;
 
-  public mosquitobean : MosquitoBean;
+  public mosquitobean: MosquitoBean;
 
   ngAfterViewInit(): void {
-   
+
   }
 
   constructor(private changeRef: ChangeDetectorRef) {
     super();
     this.mosquitobean = new MosquitoBean();
     this.api = new ApiHTTPService();
-   }
+  }
 
   ngOnInit() {
     this.onModalEvent();
@@ -47,7 +47,7 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
   }
 
   onChoosePlace(bean: any): void {
-    //console.log(bean);
+    this.mosquitobean = new MosquitoBean();
     this.mosquitobean = bean;
     this.isFindHome = false;
     this.isShowForm = true;
@@ -72,20 +72,34 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
     });
   }
 
-  getContainerType(){
+  getContainerType() {
     let self = this;
     let params = {};
     this.api.post('survey_hici/container_type_list', params, function (resp) {
       console.log(resp);
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.containerTypeList = resp.response;
-        console.log(self.containerTypeList);
 
       }
     })
   }
 
- 
+  getHiciList(containerTypeId): any {
+    let self = this;
+    if (self.action == self.ass_action.EDIT) {
+      for (let item of self.data.listContainerType) {
+        if (item.containerTypeId == containerTypeId) {
+          return item;
+        }
+      }
+    }
+    return {};
+  }
+
+  
+  addSurvey(){
+      console.log(this.mosquitobean);
+  }
 
   // http://192.168.1.203:8080/api-asservice-front/survey_hici/container_type_list
 
