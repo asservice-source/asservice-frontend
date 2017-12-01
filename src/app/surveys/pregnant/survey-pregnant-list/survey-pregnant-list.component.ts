@@ -7,7 +7,7 @@ import { ApiHTTPService } from '../../../service/api-http.service';
 import { ActionCustomViewComponent } from '../../../action-custom-table/action-custom-view.component';
 import { FilterHeadSurveyBean } from '../../../beans/filter-head-survey.bean';
 import { LocalDataSource } from 'ng2-smart-table';
-import { PregnantBean} from '../../../beans/pregnant.bean'
+import { PregnantBean } from '../../../beans/pregnant.bean'
 declare var $: any
 
 @Component({
@@ -24,16 +24,18 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
   public isShowList: boolean = true;
   public source: LocalDataSource = new LocalDataSource();
   public action: string = this.ass_action.ADD;
-  public pregnantbean : PregnantBean = new PregnantBean();
-  
+  public pregnantBean: PregnantBean = new PregnantBean();
 
-
-  constructor(private http: Http, private router: Router,private changeRef: ChangeDetectorRef) {
+  constructor(private http: Http, private router: Router, private changeRef: ChangeDetectorRef) {
     super();
-    this.loadData();
-    this.api = new ApiHTTPService();
+
     let self = this;
-    this.settings = this.getTableSetting({
+
+    self.api = new ApiHTTPService();
+
+    self.loadData();
+    
+    self.settings = self.getTableSetting({
       name: {
         title: 'ชื่อ - นามสกุล',
         filter: false,
@@ -41,37 +43,37 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
       cID: {
         title: 'เลขประจำตัวประชาชน',
         filter: false,
-        width: '200px',
-        type:'html',
-        valuePrepareFunction: (cell, row) => { 
-          return '<div class="text-center">'+cell+'</div>'
+        width: '120px',
+        type: 'html',
+        valuePrepareFunction: (cell, row) => {
+          return '<div class="text-center">' + cell + '</div>'
         }
       },
       age: {
         title: 'อายุ',
         filter: false,
         width: '70px',
-        type:'html',
-        valuePrepareFunction: (cell, row) => { 
-          return '<div class="text-center">'+cell+'</div>'
+        type: 'html',
+        valuePrepareFunction: (cell, row) => {
+          return '<div class="text-center">' + cell + '</div>'
         }
       },
       wombNo: {
         title: 'ครรภ์ที่',
         filter: false,
         width: '90px',
-        type:'html',
-        valuePrepareFunction: (cell, row) => { 
-          return '<div class="text-center">'+cell+'</div>'
+        type: 'html',
+        valuePrepareFunction: (cell, row) => {
+          return '<div class="text-center">' + cell + '</div>'
         }
       },
       bornDueDate: {
         title: 'วันกำหนดคลอด',
         filter: false,
         width: '150px',
-        type:'html',
-        valuePrepareFunction: (cell, row) => { 
-          return '<div class="text-center">'+cell+'</div>'
+        type: 'html',
+        valuePrepareFunction: (cell, row) => {
+          return '<div class="text-center">' + cell + '</div>'
         }
       },
       action: {
@@ -84,8 +86,8 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
         onComponentInitFunction(instance) {
           instance.action.subscribe((row: PregnantBean, cell) => {
             console.log(row);
-            if(row && row.action.toUpperCase()==self.ass_action.EDIT){
-              self.pregnantbean = row;
+            if (row && row.action.toUpperCase() == self.ass_action.EDIT) {
+              self.pregnantBean = row;
               self.onModalFrom(self.ass_action.EDIT);
             }
           });
@@ -93,15 +95,17 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
       }
     });
   }
+
   ngOnInit() {
     this.setUpTable();
   }
 
   loadData() {
     let self = this;
+    
     this.http.get("assets/test-list.json")
       .map(res => res.json())
-      .subscribe(function(response){
+      .subscribe(function (response) {
         self.data = response;
         self.setUpTable();
       });
@@ -112,11 +116,12 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
     console.log("ChangeFilter");
     this.isShowList = false;
   }
+
   onSearch(event: FilterHeadSurveyBean) {
-   this.setUpTable();
+    this.setUpTable();
   }
 
-  onModalFrom(action: string){
+  onModalFrom(action: string) {
     this.action = action;
     this.changeRef.detectChanges();
     $('#find-person-md').modal('show');

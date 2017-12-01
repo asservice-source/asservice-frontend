@@ -28,7 +28,6 @@
         <select [(ngModel)]="filterBean.homeId" (change)="changHomeNo()" [disabled]="isDisabledHomeNo">
           <option ngValue="">--เลือก บ้านเลขที่--</option>
           <option *ngFor="let item of homeData" [value]="item.homeId">{{item.homeNo}}</option>
-
         </select>
       </div>
       <div class="col-md-1"></div>
@@ -38,10 +37,10 @@
       </div>
     </div>
 
-
     <div class="row" id="layout-list-person" *ngIf="isShowPersons">
       <div class="col-md-12">
-        <table class="table table-striped table-bordered">
+          <ng2-smart-table [settings]="settings" [source]="source" (rowSelect)="onRowSelect($event)"></ng2-smart-table>
+        <!-- <table class="table table-striped table-bordered">
           <thead>
             <tr>
               <th width="60">ลำดับ</th>
@@ -53,20 +52,18 @@
             </tr>
           </thead>
           <tbody>
-            <!-- <ng-container *ngFor="let item of surveyStatusTypeList"> -->
-              <tr *ngFor="let item of personData; let idx = index">
-                <td>{{idx+1}}</td>
-                <td>{{item.fullName}}</td>
-                <td>{{item.citizenId}}</td>
-                <td>{{item.age}}</td>
-                <td>{{item.familyStatusName}}</td>
-                <td>
-                  <button type="button" (click)="onChoosePerson(item)" class="btn btn-sm btn-primary">เลือก</button>
-                </td>
-              </tr>
-
+            <tr *ngFor="let item of personData; let idx = index">
+              <td>{{idx+1}}</td>
+              <td>{{item.fullName}}</td>
+              <td>{{item.citizenId}}</td>
+              <td>{{item.age}}</td>
+              <td>{{item.familyStatusName}}</td>
+              <td>
+                <button type="button" (click)="onChoosePerson(item)" class="btn btn-sm btn-primary">เลือก</button>
+              </td>
+            </tr>
           </tbody>
-        </table>
+        </table> -->
       </div>
     </div>
     <div class="modal-footer">
