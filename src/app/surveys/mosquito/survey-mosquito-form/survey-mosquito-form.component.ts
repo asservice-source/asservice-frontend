@@ -22,6 +22,7 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
 
   public mosquitobean: MosquitoBean;
 
+  public valSurveyTotal: any = {};
   ngAfterViewInit(): void {
 
   }
@@ -51,7 +52,9 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
     this.mosquitobean = bean;
     this.isFindHome = false;
     this.isShowForm = true;
-
+    if(this.action == this.ass_action.ADD){
+      this.setListContainerTypeDefault();
+    }
   }
 
   onModalEvent() {
@@ -71,7 +74,20 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
       self.changeRef.detectChanges();
     });
   }
-
+  setListContainerTypeDefault(){
+    let self = this;
+    if(self.action == self.ass_action.ADD){
+      self.mosquitobean.listContainerType = [];
+      for(let item of  self.containerTypeList){
+          let contain = {
+            "containerTypeId" : item.containerTypeId,
+            "totalSurvey": 0,
+            "totalDetect": 0
+          }
+          self.mosquitobean.listContainerType.push(contain);
+      }
+    }
+  }
   getContainerType() {
     let self = this;
     let params = {};
@@ -79,26 +95,18 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
       console.log(resp);
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.containerTypeList = resp.response;
-
       }
     })
   }
 
-  getHiciList(containerTypeId): any {
-    let self = this;
-    if (self.action == self.ass_action.EDIT) {
-      for (let item of self.data.listContainerType) {
-        if (item.containerTypeId == containerTypeId) {
-          return item;
-        }
-      }
-    }
-    return {};
-  }
-
-  
   addSurvey(){
-      console.log(this.mosquitobean);
+      let obj= {
+        documentId : this.mosquitobean.documentId,
+        homeId : this.mosquitobean.homeId,
+        listContainerType : this.mosquitobean.listContainerType
+      }
+      let params = JSON.stringify(obj);
+      console.log(params);
   }
 
   // http://192.168.1.203:8080/api-asservice-front/survey_hici/container_type_list

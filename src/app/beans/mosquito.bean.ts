@@ -8,5 +8,7 @@ export class MosquitoBean{
     public homeTypeName : string;
     public rowGUID : string;
     public listContainerType : any;
+    public documentId : string;
+    public homeId : string;
 
 }

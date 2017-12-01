@@ -33,7 +33,7 @@
                                             <label>ภาชนะที่พบลูกน้ำ</label>
                                         </div>
                                     </div>
-                            <div *ngFor="let item of containerTypeList">
+                            <div *ngFor="let item of containerTypeList; let i = index">
                                 <div class="row">
                                         <div class="col-md-3 text-right">
                                             <img src="../../assets/img/iconmosquito/{{item.imagePath}}"  height="30px">
@@ -42,11 +42,11 @@
                                             <label class="label-form">{{item.containerTypeName}}</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <input [value]="getHiciList(item.containerTypeId).totalSurvey || 0">
+                                            <input [(ngModel)]="mosquitobean.listContainerType[i].totalSurvey"  maxlength="3" [OnlyNumber]="true">
                                            
                                         </div>
                                         <div class="col-md-2">
-                                            <input [value]="getHiciList(item.containerTypeId).totalDetect || 0">
+                                            <input  [(ngModel)]="mosquitobean.listContainerType[i].totalDetect" maxlength="3" [OnlyNumber]="true">
                                         </div>
                                 </div>
                             </div>
