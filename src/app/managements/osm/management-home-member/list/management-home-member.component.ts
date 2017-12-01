@@ -121,9 +121,6 @@ export class ManagementHomeMemberComponent extends BaseComponent implements OnIn
     this.action = action;
     if(action == this.ass_action.ADD){
       this.bean = new PersonalBasicBean();
-      this.bean.genderId = "";
-      this.bean.prefixCode="";
-
     }else{
       
     }

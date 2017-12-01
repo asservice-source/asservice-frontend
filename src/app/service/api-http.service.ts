@@ -161,6 +161,9 @@ export class ApiHTTPService  implements OnInit {
     public api_OccupationList(callback: (doc: any) => void){
         this.callResponse('person/occupation_list',{}, callback);
     }
+    public api_FamilyStatusList(callback: (doc: any) => void){
+        this.callResponse('home/family_status_list',{}, callback);
+    }
     
     public getRound_byDocumentId(headerTypeCode: string, documentId: string, callback: (doc:any)=>void): any{
         let mitem = {};

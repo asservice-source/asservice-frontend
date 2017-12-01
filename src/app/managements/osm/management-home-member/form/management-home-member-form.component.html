@@ -191,14 +191,24 @@
               <div [InputValidate]="inputValidate">
                 <select type="text" [(ngModel)]="bean.familyStatusId">
                   <option value="">---เลือก---</option>
-                  
+                  <option *ngFor="let item of familyStatusList" [value]="item.id">{{item.name}}</option>
                 </select>
                 <label class="error">กรุณาเลือกความสัมพันธ์</label>
               </div>
             </div>
+            <div class="col-md-2 text-right" style="padding-left: 0;">
+              <label>ประเภทการอยู่อาศัย</label>
+            </div>
+            <div class="col-md-4">
+              <div [InputValidate]="inputValidate">
+                <select type="text" [(ngModel)]="bean.isGuest">
+                  <option value="">---เลือก---</option>
+                </select>
+                <label class="error">กรุณาเลือกประเภทการอยู่อาศัย</label>
+              </div>
+            </div>
+            
           </div>
-
-
         </div>
       </div>
       <div class="modal-footer">

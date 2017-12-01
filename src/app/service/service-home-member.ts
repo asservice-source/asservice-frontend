@@ -1,6 +1,6 @@
 import { ApiHTTPService } from "./api-http.service";
-import { HomeBean } from "../beans/home.bean";
 import { BaseComponent } from "../base-component";
+import { PersonalBasicBean } from "../beans/personal-basic.bean";
 
 export class Service_HomeMember extends ApiHTTPService{
 
@@ -10,24 +10,27 @@ export class Service_HomeMember extends ApiHTTPService{
         super();
         this.base = new BaseComponent();
     }
-    public map(bean: HomeBean):any{
+    public map(bean: PersonalBasicBean):any{
         this.attr = {
-        "id": bean.homeId,
-        "registrationId": bean.registrationId,
-        "homeTypeCode": bean.homeTypeCode,
-        "homeNo": bean.homeNo,
-        "villageId":  bean.villageId,
-        "name": bean.name,
-        "road": bean.road,
-        "soi": bean.soi,
-        "telephone": bean.telephone,
-        "latitude": bean.latitude,
-        "longitude": bean.longitude,
-        "osmId": bean.osmId
+            "personId": bean.personId,
+            "citizenId": bean.citizenId,
+            "firstName": bean.firstName,
+            "lastName": bean.lastName,
+            "birthDate": bean.birthDate,
+            "genderId": bean.genderId,
+            "prefixCode": bean.prefixCode,
+            "raceCode": bean.raceCode,
+            "nationalityCode": bean.nationalityCode,
+            "bloodTypeId": bean.bloodTypeId,
+            "rhGroupId": bean.rhGroupId,
+            "occupationCode": bean.occupationCode,
+            "educationCode": bean.educationCode,
+            "religionCode": bean.religionCode,
+            "familyStatusId": bean.familyStatusId,
         }
         return this.attr;
     }
-    public commit_save(bean: HomeBean, callback:(doc:any)=>void){
+    public commit_save(bean: PersonalBasicBean, callback:(doc:any)=>void){
         let parameter = this.base.strNullToEmpty(this.map(bean));
         console.log('<<<< Params >>>>');
         console.log(parameter);

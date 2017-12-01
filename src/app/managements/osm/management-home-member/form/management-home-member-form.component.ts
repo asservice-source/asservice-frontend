@@ -3,6 +3,7 @@ import { BaseComponent } from '../../../../base-component';
 import { PersonalBasicBean } from '../../../../beans/personal-basic.bean';
 import { InputValidateInfo } from '../../../../directives/inputvalidate.directive';
 import { Service_HomeMember } from '../../../../service/service-home-member';
+import { SimpleValidateForm } from '../../../../utils.util';
 
 
 declare var $:any;
@@ -30,7 +31,7 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
   public bloodTypeList: any = [];
   public rhGroupList: any = [];
   public educationList: any = [];
-
+  public familyStatusList: any = [];
   
   constructor() { 
     super();
@@ -85,6 +86,9 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
     _self.api.api_EducationList(function(response){
       _self.educationList = response;
     });
+    _self.api.api_FamilyStatusList(function(response){
+      _self.familyStatusList = response;
+    });
   }
   onGenderChange(){
     this.setupPrefix();
@@ -99,26 +103,30 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
     $('#modalForm').on('show.bs.modal', function(){
       console.log(">>>>>>");
       console.log(_self.action);
-      console.log(_self.bean);
-
+      
+      
       if(_self.action == _self.ass_action.ADD){
         _self.modelBirthDate = "";
-        _self.bean.raceCode = '099';
-        _self.bean.nationalityCode = '099';
-        _self.bean.bloodTypeId = '';
-        _self.bean.occupationCode = '';
-        _self.bean.educationCode = '';
-        _self.bean.rhGroupId = '';
-        _self.bean.religionCode = '';
-        _self.bean.familyStatusId = '';
+        _self.bean = _self.api.map(_self.bean);
       }else{
         _self.modelBirthDate = _self.getCurrentDatePickerModel(_self.bean.birthDate);
       }
+      _self.strNullToEmpty(_self.bean);
+      console.log(_self.bean);
 
     });
   }
 
   onSave(){
-    
+    this.inputValidate = new InputValidateInfo();
+    this.inputValidate.isCheck = true;
+    let simpValidate: SimpleValidateForm = new SimpleValidateForm();
+    let objsEmpty = simpValidate.getObjectEmpty(this.bean, ["personId"]);
+    console.log(objsEmpty);
+    if(objsEmpty.length<=0){
+
+    }else{
+
+    }
   }
 }
