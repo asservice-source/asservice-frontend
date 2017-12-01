@@ -4,6 +4,7 @@ import { ActionCustomViewComponent } from '../../../action-custom-table/action-c
 import { BaseComponent } from '../../../base-component';
 import { ApiHTTPService } from '../../../service/api-http.service';
 import { FilterHeadMosquitoBean } from '../../../beans/filter-head-mosquito.bean';
+import { MosquitoBean } from '../../../beans/mosquito.bean';
 
 declare var $: any;
 
@@ -23,6 +24,7 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
   public action: string = this.ass_action.ADD;
   public filtersearch: FilterHeadMosquitoBean;
   public documentId: string;
+  public mosquitobean: MosquitoBean = new MosquitoBean();
 
   public datas :any = [];
 
@@ -74,9 +76,19 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
         renderComponent: ActionCustomViewComponent,
         onComponentInitFunction(instance) {
 
-          instance.action.subscribe(row => {
-            alert(row.action);
+          instance.edit.subscribe((row: MosquitoBean, cell) => {
+            self.mosquitobean = self.cloneObj(row);
+            self.onModalFrom(self.ass_action.EDIT);
           });
+
+          // instance.delete.subscribe((row: MosquitoBean, cell) => {
+          //   self.message_comfirm("", "ต้องการยกเลิกการทำรายการสำรวจของ : " + row.homeNo + " ใช่หรือไม่", function (resp) {
+          //     if (resp) {
+          //       self.actionDelete(row.rowGUID);
+          //       self.loadData(self.filtersearch);
+          //     }
+          //   });
+          // });
         }
       }
     });
@@ -138,7 +150,6 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
       console.log(resp);
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.datas = resp.response;
-        console.log(self.datas);
         self.setUpTable();
       }
     })
@@ -150,5 +161,6 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
     this.isShowList = true;
     super.setNg2STDatasource(this.source);
   }
+
 
 }

@@ -25,20 +25,28 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="well">
+                                <div class="row">
+                                        <div class="col-md-3 text-right">
+                                            <label>จำนวนภาชนะที่สำรวจ</label>
+                                        </div>
+                                        <div class="col-md-3 text-right">
+                                            <label>ภาชนะที่พบลูกน้ำ</label>
+                                        </div>
+                                    </div>
                             <div *ngFor="let item of containerTypeList">
                                 <div class="row">
                                         <div class="col-md-3 text-right">
-                                            <img src="../../{{item.imagePath}}" height="30px">
+                                            <img src="../../assets/img/iconmosquito/{{item.imagePath}}"  height="30px">
                                         </div>
-        
                                         <div class="col-md-3 text-left">
                                             <label class="label-form">{{item.containerTypeName}}</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <input maxlength="3" class="valuecenter" name="find-homeNo" id="find-homeNo" value="0">
+                                            <input [value]="getHiciList(item.containerTypeId).totalSurvey || 0">
+                                           
                                         </div>
                                         <div class="col-md-2">
-                                            <input maxlength="3" class="valuecenter" name="find-homeNo" id="find-homeNo" value="0">
+                                            <input [value]="getHiciList(item.containerTypeId).totalDetect || 0">
                                         </div>
                                 </div>
                             </div>
@@ -228,7 +236,7 @@
                 </div> -->
 
                 <div class="row text-center">
-                    <button type="buttoon" class="btn btn-primary btn-sm">ยืนยัน</button>
+                    <button type="buttoon" class="btn btn-primary btn-sm" (click)="addSurvey()">ยืนยัน</button>
                     <button type="buttoon" class="btn btn-primary btn-sm" (click)="onBack()">กลับ</button>
                 </div>
 

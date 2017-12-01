@@ -179,9 +179,7 @@ export class FilterFindMosquitoComponent extends BaseComponent implements OnInit
   }
 
   onChoosePlace(homeBean: HomeBean) {
-    console.log("====================+homeBean+======================");
     console.log(homeBean);
-
     this.isShowFind = false;
     this.choosePlace.emit(homeBean);
   }
@@ -189,11 +187,7 @@ export class FilterFindMosquitoComponent extends BaseComponent implements OnInit
   filterChanges() {
     this.isShowPlace = false;
   }
-  // addHome(){
-  //   if(this.findhomebean.homeId == "0"){
-
-  //   }
-  // }
+  
 }
 
 @Component({
