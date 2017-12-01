@@ -13,12 +13,10 @@
       </div>
     </div>
     <div class="row" *ngIf="isShowList">
-      <div class="col-lg-12">
-        <div class="row" >
+      <div class="col-md-12">
           <div class="filter-discription" [innerHtml]="filterBean.description"></div>
           <ng2-smart-table [settings]="settings" [source]="source" (rowSelect)="onRowSelect($event)"></ng2-smart-table>
         </div>
-      </div>
     </div>
   </div>
 

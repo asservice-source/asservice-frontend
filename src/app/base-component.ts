@@ -27,20 +27,24 @@ export class BaseComponent implements OnInit {
     ngOnInit() {
 
     }
-    
+
     public getLabel(key: string, lang?: string, defaultValue?: string) {
         ///console.log("label:"+key);
         return this.labelManager.getLabel(key, lang) || defaultValue;
     }
+
     public getApiUrl(urlAPI: string) {
         return this._GLOBAL.API_SERVER_URL + urlAPI;
     }
+
     public getHospitalCode() {
         return "04269";
     }
+
     public getUserFullname() {
         return "อิฐิ กรณ์";
     }
+
     public getTableSetting(columns: any) {
         var settings: any = {
             mode: 'external',
@@ -101,15 +105,22 @@ export class BaseComponent implements OnInit {
             });
         }
     }
+
     public getFullName(prefix: string, firstName, lastname) {
         if (prefix && prefix.trim()) {
             return prefix + "" + firstName + " " + lastname;
         }
         return firstName + " " + lastname;
     }
+
     public displayFormatDate(dateString: string) {
         return moment(dateString).format('DD/MM/YYYY');
     }
+
+    public displayFormatDateTime(dateString: string) {
+        return moment(dateString).format('DD/MM/YYYY HH:mm');
+    }
+
     public getAge(birthDate: string) {
         return moment().diff(birthDate, 'years', false);
     }
@@ -243,7 +254,7 @@ export class BaseComponent implements OnInit {
         let arr = cid.split('');
         return arr[0] + '-' + arr[1] + arr[2] + arr[3] + arr[4] + '-' + arr[5] + arr[6] + arr[7] + arr[8] + arr[9] + '-' + arr[10] + arr[11] + '-' + arr[12];
     }
-    
+
     isValidCitizenIdThailand(s): boolean {
         if (this.isEmpty(s)) {
             return false;
