@@ -15,6 +15,7 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
 
 
   @Input() bean: PersonalBasicBean;
+  @Input() action: string;
   public api: Service_HomeMember;
   public inputValidate: InputValidateInfo;
   public isVerify: boolean = true;
@@ -29,6 +30,7 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
   }
 
   ngOnInit() {
+    this.bindModal();
     this.setupGender();
   }
 
@@ -52,6 +54,13 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
     this.setupPrefix();
   }
 
+  bindModal(){
+    let _self = this;
+    $('#modalForm').on('show.bs.modal', function(){
+      console.log(">>>>>>");
+      console.log(_self.bean);
+    });
+  }
 
   
 }

@@ -16,6 +16,7 @@ declare var $:any;
 export class ManagementHomeMemberComponent extends BaseComponent implements OnInit {
 
   public bean: PersonalBasicBean;
+  public action: string;
   public settings: any;
   public source: LocalDataSource = new LocalDataSource();
   public api: Service_HomeMember;
@@ -78,7 +79,8 @@ export class ManagementHomeMemberComponent extends BaseComponent implements OnIn
             _self.message_error('','<h3>ยังดูไม่ได้ครับ รอแป๊บ..</h3>');
            });
            instance.edit.subscribe(row => {
-            console.log(row);
+            _self.bean = _self.cloneObj(row);
+            _self.onModalShow(_self.ass_action.EDIT);
            });
            instance.delete.subscribe(row => {
             _self.message_error('','<h3>ยังลบไม่ได้ครับ รอแป๊บ..</h3>');
@@ -115,10 +117,20 @@ export class ManagementHomeMemberComponent extends BaseComponent implements OnIn
       _self.loading = false;
     });
   }
-  onModalShow(){
+  onModalShow(action){
+    this.action = action;
+    if(action == this.ass_action.ADD){
+      this.bean = new PersonalBasicBean();
+      this.bean.genderId = "";
+      this.bean.prefixCode="";
+
+    }else{
+      
+    }
+    console.log(this.bean);
     $('#modalForm').modal();
   }
   onClickAdd(){
-    this.onModalShow();
+    this.onModalShow(this.ass_action.ADD);
   }
 }

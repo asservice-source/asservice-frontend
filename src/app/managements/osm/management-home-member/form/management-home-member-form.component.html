@@ -44,7 +44,7 @@
               <div [InputValidate]="inputValidate">
                 <select [(ngModel)]="bean.prefixCode">
                   <option value="">---เลือก---</option>
-                  <option *ngFor="let item of prefixList" [value]="item.id">{{item.name}}</option>
+                  <option *ngFor="let item of prefixList" [value]="item.code">{{item.name}}</option>
                 </select>
                 <label class="error">กรุณาเลือกคำนำหน้า</label>
               </div>
