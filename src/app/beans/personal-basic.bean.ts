@@ -4,11 +4,32 @@ export class PersonalBasicBean{
     public firstName: string;
     public lastName: string;
     public fullName: string;
+    public nickName: string;
     public birthDate: string;
     public prefixCode: string;
     public prefixName: string;
     public genderId: string;
     public genderName: string;
+    public dischargeId: string;
+    public dischargeName: string;
+    public bloodTypeId: string;
+    public bloodTypeName: string;
+    public educationCode: string;
+    public educationName: string;
+    public familyStatusId: string;
+    public familyStatusName: string;
+    public nationalityCode: string;
+    public nationalityName: string;
+    public occupationCode: string;
+    public occupationName: string;
+    public rhGroupId: string;
+    public rhGroupName: string;
+    public religionCode: string;
+    public religionName: string;
+    public raceCode: string;
+    public raceName: string;
+    public mStatusCode: string;
+    public mStatusName: string;
     public hospitalCode5: string;
     public address: string;
     public homeId: string;
@@ -24,6 +45,8 @@ export class PersonalBasicBean{
     public zipcode: string;
     public osmId: string;
     public roleId: string;
+    public isDead: boolean;
+    public isGuest: boolean;
     public isActive: boolean;
     
 }
