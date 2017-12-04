@@ -5,6 +5,7 @@ import { ActionCustomViewComponent } from '../../../../action-custom-table/actio
 import { Service_HomeMember } from '../../../../service/service-home-member';
 import { ActivatedRoute } from '@angular/router';
 import { PersonalBasicBean } from '../../../../beans/personal-basic.bean';
+import { Address } from '../../../../beans/address';
 
 
 declare var $:any;
@@ -23,11 +24,13 @@ export class ManagementHomeMemberComponent extends BaseComponent implements OnIn
   public homeInfo: any;
   public isShowInfo: boolean = false;
   public homeId: string;
+  public address: Address;
 
   constructor(private activatedRoute: ActivatedRoute, private changeRef: ChangeDetectorRef) { 
     super();
     this.bean = new PersonalBasicBean();
     this.api = new Service_HomeMember();
+    this.address = new Address();
     let _self = this;
     this.settings = this.getTableSetting({
       fullName: {
@@ -81,6 +84,7 @@ export class ManagementHomeMemberComponent extends BaseComponent implements OnIn
            });
            instance.edit.subscribe(row => {
             _self.bean = _self.cloneObj(row);
+            console.log(_self.bean);
             _self.onModalShow(_self.ass_action.EDIT);
            });
            instance.delete.subscribe(row => {
@@ -103,10 +107,15 @@ export class ManagementHomeMemberComponent extends BaseComponent implements OnIn
 
   setupHomeInfo(){
     let _self = this;
-    _self.api.api_HomrInfo(_self.homeId, function(response){
-
-      _self.homeInfo = response.response;
+    _self.api.api_HomrInfo(_self.homeId, function(response){ 
       _self.isShowInfo = true;
+      _self.homeInfo = response.response;
+      _self.address.homeNo = _self.homeInfo.homeNo;
+      _self.address.mooNo = _self.homeInfo.villageNo;
+      _self.address.road = _self.homeInfo.road;
+      _self.address.tumbolCode = _self.homeInfo.tumbolCode;
+      _self.address.amphurCode = _self.homeInfo.amphurCode;
+      _self.address.provinceCode = _self.homeInfo.provinceCode;
     });
     
   }

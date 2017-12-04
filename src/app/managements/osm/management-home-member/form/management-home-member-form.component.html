@@ -202,63 +202,122 @@
             <div class="col-md-2 text-right" style="padding:0;">
               <label>ประเภทการอยู่อาศัย</label>
             </div>
-            <div class="col-md-4">
-              <div [InputValidate]="inputValidate">
-                <select type="text" [(ngModel)]="bean.isGuest">
-                  <option value="">---เลือก---</option>
-                  <option [value]="false">อยู่จริง</option>
-                  <option [value]="true">ไม่อยู่จริง</option>
-                </select>
+            <div class="col-md-10">
+                <div class="row"> 
+                  <div class="col-md-6">
+                    <div class="radio">
+                      <label class="label-form">
+                        <input type="radio" name="isGuest" [value]="false" [(ngModel)]="bean.isGuest">
+                        <span class="cr">
+                          <i class="cr-icon fa fa-check"></i>
+                        </span>
+                        มีชื่อในสำเนาทะเบียนบ้านจริง                        
+                      </label>
+                    </div> 
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="radio">
+                      <label class="label-form">
+                        <input type="radio" name="isGuest" [value]="true" [(ngModel)]="bean.isGuest" (change)="onIsGuest()">
+                        <span class="cr">
+                          <i class="cr-icon fa fa-check"></i>
+                        </span>
+                        ไม่มีชื่อในสำเนาทะเบียนบ้าน แต่ตัวอยู่จริง
+                      </label>
+                    </div> 
+                  </div>
+                </div>
                 <label class="error">กรุณาเลือกประเภทการอยู่อาศัย</label>
-              </div>
             </div>
-
-            <div class="col-md-6">
-
-              <div class="row">
-                <div class="col-md-12">
-                  <label>ที่อยู่ปัจจุบัน</label>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-md-4 text-right">
-                  <label>จังหวัด</label>
-                </div>
-                <div class="col-md-8">
-                  <select>
-                    <option value="">---เลือก---</option>
-                  </select>
-                </div>
-              </div>
-                <div class="row">
-                  <div class="col-md-4 text-right">
-                    <label>อำเภอ</label>
-                  </div>
-                  <div class="col-md-8">
-                    <select>
-                      <option value="">---เลือก---</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-4 text-right">
-                    <label>ตำบล</label>
-                  </div>
-                  <div class="col-md-8">
-                    <select>
-                      <option value="">---เลือก---</option>
-                    </select>
-                  </div>
-                </div>
-
+          </div>
+        
+        <div *ngIf="bean.isGuest">
+          <hr style="margin: 2px">
+          <div class="row">
+            <div class="col-md-12">
+              <label>ที่อยู่ตามบัตรประชาชน</label>
             </div>
           </div>
 
+          <div class="row">
+            <div class="col-md-2 text-right">
+              <label>บ้านเลขที่</label>
+            </div>
+            <div class="col-md-4">
+              <div [InputValidate]="inputValidate">
+                <input type="text" [(ngModel)]="bean.homeNo">
+                <label class="error">กรุณาใส่บ้านเลขที่</label>
+              </div>
+            </div>
+
+            <div class="col-md-2 text-right">
+              <label>หมู่ที่</label>
+            </div>
+            <div class="col-md-4">
+              <div [InputValidate]="inputValidate">
+                <input type="text" [(ngModel)]="bean.mooNo">
+                <label class="error">กรุณาใส่หมู่ที่</label>
+              </div>
+            </div>
+
+          </div>
+          
+          <div class="row">
+            <div class="col-md-2 text-right">
+              <label>ถนน</label>
+            </div>
+            <div class="col-md-4">
+              <input type="text" [(ngModel)]="bean.road">
+            </div>
+
+            <div class="col-md-2 text-right">
+              <label>จังหวัด</label>
+            </div>
+            <div class="col-md-4">
+              <div [InputValidate]="inputValidate">
+                <select [(ngModel)]="bean.provinceCode" (change)="onChangeProvince()">
+                  <option value="">---เลือก---</option>
+                  <option *ngFor="let item of provinceList" [value]="item.codeId">{{item.name}}</option>
+                </select>
+                <label class="error">กรุณาเลือกจังหวัด</label>
+              </div>
+            </div>
+          </div>
+         
+          <div class="row">
+            <div class="col-md-2 text-right">
+              <label>อำเภอ</label>
+            </div>
+            <div class="col-md-4">
+              <div [InputValidate]="inputValidate">
+                <select [(ngModel)]="bean.amphurCode" (change)="onChangeAmphur()" [disabled]="!bean.provinceCode">
+                  <option value="">---เลือก---</option>
+                  <option *ngFor="let item of amphurList" [value]="item.code">{{item.name}}</option>
+                </select>
+                <label class="error">กรุณาเลือกอำเภอ</label>
+              </div>
+            </div>
+
+            <div class="col-md-2 text-right">
+              <label>ตำบล</label>
+            </div>
+            <div class="col-md-4">
+              <div [InputValidate]="inputValidate">
+                <select [(ngModel)]="bean.tumbolCode" [disabled]="!bean.amphurCode">
+                  <option value="">---เลือก---</option>
+                  <option *ngFor="let item of tumbolList" [value]="item.codeId">{{item.name}}</option>
+                </select>
+                <label class="error">กรุณาเลือกตำบล</label>
+              </div>
+            </div>
+          </div>
+        </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-sm btn-primary" (click)="onSave()">ตกลง</button>
+        <button type="button" class="btn btn-sm btn-primary" (click)="onSave()" [disabled]="!isVerify">ตกลง</button>
         <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">ยกเลิก</button>
       </div>
     </div>

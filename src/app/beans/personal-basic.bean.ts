@@ -36,8 +36,8 @@ export class PersonalBasicBean{
     public homeNo: string;
     public villageId: string;
     public villageNo: string;
-    public tumpolCode: string;
-    public tumpolName: string;
+    public tumbolCode: string;
+    public tumbolName: string;
     public amphurCode: string;
     public amphurName: string;
     public provinceCode: string;
@@ -45,7 +45,7 @@ export class PersonalBasicBean{
     public zipcode: string;
     public mooNo: string;
     public road: string;
-    public tumbolCode: string;
+    
     public osmId: string;
     public roleId: string;
     public isDead: boolean;

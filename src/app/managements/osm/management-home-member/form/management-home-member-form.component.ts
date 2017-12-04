@@ -4,19 +4,21 @@ import { PersonalBasicBean } from '../../../../beans/personal-basic.bean';
 import { InputValidateInfo } from '../../../../directives/inputvalidate.directive';
 import { Service_HomeMember } from '../../../../service/service-home-member';
 import { SimpleValidateForm } from '../../../../utils.util';
+import { Address } from '../../../../beans/address';
 
 
 declare var $:any;
 @Component({
   selector: 'app-management-home-member-form',
   templateUrl: './management-home-member-form.component.html',
-  styleUrls: ['./management-home-member-form.component.css']
+  styleUrls: ['./management-home-member-form.component.css' ,'../../../../checkbox.css']
 })
 export class ManagementHomeMemberFormComponent extends BaseComponent implements OnInit {
 
 
   @Input() bean: PersonalBasicBean;
   @Input() action: string;
+  @Input() address: Address;
   @Output() success: EventEmitter<any>;
   public api: Service_HomeMember;
   public inputValidate: InputValidateInfo;
@@ -38,12 +40,14 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
   public tumbolList: any = [];
   public oldCitizenId: string;
   public actionName: string;
+  
   constructor() { 
     super();
     this.bean = new PersonalBasicBean();
     this.inputValidate = new InputValidateInfo();
     this.api = new Service_HomeMember();
     this.success = new EventEmitter<any>();
+    this.address = new Address();
   }
 
   ngOnInit() {
@@ -95,13 +99,8 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
     _self.api.api_FamilyStatusList(function(response){
       _self.familyStatusList = response;
     });
-  }
-  onGenderChange(){
-    this.setupPrefix();
-  }
 
-  onChangeBirthDate(event: any){
-
+    this.setupProvince();
   }
 
   bindModal(){
@@ -109,11 +108,11 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
     $('#modalForm').on('show.bs.modal', function(){
       console.log(">>>>>>");
       console.log(_self.action);
+      _self.inputValidate = new InputValidateInfo();
       if(_self.action == _self.ass_action.ADD){
         _self.actionName = 'เพิ่ม';
         _self.isVerify = false;
         _self.modelBirthDate = null;
-        //let homeId = _self.bean.homeId;
         _self.bean = _self.api.map(_self.bean);
         _self.bean.occupationCode = '';//objMap.occupCode;
         _self.bean.nationalityCode = '';//objMap.nationCode;
@@ -122,13 +121,65 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
         _self.isVerify = true;
         _self.oldCitizenId = _self.bean.citizenId;
         _self.setDatePickerModel();
+        _self.setupAmphur();
+        _self.setupTumbol();
       }
       _self.strNullToEmpty(_self.bean);
       console.log(_self.bean);
 
     });
   }
+  onGenderChange(){
+    this.setupPrefix();
+  }
 
+  onChangeBirthDate(event: any){
+
+  }
+  onChangeProvince(){
+    this.bean.amphurCode = '';
+    this.bean.tumbolCode = '';
+    this.amphurList = [];
+    this.tumbolList = [];
+    if(this.bean.provinceCode){
+      this.setupAmphur();
+    }
+  }
+  onChangeAmphur(){
+    this.bean.tumbolCode = '';
+    this.tumbolList = [];
+    if(this.bean.amphurCode){
+      this.setupTumbol();
+    }
+  }
+  onIsGuest(){
+    if(this.bean.isGuest){
+      this.bean.homeNo = '';
+      this.bean.mooNo = '';
+      this.bean.road = '';
+      this.bean.tumbolCode = '';
+      this.bean.amphurCode = '';
+      this.bean.provinceCode = '';
+    }
+  }
+  setupProvince(){
+    let _self = this;
+    _self.api.api_ProvinceList(function(response){
+      _self.provinceList = response;
+    });
+  }
+  setupAmphur(){
+    let _self = this;
+    _self.api.api_AmphurList(_self.bean.provinceCode, function(response){
+      _self.amphurList = response;
+    });
+  }
+  setupTumbol(){
+    let _self = this;
+    _self.api.api_TumbolList(_self.bean.amphurCode, function(response){
+      _self.tumbolList = response;
+    });
+  }
   onVerifyCitizenId(){
     this.oldCitizenId = this.bean.citizenId;
     this.inputValidate = new InputValidateInfo();
@@ -172,6 +223,18 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
     let simpValidate: SimpleValidateForm = new SimpleValidateForm();
     this.bean.birthDate = this.getStringDateForDatePickerModel(this.modelBirthDate.date);
     let fildsCheck = ['citizenId', 'firstName', 'lastName', 'prefixCode', 'genderId', 'raceCode', 'nationCode', 'religionCode', 'bloodTypeId', 'rhGroupId', 'birthDate', 'educationCode', 'occupCode', 'familyStatusId', 'isGuest'];
+    if(this.bean.isGuest){
+      fildsCheck.push('homeNo','mooNo','tumbolCode','amphurCode','provinceCode');
+    }else{
+      this.bean.homeNo = this.address.homeNo;
+      this.bean.mooNo = this.address.mooNo;
+      this.bean.road = this.address.road;
+      this.bean.tumbolCode = this.address.tumbolCode;
+      this.bean.amphurCode = this.address.amphurCode;
+      this.bean.provinceCode = this.address.provinceCode;
+    }
+    console.log('>>> Bean Before Save <<<');
+    console.log(this.bean);
     let objsEmpty = simpValidate.getObjectEmpty_byFilds(this.api.map(this.bean), fildsCheck);
     console.log(objsEmpty);
     if(objsEmpty.length<=0){

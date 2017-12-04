@@ -94,15 +94,24 @@ export class ApiHTTPService  implements OnInit {
     }
 
     public api_ProvinceList(callback: (doc: any) => void) {
-        this.callResponse('address/province', {}, callback);     
+        this.callResponse('address/province', {}, callback);    
     }
 
     public api_AmphurList(provinceCode: string, callback: (doc: any) => void) {
-        this.callResponse('address/amphur', {"provinceCode":provinceCode}, callback);
+        if(provinceCode){
+            this.callResponse('address/amphur', {"provinceCode":provinceCode}, callback);
+        }else{
+            callback([]);
+        }
     }
 
     public api_TumbolList(amphurCode: string, callback: (doc: any) => void) {
-        this.callResponse('address/tumbol', {"amphurCode": amphurCode}, callback);
+        if(amphurCode){
+            this.callResponse('address/tumbol', {"amphurCode": amphurCode}, callback);
+        }else{
+            callback([]);
+        }
+        
     }
     
     public api_GenderList(callback: (doc: any) => void) {
