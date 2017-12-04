@@ -162,5 +162,11 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
     super.setNg2STDatasource(this.source);
   }
 
+  reloadData(event: any) {
+    if (event) {
+      this.loadData(this.filtersearch);
+    }
+  }
+
 
 }

@@ -22,4 +22,4 @@
 
 </div>
 
-<app-survey-mosquito-form [action]='action' [data]="mosquitobean"></app-survey-mosquito-form>
+<app-survey-mosquito-form [action]='action' [data]="mosquitobean" [documentId]="documentId" (completed)="reloadData($event);"></app-survey-mosquito-form>
