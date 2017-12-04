@@ -9,54 +9,46 @@
             <app-filter-find-person [reset]="resetFind" [findPersonal]="isFindPersonal" (choosePersonal)="onChoosePersonal($event)"></app-filter-find-person>
 
             <div *ngIf="isShowForm">
-                <div class="row">
-                    <div class="col-md-4 col-md-offset-1">
-                        <label id="cid">หมายเลขประจำตัว :</label>
-                        <label class="value">{{pregnantbean.citizenId}}</label>
-                    </div>
-                    <div class="col-md-3">
-                        <label>ชื่อ-สกุล :</label>
-                        <label class="value">{{pregnantbean.fullName}}</label>
-                    </div>
 
-                    <!-- <div class="col-md-2" style="width: 80px; padding-right: 0px;">
-                        <label class="label-form">สิทธิบัตร:</label>
-                    </div>
-                    <div class="col-md-2">
-                        <select [(ngModel)]="healtInsuranceTypeList.id">
-                            <option value="0">เลือก</option>
-                            <option *ngFor="let item of healtInsuranceTypeList" value="{{item.id}}">{{item.code}}</option>
-                        </select>
-                    </div> -->
+                <div class="panel-body">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
 
-                </div>
-                <div class="row">
-                    <div class="col-md-3 col-md-offset-1" style="width: 180px;">
-                        <label>เพศ :</label>
-                        <label class="value">{{pregnantbean.genderName}}</label>
-                        <label>อายุ :</label>
-                        <label class="value">{{pregnantbean.age}} ปี</label>
-                    </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="box-body">
+                                        <dl class="dl-horizontal">
+                                            <dt>หมายเลขประจำตัว : </dt>
+                                            <dd>{{ pregnantBean.citizenId }}</dd>
+                                            <dt>ชื่อ-สกุล : </dt>
+                                            <dd>{{ pregnantBean.fullName }}</dd>
+                                            <dt>เพศ : </dt>
+                                            <dd>{{ pregnantBean.genderName }}</dd>
+                                            <dt>อายุ : </dt>
+                                            <dd>{{ pregnantBean.age }}</dd>
+                                            <dt>ที่อยู่ : </dt>
+                                            <dd>{{ pregnantBean.address }}</dd>
+                                        </dl>
+                                    </div>
+                                </div>
+                            </div>
 
-                    <div class="col-md-8">
-                        <label class="label-form">ที่อยู่ :</label>
-                        <label class="value">{{pregnantbean.address}}</label>
+                        </div>
                     </div>
                 </div>
 
-                <hr>
                 <div class="row">
                     <div class="col-md-2 text-right">
                         <label class="label-form">สถานะครรภ์</label>
                     </div>
                     <div class="col-md-4">
-                        <select [(ngModel)]="pregnantType">
+                        <select [(ngModel)]="pregnantType" (change)="onChangePregnantType();">
                             <option value="0">กำลังตั้งครรภ์</option>
                             <option value="1">คลอดแล้ว</option>
                         </select>
                     </div>
 
-                    <div [hidden]="pregnantType == '0'? false:true">
+                    <div [hidden]="isDisplayPregnantType">
                         <div class="col-md-2 text-right">
                             <label class="label-form">กำหนดคลอด</label>
                         </div>
@@ -65,8 +57,7 @@
                         </div>
                     </div>
 
-
-                    <div [hidden]="pregnantType == '1'? false:true">
+                    <div [hidden]="!isDisplayPregnantType">
                         <div class="col-md-1 text-right">
                             <label class="label-form">วันคลอด</label>
                         </div>
@@ -74,10 +65,9 @@
                             <my-date-picker [options]="datePickerOptions" required></my-date-picker>
                         </div>
                     </div>
-
                 </div>
 
-                <div [hidden]="pregnantType == '1'? false:true">
+                <div [hidden]="!isDisplayPregnantType">
                     <div class="row">
                         <div class="col-md-2 text-right">
                             <label>โรงพยาบาลที่คลอด</label>

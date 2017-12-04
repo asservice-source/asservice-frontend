@@ -8,64 +8,74 @@ import { BaseComponent } from '../../../base-component';
   templateUrl: './survey-pregnant-form.component.html',
   styleUrls: ['./survey-pregnant-form.component.css']
 })
-export class SurveyPregnantFormComponent extends BaseComponent implements OnInit ,AfterViewInit {
+export class SurveyPregnantFormComponent extends BaseComponent implements OnInit, AfterViewInit {
 
   @Input() action: string;
   @Input() data: PregnantBean;
 
-  
-  ngAfterViewInit(): void {
-    
-  }
   mStatusNo = 0;
 
   isDisable = false;
   isDisableBirth = true;
   isDisableAbort = true;
+
+  public personBean = new PersonBean();
+  public pregnantBean: PregnantBean;
+
   public pregnantType: number = 0;
   public bornType: number = 0;
-  public pregnantbean : PregnantBean;
   public resetFind: number = 1;
 
   public isFindPersonal: boolean = true;
-  public personBean = new PersonBean();
   public isShowForm: boolean = false;
+  public isDisplayPregnantType: boolean = false;
 
-  constructor(private changeRef: ChangeDetectorRef) { 
+  constructor(private changeRef: ChangeDetectorRef) {
     super();
-    this.pregnantbean = new PregnantBean();
+
+    let self = this;
+
+    self.pregnantBean = new PregnantBean();
   }
 
   ngOnInit() {
-    this.onModalEvent();
+    let self = this;
+
+    self.onModalEvent();
   }
+
+  ngAfterViewInit(): void {
+
+  }
+
   changStatusNo() {
-    if (this.mStatusNo > 0) {
-      if (this.mStatusNo == 1) {
-        this.isDisable = true;
-        this.isDisableBirth = false;
-        this.isDisableAbort = true;
+    let self = this;
+
+    if (self.mStatusNo > 0) {
+      if (self.mStatusNo == 1) {
+        self.isDisable = true;
+        self.isDisableBirth = false;
+        self.isDisableAbort = true;
       } else {
-        this.isDisable = true;
-        this.isDisableBirth = true;
-        this.isDisableAbort = false;
+        self.isDisable = true;
+        self.isDisableBirth = true;
+        self.isDisableAbort = false;
       }
     } else {
-      this.isDisableBirth = true;
-      this.isDisable = false;
-      this.isDisableAbort = true;
+      self.isDisableBirth = true;
+      self.isDisable = false;
+      self.isDisableAbort = true;
     }
-
   }
 
   onModalEvent() {
     let self = this;
+
     $('#find-person-md').on('show.bs.modal', function (e) {
       self.resetFind = self.resetFind + 1;
       if (self.action == self.ass_action.EDIT) {
         self.onChoosePersonal(self.data);
       }
-
       self.changeRef.detectChanges();
     })
     $('#find-person-md').on('hidden.bs.modal', function () {
@@ -78,14 +88,29 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
   }
 
   onChoosePersonal(bean: any): void {
-    this.pregnantbean = bean;
+    let self = this;
 
-    this.isFindPersonal = false;
-    this.isShowForm = true;
+    self.pregnantBean = bean;
+
+    self.isFindPersonal = false;
+    self.isShowForm = true;
   }
+
   onBack() {
-    this.isFindPersonal = true;
-    this.isShowForm = false;
+    let self = this;
+
+    self.isFindPersonal = true;
+    self.isShowForm = false;
+  }
+
+  onChangePregnantType() {
+    let self = this;
+
+    if (self.pregnantType == 1) {
+      self.isDisplayPregnantType = true;
+    } else {
+      self.isDisplayPregnantType = false;
+    }
   }
 
 }
