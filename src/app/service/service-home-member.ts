@@ -12,21 +12,44 @@ export class Service_HomeMember extends ApiHTTPService{
     }
     public map(bean: PersonalBasicBean):any{
         this.attr = {
-            "personId": bean.personId,
+            
             "citizenId": bean.citizenId,
+            "prefixCode": bean.prefixCode,
             "firstName": bean.firstName,
             "lastName": bean.lastName,
-            "birthDate": bean.birthDate,
+            "nickName": "",
             "genderId": bean.genderId,
-            "prefixCode": bean.prefixCode,
             "raceCode": bean.raceCode,
-            "nationalityCode": bean.nationalityCode,
+            "nationCode": bean.nationalityCode,
+            "religionCode": bean.religionCode,
             "bloodTypeId": bean.bloodTypeId,
             "rhGroupId": bean.rhGroupId,
-            "occupationCode": bean.occupationCode,
+            "birthDate": bean.birthDate,
             "educationCode": bean.educationCode,
-            "religionCode": bean.religionCode,
+            "occupCode": bean.occupationCode,
+            "laborCode":"",
+            "passport": "",
+            "isDead":  false,
+            "deadDate": "",
+            "dischargeId": bean.dischargeId,
             "familyStatusId": bean.familyStatusId,
+            "fatherCid": "",
+            "motherCid": "",
+            "coupleCid": "",
+            "personId": bean.personId,
+            "homeId": bean.homeId,
+            "isGuest": bean.isGuest,
+            "isExists": 0,
+            "mStatusCode": "",
+            "vStatusCode": "",
+            "congenitalDisease": "",
+            "remark": "",
+            "homeNo": bean.homeNo,
+            "mooNo": bean.mooNo,
+            "road": bean.road,
+            "provinceCode": bean.provinceCode,
+            "amphurCode": bean.amphurCode,
+            "tumbolCode": bean.tumbolCode
         }
         return this.attr;
     }
@@ -34,7 +57,7 @@ export class Service_HomeMember extends ApiHTTPService{
         let parameter = this.base.strNullToEmpty(this.map(bean));
         console.log('<<<< Params >>>>');
         console.log(parameter);
-        this.post('home/ins_upd_home', parameter, function(response){
+        this.post('survey_population/population_add_home_member', parameter, function(response){
             console.log(response);
             callback(response);
         });

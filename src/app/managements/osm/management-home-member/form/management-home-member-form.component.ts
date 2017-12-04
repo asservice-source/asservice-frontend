@@ -1,25 +1,28 @@
-import { Component, OnInit, Input} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import { BaseComponent } from '../../../../base-component';
 import { PersonalBasicBean } from '../../../../beans/personal-basic.bean';
 import { InputValidateInfo } from '../../../../directives/inputvalidate.directive';
 import { Service_HomeMember } from '../../../../service/service-home-member';
 import { SimpleValidateForm } from '../../../../utils.util';
+import { Address } from '../../../../beans/address';
 
 
 declare var $:any;
 @Component({
   selector: 'app-management-home-member-form',
   templateUrl: './management-home-member-form.component.html',
-  styleUrls: ['./management-home-member-form.component.css']
+  styleUrls: ['./management-home-member-form.component.css' ,'../../../../checkbox.css']
 })
 export class ManagementHomeMemberFormComponent extends BaseComponent implements OnInit {
 
 
   @Input() bean: PersonalBasicBean;
   @Input() action: string;
+  @Input() address: Address;
+  @Output() success: EventEmitter<any>;
   public api: Service_HomeMember;
   public inputValidate: InputValidateInfo;
-  public isVerify: boolean = true;
+  public isVerify: boolean = false;
   public isShowVerify: boolean = true;
   public modelBirthDate: any;
   public genderList: any = [];
@@ -32,12 +35,19 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
   public rhGroupList: any = [];
   public educationList: any = [];
   public familyStatusList: any = [];
+  public provinceList: any = [];
+  public amphurList: any = [];
+  public tumbolList: any = [];
+  public oldCitizenId: string;
+  public actionName: string;
   
   constructor() { 
     super();
     this.bean = new PersonalBasicBean();
     this.inputValidate = new InputValidateInfo();
     this.api = new Service_HomeMember();
+    this.success = new EventEmitter<any>();
+    this.address = new Address();
   }
 
   ngOnInit() {
@@ -89,6 +99,35 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
     _self.api.api_FamilyStatusList(function(response){
       _self.familyStatusList = response;
     });
+
+    this.setupProvince();
+  }
+
+  bindModal(){
+    let _self = this;
+    $('#modalForm').on('show.bs.modal', function(){
+      console.log(">>>>>>");
+      console.log(_self.action);
+      _self.inputValidate = new InputValidateInfo();
+      if(_self.action == _self.ass_action.ADD){
+        _self.actionName = 'เพิ่ม';
+        _self.isVerify = false;
+        _self.modelBirthDate = null;
+        _self.bean = _self.api.map(_self.bean);
+        _self.bean.occupationCode = '';//objMap.occupCode;
+        _self.bean.nationalityCode = '';//objMap.nationCode;
+      }else{
+        _self.actionName = 'แก้ไข';
+        _self.isVerify = true;
+        _self.oldCitizenId = _self.bean.citizenId;
+        _self.setDatePickerModel();
+        _self.setupAmphur();
+        _self.setupTumbol();
+      }
+      _self.strNullToEmpty(_self.bean);
+      console.log(_self.bean);
+
+    });
   }
   onGenderChange(){
     this.setupPrefix();
@@ -97,36 +136,150 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
   onChangeBirthDate(event: any){
 
   }
-
-  bindModal(){
+  onChangeProvince(){
+    this.bean.amphurCode = '';
+    this.bean.tumbolCode = '';
+    this.amphurList = [];
+    this.tumbolList = [];
+    if(this.bean.provinceCode){
+      this.setupAmphur();
+    }
+  }
+  onChangeAmphur(){
+    this.bean.tumbolCode = '';
+    this.tumbolList = [];
+    if(this.bean.amphurCode){
+      this.setupTumbol();
+    }
+  }
+  onIsGuest(){
+    if(this.bean.isGuest){
+      this.bean.homeNo = '';
+      this.bean.mooNo = '';
+      this.bean.road = '';
+      this.bean.tumbolCode = '';
+      this.bean.amphurCode = '';
+      this.bean.provinceCode = '';
+    }
+  }
+  setupProvince(){
     let _self = this;
-    $('#modalForm').on('show.bs.modal', function(){
-      console.log(">>>>>>");
-      console.log(_self.action);
-      
-      
-      if(_self.action == _self.ass_action.ADD){
-        _self.modelBirthDate = "";
-        _self.bean = _self.api.map(_self.bean);
-      }else{
-        _self.modelBirthDate = _self.getCurrentDatePickerModel(_self.bean.birthDate);
-      }
-      _self.strNullToEmpty(_self.bean);
-      console.log(_self.bean);
-
+    _self.api.api_ProvinceList(function(response){
+      _self.provinceList = response;
     });
   }
-
+  setupAmphur(){
+    let _self = this;
+    _self.api.api_AmphurList(_self.bean.provinceCode, function(response){
+      _self.amphurList = response;
+    });
+  }
+  setupTumbol(){
+    let _self = this;
+    _self.api.api_TumbolList(_self.bean.amphurCode, function(response){
+      _self.tumbolList = response;
+    });
+  }
+  onVerifyCitizenId(){
+    this.oldCitizenId = this.bean.citizenId;
+    this.inputValidate = new InputValidateInfo();
+    this.inputValidate.isCheck = true;
+    if(this.bean.citizenId){
+      this.inputValidate = new InputValidateInfo();
+      let _self = this;
+      _self.loading = true;
+      this.api.api_PersonByCitizenId(this.bean.citizenId, function(response){
+        _self.loading = false;
+        if(response.status.toString().toUpperCase()=="SUCCESS"){
+          if(response.response){
+            let msg = 'มีข้อมูลหมายเลขประชาชน <b>'+ _self.bean.citizenId +'</b> อยู่แล้ว คุณต้องการดึงข้อมูลมาแก้ไข ใช่หรือไม่?';
+            _self.message_comfirm('', msg, function(result){
+              if(result){
+                _self.action = _self.ass_action.EDIT;
+                _self.actionName = 'แก้ไข';
+                _self.isVerify = true;
+                _self.bean = _self.strNullToEmpty(response.response);
+                _self.bean.familyStatusId='';
+                _self.bean.isGuest = '';
+                _self.setDatePickerModel();
+                _self.oldCitizenId = _self.bean.citizenId;
+                console.log(_self.bean);
+              }else{
+                _self.isVerify = false;
+              }
+            });
+          }else{
+            _self.isVerify = true;
+          }
+        }else{
+          _self.message_error('', 'ไม่สามารถตรวจสอบข้อมูลได้');
+        }
+      });
+    }
+  }
   onSave(){
     this.inputValidate = new InputValidateInfo();
     this.inputValidate.isCheck = true;
     let simpValidate: SimpleValidateForm = new SimpleValidateForm();
-    let objsEmpty = simpValidate.getObjectEmpty(this.bean, ["personId"]);
+    this.bean.birthDate = this.getStringDateForDatePickerModel(this.modelBirthDate.date);
+    let fildsCheck = ['citizenId', 'firstName', 'lastName', 'prefixCode', 'genderId', 'raceCode', 'nationCode', 'religionCode', 'bloodTypeId', 'rhGroupId', 'birthDate', 'educationCode', 'occupCode', 'familyStatusId', 'isGuest'];
+    if(this.bean.isGuest){
+      fildsCheck.push('homeNo','mooNo','tumbolCode','amphurCode','provinceCode');
+    }else{
+      this.bean.homeNo = this.address.homeNo;
+      this.bean.mooNo = this.address.mooNo;
+      this.bean.road = this.address.road;
+      this.bean.tumbolCode = this.address.tumbolCode;
+      this.bean.amphurCode = this.address.amphurCode;
+      this.bean.provinceCode = this.address.provinceCode;
+    }
+    console.log('>>> Bean Before Save <<<');
+    console.log(this.bean);
+    let objsEmpty = simpValidate.getObjectEmpty_byFilds(this.api.map(this.bean), fildsCheck);
     console.log(objsEmpty);
     if(objsEmpty.length<=0){
+      let _self = this;
+      _self.loading = true;
+      this.api.api_PersonByCitizenId(_self.bean.citizenId, function(response){
+        if(response.status.toString().toUpperCase()=="SUCCESS"){
+          if(response.response && response.response.citizenId != _self.oldCitizenId){
+            _self.loading = false;
+            _self.message_error('', 'หมายเลขบัตรประจำตัว <b>'+ _self.bean.citizenId +'</b> ซ้ำ');
+          }else{
+            // Save To API
+            _self.api.commit_save(_self.bean, function(response){
+              _self.loading = false;
+              if(response && response.status.toString().toUpperCase()=='SUCCESS'){
+                $('#modalForm').modal('hide');
+                _self.message_success('',_self.actionName + ' สมาชิกใหม่เรียบร้อย', function(){
+                  _self.success.emit({"success": true, "response": response});
+                });
+              }else{
+                _self.message_error('','ไม่สามารถ'+_self.actionName+'ได้', function(){
+                  _self.success.emit({"success": false, "response": response});
+                });
+              }
+            });
+
+          }
+        }else{
+          _self.loading = false;
+          _self.message_error('', 'ไม่สามารถตรวจสอบข้อมูลเลขประชาชนได้');
+        }
+  
+      });
 
     }else{
 
     }
   }
+
+
+  setDatePickerModel(){
+    if(this.bean.birthDate){
+      this.modelBirthDate = this.getCurrentDatePickerModel(this.bean.birthDate);
+    }else{
+      this.modelBirthDate = null;
+    } 
+}
 }

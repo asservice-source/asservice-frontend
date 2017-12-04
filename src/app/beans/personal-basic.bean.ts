@@ -36,17 +36,20 @@ export class PersonalBasicBean{
     public homeNo: string;
     public villageId: string;
     public villageNo: string;
-    public tumpolCode: string;
-    public tumpolName: string;
+    public tumbolCode: string;
+    public tumbolName: string;
     public amphurCode: string;
     public amphurName: string;
     public provinceCode: string;
     public provinceName: string;
     public zipcode: string;
+    public mooNo: string;
+    public road: string;
+    
     public osmId: string;
     public roleId: string;
     public isDead: boolean;
-    public isGuest: boolean;
+    public isGuest: any;
     public isActive: boolean;
     
 }
