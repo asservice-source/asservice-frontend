@@ -472,16 +472,11 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
             if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
               $("#find-person-md").modal('hide');
               self.completed.emit(true);
-              self.message_success('', 'ท่านได้ทำการส่งแบบสำรวจความเสี่ยงโรค Metabolic แล้ว', function () {
-
-              })
+              self.message_success('', 'ท่านได้ทำการส่งแบบสำรวจความเสี่ยงโรค Metabolic แล้ว')
             }
           })
         } 
       })
-
-
-
     }
   }
 
