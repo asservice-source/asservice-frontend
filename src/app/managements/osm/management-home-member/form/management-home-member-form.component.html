@@ -15,7 +15,7 @@
               <div class="input-group">
                 <input type="text" [(ngModel)]="bean.citizenId" [OnlyNumber]="true" maxlength="13" [disabled]="false">
                 <span class="input-group-btn">
-                  <button class="btn btn-primary btn-sm btn-flat" (click)="onClickVerifyCitizenId();" *ngIf="isShowVerify">ตรวจสอบ</button>
+                  <button class="btn btn-primary btn-sm btn-flat" (click)="onVerifyCitizenId();" *ngIf="isShowVerify">ตรวจสอบ</button>
                 </span>
               </div>
               <label class="error">กรุณาใส่หมายเลขประชาชนเป็นตัวเลข 13 หลัก</label>
@@ -196,19 +196,65 @@
                 <label class="error">กรุณาเลือกความสัมพันธ์</label>
               </div>
             </div>
-            <div class="col-md-2 text-right" style="padding-left: 0;">
+            
+          </div> 
+          <div class="row">
+            <div class="col-md-2 text-right" style="padding:0;">
               <label>ประเภทการอยู่อาศัย</label>
             </div>
             <div class="col-md-4">
               <div [InputValidate]="inputValidate">
                 <select type="text" [(ngModel)]="bean.isGuest">
                   <option value="">---เลือก---</option>
+                  <option [value]="false">อยู่จริง</option>
+                  <option [value]="true">ไม่อยู่จริง</option>
                 </select>
                 <label class="error">กรุณาเลือกประเภทการอยู่อาศัย</label>
               </div>
             </div>
-            
+
+            <div class="col-md-6">
+
+              <div class="row">
+                <div class="col-md-12">
+                  <label>ที่อยู่ปัจจุบัน</label>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4 text-right">
+                  <label>จังหวัด</label>
+                </div>
+                <div class="col-md-8">
+                  <select>
+                    <option value="">---เลือก---</option>
+                  </select>
+                </div>
+              </div>
+                <div class="row">
+                  <div class="col-md-4 text-right">
+                    <label>อำเภอ</label>
+                  </div>
+                  <div class="col-md-8">
+                    <select>
+                      <option value="">---เลือก---</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-4 text-right">
+                    <label>ตำบล</label>
+                  </div>
+                  <div class="col-md-8">
+                    <select>
+                      <option value="">---เลือก---</option>
+                    </select>
+                  </div>
+                </div>
+
+            </div>
           </div>
+
         </div>
       </div>
       <div class="modal-footer">

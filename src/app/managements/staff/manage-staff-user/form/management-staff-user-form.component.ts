@@ -174,7 +174,7 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
                 _self.loading = false;
                 if(response && response.status.toString().toUpperCase()=='SUCCESS'){
                   $('#modalForm').modal('hide');
-                  _self.message_success('',_self.actionName+'เจ้าหน้าที่ ' + roleName + ' ' + fullName + ' สำเร็จ', function(){
+                  _self.message_success('',_self.actionName+'เจ้าหน้าที่ ' + roleName + ' ' + fullName + ' เรียบร้อย', function(){
                     _self.success.emit({"success": true, "response": response});
                   });
                 }else{

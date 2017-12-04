@@ -43,10 +43,13 @@ export class PersonalBasicBean{
     public provinceCode: string;
     public provinceName: string;
     public zipcode: string;
+    public mooNo: string;
+    public road: string;
+    public tumbolCode: string;
     public osmId: string;
     public roleId: string;
     public isDead: boolean;
-    public isGuest: boolean;
+    public isGuest: any;
     public isActive: boolean;
     
 }
