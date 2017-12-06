@@ -93,6 +93,10 @@ export class ApiHTTPService  implements OnInit {
         this.callResponse('homemember/homemember_by_home', {"homeId": homeId}, callback);
     }
 
+    public api_SurveyHomeMemberList(documentId:string,headerTypeCode:string,homeId:string,callback: (doc: any) => void){
+        this.callResponse('survey/homemember_by_home',{"documentId":documentId,"headerTypeCode":headerTypeCode,"homeId":homeId},callback);
+    }
+
     public api_ProvinceList(callback: (doc: any) => void) {
         this.callResponse('address/province', {}, callback);    
     }

@@ -64,7 +64,9 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
     console.log(bean);
     this.patientbean = bean;
 
+
     if (this.action == this.ass_action.ADD) {
+      this.patientbean.homeID = bean.homeId;
       this.patientbean.patientSurveyTypeCode = "";
       this.patientbean.disabilityCauseTypeID = "";
       this.patientbean.disabilityTypeID = "";

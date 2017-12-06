@@ -467,14 +467,14 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
               self.member.firstName = personData.firstName;
               self.member.lastName = personData.lastName;
               self.member.raceCode = personData.raceCode;
-              self.member.nationalityCode = personData.nationCode;
+              self.member.nationalityCode = personData.nationalityCode;
               self.member.religionCode = personData.religionCode;
               self.member.bloodTypeId = personData.bloodTypeID;
-              self.member.rhGroupId = personData.rHGroupID;
+              self.member.rhGroupId = personData.rhGroupId;
               self.member.birthDate = personData.birthDate;
               self.modelBirthDate = self.getDatePickerModel(personData.birthDate);
               self.member.educationCode = personData.educationCode;
-              self.member.occupationCode = personData.occupCode;
+              self.member.occupationCode = personData.occupationCode;
 
               self.toggleCitizenId(true);
               self.isDisablePersonData = false;

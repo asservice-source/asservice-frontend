@@ -97,7 +97,7 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
           });
 
           instance.delete.subscribe((row: PatientBean, cell) => {
-            self.message_comfirm("", "ต้องการยกเลิกการทำรายการสำรวจของ : " + row.fullName + " ใช่หรือไม่", function (resp) {
+            self.message_comfirm("", "ต้องการยกเลิกการทำรายการสำรวจของ " + row.fullName + " ใช่หรือไม่", function (resp) {
               if (resp) {
                 self.actionDelete(row.rowGUID);
                 self.loadData(self.filtersearch);
@@ -182,6 +182,7 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
     };
     this.api.post('survey_patient/del', param, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+        self.message_success('','ลบรายการสำเร็จ');
       }
     })
   }

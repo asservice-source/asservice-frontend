@@ -12,4 +12,5 @@ export class MosquitoBean{
     public homeId : string;
     public osmId : string;
     public containerTypeId : string;
+    public name : string;
 }

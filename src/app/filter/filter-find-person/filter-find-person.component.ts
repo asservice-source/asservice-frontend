@@ -17,6 +17,8 @@ declare var $: any;
 export class FilterFindPersonComponent extends BaseComponent implements OnInit {
   @Input() findPersonal: boolean;
   @Input() reset: any;
+  @Input() surveyTypeCode:string;
+  @Input() documentId : string;
   @Output() choosePersonal: EventEmitter<PersonBean> = new EventEmitter<PersonBean>();
 
   private api: ApiHTTPService;
@@ -145,7 +147,24 @@ export class FilterFindPersonComponent extends BaseComponent implements OnInit {
 
   doSearchPerson() {
     this.isDisabledPerson = false;
-    this.setupMemberList();
+    //this.setupMemberList();
+    this.setupSurveyHomeMemberList();
+  }
+
+  //call with duplicate filter
+  setupSurveyHomeMemberList(){
+
+    console.log(this.documentId);
+    console.log(this.surveyTypeCode);
+    console.log(this.filterBean.homeId);
+
+    let _self = this;
+        _self.loading = true;
+        _self.api.api_SurveyHomeMemberList(_self.documentId,_self.surveyTypeCode,_self.filterBean.homeId,function(response){
+          _self.source = _self.ng2STDatasource(response);
+          _self.isShowPersons = true;
+          _self.loading = false;
+        });
   }
 
   setupMemberList() {

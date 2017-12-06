@@ -34,20 +34,24 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
     this.api = new ApiHTTPService();
     let self = this;
     this. filtersearch = new FilterHeadMosquitoBean();
-    this.settings = this.getTableSetting({
 
-      homeNo: {
+    let column : string;
+
+    this.settings = this.getTableSetting({
+    
+      name: {
         title: 'ชื่อ/บ้านเลขที่',
         filter: false,
-        type:'html',
-        valuePrepareFunction: (cell, row) => { 
-          return '<div class="text-center">'+cell+'</div>'
-        }
+        type:'html'
       },
       homeTypeName: {
         title: 'ประเภท',
         filter: false,
         width: '120px',
+        type:'html',
+        valuePrepareFunction: (cell, row) => { 
+          return '<div class="text-center">'+cell+'</div>'
+        }
       },
       totalSurvey: {
         title: 'ภาชนะที่สำรวจ',
@@ -81,14 +85,21 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
             self.onModalFrom(self.ass_action.EDIT);
           });
 
-          // instance.delete.subscribe((row: MosquitoBean, cell) => {
-          //   self.message_comfirm("", "ต้องการยกเลิกการทำรายการสำรวจของ : " + row.homeNo + " ใช่หรือไม่", function (resp) {
-          //     if (resp) {
-          //       self.actionDelete(row.rowGUID);
-          //       self.loadData(self.filtersearch);
-          //     }
-          //   });
-          // });
+          instance.delete.subscribe((row: MosquitoBean, cell) => {
+            let text : string;
+            if(row.homeTypeName == 'บ้าน'){
+              text = "ต้องการยกเลิกการทำรายการสำรวจของบ้านเลขที่ "
+            }else{
+              text = "ต้องการยกเลิกการทำรายการสำรวจของ "
+            }
+
+            self.message_comfirm("", text + '<span style="color : red">'+row.name +'</span>' + " ใช่หรือไม่", function (resp) {
+              if (resp) {
+                self.actionDelete(row.documentId,row.homeId);
+                 self.loadData(self.filtersearch);
+              }
+            });
+          });
         }
       }
     });
@@ -168,5 +179,20 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
     }
   }
 
+  actionDelete(documentid,homeid) {
+
+    let self = this;
+    let param = {
+      "documentId": documentid,
+      "homeId": homeid
+    };
+    console.log(param);
+
+    this.api.post('survey_hici/del_hici_info', param, function (resp) {
+      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+        self.message_success('','ลบรายการสำเร็จ')
+      }
+    })
+  }
 
 }
