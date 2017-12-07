@@ -21,6 +21,7 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
   private apiHttp: Service_SurveyPregnant = new Service_SurveyPregnant();
 
   public action: string = this.ass_action.ADD;
+  public documentId: string;
   public pregnantBean: PregnantBean = new PregnantBean();
 
   public settings: any;
@@ -102,12 +103,14 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
   onClickSearch(event: FilterHeadSurveyBean) {
     let self = this;
 
-    let roundId = event.rowGUID;
+    if (self.isEmpty(self.documentId))
+      self.documentId = event.rowGUID;
+
     let villageId = event.villageId;
     let osmId = event.osmId;
     let name = event.fullName;
 
-    self.BindPregnantList(roundId, villageId, osmId, name);
+    self.BindPregnantList(self.documentId, villageId, osmId, name);
 
     // this.http.get("assets/data_test/data_home_personal.json")
     //   .map(res => res.json())

@@ -6,7 +6,8 @@
             <div class="modal-header">
                 <h4 class="modal-title">แบบสำรวจหญิงตั้งครรภ์</h4>
             </div>
-            <app-filter-find-person [reset]="resetFind" [findPersonal]="isFindPersonal" (choosePersonal)="onChoosePersonal($event)"></app-filter-find-person>
+            <app-filter-find-person [reset]="resetFind" [findPersonal]="isFindPersonal" [surveyTypeCode]="surveyTypeCode" [documentId]="documentId"
+                (choosePersonal)="onChoosePersonal($event)"></app-filter-find-person>
 
             <div *ngIf="isShowForm">
 
