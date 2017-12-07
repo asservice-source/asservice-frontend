@@ -74,10 +74,10 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
         type: 'html',
         valuePrepareFunction: (cell, row) => {
           var surveyStatus = '';
-          if (cell === true) {
-            surveyStatus = '<div class="text-center" style="color: green;">สำรวจแล้ว</div>';
+          if (cell == true || cell == "true") {
+            surveyStatus = '<div class="text-center text-green">สำรวจแล้ว</div>';
           } else {
-            surveyStatus = '<div class="text-center" style="color: red;">ยังไม่สำรวจ</div>';
+            surveyStatus = '<div class="text-center text-red">ยังไม่สำรวจ</div>';
           }
           return surveyStatus;
         }
@@ -115,9 +115,10 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
     let villageId = event.villageId;
     let osmId = event.osmId;
     let homeId = event.homeId;
+    let suyveyStatus = event.suyveyStatus;
     self.filterRoundId = roundId;
 
-    self.bindHomeList(roundId, villageId, osmId, homeId);
+    self.bindHomeList(roundId, villageId, osmId, homeId, suyveyStatus);
 
     // this.http.get("assets/data_test/data_home_personal.json")
     //   .map(res => res.json())
@@ -140,7 +141,7 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
     self.router.navigate(['/main/managements/osm/home']);
   }
 
-  bindHomeList(roundId: string, villageId: string, osmId: string, homeId: string) {
+  bindHomeList(roundId: string, villageId: string, osmId: string, homeId: string, suyveyStatus: string) {
     let self = this;
 
     self.loading = true;
@@ -151,7 +152,25 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
     self.apiHttp.post(URL_LIST_HOME, params, function (d) {
       if (d != null && d.status.toUpperCase() == "SUCCESS") {
         console.log(d);
-        self.source = new LocalDataSource(d.response);
+
+        let data = [];
+        if (suyveyStatus == "0") {
+          for (let item of d.response) {
+            if (item.isSurvey == true || item.isSurvey == "true") {
+              data.push(item);
+            }
+          }
+        } else if (suyveyStatus == "1") {
+          for (let item of d.response) {
+            if (item.isSurvey == false || item.isSurvey == "false") {
+              data.push(item);
+            }
+          }
+        } else {
+          data = d.response;
+        }
+
+        self.source = new LocalDataSource(data);
         self.setNg2STDatasource(self.source);
         self.isShowTable = true;
       } else {

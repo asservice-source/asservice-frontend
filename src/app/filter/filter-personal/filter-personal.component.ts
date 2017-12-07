@@ -161,6 +161,7 @@ export class FilterPersonalComponent extends BaseComponent implements OnInit {
     self.filterBean.villageId = "";
     self.filterBean.osmId = "";
     self.filterBean.homeId = "";
+    self.filterBean.suyveyStatus = "";
 
     self.isDisabledOSM = true;
     self.isDisabledHomeNo = true;

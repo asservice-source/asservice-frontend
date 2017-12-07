@@ -41,6 +41,20 @@
   </div>
 </div>
 
+<div class="row">
+  <div class="col-md-1"></div>
+  <div class="col-md-1 text-right">
+    <label class="label-form">สถานะ</label>
+  </div>
+  <div class="col-md-4">
+    <select name="filter-suyveyStatus" [(ngModel)]="filterBean.suyveyStatus">
+      <option value="">--ทั้งหมด--</option>
+      <option value="0">สำรวจแล้ว</option>
+      <option value="1">ยังไม่ได้สำรวจ</option>
+    </select>
+  </div>
+</div>
+
 <div>
   <div class="row text-center" style="margin-top: 10px;">
     <button id="filter-btnSearch" class="btn btn-primary btn-sm" (click)="onSearchFilter()">

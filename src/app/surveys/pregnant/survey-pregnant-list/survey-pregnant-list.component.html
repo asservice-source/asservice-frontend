@@ -5,16 +5,15 @@
 
   <div class="panel-body">
     <div class="row">
-      <app-filter-head-survey [surveyTypeCode]="surveyTypeCode" (notifyFilter)="onSearch($event)" (changeFilter)="onChangeFilter($event)"></app-filter-head-survey>
+      <app-filter-head-survey [surveyTypeCode]="surveyTypeCode" (notifyFilter)="onClickSearch($event)" (changeFilter)="onChangeFilter($event)"></app-filter-head-survey>
     </div>
     <div class="row">
       <div class="col-sm-12 text-left">
-        <button class="btn btn-sm btn-primary" (click)="onModalFrom(ass_action.ADD);">เพิ่มการสำรวจ</button>
-        <!-- <button class="btn btn-sm btn-primary">ประวัติการสำรวจ</button>         -->
+        <button class="btn btn-sm btn-primary" (click)="onModalForm(ass_action.ADD);">เพิ่มการสำรวจ</button>
       </div>
     </div>
 
-    <div class="row" *ngIf="isShowList">
+    <div class="row" *ngIf="isShowTable">
       <div class="col-md-12">
         <ng2-smart-table [settings]="settings" [source]="source" (rowSelect)="onRowSelect($event)"></ng2-smart-table>
       </div>
@@ -22,4 +21,5 @@
   </div>
 </div>
 
-<app-survey-pregnant-form [action]='action' [data]="pregnantbean"></app-survey-pregnant-form>
+<app-survey-pregnant-form [action]="action" [data]="pregnantBean"></app-survey-pregnant-form>
+<ass-loading [show]="loading"></ass-loading>

@@ -1,13 +1,13 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Http, Response, RequestOptions } from "@angular/http";
 import { Router } from "@angular/router";
+import { FilterHeadSurveyBean } from '../../../beans/filter-head-survey.bean';
 import { BaseComponent } from "./../../../base-component";
 import { PersonBean } from "../../../beans/person.bean";
-import { ApiHTTPService } from '../../../service/api-http.service';
 import { ActionCustomViewComponent } from '../../../action-custom-table/action-custom-view.component';
-import { FilterHeadSurveyBean } from '../../../beans/filter-head-survey.bean';
 import { LocalDataSource } from 'ng2-smart-table';
 import { PregnantBean } from '../../../beans/pregnant.bean'
+import { Service_SurveyPregnant } from '../../../service/service-survey-pregnant';
 declare var $: any
 
 @Component({
@@ -18,32 +18,30 @@ declare var $: any
 export class SurveyPregnantListComponent extends BaseComponent implements OnInit {
 
   public surveyTypeCode: string = "PREGNANT";
-  private api: ApiHTTPService;
-  public settings: any;
-  public data;
-  public isShowList: boolean = true;
-  public source: LocalDataSource = new LocalDataSource();
+  private apiHttp: Service_SurveyPregnant = new Service_SurveyPregnant();
+
   public action: string = this.ass_action.ADD;
   public pregnantBean: PregnantBean = new PregnantBean();
+
+  public settings: any;
+  public source: LocalDataSource = new LocalDataSource();
+  public isShowTable: boolean = true;
 
   constructor(private http: Http, private router: Router, private changeRef: ChangeDetectorRef) {
     super();
 
     let self = this;
 
-    self.api = new ApiHTTPService();
-
-    self.loadData();
-    
     self.settings = self.getTableSetting({
-      name: {
+      fullName: {
         title: 'ชื่อ - นามสกุล',
+        width: '120px',
         filter: false,
       },
-      cID: {
+      citizenId: {
         title: 'เลขประจำตัวประชาชน',
         filter: false,
-        width: '120px',
+        width: '180px',
         type: 'html',
         valuePrepareFunction: (cell, row) => {
           return '<div class="text-center">' + cell + '</div>'
@@ -61,7 +59,7 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
       wombNo: {
         title: 'ครรภ์ที่',
         filter: false,
-        width: '90px',
+        width: '70px',
         type: 'html',
         valuePrepareFunction: (cell, row) => {
           return '<div class="text-center">' + cell + '</div>'
@@ -70,10 +68,11 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
       bornDueDate: {
         title: 'วันกำหนดคลอด',
         filter: false,
-        width: '150px',
+        width: '100px',
         type: 'html',
         valuePrepareFunction: (cell, row) => {
-          return '<div class="text-center">' + cell + '</div>'
+          let birthDate = self.displayFormatDate(cell);
+          return '<div class="text-center">' + birthDate + '</div>'
         }
       },
       action: {
@@ -88,7 +87,7 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
             console.log(row);
             if (row && row.action.toUpperCase() == self.ass_action.EDIT) {
               self.pregnantBean = row;
-              self.onModalFrom(self.ass_action.EDIT);
+              self.onModalForm(self.ass_action.EDIT);
             }
           });
         }
@@ -97,40 +96,76 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
   }
 
   ngOnInit() {
-    this.setUpTable();
+    let self = this;
   }
 
-  loadData() {
+  onClickSearch(event: FilterHeadSurveyBean) {
     let self = this;
-    
-    this.http.get("assets/test-list.json")
-      .map(res => res.json())
-      .subscribe(function (response) {
-        self.data = response;
-        self.setUpTable();
-      });
+
+    let roundId = event.rowGUID;
+    let villageId = event.villageId;
+    let osmId = event.osmId;
+    let name = event.fullName;
+
+    self.BindPregnantList(roundId, villageId, osmId, name);
+
+    // this.http.get("assets/data_test/data_home_personal.json")
+    //   .map(res => res.json())
+    //   .subscribe((data) => {
+    //     self.source = new LocalDataSource(data);
+    //     self.setNg2STDatasource(self.source);
+    //     self.isShowTable = true;
+    //   });
+  }
+
+  BindPregnantList(roundId, villageId, osmId, name) {
+    let self = this;
+
+    self.loading = true;
+
+    let params = { "documentId": roundId, "villageId": villageId, "osmId": osmId, "name": name };
+
+    self.apiHttp.post("survey_pregnant/search_pregnant_info_list", params, function (d) {
+      if (d != null && d.status.toUpperCase() == "SUCCESS") {
+        console.log(d);
+        self.source = self.ng2STDatasource(d.response);
+        self.isShowTable = true;
+      } else {
+        console.log('survey-personal-pregnant-list(BindPregnantList) occured error(s) => ' + d.message);
+      }
+      self.loading = false;
+    });
+
+    // self.http.get("assets/test-list.json")
+    //   .map(res => res.json())
+    //   .subscribe(function (response) {
+    //     self.data = response;
+    //     self.setUpTable();
+    //   });
 
   }
 
   onChangeFilter(event: FilterHeadSurveyBean) {
-    console.log("ChangeFilter");
-    this.isShowList = false;
+    let self = this;
+
+    // console.log("ChangeFilter");
+    // self.isShowTable = false;
   }
 
-  onSearch(event: FilterHeadSurveyBean) {
-    this.setUpTable();
+  onModalForm(action: string) {
+    let self = this;
+
+    self.action = action;
+    self.changeRef.detectChanges();
+    $("#find-person-md").modal("show");
   }
 
-  onModalFrom(action: string) {
-    this.action = action;
-    this.changeRef.detectChanges();
-    $('#find-person-md').modal('show');
-  }
+  // setUpTable() {
+  //   let self = this;
 
-  setUpTable() {
-    this.source = new LocalDataSource(this.data);
-    this.isShowList = true;
-    super.setNg2STDatasource(this.source);
-  }
+  //   self.source = new LocalDataSource(self.data);
+  //   self.isShowTable = true;
+  //   self.setNg2STDatasource(self.source);
+  // }
 
 }
