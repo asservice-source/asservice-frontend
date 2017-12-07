@@ -6,7 +6,6 @@ import { VillageBean } from "../beans/village.bean";
 export class Service_Village extends ApiHTTPService{
 
    public attr: any;
-   private baseComp: BaseComponent = new BaseComponent();
    constructor(){
     super();
    }
@@ -23,7 +22,7 @@ export class Service_Village extends ApiHTTPService{
    }
 
    public commit_save(bean: VillageBean, callback: (doc: any) => void){
-        let parameter = this.baseComp.strNullToEmpty(this.map(bean));
+        let parameter = this.base.strNullToEmpty(this.map(bean));
         console.log(" = = = parameter = = = village/add_village");
         console.log(parameter);
         this.post('village/add_village', parameter , callback);

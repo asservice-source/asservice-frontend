@@ -82,6 +82,7 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     this.setupHomeList();
+    console.log("hospitalCode5>>> " + this.userInfo.hospitalCode5);
   }
   setupHomeList(){
     let villageId = "11";
@@ -98,6 +99,7 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
     $('#modalForm').modal('show');
   }
   onAdd(){
+
     this.bean = new HomeBean();
     this.bean.homeId = "";
     this.bean.registrationId = "";

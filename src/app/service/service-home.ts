@@ -5,10 +5,8 @@ import { BaseComponent } from "../base-component";
 export class Service_Home extends ApiHTTPService{
 
     public attr: any;
-    public baseComp: BaseComponent;
     constructor(){
         super();
-        this.base = new BaseComponent();
     }
     public map(bean: HomeBean):any{
         this.attr = {
@@ -50,7 +48,7 @@ export class Service_Home extends ApiHTTPService{
             if(response && response.status.toString().toUpperCase()=='SUCCESS'){
                 callback(response.response);
             }else{
-                _self.baseComp.message_servNotRespond('', response.message);
+                _self.base.message_servNotRespond('', response.message);
             }
         });
     }

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Optional, Inject, Injectable } from '@angular/core';
 import { LabelManager } from "./label/label-manager";
 import { LocalDataSource } from 'ng2-smart-table';
 import { Utils, Action, SurveyHeaderTypeCode } from "./utils.util";
@@ -7,9 +7,14 @@ import * as moment from 'moment'
 import { IMyDpOptions } from 'mydatepicker';
 import { ANIMATION_TYPES } from './ng2-loading/ass-loading.config';
 import { ApiHTTPService } from './service/api-http.service';
+import { UserService } from './service/user.service';
+import { AppComponent } from './app.component';
 declare var $: any;
 declare var bootbox: any;
-
+@Component({
+   
+  })
+@Injectable()
 export class BaseComponent implements OnInit {
     public labelManager: LabelManager;
     public _GLOBAL = myconf;
@@ -18,10 +23,10 @@ export class BaseComponent implements OnInit {
     public loading: boolean = false;
     private ng2STDataSource: LocalDataSource;// = new LocalDataSource();
     public rowPerPage: number = 10;
-
+    public userInfo: UserService;
 
     constructor() {
-
+        this.userInfo = AppComponent.injector.get(UserService);
         this.labelManager = new LabelManager();
     }
     ngOnInit() {
@@ -38,11 +43,12 @@ export class BaseComponent implements OnInit {
     }
 
     public getHospitalCode() {
-        return "04269";
+        //return "04269";
+        return this.userInfo.hospitalCode5;
     }
 
     public getUserFullname() {
-        return "อิฐิ กรณ์";
+        return this.userInfo.userFullName;
     }
 
     public getTableSetting(columns: any) {

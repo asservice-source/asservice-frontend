@@ -29,9 +29,9 @@ export class MainLeftSideComponent implements OnInit {
   compareMenu(menus: any){
     let menuSurveys = [];
     for(let item of menus){
-      if(item.menuID==21){
+      if(item.menuId==21){
         this.staffMenus = item;
-      }else if(item.menuID==25){
+      }else if(item.menuId==25){
         this.osmMenus = item;
       }else{
         menuSurveys.push(item);

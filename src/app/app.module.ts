@@ -6,6 +6,7 @@ import { NgModule } from '@angular/core';
 import { Ng2CompleterModule } from "ng2-completer";
 import { Ng2SmartTableModule } from "ng2-smart-table";
 import { HttpModule } from '@angular/http';
+import { AgmCoreModule } from '@agm/core';
 import 'rxjs/add/operator/map';
 
 import { AppComponent } from './app.component';
@@ -63,6 +64,8 @@ import { LoadingConfigService } from './ng2-loading/ass-loading.service';
 import { FilterFindMosquitoComponent , SelectHomeListButton} from './filter/filter-find-mosquito/filter-find-mosquito.component';
 import { ManagementHomeMemberComponent } from "./managements/osm/management-home-member/list/management-home-member.component";
 import { ManagementHomeMemberFormComponent } from './managements/osm/management-home-member/form/management-home-member-form.component';
+import { TestService } from './service/test.service';
+import { UserService } from './service/user.service';
 
 @NgModule({
   declarations: [
@@ -127,7 +130,10 @@ import { ManagementHomeMemberFormComponent } from './managements/osm/management-
     ReactiveFormsModule,
     Ng2CompleterModule,
     Ng2SmartTableModule,
-    MyDatePickerModule
+    MyDatePickerModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyAOwQqNjFQlk-Fi8wkwUnIQYafBVLfyobY'
+    })
   ],
   entryComponents: [
     ActionCustomViewComponent,
@@ -138,7 +144,7 @@ import { ManagementHomeMemberFormComponent } from './managements/osm/management-
     ViewChildTableHomeManagement,
     FilterFindPersonButtonChooseComponent
   ],
-  providers: [LoadingConfigService],
+  providers: [LoadingConfigService, UserService, TestService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

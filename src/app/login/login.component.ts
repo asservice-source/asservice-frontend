@@ -8,11 +8,8 @@ import { ApiHTTPService } from '../service/api-http.service';
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  providers: [UserService]
 })
 export class LoginComponent implements OnInit {
-
-  user = new UserService();
 
   private apiHttp: ApiHTTPService = new ApiHTTPService();
   private URL_AUTHEN = "";
@@ -20,7 +17,7 @@ export class LoginComponent implements OnInit {
   fixUser = "admin";
   fixPass = "1234";
 
-  constructor(private http: Http, private router: Router) {
+  constructor(private user: UserService,private http: Http, private router: Router) {
 
   }
 
@@ -59,8 +56,8 @@ export class LoginComponent implements OnInit {
     // })
 
     if (this.fixUser == strUser && this.fixPass == strPass) {
-      localStorage.setItem("lg", "1");
-      localStorage.setItem("rid", "2");
+      let uinfo = {"uid": 1, "urid": 2, "ufullName": "นายสมพงศ์ ดวงดี", "hospitalCode5": "04269"};
+      localStorage.setItem("uinfo", JSON.stringify(uinfo));
       self.router.navigate([""]);
     } else {
       localStorage.clear();
