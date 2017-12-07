@@ -1,331 +1,127 @@
-<!-- Modal Survey-->
-<!-- <div id="modalCancer" tabindex="-1" class="modal fade" role="dialog">
-  <div class="modal-lg modal-dialog"> -->
-
-    <!-- Modal content-->
-    <!-- <div class="modal-content">
-
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">การสำรวจผู้ป่วยมะเร็ง</h4>
-      </div>
-
-      <div>
-          <div class="row">
-              <div class="col-md-3 text-right">
-                <label>ประเภทมะเร็ง</label>
-              </div>
-              <div class="col-md-3">
-                <select>
-                  <option value="0">==กรุณาเลือก==</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                </select>
-              </div>
-              <div class="col-md-1 text-right">
-                <label>วันที่เป็น</label>
-              </div>
-              <div class="col-md-3">
-                  
-                  <my-date-picker [options]="datePickerOptions" [(ngModel)]="cancerbean.canecerDate" required></my-date-picker>
-                </div>
-           </div>
-
-        <div class="row">
-          <div class="col-md-3 text-right">
-            <label>สถานที่รักษา</label>
-          </div>
-          <div class="col-md-3">
-            <input type="text" [(ngModel)]="cancerbean.treatmentPlace">
-          </div>
-          <div class="col-md-1 text-right">
-            <label>สิทธิบัตร</label>
-          </div>
-          <div class="col-md-3">
-            
-            <select [(ngModel)]="patientbean.hInsuranceTypeID">
-                <option value="">--เลือก--</option>
-                <option *ngFor="let item of healtInsuranceTypeList" value="{{item.id}}">{{item.code}}</option>
-            </select>
-          </div>
-          
-        </div>
-
-        <div class="row">
-          <div class="col-md-3 text-right">
-            <label>โทรศัพท์ </label>
-          </div>
-          <div class="col-md-3">
-            <input type="text" [(ngModel)]="cencerbean.telephone">
-          </div>
-          <div class="col-md-1 text-right">
-            <label>อื่นๆ</label>
-          </div>
-          <div class="col-md-3">
-            <input type="text" value="" >
-          </div>
-        </div>
-
-
-      </div>
-
-      <div class="modal-footer">
-        <div class="row">
-          <div class="col-md-12 text-center">
-            <button class="btn btn-primary">ยืนยัน</button>
-            <button class="btn btn-primary" data-dismiss="modal">ยกเลิก</button>
-          </div>
-        </div>
-      </div>
-
-    </div> -->
-  <!-- </div>
-</div> -->
-
 <div id="find-person-md" class="modal fade" role="dialog" data-backdrop="false" data-keyboard="false">
-  <div class="modal-lg modal-dialog">
+    <div class="modal-lg modal-dialog">
 
-      <!-- Modal content-->
-      <div class="modal-content">
-          <div class="modal-header">
-              <h4 class="modal-title">ฟอร์มผู้ป่วยมะเร็ง</h4>
-          </div>
-          <app-filter-find-person [reset]="resetFind" [findPersonal]="isFindPersonal" (choosePersonal)="onChoosePersonal($event)"></app-filter-find-person>
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">ฟอร์มผู้ป่วยมะเร็ง</h4>
+            </div>
+            <app-filter-find-person [reset]="resetFind" [findPersonal]="isFindPersonal" (choosePersonal)="onChoosePersonal($event)" [surveyTypeCode]="code"
+                [documentId]="documentId"></app-filter-find-person>
 
-          <div *ngIf="isShowForm">
-              <div class="row">
-                  <div class="col-md-11 col-md-offset-1">
-                      <div class="box-body">
-                          <dl class="dl-horizontal">
-                              <dt>หมายเลขประจำตัว : </dt>
-                              <dd>{{ cancerbean.citizenId }}</dd>
-                              <dt>ชื่อ-สกุล : </dt>
-                              <dd>{{ cancerbean.fullName }}</dd>
-                              <dt>เพศ : </dt>
-                              <dd>{{ cancerbean.genderName }}</dd>
-                              <dt>อายุ : </dt>
-                              <dd>{{ cancerbean.age }}</dd>
-                              <dt>ที่อยู่ : </dt>
-                              <dd>{{ cancerbean.address }}</dd>
-                          </dl>
-                      </div>
-                  </div>
-              </div>
+            <div *ngIf="isShowForm">
+                <div class="row">
+                    <div class="col-md-11 col-md-offset-1">
+                        <div class="box-body">
+                            <dl class="dl-horizontal">
+                                <dt>หมายเลขประจำตัว : </dt>
+                                <dd>{{ cancerbean.citizenId }}</dd>
+                                <dt>ชื่อ-สกุล : </dt>
+                                <dd>{{ cancerbean.fullName }}</dd>
+                                <dt>เพศ : </dt>
+                                <dd>{{ cancerbean.gender }}</dd>
+                                <dt>อายุ : </dt>
+                                <dd>{{ cancerbean.age }}</dd>
+                                <dt>ที่อยู่ : </dt>
+                                <dd>{{ cancerbean.address }}</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
 
-              <hr style=" margin-top: 0px">
+                <hr style=" margin-top: 0px">
 
-              <div class="row">
-                  <div class="col-md-4 text-right">
-                      <label class="label-form">ประเภท</label>
-                  </div>
-                  <div class="col-md-4">
-                      <select [(ngModel)]="cancerbean.PatientSurveyTypeCode" (change)="onChangeCancerSyurvey();">
-                          <option value="">--เลือกประเภท--</option>
-                          <ng-container *ngFor="let item of surveyStatusTypeList">
-                              <option value="{{item.code}}" *ngIf="item.code =='Cancer'">{{item.name}}</option>
-                          </ng-container>
-                      </select>
-                  </div>
-              </div>
+                <div class="row">
+                    <div class="col-md-2 text-right">
+                        <label class="label-form">ชนิดมะเร็ง</label>
+                    </div>
+                    <div class="col-md-3">
+                        <div [InputValidate]="inputValidate">
+                            <select [(ngModel)]="cancerbean.cancerTypeId">
+                                <option value="">--เลือกประเภท--</option>
+                                <option *ngFor="let item of cancerTypeList" value="{{item.id}}">{{item.name}}</option>
+                            </select>
+                            <label class="error">กรุณาเลือกประเภทของมะเร็ง</label>
+                        </div>
+                    </div>
 
-              <!-- ป่วย -->
-              <div *ngIf="cancerbean.PatientSurveyTypeCode == 'Cancer'">
-                  <div class="row">
-                      <div class="col-md-2 text-right">
-                          <label class="label-form">ระบุโรค/อาการ</label>
-                      </div>
-                      <div class="col-md-3">
-                          <input type="text" [(ngModel)]="cancerbean.remark">
-                          <div class="row" *ngIf="isErrorRemark">
-                              <div class="col-md-12">
-                                  <span class="error">กรุณาระบุอาการป่วย</span>
-                              </div>
-                          </div>
-                      </div>
+                    <div class="col-md-2 text-right">
+                        <label class="label-form">สิทธิบัตร</label>
+                    </div>
+                    <div class="col-md-3">
+                        <div [InputValidate]="inputValidate">
+                            <select [(ngModel)]="cancerbean.hInsuranceTypeId">
+                                <option value="">--เลือก--</option>
+                                <option *ngFor="let item of healtInsuranceTypeList" value="{{item.id}}">{{item.code}}</option>
+                            </select>
+                            <label class="error">กรุณาเลือกประเภทสิทธิบัตร</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 text-right">
+                        <label class="label-form">วันที่ป่วย</label>
+                    </div>
 
-                      <div class="col-md-2 text-right">
-                          <label class="label-form">ประเภทผู้ป่วย</label>
-                      </div>
-                      <div class="col-md-3">
-                          <select [(ngModel)]="cancerbean.cancerTypeId">
-                              <option value="">--เลือกประเภท--</option>
-                              <option *ngFor="let item of cancerTypeList" value="{{item.id}}">{{item.name}}</option>
-                          </select>
-                          <div class="row" *ngIf="isErrorCancerType">
-                              <div class="col-md-12">
-                                  <span class="error">กรุณาเลือกประเภท</span>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
+                    <div class="col-md-3" style="height: 27px;">
+                        <my-date-picker [options]="datePickerOptions" [(ngModel)]="cancerbean.cancerDate" required></my-date-picker>
+                    </div>
 
-                  <div class="row">
-                      <div class="col-md-2 text-right">
-                          <label class="label-form">สิทธิบัตร</label>
-                      </div>
-                      <div class="col-md-3">
-                          <select [(ngModel)]="cancerbean.hInsuranceTypeID">
-                              <option value="">--เลือก--</option>
-                              <option *ngFor="let item of healtInsuranceTypeList" value="{{item.id}}">{{item.code}}</option>
-                          </select>
-                      </div>
-                      <div class="col-md-2 text-right">
-                          <label class="label-form">วันที่ป่วย</label>
-                      </div>
+                    <div class="col-md-2 text-right">
+                        <label class="label-form">สถานที่รักษา</label>
+                    </div>
+                    <div class="col-md-3">
+                        <div [InputValidate]="inputValidate">
+                            <input type="text" [(ngModel)]="cancerbean.treatmentPlace" maxlength="255">
+                            <label class="error">กรุณาใส่สถานที่รักษา</label>
+                        </div>
+                    </div>
+                </div>
 
-                      <div class="col-md-3" style="height: 27px;">
-                          <my-date-picker [options]="datePickerOptions" [(ngModel)]="cancerbean.cancerDate" required></my-date-picker>
-                      </div>
-                  </div>
+                <div class="row">
+                    <div class="col-md-2 text-right">
+                        <label class="label-form">เบอร์โทรศัพท์</label>
+                    </div>
+                    <div class="col-md-3">
+                        <div [InputValidate]="inputValidate" [fixLength]="12">
+                            <input type="text" [(ngModel)]="cancerbean.telephone" (keypress)="formatPhoneNumber()" maxlength="12" [OnlyNumber]="true">
+                            <label class="error">กรุณาใส่หมายเลขโทรศัพท์</label>
+                        </div>
+                    </div>
 
-                  <div class="row">
-                      <div class="col-md-2 text-right">
-                          <label class="label-form">สถานที่รักษา</label>
-                      </div>
-                      <div class="col-md-3">
-                          <input type="text" [(ngModel)]="cancerbean.treatmentPlace">
-                      </div>
 
-                      <div class="col-md-2 text-right">
-                          <label class="label-form">สถานะการรักษา</label>
-                      </div>
-                      <div class="col-md-3">
-                          <select [(ngModel)]="cancerbean.diseaseStatusTypeID">
-                              <option value="">--เลือกประเภท--</option>
-                              <option *ngFor="let item of diseaseStatusTypeList" value="{{item.id}}">{{item.name}}</option>
-                          </select>
-                      </div>
-                  </div>
+                    <div class="col-md-2 text-right">
+                        <label class="label-form">สถานะการรักษา</label>
+                    </div>
+                    <div class="col-md-3">
+                        <div [InputValidate]="inputValidate">
+                            <select [(ngModel)]="cancerbean.diseaseStatusTypeId">
+                                <option value="">--เลือกประเภท--</option>
+                                <option *ngFor="let item of diseaseStatusTypeList" [value]="item.id">{{item.name}}</option>
+                            </select>
+                            <label class="error">กรุณาเลือกสถานะการรักษา</label>
+                        </div>
+                    </div>
+                </div>
 
-                  <div class="row">
-                          <div class="col-md-2 text-right">
-                              <label class="label-form">เบอร์โทรศัพท์</label>
-                          </div>
-                          <div class="col-md-3">
-                              <input type="text" [(ngModel)]="cancerbean.telephone" (keypress)="formatPhoneNumber()" maxlength="12" [OnlyNumber]="true"> 
-                          </div>
-                      </div>
-              </div>
-              <!-- พิการ -->
-              <div *ngIf="cancerbean.PatientSurveyTypeCode == 'Disabled'">
-                  <div class="row">
-                      <div class="col-md-2 text-right">
-                          <label class="label-form">ประเภทพิการ</label>
-                      </div>
-                      <div class="col-md-4">
-                          <select [(ngModel)]="cancerbean.disabilityTypeID">
-                              <option value="">--เลือกประเภท--</option>
-                              <option *ngFor="let item of disabilityTypeList" value="{{item.id}}">{{item.name}}</option>
-                          </select>
-                          <div class="row" *ngIf="isErrorDisabilityType">
-                              <div class="col-md-12">
-                                  <span class="error">กรุณาเลือกประเภทความพิการ</span>
-                              </div>
-                          </div>
-                      </div>
+                <div class="row">
+                    <div class="col-md-2 text-right">
+                        <label class="label-form">หมายเหตุ</label>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" [(ngModel)]="cancerbean.remark" maxlength="255">
+                    </div>
+                </div>
 
-                      <div class="col-md-1 text-right">
-                          <label class="label-form">สาเหตุ</label>
-                      </div>
-                      <div class="col-md-3">
-                          <select [(ngModel)]="cancerbean.disabilityCauseTypeID">
-                              <option value="">--เลือกประเภท--</option>
-                              <option *ngFor="let item of disabilityTypeCause" value="{{item.id}}">{{item.name}}</option>
-                          </select>
-                          <div class="row" *ngIf="disabilityCauseType">
-                              <div class="col-md-12">
-                                  <span class="error">กรุณาเลือกสาเหตุความพิการ</span>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="row">
-                      <div class="col-md-2 text-right">
-                          <label class="label-form">ระบุโรค/อาการ</label>
-                      </div>
-                      <div class="col-md-3">
-                          <input type="text" [(ngModel)]="cancerbean.remark">
-                      </div>
 
-                      <div class="col-md-2 text-right">
-                          <label class="label-form">ประเภทผู้ป่วย</label>
-                      </div>
-                      <div class="col-md-3">
-                          <select [(ngModel)]="cancerbean.cancerTypeId">
-                              <option value="">--เลือกประเภท--</option>
-                              <option *ngFor="let item of cancerTypeList" value="{{item.id}}">{{item.name}}</option>
-                          </select>
-                          <div class="row" *ngIf="isErrorCancerType">
-                              <div class="col-md-12">
-                                  <span class="error">กรุณาเลือกประเภท</span>
-                              </div>
-                          </div>
-                      </div>
 
-                  </div>
+                <div class="modal-footer">
+                    <button class="btn btn-sm btn-primary" (click)="addSurvey()">ยืนยัน</button> &nbsp;&nbsp;
+                    <button class="btn btn-sm btn-primary" (click)="onBack()">กลับ</button>
+                </div>
+                <!-- "cancerbean.cancerSurveyTypeCode == ''?true : false" -->
+            </div>
+        </div>
 
-                  <div class="row">
-                      <div class="col-md-2 text-right">
-                          <label class="label-form">สิทธิบัตร</label>
-                      </div>
-                      <div class="col-md-3">
-                          <select [(ngModel)]="cancerbean.hInsuranceTypeID">
-                              <option value="">--เลือก--</option>
-                              <option *ngFor="let item of healtInsuranceTypeList" value="{{item.id}}">{{item.code}}</option>
-                          </select>
-                      </div>
-
-                      <div class="col-md-2 text-right">
-                          <label class="label-form">วันที่ป่วย</label>
-                      </div>
-
-                      <div class="col-md-3" style="height: 27px;">
-                          <my-date-picker [options]="datePickerOptions" [(ngModel)]="cancerbean.cancerDate" required></my-date-picker>
-                      </div>
-
-                  </div>
-
-                  <div class="row">
-                      <div class="col-md-2 text-right">
-                          <label class="label-form">สถานที่รักษา</label>
-                      </div>
-                      <div class="col-md-3">
-                          <input type="text" [(ngModel)]="cancerbean.treatmentPlace">
-                      </div>
-
-                      <div class="col-md-2 text-right">
-                          <label class="label-form">สถานะการรักษา</label>
-                      </div>
-                      <div class="col-md-3">
-                          <select [(ngModel)]="cancerbean.diseaseStatusTypeID">
-                              <option value="">--เลือกประเภท--</option>
-                              <option *ngFor="let item of diseaseStatusTypeList" [value]="item.id">{{item.name}}</option>
-                          </select>
-                      </div>
-                  </div>
-
-                  <div class="row">
-                          <div class="col-md-2 text-right">
-                              <label class="label-form">เบอร์โทรศัพท์</label>
-                          </div>
-                          <div class="col-md-3">
-                              <input type="text" [(ngModel)]="cancerbean.telephone" (keypress)="formatPhoneNumber()" maxlength="12" [OnlyNumber]="true">
-                          </div>
-                      </div>
-
-              </div>
-
-             
-
-              <div class="modal-footer">
-                  <ng-container *ngIf="cancerbean.PatientSurveyTypeCode == ''?false : true">
-                      <button class="btn btn-sm btn-primary" (click)="addSurvey()">ยืนยัน</button> &nbsp;&nbsp;
-                  </ng-container>
-                  <button class="btn btn-sm btn-primary" (click)="onBack()">กลับ</button>
-              </div>
-              <!-- "cancerbean.cancerSurveyTypeCode == ''?true : false" -->
-          </div>
-      </div>
-
-  </div>
+    </div>
 </div>

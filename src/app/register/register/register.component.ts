@@ -147,28 +147,13 @@ export class RegisterComponent extends BaseComponent implements OnInit {
     if (this.validateForm()) {
       let objvalidate = this.validateHostpital();
       if (objvalidate.addressFail == true) {
-        bootbox.alert({
-          size: "large",
-          title: "<div style='color:#f0ad4e;font-weight: bold;'><span class='glyphicon glyphicon-alert'></span> สถานที่ไม่ตรง</div>",
-          message: "กรุณาระบุสถานที่ตั้งให้ตรงกับ รพ.สต. ที่ท่านเลือก",
-          callback: function () { /* your callback code */ }
-        });
+        self.message_error('','กรุณาระบุสถานที่ตั้งให้ตรงกับ รพ.สต. ที่ท่านเลือก')
       }
       else if (objvalidate.code9Fail == true) {
-        bootbox.alert({
-          size: "large",
-          title: "<div style='color:#f0ad4e;font-weight: bold;'><span class='glyphicon glyphicon-alert'></span> หมายเลข 9 หลักไม่ตรง</div>",
-          message: "กรอกรหัส 9 หลักให้ตรงกับ รพ.สต. ที่ท่านเลือก",
-          callback: function () { /* your callback code */ }
-        });
+        self.message_error('','กรอกรหัส 9 หลักให้ตรงกับ รพ.สต. ที่ท่านเลือก')
       }
       else if (objvalidate.code5Fail == true) {
-        bootbox.alert({
-          size: "large",
-          title: "<div style='color:#f0ad4e;font-weight: bold;'><span class='glyphicon glyphicon-alert'></span> หมายเลข 5 หลักไม่ตรง</div>",
-          message: "กรอกรหัส 5 หลักให้ตรงกับ รพ.สต. ที่ท่านเลือก",
-          callback: function () { /* your callback code */ }
-        });
+        self.message_error('','กรอกรหัส 5 หลักให้ตรงกับ รพ.สต. ที่ท่านเลือก')
       } else {
         this.registerBean.contactCitizenId = this.formatForJson(this.registerBean.contactCitizenId);
         this.registerBean.contactTelephone = this.formatForJson(this.registerBean.contactTelephone);
@@ -183,16 +168,20 @@ export class RegisterComponent extends BaseComponent implements OnInit {
         };
         console.log(params);
         self.loading = true;
+
         this.api.post('hospital/register_hospital', params, function (resp) {
           self.loading = false;
           console.log(resp);
           if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-            bootbox.alert({
-              size: "large",
-              title: "<div style='color:#5cb85c;font-weight: bold;'><span class='glyphicon glyphicon-ok'></span> ลงทะเบียนสำเร็จ</div>",
-              message: "กรุณาตรวจสอบอีเมลของท่านเพื่อยืนยันการลงทะเบียน",
-              callback: function () { location.href = '/login' }
-            });
+            self.message_success('','กรุณาตรวจสอบอีเมลของท่านเพื่อยืนยันการลงทะเบียน',function(){
+              location.href = '/login';
+            })
+            // bootbox.alert({
+            //   size: "large",
+            //   title: "<div style='color:#5cb85c;font-weight: bold;'><span class='glyphicon glyphicon-ok'></span> ลงทะเบียนสำเร็จ</div>",
+            //   message: "กรุณาตรวจสอบอีเมลของท่านเพื่อยืนยันการลงทะเบียน",
+            //   callback: function () { location.href = '/login' }
+            // });
           }
         })
       }

@@ -3,8 +3,9 @@
         <span>ข้อมูลแบบสำรวจลูกน้ำ</span>
     </div>
     <div class="panel-body">
-        <app-filter-head-mosquito [surveyTypeCode]="surveyTypeCode" (notifyFilter)="onSearch($event)" (changeFilter)="onChangeFilter($event)"></app-filter-head-mosquito>
-        <!-- <app-filter-head-mosquito [surveyTypeCode]="surveyTypeCode" (notifyFilter)="onSearch($event)" (changeFilter)="onChangeFilter($event)"></app-filter-head-mosquito> -->
+        <div class="row">
+            <app-filter-head-mosquito [surveyTypeCode]="surveyTypeCode" (notifyFilter)="onSearch($event)" (changeFilter)="onChangeFilter($event)"></app-filter-head-mosquito>
+        </div>
         <div class="row">
             <div class="col-sm-12 text-left">
                 <button class="btn btn-sm btn-primary" (click)="onModalFrom(ass_action.ADD);">เพิ่มการสำรวจ</button>

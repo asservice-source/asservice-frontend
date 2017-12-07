@@ -72,7 +72,7 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
         }
       },
       action: {
-        title: 'จัดการ',
+        title: 'การทำงาน',
         filter: false,
         sort: false,
         width: '100px',

@@ -259,6 +259,7 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
     }
     let objs = simpVal.getObjectEmpty(obj, ignore);
     console.log(objs);
+    
     if (objs.length > 0) {
       validate = false;
     } else {
