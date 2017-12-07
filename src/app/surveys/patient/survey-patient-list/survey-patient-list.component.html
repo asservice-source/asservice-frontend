@@ -3,8 +3,9 @@
         <span>แบบสำรวจผู้พิการ และผู้ป่วยติดเตียง</span>
     </div>
     <div class="panel-body">
-        <app-filter-head-survey [surveyTypeCode]="surveyTypeCode" (notifyFilter)="onSearch($event)" (changeFilter)="onChangeFilter($event)"></app-filter-head-survey>
-
+        <div class="row">
+            <app-filter-head-survey [surveyTypeCode]="surveyTypeCode" (notifyFilter)="onSearch($event)" (changeFilter)="onChangeFilter($event)"></app-filter-head-survey>
+        </div>
         <div class="row">
             <div class="col-sm-12 text-left">
                 <button class="btn btn-sm btn-primary" (click)="onModalFrom(ass_action.ADD);">เพิ่มการสำรวจ</button>

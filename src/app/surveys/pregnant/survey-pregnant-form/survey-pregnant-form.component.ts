@@ -11,6 +11,8 @@ import { BaseComponent } from '../../../base-component';
 export class SurveyPregnantFormComponent extends BaseComponent implements OnInit, AfterViewInit {
 
   @Input() action: string;
+  @Input() surveyTypeCode: string;
+  @Input() documentId: string;
   @Input() data: PregnantBean;
 
   mStatusNo = 0;

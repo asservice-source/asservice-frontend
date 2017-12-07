@@ -48,7 +48,6 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
     this.getDisabilityType();
     this.getDisabilityTypeCause();
     this.getDiseaseStatusType();
-
   }
 
   ngOnInit() {
@@ -60,18 +59,15 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
   }
 
   onChoosePersonal(bean: any): void {
-    console.log("poooooooooooooooooooooooooooooooooooooooooooooooooo");
-    console.log(bean);
     this.patientbean = bean;
 
 
     if (this.action == this.ass_action.ADD) {
-      this.patientbean.homeID = bean.homeId;
       this.patientbean.patientSurveyTypeCode = "";
-      this.patientbean.disabilityCauseTypeID = "";
-      this.patientbean.disabilityTypeID = "";
+      this.patientbean.disabilityCauseTypeId = "";
+      this.patientbean.disabilityTypeId = "";
       this.patientbean.patientTypeId = "";
-      this.patientbean.diseaseStatusTypeID = "";
+      this.patientbean.diseaseStatusTypeId = "";
       this.patientbean.patientDate = this.getCurrentDatePickerModel();
     }
     this.isDuplicate();
@@ -181,11 +177,11 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
     if (this.action == this.ass_action.ADD) {
       if (this.patientbean.patientSurveyTypeCode == 'Patient') {
         this.inputValidate = new InputValidateInfo();
-        this.patientbean.hInsuranceTypeID = "89";
+        this.patientbean.hInsuranceTypeId = "89";
       }
       else {
         this.inputValidate = new InputValidateInfo();
-        this.patientbean.hInsuranceTypeID = "74";
+        this.patientbean.hInsuranceTypeId = "74";
       }
     }
   }
@@ -250,12 +246,12 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
     this.inputValidate = new InputValidateInfo();
     this.inputValidate.isCheck = true;
     let simpVal: SimpleValidateForm = new SimpleValidateForm();
-    let ignore = ["documentID", "cancerTypeID", "diseaseStatusTypeID", "patientTypeID", "disabilityTypeID", "disabilityCauseTypeID", "treatmentPlace", "remark", "telephone", "latitude", "longitude"];
+    let ignore = ["documentId", "cancerTypeId", "diseaseStatusTypeId", "patientTypeId", "disabilityTypeId", "disabilityCauseTypeId", "treatmentPlace", "remark", "telephone", "latitude", "longitude"];
 
     if (this.patientbean.patientSurveyTypeCode == 'Disabled') {
-      ignore = ["cancerTypeID", "latitude", "longitude"];
+      ignore = ["cancerTypeId", "latitude", "longitude"];
     } else {
-      ignore = ["cancerTypeID", "disabilityTypeID", "disabilityCauseTypeID", "latitude", "longitude"];
+      ignore = ["cancerTypeId", "disabilityTypeId", "disabilityCauseTypeId", "latitude", "longitude"];
     }
 
     if (this.action == this.ass_action.ADD) {
@@ -263,6 +259,7 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
     }
     let objs = simpVal.getObjectEmpty(obj, ignore);
     console.log(objs);
+    
     if (objs.length > 0) {
       validate = false;
     } else {
@@ -278,8 +275,8 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
   addSurvey(): void {
     let self = this;
     let documentId;
-    let disabilityTypeID;
-    let disabilityCauseTypeID;
+    let disabilityTypeId;
+    let disabilityCauseTypeId;
     if (this.action == this.ass_action.ADD) {
       documentId = this.documentId;
     } else {
@@ -287,34 +284,32 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
     }
 
     if (this.patientbean.patientSurveyTypeCode == 'Patient') {
-      disabilityTypeID = "";
-      disabilityCauseTypeID = "";
+      disabilityTypeId = "";
+      disabilityCauseTypeId = "";
     } else {
-      disabilityTypeID = this.patientbean.disabilityTypeID;
-      disabilityCauseTypeID = this.patientbean.disabilityCauseTypeID;
+      disabilityTypeId = this.patientbean.disabilityTypeId;
+      disabilityCauseTypeId = this.patientbean.disabilityCauseTypeId;
     }
     let obj = {
       "rowGUID": this.patientbean.rowGUID
-      , "personID": this.patientbean.personId
-      , "documentID": documentId
+      , "personId": this.patientbean.personId
+      , "documentId": documentId
       , "osmId": this.patientbean.osmId
-      , "homeID": this.patientbean.homeID
-      , "cancerTypeID": this.patientbean.cancerTypeID
-      , "diseaseStatusTypeID": this.patientbean.diseaseStatusTypeID
+      , "homeId": this.patientbean.homeId //รอแก้
+      , "cancerTypeId": this.patientbean.cancerTypeId
+      , "diseaseStatusTypeId": this.patientbean.diseaseStatusTypeId
       , "patientDate": this.getStringDateForDatePickerModel(this.patientbean.patientDate.date)
-      , "patientTypeID": this.patientbean.patientTypeId
-      , "hInsuranceTypeID": this.patientbean.hInsuranceTypeID
+      , "patientTypeId": this.patientbean.patientTypeId
+      , "hInsuranceTypeId": this.patientbean.hInsuranceTypeId
       , "patientSurveyTypeCode": this.patientbean.patientSurveyTypeCode
-      , "disabilityTypeID": disabilityTypeID
-      , "disabilityCauseTypeID": disabilityCauseTypeID
+      , "disabilityTypeId": disabilityTypeId
+      , "disabilityCauseTypeId": disabilityCauseTypeId
       , "treatmentPlace": this.patientbean.treatmentPlace
       , "remark": this.patientbean.remark
       , "telephone": this.patientbean.telephone
       , "latitude": this.patientbean.latitude
       , "longitude": this.patientbean.longitude
     };
-
-    console.log(obj);
 
     if (this.validate(obj)) {
       if (!self.isEmpty(obj["telephone"])) {
@@ -327,6 +322,7 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
         self.inputValidate = new InputValidateInfo();
         if (confirm) {
           self.api.post('survey_patient/ins_upd', params, function (resp) {
+            console.log(resp);
             if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
               $("#find-person-md").modal('hide');
               self.completed.emit(true);

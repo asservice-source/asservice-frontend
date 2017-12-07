@@ -42,11 +42,11 @@ export class CancerBean{
 
     public patientSurveyTypeCode : string;
     public diseaseStatusType : string;
-    public cancerDate : string;
-    public hInsuranceTypeID : string;
-    public disabilityCauseTypeID : string;
+    public cancerDate : any;
+    public hInsuranceTypeId : string;
+    public disabilityCauseTypeId : string;
 
-    public disabilityTypeID : string;
+    public disabilityTypeId : string;
     public disabilityCauseType : string;
     public remark : string;
     public telephone : string;
@@ -58,8 +58,7 @@ export class CancerBean{
     public personId : string;
     public documentId : string;
     public osmId : string;
-    public cancerTypeID : string;
-    public diseaseStatusTypeID : string;
+    public diseaseStatusTypeId : string;
 
     public treatmentPlace : string;
     public latitude : string;

@@ -16,6 +16,7 @@ export class FilterFindMosquitoComponent extends BaseComponent implements OnInit
 
   @Input() findHome: boolean;
   @Input() reset: any;
+  @Input() documentId : string;
   @Output() choosePlace: EventEmitter<HomeBean> = new EventEmitter<HomeBean>();
 
   public villageData: any;
@@ -90,7 +91,8 @@ export class FilterFindMosquitoComponent extends BaseComponent implements OnInit
     let self = this;
     let params = {
       "villageId": this.findhomebean.villageId,
-      "homeTypeCode": this.findhomebean.homeTypeId
+      "homeTypeCode" : this.findhomebean.homeTypeId,
+      "documentId": self.documentId
     };
     this.api.post('home/home_list_by_village_hometype', params, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {

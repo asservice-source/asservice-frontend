@@ -67,20 +67,24 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
         title: 'ชนิดของมะเร็ง',
         filter: false,
       },
-      patientDate: {
-        title: 'วันที่ป่วย',
-        filter: false
-      },
       telephone: {
         title: 'เบอร์ติดต่อ',
-        filter: false
+        filter: false,
+        type: 'html',
+        valuePrepareFunction: (cell, row) => {
+          return '<div class="text-center">' + cell + '</div>';
+        }
       },
       diseaseStatusTypeName: {
         title: 'สถานะ',
-        filter: false
+        filter: false,
+        type: 'html',
+        valuePrepareFunction: (cell, row) => {
+          return '<div class="text-center">' + cell + '</div>';
+        }
       },
       action: {
-        title: '',
+        title: 'การทำงาน',
         filter: false,
         type: 'custom',
         renderComponent: ActionCustomViewComponent,
@@ -98,8 +102,7 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
         instance.delete.subscribe((row: CancerBean, cell) => {
           self.message_comfirm("", "ต้องการยกเลิกการทำรายการสำรวจของ : " + row.fullName + " ใช่หรือไม่", function (resp) {
             if (resp) {
-              self.actionDelete(row.cancerType);
-              self.loadData(self.filtersearch);
+              self.actionDelete(row.rowGUID);
             }
           });
          });
@@ -150,18 +153,7 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
     super.setNg2STDatasource(this.source);
   }
 
-  actionDelete(rowguid) {
-    let self = this;
-    let param = {
-      "rowGUID": rowguid
-    };
-    this.api.post('survey_patient/del', param, function (resp) {
-      console.log("actionDelete ==== " + resp);
-
-      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-      }
-    })
-  }
+ 
 
   onModalFrom(action: string) {
     this.action = action;
@@ -190,6 +182,21 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
     } else {
       this.isDisable = true;
     }
+  }
+
+  actionDelete(rowguid) {
+    let self = this;
+    let param = {
+      "rowGUID": rowguid
+    };
+    this.api.post('survey_patient/del', param, function (resp) {
+      console.log("actionDelete ==== " + resp);
+      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+        self.message_success('', 'ลบรายการสำเร็จ', function () {
+          self.loadData(self.filtersearch);
+        });
+      }
+    })
   }
 
   

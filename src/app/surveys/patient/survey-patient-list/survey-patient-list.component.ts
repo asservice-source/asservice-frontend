@@ -92,18 +92,17 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
         onComponentInitFunction(instance) {
 
           instance.edit.subscribe((row: PatientBean, cell) => {
-              self.patientbean = self.cloneObj(row);
-              self.onModalFrom(self.ass_action.EDIT);
+            self.patientbean = self.cloneObj(row);
+            self.onModalFrom(self.ass_action.EDIT);
           });
 
           instance.delete.subscribe((row: PatientBean, cell) => {
             self.message_comfirm("", "ต้องการยกเลิกการทำรายการสำรวจของ " + row.fullName + " ใช่หรือไม่", function (resp) {
               if (resp) {
                 self.actionDelete(row.rowGUID);
-                self.loadData(self.filtersearch);
               }
             });
-        });
+          });
         }
       }
     });
@@ -125,7 +124,7 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
     //this.isShowList = false;
   }
 
-  loadData(event: FilterHeadSurveyBean){
+  loadData(event: FilterHeadSurveyBean) {
     let self = this;
     let param = {
       "documentId": event.rowGUID,
@@ -140,9 +139,9 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.datas = [];
         for (let item of resp.response) {
-          if (item.patientSurveyTypeCode != 'Cancer') {          
+          if (item.patientSurveyTypeCode != 'Cancer') {
             self.datas.push(item);
-          } 
+          }
         }
         self.setUpTable();
       }
@@ -182,7 +181,9 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
     };
     this.api.post('survey_patient/del', param, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-        self.message_success('','ลบรายการสำเร็จ');
+        self.message_success('', 'ลบรายการสำเร็จ', function () {
+          self.loadData(self.filtersearch);
+        });
       }
     })
   }

@@ -6,7 +6,7 @@
             <div class="modal-header">
                 <h4 class="modal-title">ฟอร์มสำรวจลูกน้ำยุงลาย</h4>
             </div>
-            <app-filter-find-mosquito [reset]="resetFind" [findHome]="isFindHome" (choosePlace)="onChoosePlace($event)"></app-filter-find-mosquito>
+            <app-filter-find-mosquito [reset]="resetFind" [findHome]="isFindHome" (choosePlace)="onChoosePlace($event)" [documentId]="documentId"></app-filter-find-mosquito>
 
             <div *ngIf="isShowForm">
                 <div class="row">
