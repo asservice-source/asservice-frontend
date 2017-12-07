@@ -19,6 +19,7 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
   @Input() data: DeadBean;
   @Input() currentDocumentId: string;
   @Output() commit: EventEmitter<any>;
+  public surveyTypeCode = this.surveyHeaderCode.DEATH;
   public bean: DeadBean;
   public apiDead : Service_SurveyDead;
   public isShowForm: boolean = false;
@@ -78,7 +79,7 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
       
     }else{
       this.bean.mDateDead = this.getCurrentDatePickerModel();
-      this.bean.cancerTypeID = "";
+      this.bean.cancerTypeId = "";
       this.bean.deathPlaceCode = "";
       this.bean.mHours = '00';
       this.bean.mMins = '00';
@@ -107,7 +108,7 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
       _self.changeRef.detectChanges();
     })
     $('#modal-add-died').on('hidden.bs.modal', function () {
-      $("#isCongenitalDisease").hide();
+      $("#isNoDisease").hide();
       _self.inputValidate = new InputValidateInfo();
       _self.isShowForm = false;
       _self.isFindPersonal = true;
@@ -127,9 +128,9 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
     }
     let fieldsCheck = ["deathDate","deathPlaceCode"]
     if(!this.bean.isCancer){
-      this.bean.cancerTypeID = "";
+      this.bean.cancerTypeId = "";
     }else{
-      fieldsCheck.push("cancerTypeID");
+      fieldsCheck.push("cancerTypeId");
     }
     if(!this.bean.isCauseOther){
       this.bean.causeOther = "";
@@ -138,11 +139,11 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
     }
     let simpvalidate: SimpleValidateForm = new SimpleValidateForm();
     let objs = simpvalidate.getObjectEmpty_byFilds(this.apiDead.map(this.bean), fieldsCheck);
-    if(this.bean.isCongenitalDisease == undefined){
-      objs.push("isCongenitalDisease");
-      $("#isCongenitalDisease").show();
+    if(this.bean.isNoDisease == undefined){
+      objs.push("isNoDisease");
+      $("#isNoDisease").show();
     }else{
-      $("#isCongenitalDisease").hide();
+      $("#isNoDisease").hide();
     }
     if(objs.length<=0){
 

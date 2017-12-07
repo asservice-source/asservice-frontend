@@ -14,7 +14,7 @@ export class Service_SurveyDead extends ApiHTTPService {
         this.attr = 
         {
             "rowGUID": bean.rowGUID,
-            "documentID": bean.documentId, //"3BAA6996-A8AD-E711-AB84-005056C00008",
+            "documentId": bean.documentId, //"3BAA6996-A8AD-E711-AB84-005056C00008",
             "osmId": bean.osmId, //"0848DE88-BAC2-E711-AB84-005056C00008",
             "personId": bean.personId, //"7006AF7A-CFC2-E711-AB84-005056C00008",
             "deathDate": bean.deathDate, //"2017-11-13 10:08:00.0",
@@ -24,9 +24,9 @@ export class Service_SurveyDead extends ApiHTTPService {
             "isHypertension": bean.isHypertension,//true,
             "isAccident": bean.isAccident, //true,
             "isCancer": bean.isCancer, //true,
-            "cancerTypeID": bean.cancerTypeID, //1,
+            "cancerTypeId": bean.cancerTypeId, //1,
             "causeOther": bean.causeOther, //"จิตใจถูกกระทบกระเทือน",
-            "isCongenitalDisease": bean.isCongenitalDisease, //true,
+            "isNoDisease": bean.isNoDisease, //true,
             "deathPlaceCode": bean.deathPlaceCode, //"1",
             "placeOther": bean.placeOther//"ที่อื่นๆ"
         }
@@ -35,7 +35,8 @@ export class Service_SurveyDead extends ApiHTTPService {
    }
    public getList(filter: FilterHeadSurveyBean, callback: (doc: any) => void){
        let parameter = this.api_mapFilterSurveyHeader(filter);
-       
+       console.log('>>>>> DEATH LIST <<<<<');
+       console.log(parameter);
         this.callResponse('survey_death/search_death_info_list'
         , parameter
         , callback);
