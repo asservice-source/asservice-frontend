@@ -200,8 +200,10 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
                 _self.action = _self.ass_action.EDIT;
                 _self.actionName = 'แก้ไข';
                 _self.isVerify = true;
+                let homeId = _self.bean.homeId;
                 _self.bean = _self.strNullToEmpty(response.response);
-                _self.bean.familyStatusId='';
+                _self.bean.homeId = homeId;
+                _self.bean.familyStatusId = '';
                 _self.bean.isGuest = '';
                 _self.setDatePickerModel();
                 _self.oldCitizenId = _self.bean.citizenId;
