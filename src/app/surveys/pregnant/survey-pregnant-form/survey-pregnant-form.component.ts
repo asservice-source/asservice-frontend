@@ -96,7 +96,7 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
     self.isShowForm = true;
   }
 
-  onBack() {
+  onClickBack() {
     let self = this;
 
     self.isFindPersonal = true;
