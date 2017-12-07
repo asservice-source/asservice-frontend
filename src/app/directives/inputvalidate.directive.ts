@@ -22,6 +22,9 @@ export class InputValidateDirective{
     @HostListener('change', ['$event']) onChange(event) {
         this.onReset();
     }
+    @HostListener('click', ['$event']) onClick(event) {
+        
+    }
     ngOnChanges(changes: any){
        
         if(changes.InputValidate){
@@ -47,6 +50,7 @@ export class InputValidateDirective{
         //let el_label = this.el.nativeElement.lastElementChild;
         let el_label = this.el.nativeElement.querySelector('.error');
         let el_input = this.el.nativeElement.querySelector('input')  || this.el.nativeElement.querySelector('select') || this.el.nativeElement.querySelector('textarea');
+        
         if(!el_label || !el_input){
             return;
         }

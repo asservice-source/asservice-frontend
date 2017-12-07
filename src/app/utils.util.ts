@@ -31,7 +31,6 @@ export class SimpleValidateForm{
             let value = obj[key];
             if(value==null || value==undefined || value.toString().trim().length<1){
                 objs.push(key);
-                console.log('push');
             }
         }
         return objs;
@@ -45,7 +44,6 @@ export class SimpleValidateForm{
             let value = obj[item];
             if(value==null || value==undefined || value.toString().trim().length<1){
                 objs.push(item);
-                console.log('push');
             }
         }
         return objs;

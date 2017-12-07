@@ -108,6 +108,7 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
     $('#modalForm').on('show.bs.modal', function(){
       console.log(">>>>>>");
       console.log(_self.action);
+      $('#is-guest-error').hide();
       _self.inputValidate = new InputValidateInfo();
       if(_self.action == _self.ass_action.ADD){
         _self.actionName = 'เพิ่ม';
@@ -153,6 +154,7 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
     }
   }
   onIsGuest(){
+    $('#is-guest-error').hide();
     if(this.bean.isGuest){
       this.bean.homeNo = '';
       this.bean.mooNo = '';
@@ -221,7 +223,8 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
     this.inputValidate = new InputValidateInfo();
     this.inputValidate.isCheck = true;
     let simpValidate: SimpleValidateForm = new SimpleValidateForm();
-    this.bean.birthDate = this.getStringDateForDatePickerModel(this.modelBirthDate.date);
+    let birthDate = this.modelBirthDate && this.getStringDateForDatePickerModel(this.modelBirthDate.date);
+    this.bean.birthDate = birthDate || '';
     let fildsCheck = ['citizenId', 'firstName', 'lastName', 'prefixCode', 'genderId', 'raceCode', 'nationCode', 'religionCode', 'bloodTypeId', 'rhGroupId', 'birthDate', 'educationCode', 'occupCode', 'familyStatusId', 'isGuest'];
     if(this.bean.isGuest){
       fildsCheck.push('homeNo','mooNo','tumbolCode','amphurCode','provinceCode');
@@ -235,7 +238,10 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
     }
     console.log('>>> Bean Before Save <<<');
     console.log(this.bean);
-    let objsEmpty = simpValidate.getObjectEmpty_byFilds(this.api.map(this.bean), fildsCheck);
+    let objsEmpty: Array<string> = simpValidate.getObjectEmpty_byFilds(this.api.map(this.bean), fildsCheck);
+    if(objsEmpty.indexOf('isGuest')>=0){
+      $('#is-guest-error').show();
+    }
     console.log(objsEmpty);
     if(objsEmpty.length<=0){
       let _self = this;

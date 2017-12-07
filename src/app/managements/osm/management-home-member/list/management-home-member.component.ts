@@ -3,7 +3,7 @@ import { BaseComponent } from '../../../../base-component';
 import { LocalDataSource } from 'ng2-smart-table';
 import { ActionCustomViewComponent } from '../../../../action-custom-table/action-custom-view.component';
 import { Service_HomeMember } from '../../../../service/service-home-member';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PersonalBasicBean } from '../../../../beans/personal-basic.bean';
 import { Address } from '../../../../beans/address';
 
@@ -26,7 +26,7 @@ export class ManagementHomeMemberComponent extends BaseComponent implements OnIn
   public homeId: string;
   public address: Address;
 
-  constructor(private activatedRoute: ActivatedRoute, private changeRef: ChangeDetectorRef) { 
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private changeRef: ChangeDetectorRef) { 
     super();
     this.bean = new PersonalBasicBean();
     this.api = new Service_HomeMember();
@@ -147,5 +147,9 @@ export class ManagementHomeMemberComponent extends BaseComponent implements OnIn
     if(event.success){
       this.setupMemberList();
     }
+  }
+
+  onBack(){
+    this.router.navigate(['main/managements/osm/home']);
   }
 }

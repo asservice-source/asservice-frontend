@@ -9,7 +9,7 @@
         <h4 class="modal-title">รายละเอียดผู้เสียชีวิต</h4>
       </div>
    
-    <app-filter-find-person [reset]="resetFind" [findPersonal]="isFindPersonal"  (choosePersonal)="onChoosePersonal($event)"></app-filter-find-person>
+    <app-filter-find-person [reset]="resetFind" [findPersonal]="isFindPersonal"  [surveyTypeCode]="surveyTypeCode" [documentId]="currentDocumentId" (choosePersonal)="onChoosePersonal($event)"></app-filter-find-person>
     
      <div class="row" *ngIf="isShowForm">
         <div class="col-md-12">
@@ -142,7 +142,7 @@
                 </div>
                 <div class="col-md-8" style="padding-left: 0">
                   <div [InputValidate]="inputValidate">
-                    <select [(ngModel)]="bean.cancerTypeID" *ngIf="bean.isCancer">
+                    <select [(ngModel)]="bean.cancerTypeId" *ngIf="bean.isCancer">
                       <option value="">---เลือก---</option>
                       <option *ngFor="let item of cancerList" [value]="item.id">{{item.name}}</option>
                     </select>
@@ -191,11 +191,11 @@
                 <div class="col-md-3">
                   <div class="radio">
                     <label class="label-form">
-                      <input type="radio" name="disease" [value]="true" [(ngModel)]="bean.isCongenitalDisease">
+                      <input type="radio" name="disease" [value]="true" [(ngModel)]="bean.isNoDisease">
                       <span class="cr">
                         <i class="cr-icon fa fa-check"></i>
                       </span>
-                      มี
+                      ไม่มี
                     </label>
                   </div> 
                 </div>
@@ -203,17 +203,17 @@
                 <div class="col-md-3">
                   <div class="radio">
                     <label class="label-form">
-                      <input type="radio" name="disease" [value]="false" [(ngModel)]="bean.isCongenitalDisease">
+                      <input type="radio" name="disease" [value]="false" [(ngModel)]="bean.isNoDisease">
                       <span class="cr">
                         <i class="cr-icon fa fa-check"></i>
                       </span>
-                      ไม่มี
+                      มี
                     </label>
                   </div> 
                   
                 </div>
               </div>
-              <label class="error" id="isCongenitalDisease">กรุณาเลือกโรคประจำตัว</label>
+              <label class="error" id="isNoDisease">กรุณาเลือกโรคประจำตัว</label>
             </div>
           </div>
     

@@ -207,7 +207,7 @@
                   <div class="col-md-6">
                     <div class="radio">
                       <label class="label-form">
-                        <input type="radio" name="isGuest" [value]="false" [(ngModel)]="bean.isGuest">
+                        <input type="radio" name="isGuest" [value]="false" [(ngModel)]="bean.isGuest" (change)="onIsGuest()">
                         <span class="cr">
                           <i class="cr-icon fa fa-check"></i>
                         </span>
@@ -229,7 +229,7 @@
                     </div> 
                   </div>
                 </div>
-                <label class="error">กรุณาเลือกประเภทการอยู่อาศัย</label>
+                <label class="error" id="is-guest-error">กรุณาเลือกประเภทการอยู่อาศัย</label>
             </div>
           </div>
         
