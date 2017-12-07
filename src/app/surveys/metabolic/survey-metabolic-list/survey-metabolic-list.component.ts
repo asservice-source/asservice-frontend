@@ -101,7 +101,6 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
             self.message_comfirm("", "ต้องการยกเลิกการทำรายการสำรวจของ " + row.fullName + " ใช่หรือไม่", function (resp) {
               if (resp) {
                 self.actionDelete(row.rowGUID);
-                self.loadData(self.filtersearch);
               }
             });
           });
@@ -146,7 +145,9 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
 
     this.api.post('survey_metabolic/del_metabolic_info', param, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-        self.message_success('','ลบรายการสำเร็จ');
+        self.message_success('','ลบรายการสำเร็จ',function(){
+          self.loadData(self.filtersearch);
+        });
       }
     })
   }

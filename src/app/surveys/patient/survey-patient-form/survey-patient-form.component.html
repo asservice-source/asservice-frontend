@@ -6,7 +6,7 @@
             <div class="modal-header">
                 <h4 class="modal-title">ฟอร์มผู้ป่วยและผู้พิการ</h4>
             </div>
-            <app-filter-find-person [reset]="resetFind" [findPersonal]="isFindPersonal" (choosePersonal)="onChoosePersonal($event)"></app-filter-find-person>
+            <app-filter-find-person [reset]="resetFind" [findPersonal]="isFindPersonal" (choosePersonal)="onChoosePersonal($event)" [surveyTypeCode]="code" [documentId]="documentId"></app-filter-find-person>
 
             <div *ngIf="isShowForm">
                 <div class="row">
@@ -78,7 +78,7 @@
                         </div>
                         <div class="col-md-3">
                             <div [InputValidate]="inputValidate">
-                                <select [(ngModel)]="patientbean.hInsuranceTypeID">
+                                <select [(ngModel)]="patientbean.hInsuranceTypeId">
                                     <option value="">--เลือก--</option>
                                     <option *ngFor="let item of healtInsuranceTypeList" value="{{item.id}}">{{item.code}}</option>
                                 </select>
@@ -110,7 +110,7 @@
                         </div>
                         <div class="col-md-3">
                             <div [InputValidate]="inputValidate">
-                                <select [(ngModel)]="patientbean.diseaseStatusTypeID">
+                                <select [(ngModel)]="patientbean.diseaseStatusTypeId">
                                     <option value="">--เลือกประเภท--</option>
                                     <option *ngFor="let item of diseaseStatusTypeList" value="{{item.id}}">{{item.name}}</option>
                                 </select>
@@ -140,7 +140,7 @@
                         </div>
                         <div class="col-md-4">
                             <div [InputValidate]="inputValidate">
-                                <select [(ngModel)]="patientbean.disabilityTypeID">
+                                <select [(ngModel)]="patientbean.disabilityTypeId">
                                     <option value="">--เลือกประเภท--</option>
                                     <option *ngFor="let item of disabilityTypeList" value="{{item.id}}">{{item.name}}</option>
                                 </select>
@@ -153,7 +153,7 @@
                         </div>
                         <div class="col-md-3">
                             <div [InputValidate]="inputValidate">
-                                <select [(ngModel)]="patientbean.disabilityCauseTypeID">
+                                <select [(ngModel)]="patientbean.disabilityCauseTypeId">
                                     <option value="">--เลือกประเภท--</option>
                                     <option *ngFor="let item of disabilityTypeCause" value="{{item.id}}">{{item.name}}</option>
                                 </select>
@@ -192,7 +192,7 @@
                         </div>
                         <div class="col-md-3">
                             <div [InputValidate]="inputValidate">
-                                <select [(ngModel)]="patientbean.hInsuranceTypeID">
+                                <select [(ngModel)]="patientbean.hInsuranceTypeId">
                                     <option value="">--เลือก--</option>
                                     <option *ngFor="let item of healtInsuranceTypeList" value="{{item.id}}">{{item.code}}</option>
                                 </select>
@@ -226,7 +226,7 @@
                         </div>
                         <div class="col-md-3">
                             <div [InputValidate]="inputValidate">
-                                <select [(ngModel)]="patientbean.diseaseStatusTypeID">
+                                <select [(ngModel)]="patientbean.diseaseStatusTypeId">
                                     <option value="">--เลือกประเภท--</option>
                                     <option *ngFor="let item of diseaseStatusTypeList" [value]="item.id">{{item.name}}</option>
                                 </select>

@@ -96,7 +96,6 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
             self.message_comfirm("", text + '<span style="color : red">'+row.name +'</span>' + " ใช่หรือไม่", function (resp) {
               if (resp) {
                 self.actionDelete(row.documentId,row.homeId);
-                 self.loadData(self.filtersearch);
               }
             });
           });
@@ -190,7 +189,9 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
 
     this.api.post('survey_hici/del_hici_info', param, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-        self.message_success('','ลบรายการสำเร็จ')
+        self.message_success('','ลบรายการสำเร็จ',function(){
+          self.loadData(self.filtersearch);
+        })
       }
     })
   }
