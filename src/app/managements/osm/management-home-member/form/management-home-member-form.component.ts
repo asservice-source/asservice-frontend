@@ -108,15 +108,21 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
     $('#modalForm').on('show.bs.modal', function(){
       console.log(">>>>>>");
       console.log(_self.action);
+      // reset validate error class
       $('#is-guest-error').hide();
       _self.inputValidate = new InputValidateInfo();
+      //---
       if(_self.action == _self.ass_action.ADD){
         _self.actionName = 'เพิ่ม';
         _self.isVerify = false;
         _self.modelBirthDate = null;
+        // new Bean as set default empty value
         _self.bean = _self.api.map(_self.bean);
         _self.bean.occupationCode = '';//objMap.occupCode;
-        _self.bean.nationalityCode = '';//objMap.nationCode;
+        //set default ไทย
+        _self.bean.nationalityCode = '099';//objMap.nationCode;
+        _self.bean.raceCode = '099';
+        //---
       }else{
         _self.actionName = 'แก้ไข';
         _self.isVerify = true;
@@ -197,6 +203,7 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
             let msg = 'มีข้อมูลหมายเลขประชาชน <b>'+ _self.bean.citizenId +'</b> อยู่แล้ว คุณต้องการดึงข้อมูลมาแก้ไข ใช่หรือไม่?';
             _self.message_comfirm('', msg, function(result){
               if(result){
+                // Change Action to EDIT
                 _self.action = _self.ass_action.EDIT;
                 _self.actionName = 'แก้ไข';
                 _self.isVerify = true;
@@ -223,7 +230,7 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
   }
   onSave(){
     this.inputValidate = new InputValidateInfo();
-    this.inputValidate.isCheck = true;
+    this.inputValidate.isCheck = true; // validate input error form
     let simpValidate: SimpleValidateForm = new SimpleValidateForm();
     let birthDate = this.modelBirthDate && this.getStringDateForDatePickerModel(this.modelBirthDate.date);
     this.bean.birthDate = birthDate || '';
@@ -231,6 +238,7 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
     if(this.bean.isGuest){
       fildsCheck.push('homeNo','mooNo','tumbolCode','amphurCode','provinceCode');
     }else{
+      // Home Address  Added to Personal Address 
       this.bean.homeNo = this.address.homeNo;
       this.bean.mooNo = this.address.mooNo;
       this.bean.road = this.address.road;
