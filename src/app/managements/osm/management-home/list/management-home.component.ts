@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { HomeBean } from '../../../../beans/home.bean';
 import { BaseComponent } from '../../../../base-component';
@@ -22,7 +22,7 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
   public settings: any;
   public source: LocalDataSource = new LocalDataSource();
 
-  constructor(private router: Router) { 
+  constructor(private router: Router, private changeRef: ChangeDetectorRef) { 
     super();
     this.bean = new HomeBean();
     this.api = new Service_Home();
@@ -96,6 +96,7 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
   }
   onModalForm(action:string){
     this.action = action;
+    this.changeRef.detectChanges();
     $('#modalForm').modal('show');
   }
   onAdd(){
@@ -108,6 +109,7 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
     this.bean.road = "";
     this.bean.latitude = "";
     this.bean.longitude = "";
+    this.bean.homeTypeCode = "";
     this.onModalForm(this.ass_action.ADD);
   }
 

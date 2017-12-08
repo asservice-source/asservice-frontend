@@ -89,6 +89,16 @@ export class ApiHTTPService  implements OnInit {
     public api_HomeList(villageId: string, osmId: string, callback: (doc: any) => void) {
         this.callResponse('home/home_no_list_by_village_or_osm', {"villageId": villageId, "osmId": osmId}, callback);
     }
+    public api_HomeTypeList(callback: (doc: any) => void){
+        this.callResponse('home/home_type_list_hici',{}, callback);
+    }
+    public api_HomrInfo(homeId: any, callback: (doc: any) => void){
+        let parameter = {"homeId": +homeId};
+        this.post('home/home_info', parameter, function(response){
+            console.log(response);
+            callback(response);
+        });
+    }
     public api_HomeMemberList(homeId: string, callback: (doc: any) => void){
         this.callResponse('homemember/homemember_by_home', {"homeId": homeId}, callback);
     }
@@ -145,14 +155,7 @@ export class ApiHTTPService  implements OnInit {
             callback(response);
         });
     }
-
-    public api_HomrInfo(homeId: any, callback: (doc: any) => void){
-        let parameter = {"homeId": +homeId};
-        this.post('home/home_info', parameter, function(response){
-            console.log(response);
-            callback(response);
-        });
-    }
+   
     public api_RaceList(callback: (doc: any) => void){
         this.callResponse('person/race_list',{}, callback);
     }

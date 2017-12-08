@@ -18,6 +18,8 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
   @Output() success: EventEmitter<any>;
   public inputValidate: InputValidateInfo;
   public api: Service_Home;
+  public homeTypeList: any = [];
+  public disabledHomeType = false;
   constructor() { 
     super();
     this.inputValidate = new InputValidateInfo();
@@ -27,22 +29,37 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
 
   ngOnInit() {
     this.bindModalForm();
+    this.setupHomeTypeList();
   }
   bindModalForm(){
     let _self = this;
     $('#modalForm').on('show.bs.modal', function(){
       console.log('show.bs.modal >> Action:'+_self.action);
+      if(_self.action == _self.ass_action.EDIT){
+        if(_self.bean.homeTypeCode=='01'){
+          _self.disabledHomeType=true;
+        }
+      }else{
+        _self.disabledHomeType=false;
+      }
+        
     });
     $('#modalForm').on('hidden.bs.modal', function(){
       console.log('hidden.bs.modal');
       _self.inputValidate = new InputValidateInfo();
     });
   }
+  setupHomeTypeList(){
+    let _self = this;
+    this.api.api_HomeTypeList(function(response){
+      _self.homeTypeList = response;
+    });
+  }
   onSave(){
     this.inputValidate = new InputValidateInfo();
     this.inputValidate.isCheck = true;
     let simpleValidate = new SimpleValidateForm();
-    this.bean.homeTypeCode = '01';
+    //this.bean.homeTypeCode = '01';
     this.bean.villageId = '11';
     this.bean.osmId = '891037A9-36CF-E711-AB84-005056C00008';
     let _self = this;
@@ -50,7 +67,17 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
     if(_self.action == _self.ass_action.ADD){
       ignores.push('id');
     }
-    let arr = simpleValidate.getObjectEmpty(_self.api.map(_self.bean), ignores);
+    let fields = ['homeTypeCode'];
+    if(this.bean.homeTypeCode=='01'){
+      fields.push('registrationId', 'homeNo');
+      this.bean.name = '';
+    }else{
+      fields.push('homeName');
+      this.bean.registrationId = '';
+    }
+
+    let arr = simpleValidate.getObjectEmpty_byFilds(_self.api.map(_self.bean), fields);
+    //let arr = simpleValidate.getObjectEmpty(_self.api.map(_self.bean), ignores);
     if(arr.length<=0 && _self.bean.registrationId.trim().length==11){
       _self.api.commit_save(_self.bean, function(response){
         let strAction = _self.action==_self.ass_action.ADD?'เพิ่ม':'แก้ไข';

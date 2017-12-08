@@ -85,7 +85,7 @@ import { ManagementHomeMemberComponent } from "./../managements/osm/management-h
                 path: 'home',
                 children:[
                   {
-                    path: '',
+                    path: ':type',
                     component: ManagementHomeComponent
                   },
                   {
