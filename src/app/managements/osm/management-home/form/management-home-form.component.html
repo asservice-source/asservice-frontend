@@ -52,7 +52,7 @@
             </div>
             <div class="col-md-5">
               <div [InputValidate]="inputValidate">
-                <input type="text" [(ngModel)]="bean.homeNo" placeholder="บ้านเลขที่">
+                <input type="text" [(ngModel)]="bean.homeNo" placeholder="บ้านเลขที่" maxlength="10">
                 <label class="error">กรุณาใส่บ้านเลขที่</label>
               </div>
             </div>
@@ -63,7 +63,7 @@
               <label class="label-form">ถนน</label>
             </div>
             <div class="col-md-5">
-              <input type="text" [(ngModel)]="bean.road" placeholder="ถนน">
+              <input type="text" [(ngModel)]="bean.road" placeholder="ถนน" maxlength="255">
             </div>
           </div>
 
@@ -72,7 +72,7 @@
               <label class="label-form">ตรอก/ซอย</label>
             </div>
             <div class="col-md-5">
-              <input type="text" [(ngModel)]="bean.soi" placeholder="ตรอก/ซอย">
+              <input type="text" [(ngModel)]="bean.soi" placeholder="ตรอก/ซอย" maxlength="255">
             </div>
           </div>
 
@@ -81,7 +81,7 @@
               <label class="label-form">เบอร์โทรศัพท์</label>
             </div>
             <div class="col-md-5">
-              <input type="text" [(ngModel)]="bean.telephone" [OnlyNumber]="true" placeholder="เบอร์โทรศัพท์">
+              <input type="text" [(ngModel)]="bean.telephone" [OnlyNumber]="true" placeholder="เบอร์โทรศัพท์" maxlength="50">
             </div>
           </div>
 
@@ -90,7 +90,7 @@
               <label class="label-form">Latitude</label>
             </div>
             <div class="col-md-5">
-              <input type="text" [(ngModel)]="bean.latitude" placeholder="Latitude">
+              <input type="text" [(ngModel)]="bean.latitude" placeholder="Latitude" maxlength="50">
             </div>
           </div>
 
@@ -99,7 +99,7 @@
               <label class="label-form">Longitude</label>
             </div>
             <div class="col-md-5">
-              <input type="text" [(ngModel)]="bean.longitude" placeholder="Longitude">
+              <input type="text" [(ngModel)]="bean.longitude" placeholder="Longitude" maxlength="50">
             </div>
           </div>
 

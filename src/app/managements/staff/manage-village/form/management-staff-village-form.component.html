@@ -13,7 +13,7 @@
             </div>
             <div class="col-md-4">
               <div [InputValidate]="inputValidate" (notify)="validation($event)">
-                  <input type="text" [(ngModel)]="bean.villageNo" OnlyNumber="true">
+                  <input type="text" [(ngModel)]="bean.villageNo" OnlyNumber="true" maxlength="2">
                   <label class="error">กรุณาใส่หมู่ที่</label>
               </div>
             </div>
@@ -25,7 +25,7 @@
             </div>
             <div class="col-md-6">
               <div [InputValidate]="inputValidate" (notify)="validation($event)">
-                <input type="text" [(ngModel)]="bean.villageName">
+                <input type="text" [(ngModel)]="bean.villageName" maxlength="100">
                 <label class="error">กรุณาใส่ชื่อหมู่บ้าน</label>
               </div>
             </div>

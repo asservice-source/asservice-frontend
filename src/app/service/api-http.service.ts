@@ -90,7 +90,7 @@ export class ApiHTTPService  implements OnInit {
         this.callResponse('home/home_no_list_by_village_or_osm', {"villageId": villageId, "osmId": osmId}, callback);
     }
     public api_HomeTypeList(callback: (doc: any) => void){
-        this.callResponse('home/home_type_list_hici',{}, callback);
+        this.callResponse('home/home_type_list',{}, callback);
     }
     public api_HomrInfo(homeId: any, callback: (doc: any) => void){
         let parameter = {"homeId": +homeId};

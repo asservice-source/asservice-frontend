@@ -61,7 +61,7 @@
             </div>
             <div class="col-md-6">
               <div [InputValidate]="inputValidate">
-                <input type="text" [(ngModel)]="bean.firstName">
+                <input type="text" [(ngModel)]="bean.firstName" maxlength="50">
                 <label class="error">กรุณาใส่ชื่อ</label>
               </div>
             </div>
@@ -73,7 +73,7 @@
             </div>
             <div class="col-md-6">
               <div [InputValidate]="inputValidate">
-                <input type="text" [(ngModel)]="bean.lastName">
+                <input type="text" [(ngModel)]="bean.lastName" maxlength="50">
                 <label class="error">กรุณาใส่นามสกุล</label>
               </div>
             </div>
