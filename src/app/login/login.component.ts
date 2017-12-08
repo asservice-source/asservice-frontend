@@ -12,12 +12,11 @@ import { ApiHTTPService } from '../service/api-http.service';
 export class LoginComponent implements OnInit {
 
   private apiHttp: ApiHTTPService = new ApiHTTPService();
-  private URL_AUTHEN = "";
 
   fixUser = "admin";
   fixPass = "1234";
 
-  constructor(private user: UserService,private http: Http, private router: Router) {
+  constructor(public user: UserService,private http: Http, private router: Router) {
 
   }
 

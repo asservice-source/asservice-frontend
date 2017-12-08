@@ -11,9 +11,7 @@ import { UserService } from './service/user.service';
 import { AppComponent } from './app.component';
 declare var $: any;
 declare var bootbox: any;
-@Component({
-   
-  })
+
 @Injectable()
 export class BaseComponent implements OnInit {
     public labelManager: LabelManager;
