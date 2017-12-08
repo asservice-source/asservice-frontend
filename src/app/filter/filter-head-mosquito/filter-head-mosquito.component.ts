@@ -126,7 +126,7 @@ export class FilterHeadMosquitoComponent extends BaseComponent implements OnInit
   setupHomeType() {
     let self = this;
     let params = {};
-    this.api.post('home/home_type_list_hici', params, function (resp) {
+    this.api.post('home/home_type_list', params, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.HomeTypeData = resp.response;
       }

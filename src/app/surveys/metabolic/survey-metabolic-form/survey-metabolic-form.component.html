@@ -428,7 +428,7 @@
                         </div>
                     </div>
                     <div class="col-md-3" *ngIf="metabolicbean.isPeripheralNeuropathy == true?true:false">
-                        <input [ngClass]="errorPeripheralName" type="text" placeholder="กรุณาระบุชื่อโรคประสาท" [(ngModel)]="metabolicbean.peripheralName" />
+                        <input [ngClass]="errorPeripheralName" type="text" placeholder="กรุณาระบุชื่อโรคประสาท" [(ngModel)]="metabolicbean.peripheralName" maxlength="255" />
                         <div *ngIf="isErrorPeripheralName" >
                             <label class="error2">กรุณาใส่ชื่อโรคประสาท</label>
                         </div>
@@ -446,7 +446,7 @@
                         </div>
                     </div>
                     <div class="col-md-3" *ngIf="metabolicbean.isOther == true?true:false">
-                        <input [ngClass]="errorOthercomplication" type="text" placeholder="ภาวะแทรกซ้อนอื่นๆ" [(ngModel)]="metabolicbean.otherComplication" />
+                        <input [ngClass]="errorOthercomplication" type="text" placeholder="ภาวะแทรกซ้อนอื่นๆ" [(ngModel)]="metabolicbean.otherComplication" maxlength="255" />
                         <div *ngIf="isErrorOthercomplication">
                             <label class="error2">กรุณาใส่ภาวะแทรกซ้อน</label>
                         </div>

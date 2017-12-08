@@ -4,6 +4,8 @@ import { ApiHTTPService } from '../../service/api-http.service';
 import { findHomeBean } from '../../beans/findhome.bean';
 import { HomeBean } from '../../beans/home.bean';
 import { LocalDataSource, ViewCell } from 'ng2-smart-table';
+import { Router } from '@angular/router';
+
 
 declare var $: any;
 
@@ -31,7 +33,7 @@ export class FilterFindMosquitoComponent extends BaseComponent implements OnInit
   public settings: any;
   public isShowPlace: boolean = false;
 
-  constructor() {
+  constructor(private route:Router) {
     super();
     this.api = new ApiHTTPService();
     this.homeBean = new HomeBean();
@@ -68,7 +70,7 @@ export class FilterFindMosquitoComponent extends BaseComponent implements OnInit
   setupHomeType() {
     let self = this;
     let params = {};
-    this.api.post('home/home_type_list_hici', params, function (resp) {
+    this.api.post('home/home_type_list', params, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         console.log(resp.response);
         self.HomeTypeData = resp.response;
@@ -188,6 +190,10 @@ export class FilterFindMosquitoComponent extends BaseComponent implements OnInit
 
   filterChanges() {
     this.isShowPlace = false;
+  }
+
+  addHomeRedirect(){
+    this.route.navigate(["main/managements/osm/home/type00"]);
   }
   
 }
