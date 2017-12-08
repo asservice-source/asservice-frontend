@@ -124,8 +124,8 @@
                             <label class="label-form">เบอร์โทรศัพท์</label>
                         </div>
                         <div class="col-md-3">
-                            <div [InputValidate]="inputValidate" [fixLength]="12">
-                                <input type="text" [(ngModel)]="patientbean.telephone" (keypress)="formatPhoneNumber()" maxlength="12" [OnlyNumber]="true">
+                            <div [InputValidate]="inputValidate">
+                                <input type="text" [(ngModel)]="patientbean.telephone" maxlength="50" [OnlyNumber]="true">
                                 <label class="error">กรุณาใส่เบอร์โทรศัพท์</label>
                             </div>
                         </div>
@@ -240,8 +240,8 @@
                             <label class="label-form">เบอร์โทรศัพท์</label>
                         </div>
                         <div class="col-md-3">
-                            <div [InputValidate]="inputValidate" [fixLength]="12">
-                                <input type="text" [(ngModel)]="patientbean.telephone" (keypress)="formatPhoneNumber()" maxlength="12" [OnlyNumber]="true">
+                            <div [InputValidate]="inputValidate">
+                                <input type="text" [(ngModel)]="patientbean.telephone" maxlength="50" [OnlyNumber]="true">
                                 <label class="error">กรุณาใส่เบอร์โทรศัพท์</label>
                             </div>
                         </div>

@@ -117,7 +117,7 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
   }
   onChangeFilter(event: FilterHeadSurveyBean) {
     console.log("ChangeFilter");
-    this.isShowList = false;
+    //this.isShowList = false;
   }
   loadData(event: FilterHeadSurveyBean){
     let self = this;

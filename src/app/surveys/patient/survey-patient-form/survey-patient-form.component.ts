@@ -90,7 +90,7 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
       self.inputValidate = new InputValidateInfo();
       self.resetFind = self.resetFind + 1;
       if (self.action == self.ass_action.EDIT) {
-        self.data.telephone = self.formatPhoneToDisplay(self.data.telephone);
+        //self.data.telephone = self.formatPhoneToDisplay(self.data.telephone);
         self.data.patientDate = self.getCurrentDatePickerModel(self.data.patientDate);
         self.onChoosePersonal(self.data);
       }
@@ -263,11 +263,12 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
     if (objs.length > 0) {
       validate = false;
     } else {
-      if (this.patientbean.telephone.length < 12) {
-        validate = false;
-      } else {
-        validate = true;
-      }
+      // if (this.patientbean.telephone.length < 12) {
+      //   validate = false;
+      // } else {
+        
+      // }
+      validate = true;
     }
     return validate;
   }
@@ -312,9 +313,9 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
     };
 
     if (this.validate(obj)) {
-      if (!self.isEmpty(obj["telephone"])) {
-        obj["telephone"] = self.formatForJson(obj["telephone"]);
-      }
+      // if (!self.isEmpty(obj["telephone"])) {
+      //   obj["telephone"] = self.formatForJson(obj["telephone"]);
+      // }
       let params = this.strNullToEmpty(obj);
       console.log(params);
 
