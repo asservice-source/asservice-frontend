@@ -103,16 +103,29 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
       this.inputValidate = new InputValidateInfo();
       let _self = this;
       _self.loading = true;
-      this.api.api_PersonByCitizenId(this.bean.citizenId, function(response){
+      this.api.api_PersonByCitizenId(this.bean.citizenId, function(resp){
         _self.loading = false;
-        if(response.status.toString().toUpperCase()=="SUCCESS"){
-          if(response.response){
-            let msg = 'มีข้อมูลหมายเลขประชาชน <b>'+ _self.bean.citizenId +'</b> อยู่แล้ว คุณต้องการดึงข้อมูลมาแก้ไข ใช่หรือไม่?';
+        if(resp.status.toString().toUpperCase()=="SUCCESS"){
+          let response = resp.response;
+          if(resp.response){
+           // let msg = 'มีข้อมูลหมายเลขประชาชน <b>'+ _self.bean.citizenId +'</b> อยู่แล้ว คุณต้องการดึงข้อมูลมาแก้ไข ใช่หรือไม่?';
+           let msg = 'หมายเลขประชาชน <b>'+ _self.bean.citizenId +'</b> มีข้อมูลในระบบแล้ว';
+           let userRoleId = +(response.userRoleId);
+          if(
+            (_self.isStaff && userRoleId != 2)
+           ||
+            (_self.isStaff && userRoleId == 2 && response.hospitalCode5 == _self.getHospitalCode())
+           || 
+            (userRoleId==5 && response.hospitalCode5 == _self.getHospitalCode())
+           || 
+            (userRoleId <= 0)
+          ){
+            msg += ' คุณต้องการแก้ไข ใช่หรือไม่?';
             _self.message_comfirm('', msg, function(result){
               if(result){
                 _self.action = _self.ass_action.EDIT;
                 _self.isVerify = true;
-                _self.bean = response.response;
+                _self.bean = response;
                 _self.setDatePickerModel();
                 _self.oldCitizenId = _self.bean.citizenId;
                 console.log(_self.bean);
@@ -120,6 +133,10 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
                 _self.isVerify = false;
               }
             });
+          }else{
+            msg += ' แต่ไม่มีสิทธิ์แก้ไขข้อมูลได้';
+            _self.message_error('', msg);
+          } 
           }else{
             _self.isVerify = true;
           }

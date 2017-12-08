@@ -200,7 +200,8 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
         _self.loading = false;
         if(response.status.toString().toUpperCase()=="SUCCESS"){
           if(response.response){
-            let msg = 'มีข้อมูลหมายเลขประชาชน <b>'+ _self.bean.citizenId +'</b> อยู่แล้ว คุณต้องการดึงข้อมูลมาแก้ไข ใช่หรือไม่?';
+            let msg = 'หมายเลขประชาชน <b>'+ _self.bean.citizenId +'</b> มีข้อมูลในระบบแล้ว';
+            msg += ' คุณต้องการแก้ไข ใช่หรือไม่?';
             _self.message_comfirm('', msg, function(result){
               if(result){
                 // Change Action to EDIT
@@ -219,6 +220,7 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
                 _self.isVerify = false;
               }
             });
+            
           }else{
             _self.isVerify = true;
           }
@@ -264,7 +266,7 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
           }else{
             // Save To API
             _self.api.commit_save(_self.bean, function(response){
-              _self.loading = false;
+              _self.loading = false;   
               if(response && response.status.toString().toUpperCase()=='SUCCESS'){
                 $('#modalForm').modal('hide');
                 _self.message_success('',_self.actionName + ' สมาชิกใหม่เรียบร้อย', function(){
