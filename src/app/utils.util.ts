@@ -18,6 +18,14 @@ export class SurveyHeaderTypeCode{
     public  static PREGNANT: string = 'PREGNANT';
 }
 
+export class MessageType{
+    public static ALERT = 'ALERT';
+    public static SUCCESS = 'SUCCESS';
+    public static ERROR = 'ERROR';
+    public static WARNING = 'WARNING';
+    public static CONFIRM = 'CONFIRM';
+}
+
 export class SimpleValidateForm{
     
     getObjectEmpty(obj: any, ignores?: Array<any>):any{
@@ -61,3 +69,4 @@ export class SimpleValidateForm{
         return false;
     }
 }
+

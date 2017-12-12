@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Optional, Inject, Injectable } from '@angular/core';
 import { LabelManager } from "./label/label-manager";
 import { LocalDataSource } from 'ng2-smart-table';
-import { Utils, Action, SurveyHeaderTypeCode } from "./utils.util";
+import { Utils, Action, SurveyHeaderTypeCode, MessageType } from "./utils.util";
 import * as myconf from "./global-config";
 import * as moment from 'moment'
 import { IMyDpOptions } from 'mydatepicker';
@@ -11,6 +11,7 @@ import { UserService } from './service/user.service';
 import { AppComponent } from './app.component';
 declare var $: any;
 declare var bootbox: any;
+declare var messageBox: any;
 
 @Injectable()
 export class BaseComponent implements OnInit {
@@ -310,42 +311,29 @@ export class BaseComponent implements OnInit {
         return { fullScreenBackdrop: true, animationType: ANIMATION_TYPES.threeBounce }
     }
 
-    message_success(title: string, message: string, callback?: (doc: any) => void) {
-        title = title || 'ทำรายการสำเร็จ';
-        bootbox.alert({
-            size: "large",
-            title: "<div class='bootbox-title'><span class='fa fa-check' style='color: #14b713;'></span> " + title + "</div>",
-            message: message,
-            callback: callback
-        });
-    }
-
     message_comfirm(title: string, message: string, callback?: (doc: any) => void) {
         title = title || 'ยืนยันการทำรายการ';
-        bootbox.confirm({
-            size: "large",
-            title: "<div class='bootbox-title'><span class='fa fa-question' style='color: #2a7ec7;'></span> " + title + "</div>",
-            message: message,
-            callback: callback
-        });
+        title = "<div class='bootbox-title'><span class='fa fa-question' style='color: #2a7ec7;'></span> " + title + "</div>";
+        messageBox.confirm(title, message , callback);
     }
+
+    message_success(title: string, message: string, callback?: (doc: any) => void) {
+        title = title || 'ทำรายการสำเร็จ';
+        title = "<div class='bootbox-title'><span class='fa fa-check' style='color: #14b713;'></span> " + title + "</div>"
+        messageBox.alert(title, message , callback);
+    }
+
     message_error(title: string, message: string, callback?: (doc: any) => void) {
         title = title || 'ไม่สามารถทำรายการได้';
-        bootbox.alert({
-            size: "large",
-            title: "<div class='bootbox-title'><span class='fa fa-close' style='color: #d02626;'></span> " + title + "</div>",
-            message: message,
-            callback: callback
-        });
+        title = "<div class='bootbox-title'><span class='fa fa-close' style='color: #d02626;'></span> " + title + "</div>";
+        messageBox.alert(title, message , callback);
     }
+
     message_servNotRespond(title: string, message: string, callback?: (doc: any) => void) {
         title = title || 'Server Not Responding';
+        title = "<div class='bootbox-title'><span class='fa fa-close' style='color: #d02626;'></span> " + title + "</div>";
         message = message || 'ไม่สามารถดึงข้อมูลได้';
-        bootbox.alert({
-            size: "large",
-            title: "<div class='bootbox-title'><span class='fa fa-close' style='color: #d02626;'></span> " + title + "</div>",
-            message: message,
-            callback: callback
-        });
+        messageBox.alert(title, message , callback);
     }
+
 }

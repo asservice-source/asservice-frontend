@@ -63,4 +63,28 @@ export class LoginComponent implements OnInit {
     }
   }
 
+
+  signin(){
+    let param = new URLSearchParams()
+    /*    param.append('username', this.username);
+     param.append('password', this.password);*/
+    let headers = new Headers({
+      'Authorization': 'Basic YXNzZXJ2aWNlLXRydXN0ZWQtY2xpZW50OnNlY3JldA==',// + btoa(this.user.username + ":" + this.user.password)
+      //'Content-Type': 'application/x-www-form-urlencoded'
+      
+    });
+    
+    // headers.append('Access-Control-Allow-Origin', '*');
+    // headers.append('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    // headers.append('Access-Control-Allow-Headers', 'X-Requested-With,contenttype'); 
+    // headers.append('Access-Control-Allow-Credentials', 'true'); 
+    let options = new RequestOptions({headers: headers});
+    this.http.post('http://192.168.1.203:8080/api-asservice/oauth/token?grant_type=password&username=anamai01&password=an123401', param, options).map(res => res.json())
+      .subscribe(
+        data => console.log(data),
+        err => console.log(err),
+        () => console.log('Fetching complete for Server Metrics')
+      )
+  }
+
 }

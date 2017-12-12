@@ -150,6 +150,6 @@ export class ManagementHomeMemberComponent extends BaseComponent implements OnIn
   }
 
   onBack(){
-    this.router.navigate(['main/managements/osm/home']);
+    this.router.navigate(['main/managements/osm/home/type01']);
   }
 }
