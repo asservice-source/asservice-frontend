@@ -60,8 +60,9 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
     this.inputValidate.isCheck = true;
     let simpleValidate = new SimpleValidateForm();
     //this.bean.homeTypeCode = '01';
-    this.bean.villageId = '11';
-    this.bean.osmId = '891037A9-36CF-E711-AB84-005056C00008';
+    
+    this.bean.villageId = this.userInfo.villageId;
+    this.bean.osmId = this.userInfo.personId; //'891037A9-36CF-E711-AB84-005056C00008';
     let _self = this;
     let ignores = ["name","road","soi","telephone","latitude","longitude"];
     if(_self.action == _self.ass_action.ADD){

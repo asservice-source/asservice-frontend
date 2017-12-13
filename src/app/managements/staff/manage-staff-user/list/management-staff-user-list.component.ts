@@ -28,6 +28,8 @@ export class ManagementStaffUserListComponent extends BaseComponent implements O
   public isStaff: boolean= false;
   public titlePanel: string = '';
 
+  public isLoading: boolean = false;
+
   constructor(private activatedRoute: ActivatedRoute, private detectChange: ChangeDetectorRef) { 
     super();
     this.api = new Service_UserStaffAndOSM();
@@ -111,17 +113,18 @@ export class ManagementStaffUserListComponent extends BaseComponent implements O
 
   setupTable(){
     let _self = this;
-    _self.loading = true;
+    _self.isLoading = true;
     if(this.isStaff){
       this.api.staff_findList(_self.searchName,  function(response){
-        _self.loading = false;
+        _self.isLoading = false;
         _self.datas = response;
         _self.source = _self.ng2STDatasource(_self.datas);
+        _self.detectChange.detach();
         
       });
     }else{
       this.api.osm_findList(_self.searchName, _self.searchVillageId, function(response){
-        _self.loading = false;
+        _self.isLoading = false;
         _self.datas = response;
         _self.source = _self.ng2STDatasource(_self.datas);
         
@@ -148,7 +151,9 @@ export class ManagementStaffUserListComponent extends BaseComponent implements O
     console.log(row);
     _self.message_comfirm('','ต้องการลบ <b>' + row.fullName +'</b> ใช่หรือไม่',function(result){
       if(result){
+        _self.loading = true;
         _self.api.commit_del(row.userId, function(response){
+          _self.loading = false;
           if(response && response.status.toString().toUpperCase()=='SUCCESS'){
             _self.message_success('','ลบ <b>' + row.fullName +'</b> เรียบร้อย' , function(){
               _self.setupTable();

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
 
 import { LoadingConfigService } from './ass-loading.service';
 import { LoadingConfig, ANIMATION_TYPES } from './ass-loading.config';
@@ -55,6 +55,14 @@ export class LoadingComponent implements OnInit {
         };
     }
 
+    ngOnChanges(changes: any){
+        
+        if(changes.show){
+            console.log("changes")
+            console.log(changes.show)
+        }
+
+    }
     public getAnimationType(animationType: string): string {
         let animationTypeSet: string;
         switch (animationType) {

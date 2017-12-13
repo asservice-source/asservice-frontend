@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Optional, Inject, Injectable } from '@angular/core';
+import { Component, OnInit, OnDestroy, Optional, Inject, Injectable, ChangeDetectorRef } from '@angular/core';
 import { LabelManager } from "./label/label-manager";
 import { LocalDataSource } from 'ng2-smart-table';
 import { Utils, Action, SurveyHeaderTypeCode, MessageType } from "./utils.util";
@@ -9,6 +9,8 @@ import { ANIMATION_TYPES } from './ng2-loading/ass-loading.config';
 import { ApiHTTPService } from './service/api-http.service';
 import { UserService } from './service/user.service';
 import { AppComponent } from './app.component';
+import { MainContentComponent } from './main/main-content/main-content.component';
+import { ShowLoadingService } from './ng2-loading/showloading.service';
 declare var $: any;
 declare var bootbox: any;
 declare var messageBox: any;
@@ -19,14 +21,19 @@ export class BaseComponent implements OnInit {
     public _GLOBAL = myconf;
     public ass_action = Action;
     public surveyHeaderCode = SurveyHeaderTypeCode;
-    public loading: boolean = false;
+    set loading(loading: boolean){
+        this.showloadingService.show = loading;
+    }
     private ng2STDataSource: LocalDataSource;// = new LocalDataSource();
     public rowPerPage: number = 10;
     public userInfo: UserService;
-
+    public showloadingService: ShowLoadingService;
     constructor() {
-        this.userInfo = AppComponent.injector.get(UserService);
+        
+        this.userInfo = AppComponent.injector.get(UserService); 
+        this.showloadingService = AppComponent.injector.get(ShowLoadingService);
         this.labelManager = new LabelManager();
+ 
     }
     ngOnInit() {
 
@@ -41,15 +48,14 @@ export class BaseComponent implements OnInit {
         return this._GLOBAL.API_SERVER_URL + urlAPI;
     }
 
-    public getHospitalCode() {
+    public getUserFullName(): string {
+        
+        return this.userInfo.fullName;
+    }
+    public getHospitalCode(): string {
         //return "04269";
         return this.userInfo.hospitalCode5;
     }
-
-    public getUserFullname() {
-        return this.userInfo.userFullName;
-    }
-
     public getTableSetting(columns: any) {
         var settings: any = {
             mode: 'external',

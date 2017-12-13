@@ -1,6 +1,6 @@
 <div class="panel panel-default">
   <div class="panel-heading">
-    <label>จัดการเขตรับผิดชอบ อสม. {{userInfo.hospitalCode5}}</label>
+    <label>จัดการเขตรับผิดชอบ อสม.</label>
   </div>
   <div class="panel-body">
     <div class="header-info">
@@ -10,9 +10,9 @@
           <div class="box-body">
             <dl class="dl-horizontal">
               <dt>อสม. : </dt>
-              <dd>นางสาวโอ๋เอ๋ โสภา</dd>
+              <dd>{{getUserFullName()}}</dd>
               <dt>หมู่ที่ : </dt>
-              <dd>1 บ้านคำไฮ</dd>
+              <dd>{{userInfo.villageNo + ' ' + userInfo.villageName}}</dd>
             </dl>
           </div>
         </div>
@@ -34,4 +34,3 @@
 </div>
 
 <app-management-home-form [bean]="bean" [action]="action" (success)="onSuccess($event)"></app-management-home-form>
-<ass-loading [show]="loading" ></ass-loading>

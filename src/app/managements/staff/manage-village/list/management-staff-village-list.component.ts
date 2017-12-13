@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { BaseComponent } from '../../../../base-component';
 import { LocalDataSource } from 'ng2-smart-table';
 import { ActionCustomView_2_Component } from '../../../../action-custom-table/action-custom-view.component';
 import { VillageBean } from '../../../../beans/village.bean';
 import { ApiHTTPService } from '../../../../service/api-http.service';
+
 declare var $:any;
 @Component({
   selector: 'app-management-staff-village-list',
@@ -69,8 +70,9 @@ export class ManagementStaffVillageListComponent extends BaseComponent implement
       let _self = this;
       _self.loading = true;
       this.api.api_villageList(this.getHospitalCode(),function(response){
-        _self.source = _self.ng2STDatasource(response);
         _self.loading = false;
+        _self.source = _self.ng2STDatasource(response);
+       
       });
     }
     onModalForm(action: string){

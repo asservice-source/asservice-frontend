@@ -6,6 +6,7 @@ import { Service_HomeMember } from '../../../../service/service-home-member';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PersonalBasicBean } from '../../../../beans/personal-basic.bean';
 import { Address } from '../../../../beans/address';
+import { AppComponent } from '../../../../app.component';
 
 
 declare var $:any;
@@ -125,6 +126,7 @@ export class ManagementHomeMemberComponent extends BaseComponent implements OnIn
     this.api.getList(_self.homeId, function(response){
       _self.source = _self.ng2STDatasource(response);
       _self.loading = false;
+
     });
   }
   onModalShow(action){

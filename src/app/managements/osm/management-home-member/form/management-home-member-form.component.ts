@@ -218,6 +218,11 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
                 _self.bean.homeId = homeId;
                 _self.bean.familyStatusId = '';
                 _self.bean.isGuest = '';
+                //set default ไทย
+                _self.bean.nationalityCode = _self.bean.nationalityCode || '099';
+                _self.bean.raceCode = _self.bean.raceCode || '099';
+                //---
+
                 _self.setDatePickerModel();
                 _self.oldCitizenId = _self.bean.citizenId;
                 console.log(_self.bean);

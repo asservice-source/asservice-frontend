@@ -11,9 +11,11 @@
 
   <!-- Main content -->
   <section class="content">
-      
+      <div>SHOW = {{showloadingService.show}}</div>
      <router-outlet></router-outlet>
 
   </section>
   <!-- /.content -->
 </div>
+
+<ass-loading [show]="showloadingService.show"></ass-loading>

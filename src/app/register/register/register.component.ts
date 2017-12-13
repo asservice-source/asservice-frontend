@@ -27,7 +27,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
   public amphurList: any;
   public tumbolsList: any;
   public prefixList: any;
-  public hospitalList: any;
+  public hospitalList: Array<any>;
   public isErrorHospital: boolean = false;
   public isErrorProvice: boolean = false;
   public isErrorAmphur: boolean = false;
@@ -76,10 +76,14 @@ export class RegisterComponent extends BaseComponent implements OnInit {
     this.loading = true;
     let self = this;
     this.apiHttp.post('hospital/hospital_list', {}, function (resp) {
-      
+      self.hospitalList = new Array<any>();
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-        self.hospitalList = resp.response;
-        self.dataHospitals = self.completerService.local(resp.response, 'hospitalName', 'hospitalName');
+        for(let item of resp.response){
+          if(!item.isRegister){
+            self.hospitalList.push(item);
+          }
+        }
+        self.dataHospitals = self.completerService.local(self.hospitalList, 'hospitalName', 'hospitalName');
         console.log(self.hospitalList);
       }
 

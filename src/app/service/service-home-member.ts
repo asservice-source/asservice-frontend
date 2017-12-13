@@ -73,6 +73,7 @@ export class Service_HomeMember extends ApiHTTPService{
             console.log(parameter);
             console.log(response);
             if(response && response.status.toString().toUpperCase()=='SUCCESS'){
+                console.log("Before CallBack");
                 callback(response.response);
             }else{
                 _self.baseComp.message_servNotRespond('', response.message);

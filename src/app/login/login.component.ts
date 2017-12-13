@@ -11,7 +11,7 @@ import { ApiHTTPService } from '../service/api-http.service';
 })
 export class LoginComponent implements OnInit {
 
-  private apiHttp: ApiHTTPService = new ApiHTTPService();
+  private api: ApiHTTPService = new ApiHTTPService();
 
   fixUser = "admin";
   fixPass = "1234";
@@ -26,33 +26,25 @@ export class LoginComponent implements OnInit {
 
   login() {
     let self = this;
-    // let param = new URLSearchParams()
-    // /*    param.append('username', this.username);
-    //  param.append('password', this.password);*/
-    // let headers = new Headers({
-    //   'Content-Type': 'application/x-www-form-urlencoded',
-    //   "Authorization": "Basic " + btoa(this.user.username + ":" + this.user.password)
-    // });
-    // let options = new RequestOptions({headers: headers});
-    // this.http.post('http://192.168.1.132:8880/asservice/prefix', param, options).map(res => res.json())
-    //   .subscribe(
-    //     data => console.log(data),
-    //     err => console.log(err),
-    //     () => console.log('Fetching complete for Server Metrics')
-    //   )
-
     console.log("username: " + self.user.username);
     console.log("password: " + self.user.password);
-
     let strUser = self.user.username;
     let strPass = self.user.password;
 
-    // let params = { "username": strUser, "password": strPass };
-    // self.apiHttp.post(self.URL_AUTHEN, params, function (d) {
-    //   if (d != null && d.status.toUpperCase() == "SUCCESS") {
-        
-    //   }
-    // })
+    let params = { "userName": strUser, "password": strPass };
+    this.api.post('user/login', params, function(resp){
+      console.log(resp);
+      if(resp && resp.status.toString().toUpperCase() == 'SUCCESS' && resp.response.login){
+        console.log('Passed');
+        self.user.set(resp.response)
+        localStorage.setItem("uinfo", JSON.stringify(self.user));
+        self.router.navigate([""]);
+      }else{
+        console.log('No Pass');
+
+        localStorage.clear();
+      }
+    });
 
     if (this.fixUser == strUser && this.fixPass == strPass) {
       let uinfo = {"uid": 1, "urid": 2, "ufullName": "นายสมพงศ์ ดวงดี", "hospitalCode5": "04269"};

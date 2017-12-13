@@ -82,14 +82,11 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     this.setupHomeList();
-    console.log("hospitalCode5>>> " + this.userInfo.hospitalCode5);
   }
-  setupHomeList(){
-    let villageId = "11";
-    let osmId = "";//"2A13A59B-BAC2-E711-AB84-005056C00008";
+  setupHomeList(){    
     let _self = this;
     _self.loading = true;
-    this.api.getList(villageId, osmId, function(response){
+    this.api.getList(this.userInfo.villageId, this.userInfo.personId, function(response){
       _self.source = _self.ng2STDatasource(response);
       _self.loading = false;
     });

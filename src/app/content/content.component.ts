@@ -10,9 +10,11 @@ declare var $: any
 export class ContentComponent implements OnInit {
   [x: string]: any;
   headers: any;
+ 
   constructor(private http: Http) { }
 
   ngOnInit() {
+    
   }
 
 }

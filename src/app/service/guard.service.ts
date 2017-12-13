@@ -1,13 +1,15 @@
 import { Injectable, Optional } from '@angular/core';
 import { Router } from "@angular/router";
 import { UserService } from "./user.service";
+import { BaseComponent } from '../base-component';
 
 @Injectable()
 export class GuardService {
-
+    private baseComp: BaseComponent;
     constructor(private router:Router, private user: UserService) { }
     canActivate(){
         console.log("canActivate");
+        this.baseComp = new BaseComponent();
         let jsonUInfo: any = localStorage.getItem("uinfo");
         if(!jsonUInfo){
             
@@ -17,10 +19,7 @@ export class GuardService {
         }else{
 
             jsonUInfo = JSON.parse(jsonUInfo);
-            this.user.userId = jsonUInfo["uid"];
-            this.user.userRoleId = jsonUInfo["urid"];
-            this.user.userFullName = jsonUInfo["ufullName"];
-            this.user.hospitalCode5 = jsonUInfo["hospitalCode5"];
+            this.baseComp.copyObj(jsonUInfo, this.user);
 
             return true;
         }
