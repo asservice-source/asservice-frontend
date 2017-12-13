@@ -21,7 +21,7 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
   public api: Service_Home;
   public settings: any;
   public source: LocalDataSource = new LocalDataSource();
-
+  public loading: boolean = false;
   constructor(private router: Router, private changeRef: ChangeDetectorRef) { 
     super();
     this.bean = new HomeBean();
@@ -89,6 +89,7 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
     this.api.getList(this.userInfo.villageId, this.userInfo.personId, function(response){
       _self.source = _self.ng2STDatasource(response);
       _self.loading = false;
+      _self.changeRef.detectChanges();
     });
   }
   onModalForm(action:string){

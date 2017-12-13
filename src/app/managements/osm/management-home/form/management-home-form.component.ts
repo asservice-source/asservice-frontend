@@ -20,6 +20,7 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
   public api: Service_Home;
   public homeTypeList: any = [];
   public disabledHomeType = false;
+  public loading: boolean = false;
   constructor() { 
     super();
     this.inputValidate = new InputValidateInfo();

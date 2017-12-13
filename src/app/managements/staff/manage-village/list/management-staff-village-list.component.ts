@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef} from '@angular/core';
 import { BaseComponent } from '../../../../base-component';
 import { LocalDataSource } from 'ng2-smart-table';
 import { ActionCustomView_2_Component } from '../../../../action-custom-table/action-custom-view.component';
@@ -18,8 +18,8 @@ export class ManagementStaffVillageListComponent extends BaseComponent implement
   public source: LocalDataSource;
   public bean: VillageBean;
   public datas: any //= [{villageId:'1', villageNo: 1, villageName: 'บ้านหนองหลุบ'}];
-  
-  constructor() {
+  public loading: boolean = false; 
+  constructor(private changeRef: ChangeDetectorRef) {
     super();
     this.action = this.ass_action.ADD;
     this.bean = new VillageBean();
@@ -72,7 +72,7 @@ export class ManagementStaffVillageListComponent extends BaseComponent implement
       this.api.api_villageList(this.getHospitalCode(),function(response){
         _self.loading = false;
         _self.source = _self.ng2STDatasource(response);
-       
+        _self.changeRef.detectChanges();
       });
     }
     onModalForm(action: string){

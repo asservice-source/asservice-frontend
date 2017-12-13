@@ -18,6 +18,7 @@ export class ManagementStaffVillageFormComponent extends BaseComponent implement
   public inputValidate: InputValidateInfo;
   public isError: boolean = false;
   public api: Service_Village;
+  public loading: boolean = false;
   constructor(private changeRef: ChangeDetectorRef) {
     super();
     this.bean = new VillageBean();

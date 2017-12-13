@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ElementRef } from '@angular/core';
 import { BaseComponent } from '../../../../base-component';
 import { LocalDataSource } from 'ng2-smart-table';
 import { ActionCustomView_2_Component } from '../../../../action-custom-table/action-custom-view.component';
@@ -7,6 +7,7 @@ import { ApiHTTPService } from '../../../../service/api-http.service';
 import { Service_UserStaffAndOSM } from '../../../../service/service-user-staff-osm';
 import { ActivatedRoute } from '@angular/router';
 import { HomeBean } from '../../../../beans/home.bean';
+
 declare var $:any;
 declare var bootbox:any;
 @Component({
@@ -27,10 +28,9 @@ export class ManagementStaffUserListComponent extends BaseComponent implements O
   public searchVillageId: string = '';
   public isStaff: boolean= false;
   public titlePanel: string = '';
+  public loading: boolean = false;
 
-  public isLoading: boolean = false;
-
-  constructor(private activatedRoute: ActivatedRoute, private detectChange: ChangeDetectorRef) { 
+  constructor(private element: ElementRef,private activatedRoute: ActivatedRoute, private detectChange: ChangeDetectorRef) { 
     super();
     this.api = new Service_UserStaffAndOSM();
     this.bean = new StaffUserBean();
@@ -113,21 +113,21 @@ export class ManagementStaffUserListComponent extends BaseComponent implements O
 
   setupTable(){
     let _self = this;
-    _self.isLoading = true;
+    _self.loading = true;
     if(this.isStaff){
       this.api.staff_findList(_self.searchName,  function(response){
-        _self.isLoading = false;
+        _self.loading = false;
         _self.datas = response;
         _self.source = _self.ng2STDatasource(_self.datas);
-        _self.detectChange.detach();
+        _self.detectChange.detectChanges();
         
       });
     }else{
       this.api.osm_findList(_self.searchName, _self.searchVillageId, function(response){
-        _self.isLoading = false;
+        _self.loading = false;
         _self.datas = response;
         _self.source = _self.ng2STDatasource(_self.datas);
-        
+        _self.detectChange.detectChanges();
       });
     }
     

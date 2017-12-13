@@ -23,7 +23,6 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
   public api: Service_HomeMember;
   public inputValidate: InputValidateInfo;
   public isVerify: boolean = false;
-  public isShowVerify: boolean = true;
   public modelBirthDate: any;
   public genderList: any = [];
   public prefixList: any = [];
@@ -43,7 +42,7 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
   public msgError_CitizenId: string = '';
   public msgError_CitizenIdEmty: string = 'กรุณาใส่หมายเลขประชาชนเป็นตัวเลข 13 หลัก';
   public msgError_CitizenIdNoFormat: string = 'รูปแบบหมายเลขประชาชนไม่ถูกต้อง';
-
+  public loading: boolean = false;
   constructor() { 
     super();
     this.bean = new PersonalBasicBean();

@@ -1,6 +1,5 @@
 import { Component, OnInit, Injectable } from '@angular/core';
 import { UserService } from '../../service/user.service';
-import { ShowLoadingService } from '../../ng2-loading/showloading.service';
 import { AppComponent } from '../../app.component';
 // Variable in assets/js/scripts.js file
 declare var AdminLTE: any;
@@ -12,9 +11,8 @@ declare var AdminLTE: any;
 })
 @Injectable()
 export class MainContentComponent implements OnInit {
-  public showloadingService: ShowLoadingService;
-  constructor(private userInfo: UserService) { 
-    this.showloadingService = AppComponent.injector.get(ShowLoadingService);
+  constructor(private userInfo: UserService) {
+    
   }
   ngOnInit() {
     // Update the AdminLTE layouts

@@ -15,7 +15,7 @@
               <div class="input-group">
                 <input type="text" [(ngModel)]="bean.citizenId" [OnlyNumber]="true" maxlength="13" [disabled]="false">
                 <span class="input-group-btn">
-                  <button class="btn btn-primary btn-sm btn-flat" (click)="onVerifyCitizenId();" *ngIf="isShowVerify">ตรวจสอบ</button>
+                  <button class="btn btn-primary btn-sm btn-flat" (click)="onVerifyCitizenId();" *ngIf="action==ass_action.ADD">ตรวจสอบ</button>
                 </span>
               </div>
               <label class="error">{{msgError_CitizenId}}</label>
@@ -323,4 +323,4 @@
     </div>
   </div>
 </div>
-
+<ass-loading [show]="loading"></ass-loading>

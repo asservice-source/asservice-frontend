@@ -31,6 +31,7 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
   public msgError_CitizenId: string = '';
   public msgError_CitizenIdEmty: string = 'กรุณาใส่หมายเลขประชาชนเป็นตัวเลข 13 หลัก';
   public msgError_CitizenIdNoFormat: string = 'รูปแบบหมายเลขประชาชนไม่ถูกต้อง';
+  public loading: boolean = false;
   constructor() { 
     super();
     this.bean = new StaffUserBean();

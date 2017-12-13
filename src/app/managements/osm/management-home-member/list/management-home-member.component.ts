@@ -26,7 +26,7 @@ export class ManagementHomeMemberComponent extends BaseComponent implements OnIn
   public isShowInfo: boolean = false;
   public homeId: string;
   public address: Address;
-
+  public loading: boolean = false;
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private changeRef: ChangeDetectorRef) { 
     super();
     this.bean = new PersonalBasicBean();
@@ -126,6 +126,7 @@ export class ManagementHomeMemberComponent extends BaseComponent implements OnIn
     this.api.getList(_self.homeId, function(response){
       _self.source = _self.ng2STDatasource(response);
       _self.loading = false;
+      _self.changeRef.detectChanges();
 
     });
   }

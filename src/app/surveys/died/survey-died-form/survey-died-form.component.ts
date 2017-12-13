@@ -30,7 +30,7 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
   public timeHours = Array.from(Array(24),(x,i)=>i);
   public timeMins = Array.from(Array(60),(x,i)=>i);
   public inputValidate: InputValidateInfo = new InputValidateInfo();
-
+  public loading: boolean = false;
   constructor(private changeRef: ChangeDetectorRef) {
     super();
     this.commit = new EventEmitter<any>();

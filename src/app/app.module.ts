@@ -66,7 +66,6 @@ import { ManagementHomeMemberComponent } from "./managements/osm/management-home
 import { ManagementHomeMemberFormComponent } from './managements/osm/management-home-member/form/management-home-member-form.component';
 import { TestService } from './service/test.service';
 import { UserService } from './service/user.service';
-import { ShowLoadingService } from './ng2-loading/showloading.service';
 
 @NgModule({
   declarations: [
@@ -145,7 +144,7 @@ import { ShowLoadingService } from './ng2-loading/showloading.service';
     ViewChildTableHomeManagement,
     FilterFindPersonButtonChooseComponent
   ],
-  providers: [LoadingConfigService, UserService, ShowLoadingService, TestService],
+  providers: [LoadingConfigService, UserService, TestService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

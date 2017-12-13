@@ -21,26 +21,20 @@ export class BaseComponent implements OnInit {
     public _GLOBAL = myconf;
     public ass_action = Action;
     public surveyHeaderCode = SurveyHeaderTypeCode;
-    set loading(loading: boolean){
-        this.showloadingService.show = loading;
-    }
+    public loading: boolean = false;
     private ng2STDataSource: LocalDataSource;// = new LocalDataSource();
     public rowPerPage: number = 10;
     public userInfo: UserService;
-    public showloadingService: ShowLoadingService;
     constructor() {
-        
-        this.userInfo = AppComponent.injector.get(UserService); 
-        this.showloadingService = AppComponent.injector.get(ShowLoadingService);
+        this.userInfo = AppComponent.injector.get(UserService);
         this.labelManager = new LabelManager();
- 
     }
     ngOnInit() {
 
     }
 
     public getLabel(key: string, lang?: string, defaultValue?: string) {
-        ///console.log("label:"+key);
+
         return this.labelManager.getLabel(key, lang) || defaultValue;
     }
 

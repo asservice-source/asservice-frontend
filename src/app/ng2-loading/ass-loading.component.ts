@@ -55,14 +55,14 @@ export class LoadingComponent implements OnInit {
         };
     }
 
-    ngOnChanges(changes: any){
+    // ngOnChanges(changes: any){
         
-        if(changes.show){
-            console.log("changes")
-            console.log(changes.show)
-        }
+    //     if(changes.show){
+    //         console.log("changes")
+    //         console.log(changes.show)
+    //     }
 
-    }
+    // }
     public getAnimationType(animationType: string): string {
         let animationTypeSet: string;
         switch (animationType) {
