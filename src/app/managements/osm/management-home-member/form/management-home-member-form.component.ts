@@ -40,7 +40,10 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
   public tumbolList: any = [];
   public oldCitizenId: string;
   public actionName: string;
-  
+  public msgError_CitizenId: string = '';
+  public msgError_CitizenIdEmty: string = 'กรุณาใส่หมายเลขประชาชนเป็นตัวเลข 13 หลัก';
+  public msgError_CitizenIdNoFormat: string = 'รูปแบบหมายเลขประชาชนไม่ถูกต้อง';
+
   constructor() { 
     super();
     this.bean = new PersonalBasicBean();
@@ -48,6 +51,7 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
     this.api = new Service_HomeMember();
     this.success = new EventEmitter<any>();
     this.address = new Address();
+    this.msgError_CitizenId = this.msgError_CitizenIdEmty;
   }
 
   ngOnInit() {
@@ -111,6 +115,7 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
       // reset validate error class
       $('#is-guest-error').hide();
       _self.inputValidate = new InputValidateInfo();
+      _self.msgError_CitizenId = _self.msgError_CitizenIdEmty;
       //---
       if(_self.action == _self.ass_action.ADD){
         _self.actionName = 'เพิ่ม';
@@ -192,7 +197,7 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
     this.oldCitizenId = this.bean.citizenId;
     this.inputValidate = new InputValidateInfo();
     this.inputValidate.isCheck = true;
-    if(this.bean.citizenId){
+    if(this.isValidCitizenIdThailand(this.bean.citizenId)){
       this.inputValidate = new InputValidateInfo();
       let _self = this;
       _self.loading = true;
@@ -228,67 +233,82 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
           _self.message_error('', 'ไม่สามารถตรวจสอบข้อมูลได้');
         }
       });
+    }else{
+      if(!this.bean.citizenId || this.bean.citizenId.length!=13){
+        this.msgError_CitizenId = this.msgError_CitizenIdEmty;
+      }else{
+        this.msgError_CitizenId = this.msgError_CitizenIdNoFormat;
+      }
     }
   }
   onSave(){
     this.inputValidate = new InputValidateInfo();
     this.inputValidate.isCheck = true; // validate input error form
     let simpValidate: SimpleValidateForm = new SimpleValidateForm();
-    let birthDate = this.modelBirthDate && this.getStringDateForDatePickerModel(this.modelBirthDate.date);
-    this.bean.birthDate = birthDate || '';
-    let fildsCheck = ['citizenId', 'firstName', 'lastName', 'prefixCode', 'genderId', 'raceCode', 'nationCode', 'religionCode', 'bloodTypeId', 'rhGroupId', 'birthDate', 'educationCode', 'occupCode', 'familyStatusId', 'isGuest'];
-    if(this.bean.isGuest){
-      fildsCheck.push('homeNo','mooNo','tumbolCode','amphurCode','provinceCode');
-    }else{
-      // Home Address  Added to Personal Address 
-      this.bean.homeNo = this.address.homeNo;
-      this.bean.mooNo = this.address.mooNo;
-      this.bean.road = this.address.road;
-      this.bean.tumbolCode = this.address.tumbolCode;
-      this.bean.amphurCode = this.address.amphurCode;
-      this.bean.provinceCode = this.address.provinceCode;
-    }
-    console.log('>>> Bean Before Save <<<');
-    console.log(this.bean);
-    let objsEmpty: Array<string> = simpValidate.getObjectEmpty_byFilds(this.api.map(this.bean), fildsCheck);
-    if(objsEmpty.indexOf('isGuest')>=0){
-      $('#is-guest-error').show();
-    }
-    console.log(objsEmpty);
-    if(objsEmpty.length<=0){
-      let _self = this;
-      _self.loading = true;
-      this.api.api_PersonByCitizenId(_self.bean.citizenId, function(response){
-        if(response.status.toString().toUpperCase()=="SUCCESS"){
-          if(response.response && response.response.citizenId != _self.oldCitizenId){
-            _self.loading = false;
-            _self.message_error('', 'หมายเลขบัตรประจำตัว <b>'+ _self.bean.citizenId +'</b> ซ้ำ');
+
+    if(this.isValidCitizenIdThailand(this.bean.citizenId)){
+      let birthDate = this.modelBirthDate && this.getStringDateForDatePickerModel(this.modelBirthDate.date);
+      this.bean.birthDate = birthDate || '';
+      let fildsCheck = ['citizenId', 'firstName', 'lastName', 'prefixCode', 'genderId', 'raceCode', 'nationCode', 'religionCode', 'bloodTypeId', 'rhGroupId', 'birthDate', 'educationCode', 'occupCode', 'familyStatusId', 'isGuest'];
+      if(this.bean.isGuest){
+        fildsCheck.push('homeNo','mooNo','tumbolCode','amphurCode','provinceCode');
+      }else{
+        // Home Address  Added to Personal Address 
+        this.bean.homeNo = this.address.homeNo;
+        this.bean.mooNo = this.address.mooNo;
+        this.bean.road = this.address.road;
+        this.bean.tumbolCode = this.address.tumbolCode;
+        this.bean.amphurCode = this.address.amphurCode;
+        this.bean.provinceCode = this.address.provinceCode;
+      }
+      console.log('>>> Bean Before Save <<<');
+      console.log(this.bean);
+      let objsEmpty: Array<string> = simpValidate.getObjectEmpty_byFilds(this.api.map(this.bean), fildsCheck);
+      if(objsEmpty.indexOf('isGuest')>=0){
+        $('#is-guest-error').show();
+      }
+      console.log(objsEmpty);
+      if(objsEmpty.length<=0){
+        let _self = this;
+        _self.loading = true;
+        this.api.api_PersonByCitizenId(_self.bean.citizenId, function(response){
+          if(response.status.toString().toUpperCase()=="SUCCESS"){
+            if(response.response && response.response.citizenId != _self.oldCitizenId){
+              _self.loading = false;
+              _self.message_error('', 'หมายเลขบัตรประจำตัว <b>'+ _self.bean.citizenId +'</b> ซ้ำ');
+            }else{
+              // Save To API
+              _self.api.commit_save(_self.bean, function(response){
+                _self.loading = false;   
+                if(response && response.status.toString().toUpperCase()=='SUCCESS'){
+                  $('#modalForm').modal('hide');
+                  _self.message_success('',_self.actionName + ' สมาชิกใหม่เรียบร้อย', function(){
+                    _self.success.emit({"success": true, "response": response});
+                  });
+                }else{
+                  _self.message_error('','ไม่สามารถ'+_self.actionName+'ได้', function(){
+                    _self.success.emit({"success": false, "response": response});
+                  });
+                }
+              });
+
+            }
           }else{
-            // Save To API
-            _self.api.commit_save(_self.bean, function(response){
-              _self.loading = false;   
-              if(response && response.status.toString().toUpperCase()=='SUCCESS'){
-                $('#modalForm').modal('hide');
-                _self.message_success('',_self.actionName + ' สมาชิกใหม่เรียบร้อย', function(){
-                  _self.success.emit({"success": true, "response": response});
-                });
-              }else{
-                _self.message_error('','ไม่สามารถ'+_self.actionName+'ได้', function(){
-                  _self.success.emit({"success": false, "response": response});
-                });
-              }
-            });
-
+            _self.loading = false;
+            _self.message_error('', 'ไม่สามารถตรวจสอบข้อมูลเลขประชาชนได้');
           }
-        }else{
-          _self.loading = false;
-          _self.message_error('', 'ไม่สามารถตรวจสอบข้อมูลเลขประชาชนได้');
-        }
-  
-      });
+    
+        });
 
+      }else{
+
+      }
     }else{
-
+      if(!this.bean.citizenId || this.bean.citizenId.length!=13){
+        this.msgError_CitizenId = this.msgError_CitizenIdEmty;
+      }else{
+        this.msgError_CitizenId = this.msgError_CitizenIdNoFormat;
+      }
     }
   }
 

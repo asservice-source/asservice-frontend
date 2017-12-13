@@ -28,12 +28,15 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
   public mBirthDate: any;
   public oldCitizenId: string;
   public actionName: string;
+  public msgError_CitizenId: string = '';
+  public msgError_CitizenIdEmty: string = 'กรุณาใส่หมายเลขประชาชนเป็นตัวเลข 13 หลัก';
+  public msgError_CitizenIdNoFormat: string = 'รูปแบบหมายเลขประชาชนไม่ถูกต้อง';
   constructor() { 
     super();
     this.bean = new StaffUserBean();
     this.api = new Service_UserStaffAndOSM();
     this.success = new EventEmitter<any>(); 
-    
+    this.msgError_CitizenId = this.msgError_CitizenIdEmty;
   }
 
   ngOnInit() {
@@ -68,6 +71,7 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
     let _self = this;
     $('#modalForm').on('hidden.bs.modal', function(){
       _self.inputValidate = new InputValidateInfo();
+      _self.msgError_CitizenId = _self.msgError_CitizenIdEmty;
     });
     $('#modalForm').on('show.bs.modal', function(){
       console.log(_self.bean);
@@ -98,8 +102,8 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
     this.oldCitizenId = this.bean.citizenId;
     this.inputValidate = new InputValidateInfo();
     this.inputValidate.isCheck = true;
-    //if(this.isValidCitizenIdThailand(this.bean.citizenId)){
-    if(this.bean.citizenId){
+    if(this.isValidCitizenIdThailand(this.bean.citizenId)){
+    //if(this.bean.citizenId){
       this.inputValidate = new InputValidateInfo();
       let _self = this;
       _self.loading = true;
@@ -126,6 +130,7 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
                 _self.action = _self.ass_action.EDIT;
                 _self.isVerify = true;
                 _self.bean = response;
+                _self.bean.isActive = true;
                 _self.setDatePickerModel();
                 _self.oldCitizenId = _self.bean.citizenId;
                 console.log(_self.bean);
@@ -144,6 +149,13 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
           _self.message_error('', 'ไม่สามารถตรวจสอบข้อมูลได้');
         }
       });
+    }else{
+      if(!this.bean.citizenId || this.bean.citizenId.length!=13){
+        this.msgError_CitizenId = this.msgError_CitizenIdEmty;
+      }else{
+        this.msgError_CitizenId = this.msgError_CitizenIdNoFormat;
+      }
+      
     }
   }
   onClickEditCitizenId(){
@@ -168,8 +180,8 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
 
     this.actionName = this.action==this.ass_action.ADD?'เพิ่ม':'แก้ไข';
     
-    //if(this.isValidCitizenIdThailand(this.bean.citizenId)){
-    if(true){
+    if(this.isValidCitizenIdThailand(this.bean.citizenId)){
+    //if(true){
       let ignores = this.action==this.ass_action.ADD?['personId']:[];
       if(this.isStaff){
         ignores.push('villageId');
@@ -211,6 +223,12 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
       }else{
         // Invalidate
       }
+    }else{
+      if(!this.bean.citizenId || this.bean.citizenId.length!=13){
+        this.msgError_CitizenId = this.msgError_CitizenIdEmty;
+      }else{
+        this.msgError_CitizenId = this.msgError_CitizenIdNoFormat;
+      }
     }
     
   }
@@ -219,7 +237,7 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
       if(this.bean.birthDate){
         this.mBirthDate = this.getCurrentDatePickerModel(this.bean.birthDate);
       }else{
-        this.mBirthDate = null;
+        this.mBirthDate = "";
       } 
   }
 }
