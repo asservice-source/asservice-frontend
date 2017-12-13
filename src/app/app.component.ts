@@ -7,11 +7,9 @@ import { Component, Injector } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
-  static loading: boolean;
   static injector: Injector;
   constructor(injector: Injector) {
     AppComponent.injector = injector;
-    AppComponent.loading = true;
   }
 }
 

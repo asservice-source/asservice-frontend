@@ -25,7 +25,7 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
   public datas: any = [];
   public filterBean: FilterHeadSurveyBean;
   public currentDocumentId: string;
-
+  public loading: boolean = false;
   constructor(private changeRef: ChangeDetectorRef) {
     super();
 
@@ -149,6 +149,7 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
   setupTable() {
     this.source = super.ng2STDatasource(this.datas);
     this.isShowList = true;
+    this.changeRef.detectChanges();
   }
 
   onDelete(bean: DeadBean) {

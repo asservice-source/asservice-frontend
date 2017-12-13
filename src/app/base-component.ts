@@ -10,7 +10,7 @@ import { ApiHTTPService } from './service/api-http.service';
 import { UserService } from './service/user.service';
 import { AppComponent } from './app.component';
 import { MainContentComponent } from './main/main-content/main-content.component';
-import { ShowLoadingService } from './ng2-loading/showloading.service';
+
 declare var $: any;
 declare var bootbox: any;
 declare var messageBox: any;
