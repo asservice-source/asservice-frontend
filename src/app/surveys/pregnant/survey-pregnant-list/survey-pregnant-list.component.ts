@@ -28,6 +28,8 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
   public source: LocalDataSource = new LocalDataSource();
   public isShowTable: boolean = true;
 
+  public loading: boolean = false;
+
   constructor(private http: Http, private router: Router, private changeRef: ChangeDetectorRef) {
     super();
 
@@ -137,6 +139,7 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
         console.log('survey-personal-pregnant-list(BindPregnantList) occured error(s) => ' + d.message);
       }
       self.loading = false;
+      self.changeRef.detectChanges();
     });
 
     // self.http.get("assets/test-list.json")

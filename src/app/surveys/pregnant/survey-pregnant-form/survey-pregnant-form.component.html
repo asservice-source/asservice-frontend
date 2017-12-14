@@ -42,7 +42,7 @@
                     <div class="col-md-2 text-right">
                         <label class="label-form">สถานะครรภ์</label>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <select [(ngModel)]="pregnantType" (change)="onChangePregnantType();">
                             <option value="0">กำลังตั้งครรภ์</option>
                             <option value="1">คลอดแล้ว</option>
@@ -50,7 +50,7 @@
                     </div>
 
                     <div [hidden]="isDisplayPregnantType">
-                        <div class="col-md-2 text-right">
+                        <div class="col-md-1 text-right">
                             <label class="label-form">กำหนดคลอด</label>
                         </div>
                         <div class="col-md-3">
@@ -60,11 +60,42 @@
 
                     <div [hidden]="!isDisplayPregnantType">
                         <div class="col-md-1 text-right">
-                            <label class="label-form">วันคลอด</label>
+                            <label class="label-form">วันที่คลอด</label>
                         </div>
                         <div class="col-md-3">
                             <my-date-picker [options]="datePickerOptions" required></my-date-picker>
                         </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2 text-right">
+                        <label>โรงพยาบาลที่คลอด</label>
+                    </div>
+                    <div class="col-md-3">
+                        <select [(ngModel)]="bornLocation">
+                            <option value="">--เลือก โรงพยาบาล--</option>
+                            <option *ngFor="let item of listBornLocation" [value]="item.id">{{item.name}}</option>
+                        </select>
+                    </div>
+                    <div class="col-md-1 text-right">
+                        <label class="label-form">วิธีคลอด</label>
+                    </div>
+                    <div class="col-md-3">
+                        <select [(ngModel)]="bornType">
+                            <option value="">--เลือก วิธีคลอด--</option>
+                            <option *ngFor="let item of listBornType" [value]="item.id">{{item.name}}</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="row" [hidden]="bornType == 4 ? false : true">
+                    <div class="col-md-2 text-right">
+                        <label class="label-form">หมายเหตุ</label>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text">
                     </div>
                 </div>
 
@@ -80,37 +111,6 @@
                             </div>
 
                             <div class="panel-body">
-
-                                <div class="row">
-                                    <div class="col-md-2 text-right">
-                                        <label>โรงพยาบาลที่คลอด</label>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <select [(ngModel)]="bornLocation">
-                                            <option value="">--เลือก โรงพยาบาล--</option>
-                                            <option *ngFor="let item of listBornLocation" [value]="item.id">{{item.name}}</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-1 text-right">
-                                        <label class="label-form">วิธีคลอด</label>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <select [(ngModel)]="bornType">
-                                            <option value="">--เลือก วิธีคลอด--</option>
-                                            <option *ngFor="let item of listBornType" [value]="item.id">{{item.name}}</option>
-                                        </select>
-                                    </div>
-
-                                </div>
-
-                                <div class="row" [hidden]="bornType == 4 ? false : true">
-                                    <div class="col-md-2 text-right">
-                                        <label class="label-form">หมายเหตุ</label>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <input type="text">
-                                    </div>
-                                </div>
 
                                 <div class="row">
                                     <div class="col-md-12">

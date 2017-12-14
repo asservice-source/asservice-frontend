@@ -84,16 +84,28 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
         title: 'เพศ',
         width: '50px',
         filter: false,
-      },
-      weight: {
-        title: 'น้ำหนัก',
-        width: '50px',
-        filter: false,
+        type: 'html',
+        valuePrepareFunction: (cell, row) => {
+          return '<div class="text-center">' + cell + '</div>'
+        }
       },
       bloodTypeName: {
         title: 'กรุ๊ปเลือด',
         width: '50px',
         filter: false,
+        type: 'html',
+        valuePrepareFunction: (cell, row) => {
+          return '<div class="text-center">' + cell + '</div>'
+        }
+      },
+      weight: {
+        title: 'น้ำหนัก',
+        width: '50px',
+        filter: false,
+        type: 'html',
+        valuePrepareFunction: (cell, row) => {
+          return '<div class="text-right">' + cell + '</div>'
+        }
       },
       action: {
         title: 'จัดการ',
@@ -115,9 +127,9 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
             console.log(row);
           });
 
-          // instance.delete.subscribe(row => {
-          //   self.onDelete(row);
-          // });
+          instance.delete.subscribe(row => {
+            self.onDeleteChild(row);
+          });
 
           // instance.action.subscribe((row: DeadBean, cell) => {
           //   console.log(row);
@@ -134,6 +146,8 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
 
   ngOnInit() {
     let self = this;
+
+    self.clearListChild();
 
     self.onModalEvent();
 
@@ -264,6 +278,23 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
     self.isFindPersonal = false;
     self.isShowForm = true;
 
+    self.clearListChild();
+    if (self.pregnantBean.childs) {
+      for (let item of self.pregnantBean.childs) {
+        let child = new PregnantChildBean();
+        child.genderId = item.genderId;
+        child.genderName = self.findGenderName(item.genderId);
+        child.citizenId = item.bornCitizenId;
+        child.firstName = item.firstName;
+        child.lastName = item.lastName;
+        child.bloodTypeId = item.bloodTypeId;
+        child.bloodTypeName = self.findBloodTypeName(item.bloodTypeId);
+        child.weight = item.weight;
+        self.listChild.push(child);
+      }
+    }
+    self.bindChildList();
+
     self.clearInputChild();
   }
 
@@ -280,25 +311,8 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
   onClickConfirmChild() {
     let self = this;
 
-    self.childBean.genderName = "";
-    if (!self.isEmpty(self.childBean.genderId)) {
-      for (let item of self.listGender) {
-        if (self.childBean.genderId == item.id) {
-          self.childBean.genderName = item.name;
-          break;
-        }
-      }
-    }
-
-    self.childBean.bloodTypeName = "";
-    if (!self.isEmpty(self.childBean.bloodTypeId)) {
-      for (let item of self.listBloodType) {
-        if (self.childBean.bloodTypeId == item.id) {
-          self.childBean.bloodTypeName = item.name;
-          break;
-        }
-      }
-    }
+    self.childBean.genderName = self.findGenderName(self.childBean.genderId);
+    self.childBean.bloodTypeName = self.findBloodTypeName(self.childBean.bloodTypeId);
 
     if (self.actionChild == self.ass_action.ADD) {
       self.listChild.push(self.cloneObj(self.childBean));
@@ -316,6 +330,19 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
     self.clearInputChild();
   }
 
+  onDeleteChild(child: PregnantChildBean) {
+    let self = this;
+
+    self.message_comfirm('', 'คุณต้องการลบ "' + child.citizenId + '" หรือไม่?', function (confirm) {
+      if (confirm == true) {
+        let index = self.listChild.indexOf(child);
+        if (index >= 0) {
+          self.listChild.splice(index, 1);
+        }
+      }
+    });
+  }
+
   onClickBack() {
     let self = this;
 
@@ -330,4 +357,37 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
     self.childBean = new PregnantChildBean();
   }
 
+  clearListChild() {
+    let self = this;
+
+    self.listChild = [];
+  }
+
+  findGenderName(genderId) {
+    let self = this;
+
+    genderId = genderId.toString();
+    if (!self.isEmpty(genderId)) {
+      for (let item of self.listGender) {
+        if (genderId == item.id) {
+          return item.name;
+        }
+      }
+    }
+    return "";
+  }
+
+  findBloodTypeName(bloodTypeId) {
+    let self = this;
+
+    bloodTypeId = bloodTypeId.toString();
+    if (!self.isEmpty(bloodTypeId)) {
+      for (let item of self.listBloodType) {
+        if (bloodTypeId == item.id) {
+          return item.name;
+        }
+      }
+    }
+    return "";
+  }
 }

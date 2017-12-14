@@ -1,4 +1,4 @@
-export class PregnantBean{
+export class PregnantBean {
     public action: any;
     public citizenId: string = "";
     public firstName: string = "";
@@ -28,5 +28,6 @@ export class PregnantBean{
     public dischargeId: string = "";
     public familyStatus: string = "";
     public age: number;
-    public address : string;
+    public address: string;
+    public childs: any;
 }
