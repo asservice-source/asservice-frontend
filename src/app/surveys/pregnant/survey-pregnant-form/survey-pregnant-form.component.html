@@ -39,7 +39,7 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-2 text-right">
+                    <div class="col-md-3 text-right">
                         <label class="label-form">สถานะครรภ์</label>
                     </div>
                     <div class="col-md-3">
@@ -69,7 +69,7 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-2 text-right">
+                    <div class="col-md-3 text-right">
                         <label>โรงพยาบาลที่คลอด</label>
                     </div>
                     <div class="col-md-3">
@@ -100,10 +100,10 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-2">
+                    <div class="col-md-1">
                         &nbsp;
                     </div>
-                    <div class="col-md-9">
+                    <div class="col-md-10">
                         <div class="panel panel-default" [hidden]="!isDisplayPregnantType">
 
                             <div class="panel-heading">
@@ -188,7 +188,7 @@
 
             <div class="modal-footer" *ngIf="isShowForm">
                 <div class="panel-body text-right">
-                    <button class="btn btn-sm btn-primary">ยืนยัน</button> &nbsp;&nbsp;
+                    <button class="btn btn-sm btn-primary" (click)="onClickConfirm();">ยืนยัน</button> &nbsp;&nbsp;
                     <button class="btn btn-sm btn-primary" (click)="onClickBack()">กลับ</button>
                 </div>
             </div>
@@ -196,3 +196,4 @@
         </div>
     </div>
 </div>
+<ass-loading [show]="loading"></ass-loading>

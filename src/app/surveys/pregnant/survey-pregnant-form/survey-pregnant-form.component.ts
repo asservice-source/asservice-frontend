@@ -1,11 +1,10 @@
 import { Component, OnInit, AfterViewInit, ChangeDetectorRef, Input } from '@angular/core';
-import { PersonBean } from '../../../beans/person.bean';
 import { PregnantBean } from '../../../beans/pregnant.bean'
 import { BaseComponent } from '../../../base-component';
 import { LocalDataSource } from 'ng2-smart-table';
 import { ActionCustomView_2_Component } from '../../../action-custom-table/action-custom-view.component';
 import { PregnantChildBean } from '../../../beans/pregnant-child.bean';
-import { ApiHTTPService } from '../../../service/api-http.service';
+import { Service_SurveyPregnant } from '../../../service/service-survey-pregnant';
 import { IMyDateModel } from 'mydatepicker-thai';
 declare var $: any
 
@@ -16,20 +15,19 @@ declare var $: any
 })
 export class SurveyPregnantFormComponent extends BaseComponent implements OnInit, AfterViewInit {
 
-  private apiHttp: ApiHTTPService = new ApiHTTPService();
+  private apiHttp: Service_SurveyPregnant = new Service_SurveyPregnant();
 
   @Input() action: string;
   @Input() surveyTypeCode: string;
   @Input() documentId: string;
   @Input() data: PregnantBean;
 
-  mStatusNo = 0;
+  // mStatusNo = 0;
 
-  isDisable = false;
-  isDisableBirth = true;
-  isDisableAbort = true;
+  // isDisable = false;
+  // isDisableBirth = true;
+  // isDisableAbort = true;
 
-  public personBean = new PersonBean();
   public pregnantBean: PregnantBean;
 
   public actionChild: string;
@@ -42,9 +40,9 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
   public listGender: any = [];
   public listBloodType: any = [];
 
-  public pregnantType: number = 0;
-  public bornLocation: string = "";
-  public bornType: string = "";
+  // public pregnantType: number = 0;
+  // public bornLocation: string = "";
+  // public bornType: string = "";
   public resetFind: number = 1;
 
   public isFindPersonal: boolean = true;
@@ -56,6 +54,8 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
 
   public modelBornDueDate: any = null;
   public modelBornDate: any = null;
+
+  public loading: boolean = false;
 
   constructor(private changeRef: ChangeDetectorRef) {
     super();
@@ -120,11 +120,6 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
         type: 'custom',
         renderComponent: ActionCustomView_2_Component, onComponentInitFunction(instance) {
 
-          // instance.view.subscribe(row => {
-          //   self.bean = self.cloneObj(row);
-          //   self.onModalForm(self.ass_action.EDIT);
-          // });
-
           instance.edit.subscribe(row => {
             self.tmpChildBean = row;
             self.childBean = self.cloneObj(row);
@@ -135,13 +130,6 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
             self.onDeleteChild(row);
           });
 
-          // instance.action.subscribe((row: DeadBean, cell) => {
-          //   console.log(row);
-          //   if(row && row.action.toUpperCase()==self.ass_action.EDIT){
-          //     self.bean = self.cloneObj(row);
-          //     self.onModalForm(self.ass_action.EDIT);
-          //   }
-          // });
         }
       }
     });
@@ -166,25 +154,25 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
 
   }
 
-  onChangeStatusNo() {
-    let self = this;
+  // onChangeStatusNo() {
+  //   let self = this;
 
-    if (self.mStatusNo > 0) {
-      if (self.mStatusNo == 1) {
-        self.isDisable = true;
-        self.isDisableBirth = false;
-        self.isDisableAbort = true;
-      } else {
-        self.isDisable = true;
-        self.isDisableBirth = true;
-        self.isDisableAbort = false;
-      }
-    } else {
-      self.isDisableBirth = true;
-      self.isDisable = false;
-      self.isDisableAbort = true;
-    }
-  }
+  //   if (self.mStatusNo > 0) {
+  //     if (self.mStatusNo == 1) {
+  //       self.isDisable = true;
+  //       self.isDisableBirth = false;
+  //       self.isDisableAbort = true;
+  //     } else {
+  //       self.isDisable = true;
+  //       self.isDisableBirth = true;
+  //       self.isDisableAbort = false;
+  //     }
+  //   } else {
+  //     self.isDisableBirth = true;
+  //     self.isDisable = false;
+  //     self.isDisableAbort = true;
+  //   }
+  // }
 
   onModalEvent() {
     let self = this;
@@ -320,6 +308,9 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
     } else {
       self.isDisplayPregnantType = false;
     }
+
+    self.clearListChild();
+    self.bindChildList();
   }
 
   onChangeBornDueDate(event: IMyDateModel) {
@@ -328,7 +319,7 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
     // console.log(event);
     self.pregnantBean.bornDueDate = self.getStringDateForDatePickerModel(event.date);
   }
-  
+
   onChangeBornDate(event: IMyDateModel) {
     let self = this;
 
@@ -368,6 +359,34 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
           self.listChild.splice(index, 1);
         }
       }
+    });
+  }
+
+  onClickConfirm() {
+    let self = this;
+
+    self.loading = true;
+
+    self.pregnantBean.documentID = self.documentId;
+    let bornDate = self.pregnantBean.bornDate;
+    let bornLocationId = self.pregnantBean.bornLocationId;
+    let bornTypeId = self.pregnantBean.bornTypeId;
+    let abortionCause = self.pregnantBean.abortionCause;
+
+    if (self.listChild && self.listChild.lenght > 0) {
+      for (let item of self.listChild) {
+        item.bornDate = bornDate;
+        item.bornLocationId = bornLocationId;
+        item.bornTypeId = bornTypeId;
+        item.abortionCause = abortionCause;
+      }
+      self.pregnantBean.childs = self.listChild;
+    } else {
+      self.pregnantBean.childs = [];
+    }
+
+    self.apiHttp.commit_save(self.pregnantBean, function (d) {
+      self.loading = false;
     });
   }
 
