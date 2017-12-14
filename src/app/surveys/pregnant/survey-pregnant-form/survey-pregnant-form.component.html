@@ -43,9 +43,9 @@
                         <label class="label-form">สถานะครรภ์</label>
                     </div>
                     <div class="col-md-3">
-                        <select [(ngModel)]="pregnantType" (change)="onChangePregnantType();">
-                            <option value="0">กำลังตั้งครรภ์</option>
-                            <option value="1">คลอดแล้ว</option>
+                        <select [(ngModel)]="pregnantBean.pSurveyTypeCode" (change)="onChangePregnantType();">
+                            <option value="Pregnant">กำลังตั้งครรภ์</option>
+                            <option value="Born">คลอดแล้ว</option>
                         </select>
                     </div>
 
@@ -54,7 +54,7 @@
                             <label class="label-form">กำหนดคลอด</label>
                         </div>
                         <div class="col-md-3">
-                            <my-date-picker [options]="datePickerOptions" required></my-date-picker>
+                            <my-date-picker name="bornDueDate" [options]="datePickerOptions" [(ngModel)]="modelBornDueDate" (dateChanged)="onChangeBornDueDate($event)"></my-date-picker>
                         </div>
                     </div>
 
@@ -63,7 +63,7 @@
                             <label class="label-form">วันที่คลอด</label>
                         </div>
                         <div class="col-md-3">
-                            <my-date-picker [options]="datePickerOptions" required></my-date-picker>
+                            <my-date-picker name="bornDate" [options]="datePickerOptions" [(ngModel)]="modelBornDate" (dateChanged)="onChangeBornDate($event)"></my-date-picker>
                         </div>
                     </div>
                 </div>
@@ -73,7 +73,7 @@
                         <label>โรงพยาบาลที่คลอด</label>
                     </div>
                     <div class="col-md-3">
-                        <select [(ngModel)]="bornLocation">
+                        <select [(ngModel)]="pregnantBean.bornLocationId">
                             <option value="">--เลือก โรงพยาบาล--</option>
                             <option *ngFor="let item of listBornLocation" [value]="item.id">{{item.name}}</option>
                         </select>
@@ -82,7 +82,7 @@
                         <label class="label-form">วิธีคลอด</label>
                     </div>
                     <div class="col-md-3">
-                        <select [(ngModel)]="bornType">
+                        <select [(ngModel)]="pregnantBean.bornTypeId">
                             <option value="">--เลือก วิธีคลอด--</option>
                             <option *ngFor="let item of listBornType" [value]="item.id">{{item.name}}</option>
                         </select>
@@ -90,12 +90,12 @@
 
                 </div>
 
-                <div class="row" [hidden]="bornType == 4 ? false : true">
+                <div class="row" [hidden]="pregnantBean.bornTypeId == 4 ? false : true">
                     <div class="col-md-2 text-right">
                         <label class="label-form">หมายเหตุ</label>
                     </div>
                     <div class="col-md-3">
-                        <input type="text">
+                        <input type="text" [(ngModel)]="pregnantBean.abortionCause">
                     </div>
                 </div>
 

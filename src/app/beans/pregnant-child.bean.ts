@@ -7,4 +7,8 @@ export class PregnantChildBean {
     public bloodTypeId: string = "";
     public bloodTypeName: string = "";
     public weight: string = "";
+
+    public bornLocationId: string;
+    public bornTypeId: string;
+    public abortionCause: string;
 }

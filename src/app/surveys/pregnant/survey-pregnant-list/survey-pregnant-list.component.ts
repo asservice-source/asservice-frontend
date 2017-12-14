@@ -8,6 +8,7 @@ import { ActionCustomViewComponent } from '../../../action-custom-table/action-c
 import { LocalDataSource } from 'ng2-smart-table';
 import { PregnantBean } from '../../../beans/pregnant.bean'
 import { Service_SurveyPregnant } from '../../../service/service-survey-pregnant';
+import { CompileMetadataResolver } from '@angular/compiler';
 declare var $: any
 
 @Component({
@@ -87,6 +88,7 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
         renderComponent: ActionCustomViewComponent,
         onComponentInitFunction(instance) {
           instance.action.subscribe((row: PregnantBean, cell) => {
+            console.log('-------------------');
             console.log(row);
             if (row && row.action.toUpperCase() == self.ass_action.EDIT) {
               self.pregnantBean = row;
@@ -112,7 +114,7 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
     let osmId = event.osmId;
     let name = event.fullName;
 
-    self.BindPregnantList(self.documentId, villageId, osmId, name);
+    self.bindPregnantList(self.documentId, villageId, osmId, name);
 
     // this.http.get("assets/data_test/data_home_personal.json")
     //   .map(res => res.json())
@@ -123,7 +125,7 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
     //   });
   }
 
-  BindPregnantList(roundId, villageId, osmId, name) {
+  bindPregnantList(roundId, villageId, osmId, name) {
     let self = this;
 
     self.loading = true;

@@ -29,5 +29,13 @@ export class PregnantBean {
     public familyStatus: string = "";
     public age: number;
     public address: string;
+
+    public pSurveyTypeCode: string;
     public childs: any;
+
+    public bornDueDate: string;
+    public bornDate: string;
+    public bornLocationId: string;
+    public bornTypeId: string;
+    public abortionCause: string;
 }
