@@ -17,8 +17,8 @@ export class PregnantBean {
     public religionName: string = "";
     public bloodTypeId: string = "";
     public bloodTypeName: string = "";
-    public rHGroupId: string = "";
-    public rHGroupName: string = "";
+    public rhGroupId: string = "";
+    public rhGroupName: string = "";
     public birthDate: any;
     public educationCode: string = "";
     public educationName: string = "";
@@ -30,12 +30,20 @@ export class PregnantBean {
     public age: number;
     public address: string;
 
-    public pSurveyTypeCode: string;
+    public pSurveyTypeCode: string = "";
     public childs: any;
 
-    public bornDueDate: string;
-    public bornDate: string;
-    public bornLocationId: string;
-    public bornTypeId: string;
-    public abortionCause: string;
+    public bornDueDate: string = "";
+    public bornDate: string = "";
+    public bornLocationId: string = "";
+    public bornTypeId: string = "";
+    public abortionCause: string = "";
+
+    public rowGUID: string = "";
+    public documentID: string = "";
+    public osmId: string = "";
+    public homeId: string = "";
+    public masterGUID: string = "";
+    public personId: string = "";
+    public wombNo: string = "";
 }

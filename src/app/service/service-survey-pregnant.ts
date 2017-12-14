@@ -1,75 +1,76 @@
 import { ApiHTTPService } from "./api-http.service";
-import { PersonalMemberBean } from "../beans/personal-member.bean";
 import { RequestOptions, Headers } from "@angular/http";
-import { BaseComponent } from "../base-component";
+import { PregnantBean } from "../beans/pregnant.bean";
+import { PregnantChildBean } from "../beans/pregnant-child.bean";
 
 export class Service_SurveyPregnant extends ApiHTTPService {
 
     public attr: any;
-    public base: BaseComponent;
+
     constructor() {
         super();
-        this.base = new BaseComponent();
     }
 
-    // public map(bean: PersonalMemberBean): any {
-    //     let self = this;
+    public map(bean: PregnantBean): any {
+        let self = this;
 
-    //     let params =
-    //         {
-    //             "citizenId": bean.citizenId,
-    //             "prefixCode": bean.prefixCode,
-    //             "firstName": bean.firstName,
-    //             "lastName": bean.lastName,
-    //             "nickName": bean.nickName,
-    //             "genderId": bean.genderId,
-    //             "raceCode": bean.raceCode,
-    //             "nationCode": bean.nationalityCode,
-    //             "religionCode": bean.religionCode,
-    //             "bloodTypeId": bean.bloodTypeId,
-    //             "rhGroupId": bean.rhGroupId,
-    //             "birthDate": bean.birthDate,
-    //             "educationCode": bean.educationCode,
-    //             "occupCode": bean.occupationCode,
-    //             "laborCode": bean.laborCode,
-    //             "passport": bean.passport,
-    //             "isDead": bean.isDead,
-    //             "deadDate": bean.deadDate,
-    //             "dischargeId": bean.dischargeId,
-    //             "familyStatusId": bean.familyStatusId,
-    //             "fatherCid": bean.fatherCid,
-    //             "motherCid": bean.motherCid,
-    //             "coupleCid": bean.coupleCid,
-    //             "personId": bean.personId,
-    //             "homeId": bean.homeId,
-    //             "isGuest": bean.isGuest,
-    //             "isExists": bean.isExists,
-    //             "mStatusCode": bean.mStatusCode,
-    //             "vStatusCode": bean.vStatusCode,
-    //             "congenitalDisease": bean.congenitalDisease,
-    //             "remark": bean.remark,
+        let params =
+            {
+                "rowGUID": bean.rowGUID,
+                "documentID": bean.documentID,
+                "osmId": bean.osmId,
+                "homeID": bean.homeId,
+                "masterGUID": bean.masterGUID,
+                "personId": bean.personId,
+                "wombNo": bean.wombNo,
+                "bornDueDate": bean.bornDueDate,
+                "pSurveyTypeCode": bean.pSurveyTypeCode,
+                "childs": self.map_child(bean.childs)
+            };
+        params = self.baseComponent.strNullToEmpty(params);
 
-    //             "homeNo": bean.homeNo,
-    //             "mooNo": bean.mooNo,
-    //             "road": bean.road,
-    //             "provinceCode": bean.provinceCode,
-    //             "amphurCode": bean.amphurCode,
-    //             "tumbolCode": bean.tumbolCode
-    //         };
-    //     params = self.base.strNullToEmpty(params);
+        return params;
+    }
 
-    //     return params;
-    // }
+    public map_child(bean: any): any {
+        let self = this;
 
-    // public commit_save(bean: PersonalMemberBean, callback: (doc: any) => void) {
-    //     let self = this;
-    //     let parameters = self.base.strNullToEmpty(self.map(bean));
-    //     console.log(parameters);
+        let list = [];
 
-    //     self.post('survey_population/population_add_home_member', parameters, function (d) {
-    //         callback(d);
-    //     });
-    // }
+        for (let item of bean) {
+            let params =
+                {
+                    "bloodTypeId": item.bloodTypeId,
+                    "bornTypeId": item.bornTypeId,
+                    "birthDate": item.birthDate,
+                    "weight": item.weight,
+                    // "prefixCode": item.,
+                    "firstName": item.firstName,
+                    "lastName": item.lastName,
+                    "genderId": item.genderId,
+                    "bornLocationId": item.bornLocationId,
+                    "bornCitizenId": item.bornCitizenId,
+                    "abortionCause": item.abortionCause
+                };
+            params = self.baseComponent.strNullToEmpty(params);
+            list.push(params);
+        }
+
+        return list;
+    }
+
+    public commit_save(bean: PregnantBean, callback: (doc: any) => void) {
+        let self = this;
+
+        let parameters = self.baseComponent.strNullToEmpty(self.map(bean));
+
+        console.log('save pregnant');
+        console.log(parameters);
+        callback([]);
+        // self.post('survey_pregnant/ins_upd_pregnant_info', parameters, function (d) {
+        //     callback(d);
+        // });
+    }
 
     // public commit_save_survey(homeId: string, osmId: string, roundId: string, beanList: Array<any>, callback: (doc: any) => void) {
     //     let self = this;

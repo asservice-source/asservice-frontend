@@ -4,7 +4,7 @@ import { Router } from "@angular/router";
 import { FilterHeadSurveyBean } from '../../../beans/filter-head-survey.bean';
 import { BaseComponent } from "./../../../base-component";
 import { PersonBean } from "../../../beans/person.bean";
-import { ActionCustomViewComponent } from '../../../action-custom-table/action-custom-view.component';
+import { ActionCustomView_2_Component } from '../../../action-custom-table/action-custom-view.component';
 import { LocalDataSource } from 'ng2-smart-table';
 import { PregnantBean } from '../../../beans/pregnant.bean'
 import { Service_SurveyPregnant } from '../../../service/service-survey-pregnant';
@@ -85,11 +85,9 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
         sort: false,
         width: '120px',
         type: 'custom',
-        renderComponent: ActionCustomViewComponent,
+        renderComponent: ActionCustomView_2_Component,
         onComponentInitFunction(instance) {
           instance.action.subscribe((row: PregnantBean, cell) => {
-            console.log('-------------------');
-            console.log(row);
             if (row && row.action.toUpperCase() == self.ass_action.EDIT) {
               self.pregnantBean = row;
               self.onModalForm(self.ass_action.EDIT);
@@ -102,6 +100,8 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
 
   ngOnInit() {
     let self = this;
+
+    self.loading = true;
   }
 
   onClickSearch(event: FilterHeadSurveyBean) {
@@ -133,7 +133,7 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
     let params = { "documentId": roundId, "villageId": villageId, "osmId": osmId, "name": name };
 
     self.apiHttp.post("survey_pregnant/search_pregnant_info_list", params, function (d) {
-      if (d != null && d.status.toUpperCase() == "SUCCESS") {
+      if (d != null && d.status.toString().toUpperCase() == "SUCCESS") {
         console.log(d);
         self.source = self.ng2STDatasource(d.response);
         self.isShowTable = true;
