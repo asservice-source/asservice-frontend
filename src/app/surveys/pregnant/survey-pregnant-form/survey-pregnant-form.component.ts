@@ -6,6 +6,8 @@ import { LocalDataSource } from 'ng2-smart-table';
 import { ActionCustomView_2_Component } from '../../../action-custom-table/action-custom-view.component';
 import { PregnantChildBean } from '../../../beans/pregnant-child.bean';
 import { ApiHTTPService } from '../../../service/api-http.service';
+import { IMyDateModel } from 'mydatepicker-thai';
+declare var $: any
 
 @Component({
   selector: 'app-survey-pregnant-form',
@@ -51,6 +53,9 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
 
   public settings: any;
   public source: LocalDataSource;
+
+  public modelBornDueDate: any = null;
+  public modelBornDate: any = null;
 
   constructor(private changeRef: ChangeDetectorRef) {
     super();
@@ -124,7 +129,6 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
             self.tmpChildBean = row;
             self.childBean = self.cloneObj(row);
             self.actionChild = self.ass_action.EDIT;
-            console.log(row);
           });
 
           instance.delete.subscribe(row => {
@@ -273,13 +277,23 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
   onChoosePersonal(bean: any): void {
     let self = this;
 
-    self.pregnantBean = bean;
-
     self.isFindPersonal = false;
     self.isShowForm = true;
 
+    self.pregnantBean = bean;
+
+    self.onChangePregnantType();
+
+    self.modelBornDueDate = self.getDatePickerModel(self.pregnantBean.bornDueDate);
+
     self.clearListChild();
     if (self.pregnantBean.childs) {
+
+      self.modelBornDate = self.getDatePickerModel(self.pregnantBean.childs[0].birthDate);
+      self.pregnantBean.bornLocationId = self.pregnantBean.childs[0].bornLocationId;
+      self.pregnantBean.bornTypeId = self.pregnantBean.childs[0].bornTypeId;
+      self.pregnantBean.abortionCause = self.pregnantBean.childs[0].abortionCause;
+
       for (let item of self.pregnantBean.childs) {
         let child = new PregnantChildBean();
         child.genderId = item.genderId;
@@ -301,11 +315,25 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
   onChangePregnantType() {
     let self = this;
 
-    if (self.pregnantType == 1) {
+    if (self.pregnantBean.pSurveyTypeCode == "Born") {
       self.isDisplayPregnantType = true;
     } else {
       self.isDisplayPregnantType = false;
     }
+  }
+
+  onChangeBornDueDate(event: IMyDateModel) {
+    let self = this;
+
+    // console.log(event);
+    self.pregnantBean.bornDueDate = self.getStringDateForDatePickerModel(event.date);
+  }
+  
+  onChangeBornDate(event: IMyDateModel) {
+    let self = this;
+
+    // console.log(event);
+    self.pregnantBean.bornDate = self.getStringDateForDatePickerModel(event.date);
   }
 
   onClickConfirmChild() {
@@ -346,8 +374,12 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
   onClickBack() {
     let self = this;
 
-    self.isFindPersonal = true;
-    self.isShowForm = false;
+    if (self.action == self.ass_action.ADD) {
+      self.isFindPersonal = true;
+      self.isShowForm = false;
+    } else {
+      $("#find-person-md").modal("hide");
+    }
   }
 
   clearInputChild() {
