@@ -1,5 +1,6 @@
 import { Component, OnInit,Input } from '@angular/core';
 import { ApiHTTPService } from "../../service/api-http.service";
+import { UserService } from '../../service/user.service';
 
 @Component({
   selector: 'app-main-left-side',
@@ -13,7 +14,7 @@ export class MainLeftSideComponent implements OnInit {
   public osmMenus: any = {};
 
   private api: ApiHTTPService = new ApiHTTPService();
-  constructor() { }
+  constructor(private userInfo: UserService) { }
 
   ngOnInit() {
     this.setupMenu();

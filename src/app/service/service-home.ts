@@ -26,7 +26,7 @@ export class Service_Home extends ApiHTTPService{
         return this.attr;
     }
     public commit_save(bean: HomeBean, callback:(doc:any)=>void){
-        let parameter = this.base.strNullToEmpty(this.map(bean));
+        let parameter = this.baseComponent.strNullToEmpty(this.map(bean));
         console.log('<<<< Params >>>>');
         console.log(parameter);
         this.post('home/ins_upd_home', parameter, function(response){
@@ -48,7 +48,7 @@ export class Service_Home extends ApiHTTPService{
             if(response && response.status.toString().toUpperCase()=='SUCCESS'){
                 callback(response.response);
             }else{
-                _self.base.message_servNotRespond('', response.message);
+                _self.baseComponent.message_servNotRespond('', response.message);
             }
         });
     }

@@ -4,7 +4,7 @@ import { FilterHeadSurveyBean } from '../beans/filter-head-survey.bean';
 import * as myconf from "../global-config";
 import { BaseComponent } from '../base-component';
 export class ApiHTTPService  implements OnInit {
-    public base: BaseComponent = new BaseComponent();
+    public baseComponent: BaseComponent = new BaseComponent();
     public http;
     constructor() {
         let injector = ReflectiveInjector.resolveAndCreate([
@@ -23,10 +23,10 @@ export class ApiHTTPService  implements OnInit {
     }
    
     get(url: string, params: any, callback: (doc: any) => void) {
-        this.http.get(this.base.getApiUrl(url), params)
+        this.http.get(this.baseComponent.getApiUrl(url), params)
             .map(res => res.json())
             .subscribe(
-            data => callback(data),
+            data => callback(this.baseComponent.strNullToEmpty(data)),
             err => err,
             () => console.log('Fetching complete for Server Api.')
             )
@@ -36,10 +36,10 @@ export class ApiHTTPService  implements OnInit {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers, method: "post" });
 
-        this.http.post(this.base.getApiUrl(url), params, options)
+        this.http.post(this.baseComponent.getApiUrl(url), params, options)
             .map(res => res.json())
             .subscribe(
-            data => callback(data),
+            data => callback(this.baseComponent.strNullToEmpty(data)),
             err => callback(err),
             () => console.log('Fetching url Server Api : ' + url)
             )
@@ -138,7 +138,7 @@ export class ApiHTTPService  implements OnInit {
 
     public api_SurveyHeaderList(headerTypeCode: string, callback: (doc: any) => void){
         console.log(headerTypeCode);
-        this.callResponse('survey/survey_header_list', {"headerTypeCode": headerTypeCode, "hospitalCode": this.base.getHospitalCode()}, callback);
+        this.callResponse('survey/survey_header_list', {"headerTypeCode": headerTypeCode, "hospitalCode": this.baseComponent.getHospitalCode()}, callback);
     }
 
     public api_CancerList(callback: (doc: any) => void){
