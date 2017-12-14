@@ -12,8 +12,8 @@ export class Service_Village extends ApiHTTPService{
    public map(bean: VillageBean): any{
         this.attr = 
         {
-            "hospitalCode": this.base.getHospitalCode(),
-            "createdBy": this.base.getUserFullName(),
+            "hospitalCode": this.baseComponent.getHospitalCode(),
+            "createdBy": this.baseComponent.getUserFullName(),
             "villageNo": bean.villageNo,
             "villageName": bean.villageName.trim()
         };
@@ -22,7 +22,7 @@ export class Service_Village extends ApiHTTPService{
    }
 
    public commit_save(bean: VillageBean, callback: (doc: any) => void){
-        let parameter = this.base.strNullToEmpty(this.map(bean));
+        let parameter = this.baseComponent.strNullToEmpty(this.map(bean));
         console.log(" = = = parameter = = = village/add_village");
         console.log(parameter);
         this.post('village/add_village', parameter , callback);

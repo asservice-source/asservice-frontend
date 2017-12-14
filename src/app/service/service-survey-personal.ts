@@ -6,10 +6,8 @@ import { BaseComponent } from "../base-component";
 export class Service_SurveyPersonal extends ApiHTTPService {
 
     public attr: any;
-    public base: BaseComponent;
     constructor() {
         super();
-        this.base = new BaseComponent();
     }
 
     public map(bean: PersonalMemberBean): any {
@@ -56,7 +54,7 @@ export class Service_SurveyPersonal extends ApiHTTPService {
                 "amphurCode": bean.amphurCode,
                 "tumbolCode": bean.tumbolCode
             };
-        params = self.base.strNullToEmpty(params);
+        params = self.baseComponent.strNullToEmpty(params);
 
         return params;
     }
@@ -72,7 +70,7 @@ export class Service_SurveyPersonal extends ApiHTTPService {
 
     public commit_save(bean: PersonalMemberBean, callback: (doc: any) => void) {
         let self = this;
-        let parameters = self.base.strNullToEmpty(self.map(bean));
+        let parameters = self.baseComponent.strNullToEmpty(self.map(bean));
         console.log(parameters);
 
         self.post('survey_population/population_add_home_member', parameters, function(d){

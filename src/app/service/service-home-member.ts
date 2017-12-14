@@ -5,10 +5,8 @@ import { PersonalBasicBean } from "../beans/personal-basic.bean";
 export class Service_HomeMember extends ApiHTTPService{
 
     public attr: any;
-    public baseComp: BaseComponent;
     constructor(){
         super();
-        this.base = new BaseComponent();
     }
     public map(bean: PersonalBasicBean):any{
         this.attr = {
@@ -54,7 +52,7 @@ export class Service_HomeMember extends ApiHTTPService{
         return this.attr;
     }
     public commit_save(bean: PersonalBasicBean, callback:(doc:any)=>void){
-        let parameter = this.base.strNullToEmpty(this.map(bean));
+        let parameter = this.baseComponent.strNullToEmpty(this.map(bean));
         console.log('<<<< Params >>>>');
         console.log(parameter);
         this.post('survey_population/population_add_home_member', parameter, function(response){
@@ -76,7 +74,7 @@ export class Service_HomeMember extends ApiHTTPService{
                 console.log("Before CallBack");
                 callback(response.response);
             }else{
-                _self.baseComp.message_servNotRespond('', response.message);
+                _self.baseComponent.message_servNotRespond('', response.message);
             }
         });
     }

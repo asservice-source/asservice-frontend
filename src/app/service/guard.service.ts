@@ -12,14 +12,14 @@ export class GuardService {
         this.baseComp = new BaseComponent();
         let jsonUInfo: any = localStorage.getItem("uinfo");
         if(!jsonUInfo){
-            
             this.router.navigate(["login"]);
             return false;
 
         }else{
 
             jsonUInfo = JSON.parse(jsonUInfo);
-            this.baseComp.copyObj(jsonUInfo, this.user);
+            //this.baseComp.copyObj(jsonUInfo, this.user);
+            this.user.set(jsonUInfo);
 
             return true;
         }

@@ -6,7 +6,6 @@ import { BaseComponent } from "../base-component";
 export class Service_SurveyDead extends ApiHTTPService {
 
    public attr: any;
-   private baseComp: BaseComponent = new BaseComponent();
    constructor(){
     super();
    }
@@ -44,7 +43,7 @@ export class Service_SurveyDead extends ApiHTTPService {
 
    public commit_save(bean: DeadBean, callback: (doc: any) => void){
        
-        let parameter = this.baseComp.strNullToEmpty(this.map(bean));
+        let parameter = this.baseComponent.strNullToEmpty(this.map(bean));
         console.log(" = = = parameter = = = survey_death/ins_upd_death_info");
         console.log(parameter);
         this.post('survey_death/ins_upd_death_info', parameter , callback);

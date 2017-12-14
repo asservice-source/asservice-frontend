@@ -23,6 +23,7 @@ import { ManagementStaffVillageListComponent } from "./../managements/staff/mana
 import { RegisterActiveComponent } from './../register/register-active/register-active.component';
 import { ManagementHomeComponent } from "./../managements/osm/management-home/list/management-home.component";
 import { ManagementHomeMemberComponent } from "./../managements/osm/management-home-member/list/management-home-member.component";
+import { GuardPermissionService } from '../service/guard.permission.service';
 
 @NgModule({
   imports: [
@@ -67,6 +68,7 @@ import { ManagementHomeMemberComponent } from "./../managements/osm/management-h
           children: [
             {
               path: 'staff',
+              canActivate: [GuardPermissionService],
               children:[
                 {
                   path: 'village',
@@ -143,7 +145,7 @@ import { ManagementHomeMemberComponent } from "./../managements/osm/management-h
     ])
   ],
   declarations: [],
-  providers: [GuardService],
+  providers: [GuardService, GuardPermissionService],
   exports: [RouterModule]
 
 })

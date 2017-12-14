@@ -131,6 +131,7 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
                 _self.action = _self.ass_action.EDIT;
                 _self.isVerify = true;
                 _self.bean = response;
+                _self.bean.villageId = '';
                 _self.bean.isActive = true;
                 _self.setDatePickerModel();
                 _self.oldCitizenId = _self.bean.citizenId;

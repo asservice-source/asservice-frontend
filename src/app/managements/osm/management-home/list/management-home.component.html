@@ -1,6 +1,6 @@
 <div class="panel panel-default">
   <div class="panel-heading">
-    <label>จัดการเขตรับผิดชอบ อสม.</label>
+    <label>จัดการเขตรับผิดชอบ {{userInfo.roleAcronym}}</label>
   </div>
   <div class="panel-body">
     <div class="header-info">
@@ -9,8 +9,8 @@
         <div class="col-sm-12">
           <div class="box-body">
             <dl class="dl-horizontal">
-              <dt>อสม. : </dt>
-              <dd>{{getUserFullName()}}</dd>
+              <dt>{{userInfo.roleAcronym}} : </dt>
+              <dd>{{userInfo.fullName}}</dd>
               <dt>หมู่ที่ : </dt>
               <dd>{{userInfo.villageNo + ' ' + userInfo.villageName}}</dd>
             </dl>
