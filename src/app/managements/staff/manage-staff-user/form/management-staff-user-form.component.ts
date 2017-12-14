@@ -172,7 +172,7 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
     let roleName = "";
     let fullName = this.getFullName('', this.bean.firstName, this.bean.lastName);
     if(this.isStaff){
-      this.bean.villageId;
+      this.bean.villageId = '';
       this.bean.roleId ='3';
       roleName = "รพ.สต."
     }else{

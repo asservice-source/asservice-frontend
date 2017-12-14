@@ -187,6 +187,8 @@ export class RegisterComponent extends BaseComponent implements OnInit {
             //   message: "กรุณาตรวจสอบอีเมลของท่านเพื่อยืนยันการลงทะเบียน",
             //   callback: function () { location.href = '/login' }
             // });
+          }else{
+            self.message_error('', resp.message || 'ไม่สามารถลงทะเบียนได้');
           }
         })
       }

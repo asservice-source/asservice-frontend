@@ -85,6 +85,7 @@ export class BaseComponent implements OnInit {
     }
     public ng2STDatasource(source: any): LocalDataSource {
         this.ng2STDataSource = new LocalDataSource(source);
+        this.ng2STDataSource.refresh();
         return this.ng2STDataSource;
     }
     private isRefrestData = false;

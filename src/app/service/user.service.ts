@@ -9,6 +9,7 @@ export class UserService {
     public hospitalCode5: string;
     public hospitalCode9: string;
     public hospitalName: string;
+    public hospitalDisplayName: string;
     public personId: string;
     public citizenId: string;
     public roleId: string;
@@ -39,6 +40,7 @@ export class UserService {
         this.hospitalCode5 = response.code5
         this.hospitalCode9 = response.code9
         this.hospitalName = response.hospitalName
+        this.hospitalDisplayName = response.hospitalDisplayName
         this.villageId = response.villageId
         this.villageNo = response.villageNo
         this.villageName = response.villageName

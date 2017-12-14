@@ -11,7 +11,7 @@ declare var AdminLTE: any;
 })
 @Injectable()
 export class MainContentComponent implements OnInit {
-  constructor(private userInfo: UserService) {
+  constructor(public userInfo: UserService) {
     
   }
   ngOnInit() {

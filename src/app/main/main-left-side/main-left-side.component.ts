@@ -14,7 +14,7 @@ export class MainLeftSideComponent implements OnInit {
   public osmMenus: any = {};
 
   private api: ApiHTTPService = new ApiHTTPService();
-  constructor(private userInfo: UserService) { }
+  constructor(public userInfo: UserService) { }
 
   ngOnInit() {
     this.setupMenu();

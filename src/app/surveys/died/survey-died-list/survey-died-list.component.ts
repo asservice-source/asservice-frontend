@@ -132,6 +132,7 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
       _self.datas = response;
       _self.setupTable();
       _self.loading = false;
+      _self.changeRef.detectChanges();
     });
   }
 
@@ -149,7 +150,7 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
   setupTable() {
     this.source = super.ng2STDatasource(this.datas);
     this.isShowList = true;
-    this.changeRef.detectChanges();
+   
   }
 
   onDelete(bean: DeadBean) {
