@@ -5,6 +5,7 @@ import { Http, Response, RequestOptions, RequestMethod } from "@angular/http";
 import { FilterHeadSurveyBean } from '../../beans/filter-head-survey.bean';
 import { ApiHTTPService } from '../../service/api-http.service';
 import { BaseComponent } from '../../base-component';
+import { UserService } from '../../service/user.service';
 
 declare var $: any;
 
@@ -27,6 +28,7 @@ export class FilterHeadSurveyComponent extends BaseComponent implements OnInit {
   public isDisabledName = true;
   public description: any = {round: '', village: 'ทั้งหมด', osm: 'ทั้งหมด', name: ''};
   public headerList: any = [];
+  public isStaff: boolean;
 
   constructor(private http: Http) {
     super();
@@ -35,11 +37,19 @@ export class FilterHeadSurveyComponent extends BaseComponent implements OnInit {
     this.filterBean.villageId = '';
     this.filterBean.osmId = '';
     this.filterBean.fullName = '';
+    if(this.userInfo.roleId == '3'){
+      this.isStaff = true;
+      this.setupVillage();
+    }else{
+      this.isStaff = false;
+      this.filterBean.villageId = this.userInfo.villageId;
+      this.filterBean.osmId = this.userInfo.personId;
+    }
+     
   } 
 
   ngOnInit() {
     this.setupHeaderList();
-    this.setupVillage();
   }
   setupHeaderList(){
     let _self = this;

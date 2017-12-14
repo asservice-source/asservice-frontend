@@ -114,7 +114,7 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.loading = true;
   }
 
   onChangeFilter(event: FilterHeadSurveyBean) {

@@ -122,7 +122,7 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
     this.inputValidate.isCheck = true;
     let date = this.bean.mDateDead.date;    
     this.bean.deathDate = this.getStringDateForDatePickerModel(this.bean.mDateDead.date)+' '+this.bean.mHours+':'+this.bean.mMins+':00.0';
-  
+    console.log(this.bean);
     if(this.action==this.ass_action.ADD){
       this.bean.documentId = this.currentDocumentId;
     }
@@ -135,7 +135,12 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
     if(!this.bean.isCauseOther){
       this.bean.causeOther = "";
     }else{
+      fieldsCheck.push("causeOther");
+    }
+    if(this.bean.deathPlaceCode=='9'){
       fieldsCheck.push("placeOther");
+    }else{
+      this.bean.placeOther = '';
     }
     let simpvalidate: SimpleValidateForm = new SimpleValidateForm();
     let objs = simpvalidate.getObjectEmpty_byFilds(this.apiDead.map(this.bean), fieldsCheck);
@@ -145,6 +150,7 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
     }else{
       $("#isNoDisease").hide();
     }
+    console.log(objs);
     if(objs.length<=0){
 
       let _self = this;

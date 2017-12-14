@@ -23,7 +23,6 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
   public villageList: any;
   public genderList: any;
   public inputValidate: InputValidateInfo = new InputValidateInfo();
-  public isShowVerify: boolean = true;
   public isVerify: boolean = false;
   public mBirthDate: any;
   public oldCitizenId: string;
@@ -78,17 +77,10 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
       console.log(_self.bean);
       if(_self.bean.personId){
         _self.action = _self.ass_action.EDIT;
-      }else{
-        _self.action = _self.ass_action.ADD;
-      }
-
-      console.log(">>>> ACT == "+_self.action);
-      if(_self.action==_self.ass_action.EDIT){
         _self.oldCitizenId = _self.bean.citizenId;
-        _self.isShowVerify = false;
         _self.isVerify = true;
       }else{
-        _self.isShowVerify = true;
+        _self.action = _self.ass_action.ADD;
         _self.isVerify = false;
       }
       
@@ -117,9 +109,9 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
            let msg = 'หมายเลขประชาชน <b>'+ _self.bean.citizenId +'</b> มีข้อมูลในระบบแล้ว';
            let userRoleId = +(response.userRoleId);
           if(
-            (_self.isStaff && userRoleId != 2)
+            (_self.isStaff && userRoleId != 3)
            ||
-            (_self.isStaff && userRoleId == 2 && response.hospitalCode5 == _self.getHospitalCode())
+            (_self.isStaff && userRoleId == 3 && response.hospitalCode5 == _self.getHospitalCode())
            || 
             (userRoleId==5 && response.hospitalCode5 == _self.getHospitalCode())
            || 

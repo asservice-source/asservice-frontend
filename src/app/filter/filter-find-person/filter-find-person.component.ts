@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, ChangeDetectorRef } from '@angular/core';
 import { BaseComponent } from "../../base-component";
 import { PersonBean } from "../../beans/person.bean";
 import { VillageBean } from '../../beans/village.bean';
@@ -38,74 +38,34 @@ export class FilterFindPersonComponent extends BaseComponent implements OnInit {
   public settings: any;
   public source: LocalDataSource;
   public loading: boolean = false;
-  
-  constructor(private http: Http) {
+  public isStaff: boolean;
+
+  constructor(private changeRef: ChangeDetectorRef ) {
     super();
+    this.api = new ApiHTTPService();
+    this.personBean = new PersonBean();
+    this.personBean.citizenId = "";
+    this.personBean.fullName;
 
-    let self = this;
+    if(this.userInfo.roleId == '3'){
+      this.isStaff = true;
+      this.setupVillage();
+    }else{
+      this.isStaff = false;
+      this.filterBean.villageId = this.userInfo.villageId;
+      this.filterBean.osmId = this.userInfo.personId;
+      this.setupHome();
+    }
 
-    self.api = new ApiHTTPService();
-    self.personBean = new PersonBean();
-    self.personBean.citizenId = "";
-    self.personBean.fullName;
+    this.settingTable();
 
-    self.settings = self.getTableSetting({
-      fullName: {
-        title: 'ชื่อ - นามสกุล',
-        filter: false,
-        width: '180px',
-      },
-      citizenId: {
-        title: 'เลขประจำตัวประชาชน',
-        filter: false,
-        width: '180px',
-        type: 'html',
-        valuePrepareFunction: (cell, row) => {
-          return '<div class="text-center">' + cell + '</div>'
-        }
-      },
-      age: {
-        title: 'อายุ',
-        filter: false,
-        width: '70px',
-        type: 'html',
-        valuePrepareFunction: (cell, row) => {
-          return '<div class="text-center">' + cell + '</div>'
-        }
-      },
-      familyStatusName: {
-        title: 'สถานะ',
-        filter: false,
-        width: '120px',
-        type: 'html',
-        valuePrepareFunction: (cell, row) => {
-          return '<div class="text-center">' + cell + '</div>'
-        }
-      },
-      action: {
-        title: 'การทำงาน',
-        filter: false,
-        sort: false,
-        width: '120px',
-        type: 'custom',
-        renderComponent: FilterFindPersonButtonChooseComponent,
-        onComponentInitFunction(instance) {
-          instance.action.subscribe((row: PersonBean, cell) => {
-            console.log(row);
-            self.onChoosePerson(row);
-          });
-        }
-      }
-    });
   }
 
   ngOnInit() {
-    this.setupVillage();
+    
   }
 
   ngOnChanges(changes): void {
-    console.log("OnChanges");
-    console.log(changes);
     if (changes['findPersonal']) {
       this.isShowFind = this.findPersonal;
     }
@@ -113,6 +73,9 @@ export class FilterFindPersonComponent extends BaseComponent implements OnInit {
       this.filterBean.villageId = "";
       this.changVillageNo();
 
+    }
+    if(!this.isStaff){
+      this.isDisabledHomeNo = false;
     }
   }
 
@@ -148,7 +111,6 @@ export class FilterFindPersonComponent extends BaseComponent implements OnInit {
 
   doSearchPerson() {
     this.isDisabledPerson = false;
-    //this.setupMemberList();
     this.setupSurveyHomeMemberList();
   }
 
@@ -203,7 +165,6 @@ export class FilterFindPersonComponent extends BaseComponent implements OnInit {
     this.api.api_HomeList(this.filterBean.villageId, this.filterBean.osmId
       , function (response) {
         self.homeData = response;
-        console.log(self.homeData);
         self.isDisabledOSM = false;
         self.isDisabledHomeNo = false;
       });
@@ -216,6 +177,58 @@ export class FilterFindPersonComponent extends BaseComponent implements OnInit {
 
   filterChanges() {
     this.isShowPersons = false;
+  }
+
+  settingTable(){
+    let self = this;
+    self.settings = self.getTableSetting({
+      fullName: {
+        title: 'ชื่อ - นามสกุล',
+        filter: false,
+        width: '180px',
+      },
+      citizenId: {
+        title: 'เลขประจำตัวประชาชน',
+        filter: false,
+        width: '180px',
+        type: 'html',
+        valuePrepareFunction: (cell, row) => {
+          return '<div class="text-center">' + cell + '</div>'
+        }
+      },
+      age: {
+        title: 'อายุ',
+        filter: false,
+        width: '70px',
+        type: 'html',
+        valuePrepareFunction: (cell, row) => {
+          return '<div class="text-center">' + cell + '</div>'
+        }
+      },
+      familyStatusName: {
+        title: 'สถานะ',
+        filter: false,
+        width: '120px',
+        type: 'html',
+        valuePrepareFunction: (cell, row) => {
+          return '<div class="text-center">' + cell + '</div>'
+        }
+      },
+      action: {
+        title: 'การทำงาน',
+        filter: false,
+        sort: false,
+        width: '120px',
+        type: 'custom',
+        renderComponent: FilterFindPersonButtonChooseComponent,
+        onComponentInitFunction(instance) {
+          instance.action.subscribe((row: PersonBean, cell) => {
+            console.log(row);
+            self.onChoosePerson(row);
+          });
+        }
+      }
+    });
   }
 }
 

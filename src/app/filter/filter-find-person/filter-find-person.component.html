@@ -5,19 +5,21 @@
         <label class="label-form">{{getLabel('lbl_villageNo')}}</label>
       </div>
       <div class="col-md-4">
-        <select [(ngModel)]="filterBean.villageId" (change)="changVillageNo()">
+        <select  *ngIf="isStaff" [(ngModel)]="filterBean.villageId" (change)="changVillageNo()">
           <option ngValue="">--เลือก หมู่ที่--</option>
           <option *ngFor="let item of villageData" [value]="item.id">{{item.villageNo+' : '+item.villageName}}</option>
         </select>
+        <input  *ngIf="!isStaff" value="{{userInfo.villageNo + ' ' + userInfo.villageName}}" disabled>
       </div>
       <div class="col-md-1 text-right">
         <label class="label-form">{{getLabel('lbl_osm')}}</label>
       </div>
       <div class="col-md-4">
-        <select name="find-osmName" id="find-osmName" [(ngModel)]="filterBean.osmId" (change)="changeOSM()" [disabled]="isDisabledOSM">
+        <select  *ngIf="isStaff" name="find-osmName" id="find-osmName" [(ngModel)]="filterBean.osmId" (change)="changeOSM()" [disabled]="isDisabledOSM">
           <option ngValue="">--เลือก อสม.--</option>
           <option *ngFor="let item of osmData" [value]="item.personId">{{item.fullName}}</option>
         </select>
+        <input  *ngIf="!isStaff" value="{{userInfo.fullName}}" disabled>
       </div>
     </div>
     <div class="row">
@@ -40,30 +42,6 @@
     <div class="row" id="layout-list-person" *ngIf="isShowPersons">
       <div class="col-md-12">
           <ng2-smart-table [settings]="settings" [source]="source" (rowSelect)="onRowSelect($event)"></ng2-smart-table>
-        <!-- <table class="table table-striped table-bordered">
-          <thead>
-            <tr>
-              <th width="60">ลำดับ</th>
-              <th>ชื่อ - สกุล</th>
-              <th width="180">เลขประจำตัวประชาชน</th>
-              <th width="60">อายุ</th>
-              <th width="80">สถานะ</th>
-              <th width="60">เลือก</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of personData; let idx = index">
-              <td>{{idx+1}}</td>
-              <td>{{item.fullName}}</td>
-              <td>{{item.citizenId}}</td>
-              <td>{{item.age}}</td>
-              <td>{{item.familyStatusName}}</td>
-              <td>
-                <button type="button" (click)="onChoosePerson(item)" class="btn btn-sm btn-primary">เลือก</button>
-              </td>
-            </tr>
-          </tbody>
-        </table> -->
       </div>
     </div>
     <div class="modal-footer">
