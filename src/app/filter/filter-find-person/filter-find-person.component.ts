@@ -37,7 +37,8 @@ export class FilterFindPersonComponent extends BaseComponent implements OnInit {
 
   public settings: any;
   public source: LocalDataSource;
-
+  public loading: boolean = false;
+  
   constructor(private http: Http) {
     super();
 
@@ -164,6 +165,7 @@ export class FilterFindPersonComponent extends BaseComponent implements OnInit {
           _self.source = _self.ng2STDatasource(response);
           _self.isShowPersons = true;
           _self.loading = false;
+          
         });
   }
 

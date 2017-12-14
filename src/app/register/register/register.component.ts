@@ -54,6 +54,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
   public isFocusLastName: boolean = false;
   public isFocusEmail: boolean = false;
   public isFocusPhone: boolean = false;
+  public loading: boolean = false;
 
 
   constructor(private completerService: CompleterService, private changeRef: ChangeDetectorRef) {

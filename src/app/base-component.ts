@@ -21,7 +21,6 @@ export class BaseComponent implements OnInit {
     public _GLOBAL = myconf;
     public ass_action = Action;
     public surveyHeaderCode = SurveyHeaderTypeCode;
-    public loading: boolean = false;
     private ng2STDataSource: LocalDataSource;// = new LocalDataSource();
     public rowPerPage: number = 10;
     public userInfo: UserService;

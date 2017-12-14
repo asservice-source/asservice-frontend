@@ -28,7 +28,7 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
   public settings: any;
   public source: LocalDataSource;
   public isShowTable: boolean = false;
-
+  public loading: boolean = false;
   constructor(private http: Http, private router: Router, private changeRef: ChangeDetectorRef) {
     super();
 
@@ -176,7 +176,9 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
       } else {
         console.log('survey-personal-home-list(bindHomeList) occured error(s) => ' + d.message);
       }
+      
       self.loading = false;
+      self.changeRef.detectChanges();
     });
   }
 }

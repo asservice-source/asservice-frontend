@@ -46,6 +46,8 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
 
   public isShowInfo: boolean = false;
 
+  public loading: boolean = false;
+
   constructor(private http: Http, private router: Router, private route: ActivatedRoute, private changeRef: ChangeDetectorRef) {
     super();
 
@@ -253,6 +255,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
         console.log('survey-personal-member-list(bindHomeMemberList) occured error(s) => ' + d.message);
       }
       self.loading = false;
+      self.changeRef.detectChanges();
     });
 
     // this.http.get("assets/data_test/data_personal.json")
