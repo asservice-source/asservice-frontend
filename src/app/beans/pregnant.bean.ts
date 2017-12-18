@@ -19,7 +19,7 @@ export class PregnantBean {
     public bloodTypeName: string = "";
     public rhGroupId: string = "";
     public rhGroupName: string = "";
-    public birthDate: any;
+    public birthDate: string = "";
     public educationCode: string = "";
     public educationName: string = "";
     public educationDescription: string = "";
@@ -40,7 +40,7 @@ export class PregnantBean {
     public abortionCause: string = "";
 
     public rowGUID: string = "";
-    public documentID: string = "";
+    public documentId: string = "";
     public osmId: string = "";
     public homeId: string = "";
     public masterGUID: string = "";

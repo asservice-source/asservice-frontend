@@ -17,9 +17,9 @@ export class Service_SurveyPregnant extends ApiHTTPService {
         let params =
             {
                 "rowGUID": bean.rowGUID,
-                "documentID": bean.documentID,
+                "documentId": bean.documentID,
                 "osmId": bean.osmId,
-                "homeID": bean.homeId,
+                "homeId": bean.homeId,
                 "masterGUID": bean.masterGUID,
                 "personId": bean.personId,
                 "wombNo": bean.wombNo,
@@ -49,7 +49,7 @@ export class Service_SurveyPregnant extends ApiHTTPService {
                     "lastName": item.lastName,
                     "genderId": item.genderId,
                     "bornLocationId": item.bornLocationId,
-                    "bornCitizenId": item.bornCitizenId,
+                    "bornCitizenId": item.citizenId,
                     "abortionCause": item.abortionCause
                 };
             params = self.baseComponent.strNullToEmpty(params);
@@ -65,7 +65,7 @@ export class Service_SurveyPregnant extends ApiHTTPService {
         let parameters = self.baseComponent.strNullToEmpty(self.map(bean));
 
         console.log('save pregnant');
-        console.log(parameters);
+        console.log(JSON.stringify(parameters));
         self.post('survey_pregnant/ins_upd_pregnant_info', parameters, function (d) {
             callback(d);
         });
