@@ -17,7 +17,7 @@ export class Service_SurveyPregnant extends ApiHTTPService {
         let params =
             {
                 "rowGUID": bean.rowGUID,
-                "documentId": bean.documentID,
+                "documentId": bean.documentId,
                 "osmId": bean.osmId,
                 "homeId": bean.homeId,
                 "masterGUID": bean.masterGUID,
