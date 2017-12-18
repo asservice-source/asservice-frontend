@@ -129,7 +129,7 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
           console.log(resp);
           if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
             $("#find-person-md").modal('hide');
-            self.completed.emit(true);
+              self.completed.emit(true);
               self.message_success('','ท่านได้ทำการส่งแบบสำรวจลูกน้ำยุงลายแล้ว');
           }
          })

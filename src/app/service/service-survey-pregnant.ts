@@ -44,7 +44,7 @@ export class Service_SurveyPregnant extends ApiHTTPService {
                     "bornTypeId": item.bornTypeId,
                     "birthDate": item.birthDate,
                     "weight": item.weight,
-                    // "prefixCode": item.,
+                    "prefixCode": "",
                     "firstName": item.firstName,
                     "lastName": item.lastName,
                     "genderId": item.genderId,
@@ -66,10 +66,9 @@ export class Service_SurveyPregnant extends ApiHTTPService {
 
         console.log('save pregnant');
         console.log(parameters);
-        callback([]);
-        // self.post('survey_pregnant/ins_upd_pregnant_info', parameters, function (d) {
-        //     callback(d);
-        // });
+        self.post('survey_pregnant/ins_upd_pregnant_info', parameters, function (d) {
+            callback(d);
+        });
     }
 
     // public commit_save_survey(homeId: string, osmId: string, roundId: string, beanList: Array<any>, callback: (doc: any) => void) {

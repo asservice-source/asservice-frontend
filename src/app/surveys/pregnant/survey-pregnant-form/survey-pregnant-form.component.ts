@@ -6,6 +6,7 @@ import { ActionCustomView_2_Component } from '../../../action-custom-table/actio
 import { PregnantChildBean } from '../../../beans/pregnant-child.bean';
 import { Service_SurveyPregnant } from '../../../service/service-survey-pregnant';
 import { IMyDateModel } from 'mydatepicker-thai';
+import { InputValidateInfo } from '../../../directives/inputvalidate.directive';
 declare var $: any
 
 @Component({
@@ -15,18 +16,15 @@ declare var $: any
 })
 export class SurveyPregnantFormComponent extends BaseComponent implements OnInit, AfterViewInit {
 
-  private apiHttp: Service_SurveyPregnant = new Service_SurveyPregnant();
-
   @Input() action: string;
   @Input() surveyTypeCode: string;
   @Input() documentId: string;
   @Input() data: PregnantBean;
 
-  // mStatusNo = 0;
+  private apiHttp: Service_SurveyPregnant = new Service_SurveyPregnant();
 
-  // isDisable = false;
-  // isDisableBirth = true;
-  // isDisableAbort = true;
+  public surveyTypePregnant: string = "Pregnant";
+  public surveyTypeBorn: string = "Born";
 
   public pregnantBean: PregnantBean;
 
@@ -40,9 +38,6 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
   public listGender: any = [];
   public listBloodType: any = [];
 
-  // public pregnantType: number = 0;
-  // public bornLocation: string = "";
-  // public bornType: string = "";
   public resetFind: number = 1;
 
   public isFindPersonal: boolean = true;
@@ -54,6 +49,9 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
 
   public modelBornDueDate: any = null;
   public modelBornDate: any = null;
+
+  public validateVerify: InputValidateInfo = new InputValidateInfo();
+  public validateSave: InputValidateInfo = new InputValidateInfo();
 
   public loading: boolean = false;
 
@@ -154,26 +152,6 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
 
   }
 
-  // onChangeStatusNo() {
-  //   let self = this;
-
-  //   if (self.mStatusNo > 0) {
-  //     if (self.mStatusNo == 1) {
-  //       self.isDisable = true;
-  //       self.isDisableBirth = false;
-  //       self.isDisableAbort = true;
-  //     } else {
-  //       self.isDisable = true;
-  //       self.isDisableBirth = true;
-  //       self.isDisableAbort = false;
-  //     }
-  //   } else {
-  //     self.isDisableBirth = true;
-  //     self.isDisable = false;
-  //     self.isDisableAbort = true;
-  //   }
-  // }
-
   onModalEvent() {
     let self = this;
 
@@ -262,21 +240,30 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
     });
   }
 
-  onChoosePersonal(bean: any): void {
+  onChoosePersonal(bean: PregnantBean): void {
     let self = this;
+
+    self.validateVerify = new InputValidateInfo();
+    self.validateSave = new InputValidateInfo();
 
     self.isFindPersonal = false;
     self.isShowForm = true;
 
     self.pregnantBean = bean;
 
+    self.pregnantBean.pSurveyTypeCode = self.pregnantBean.pSurveyTypeCode || self.surveyTypePregnant;
+    self.pregnantBean.bornDueDate = self.pregnantBean.bornDueDate || "";
+    self.modelBornDueDate = self.getDatePickerModel(self.pregnantBean.bornDueDate) || null;
+    self.pregnantBean.bornLocationId = self.pregnantBean.bornLocationId || "";
+    self.pregnantBean.bornTypeId = self.pregnantBean.bornTypeId || "";
+    self.pregnantBean.abortionCause = self.pregnantBean.abortionCause || "";
+
     self.onChangePregnantType();
 
-    self.modelBornDueDate = self.getDatePickerModel(self.pregnantBean.bornDueDate);
+    // self.modelBornDueDate = self.getDatePickerModel(self.pregnantBean.bornDueDate);
 
     self.clearListChild();
     if (self.pregnantBean.childs) {
-
       self.modelBornDate = self.getDatePickerModel(self.pregnantBean.childs[0].birthDate);
       self.pregnantBean.bornLocationId = self.pregnantBean.childs[0].bornLocationId;
       self.pregnantBean.bornTypeId = self.pregnantBean.childs[0].bornTypeId;
@@ -303,7 +290,7 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
   onChangePregnantType() {
     let self = this;
 
-    if (self.pregnantBean.pSurveyTypeCode == "Born") {
+    if (self.pregnantBean.pSurveyTypeCode == self.surveyTypeBorn) {
       self.isDisplayPregnantType = true;
     } else {
       self.isDisplayPregnantType = false;
@@ -330,6 +317,21 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
   onClickConfirmChild() {
     let self = this;
 
+    self.validateVerify = new InputValidateInfo();
+    self.validateVerify.isCheck = true;
+
+    if (self.isEmpty(self.childBean.citizenId)) {
+      return;
+    }
+
+    if (self.isEmpty(self.childBean.firstName)) {
+      return;
+    }
+
+    if (self.isEmpty(self.childBean.lastName)) {
+      return;
+    }
+
     self.childBean.genderName = self.findGenderName(self.childBean.genderId);
     self.childBean.bloodTypeName = self.findBloodTypeName(self.childBean.bloodTypeId);
 
@@ -346,6 +348,8 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
   onClickClearChild() {
     let self = this;
 
+    self.validateVerify = new InputValidateInfo();
+
     self.clearInputChild();
   }
 
@@ -358,12 +362,35 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
         if (index >= 0) {
           self.listChild.splice(index, 1);
         }
+        self.bindChildList();
       }
     });
   }
 
   onClickConfirm() {
     let self = this;
+
+    self.validateSave = new InputValidateInfo();
+    self.validateSave.isCheck = true;
+
+    if (self.isEmpty(self.pregnantBean.pSurveyTypeCode)) {
+      return;
+    }
+
+    if (self.isEmpty(self.pregnantBean.bornLocationId)) {
+      return;
+    }
+
+    if (self.isEmpty(self.pregnantBean.bornTypeId)) {
+      return;
+    }
+
+    if (self.pregnantBean.pSurveyTypeCode == self.surveyTypeBorn) {
+      if (self.listChild.length <= 0) {
+        self.message_error('', 'กรุณาระบุข้อมูลของทารก');
+        return;
+      }
+    }
 
     self.loading = true;
 
@@ -373,7 +400,7 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
     let bornTypeId = self.pregnantBean.bornTypeId;
     let abortionCause = self.pregnantBean.abortionCause;
 
-    if (self.listChild && self.listChild.lenght > 0) {
+    if (self.listChild.length > 0) {
       for (let item of self.listChild) {
         item.bornDate = bornDate;
         item.bornLocationId = bornLocationId;
@@ -394,11 +421,26 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
     let self = this;
 
     if (self.action == self.ass_action.ADD) {
+      self.clearInputPregnant();
       self.isFindPersonal = true;
       self.isShowForm = false;
     } else {
       $("#find-person-md").modal("hide");
     }
+  }
+
+  clearInputPregnant() {
+    let self = this;
+
+    self.pregnantBean.pSurveyTypeCode = self.surveyTypePregnant;
+    self.pregnantBean.bornDueDate = self.surveyTypePregnant;
+    self.pregnantBean.bornDueDate = "";
+    self.modelBornDueDate = null;
+    self.pregnantBean.bornDate = "";
+    self.modelBornDate = null;
+    self.pregnantBean.bornLocationId = "";
+    self.pregnantBean.bornTypeId = "";
+    self.pregnantBean.abortionCause = "";
   }
 
   clearInputChild() {

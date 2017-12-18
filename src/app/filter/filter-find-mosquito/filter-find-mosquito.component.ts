@@ -38,6 +38,17 @@ export class FilterFindMosquitoComponent extends BaseComponent implements OnInit
     this.api = new ApiHTTPService();
     this.homeBean = new HomeBean();
     this.isHomeDisable = true;
+
+    // if(this.userInfo.roleId == '3'){
+    //   this.isStaff = true;
+    //   this.setupVillage();
+    // }else{
+    //   this.isStaff = false;
+    //   this.filterBean.villageId = this.userInfo.villageId;
+    //   this.filterBean.osmId = this.userInfo.personId;
+    //   this.setupHome();
+    // }
+
   }
 
   ngOnInit() {
@@ -94,8 +105,11 @@ export class FilterFindMosquitoComponent extends BaseComponent implements OnInit
     let params = {
       "villageId": this.findhomebean.villageId,
       "homeTypeCode" : this.findhomebean.homeTypeId,
-      "documentId": self.documentId
+      "documentId": self.documentId,
+      "osmId": this.userInfo.roleId == '3'?"":this.userInfo.personId
     };
+
+    console.log(params);
     this.api.post('home/home_list_by_village_hometype', params, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.HomeNameData = resp.response;

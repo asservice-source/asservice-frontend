@@ -60,7 +60,8 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
 
   onChoosePersonal(bean: any): void {
     this.patientbean = bean;
-
+    console.log(bean);
+    console.log(this.patientbean.homeId);
 
     if (this.action == this.ass_action.ADD) {
       this.patientbean.patientSurveyTypeCode = "";

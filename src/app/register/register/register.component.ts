@@ -84,9 +84,9 @@ export class RegisterComponent extends BaseComponent implements OnInit {
             self.hospitalList.push(item);
           }
         }
-        self.dataHospitals = self.completerService.local(self.hospitalList, 'hospitalName', 'hospitalName');
-        console.log(self.hospitalList);
       }
+      self.dataHospitals = self.completerService.local(self.hospitalList, 'hospitalName', 'hospitalName');
+      console.log(self.hospitalList);
 
       if(self.provinceList){
         self.loading = false;
@@ -149,6 +149,9 @@ export class RegisterComponent extends BaseComponent implements OnInit {
 
   doRegister() {
     let self = this;
+    console.log(this.registerBean.code9);
+    console.log(this.hospitalList);
+
     if (this.validateForm()) {
       let objvalidate = this.validateHostpital();
       if (objvalidate.addressFail == true) {
@@ -209,7 +212,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
       };
 
       for (let item of self.hospitalList) {
-        if (item.hospitalName.trim == this.registerBean.hospitalName.trim) {
+        if (item.hospitalName.trim() == this.registerBean.hospitalName.trim()) {
           if (this.registerBean.provinceID == item.provinceCode
             && this.registerBean.amphurCode == item.amphurCode
             && this.registerBean.tumbolID == item.tumbolCode) {

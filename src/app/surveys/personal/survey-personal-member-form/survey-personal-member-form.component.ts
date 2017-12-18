@@ -61,6 +61,7 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
   public validateSave: InputValidateInfo = new InputValidateInfo();
 
   public loading: boolean = false;
+  
   constructor() {
     super();
   }
