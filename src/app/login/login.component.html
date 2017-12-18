@@ -9,24 +9,24 @@
                 </div>
                 <div class="col-sm-6" style="margin-top: 14px;"> 
                         <div class="row" style="padding-bottom: 0;">
-                                <div class="col-sm-4"><label class="value">เลขประจำตัวประชาชน</label></div>
+                                <div class="col-sm-4"><label class="value">ชื่อผู้ใช้</label></div>
                                 <div class="col-sm-4"><label class="value">รหัสผ่าน</label></div>
                         </div>
                         <div class="row"  style="padding-top: 0;">
                                 <div class="col-md-4">
-                                        <input type="text" [(ngModel)] = "user.username" placeholder="เลขประจำตัวประชาชน">
+                                        <input type="text" [(ngModel)] = "user.username" placeholder="ชื่อผู้ใช้">
                                 </div>  
                                 <div class="col-md-4">
                                         <input type="password" [(ngModel)] = "user.password" placeholder="รหัสผ่าน">
                                 </div> 
                                 <div class="col-md-2">
                                         <button class="btn btn-sm btn-primary" (click)="login();">เข้าสู่ระบบ</button>
-                                </div> 
+                                </div>
+                               
                         </div>
+                        <div style="padding-left: 20px;"><label *ngIf="isErrorLogin" style="display: block; color:#e90606;">{{msgErrorLogin}}</label></div>
                 </div>
         </div>
         
 </nav>
-
-
-      
+<ass-loading [show]="loading"></ass-loading>

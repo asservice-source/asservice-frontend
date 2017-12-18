@@ -3,6 +3,7 @@ import { UserService } from "./../service/user.service";
 import { Router } from "@angular/router";
 import { RequestOptions, Headers, URLSearchParams, Http } from '@angular/http';
 import { ApiHTTPService } from '../service/api-http.service';
+import { BaseComponent } from '../base-component';
 
 @Component({
   selector: 'app-login',
@@ -12,10 +13,10 @@ import { ApiHTTPService } from '../service/api-http.service';
 export class LoginComponent implements OnInit {
 
   private api: ApiHTTPService = new ApiHTTPService();
-
-  fixUser = "admin";
-  fixPass = "1234";
-
+  private baseComponent: BaseComponent = new BaseComponent();
+  public loading: boolean = false;
+  public isErrorLogin: boolean = false;
+  public msgErrorLogin: string = "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง";
   constructor(public user: UserService,private http: Http, private router: Router) {
 
   }
@@ -24,16 +25,24 @@ export class LoginComponent implements OnInit {
 
   }
 
-  login() {
+  login():any {
     let self = this;
+    self.isErrorLogin = false;
     console.log("username: " + self.user.username);
     console.log("password: " + self.user.password);
     let strUser = self.user.username;
     let strPass = self.user.password;
 
+    if(self.baseComponent.isEmpty(strUser) || self.baseComponent.isEmpty(strPass)){
+      self.msgErrorLogin = "กรุณาใส่ชื่อผู้ใช้หรือรหัสผ่าน";
+      self.isErrorLogin = true;
+      return false;
+    }
+    self.loading = true;
     let params = { "userName": strUser, "password": strPass };
     this.api.post('user/login', params, function(resp){
       console.log(resp);
+      self.loading = false;
       if(resp && resp.status.toString().toUpperCase() == 'SUCCESS' && resp.response.login){
         console.log('Passed');
         self.user.set(resp.response);
@@ -41,18 +50,11 @@ export class LoginComponent implements OnInit {
         self.router.navigate([""]);
       }else{
         console.log('No Pass');
-
         localStorage.clear();
+        self.msgErrorLogin = "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง";
+        self.isErrorLogin = true;
       }
     });
-
-    if (this.fixUser == strUser && this.fixPass == strPass) {
-      let uinfo = {"uid": 1, "urid": 2, "ufullName": "นายสมพงศ์ ดวงดี", "hospitalCode5": "04269"};
-      localStorage.setItem("uinfo", JSON.stringify(uinfo));
-      self.router.navigate([""]);
-    } else {
-      localStorage.clear();
-    }
   }
 
 
