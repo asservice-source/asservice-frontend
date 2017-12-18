@@ -43,10 +43,13 @@
                         <label class="label-form">สถานะครรภ์</label>
                     </div>
                     <div class="col-md-3">
-                        <select [(ngModel)]="pregnantBean.pSurveyTypeCode" (change)="onChangePregnantType();">
-                            <option value="Pregnant">กำลังตั้งครรภ์</option>
-                            <option value="Born">คลอดแล้ว</option>
-                        </select>
+                        <div [InputValidate]="validateSave">
+                            <select [(ngModel)]="pregnantBean.pSurveyTypeCode" (change)="onChangePregnantType();">
+                                <option value="Pregnant">กำลังตั้งครรภ์</option>
+                                <option value="Born">คลอดแล้ว</option>
+                            </select>
+                            <label class="error">กรุณาเลือก สถานะครรภ์</label>
+                        </div>
                     </div>
 
                     <div [hidden]="isDisplayPregnantType">
@@ -73,25 +76,31 @@
                         <label>โรงพยาบาลที่คลอด</label>
                     </div>
                     <div class="col-md-3">
-                        <select [(ngModel)]="pregnantBean.bornLocationId">
-                            <option value="">--เลือก โรงพยาบาล--</option>
-                            <option *ngFor="let item of listBornLocation" [value]="item.id">{{item.name}}</option>
-                        </select>
+                        <div [InputValidate]="validateSave">
+                            <select [(ngModel)]="pregnantBean.bornLocationId">
+                                <option value="">--เลือก โรงพยาบาล--</option>
+                                <option *ngFor="let item of listBornLocation" [value]="item.id">{{item.name}}</option>
+                            </select>
+                            <label class="error">กรุณาเลือก โรงพยาบาลที่คลอด</label>
+                        </div>
                     </div>
                     <div class="col-md-1 text-right">
                         <label class="label-form">วิธีคลอด</label>
                     </div>
                     <div class="col-md-3">
-                        <select [(ngModel)]="pregnantBean.bornTypeId">
-                            <option value="">--เลือก วิธีคลอด--</option>
-                            <option *ngFor="let item of listBornType" [value]="item.id">{{item.name}}</option>
-                        </select>
+                        <div [InputValidate]="validateSave">
+                            <select [(ngModel)]="pregnantBean.bornTypeId">
+                                <option value="">--เลือก วิธีคลอด--</option>
+                                <option *ngFor="let item of listBornType" [value]="item.id">{{item.name}}</option>
+                            </select>
+                            <label class="error">กรุณาเลือก วิธีคลอด</label>
+                        </div>
                     </div>
 
                 </div>
 
                 <div class="row" [hidden]="pregnantBean.bornTypeId == 4 ? false : true">
-                    <div class="col-md-2 text-right">
+                    <div class="col-md-3 text-right">
                         <label class="label-form">หมายเหตุ</label>
                     </div>
                     <div class="col-md-3">
@@ -123,7 +132,10 @@
                                         <label class="label-form">หมายเลขประจำตัว</label>
                                     </div>
                                     <div class="col-md-4">
-                                        <input type="text" [(ngModel)]="childBean.citizenId">
+                                        <div [InputValidate]="validateVerify">
+                                            <input type="text" [(ngModel)]="childBean.citizenId">
+                                            <label class="error">กรุณาระบุ หมายเลขประจำตัว</label>
+                                        </div>
                                     </div>
 
                                     <div class="col-md-1 text-right">
@@ -142,13 +154,19 @@
                                         <label class="label-form">ชื่อ</label>
                                     </div>
                                     <div class="col-md-4">
-                                        <input type="text" [(ngModel)]="childBean.firstName">
+                                        <div [InputValidate]="validateVerify">
+                                            <input type="text" [(ngModel)]="childBean.firstName">
+                                            <label class="error">กรุณาระบุ ชื่อ</label>
+                                        </div>
                                     </div>
                                     <div class="col-md-1 text-right">
-                                        <label class="label-form">สกุล</label>
+                                        <label class="label-form">นามสกุล</label>
                                     </div>
                                     <div class="col-md-3">
-                                        <input type="text" [(ngModel)]="childBean.lastName">
+                                        <div [InputValidate]="validateVerify">
+                                            <input type="text" [(ngModel)]="childBean.lastName">
+                                            <label class="error">กรุณาระบุ นามสกุล</label>
+                                        </div>
                                     </div>
                                 </div>
 
