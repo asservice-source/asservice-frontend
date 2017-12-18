@@ -17,12 +17,15 @@ export class LoginComponent implements OnInit {
   public loading: boolean = false;
   public isErrorLogin: boolean = false;
   public msgErrorLogin: string = "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง";
-  constructor(public user: UserService,private http: Http, private router: Router) {
+  constructor(public user: UserService, private http: Http, private router: Router) {
 
   }
 
   ngOnInit() {
-
+    let jsonUInfo: any = localStorage.getItem("uinfo");
+    if(jsonUInfo){
+      this.router.navigate(["main"]);
+    }
   }
 
   login():any {
@@ -79,6 +82,10 @@ export class LoginComponent implements OnInit {
         err => console.log(err),
         () => console.log('Fetching complete for Server Metrics')
       )
+  }
+
+  onClickRegister(){
+    this.router.navigate(["register"]);
   }
 
 }

@@ -145,10 +145,17 @@ export class ManagementStaffUserListComponent extends BaseComponent implements O
   onClickAdd(){
     this.onModalForm(this.ass_action.ADD);
   }
-  onClickDelete(row:any){
+  onClickDelete(row:any): any{
     let _self = this;
     console.log("= = Click Delete = =");
     console.log(row);
+    console.log(_self.userInfo.userId);
+    console.log(_self.bean.userId);
+    if(_self.userInfo.userId==_self.bean.userId){
+      _self.message_error('','ไม่สามารถลบตัวเองได้');
+      return false;
+    }
+
     _self.message_comfirm('','ต้องการลบ <b>' + row.fullName +'</b> ใช่หรือไม่',function(result){
       if(result){
         _self.loading = true;

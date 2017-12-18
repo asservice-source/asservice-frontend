@@ -1,4 +1,5 @@
 export class PersonalBasicBean{
+    
     public personId: string;
     public citizenId: string;
     public firstName: string;
@@ -46,6 +47,7 @@ export class PersonalBasicBean{
     public mooNo: string;
     public road: string;
     
+    public userId: string;
     public osmId: string;
     public roleId: string;
     public isDead: boolean;

@@ -12,9 +12,9 @@ export class GuardPermissionService {
         if(this.userInfo.roleId=='2'){
             return true;
         }else{
-            //this.router.navigate([""]);
-            //return false;
-            return true;
+            this.router.navigate([""]);
+            return false;
+            //return true;
         }
     }
 }

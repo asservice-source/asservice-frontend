@@ -111,7 +111,7 @@
               <label>สถานะผู้ใช้</label>
             </div>
             <div class="col-md-6">
-              <select type="text" [(ngModel)]="bean.isActive">
+              <select type="text" [(ngModel)]="bean.isActive" [disabled]="userInfo.userId==bean.userId">
                 <option [value]="true">พร้อมใช้งาน</option>
                 <option [value]="false">ปิดการใช้งาน</option>
               </select>
