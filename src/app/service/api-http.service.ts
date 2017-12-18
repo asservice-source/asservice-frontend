@@ -26,7 +26,7 @@ export class ApiHTTPService  implements OnInit {
         this.http.get(this.baseComponent.getApiUrl(url), params)
             .map(res => res.json())
             .subscribe(
-            data => callback(this.baseComponent.strNullToEmpty(data)),
+            data => this.subscribe(data, callback, params, url),
             err => err,
             () => console.log('Fetching complete for Server Api.')
             )
@@ -39,18 +39,22 @@ export class ApiHTTPService  implements OnInit {
         this.http.post(this.baseComponent.getApiUrl(url), params, options)
             .map(res => res.json())
             .subscribe(
-            data => callback(this.baseComponent.strNullToEmpty(data)),
-            err => callback(err),
-            () => console.log('Fetching url Server Api : ' + url)
+            data => this.subscribe(data, callback, params, url),
+            err => callback(err)
             )
     }
-
+    private subscribe(data: any, callback: (doc: any)=> void, params: any, path: any){
+        console.log("<<<< Call Path = " + path +" >>>>");
+        console.log(params);
+        console.log(data);
+        console.log("<<<< /End >>>>");
+        callback(data);
+    }
     public callResponse(path: any, params: any, callback: (doc: any) => void){
         this.post(
             path
             , params
             , function(resp){
-                console.log(resp);
                 if (resp && resp.status.toString().toUpperCase() == "SUCCESS") {
                     callback(resp.response);
                 }else{
@@ -74,7 +78,6 @@ export class ApiHTTPService  implements OnInit {
         this.post( 'app/menu'
             , {}
             , function(resp){
-                console.log(resp);
                 callback(resp);
             });
     }
@@ -95,7 +98,6 @@ export class ApiHTTPService  implements OnInit {
     public api_HomrInfo(homeId: any, callback: (doc: any) => void){
         let parameter = {"homeId": +homeId};
         this.post('home/home_info', parameter, function(response){
-            console.log(response);
             callback(response);
         });
     }
@@ -137,7 +139,6 @@ export class ApiHTTPService  implements OnInit {
     }
 
     public api_SurveyHeaderList(headerTypeCode: string, callback: (doc: any) => void){
-        console.log(headerTypeCode);
         this.callResponse('survey/survey_header_list', {"headerTypeCode": headerTypeCode, "hospitalCode": this.baseComponent.getHospitalCode()}, callback);
     }
 
@@ -151,7 +152,6 @@ export class ApiHTTPService  implements OnInit {
     public api_PersonByCitizenId(citizenId: string, callback: (doc: any) => void){
         let parameter = {"citizenId": citizenId};
         this.post('person/person_by_citizenid', parameter, function(response){
-            console.log(response);
             callback(response);
         });
     }

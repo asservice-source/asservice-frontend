@@ -53,25 +53,18 @@ export class Service_HomeMember extends ApiHTTPService{
     }
     public commit_save(bean: PersonalBasicBean, callback:(doc:any)=>void){
         let parameter = this.baseComponent.strNullToEmpty(this.map(bean));
-        console.log('<<<< Params >>>>');
-        console.log(parameter);
         this.post('survey_population/population_add_home_member', parameter, function(response){
-            console.log(response);
             callback(response);
         });
     }
 
-    public getList(homeId: string, callback: (doc: any) => void){
-        
+    public getList(homeId: string, callback: (doc: any) => void){        
         let parameter = {
             "homeId": homeId
            }
         let _self = this;
         this.post('homemember/homemember_by_home', parameter, function(response){
-            console.log(parameter);
-            console.log(response);
             if(response && response.status.toString().toUpperCase()=='SUCCESS'){
-                console.log("Before CallBack");
                 callback(response.response);
             }else{
                 _self.baseComponent.message_servNotRespond('', response.message);

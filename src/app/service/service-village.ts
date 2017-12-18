@@ -23,8 +23,6 @@ export class Service_Village extends ApiHTTPService{
 
    public commit_save(bean: VillageBean, callback: (doc: any) => void){
         let parameter = this.baseComponent.strNullToEmpty(this.map(bean));
-        console.log(" = = = parameter = = = village/add_village");
-        console.log(parameter);
-        this.post('village/add_village', parameter , callback);
+        this.post('village/ins_upd_village', parameter , callback);
     }  
 }

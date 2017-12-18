@@ -89,11 +89,15 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
           });
         }else{
           let msg = '';
-          if(response.message.toUpperCase().indexOf('DUPLICATED[REGISTRATIONID]')>=0){
-            msg = 'รหัสบ้าน <b>'+_self.bean.registrationId + '</b> ซ้ำ กรุณาใส่รหัสบ้านอื่น';
-          }else if(response.message.toUpperCase().indexOf('DUPLICATED[HOMENO]')>=0){
-            msg = 'บ้านเลขที่ <b>'+_self.bean.homeNo + '</b> ซ้ำ กรุณาใส่บ้านเลขที่อื่น';
-          }else{
+          if(response.response){
+            if(response.response.toUpperCase() == 'DUPLICATED[REGISTRATIONID]'){
+              msg = 'รหัสบ้าน <b>'+_self.bean.registrationId + '</b> ซ้ำ กรุณาใส่รหัสบ้านอื่น';
+            }else if(response.response.toUpperCase() == 'DUPLICATED[HOMENO]'){
+              msg = 'บ้านเลขที่ <b>'+_self.bean.homeNo + '</b> ซ้ำ กรุณาใส่บ้านเลขที่อื่น';
+            }else{
+              msg = 'ไม่สามารถ'+strAction+'บ้านเลขที่ <b>' + _self.bean.homeNo + '</b> ได้';
+            }
+          } else{
             msg = 'ไม่สามารถ'+strAction+'บ้านเลขที่ <b>' + _self.bean.homeNo + '</b> ได้';
           }
           _self.message_error('',msg);

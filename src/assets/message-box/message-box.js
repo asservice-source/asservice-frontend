@@ -18,6 +18,8 @@
         ,alert: function(title, message, callback){
             if(callback){
                 this.callback = callback;
+            }else{
+                this.callback = function(result){}
             }
             var html = '<div class="modal fade" id="message-box-alert" data-backdrop="false" data-keyboard="false" tabindex="-1" role="dialog">';
             html += '<div class="modal-dialog" role="document">';
@@ -39,6 +41,8 @@
         ,confirm: function(title, message, callback){
             if(callback){
                 this.callback = callback;
+            }else{
+                this.callback = function(result){}
             }
             var html = '<div class="modal fade" id="message-box-confirm" data-backdrop="false" data-keyboard="false" tabindex="-1" role="dialog">';
             html += '<div class="modal-dialog" role="document">';

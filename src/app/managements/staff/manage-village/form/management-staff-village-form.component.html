@@ -11,7 +11,7 @@
             <div class="col-md-4 text-right">
               <label class="label-form">หมู่ที่</label>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
               <div [InputValidate]="inputValidate" (notify)="validation($event)">
                   <input type="text" [(ngModel)]="bean.villageNo" OnlyNumber="true" maxlength="2">
                   <label class="error">กรุณาใส่หมู่ที่</label>

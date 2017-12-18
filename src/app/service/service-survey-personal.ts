@@ -71,8 +71,6 @@ export class Service_SurveyPersonal extends ApiHTTPService {
     public commit_save(bean: PersonalMemberBean, callback: (doc: any) => void) {
         let self = this;
         let parameters = self.baseComponent.strNullToEmpty(self.map(bean));
-        console.log(parameters);
-
         self.post('survey_population/population_add_home_member', parameters, function(d){
             callback(d);
         });
@@ -109,7 +107,6 @@ export class Service_SurveyPersonal extends ApiHTTPService {
 
         let parameters = self.attr;
         // console.log(parameters);
-        console.log(JSON.stringify(parameters));
 
         self.post('survey_population/ins_upd_population_info', parameters, function(d){
             callback(d);

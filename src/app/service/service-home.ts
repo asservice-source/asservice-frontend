@@ -27,10 +27,7 @@ export class Service_Home extends ApiHTTPService{
     }
     public commit_save(bean: HomeBean, callback:(doc:any)=>void){
         let parameter = this.baseComponent.strNullToEmpty(this.map(bean));
-        console.log('<<<< Params >>>>');
-        console.log(parameter);
         this.post('home/ins_upd_home', parameter, function(response){
-            console.log(response);
             callback(response);
         });
     }
@@ -43,8 +40,6 @@ export class Service_Home extends ApiHTTPService{
            }
         let _self = this;
         this.post('/home/home_list_by_village_or_osm', parameter, function(response){
-            console.log(parameter);
-            console.log(response);
             if(response && response.status.toString().toUpperCase()=='SUCCESS'){
                 callback(response.response);
             }else{
@@ -56,7 +51,6 @@ export class Service_Home extends ApiHTTPService{
     public commit_del(homeId: string, callback:(doc:any)=>void){
         let parameter = {"homeId": homeId};
         this.post('home/del_home', parameter, function(response){
-            console.log(response);
             callback(response);
         });
     }

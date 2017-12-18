@@ -9,7 +9,7 @@ export class GuardPermissionService {
      }
     canActivate(){
         console.log("GuardPermissionService");
-        if(this.userInfo.roleId=='2'){
+        if(this.userInfo.roleId=='2' || this.userInfo.roleId=='3'){
             return true;
         }else{
             this.router.navigate([""]);

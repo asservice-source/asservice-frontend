@@ -32,8 +32,6 @@ export class Service_UserStaffAndOSM extends ApiHTTPService{
 
    public commit_save(isStaff:boolean, bean: PersonalBasicBean, callback: (doc: any) => void){
         let parameter = this.baseComponent.strNullToEmpty(this.map(isStaff, bean));
-        console.log(" = = = parameter = = = user/insert_update");
-        console.log(parameter);
         this.post('user/insert_update', parameter , function(response){
             callback(response);
         });
@@ -41,8 +39,6 @@ export class Service_UserStaffAndOSM extends ApiHTTPService{
 
     public commit_del(userId: string, callback: (doc: any)=>void){
         let parameter = {"deleteId": userId};
-        console.log(" = = = parameter = = = user/insert_update");
-        console.log(parameter);
         this.post('user/insert_update', parameter, function(response){
             callback(response);
         });
@@ -57,7 +53,6 @@ export class Service_UserStaffAndOSM extends ApiHTTPService{
     public staff_findList(name: string, callback:(doc: any) => void): any{
         let parameter = {"name": name, "code5": this.baseComponent.getHospitalCode()};
         this.callResponse('/user/find/staff', parameter, function(response){
-            console.log(response);
             callback(response);
         });
     }

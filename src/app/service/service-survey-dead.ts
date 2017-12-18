@@ -34,8 +34,6 @@ export class Service_SurveyDead extends ApiHTTPService {
    }
    public getList(filter: FilterHeadSurveyBean, callback: (doc: any) => void){
        let parameter = this.api_mapFilterSurveyHeader(filter);
-       console.log('>>>>> DEATH LIST <<<<<');
-       console.log(parameter);
         this.callResponse('survey_death/search_death_info_list'
         , parameter
         , callback);
@@ -44,8 +42,6 @@ export class Service_SurveyDead extends ApiHTTPService {
    public commit_save(bean: DeadBean, callback: (doc: any) => void){
        
         let parameter = this.baseComponent.strNullToEmpty(this.map(bean));
-        console.log(" = = = parameter = = = survey_death/ins_upd_death_info");
-        console.log(parameter);
         this.post('survey_death/ins_upd_death_info', parameter , callback);
    }
 

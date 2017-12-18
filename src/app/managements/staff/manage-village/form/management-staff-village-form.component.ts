@@ -39,20 +39,20 @@ export class ManagementStaffVillageFormComponent extends BaseComponent implement
       _self.loading = true;
       this.api.commit_save(this.bean, function(response){
         _self.loading = false;
-        if(response && "SUCCESS"==response.status.toUpperCase()){
+        if(response.status && "SUCCESS"==response.status.toUpperCase()){
           $('#modalForm').modal('hide');
           let message = _self.action==_self.ass_action.ADD?'เพิ่มหมู่บ้าน':'แก้ไขหมู่บ้าน';
           message += " : หมู่ที่ " + _self.bean.villageNo + " บ้าน" + _self.bean.villageName;
           _self.message_success('ทำรายการสำเร็จ', message , function(){
-            console.log(response);
             _self.onAdd.emit(response);
           });
-        }else{
-          _self.message_error('ไม่สามารถทำรายการได้่', response.message ,function(){
-            console.log(response);
-          });
+        }else{                                                     
+          if(response.response=='Duplicated[VillageNO]'){
+            _self.message_error('','หมู่ที่ <b>'+ _self.bean.villageNo + ' ' + _self.bean.villageName +'</b> ซ้ำ กรุณาใส่หมู่ที่อื่น');
+          }else{
+            _self.message_error('', response.message);
+          }
         }
-        
       });
        
     }

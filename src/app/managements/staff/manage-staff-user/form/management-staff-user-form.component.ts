@@ -125,17 +125,19 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
            }
 
            if(isNotChange){
+            
             msg += ' แต่ไม่มีสิทธิ์แก้ไขข้อมูลได้';
             msg += '<br>เนื่องจากลงทะเบียนในระบบเรียบร้อยแล้ว';
             _self.message_error('', msg);
+
            }else{
+           
             msg += ' คุณต้องการแก้ไข ใช่หรือไม่?';
             _self.message_comfirm('', msg, function(result){
               if(result){
                 _self.action = _self.ass_action.EDIT;
                 _self.isVerify = true;
                 _self.bean = response;
-                _self.bean.villageId = '';
                 _self.bean.isActive = true;
                 _self.setDatePickerModel();
                 _self.oldCitizenId = _self.bean.citizenId;
@@ -143,6 +145,7 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
               }else{
                 _self.isVerify = false;
               }
+
             });
            }
 
