@@ -263,7 +263,7 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
     // self.modelBornDueDate = self.getDatePickerModel(self.pregnantBean.bornDueDate);
 
     self.clearListChild();
-    if (self.pregnantBean.childs) {
+    if (self.pregnantBean.childs && self.pregnantBean.childs.length > 0) {
       self.modelBornDate = self.getDatePickerModel(self.pregnantBean.childs[0].birthDate);
       self.pregnantBean.bornLocationId = self.pregnantBean.childs[0].bornLocationId;
       self.pregnantBean.bornTypeId = self.pregnantBean.childs[0].bornTypeId;
@@ -377,11 +377,11 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
       return;
     }
 
-    if (self.isEmpty(self.pregnantBean.bornLocationId)) {
+    if (self.isEmpty(self.pregnantBean.bornLocationId.toString())) {
       return;
     }
 
-    if (self.isEmpty(self.pregnantBean.bornTypeId)) {
+    if (self.isEmpty(self.pregnantBean.bornTypeId.toString())) {
       return;
     }
 
@@ -394,7 +394,7 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
 
     self.loading = true;
 
-    self.pregnantBean.documentID = self.documentId;
+    self.pregnantBean.documentId = self.documentId;
     let bornDate = self.pregnantBean.bornDate;
     let bornLocationId = self.pregnantBean.bornLocationId;
     let bornTypeId = self.pregnantBean.bornTypeId;
@@ -402,7 +402,7 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
 
     if (self.listChild.length > 0) {
       for (let item of self.listChild) {
-        item.bornDate = bornDate;
+        item.birthDate = bornDate;
         item.bornLocationId = bornLocationId;
         item.bornTypeId = bornTypeId;
         item.abortionCause = abortionCause;
@@ -413,6 +413,8 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
     }
 
     self.apiHttp.commit_save(self.pregnantBean, function (d) {
+      console.log(d);
+      self.onClickBack();
       self.loading = false;
     });
   }
@@ -432,8 +434,8 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
   clearInputPregnant() {
     let self = this;
 
+    self.pregnantBean.wombNo = "";
     self.pregnantBean.pSurveyTypeCode = self.surveyTypePregnant;
-    self.pregnantBean.bornDueDate = self.surveyTypePregnant;
     self.pregnantBean.bornDueDate = "";
     self.modelBornDueDate = null;
     self.pregnantBean.bornDate = "";

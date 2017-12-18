@@ -24,7 +24,7 @@
                                             <dt>ชื่อ-สกุล : </dt>
                                             <dd>{{ pregnantBean.fullName }}</dd>
                                             <dt>เพศ : </dt>
-                                            <dd>{{ pregnantBean.genderName }}</dd>
+                                            <dd>{{ findGenderName(pregnantBean.genderId) }}</dd>
                                             <dt>อายุ : </dt>
                                             <dd>{{ pregnantBean.age }}</dd>
                                             <dt>ที่อยู่ : </dt>
@@ -34,6 +34,18 @@
                                 </div>
                             </div>
 
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3 text-right">
+                        <label class="label-form">ครรภ์ที่</label>
+                    </div>
+                    <div class="col-md-3">
+                        <div [InputValidate]="validateSave">
+                            <input maxlength="2" [OnlyNumber]="true" type="text" [(ngModel)]="pregnantBean.wombNo">
+                            <label class="error">กรุณาระบุ ครรภ์ที่</label>
                         </div>
                     </div>
                 </div>
@@ -104,7 +116,7 @@
                         <label class="label-form">หมายเหตุ</label>
                     </div>
                     <div class="col-md-3">
-                        <input type="text" [(ngModel)]="pregnantBean.abortionCause">
+                        <input type="text" maxlength="100" [(ngModel)]="pregnantBean.abortionCause">
                     </div>
                 </div>
 
@@ -133,7 +145,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div [InputValidate]="validateVerify">
-                                            <input type="text" [(ngModel)]="childBean.citizenId">
+                                            <input maxlength="13" type="text" [(ngModel)]="childBean.citizenId">
                                             <label class="error">กรุณาระบุ หมายเลขประจำตัว</label>
                                         </div>
                                     </div>
@@ -155,7 +167,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div [InputValidate]="validateVerify">
-                                            <input type="text" [(ngModel)]="childBean.firstName">
+                                            <input maxlength="50" type="text" [(ngModel)]="childBean.firstName">
                                             <label class="error">กรุณาระบุ ชื่อ</label>
                                         </div>
                                     </div>
@@ -164,7 +176,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div [InputValidate]="validateVerify">
-                                            <input type="text" [(ngModel)]="childBean.lastName">
+                                            <input maxlength="50" type="text" [(ngModel)]="childBean.lastName">
                                             <label class="error">กรุณาระบุ นามสกุล</label>
                                         </div>
                                     </div>
@@ -185,7 +197,7 @@
                                         <label class="label-form">น้ำหนัก</label>
                                     </div>
                                     <div class="col-md-2">
-                                        <input type="text" [(ngModel)]="childBean.weight">
+                                        <input maxlength="4" [OnlyNumber]="true" type="text" [(ngModel)]="childBean.weight">
                                     </div>
                                 </div>
 
