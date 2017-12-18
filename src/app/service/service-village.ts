@@ -14,6 +14,7 @@ export class Service_Village extends ApiHTTPService{
         {
             "hospitalCode": this.baseComponent.getHospitalCode(),
             "createdBy": this.baseComponent.getUserFullName(),
+            "id": bean.villageId,
             "villageNo": bean.villageNo,
             "villageName": bean.villageName.trim()
         };

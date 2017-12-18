@@ -27,7 +27,7 @@ export class ApiHTTPService  implements OnInit {
             .map(res => res.json())
             .subscribe(
             data => this.subscribe(data, callback, params, url),
-            err => err,
+            err => this.subscribe_error(err, callback, params, url),
             () => console.log('Fetching complete for Server Api.')
             )
     }
@@ -40,7 +40,7 @@ export class ApiHTTPService  implements OnInit {
             .map(res => res.json())
             .subscribe(
             data => this.subscribe(data, callback, params, url),
-            err => callback(err)
+            err => this.subscribe_error(err, callback, params, url)
             )
     }
     private subscribe(data: any, callback: (doc: any)=> void, params: any, path: any){
@@ -48,6 +48,24 @@ export class ApiHTTPService  implements OnInit {
         console.log(params);
         console.log(data);
         console.log("<<<< /End >>>>");
+        if(data.status){
+            data.status = ''+data.status;
+        }else{
+            data.status = '';
+        }
+        callback(data);
+    }
+    private subscribe_error(data: any, callback: (doc: any)=> void, params: any, path: any){
+        console.log("<<<< Call Path = " + path +" >>>>");
+        console.log(params);
+        console.log(data);
+        console.log("<<<< /End >>>>");
+        if(data.status){
+            data.status = ''+data.status;
+        }else{
+            data.status = '';
+        }
+        data.message = data.statusText;
         callback(data);
     }
     public callResponse(path: any, params: any, callback: (doc: any) => void){

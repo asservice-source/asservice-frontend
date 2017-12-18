@@ -46,6 +46,7 @@ export class ManagementStaffVillageListComponent extends BaseComponent implement
         onComponentInitFunction(instance) {
            instance.edit.subscribe(row => {
             _self.bean = _self.cloneObj(row);
+            _self.bean.villageId = row.id;
             _self.onModalForm(_self.ass_action.EDIT);
            });
            instance.delete.subscribe(row => {

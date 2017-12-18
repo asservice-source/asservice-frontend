@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Router } from '@angular/router';
 import { ApiHTTPService } from "../../service/api-http.service";
 import { BaseComponent } from "../../base-component";
 import { CompleterService, CompleterData } from 'ng2-completer';
@@ -57,7 +58,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
   public loading: boolean = false;
 
 
-  constructor(private completerService: CompleterService, private changeRef: ChangeDetectorRef) {
+  constructor(private route: Router, private completerService: CompleterService, private changeRef: ChangeDetectorRef) {
     super();
 
     this.api = new ApiHTTPService();
@@ -399,4 +400,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
     return result;
   }
  
+  onGotoIndex(){
+    this.route.navigate(['']);
+  }
 }
