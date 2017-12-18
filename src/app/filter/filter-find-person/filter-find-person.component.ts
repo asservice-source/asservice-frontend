@@ -47,7 +47,7 @@ export class FilterFindPersonComponent extends BaseComponent implements OnInit {
     this.personBean.citizenId = "";
     this.personBean.fullName;
 
-    if(this.userInfo.roleId == '3'){
+    if(this.userInfo.roleId == '2' || this.userInfo.roleId == '3'){
       this.isStaff = true;
       this.setupVillage();
     }else{

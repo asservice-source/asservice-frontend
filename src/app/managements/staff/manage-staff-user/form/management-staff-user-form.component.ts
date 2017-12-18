@@ -103,51 +103,62 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
       this.api.api_PersonByCitizenId(this.bean.citizenId, function(resp){
         _self.loading = false;
         if(resp.status.toString().toUpperCase()=="SUCCESS"){
-          let response = resp.response;
-          if(resp.response){
-           let msg = 'หมายเลขประชาชน <b>'+ _self.bean.citizenId +'</b> มีข้อมูลในระบบแล้ว';
-           let userRoleId = +(response.userRoleId);
-           let code5 = response.hospitalCode5;
-           let isNotChange = false;
-
-           if(_self.isStaff){
-            if(code5 != _self.getHospitalCode() && (userRoleId != 0)){
-              isNotChange = true;
-            }else{
-              isNotChange = false;
-            }
-           }else{
-              if(code5 != _self.getHospitalCode() || userRoleId == 2 || userRoleId == 3){
-                isNotChange = true;
-              }else{
-                isNotChange = false;
-              }
-           }
-
-           if(isNotChange){
-            
-            msg += ' แต่ไม่มีสิทธิ์แก้ไขข้อมูลได้';
-            msg += '<br>เนื่องจากลงทะเบียนในระบบเรียบร้อยแล้ว';
-            _self.message_error('', msg);
-
-           }else{
+          let person = resp.response;
+          if(person.personId){
            
-            msg += ' คุณต้องการแก้ไข ใช่หรือไม่?';
-            _self.message_comfirm('', msg, function(result){
-              if(result){
-                _self.action = _self.ass_action.EDIT;
-                _self.isVerify = true;
-                _self.bean = response;
-                _self.bean.isActive = true;
-                _self.setDatePickerModel();
-                _self.oldCitizenId = _self.bean.citizenId;
-                console.log(_self.bean);
-              }else{
-                _self.isVerify = false;
-              }
+            let msg = 'หมายเลขประชาชน <b>'+ _self.bean.citizenId +'</b> มีข้อมูลในระบบแล้ว';
+            if(person.isDead){
+             
+              msg += ' แต่ไม่มีสิทธิ์แก้ไขข้อมูลได้';
+              msg += '<br>เนื่องจากสถานะบุคคลไม่สามารถดำเนินการได้';
+              _self.message_error('', msg);
 
-            });
-           }
+            }else{
+              
+              let userRoleId = +(person.userRoleId);
+              let code5 = person.hospitalCode5;
+              let isNotChange = false;
+   
+              if(_self.isStaff){
+               if(code5 != _self.getHospitalCode() && (userRoleId != 0)){
+                 isNotChange = true;
+               }else{
+                 isNotChange = false;
+               }
+              }else{
+                 if(code5 != _self.getHospitalCode() || userRoleId == 2 || userRoleId == 3){
+                   isNotChange = true;
+                 }else{
+                   isNotChange = false;
+                 }
+              }
+   
+              if(isNotChange){
+               
+               msg += ' แต่ไม่มีสิทธิ์แก้ไขข้อมูลได้';
+               msg += '<br>เนื่องจากลงทะเบียนในระบบเรียบร้อยแล้ว';
+               _self.message_error('', msg);
+   
+              }else{
+              
+               msg += ' คุณต้องการแก้ไข ใช่หรือไม่?';
+               _self.message_comfirm('', msg, function(result){
+                 if(result){
+                   _self.action = _self.ass_action.EDIT;
+                   _self.isVerify = true;
+                   _self.bean = person;
+                   _self.bean.isActive = true;
+                   _self.setDatePickerModel();
+                   _self.oldCitizenId = _self.bean.citizenId;
+                   console.log(_self.bean);
+                 }else{
+                   _self.isVerify = false;
+                 }
+   
+               });
+              }
+            }
+           
 
           }else{
             _self.isVerify = true;
