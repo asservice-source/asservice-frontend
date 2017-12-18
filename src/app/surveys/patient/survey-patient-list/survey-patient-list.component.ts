@@ -134,7 +134,7 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
       "rowGUID": ""
     };
     let params = JSON.stringify(param);
-
+    console.log(params);
     this.api.post('survey_patient/filter', params, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.datas = [];

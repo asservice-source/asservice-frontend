@@ -29,6 +29,7 @@ export class FilterHeadMosquitoComponent extends BaseComponent implements OnInit
   public isDisabledName = true;
   public HomeTypeData : any;
   public HomeNameData : any;
+  public isStaff: boolean;
 
   constructor() {
     super();
@@ -39,11 +40,20 @@ export class FilterHeadMosquitoComponent extends BaseComponent implements OnInit
     this.filterBean.fullName = '';
     this.filterBean.homeType = '';
     this.filterBean.homeId = '';
+
+    if(this.userInfo.roleId == '3'){
+      this.isStaff = true;
+      this.setupVillage();
+    }else{
+      this.isStaff = false;
+      this.filterBean.villageId = this.userInfo.villageId;
+      this.filterBean.osmId = this.userInfo.personId;
+    }
   }
 
   ngOnInit() {
     this.setupHeaderList();
-    this.setupVillage();
+    // this.setupVillage();
     this.setupHomeType();
   }
 
@@ -70,7 +80,7 @@ export class FilterHeadMosquitoComponent extends BaseComponent implements OnInit
     str += ' , หมู่บ้าน: ' + this.description.village;
     str += ' , อสม.: ' + this.description.osm;
     str += ' , ประเภทสถานที่: ' + this.description.homeType;
-    str += ' , ชื่อ: ' + this.description.homeName;
+    // str += ' , ชื่อ: ' + this.description.homeName;
     this.filterBean.description = str;
     this.notifyFilter.emit(this.filterBean);
     console.log("=== Filter Header Search DocumentId ===");
@@ -105,7 +115,7 @@ export class FilterHeadMosquitoComponent extends BaseComponent implements OnInit
       }
     }
     this.setupOSM();
-    this.setupHomeName();
+    // this.setupHomeName();
     this.onDropdownChange();
 
   }
@@ -139,7 +149,7 @@ export class FilterHeadMosquitoComponent extends BaseComponent implements OnInit
         this.description.homeType = item.text;
       }
     }
-    this.setupHomeName();
+    // this.setupHomeName();
     this.onDropdownChange();
   }
 
@@ -155,10 +165,14 @@ export class FilterHeadMosquitoComponent extends BaseComponent implements OnInit
   setupHomeName() {
     let self = this;
     let params = {
+      "documentId": this.filterBean.rowGUID,
       "villageId": this.filterBean.villageId,
       "homeTypeCode": this.filterBean.homeType
     };
+
+    console.log(params);
     this.api.post('home/home_list_by_village_hometype', params, function (resp) {
+      console.log(resp);
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.HomeNameData = resp.response;
       }
