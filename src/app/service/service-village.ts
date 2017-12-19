@@ -26,4 +26,8 @@ export class Service_Village extends ApiHTTPService{
         let parameter = this.baseComponent.strNullToEmpty(this.map(bean));
         this.post('village/ins_upd_village', parameter , callback);
     }  
+    public commit_del(villageId: any, callback: (doc: any) => void){
+        let parameter = {"id": villageId};
+        this.post('village/del_village', parameter , callback);
+    }
 }
