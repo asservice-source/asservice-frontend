@@ -21,5 +21,5 @@
   </div>
 </div>
 
-<app-survey-pregnant-form [action]="action" [surveyTypeCode]="surveyTypeCode" [documentId]="documentId" [data]="pregnantBean"></app-survey-pregnant-form>
+<app-survey-pregnant-form [action]="action" [surveyTypeCode]="surveyTypeCode" [documentId]="filter_documentId" [data]="pregnantBean" (memberUpdated)="onUpdatedMember($event);"></app-survey-pregnant-form>
 <ass-loading [show]="loading"></ass-loading>
