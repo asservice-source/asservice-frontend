@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ChangeDetectorRef, Input } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ChangeDetectorRef, Input, EventEmitter, Output } from '@angular/core';
 import { PregnantBean } from '../../../beans/pregnant.bean'
 import { BaseComponent } from '../../../base-component';
 import { LocalDataSource } from 'ng2-smart-table';
@@ -21,6 +21,8 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
   @Input() documentId: string;
   @Input() data: PregnantBean;
 
+  @Output() memberUpdated = new EventEmitter<PregnantBean>();
+  
   private apiHttp: Service_SurveyPregnant = new Service_SurveyPregnant();
 
   public surveyTypePregnant: string = "Pregnant";
@@ -54,6 +56,8 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
   public validateSave: InputValidateInfo = new InputValidateInfo();
 
   public loading: boolean = false;
+
+  public error_message_citizenId: string = "กรุณาระบุ หมายเลขประจำตัว";
 
   constructor(private changeRef: ChangeDetectorRef) {
     super();
@@ -119,6 +123,7 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
         renderComponent: ActionCustomView_2_Component, onComponentInitFunction(instance) {
 
           instance.edit.subscribe(row => {
+            self.validateVerify = new InputValidateInfo();
             self.tmpChildBean = row;
             self.childBean = self.cloneObj(row);
             self.actionChild = self.ass_action.EDIT;
@@ -321,8 +326,22 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
     self.validateVerify.isCheck = true;
 
     if (self.isEmpty(self.childBean.citizenId)) {
+      self.error_message_citizenId = "กรุณาระบุ หมายเลขประจำตัว";
       return;
     }
+
+    if (!self.isValidCitizenIdThailand(self.childBean.citizenId)) {
+      self.error_message_citizenId = "กรุณาระบุ หมายเลขประจำตัว ให้ถูกต้อง";
+      return;
+    }
+
+    self.apiHttp.api_PersonByCitizenId(self.childBean.citizenId, function (d) {
+      if (d.response) {
+        self.error_message_citizenId = "บัตรประชาชนซ้ำ";
+        // self.message_error('', 'บัตรประชาชนซ้ำ');
+        return;
+      }
+    });
 
     if (self.isEmpty(self.childBean.firstName)) {
       return;
@@ -377,15 +396,15 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
       return;
     }
 
-    if (self.isEmpty(self.pregnantBean.bornLocationId.toString())) {
-      return;
-    }
-
-    if (self.isEmpty(self.pregnantBean.bornTypeId.toString())) {
-      return;
-    }
-
     if (self.pregnantBean.pSurveyTypeCode == self.surveyTypeBorn) {
+      if (self.isEmpty(self.pregnantBean.bornLocationId.toString())) {
+        return;
+      }
+
+      if (self.isEmpty(self.pregnantBean.bornTypeId.toString())) {
+        return;
+      }
+
       if (self.listChild.length <= 0) {
         self.message_error('', 'กรุณาระบุข้อมูลของทารก');
         return;
@@ -413,8 +432,14 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
     }
 
     self.apiHttp.commit_save(self.pregnantBean, function (d) {
-      console.log(d);
-      self.onClickBack();
+      if (d.status.toString().toUpperCase() == "SUCCESS") {
+        self.bindChildList();
+        self.memberUpdated.emit(self.pregnantBean);
+        $("#find-person-md").modal("hide");
+      } else {
+        self.message_error('', d.message);
+      }
+
       self.loading = false;
     });
   }
@@ -461,7 +486,7 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
   findGenderName(genderId) {
     let self = this;
 
-    genderId = genderId.toString();
+    genderId = (genderId) ? genderId.toString() : "";
     if (!self.isEmpty(genderId)) {
       for (let item of self.listGender) {
         if (genderId == item.id) {
@@ -475,7 +500,7 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
   findBloodTypeName(bloodTypeId) {
     let self = this;
 
-    bloodTypeId = bloodTypeId.toString();
+    bloodTypeId = (bloodTypeId) ? bloodTypeId.toString() : "";
     if (!self.isEmpty(bloodTypeId)) {
       for (let item of self.listBloodType) {
         if (bloodTypeId == item.id) {

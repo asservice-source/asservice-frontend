@@ -22,7 +22,10 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
   private apiHttp: Service_SurveyPregnant = new Service_SurveyPregnant();
 
   public action: string = this.ass_action.ADD;
-  public documentId: string;
+  public filter_documentId: string = "";
+  public filter_villageId: string = "";
+  public filter_osmId: string = "";
+  public filter_fullName: string = "";
   public pregnantBean: PregnantBean = new PregnantBean();
 
   public settings: any;
@@ -87,12 +90,18 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
         type: 'custom',
         renderComponent: ActionCustomView_2_Component,
         onComponentInitFunction(instance) {
+
           instance.action.subscribe((row: PregnantBean, cell) => {
             if (row && row.action.toUpperCase() == self.ass_action.EDIT) {
               self.pregnantBean = row;
               self.onModalForm(self.ass_action.EDIT);
             }
           });
+
+          instance.delete.subscribe(row => {
+            self.onDeleteSurveyPregnant(row);
+          });
+
         }
       }
     });
@@ -107,14 +116,14 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
   onClickSearch(event: FilterHeadSurveyBean) {
     let self = this;
 
-    if (self.isEmpty(self.documentId))
-      self.documentId = event.rowGUID;
+    if (self.isEmpty(self.filter_documentId))
+      self.filter_documentId = event.rowGUID;
 
-    let villageId = event.villageId;
-    let osmId = event.osmId;
-    let name = event.fullName;
+    self.filter_villageId = event.villageId;
+    self.filter_osmId = event.osmId;
+    self.filter_fullName = event.fullName;
 
-    self.bindPregnantList(self.documentId, villageId, osmId, name);
+    self.bindPregnantList(self.filter_documentId, self.filter_villageId, self.filter_osmId, self.filter_fullName);
 
     // this.http.get("assets/data_test/data_home_personal.json")
     //   .map(res => res.json())
@@ -168,12 +177,28 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
     $("#find-person-md").modal("show");
   }
 
-  // setUpTable() {
-  //   let self = this;
+  onDeleteSurveyPregnant(bean) {
+    let self = this;
 
-  //   self.source = new LocalDataSource(self.data);
-  //   self.isShowTable = true;
-  //   self.setNg2STDatasource(self.source);
-  // }
+    self.message_comfirm('', 'คุณต้องการลบ "' + bean.citizenId + '" หรือไม่?', function (confirm) {
+      if (confirm) {
+        self.loading = true;
+        self.apiHttp.commit_delete(bean, function (d) {
+          if (d.status.toString().toUpperCase() == "SUCCESS") {
+            self.bindPregnantList(self.filter_documentId, self.filter_villageId, self.filter_osmId, self.filter_fullName);
+          } else {
+            self.message_error('', d.message);
+          }
+          self.loading = false;
+        });
+      }
+    })
+  }
+
+  onUpdatedMember(member: PregnantBean) {
+    let self = this;
+
+    self.bindPregnantList(self.filter_documentId, self.filter_villageId, self.filter_osmId, self.filter_fullName)
+  }
 
 }

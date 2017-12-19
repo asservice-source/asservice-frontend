@@ -83,7 +83,7 @@
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="row" [hidden]="!isDisplayPregnantType">
                     <div class="col-md-3 text-right">
                         <label>โรงพยาบาลที่คลอด</label>
                     </div>
@@ -144,9 +144,9 @@
                                         <label class="label-form">หมายเลขประจำตัว</label>
                                     </div>
                                     <div class="col-md-4">
-                                        <div [InputValidate]="validateVerify">
-                                            <input maxlength="13" type="text" [(ngModel)]="childBean.citizenId">
-                                            <label class="error">กรุณาระบุ หมายเลขประจำตัว</label>
+                                        <div [InputValidate]="validateVerify" [citizenId]="true">
+                                            <input maxlength="13" [OnlyNumber]="true" type="text" [(ngModel)]="childBean.citizenId">
+                                            <label class="error">{{ error_message_citizenId }}</label>
                                         </div>
                                     </div>
 
