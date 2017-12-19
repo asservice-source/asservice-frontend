@@ -221,13 +221,12 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
                 _self.loading = false;
                 if(response && response.status.toString().toUpperCase()=='SUCCESS'){
                   $('#modalForm').modal('hide');
-                  _self.message_success('',_self.actionName+'เจ้าหน้าที่ ' + roleName + ' ' + fullName + ' เรียบร้อย', function(){
-                    _self.success.emit({"success": true, "response": response});
-                  });
+                  _self.success.emit({"success": true, message: _self.actionName+'เจ้าหน้าที่ ' + roleName + ' ' + fullName + ' เรียบร้อย'});
+
                 }else{
-                  _self.message_error('','ไม่สามารถ'+_self.actionName+'เจ้าหน้าที่ '+ roleName + ' ' + fullName + ' ได้', function(){
-                    _self.success.emit({"success": false, "response": response});
-                  });
+                  
+                  _self.success.emit({"success": false, message: 'ไม่สามารถ'+_self.actionName+'เจ้าหน้าที่ '+ roleName + ' ' + fullName + ' ได้'});
+                  
                 }
               });
 

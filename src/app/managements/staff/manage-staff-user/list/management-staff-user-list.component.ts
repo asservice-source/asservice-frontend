@@ -28,6 +28,7 @@ export class ManagementStaffUserListComponent extends BaseComponent implements O
   public isStaff: boolean= false;
   public titlePanel: string = '';
   public loading: boolean = false;
+  private tempBean: StaffUserBean;
 
   constructor(private element: ElementRef,private activatedRoute: ActivatedRoute, private detectChange: ChangeDetectorRef) { 
     super();
@@ -76,8 +77,9 @@ export class ManagementStaffUserListComponent extends BaseComponent implements O
            renderComponent: ActionCustomView_2_Component,
            onComponentInitFunction(instance) {
               instance.edit.subscribe(row => {
-               _self.bean = _self.cloneObj(row);
-               _self.onModalForm(_self.ass_action.EDIT);
+                _self.tempBean = row;
+                _self.bean = _self.cloneObj(row);
+                _self.onModalForm(_self.ass_action.EDIT);
               });
               instance.delete.subscribe(row => {
                 _self.onClickDelete(row);
@@ -118,7 +120,7 @@ export class ManagementStaffUserListComponent extends BaseComponent implements O
         _self.loading = false;
         _self.source = _self.ng2STDatasource(response);
         _self.detectChange.detectChanges();
-        
+
       });
     }else{
       this.api.osm_findList(_self.searchName, _self.searchVillageId, function(response){
@@ -195,8 +197,13 @@ export class ManagementStaffUserListComponent extends BaseComponent implements O
   
   onSuccess(event: any){
     console.log(event);
+    let _self = this;
     if(event.success){
-      this.setupTable();
+      _self.message_success('',event.message, function(){
+        this.setupTable();
+      });
+    }else{
+      _self.message_error('',event.message);
     }
   }
 
