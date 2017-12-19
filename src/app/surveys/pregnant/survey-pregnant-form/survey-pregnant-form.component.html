@@ -64,7 +64,7 @@
                         </div>
                     </div>
 
-                    <div [hidden]="isDisplayPregnantType">
+                    <div [hidden]="isShowPregnantType">
                         <div class="col-md-1 text-right">
                             <label class="label-form">กำหนดคลอด</label>
                         </div>
@@ -73,7 +73,7 @@
                         </div>
                     </div>
 
-                    <div [hidden]="!isDisplayPregnantType">
+                    <div [hidden]="!isShowPregnantType">
                         <div class="col-md-1 text-right">
                             <label class="label-form">วันที่คลอด</label>
                         </div>
@@ -83,7 +83,7 @@
                     </div>
                 </div>
 
-                <div class="row" [hidden]="!isDisplayPregnantType">
+                <div class="row" [hidden]="!isShowPregnantType">
                     <div class="col-md-3 text-right">
                         <label>โรงพยาบาลที่คลอด</label>
                     </div>
@@ -101,7 +101,7 @@
                     </div>
                     <div class="col-md-3">
                         <div [InputValidate]="validateSave">
-                            <select [(ngModel)]="pregnantBean.bornTypeId">
+                            <select [(ngModel)]="pregnantBean.bornTypeId" (change)="onChangeBornType();">
                                 <option value="">--เลือก วิธีคลอด--</option>
                                 <option *ngFor="let item of listBornType" [value]="item.id">{{item.name}}</option>
                             </select>
@@ -111,7 +111,7 @@
 
                 </div>
 
-                <div class="row" [hidden]="pregnantBean.bornTypeId == 4 ? false : true">
+                <div class="row" [hidden]="isHiddenBornTypeAbort">
                     <div class="col-md-3 text-right">
                         <label class="label-form">หมายเหตุ</label>
                     </div>
@@ -120,12 +120,12 @@
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="row" [hidden]="!(pregnantBean.pSurveyTypeCode == surveyTypeBorn && pregnantBean.bornTypeId != bornTypeAbort)">
                     <div class="col-md-1">
                         &nbsp;
                     </div>
                     <div class="col-md-10">
-                        <div class="panel panel-default" [hidden]="!isDisplayPregnantType">
+                        <div class="panel panel-default">
 
                             <div class="panel-heading">
                                 ข้อมูลเด็กทารก
@@ -144,7 +144,7 @@
                                         <label class="label-form">หมายเลขประจำตัว</label>
                                     </div>
                                     <div class="col-md-4">
-                                        <div [InputValidate]="validateVerify" [citizenId]="true">
+                                        <div [InputValidate]="validateCitizenId" [citizenId]="true">
                                             <input maxlength="13" [OnlyNumber]="true" type="text" [(ngModel)]="childBean.citizenId">
                                             <label class="error">{{ error_message_citizenId }}</label>
                                         </div>

@@ -22,11 +22,12 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
   @Input() data: PregnantBean;
 
   @Output() memberUpdated = new EventEmitter<PregnantBean>();
-  
+
   private apiHttp: Service_SurveyPregnant = new Service_SurveyPregnant();
 
   public surveyTypePregnant: string = "Pregnant";
   public surveyTypeBorn: string = "Born";
+  public bornTypeAbort: string = "4";
 
   public pregnantBean: PregnantBean;
 
@@ -44,7 +45,8 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
 
   public isFindPersonal: boolean = true;
   public isShowForm: boolean = false;
-  public isDisplayPregnantType: boolean = false;
+  public isShowPregnantType: boolean = false;
+  public isHiddenBornTypeAbort: boolean = true;
 
   public settings: any;
   public source: LocalDataSource;
@@ -52,6 +54,7 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
   public modelBornDueDate: any = null;
   public modelBornDate: any = null;
 
+  public validateCitizenId: InputValidateInfo = new InputValidateInfo();
   public validateVerify: InputValidateInfo = new InputValidateInfo();
   public validateSave: InputValidateInfo = new InputValidateInfo();
 
@@ -123,7 +126,9 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
         renderComponent: ActionCustomView_2_Component, onComponentInitFunction(instance) {
 
           instance.edit.subscribe(row => {
+            self.validateCitizenId = new InputValidateInfo();
             self.validateVerify = new InputValidateInfo();
+
             self.tmpChildBean = row;
             self.childBean = self.cloneObj(row);
             self.actionChild = self.ass_action.EDIT;
@@ -248,6 +253,7 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
   onChoosePersonal(bean: PregnantBean): void {
     let self = this;
 
+    self.validateCitizenId = new InputValidateInfo();
     self.validateVerify = new InputValidateInfo();
     self.validateSave = new InputValidateInfo();
 
@@ -264,6 +270,7 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
     self.pregnantBean.abortionCause = self.pregnantBean.abortionCause || "";
 
     self.onChangePregnantType();
+    self.onChangeBornType();
 
     // self.modelBornDueDate = self.getDatePickerModel(self.pregnantBean.bornDueDate);
 
@@ -296,13 +303,23 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
     let self = this;
 
     if (self.pregnantBean.pSurveyTypeCode == self.surveyTypeBorn) {
-      self.isDisplayPregnantType = true;
+      self.isShowPregnantType = true;
     } else {
-      self.isDisplayPregnantType = false;
+      self.isShowPregnantType = false;
     }
 
     self.clearListChild();
     self.bindChildList();
+  }
+
+  onChangeBornType() {
+    let self = this;
+
+    if (self.pregnantBean.bornTypeId == self.bornTypeAbort) {
+      self.isHiddenBornTypeAbort = false;
+    } else {
+      self.isHiddenBornTypeAbort = true;
+    }
   }
 
   onChangeBornDueDate(event: IMyDateModel) {
@@ -325,6 +342,9 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
     self.validateVerify = new InputValidateInfo();
     self.validateVerify.isCheck = true;
 
+    self.validateCitizenId = new InputValidateInfo();
+    self.validateCitizenId.isCheck = true;
+
     if (self.isEmpty(self.childBean.citizenId)) {
       self.error_message_citizenId = "กรุณาระบุ หมายเลขประจำตัว";
       return;
@@ -338,6 +358,9 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
     self.apiHttp.api_PersonByCitizenId(self.childBean.citizenId, function (d) {
       if (d.response) {
         self.error_message_citizenId = "บัตรประชาชนซ้ำ";
+        self.validateCitizenId = new InputValidateInfo();
+        self.validateCitizenId.isCheck = true;
+        self.validateCitizenId.isShowError = true;
         // self.message_error('', 'บัตรประชาชนซ้ำ');
         return;
       }
@@ -367,6 +390,7 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
   onClickClearChild() {
     let self = this;
 
+    self.validateCitizenId = new InputValidateInfo();
     self.validateVerify = new InputValidateInfo();
 
     self.clearInputChild();
@@ -419,7 +443,7 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
     let bornTypeId = self.pregnantBean.bornTypeId;
     let abortionCause = self.pregnantBean.abortionCause;
 
-    if (self.listChild.length > 0) {
+    if (self.listChild.length > 0 && self.pregnantBean.bornTypeId != self.bornTypeAbort) {
       for (let item of self.listChild) {
         item.birthDate = bornDate;
         item.bornLocationId = bornLocationId;
