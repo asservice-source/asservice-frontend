@@ -55,7 +55,7 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
         filter: false,
         width: '190px',
       },
-      gender: {
+      genderName: {
         title: 'เพศ',
         filter: false,
         width: '70px',
