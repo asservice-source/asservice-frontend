@@ -28,9 +28,9 @@ export class InputValidateDirective{
     ngOnChanges(changes: any){
        
         if(changes.InputValidate){
-            let inputValis: InputValidateInfo = changes.InputValidate.currentValue;
+            this.InputValidate = changes.InputValidate.currentValue;
             this.onReset();
-            if(inputValis.isCheck){
+            if(this.InputValidate.isCheck){
                 this.onValidate();
                 this.InputValidate = new InputValidateInfo();
             }
@@ -55,9 +55,7 @@ export class InputValidateDirective{
             return;
         }
         let value: string =  el_input.value;
-        this.InputValidate = new InputValidateInfo();
-        this.InputValidate.value = value;
-        if(!value.trim() || (this.citizenId && !this.baseComponent.isValidCitizenIdThailand(value)) || (this.fixLength && this.fixLength>0 && value.trim().length!=this.fixLength)){
+        if(this.InputValidate.isShowError || !value.trim() || (this.citizenId && !this.baseComponent.isValidCitizenIdThailand(value)) || (this.fixLength && this.fixLength>0 && value.trim().length!=this.fixLength)){
             this.InputValidate.isPassed = false;
             this.renderer.setElementStyle(el_label,'display','block');
             this.notify.emit(this.InputValidate);
@@ -74,5 +72,6 @@ export class InputValidateDirective{
 export class InputValidateInfo{
     public isCheck: boolean;
     public isPassed: boolean;
+    public isShowError: boolean;
     public value: string;
 }
