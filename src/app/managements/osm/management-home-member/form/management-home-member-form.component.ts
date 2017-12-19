@@ -141,6 +141,7 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
     });
   }
   onGenderChange(){
+    this.bean.prefixCode = '';
     this.setupPrefix();
   }
 
@@ -202,33 +203,44 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
       _self.loading = true;
       this.api.api_PersonByCitizenId(this.bean.citizenId, function(response){
         _self.loading = false;
-        if(response.status.toString().toUpperCase()=="SUCCESS"){
-          if(response.response){
+        if(response.status.toUpperCase()=="SUCCESS"){
+          let person = response.response;
+          if(person && person.personId){
+           
             let msg = 'หมายเลขประชาชน <b>'+ _self.bean.citizenId +'</b> มีข้อมูลในระบบแล้ว';
-            msg += ' คุณต้องการแก้ไข ใช่หรือไม่?';
-            _self.message_comfirm('', msg, function(result){
-              if(result){
-                // Change Action to EDIT
-                _self.action = _self.ass_action.EDIT;
-                _self.actionName = 'แก้ไข';
-                _self.isVerify = true;
-                let homeId = _self.bean.homeId;
-                _self.bean = _self.strNullToEmpty(response.response);
-                _self.bean.homeId = homeId;
-                _self.bean.familyStatusId = '';
-                _self.bean.isGuest = '';
-                //set default ไทย
-                _self.bean.nationalityCode = _self.bean.nationalityCode || '099';
-                _self.bean.raceCode = _self.bean.raceCode || '099';
-                //---
+            if(person.isDead){
+             
+              msg += ' แต่ไม่มีสิทธิ์แก้ไขข้อมูลได้';
+              msg += '<br>เนื่องจากสถานะบุคคลไม่สามารถดำเนินการได้';
+              _self.message_error('', msg);
+              _self.isVerify = false;
 
-                _self.setDatePickerModel();
-                _self.oldCitizenId = _self.bean.citizenId;
-                console.log(_self.bean);
-              }else{
-                _self.isVerify = false;
-              }
-            });
+            }else{
+              msg += ' คุณต้องการแก้ไข ใช่หรือไม่?';
+              _self.message_comfirm('', msg, function(result){
+                if(result){
+                  // Change Action to EDIT
+                  _self.action = _self.ass_action.EDIT;
+                  _self.actionName = 'แก้ไข';
+                  _self.isVerify = true;
+                  let homeId = _self.bean.homeId;
+                  _self.bean = _self.strNullToEmpty(response.response);
+                  _self.bean.homeId = homeId;
+                  _self.bean.familyStatusId = '';
+                  _self.bean.isGuest = '';
+                  //set default ไทย
+                  _self.bean.nationalityCode = _self.bean.nationalityCode || '099';
+                  _self.bean.raceCode = _self.bean.raceCode || '099';
+                  //---
+  
+                  _self.setDatePickerModel();
+                  _self.oldCitizenId = _self.bean.citizenId;
+                  console.log(_self.bean);
+                }else{
+                  _self.isVerify = false;
+                }
+              });
+            }
             
           }else{
             _self.isVerify = true;

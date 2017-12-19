@@ -102,9 +102,9 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
       _self.loading = true;
       this.api.api_PersonByCitizenId(this.bean.citizenId, function(resp){
         _self.loading = false;
-        if(resp.status.toString().toUpperCase()=="SUCCESS"){
+        if(resp.status.toUpperCase()=="SUCCESS"){
           let person = resp.response;
-          if(person.personId){
+          if(person && person.personId){
            
             let msg = 'หมายเลขประชาชน <b>'+ _self.bean.citizenId +'</b> มีข้อมูลในระบบแล้ว';
             if(person.isDead){
@@ -112,7 +112,7 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
               msg += ' แต่ไม่มีสิทธิ์แก้ไขข้อมูลได้';
               msg += '<br>เนื่องจากสถานะบุคคลไม่สามารถดำเนินการได้';
               _self.message_error('', msg);
-
+              _self.isVerify = false;
             }else{
               
               let userRoleId = +(person.userRoleId);

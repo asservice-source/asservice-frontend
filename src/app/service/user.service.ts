@@ -31,24 +31,24 @@ export class UserService {
        
         this.userId = response.userId
         this.personId =  response.personId
-        this.citizenId =  response.citizenId
+        this.citizenId =  response.citizenId || ''
         this.roleId = response.roleId
-        this.username = response.userName
-        this.fullName = response.fullName
-        this.firstName = response.firstName
-        this.lastName = response.lastName
+        this.username = response.userName || ''
+        this.fullName = response.fullName || ''
+        this.firstName = response.firstName || ''
+        this.lastName = response.lastName || ''
         this.hospitalCode5 = response.code5
         this.hospitalCode9 = response.code9
-        this.hospitalName = response.hospitalName
-        this.hospitalDisplayName = response.hospitalDisplayName
+        this.hospitalName = response.hospitalName  || ''
+        this.hospitalDisplayName = response.hospitalDisplayName  || ''
         this.villageId = response.villageId
-        this.villageNo = response.villageNo
-        this.villageName = response.villageName
+        this.villageNo = response.villageNo || ''
+        this.villageName = response.villageName || ''
         this.birthDate = response.birthDate
-        this.address = response.address
-        this.roleAcronym = response.roleAcronym;
+        this.address = response.address || ''
+        this.roleAcronym = response.roleAcronym  || ''
         this.genderId = response.genderId;
-        this.genderName = response.genderName;
+        this.genderName = response.genderName  || ''
         
     }
 }

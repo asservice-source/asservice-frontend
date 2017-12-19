@@ -336,4 +336,17 @@ export class BaseComponent implements OnInit {
         messageBox.alert(title, message , callback);
     }
 
+    isOsmRole(roleId: string){
+        if(roleId=='4' || roleId=='5')
+            return true;
+        else
+            return false;
+    }
+
+    isStaffRole(roleId: string){
+        if(roleId=='2' || roleId=='3')
+            return true;
+        else
+            return false;
+    }
 }

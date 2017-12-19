@@ -48,8 +48,9 @@ export class LoginComponent implements OnInit {
       self.loading = false;
       if(resp && resp.status.toString().toUpperCase() == 'SUCCESS' && resp.response.login){
         console.log('Passed');
-        self.user.set(resp.response);
-        localStorage.setItem("uinfo", JSON.stringify(resp.response));
+        let obj = self.baseComponent.strNullToEmpty(resp.response);
+        self.user.set(obj);
+        localStorage.setItem("uinfo", JSON.stringify(obj));
         self.router.navigate([""]);
       }else{
         console.log('No Pass');

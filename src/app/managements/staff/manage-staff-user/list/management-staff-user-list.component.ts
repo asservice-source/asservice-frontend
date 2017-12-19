@@ -21,7 +21,6 @@ export class ManagementStaffUserListComponent extends BaseComponent implements O
   public action: string;
   public settings: any;
   public bean: StaffUserBean;
-  public datas: any = [{citizenId: '1411022039443', genderCode: '2', villageNo: '3', firstName: 'มนีแมน', lastName: 'แสนรักษ์', fullName: 'นายมนีแมน แสนรักษ์', prefixCode: '001', prefixName: 'นาย'}, {citizenId: '9811022039000', genderCode: '1', villageNo: '1', firstName: 'สมศรี', lastName: 'สองห้องนะ', fullName: 'นายสมศรี สองห้องนะ', prefixCode: '002', prefixName: 'นาย'}];
   public source: LocalDataSource;
   public villageList: any=[];
   public searchName: string;
@@ -117,16 +116,14 @@ export class ManagementStaffUserListComponent extends BaseComponent implements O
     if(this.isStaff){
       this.api.staff_findList(_self.searchName,  function(response){
         _self.loading = false;
-        _self.datas = response;
-        _self.source = _self.ng2STDatasource(_self.datas);
+        _self.source = _self.ng2STDatasource(response);
         _self.detectChange.detectChanges();
         
       });
     }else{
       this.api.osm_findList(_self.searchName, _self.searchVillageId, function(response){
         _self.loading = false;
-        _self.datas = response;
-        _self.source = _self.ng2STDatasource(_self.datas);
+        _self.source = _self.ng2STDatasource(response);
         _self.detectChange.detectChanges();
       });
     }

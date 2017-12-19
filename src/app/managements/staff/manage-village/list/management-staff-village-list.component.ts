@@ -90,7 +90,9 @@ export class ManagementStaffVillageListComponent extends BaseComponent implement
       let _self = this;
       _self.message_comfirm('','ต้องการลบหมู่บ้าน <b>'+ bean.villageName +'</b> ใช่หรือไม่', function(isComfirm){
         if(isComfirm){
+          _self.loading = true;
           _self.api.commit_del(bean.id, function(resp){
+            _self.loading = false;
             let response = resp.response;
             if(response && "SUCCESS" == resp.status.toUpperCase()){
               _self.message_success('', 'ลบหมู่บ้าน <b>'+ bean.villageName +'</b> สำเร็จ', function(){

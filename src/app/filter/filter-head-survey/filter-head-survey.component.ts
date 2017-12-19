@@ -37,13 +37,15 @@ export class FilterHeadSurveyComponent extends BaseComponent implements OnInit {
     this.filterBean.villageId = '';
     this.filterBean.osmId = '';
     this.filterBean.fullName = '';
-    if(this.userInfo.roleId == '3'){
+    if(this.isStaffRole(this.userInfo.roleId)){
       this.isStaff = true;
       this.setupVillage();
     }else{
       this.isStaff = false;
       this.filterBean.villageId = this.userInfo.villageId;
       this.filterBean.osmId = this.userInfo.personId;
+      this.description.village = this.userInfo.villageName;
+      this.description.osm = this.userInfo.fullName;
     }
      
   } 
