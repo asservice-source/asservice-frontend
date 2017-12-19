@@ -7,7 +7,7 @@ import { RegisterBean } from "../../beans/register.bean";
 import { InputValidateInfo } from '../../directives/inputvalidate.directive';
 
 declare var bootbox: any;
-declare var $:any;
+declare var $: any;
 
 @Component({
   selector: 'app-register',
@@ -80,8 +80,8 @@ export class RegisterComponent extends BaseComponent implements OnInit {
     this.apiHttp.post('hospital/hospital_list', {}, function (resp) {
       self.hospitalList = new Array<any>();
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-        for(let item of resp.response){
-          if(!item.isRegister){
+        for (let item of resp.response) {
+          if (!item.isRegister) {
             self.hospitalList.push(item);
           }
         }
@@ -89,7 +89,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
       self.dataHospitals = self.completerService.local(self.hospitalList, 'hospitalName', 'hospitalName');
       console.log(self.hospitalList);
 
-      if(self.provinceList){
+      if (self.provinceList) {
         self.loading = false;
       }
 
@@ -103,7 +103,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.provinceList = resp.response;
       }
-      if(self.hospitalList){
+      if (self.hospitalList) {
         self.loading = false;
       }
     });
@@ -152,55 +152,57 @@ export class RegisterComponent extends BaseComponent implements OnInit {
     let self = this;
     console.log(this.registerBean.code9);
     console.log(this.hospitalList);
-
+   
     if (this.validateForm()) {
+      let citizen =self.formatForJson(this.registerBean.contactCitizenId);
       let objvalidate = this.validateHostpital();
       if (objvalidate.addressFail == true) {
-        self.message_error('','กรุณาระบุสถานที่ตั้งให้ตรงกับ รพ.สต. ที่ท่านเลือก')
+        self.message_error('', 'กรุณาระบุสถานที่ตั้งให้ตรงกับ รพ.สต. ที่ท่านเลือก')
       }
       else if (objvalidate.code9Fail == true) {
-        self.message_error('','กรอกรหัส 9 หลักให้ตรงกับ รพ.สต. ที่ท่านเลือก')
+        self.message_error('', 'กรอกรหัส 9 หลักให้ตรงกับ รพ.สต. ที่ท่านเลือก')
       }
       else if (objvalidate.code5Fail == true) {
-        self.message_error('','กรอกรหัส 5 หลักให้ตรงกับ รพ.สต. ที่ท่านเลือก')
-      } else {
-        this.registerBean.contactCitizenId = this.formatForJson(this.registerBean.contactCitizenId);
-        this.registerBean.contactTelephone = this.formatForJson(this.registerBean.contactTelephone);
-        let params = {
-          code5: this.registerBean.code5,
-          contactPrefix: this.registerBean.contactPrefix,
-          contactFirstName: this.registerBean.contactFirstName,
-          contactLastName: this.registerBean.contactLastName,
-          contactCitizenId: this.registerBean.contactCitizenId,
-          contactTelephone: this.registerBean.contactTelephone,
-          contactEmail: this.registerBean.contactEmail
-        };
-        console.log(params);
-        self.loading = true;
-
-        this.api.post('hospital/register_hospital', params, function (resp) {
-          self.loading = false;
-          console.log(resp);
-          if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-            self.message_success('','กรุณาตรวจสอบอีเมลของท่านเพื่อยืนยันการลงทะเบียน',function(){
-              location.href = '/login';
-            })
-            // bootbox.alert({
-            //   size: "large",
-            //   title: "<div style='color:#5cb85c;font-weight: bold;'><span class='glyphicon glyphicon-ok'></span> ลงทะเบียนสำเร็จ</div>",
-            //   message: "กรุณาตรวจสอบอีเมลของท่านเพื่อยืนยันการลงทะเบียน",
-            //   callback: function () { location.href = '/login' }
-            // });
-          }else{
-            self.message_error('', resp.message || 'ไม่สามารถลงทะเบียนได้');
-          }
-        })
+        self.message_error('', 'กรอกรหัส 5 หลักให้ตรงกับ รพ.สต. ที่ท่านเลือก')
+      }
+      else {
+        this.isDead(citizen);
       }
     }
 
   }
 
-  
+  saveRegister(){
+    let self = this;
+    this.registerBean.contactCitizenId = this.formatForJson(this.registerBean.contactCitizenId);
+    this.registerBean.contactTelephone = this.formatForJson(this.registerBean.contactTelephone);
+    let params = {
+      code5: this.registerBean.code5,
+      contactPrefix: this.registerBean.contactPrefix,
+      contactFirstName: this.registerBean.contactFirstName,
+      contactLastName: this.registerBean.contactLastName,
+      contactCitizenId: this.registerBean.contactCitizenId,
+      contactTelephone: this.registerBean.contactTelephone,
+      contactEmail: this.registerBean.contactEmail
+    };
+    console.log(params);
+    self.loading = true;
+
+    this.api.post('hospital/register_hospital', params, function (resp) {
+      self.loading = false;
+      console.log(resp);
+      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+        self.message_success('', 'กรุณาตรวจสอบอีเมลของท่านเพื่อยืนยันการลงทะเบียน', function () {
+          location.href = '/login';
+        })
+      } else {
+        if(resp.message == 'CitizenIdIsMappedToOtherRoles'){
+          self.message_error('', 'หมายเลขประชาชนนี้ใช้ในการลงทะเบียนไปแล้ว');
+        }
+      }
+    })
+  }
+
 
   validateHostpital() {
     let self = this;
@@ -276,19 +278,19 @@ export class RegisterComponent extends BaseComponent implements OnInit {
     }
 
     if (!self.isEmpty(self.registerBean.contactCitizenId)) {
-      if(self.registerBean.contactCitizenId.length == 17){
+      if (self.registerBean.contactCitizenId.length == 17) {
         let citi = self.formatForJson(self.registerBean.contactCitizenId);
-        if(self.isValidCitizenIdThailand(citi)){
+        if (self.isValidCitizenIdThailand(citi)) {
           self.isErrorCitizenID = false;
-        }else{
+        } else {
           self.isErrorCitizenID = true;
           validateForm = false;
         }
-      }else{
+      } else {
         self.isErrorCitizenID = true;
         validateForm = false;
       }
-    }else{
+    } else {
       self.isErrorCitizenID = true;
       validateForm = false;
     }
@@ -336,7 +338,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
 
     return validateForm;
 
-    
+
   }
 
   formatInputCitizenID() {
@@ -399,8 +401,32 @@ export class RegisterComponent extends BaseComponent implements OnInit {
     let result = pure_value.join('');
     return result;
   }
- 
-  onGotoIndex(){
+
+  onGotoIndex() {
     this.route.navigate(['']);
   }
+
+  isDead(citizenId) {
+    console.log(citizenId)
+    let self = this;
+    let params =
+      {
+        "citizenId": citizenId
+      }
+    this.api.post('person/person_by_citizenid', params, function (resp) {
+      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+        if(resp.response){
+          if(resp.response.isDead){
+            self.message_error('','หมายเลขประจำตัวประชาชนนี้ไม่อยู่ในสถานะที่จะทำรายการได้');
+          }else{
+           self.saveRegister();
+          }
+        }else{
+          self.saveRegister();
+        }
+      }
+    });
+
+  }
+
 }
