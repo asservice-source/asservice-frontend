@@ -77,7 +77,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
   api_hospital() {
     this.loading = true;
     let self = this;
-    this.apiHttp.post('hospital/hospital_list', {}, function (resp) {
+    this.apiHttp.post('hospital/hospitalName_list', {}, function (resp) {
       self.hospitalList = new Array<any>();
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         for (let item of resp.response) {
@@ -150,7 +150,17 @@ export class RegisterComponent extends BaseComponent implements OnInit {
 
   doRegister() {
     let self = this;
-    console.log(this.registerBean.code9);
+
+    let paramCode5 ={
+      "code5":this.registerBean.code5
+    }
+    this.api.post('hospital/hospital_list', paramCode5, function (resp){
+      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+         self.hospitalList = resp.response;
+      }
+    });
+
+    console.log("//////////////////////////////////////////////////////////////////////");
     console.log(this.hospitalList);
    
     if (this.validateForm()) {
