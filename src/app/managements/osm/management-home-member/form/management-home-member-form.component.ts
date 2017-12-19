@@ -297,14 +297,9 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
               _self.api.commit_save(_self.bean, function(response){
                 _self.loading = false;   
                 if(response && response.status.toString().toUpperCase()=='SUCCESS'){
-                  $('#modalForm').modal('hide');
-                  _self.message_success('',_self.actionName + ' สมาชิกใหม่เรียบร้อย', function(){
-                    _self.success.emit({"success": true, "response": response});
-                  });
+                  _self.success.emit({"success": true, "message": _self.actionName + ' สมาชิกใหม่เรียบร้อย'}); 
                 }else{
-                  _self.message_error('','ไม่สามารถ'+_self.actionName+'ได้', function(){
-                    _self.success.emit({"success": false, "response": response});
-                  });
+                  _self.success.emit({"success": false, "message": 'ไม่สามารถ'+_self.actionName+'ได้'});
                 }
               });
 

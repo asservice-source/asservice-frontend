@@ -81,9 +81,9 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.setupHomeList();
+    this.setupTable();
   }
-  setupHomeList(){    
+  setupTable(){    
     let _self = this;
     _self.loading = true;
     this.api.getList(this.userInfo.villageId, this.userInfo.personId, function(response){
@@ -111,12 +111,17 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
     this.onModalForm(this.ass_action.ADD);
   }
 
-  onSuccess(event:any){
-    console.log("ON-SUCCESS");
+  onComplete(event:any){
     console.log(event);
+    let _self = this;
     if(event.success){
-      this.setupHomeList();
       $('#modalForm').modal('hide');
+      _self.message_success('', event.message, function(){
+        _self.setupTable();
+      })
+     
+    }else{
+      _self.message_error('', event.message);
     }
     
   }

@@ -84,9 +84,8 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
       _self.api.commit_save(_self.bean, function(response){
         let strAction = _self.action==_self.ass_action.ADD?'เพิ่ม':'แก้ไข';
         if(response && response.status.toString().toUpperCase()=='SUCCESS'){
-          _self.message_success('','ทำการ'+strAction+'บ้านเลขที่ <b>' + _self.bean.homeNo + '</b> เรียบร้อย', function(){
-            _self.success.emit({"success": true, "response": response});
-          });
+      
+          _self.success.emit({"success": true, "message": 'ทำการ'+strAction+'บ้านเลขที่ <b>' + _self.bean.homeNo + '</b> เรียบร้อย'});
         }else{
           let msg = '';
           if(response.response){
@@ -100,8 +99,8 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
           } else{
             msg = 'ไม่สามารถ'+strAction+'บ้านเลขที่ <b>' + _self.bean.homeNo + '</b> ได้';
           }
-          _self.message_error('',msg);
-          _self.success.emit({"success": false, "response": response});
+         
+          _self.success.emit({"success": false, "message": msg});
         }
         
       });

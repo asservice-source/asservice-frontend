@@ -43,9 +43,8 @@ export class ManagementStaffVillageFormComponent extends BaseComponent implement
           $('#modalForm').modal('hide');
           let message = _self.action==_self.ass_action.ADD?'เพิ่มหมู่บ้าน':'แก้ไขหมู่บ้าน';
           message += " : หมู่ที่ " + _self.bean.villageNo + " บ้าน" + _self.bean.villageName;
-          _self.message_success('ทำรายการสำเร็จ', message , function(){
-            _self.onAdd.emit(response);
-          });
+          _self.onAdd.emit({"success": true, "message": message});
+
         }else{                                                     
           if(response.response=='Duplicated[VillageNO]'){
             _self.message_error('','หมู่ที่ <b>'+ _self.bean.villageNo + ' ' + _self.bean.villageName +'</b> ซ้ำ กรุณาใส่หมู่ที่อื่น');

@@ -64,9 +64,9 @@ export class ManagementStaffVillageListComponent extends BaseComponent implement
 
     ngOnInit() {
       
-      this.setupDataList();
+      this.setupTable();
     }
-    setupDataList(){
+    setupTable(){
       
       let _self = this;
       _self.loading = true;
@@ -96,7 +96,7 @@ export class ManagementStaffVillageListComponent extends BaseComponent implement
             let response = resp.response;
             if(response && "SUCCESS" == resp.status.toUpperCase()){
               _self.message_success('', 'ลบหมู่บ้าน <b>'+ bean.villageName +'</b> สำเร็จ', function(){
-                _self.setupDataList();
+                _self.setupTable();
               });
             }else{
               let msg: string = resp.message;
@@ -112,9 +112,15 @@ export class ManagementStaffVillageListComponent extends BaseComponent implement
       });
       
     }
-    onReturnAdd(response: any){
-      if('SUCCESS' == response.status.toUpperCase()){
-        this.setupDataList();
+    onCompleted(event: any){
+      console.log(event);
+      let _self = this;
+      if(event.success){
+        _self.message_success('',event.message, function(){
+          _self.setupTable();
+        });
+      }else{
+        _self.message_error('',event.message);
       }
     }
 }

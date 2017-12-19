@@ -195,12 +195,12 @@ export class ManagementStaffUserListComponent extends BaseComponent implements O
     this.setupTable();
   }
   
-  onSuccess(event: any){
+  onCompleted(event: any){
     console.log(event);
     let _self = this;
     if(event.success){
       _self.message_success('',event.message, function(){
-        this.setupTable();
+        _self.setupTable();
       });
     }else{
       _self.message_error('',event.message);

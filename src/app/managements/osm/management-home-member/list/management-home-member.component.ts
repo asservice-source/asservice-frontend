@@ -147,8 +147,15 @@ export class ManagementHomeMemberComponent extends BaseComponent implements OnIn
 
   onSaveCallback(event: any){
     console.log(event);
+    let _self = this;
     if(event.success){
-      this.setupMemberList();
+      $('#modalForm').modal('hide');
+      _self.message_success('',event.message, function(){
+        _self.setupMemberList();
+      });
+      
+    }else{
+      _self.message_error('', event.message);
     }
   }
 
