@@ -151,33 +151,45 @@ export class RegisterComponent extends BaseComponent implements OnInit {
   doRegister() {
     let self = this;
 
-    let paramCode5 ={
-      "code5":this.registerBean.code5
-    }
-    this.api.post('hospital/hospital_list', paramCode5, function (resp){
-      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-         self.hospitalList = resp.response;
-      }
-    });
-
-    console.log("//////////////////////////////////////////////////////////////////////");
-    console.log(this.hospitalList);
-   
     if (this.validateForm()) {
-      let citizen =self.formatForJson(this.registerBean.contactCitizenId);
-      let objvalidate = this.validateHostpital();
-      if (objvalidate.addressFail == true) {
-        self.message_error('', 'กรุณาระบุสถานที่ตั้งให้ตรงกับ รพ.สต. ที่ท่านเลือก')
+      let paramCode5 ={
+        "code5":this.registerBean.code5
       }
-      else if (objvalidate.code9Fail == true) {
-        self.message_error('', 'กรอกรหัส 9 หลักให้ตรงกับ รพ.สต. ที่ท่านเลือก')
-      }
-      else if (objvalidate.code5Fail == true) {
-        self.message_error('', 'กรอกรหัส 5 หลักให้ตรงกับ รพ.สต. ที่ท่านเลือก')
-      }
-      else {
-        this.isDead(citizen);
-      }
+      this.api.post('hospital/hospital_list', paramCode5, function (resp){
+        if (resp.response && resp.status.toUpperCase() == "SUCCESS") {
+          let hospital = resp.response;
+          if (this.registerBean.provinceID == hospital.provinceCode
+            && this.registerBean.amphurCode == hospital.amphurCode
+            && this.registerBean.tumbolID == hospital.tumbolCode
+            && this.registerBean.code9 == hospital.code9 
+            && this.registerBean.code5 == hospital.code5) {
+              self.message_error('','ข้อมูล รพ.สต ไม่ถูกต้อง');
+          }else{
+            let citizenId =self.formatForJson(this.registerBean.contactCitizenId);
+            let params =
+            {
+              "citizenId": citizenId
+            }
+            this.api.post('person/person_by_citizenid', params, function (resp) {
+              if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+                if(resp.response){
+                  if(resp.response.isDead){
+                    self.message_error('','หมายเลขประจำตัวประชาชนนี้ไม่อยู่ในสถานะที่จะทำรายการได้');
+                  }else{
+                  self.saveRegister();
+                  }
+                }else{
+                  self.saveRegister();
+                }
+              }
+            });
+          }
+        }else{
+          self.message_error('','ไม่สามารถตรวจสอบข้อมูล รพ.สต ได้');
+        }
+      });
+    }else{
+
     }
 
   }
@@ -211,39 +223,6 @@ export class RegisterComponent extends BaseComponent implements OnInit {
         }
       }
     })
-  }
-
-
-  validateHostpital() {
-    let self = this;
-
-    if (!self.isEmpty(self.registerBean.hospitalName)) {
-      let obj = {
-        addressFail: true,
-        code5Fail: true,
-        code9Fail: true
-      };
-
-      for (let item of self.hospitalList) {
-        if (item.hospitalName.trim() == this.registerBean.hospitalName.trim()) {
-          if (this.registerBean.provinceID == item.provinceCode
-            && this.registerBean.amphurCode == item.amphurCode
-            && this.registerBean.tumbolID == item.tumbolCode) {
-            obj.addressFail = false;
-          }
-          if (item.code9 == this.registerBean.code9) {
-            obj.code9Fail = false;
-          }
-          if (item.code5 == this.registerBean.code5) {
-            obj.code5Fail = false;
-          }
-        }
-      }
-      return obj;
-    }
-    // else {
-    //   self.isErrorHospital = true;
-    // }
   }
 
   validateForm() {
@@ -416,27 +395,5 @@ export class RegisterComponent extends BaseComponent implements OnInit {
     this.route.navigate(['']);
   }
 
-  isDead(citizenId) {
-    console.log(citizenId)
-    let self = this;
-    let params =
-      {
-        "citizenId": citizenId
-      }
-    this.api.post('person/person_by_citizenid', params, function (resp) {
-      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-        if(resp.response){
-          if(resp.response.isDead){
-            self.message_error('','หมายเลขประจำตัวประชาชนนี้ไม่อยู่ในสถานะที่จะทำรายการได้');
-          }else{
-           self.saveRegister();
-          }
-        }else{
-          self.saveRegister();
-        }
-      }
-    });
-
-  }
 
 }
