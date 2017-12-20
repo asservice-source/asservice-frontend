@@ -54,10 +54,10 @@
               <label>วันที่เสียชีวิต</label>
             </div>
             <div class="col-md-2">
-              <div [InputValidate]="inputValidate">
+              <div [InputValidate]="inputValidate" BirthDate="BirthDate" (notify)="validDate($event)">
                 <my-date-picker name="mydate" [options]="datePickerOptions"
               [(ngModel)]="bean.mDateDead" (dateChanged)="onDateChanged($event)" required></my-date-picker>
-                <label class="error">กรุณาเลือก ันที่เสียชีวิต</label>
+                <label class="error">วันที่เสียชีวิตไม่ถูกต้อง</label>
               </div>
             </div>
             <div class="col-md-1 text-right"  style="width: 40px; padding: 0;">

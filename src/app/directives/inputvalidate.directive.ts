@@ -62,7 +62,7 @@ export class InputValidateDirective{
             this.renderer.setElementStyle(el_label,'display','block');
             this.notify.emit(this.InputValidate);
             this.renderer2.addClass(el_input, 'error-input');
-        }else{
+        }else{                  
             if(this.BirthDate=='BirthDate'){
                 let dates = value.split('/');
                 let year:number;
@@ -80,20 +80,24 @@ export class InputValidateDirective{
                     cTime = cDate.getTime();
                     time = date.getTime();
                 }
-
+               
+                console.log(time);
+                console.log(cTime);
+                
                 if(cTime - time < 0){
+                    console.log(cTime - time);
                     this.InputValidate.isPassed = false;
                     this.renderer.setElementStyle(el_label,'display','block');
-                    this.notify.emit(this.InputValidate);
                     this.renderer2.addClass(el_input, 'error-input');
+                    this.notify.emit(this.InputValidate);
 
                     return false;
                 }
             }
             this.InputValidate.isPassed = true;
             this.renderer.setElementStyle(el_label,'display','none');
-            this.notify.emit(this.InputValidate);
             this.renderer2.removeClass(el_input, 'error-input');
+            this.notify.emit(this.InputValidate);
         }
         return true; 
     }

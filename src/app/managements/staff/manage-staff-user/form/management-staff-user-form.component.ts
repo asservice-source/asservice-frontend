@@ -77,6 +77,7 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
     });
     $('#modalForm').on('show.bs.modal', function(){
       console.log(_self.bean);
+      _self.msgError_BirthDate = 'กรุณาเลือก วัน/เดือน/ปี เกิด';
       if(_self.bean.personId){
         _self.action = _self.ass_action.EDIT;
         _self.oldCitizenId = _self.bean.citizenId;
@@ -108,7 +109,7 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
           let person = resp.response;
           if(person && person.personId){
            
-            let msg = 'หมายเลขประชาชน <b>'+ _self.bean.citizenId +'</b> มีข้อมูลในระบบแล้ว';
+            let msg = 'หมายเลขประชาชน <b>'+ _self.formatCitizenId(_self.bean.citizenId) +'</b> มีข้อมูลในระบบแล้ว';
             if(person.isDead){
              
               msg += ' แต่ไม่มีสิทธิ์แก้ไขข้อมูลได้';
@@ -222,7 +223,7 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
           if(response.status.toString().toUpperCase()=="SUCCESS"){
             if(response.response && response.response.citizenId != _self.oldCitizenId){
               _self.loading = false;
-              _self.message_error('', 'หมายเลขบัตรประจำตัว <b>'+ _self.bean.citizenId +'</b> ซ้ำ');
+              _self.message_error('', 'หมายเลขบัตรประจำตัว <b>'+ _self.formatCitizenId(_self.bean.citizenId) +'</b> ซ้ำ');
             }else{
               // Save To API
               _self.api.commit_save(_self.isStaff ,_self.bean, function(response){
