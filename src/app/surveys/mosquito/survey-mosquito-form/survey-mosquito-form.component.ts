@@ -21,6 +21,7 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
   public resetFind: number = 1;
   private api: ApiHTTPService;
   public containerTypeList: any;
+  public loading: boolean = false;
 
   public mosquitobean: MosquitoBean;
 
