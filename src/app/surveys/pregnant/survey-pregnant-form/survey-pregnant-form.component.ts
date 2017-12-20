@@ -7,6 +7,7 @@ import { PregnantChildBean } from '../../../beans/pregnant-child.bean';
 import { Service_SurveyPregnant } from '../../../service/service-survey-pregnant';
 import { IMyDateModel } from 'mydatepicker-thai';
 import { InputValidateInfo } from '../../../directives/inputvalidate.directive';
+import { SimpleValidateForm } from '../../../utils.util';
 declare var $: any
 
 @Component({
@@ -310,6 +311,8 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
 
     self.clearListChild();
     self.bindChildList();
+
+    self.validateSave = new InputValidateInfo();
   }
 
   onChangeBornType() {
@@ -413,6 +416,10 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
   onClickConfirm() {
     let self = this;
 
+    let simpValidate = new SimpleValidateForm();
+    let validatePregnantFields = ["wombNo", "bornDueDate"];
+    let validateBornFields = ["wombNo", "bornDate", "bornLocationId", "bornTypeId"];
+
     self.validateSave = new InputValidateInfo();
     self.validateSave.isCheck = true;
 
@@ -421,16 +428,28 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
     }
 
     if (self.pregnantBean.pSurveyTypeCode == self.surveyTypeBorn) {
-      if (self.isEmpty(self.pregnantBean.bornLocationId.toString())) {
+      let errors = simpValidate.getObjectEmpty_byFilds(self.pregnantBean, validateBornFields);
+      if (errors.length > 0) {
+        console.log(errors);
         return;
       }
 
-      if (self.isEmpty(self.pregnantBean.bornTypeId.toString())) {
-        return;
-      }
+      // if (self.isEmpty(self.pregnantBean.bornLocationId.toString())) {
+      //   return;
+      // }
+
+      // if (self.isEmpty(self.pregnantBean.bornTypeId.toString())) {
+      //   return;
+      // }
 
       if (self.listChild.length <= 0) {
-        self.message_error('', 'กรุณาระบุข้อมูลของทารก');
+        self.message_error('', 'กรุณาระบุข้อมูลของเด็กทารก');
+        return;
+      }
+    } else {
+      let errors = simpValidate.getObjectEmpty_byFilds(self.pregnantBean, validatePregnantFields);
+      if (errors.length > 0) {
+        console.log(errors);
         return;
       }
     }
