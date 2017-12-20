@@ -23,6 +23,7 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
   public villageList: any;
   public genderList: any;
   public inputValidate: InputValidateInfo = new InputValidateInfo();
+  public inputValidateBirthDate: InputValidateInfo = new InputValidateInfo();
   public isVerify: boolean = false;
   public mBirthDate: any;
   public oldCitizenId: string;
@@ -30,6 +31,7 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
   public msgError_CitizenId: string = '';
   public msgError_CitizenIdEmty: string = 'กรุณาใส่หมายเลขประชาชนเป็นตัวเลข 13 หลัก';
   public msgError_CitizenIdNoFormat: string = 'รูปแบบหมายเลขประชาชนไม่ถูกต้อง';
+  public msgError_BirthDate: string  = 'กรุณาเลือก วัน/เดือน/ปี เกิด';
   public loading: boolean = false;
   constructor() { 
     super();
@@ -179,10 +181,12 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
   onClickEditCitizenId(){
 
   }
-  onSave(){
+  onSave(): any{
     this.bean.birthDate = this.getStringDateForDatePickerModel(this.mBirthDate.date);
     this.inputValidate = new InputValidateInfo();
+    this.inputValidateBirthDate = new InputValidateInfo();
     this.inputValidate.isCheck = true;
+    this.inputValidateBirthDate.isCheck = true;
     let valid = new SimpleValidateForm();
     this.bean.hospitalCode5 = this.getHospitalCode();
     let roleName = "";
@@ -208,8 +212,16 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
       console.log(arr);
       if(arr.length<=0){
         let _self = this;
+        
+        let currentYear = (new Date()).getFullYear();
+        let birthYear = _self.mBirthDate.date.year;
+        let yearDiff = currentYear - birthYear;
+        if(yearDiff < 15){
+          _self.inputValidateBirthDate.isShowError = true;
+          _self.msgError_BirthDate = 'วัน/เดือน/ปี เกิดไม่ถูกต้อง';
+          return false;
+        }
         _self.loading = true;
-
         this.api.api_PersonByCitizenId(_self.bean.citizenId, function(response){
           if(response.status.toString().toUpperCase()=="SUCCESS"){
             if(response.response && response.response.citizenId != _self.oldCitizenId){
