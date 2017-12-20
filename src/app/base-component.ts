@@ -256,16 +256,24 @@ export class BaseComponent implements OnInit {
     }
 
     formatCitizenId(cid: string): string {
-        if (this.isEmpty(cid) && cid.length == 13) return cid;
+        if (this.isEmpty(cid) || cid.length != 13) return cid;
+
         let arr = cid.split('');
         return arr[0] + '-' + arr[1] + arr[2] + arr[3] + arr[4] + '-' + arr[5] + arr[6] + arr[7] + arr[8] + arr[9] + '-' + arr[10] + arr[11] + '-' + arr[12];
+    }
+
+    reverseFormatCitizenId(cid: string): string {
+        if (this.isEmpty(cid)) {
+            return cid;
+        }
+        return cid.split('-').join('');
     }
 
     isValidCitizenIdThailand(s): boolean {
         if (this.isEmpty(s)) {
             return false;
         }
-
+        s = s.split('-').join('');
         let pin = 0, j = 13, pin_num = 0;
         let ChkPinID = true;
         if (ChkPinID = false) {

@@ -11,7 +11,7 @@ export class Service_HomeMember extends ApiHTTPService{
     public map(bean: PersonalBasicBean):any{
         this.attr = {
             
-            "citizenId": bean.citizenId,
+            "citizenId": this.baseComponent.reverseFormatCitizenId(bean.citizenId),
             "prefixCode": bean.prefixCode,
             "firstName": bean.firstName,
             "lastName": bean.lastName,

@@ -168,6 +168,7 @@ export class ApiHTTPService  implements OnInit {
         this.callResponse('survey/survey_death_place_list', {}, callback);
     }
     public api_PersonByCitizenId(citizenId: string, callback: (doc: any) => void){
+        citizenId = this.baseComponent.reverseFormatCitizenId(citizenId);
         let parameter = {"citizenId": citizenId};
         this.post('person/person_by_citizenid', parameter, function(response){
             callback(response);

@@ -1,10 +1,10 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef} from '@angular/core';
 import { BaseComponent } from '../../../../base-component';
 import { StaffUserBean } from '../../../../beans/staff-user.bean';
 import { ApiHTTPService } from '../../../../service/api-http.service';
 import { InputValidateInfo } from '../../../../directives/inputvalidate.directive';
 import { Service_UserStaffAndOSM } from '../../../../service/service-user-staff-osm';
-import { SimpleValidateForm } from '../../../../utils.util';
+import { SimpleValidateForm, RefreshChange } from '../../../../utils.util';
 declare var $:any;
 
 @Component({
@@ -33,7 +33,8 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
   public msgError_CitizenIdNoFormat: string = 'รูปแบบหมายเลขประชาชนไม่ถูกต้อง';
   public msgError_BirthDate: string  = 'กรุณาเลือก วัน/เดือน/ปี เกิด';
   public loading: boolean = false;
-  constructor() { 
+  public refreshChange: RefreshChange;
+  constructor(private changeRef: ChangeDetectorRef) { 
     super();
     this.bean = new StaffUserBean();
     this.api = new Service_UserStaffAndOSM();
@@ -76,6 +77,7 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
       _self.msgError_CitizenId = _self.msgError_CitizenIdEmty;
     });
     $('#modalForm').on('show.bs.modal', function(){
+      
       console.log(_self.bean);
       _self.msgError_BirthDate = 'กรุณาเลือก วัน/เดือน/ปี เกิด';
       if(_self.bean.personId){
@@ -86,7 +88,6 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
         _self.action = _self.ass_action.ADD;
         _self.isVerify = false;
       }
-      
       _self.setDatePickerModel();
 
     });

@@ -21,6 +21,9 @@ export class InputValidateDirective{
     @HostListener('keypress', ['$event']) onKeyPress(event) {
         this.onReset();
     }
+    @HostListener('paste', ['$event']) onPaste(event) {
+        this.onReset();
+    }
     @HostListener('change', ['$event']) onChange(event) {
         this.onReset();
     }
@@ -100,7 +103,7 @@ export class InputValidateDirective{
             this.notify.emit(this.InputValidate);
         }
         return true; 
-    }
+    } 
 }
 export class InputValidateInfo{
     public isCheck: boolean;

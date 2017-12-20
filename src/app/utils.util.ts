@@ -70,3 +70,9 @@ export class SimpleValidateForm{
     }
 }
 
+export class RefreshChange{
+    public refresh: any;
+    constructor(){
+    
+    }
+}
