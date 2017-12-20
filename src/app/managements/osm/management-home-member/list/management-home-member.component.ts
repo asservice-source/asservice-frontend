@@ -102,7 +102,7 @@ export class ManagementHomeMemberComponent extends BaseComponent implements OnIn
       _self.homeId = params['homeId'];
 
       _self.setupHomeInfo();
-      _self.setupMemberList();
+      _self.setupTable();
     });
   }
 
@@ -120,7 +120,7 @@ export class ManagementHomeMemberComponent extends BaseComponent implements OnIn
     });
     
   }
-  setupMemberList(){
+  setupTable(){
     let _self = this;
     _self.loading = true;
     this.api.getList(_self.homeId, function(response){
@@ -145,13 +145,13 @@ export class ManagementHomeMemberComponent extends BaseComponent implements OnIn
     this.onModalShow(this.ass_action.ADD);
   }
 
-  onSaveCallback(event: any){
+  onCompleted(event: any){
     console.log(event);
     let _self = this;
     if(event.success){
       $('#modalForm').modal('hide');
       _self.message_success('',event.message, function(){
-        _self.setupMemberList();
+        _self.setupTable();
       });
       
     }else{
