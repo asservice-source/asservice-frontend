@@ -20,7 +20,7 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
   public action: string;
   public api: Service_Home;
   public settings: any;
-  public source: LocalDataSource = new LocalDataSource();
+  public source: LocalDataSource;
   public loading: boolean = false;
   constructor(private router: Router, private changeRef: ChangeDetectorRef) { 
     super();
@@ -115,7 +115,7 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
     console.log(event);
     let _self = this;
     if(event.success){
-      $('#modalForm').modal('hide');
+     
       _self.message_success('', event.message, function(){
         _self.setupTable();
       })

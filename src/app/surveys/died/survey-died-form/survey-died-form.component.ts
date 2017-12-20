@@ -41,7 +41,7 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
    }
 
   ngOnInit() {
-    this.onModalEvent();
+    this.bindModal();
     this.setupCancerList();
     this.setupPlaceList();
   }
@@ -98,7 +98,7 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
   onDateChanged(event: any){
     this.bean.mDateDead = event;
   }
-  onModalEvent(){
+  bindModal(){
     let _self = this;
     $('#modal-add-died').on('show.bs.modal', function (e) {
       _self.resetFind = _self.resetFind+1;
@@ -160,17 +160,13 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
           _self.loading = false;
           if(response.status.toUpperCase()=="SUCCESS"){
             $('#modal-add-died').modal('hide');
-            _self.message_success('','แจ้งการเสียชีวิต <b>'+_self.bean.fullName + '</b> เรียบร้อย', function(){
-              _self.commit.emit(response);
-            });
-  
-           
+            _self.commit.emit({"success": true, "message": 'แจ้งการเสียชีวิต <b>'+_self.bean.fullName + '</b> เรียบร้อย'});
           }else{
             let msg = response.message;
             if(response.message.toUpperCase().indexOf('DUPLICATED')>=0){
               msg = 'ทำรายการซ้ำ : <b>'+_self.bean.fullName + '</b> มีการแจ้งเสียชีวิตไปแล้ว';
             }
-            _self.message_error('',''+msg, function(){});
+            _self.commit.emit({"success": false, "message":msg});
           }
           console.log("Saved Response...");
           console.log(response);

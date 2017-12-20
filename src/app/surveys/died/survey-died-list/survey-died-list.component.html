@@ -12,7 +12,7 @@
         <button class="btn btn-sm btn-primary" (click)="onModalForm(ass_action.ADD);">เพิ่มผู้เสียชีวิต</button>
       </div>
     </div>
-    <div class="row" *ngIf="isShowList">
+    <div class="row">
       <div class="col-md-12">
           <div class="filter-discription" [innerHtml]="filterBean.description"></div>
           <ng2-smart-table [settings]="settings" [source]="source" (rowSelect)="onRowSelect($event)"></ng2-smart-table>
@@ -21,5 +21,5 @@
   </div>
 
 </div>
-<app-survey-died-form [action]='action' [data]="bean" [currentDocumentId]="currentDocumentId" (commit)="onCommit($event);"></app-survey-died-form>
+<app-survey-died-form [action]='action' [data]="bean" [currentDocumentId]="currentDocumentId" (commit)="onCompleted($event);"></app-survey-died-form>
 <ass-loading [show]="loading"></ass-loading>

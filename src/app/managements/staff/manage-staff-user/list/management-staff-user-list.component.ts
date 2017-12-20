@@ -136,7 +136,6 @@ export class ManagementStaffUserListComponent extends BaseComponent implements O
     
     let _self = this;
     this.api.api_villageList(this.getHospitalCode(),function(list){
-      console.log(list);
       _self.villageList = list;
      
     });

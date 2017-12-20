@@ -4,7 +4,8 @@ import { InputValidateInfo } from '../../../../directives/inputvalidate.directiv
 import { BaseComponent } from '../../../../base-component';
 import { SimpleValidateForm } from "../../../../utils.util";
 import { Service_Home } from '../../../../service/service-home';
-
+declare var $:any;
+declare var modal:any;
 
 @Component({
   selector: 'app-management-home-form',
@@ -84,7 +85,7 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
       _self.api.commit_save(_self.bean, function(response){
         let strAction = _self.action==_self.ass_action.ADD?'เพิ่ม':'แก้ไข';
         if(response && response.status.toString().toUpperCase()=='SUCCESS'){
-      
+          $('#modalForm').modal('hide');
           _self.success.emit({"success": true, "message": 'ทำการ'+strAction+'บ้านเลขที่ <b>' + _self.bean.homeNo + '</b> เรียบร้อย'});
         }else{
           let msg = '';

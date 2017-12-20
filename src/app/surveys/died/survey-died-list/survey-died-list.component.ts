@@ -18,7 +18,6 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
   private apiDead: Service_SurveyDead;
   public settings: any;
   public surveyTypeCode: string = this.surveyHeaderCode.DEATH;
-  public isShowList: boolean = false;
   public action: string = this.ass_action.ADD;
   public source: LocalDataSource;
   public bean: DeadBean = new DeadBean();
@@ -28,8 +27,6 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
   public loading: boolean = false;
   constructor(private changeRef: ChangeDetectorRef) {
     super();
-
-    this.source = new LocalDataSource();
     this.apiDead = new Service_SurveyDead();
     this.filterBean = new FilterHeadSurveyBean();
     let self = this;
@@ -55,9 +52,6 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
         width: '50px',
         type: 'html',
         valuePrepareFunction: (cell, row) => {
-          // if (!cell) {
-          //   cell = "";
-          // }
           return '<div class="text-center">' + cell + '</div>'
         }
       },
@@ -97,14 +91,6 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
           instance.delete.subscribe(row => {
             self.onDelete(row);
           });
-
-          // instance.action.subscribe((row: DeadBean, cell) => {
-          //   console.log(row);
-          //   if(row && row.action.toUpperCase()==self.ass_action.EDIT){
-          //     self.bean = self.cloneObj(row);
-          //     self.onModalForm(self.ass_action.EDIT);
-          //   }
-          // });
         }
       }
     };
@@ -114,7 +100,7 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loading = true;
+
   }
 
   onChangeFilter(event: FilterHeadSurveyBean) {
@@ -128,9 +114,8 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
       this.currentDocumentId = event.rowGUID;
     }
     let _self = this;
-    this.apiDead.getList(event, function (response) {
-      _self.datas = response;
-      _self.setupTable();
+    _self.apiDead.getList(event, function (response) {
+      _self.source = _self.ng2STDatasource(response);
       _self.loading = false;
       _self.changeRef.detectChanges();
     });
@@ -142,15 +127,17 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
     $('#modal-add-died').modal('show');
   }
 
-  onCommit(event: any) {
+  onCompleted(event: any) {
     console.log(">>> OnCommit");
-    this.onSearch(this.filterBean);
-  }
-
-  setupTable() {
-    this.source = super.ng2STDatasource(this.datas);
-    this.isShowList = true;
-   
+    let _seft = this;
+    if(event.success){
+      this.message_success('', event.message, function(){
+        _seft.onSearch(_seft.filterBean);
+      });
+      
+    }else{
+      this.message_error('',event.message);
+    }
   }
 
   onDelete(bean: DeadBean) {
