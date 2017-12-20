@@ -157,32 +157,36 @@ export class RegisterComponent extends BaseComponent implements OnInit {
       }
       this.api.post('hospital/hospital_list', paramCode5, function (resp){
         if (resp.response && resp.status.toUpperCase() == "SUCCESS") {
-          let hospital = resp.response;
-          if (this.registerBean.provinceID == hospital.provinceCode
-            && this.registerBean.amphurCode == hospital.amphurCode
-            && this.registerBean.tumbolID == hospital.tumbolCode
-            && this.registerBean.code9 == hospital.code9 
-            && this.registerBean.code5 == hospital.code5) {
-              self.message_error('','ข้อมูล รพ.สต ไม่ถูกต้อง');
-          }else{
-            let citizenId =self.formatForJson(this.registerBean.contactCitizenId);
-            let params =
-            {
-              "citizenId": citizenId
-            }
-            this.api.post('person/person_by_citizenid', params, function (resp) {
-              if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-                if(resp.response){
-                  if(resp.response.isDead){
-                    self.message_error('','หมายเลขประจำตัวประชาชนนี้ไม่อยู่ในสถานะที่จะทำรายการได้');
-                  }else{
-                  self.saveRegister();
-                  }
-                }else{
-                  self.saveRegister();
-                }
+          let hospital = resp.response[0];
+          console.log(self.registerBean);
+          console.log(resp.response[0]);
+          console.log(hospital);
+          
+          if (hospital && self.registerBean.provinceID == hospital.provinceCode
+            && self.registerBean.amphurCode == hospital.amphurCode
+            && self.registerBean.tumbolID == hospital.tumbolCode
+            && self.registerBean.code9 == hospital.code9 
+            && self.registerBean.code5 == hospital.code5) {
+              let citizenId =self.formatForJson(self.registerBean.contactCitizenId);
+              let params =
+              {
+                "citizenId": citizenId
               }
-            });
+              self.api.post('person/person_by_citizenid', params, function (resp) {
+                if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+                  if(resp.response){
+                    if(resp.response.isDead){
+                      self.message_error('','หมายเลขประจำตัวประชาชนนี้ไม่อยู่ในสถานะที่จะทำรายการได้');
+                    }else{
+                    self.saveRegister();
+                    }
+                  }else{
+                    self.saveRegister();
+                  }
+                }
+              });
+          }else{
+            self.message_error('','ข้อมูล รพ.สต ไม่ถูกต้อง');
           }
         }else{
           self.message_error('','ไม่สามารถตรวจสอบข้อมูล รพ.สต ได้');

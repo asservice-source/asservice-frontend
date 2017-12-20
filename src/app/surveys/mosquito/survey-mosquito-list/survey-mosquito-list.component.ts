@@ -47,7 +47,7 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
       homeTypeName: {
         title: 'ประเภท',
         filter: false,
-        width: '120px',
+        width: '180px',
         type:'html',
         valuePrepareFunction: (cell, row) => { 
           return '<div class="text-center">'+cell+'</div>'

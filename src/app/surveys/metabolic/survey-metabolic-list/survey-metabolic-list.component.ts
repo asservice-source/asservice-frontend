@@ -20,7 +20,7 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
   public year = '2560';
   public citizenID: string = "0";
 
-
+  public loading: boolean = false;
   public data;
   public mooID: number = 0;
   public xxx: string;
@@ -110,6 +110,7 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
   }
 
   ngOnInit() {
+    this.loading = true;
   }
 
   save() {
@@ -131,6 +132,7 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.data = resp.response;
         self.setUpTable();
+        self.loading = false;
       }
     })
 
@@ -164,11 +166,13 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
     //this.isShowList = false;
   }
   onSearch(event: FilterHeadSurveyBean) {
+    this.loading = true;
     this.filtersearch = event;
     if (this.isEmpty(this.documentId)) {
       this.documentId = event.rowGUID;
     }
     this.loadData(event);
+ 
   }
 
   setUpTable() {
