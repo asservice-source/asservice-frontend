@@ -29,6 +29,7 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
 
   public metabolicbean: MetabolicBean;
   public isFindPersonal: boolean = true;
+  // public loading: boolean = false;
 
   public code: string = "METABOLIC";
   public personBean = new PersonBean();
@@ -472,10 +473,12 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
             if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
               $("#find-person-md").modal('hide');
               self.completed.emit(true);
-              self.message_success('', 'ท่านได้ทำการส่งแบบสำรวจความเสี่ยงโรค Metabolic แล้ว')
+              // self.message_success('', 'ท่านได้ทำการส่งแบบสำรวจความเสี่ยงโรค Metabolic แล้ว');
+            }else{
+              self.completed.emit(false);
             }
           })
-        } 
+        }
       })
     }
   }

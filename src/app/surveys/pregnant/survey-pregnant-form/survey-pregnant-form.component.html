@@ -69,7 +69,10 @@
                             <label class="label-form">กำหนดคลอด</label>
                         </div>
                         <div class="col-md-3">
-                            <my-date-picker name="bornDueDate" [options]="datePickerOptions" [(ngModel)]="modelBornDueDate" (dateChanged)="onChangeBornDueDate($event)"></my-date-picker>
+                            <div [InputValidate]="validateSave">
+                                <my-date-picker name="bornDueDate" [options]="datePickerOptions" [(ngModel)]="modelBornDueDate" (dateChanged)="onChangeBornDueDate($event)"></my-date-picker>
+                                <label class="error">กรุณาระบุ กำหนดคลอด</label>
+                            </div>
                         </div>
                     </div>
 
@@ -78,7 +81,10 @@
                             <label class="label-form">วันที่คลอด</label>
                         </div>
                         <div class="col-md-3">
-                            <my-date-picker name="bornDate" [options]="datePickerOptions" [(ngModel)]="modelBornDate" (dateChanged)="onChangeBornDate($event)"></my-date-picker>
+                            <div [InputValidate]="validateSave">
+                                <my-date-picker name="bornDate" [options]="datePickerOptions" [(ngModel)]="modelBornDate" (dateChanged)="onChangeBornDate($event)"></my-date-picker>
+                                <label class="error">กรุณาระบุ วันที่คลอด</label>
+                            </div>
                         </div>
                     </div>
                 </div>

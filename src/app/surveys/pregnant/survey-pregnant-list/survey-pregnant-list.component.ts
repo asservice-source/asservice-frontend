@@ -22,6 +22,7 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
   private apiHttp: Service_SurveyPregnant = new Service_SurveyPregnant();
 
   public action: string = this.ass_action.ADD;
+  public current_documentId: string = "";
   public filter_documentId: string = "";
   public filter_villageId: string = "";
   public filter_osmId: string = "";
@@ -29,7 +30,7 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
   public pregnantBean: PregnantBean = new PregnantBean();
 
   public settings: any;
-  public source: LocalDataSource = new LocalDataSource();
+  public source: LocalDataSource;
   public isShowTable: boolean = true;
 
   public loading: boolean = false;
@@ -82,6 +83,21 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
           return '<div class="text-center">' + birthDate + '</div>'
         }
       },
+      pSurveyTypeCode: {
+        title: 'สถานะครรภ์',
+        filter: false,
+        width: '100px',
+        type: 'html',
+        valuePrepareFunction: (cell, row) => {
+          let wombStatus = "";
+          if (cell == "Born") {
+            wombStatus = "คลอดแล้ว";
+          } else {
+            wombStatus = "กำลังตั้งครรภ์";
+          }
+          return '<div class="text-center">' + wombStatus + '</div>'
+        }
+      },
       action: {
         title: 'การทำงาน',
         filter: false,
@@ -116,9 +132,11 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
   onClickSearch(event: FilterHeadSurveyBean) {
     let self = this;
 
-    if (self.isEmpty(self.filter_documentId))
-      self.filter_documentId = event.rowGUID;
+    // รอบปัจจุบัน
+    if (self.isEmpty(self.current_documentId))
+      self.current_documentId = event.rowGUID;
 
+    self.filter_documentId = event.rowGUID;
     self.filter_villageId = event.villageId;
     self.filter_osmId = event.osmId;
     self.filter_fullName = event.fullName;
@@ -134,16 +152,16 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
     //   });
   }
 
-  bindPregnantList(roundId, villageId, osmId, name) {
+  bindPregnantList(documentId, villageId, osmId, name) {
     let self = this;
 
     self.loading = true;
 
-    let params = { "documentId": roundId, "villageId": villageId, "osmId": osmId, "name": name };
+    let params = { "documentId": documentId, "villageId": villageId, "osmId": osmId, "name": name };
 
     self.apiHttp.post("survey_pregnant/search_pregnant_info_list", params, function (d) {
       if (d != null && d.status.toString().toUpperCase() == "SUCCESS") {
-        console.log(d);
+        // console.log(d);
         self.source = self.ng2STDatasource(d.response);
         self.isShowTable = true;
       } else {
@@ -183,13 +201,17 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
     self.message_comfirm('', 'คุณต้องการลบ "' + bean.citizenId + '" หรือไม่?', function (confirm) {
       if (confirm) {
         self.loading = true;
+
         self.apiHttp.commit_delete(bean, function (d) {
+          self.loading = false;
+
           if (d.status.toString().toUpperCase() == "SUCCESS") {
-            self.bindPregnantList(self.filter_documentId, self.filter_villageId, self.filter_osmId, self.filter_fullName);
+            self.message_success('', 'ลบสำเร็จ', function () {
+              self.bindPregnantList(self.filter_documentId, self.filter_villageId, self.filter_osmId, self.filter_fullName);
+            });
           } else {
             self.message_error('', d.message);
           }
-          self.loading = false;
         });
       }
     })

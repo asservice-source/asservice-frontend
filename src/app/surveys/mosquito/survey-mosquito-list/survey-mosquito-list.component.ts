@@ -25,6 +25,7 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
   public filtersearch: FilterHeadMosquitoBean;
   public documentId: string;
   public mosquitobean: MosquitoBean = new MosquitoBean();
+  public loading: boolean = false;
 
   public datas :any = [];
 
@@ -47,7 +48,7 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
       homeTypeName: {
         title: 'ประเภท',
         filter: false,
-        width: '120px',
+        width: '180px',
         type:'html',
         valuePrepareFunction: (cell, row) => { 
           return '<div class="text-center">'+cell+'</div>'
@@ -105,7 +106,7 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
   }
 
   ngOnInit() {
-
+   // this.loading = true;
   }
 
   changLocationNo() {
@@ -155,12 +156,13 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
         "homeId":event.homeId
     };
     let params = JSON.stringify(param);
-
+    // self.loading = true;
     this.api.post('survey_hici/search_hici_info_list', params, function (resp) {
       console.log(resp);
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.datas = resp.response;
         self.setUpTable();
+        // self.loading = false;
       }
     })
 
