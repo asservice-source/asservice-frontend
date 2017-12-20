@@ -212,11 +212,7 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
       console.log(arr);
       if(arr.length<=0){
         let _self = this;
-        
-        let currentYear = (new Date()).getFullYear();
-        let birthYear = _self.mBirthDate.date.year;
-        let yearDiff = currentYear - birthYear;
-        if(yearDiff < 15){
+        if(_self.getYearDiff(_self.mBirthDate.date.year) < 15){
           _self.inputValidateBirthDate.isShowError = true;
           _self.msgError_BirthDate = 'วัน/เดือน/ปี เกิดไม่ถูกต้อง';
           return false;

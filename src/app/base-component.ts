@@ -350,4 +350,9 @@ export class BaseComponent implements OnInit {
         else
             return false;
     }
+
+    getYearDiff(year){
+        let currentYear = (new Date()).getFullYear();
+        return (currentYear - (+year));
+    }
 }
