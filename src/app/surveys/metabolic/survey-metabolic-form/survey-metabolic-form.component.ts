@@ -471,14 +471,14 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
         if (confirm) {
           self.loading = true;
           self.api.post('survey_metabolic/ins_upd_metabolic_info', obj, function (resp) {
-            self.loading = false;
             if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
               $("#find-person-md").modal('hide');
               self.completed.emit(true);
-              self.message_success('', 'ท่านได้ทำการส่งแบบสำรวจความเสี่ยงโรค Metabolic แล้ว')
+              self.loading = false;
+              self.message_success('', 'ท่านได้ทำการส่งแบบสำรวจความเสี่ยงโรค Metabolic แล้ว');
             }
           })
-        } 
+        }
       })
     }
   }

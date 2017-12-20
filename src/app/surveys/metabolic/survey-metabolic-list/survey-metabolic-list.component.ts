@@ -41,7 +41,7 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
     super();
     this.api = new ApiHTTPService();
     let self = this;
-    this. filtersearch = new FilterHeadSurveyBean();
+    this.filtersearch = new FilterHeadSurveyBean();
     this.settings = this.getTableSetting({
 
       fullName: {
@@ -144,12 +144,12 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
     let param = {
       "rowGUID": rowguid
     };
-
+    self.loading = true;
     this.api.post('survey_metabolic/del_metabolic_info', param, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-        self.message_success('','ลบรายการสำเร็จ',function(){
-          self.loadData(self.filtersearch);
-        });
+        self.loadData(self.filtersearch);
+        self.loading = false;
+        self.message_success('', 'ลบรายการสำเร็จ');
       }
     })
   }
@@ -172,13 +172,14 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
       this.documentId = event.rowGUID;
     }
     this.loadData(event);
- 
+
   }
 
   setUpTable() {
     this.source = new LocalDataSource(this.data);
     this.isShowList = true;
     super.setNg2STDatasource(this.source);
+    // this.loading = false;
   }
 
   onModalFrom(action: string) {
