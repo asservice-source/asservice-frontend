@@ -110,7 +110,7 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
 
   bindModal(){
     let _self = this;
-    $('#modalForm').on('show.bs.modal', function(){
+    $('#modal-management-home-member-form').on('show.bs.modal', function(){
       console.log(">>>>>>");
       console.log(_self.action);
       // reset validate error class
@@ -305,9 +305,9 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
               _self.api.commit_save(_self.bean, function(response){
                 _self.loading = false;   
                 if(response && response.status.toString().toUpperCase()=='SUCCESS'){
-                  _self.success.emit({"success": true, "message": _self.actionName + ' สมาชิกใหม่เรียบร้อย'}); 
+                  _self.success.emit({"success": true, "bean": _self.bean ,"message": _self.actionName + ' สมาชิกใหม่เรียบร้อย'}); 
                 }else{
-                  _self.success.emit({"success": false, "message": 'ไม่สามารถ'+_self.actionName+'ได้'});
+                  _self.success.emit({"success": false, "bean": _self.bean, "message": 'ไม่สามารถ'+_self.actionName+'ได้'});
                 }
               });
 

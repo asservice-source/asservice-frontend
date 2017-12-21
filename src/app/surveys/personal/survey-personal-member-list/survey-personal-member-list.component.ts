@@ -8,6 +8,8 @@ import { PersonBean } from '../../../beans/person.bean';
 import { PersonalMemberBean } from '../../../beans/personal-member.bean';
 // import { ApiHTTPService } from '../../../service/api-http.service';
 import { Service_SurveyPersonal } from '../../../service/service-survey-personal';
+import { PersonalBasicBean } from '../../../beans/personal-basic.bean';
+import { Address } from '../../../beans/address';
 declare var $;
 declare var bootbox: any;
 
@@ -25,9 +27,10 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
   private paramRoundId: string;
 
   public action: string = this.ass_action.ADD;
-  public paramMember: PersonalMemberBean = new PersonalMemberBean();
-  public cloneMember: PersonalMemberBean = new PersonalMemberBean();
-
+  public paramMember: PersonalMemberBean;
+  public cloneMember: PersonalMemberBean;
+  public memberBean: PersonalBasicBean;
+  public address: Address;
   public roundName: string = "";
   public homeAddress: string = "";
   public homeTel: string = "";
@@ -50,9 +53,11 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
 
   constructor(private http: Http, private router: Router, private route: ActivatedRoute, private changeRef: ChangeDetectorRef) {
     super();
-
+    this.paramMember = new PersonalMemberBean();
+    this.cloneMember = new PersonalMemberBean();
+    this.memberBean = new PersonalBasicBean();
+    this.address = new Address();
     let self = this;
-
     self.settings = this.getTableSetting({
       fullName: {
         title: 'ชื่อ-สกุล',
@@ -202,18 +207,23 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
 
   bindHomeInfo() {
     let self = this;
-
-    let URL_LIST_HOME_MEMBERS: string = "home/home_info";
     let params = { "homeId": parseInt(this.paramHomeId) };
-
-    self.apiHttp.post(URL_LIST_HOME_MEMBERS, params, function (d) {
-      if (d != null && d.status.toUpperCase() == "SUCCESS") {
+    self.apiHttp.api_HomrInfo(self.paramHomeId, function (d) {
+      if (d && d.status.toUpperCase() == "SUCCESS") {
         console.log(d);
         let homeInfo = d.response;
         self.homeAddress = homeInfo.address;
         self.homeTel = homeInfo.telephone;
         self.osmId = homeInfo.osmId;
         self.osmFullName = homeInfo.osmFullName;
+
+        self.address.homeNo = homeInfo.homeNo;
+        self.address.mooNo = homeInfo.villageNo;
+        self.address.road = homeInfo.road;
+        self.address.tumbolCode = homeInfo.tumbolCode;
+        self.address.amphurCode = homeInfo.amphurCode;
+        self.address.provinceCode = homeInfo.provinceCode;
+
       } else {
         console.log('survey-personal-member-list(bindHomeInfo) occured error(s) => ' + d.message);
       }
@@ -404,8 +414,11 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     self.paramMember = new PersonalMemberBean();
     self.paramMember.homeId = this.paramHomeId;
 
-    self.changeRef.detectChanges();
-    $("#modalMember").modal({ backdrop: 'static', keyboard: false });
+    //self.changeRef.detectChanges();
+   // $("#modalMember").modal({ backdrop: 'static', keyboard: false });
+
+    this.onModalManagementMemberForm();
+
   }
 
   onClickPrint() {
@@ -439,6 +452,16 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
 
   onModalForm(row: PersonalMemberBean) {
     $("#modalMember").modal({ backdrop: 'static', keyboard: false });
+  }
+
+  onModalManagementMemberForm(){
+    this.memberBean = new PersonalBasicBean();
+    this.memberBean.homeId = this.paramHomeId;
+    this.changeRef.detectChanges();
+    $("#modal-management-home-member-form").modal();
+  }
+  onSaveCompleted(event: any){
+    console.log();
   }
 
 }

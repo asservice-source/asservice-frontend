@@ -123,7 +123,7 @@ export class ManagementHomeMemberComponent extends BaseComponent implements OnIn
   setupTable(){
     let _self = this;
     _self.loading = true;
-    this.api.getList(_self.homeId, function(response){
+    _self.api.getList(_self.homeId, function(response){
       _self.source = _self.ng2STDatasource(response);
       _self.loading = false;
       _self.changeRef.detectChanges();
@@ -139,7 +139,7 @@ export class ManagementHomeMemberComponent extends BaseComponent implements OnIn
       
     }
     this.changeRef.detectChanges();
-    $('#modalForm').modal();
+    $('#modal-management-home-member-form').modal();
   }
   onClickAdd(){
     this.onModalShow(this.ass_action.ADD);
@@ -149,7 +149,7 @@ export class ManagementHomeMemberComponent extends BaseComponent implements OnIn
     console.log(event);
     let _self = this;
     if(event.success){
-      $('#modalForm').modal('hide');
+      $('#modal-management-home-member-form').modal('hide');
       _self.message_success('',event.message, function(){
         _self.setupTable();
       });

@@ -46,7 +46,6 @@ export class Service_SurveyPersonal extends ApiHTTPService {
                 "vStatusCode": bean.vStatusCode,
                 "congenitalDisease": bean.congenitalDisease,
                 "remark": bean.remark,
-
                 "homeNo": bean.homeNo,
                 "mooNo": bean.mooNo,
                 "road": bean.road,

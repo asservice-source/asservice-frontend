@@ -224,7 +224,6 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
 
   bindRHGroup() {
     let self = this;
-
     let URL_LIST_RH_GROUP: string = "person/rhgroup_list";
     let params = {};
 

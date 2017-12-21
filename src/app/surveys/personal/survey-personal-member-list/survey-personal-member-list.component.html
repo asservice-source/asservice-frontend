@@ -66,4 +66,6 @@
 </div>
 
 <app-survey-personal-member-form [action]="action" [triggerMember]="cloneMember" (memberUpdated)="onUpdatedMember($event)"></app-survey-personal-member-form>
+<app-management-home-member-form [bean]="memberBean" [action]="action" [address]="address" (success)="onSaveCompleted($event)"></app-management-home-member-form>
+
 <ass-loading [show]="loading"></ass-loading>
