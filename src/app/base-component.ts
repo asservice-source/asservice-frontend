@@ -363,4 +363,8 @@ export class BaseComponent implements OnInit {
         let currentYear = (new Date()).getFullYear();
         return (currentYear - (+year));
     }
+
+    formatNumber(num) {
+        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
 }

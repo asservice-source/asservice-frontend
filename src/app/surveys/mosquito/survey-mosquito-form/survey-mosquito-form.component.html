@@ -42,11 +42,11 @@
                                             <label class="label-form">{{item.containerTypeName}}</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <input [(ngModel)]="mosquitobean.listContainerType[i].totalSurvey"  maxlength="3" [OnlyNumber]="true">
+                                            <input class="text-center" [(ngModel)]="mosquitobean.listContainerType[i].totalSurvey" (keyup)="setValueNull(mosquitobean.listContainerType[i].totalSurvey);"  maxlength="3" [OnlyNumber]="true">
                                            
                                         </div>
                                         <div class="col-md-2">
-                                            <input  [(ngModel)]="mosquitobean.listContainerType[i].totalDetect" maxlength="3" [OnlyNumber]="true">
+                                            <input class="text-center" [(ngModel)]="mosquitobean.listContainerType[i].totalDetect" (keyup)="setValueNull(mosquitobean.listContainerType[i].totalDetect);" maxlength="3" [OnlyNumber]="true">
                                         </div>
                                 </div>
                             </div>

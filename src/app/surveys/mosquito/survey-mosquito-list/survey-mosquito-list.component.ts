@@ -27,6 +27,7 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
   public mosquitobean: MosquitoBean = new MosquitoBean();
   public loading;
 
+
   public datas :any = [];
 
   isDisable = true;
@@ -35,7 +36,7 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
     this.api = new ApiHTTPService();
     let self = this;
     this. filtersearch = new FilterHeadMosquitoBean();
-
+    //let x = this.formatNumber(totalSurvey);
     let column : string;
 
     this.settings = this.getTableSetting({
@@ -60,7 +61,7 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
         width: '150px',
         type:'html',
         valuePrepareFunction: (cell, row) => { 
-          return '<div class="text-center">'+cell+'</div>'
+          return '<div class="text-center">'+this.formatNumber(cell)+'</div>'
         }
       },
       totalDetect: {
@@ -69,7 +70,7 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
         width: '150px',
         type:'html',
         valuePrepareFunction: (cell, row) => { 
-          return '<div class="text-center">'+cell+'</div>'
+          return '<div class="text-center">'+this.formatNumber(cell)+'</div>'
         }
       },
       action: {

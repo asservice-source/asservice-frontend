@@ -110,9 +110,21 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
     })
   }
 
+  // validate(){
+  //   if(this.mosquitobean.totalDetect){
 
+  //   }
+  // }
+
+  setValueNull(x){
+    console.log("keypress");
+    // if(!x){
+    //   x = "0";
+    // }
+  }
 
   addSurvey() {
+    console.log("TotalDetect ============================== " + this.mosquitobean.totalSurvey)
     let self = this;
 
     for (let item of this.mosquitobean.listContainerType) {
@@ -123,22 +135,24 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
     }
     let params = JSON.stringify(obj);
     console.log(params);
-
-    self.message_comfirm('', 'ยืนยันการทำแบบสำรวจ', function (confirm) {
-      if (confirm) {
-        self.loading = true;
-        self.api.post('survey_hici/ins_upd_hici_info', params, function (resp) {
-          console.log(resp);
-          self.loading = false;
-          if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-            $("#find-person-md").modal('hide');
+    if (this.mosquitobean.totalSurvey) {
+      this.message_error('','กรุณาระบุจำนวนภาชนะที่สำรวจ');
+    } else {
+      self.message_comfirm('', 'ยืนยันการทำแบบสำรวจ', function (confirm) {
+        if (confirm) {
+          self.loading = true;
+          self.api.post('survey_hici/ins_upd_hici_info', params, function (resp) {
+            console.log(resp);
+            self.loading = false;
+            if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+              $("#find-person-md").modal('hide');
               self.completed.emit(true);
               // self.message_success('','ท่านได้ทำการส่งแบบสำรวจลูกน้ำยุงลายแล้ว');
-          }
-         })
-      }
-    })
-
+            }
+          })
+        }
+      })
+    }
   }
 
 }
