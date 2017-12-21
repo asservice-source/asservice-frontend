@@ -15,7 +15,7 @@
               <div class="input-group">
                 <input type="text" [(ngModel)]="bean.citizenId" [CitizenId]="bean.citizenId" [disabled]="false">
                 <span class="input-group-btn">
-                  <button class="btn btn-primary btn-sm btn-flat" (click)="onVerifyCitizenId();" *ngIf="action==ass_action.ADD">ตรวจสอบ</button>
+                  <button class="btn btn-primary btn-sm btn-flat" (click)="onVerifyCitizenId();" *ngIf="!isVerify">ตรวจสอบ</button>
                 </span>
               </div>
               <label class="error">{{msgError_CitizenId}}</label>

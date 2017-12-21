@@ -58,14 +58,18 @@ export class Service_SurveyPersonal extends ApiHTTPService {
         return params;
     }
 
-    // public getList(filter: FilterHeadSurveyBean, callback: (doc: any) => void) {
-    //     let parameter = this.apiHTTPService.api_mapFilterSurveyHeader(filter);
-    //     console.log("parameter = = = ");
-    //     console.log(parameter);
-    //     this.apiHTTPService.callResponse('survey_death/search_death_info_list'
-    //         , parameter
-    //         , callback);
-    // }
+     public getListMember(documentId: string, homeId: any, callback: (doc: any) => void) {
+        let path = "survey_population/homemember_by_home";
+        let parameter = { "documentId": documentId,"homeId": homeId};
+        let _self = this;
+        this.post(path, parameter, function(response){
+            if(response && response.status.toUpperCase()=='SUCCESS'){
+                callback(response.response);
+            }else{
+                _self.baseComponent.message_servNotRespond('', response.message);
+            }
+        });
+    }
 
     public commit_save(bean: PersonalMemberBean, callback: (doc: any) => void) {
         let self = this;
@@ -74,16 +78,6 @@ export class Service_SurveyPersonal extends ApiHTTPService {
             callback(d);
         });
 
-        // let headers = new Headers({ 'Content-Type': 'application/json' });
-        // let options = new RequestOptions({ headers: headers, method: "post" });
-
-        // self.http.post("http://192.168.2.227:8080/API-ASService/survey_population/population_add_home_member", self.strNullToEmpty(self.map(bean)), options)
-        //     .map(res => res.json())
-        //     .subscribe(
-        //     data => callback(data),
-        //     err => err,
-        //     () => console.log('Fetching url Server Api : ' + 'http://192.168.2.227:8080/API-ASService/survey_population/population_add_home_member')
-        //     )
     }
 
     public commit_save_survey(homeId: string, osmId: string, roundId: string, beanList: Array<any>, callback: (doc: any) => void) {
