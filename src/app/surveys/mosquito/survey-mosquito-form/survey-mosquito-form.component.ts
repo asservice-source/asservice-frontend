@@ -126,12 +126,14 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
 
     self.message_comfirm('', 'ยืนยันการทำแบบสำรวจ', function (confirm) {
       if (confirm) {
+        self.loading = true;
         self.api.post('survey_hici/ins_upd_hici_info', params, function (resp) {
           console.log(resp);
+          self.loading = false;
           if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
             $("#find-person-md").modal('hide');
               self.completed.emit(true);
-              self.message_success('','ท่านได้ทำการส่งแบบสำรวจลูกน้ำยุงลายแล้ว');
+              // self.message_success('','ท่านได้ทำการส่งแบบสำรวจลูกน้ำยุงลายแล้ว');
           }
          })
       }

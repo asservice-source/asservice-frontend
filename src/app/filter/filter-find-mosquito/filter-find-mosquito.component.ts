@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { BaseComponent } from '../../base-component';
 import { ApiHTTPService } from '../../service/api-http.service';
 import { findHomeBean } from '../../beans/findhome.bean';
@@ -32,8 +32,9 @@ export class FilterFindMosquitoComponent extends BaseComponent implements OnInit
   public source: LocalDataSource = new LocalDataSource();
   public settings: any;
   public isShowPlace: boolean = false;
+  public loading: boolean = false;
 
-  constructor(private route:Router) {
+  constructor(private route:Router,private changeRef: ChangeDetectorRef ) {
     super();
     this.api = new ApiHTTPService();
     this.homeBean = new HomeBean();
@@ -110,11 +111,14 @@ export class FilterFindMosquitoComponent extends BaseComponent implements OnInit
     };
 
     console.log(params);
+    this.loading = true;
     this.api.post('home/home_list_by_village_hometype', params, function (resp) {
+      self.loading = false;
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.HomeNameData = resp.response;
       }
       self.setUpTable();
+      self.changeRef.detectChanges();
     })
   }
 
