@@ -32,6 +32,7 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
   public datas: any = [];
   public filtersearch: FilterHeadSurveyBean;
   public documentId: string;
+  public loading : boolean;
 
   mStatusNo = 0;
   isDisable = true;
@@ -129,10 +130,10 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
       "rowGUID": ""
     };
     let params = JSON.stringify(param);
-
+    this.loading = true;
     this.api.post('survey_patient/filter', params, function (resp) {
       console.log("loadData ==== " + resp.status);
-      
+      self.loading = false;
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.datas = [];
         console.log(resp);
@@ -143,6 +144,7 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
           } 
         }
         self.setUpTable();
+        self.changeRef.detectChanges();
       }
     })
   }
@@ -170,8 +172,13 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
   }
 
   reloadData(event: any) {
+    let self = this;
     if (event) {
-      this.loadData(this.filtersearch);
+      this.message_success('', 'ท่านได้ทำการส่งแบบสำรวจผู้ป่วยมะเร็ง', function () {
+        self.loadData(self.filtersearch);
+      });
+    } else {
+      this.message_error('', 'Error');
     }
   }
 
@@ -189,7 +196,9 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
     let param = {
       "rowGUID": rowguid
     };
+    this.loading = true;
     this.api.post('survey_patient/del', param, function (resp) {
+      self.loading = false;
       console.log("actionDelete ==== " + resp);
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.message_success('', 'ลบรายการสำเร็จ', function () {

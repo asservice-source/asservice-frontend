@@ -85,6 +85,7 @@ export class SurveyCancerFormComponent extends BaseComponent implements OnInit, 
     public disabilityTypeCause: any;
     public diseaseStatusTypeList: any;
     public code: string = "CANCER";
+    public loading : boolean;
     public inputValidate: InputValidateInfo = new InputValidateInfo();
   
   
@@ -365,12 +366,14 @@ export class SurveyCancerFormComponent extends BaseComponent implements OnInit, 
       self.message_comfirm('', 'ยืนยันการทำแบบสำรวจ', function (confirm) {
         self.inputValidate = new InputValidateInfo();
         if (confirm) {
+          self.loading = true;
           self.api.post('survey_patient/ins_upd', params, function (resp) {
+            self.loading = false;
             console.log(resp);
             if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
               $("#find-person-md").modal('hide');
               self.completed.emit(true);
-              self.message_success('', 'ท่านได้ทำการส่งแบบสำรวจผู้ป่วยมะเร็ง')
+              // self.message_success('', 'ท่านได้ทำการส่งแบบสำรวจผู้ป่วยมะเร็ง')
             }
           })
         }

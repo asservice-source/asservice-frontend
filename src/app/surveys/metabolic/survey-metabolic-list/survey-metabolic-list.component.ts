@@ -110,7 +110,7 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
   }
 
   ngOnInit() {
-    
+
   }
 
   save() {
@@ -133,7 +133,7 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.data = resp.response;
         self.setUpTable();
-        
+
       }
       self.changeRef.detectChanges();
     })
@@ -146,11 +146,13 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
     let param = {
       "rowGUID": rowguid
     };
-
+    self.loading = true;
     this.api.post('survey_metabolic/del_metabolic_info', param, function (resp) {
+      self.loading = false;
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-        self.loadData(self.filtersearch)
-        self.message_success('', 'ลบรายการสำเร็จ');
+        self.message_success('', 'ลบรายการสำเร็จ', function () {
+          self.loadData(self.filtersearch);
+        });
       }
     })
   }
@@ -188,10 +190,12 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
   }
 
   reloadData(event: any) {
+    let self = this;
     if (event) {
-      this.message_success('', 'ท่านได้ทำการส่งแบบสำรวจความเสี่ยงโรค Metabolic แล้ว');
-      this.loadData(this.filtersearch);
-    }else{
+      this.message_success('', 'ท่านได้ทำการส่งแบบสำรวจความเสี่ยงโรค Metabolic แล้ว', function () {
+        self.loadData(self.filtersearch);
+      });
+    } else {
       this.message_error('', 'Error');
     }
   }

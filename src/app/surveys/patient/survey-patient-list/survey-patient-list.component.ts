@@ -22,6 +22,7 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
 
   private api: ApiHTTPService;
   public settings: any;
+  public loading;
   public isShowList: boolean = false;
   public source: LocalDataSource = new LocalDataSource();
   public healtInsuranceID = 7;
@@ -135,7 +136,9 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
     };
     let params = JSON.stringify(param);
     console.log(params);
+    self.loading = true;
     this.api.post('survey_patient/filter', params, function (resp) {
+      self.loading = false;
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.datas = [];
         for (let item of resp.response) {
@@ -145,6 +148,7 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
         }
         self.setUpTable();
       }
+      self.changeRef.detectChanges();
     })
   }
 
@@ -169,9 +173,18 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
   }
 
   reloadData(event: any) {
+    // if (event) {
+    //   this.loadData(this.filtersearch);
+    // }
+    let self = this;
     if (event) {
-      this.loadData(this.filtersearch);
+      this.message_success('', 'ท่านได้ทำการส่งแบบสำรวจผู้พิการ และผู้ป่วยติดเตียงแล้ว', function () {
+        self.loadData(self.filtersearch);
+      });
+    } else {
+      this.message_error('', 'Error');
     }
+
   }
 
   actionDelete(rowguid) {
@@ -179,7 +192,9 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
     let param = {
       "rowGUID": rowguid
     };
+    self.loading = true;
     this.api.post('survey_patient/del', param, function (resp) {
+      self.loading = false;
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.message_success('', 'ลบรายการสำเร็จ', function () {
           self.loadData(self.filtersearch);

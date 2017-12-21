@@ -35,6 +35,7 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
   public code: string = "PATIENT";
   public isErrorDisabilityType: any;//
   public disabilityCauseType: boolean = true;
+  public loading;
   public inputValidate: InputValidateInfo = new InputValidateInfo();
 
 
@@ -323,12 +324,14 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
       self.message_comfirm('', 'ยืนยันการทำแบบสำรวจ', function (confirm) {
         self.inputValidate = new InputValidateInfo();
         if (confirm) {
+          self.loading = true;
           self.api.post('survey_patient/ins_upd', params, function (resp) {
+            self.loading = false;
             console.log(resp);
             if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
               $("#find-person-md").modal('hide');
               self.completed.emit(true);
-              self.message_success('', 'ท่านได้ทำการส่งแบบสำรวจผู้พิการ และผู้ป่วยติดเตียงแล้ว')
+              // self.message_success('', 'ท่านได้ทำการส่งแบบสำรวจผู้พิการ และผู้ป่วยติดเตียงแล้ว')
             }
           })
         }

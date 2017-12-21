@@ -25,7 +25,7 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
   public filtersearch: FilterHeadMosquitoBean;
   public documentId: string;
   public mosquitobean: MosquitoBean = new MosquitoBean();
-  public loading: boolean = false;
+  public loading;
 
   public datas :any = [];
 
@@ -155,15 +155,15 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
         "osmId":event.osmId,
         "homeId":event.homeId
     };
+    this.loading = true;
     let params = JSON.stringify(param);
-    // self.loading = true;
     this.api.post('survey_hici/search_hici_info_list', params, function (resp) {
-      console.log(resp);
+      self.loading = false;
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.datas = resp.response;
         self.setUpTable();
-        // self.loading = false;
       }
+      self.changeRef.detectChanges();
     })
 
   }
@@ -175,9 +175,15 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
   }
 
   reloadData(event: any) {
+    let self = this;
     if (event) {
-      this.loadData(this.filtersearch);
+      this.message_success('', 'ท่านได้ทำการส่งแบบสำรวจลูกน้ำยุงลายแล้ว', function () {
+        self.loadData(self.filtersearch);
+      });
+    } else {
+      this.message_error('', 'Error');
     }
+  
   }
 
   actionDelete(documentid,homeid) {
@@ -188,8 +194,9 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
       "homeId": homeid
     };
     console.log(param);
-
+    self.loading = true;
     this.api.post('survey_hici/del_hici_info', param, function (resp) {
+      self.loading = false;
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.message_success('','ลบรายการสำเร็จ',function(){
           self.loadData(self.filtersearch);

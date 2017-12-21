@@ -469,7 +469,9 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
 
       self.message_comfirm('', 'ยืนยันการทำแบบสำรวจ', function (confirm) {
         if (confirm) {
+          self.loading = true;
           self.api.post('survey_metabolic/ins_upd_metabolic_info', obj, function (resp) {
+            self.loading = false;
             if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
               $("#find-person-md").modal('hide');
               self.completed.emit(true);
