@@ -29,7 +29,7 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
 
   public metabolicbean: MetabolicBean;
   public isFindPersonal: boolean = true;
-  // public loading: boolean = false;
+  public loading: boolean = false;
 
   public code: string = "METABOLIC";
   public personBean = new PersonBean();
