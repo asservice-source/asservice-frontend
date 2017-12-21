@@ -1,10 +1,10 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef} from '@angular/core';
 import { BaseComponent } from '../../../../base-component';
 import { StaffUserBean } from '../../../../beans/staff-user.bean';
 import { ApiHTTPService } from '../../../../service/api-http.service';
 import { InputValidateInfo } from '../../../../directives/inputvalidate.directive';
 import { Service_UserStaffAndOSM } from '../../../../service/service-user-staff-osm';
-import { SimpleValidateForm } from '../../../../utils.util';
+import { SimpleValidateForm, RefreshChange } from '../../../../utils.util';
 declare var $:any;
 
 @Component({
@@ -23,6 +23,7 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
   public villageList: any;
   public genderList: any;
   public inputValidate: InputValidateInfo = new InputValidateInfo();
+  public inputValidateBirthDate: InputValidateInfo = new InputValidateInfo();
   public isVerify: boolean = false;
   public mBirthDate: any;
   public oldCitizenId: string;
@@ -30,8 +31,10 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
   public msgError_CitizenId: string = '';
   public msgError_CitizenIdEmty: string = 'กรุณาใส่หมายเลขประชาชนเป็นตัวเลข 13 หลัก';
   public msgError_CitizenIdNoFormat: string = 'รูปแบบหมายเลขประชาชนไม่ถูกต้อง';
+  public msgError_BirthDate: string  = 'กรุณาเลือก วัน/เดือน/ปี เกิด';
   public loading: boolean = false;
-  constructor() { 
+  public refreshChange: RefreshChange;
+  constructor(private changeRef: ChangeDetectorRef) { 
     super();
     this.bean = new StaffUserBean();
     this.api = new Service_UserStaffAndOSM();
@@ -74,7 +77,9 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
       _self.msgError_CitizenId = _self.msgError_CitizenIdEmty;
     });
     $('#modalForm').on('show.bs.modal', function(){
+      
       console.log(_self.bean);
+      _self.msgError_BirthDate = 'กรุณาเลือก วัน/เดือน/ปี เกิด';
       if(_self.bean.personId){
         _self.action = _self.ass_action.EDIT;
         _self.oldCitizenId = _self.bean.citizenId;
@@ -83,7 +88,6 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
         _self.action = _self.ass_action.ADD;
         _self.isVerify = false;
       }
-      
       _self.setDatePickerModel();
 
     });
@@ -106,7 +110,7 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
           let person = resp.response;
           if(person && person.personId){
            
-            let msg = 'หมายเลขประชาชน <b>'+ _self.bean.citizenId +'</b> มีข้อมูลในระบบแล้ว';
+            let msg = 'หมายเลขประชาชน <b>'+ _self.formatCitizenId(_self.bean.citizenId) +'</b> มีข้อมูลในระบบแล้ว';
             if(person.isDead){
              
               msg += ' แต่ไม่มีสิทธิ์แก้ไขข้อมูลได้';
@@ -179,10 +183,12 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
   onClickEditCitizenId(){
 
   }
-  onSave(){
+  onSave(): any{
     this.bean.birthDate = this.getStringDateForDatePickerModel(this.mBirthDate.date);
     this.inputValidate = new InputValidateInfo();
+    this.inputValidateBirthDate = new InputValidateInfo();
     this.inputValidate.isCheck = true;
+    this.inputValidateBirthDate.isCheck = true;
     let valid = new SimpleValidateForm();
     this.bean.hospitalCode5 = this.getHospitalCode();
     let roleName = "";
@@ -208,13 +214,17 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
       console.log(arr);
       if(arr.length<=0){
         let _self = this;
+        if(_self.getYearDiff(_self.mBirthDate.date.year) < 15){
+          _self.inputValidateBirthDate.isShowError = true;
+          _self.msgError_BirthDate = 'วัน/เดือน/ปี เกิดไม่ถูกต้อง';
+          return false;
+        }
         _self.loading = true;
-
         this.api.api_PersonByCitizenId(_self.bean.citizenId, function(response){
           if(response.status.toString().toUpperCase()=="SUCCESS"){
             if(response.response && response.response.citizenId != _self.oldCitizenId){
               _self.loading = false;
-              _self.message_error('', 'หมายเลขบัตรประจำตัว <b>'+ _self.bean.citizenId +'</b> ซ้ำ');
+              _self.message_error('', 'หมายเลขบัตรประจำตัว <b>'+ _self.formatCitizenId(_self.bean.citizenId) +'</b> ซ้ำ');
             }else{
               // Save To API
               _self.api.commit_save(_self.isStaff ,_self.bean, function(response){

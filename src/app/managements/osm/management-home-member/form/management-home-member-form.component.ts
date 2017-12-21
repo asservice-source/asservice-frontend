@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef} from '@angular/core';
 import { BaseComponent } from '../../../../base-component';
 import { PersonalBasicBean } from '../../../../beans/personal-basic.bean';
 import { InputValidateInfo } from '../../../../directives/inputvalidate.directive';
@@ -42,8 +42,10 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
   public msgError_CitizenId: string = '';
   public msgError_CitizenIdEmty: string = 'กรุณาใส่หมายเลขประชาชนเป็นตัวเลข 13 หลัก';
   public msgError_CitizenIdNoFormat: string = 'รูปแบบหมายเลขประชาชนไม่ถูกต้อง';
+  public msgError_BirthDate: string = 'กรุณาเลือก วัน/เดือน/ปี เกิด';
   public loading: boolean = false;
-  constructor() { 
+  public isBirthDate: boolean = false;
+  constructor(private changeRef: ChangeDetectorRef) { 
     super();
     this.bean = new PersonalBasicBean();
     this.inputValidate = new InputValidateInfo();
@@ -112,6 +114,7 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
       console.log(">>>>>>");
       console.log(_self.action);
       // reset validate error class
+      _self.msgError_BirthDate = 'กรุณาเลือก วัน/เดือน/ปี เกิด';
       $('#is-guest-error').hide();
       _self.inputValidate = new InputValidateInfo();
       _self.msgError_CitizenId = _self.msgError_CitizenIdEmty;
@@ -207,7 +210,7 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
           let person = response.response;
           if(person && person.personId){
            
-            let msg = 'หมายเลขประชาชน <b>'+ _self.bean.citizenId +'</b> มีข้อมูลในระบบแล้ว';
+            let msg = 'หมายเลขประชาชน <b>'+ _self.formatCitizenId(_self.bean.citizenId) +'</b> มีข้อมูลในระบบแล้ว';
             if(person.isDead){
              
               msg += ' แต่ไม่มีสิทธิ์แก้ไขข้อมูลได้';
@@ -260,6 +263,7 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
   onSave(){
     this.inputValidate = new InputValidateInfo();
     this.inputValidate.isCheck = true; // validate input error form
+    this.changeRef.detectChanges();
     let simpValidate: SimpleValidateForm = new SimpleValidateForm();
 
     if(this.isValidCitizenIdThailand(this.bean.citizenId)){
@@ -284,14 +288,18 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
         $('#is-guest-error').show();
       }
       console.log(objsEmpty);
+      if(!this.isBirthDate){
+        this.msgError_BirthDate = 'วัน/เดือน/ปี เกิดไม่ถูกต้อง';
+        return;
+      }
       if(objsEmpty.length<=0){
         let _self = this;
         _self.loading = true;
         this.api.api_PersonByCitizenId(_self.bean.citizenId, function(response){
-          if(response.status.toString().toUpperCase()=="SUCCESS"){
+          if(response.status.toUpperCase()=="SUCCESS"){
             if(response.response && response.response.citizenId != _self.oldCitizenId){
               _self.loading = false;
-              _self.message_error('', 'หมายเลขบัตรประจำตัว <b>'+ _self.bean.citizenId +'</b> ซ้ำ');
+              _self.message_error('', 'หมายเลขบัตรประจำตัว <b>'+ _self.formatCitizenId(_self.bean.citizenId) +'</b> ซ้ำ');
             }else{
               // Save To API
               _self.api.commit_save(_self.bean, function(response){
@@ -323,12 +331,14 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
     }
   }
 
-
+  validBirthDate(event: InputValidateInfo){
+    this.isBirthDate =event.isPassed;
+  }
   setDatePickerModel(){
     if(this.bean.birthDate){
       this.modelBirthDate = this.getCurrentDatePickerModel(this.bean.birthDate);
     }else{
       this.modelBirthDate = null;
     } 
-}
+  }
 }

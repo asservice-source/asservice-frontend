@@ -31,6 +31,7 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
   public timeMins = Array.from(Array(60),(x,i)=>i);
   public inputValidate: InputValidateInfo = new InputValidateInfo();
   public loading: boolean = false;
+  public isDeadDate: boolean = false;
   constructor(private changeRef: ChangeDetectorRef) {
     super();
     this.commit = new EventEmitter<any>();
@@ -120,6 +121,7 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
   onSave(){
     this.inputValidate = new InputValidateInfo();
     this.inputValidate.isCheck = true;
+    this.changeRef.detectChanges();
     let date = this.bean.mDateDead.date;    
     this.bean.deathDate = this.getStringDateForDatePickerModel(this.bean.mDateDead.date)+' '+this.bean.mHours+':'+this.bean.mMins+':00.0';
     console.log(this.bean);
@@ -151,6 +153,9 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
       $("#isNoDisease").hide();
     }
     console.log(objs);
+    if(!this.isDeadDate){
+      return false;
+    }
     if(objs.length<=0){
 
       let _self = this;
@@ -172,6 +177,10 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
           console.log(response);
         });
     }
+  }
+
+  validDate(event: InputValidateInfo){
+    this.isDeadDate = event.isPassed;
   }
   setCalendarThai(){
 

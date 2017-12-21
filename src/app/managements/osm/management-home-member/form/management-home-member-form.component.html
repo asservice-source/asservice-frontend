@@ -13,7 +13,7 @@
           <div class="col-md-5">
             <div [InputValidate]="inputValidate" [citizenId]="true">
               <div class="input-group">
-                <input type="text" [(ngModel)]="bean.citizenId" [OnlyNumber]="true" maxlength="13" [disabled]="false">
+                <input type="text" [(ngModel)]="bean.citizenId" [CitizenId]="bean.citizenId" [disabled]="false">
                 <span class="input-group-btn">
                   <button class="btn btn-primary btn-sm btn-flat" (click)="onVerifyCitizenId();" *ngIf="action==ass_action.ADD">ตรวจสอบ</button>
                 </span>
@@ -75,13 +75,13 @@
 
           <div class="row">
             <div class="col-md-2 text-right">
-              <label>วันเดือนปี เกิด</label>
+              <label>วัน/เดือน/ปี เกิด</label>
             </div>
             <div class="col-md-4">
-              <div [InputValidate]="inputValidate">
+              <div [InputValidate]="inputValidate" BirthDate="BirthDate" (notify)="validBirthDate($event);">
                   <my-date-picker [options]="datePickerOptions" [(ngModel)]="modelBirthDate" (dateChanged)="onChangeBirthDate($event)"
                   [disabled]="isDisablePersonData"></my-date-picker>
-                <label class="error">กรุณาเลือกวันเดือนปี เกิด</label>
+                <label class="error">{{msgError_BirthDate}}</label>
               </div>
             </div>
 

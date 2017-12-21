@@ -66,6 +66,7 @@ import { ManagementHomeMemberComponent } from "./managements/osm/management-home
 import { ManagementHomeMemberFormComponent } from './managements/osm/management-home-member/form/management-home-member-form.component';
 import { TestService } from './service/test.service';
 import { UserService } from './service/user.service';
+import { CitizenIdFormatDirective } from './directives/citizenid-format.directive'
 
 @NgModule({
   declarations: [
@@ -119,7 +120,8 @@ import { UserService } from './service/user.service';
     SelectHomeListButton,
     ViewChildTableHomeManagement,
     ManagementHomeMemberComponent,
-    ManagementHomeMemberFormComponent
+    ManagementHomeMemberFormComponent,
+    CitizenIdFormatDirective
   ],
   imports: [
     BrowserModule,

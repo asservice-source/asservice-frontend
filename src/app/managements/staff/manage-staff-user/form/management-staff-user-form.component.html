@@ -14,7 +14,7 @@
             <div class="col-md-6">
               <div [InputValidate]="inputValidate" [citizenId]="true">
                 <div class="input-group">
-                  <input type="text" [(ngModel)]="bean.citizenId" [OnlyNumber]="true" maxlength="13" [disabled]="false">
+                  <input type="text" [(ngModel)]="bean.citizenId" [CitizenId]="bean.citizenId" [disabled]="false">
                   <span class="input-group-btn">
                     <button class="btn btn-primary btn-sm btn-flat" (click)="onClickVerifyCitizenId();" *ngIf="!isVerify">ตรวจสอบ</button>
                     <button class="btn btn-primary btn-sm btn-flat" (click)="onClickEditCitizenId();" *ngIf="false">แก้ไข</button>
@@ -84,9 +84,9 @@
               <label class="label-form">วัน/เดือน/ปี เกิด</label>
             </div>
             <div class="col-md-5">
-              <div [InputValidate]="inputValidate">
+              <div [InputValidate]="inputValidateBirthDate">
                 <my-date-picker name="mydate" [options]="datePickerOptions" [(ngModel)]="mBirthDate" required></my-date-picker>
-                <label class="error">กรุณาเลือก วัน/เดือน/ปี เกิด</label>
+                <label class="error">{{msgError_BirthDate}}</label>
               </div>
             </div>
           </div>

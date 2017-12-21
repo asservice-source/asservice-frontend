@@ -13,7 +13,7 @@ export class Service_UserStaffAndOSM extends ApiHTTPService{
         this.attr = 
             {
                 "personId": bean.personId
-                ,"citizenId": bean.citizenId
+                ,"citizenId": this.baseComponent.reverseFormatCitizenId(bean.citizenId)
                 ,"genderId": bean.genderId
                 ,"prefixCode": bean.prefixCode
                 ,"firstName": bean.firstName

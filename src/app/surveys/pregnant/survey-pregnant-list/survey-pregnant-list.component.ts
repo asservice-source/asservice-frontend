@@ -83,6 +83,21 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
           return '<div class="text-center">' + birthDate + '</div>'
         }
       },
+      pSurveyTypeCode: {
+        title: 'สถานะครรภ์',
+        filter: false,
+        width: '100px',
+        type: 'html',
+        valuePrepareFunction: (cell, row) => {
+          let wombStatus = "";
+          if (cell == "Born") {
+            wombStatus = "คลอดแล้ว";
+          } else {
+            wombStatus = "กำลังตั้งครรภ์";
+          }
+          return '<div class="text-center">' + wombStatus + '</div>'
+        }
+      },
       action: {
         title: 'การทำงาน',
         filter: false,
@@ -191,7 +206,7 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
           self.loading = false;
 
           if (d.status.toString().toUpperCase() == "SUCCESS") {
-            self.message_success('', 'ลบสำเร็จ', function(){
+            self.message_success('', 'ลบสำเร็จ', function () {
               self.bindPregnantList(self.filter_documentId, self.filter_villageId, self.filter_osmId, self.filter_fullName);
             });
           } else {

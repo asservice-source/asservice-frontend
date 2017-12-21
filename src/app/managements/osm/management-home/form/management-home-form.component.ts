@@ -66,22 +66,20 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
     this.bean.villageId = this.userInfo.villageId;
     this.bean.osmId = this.userInfo.personId; //'891037A9-36CF-E711-AB84-005056C00008';
     let _self = this;
-    let ignores = ["name","road","soi","telephone","latitude","longitude"];
-    if(_self.action == _self.ass_action.ADD){
-      ignores.push('id');
-    }
     let fields = ['homeTypeCode'];
     if(this.bean.homeTypeCode=='01'){
       fields.push('registrationId', 'homeNo');
       this.bean.name = '';
     }else{
-      fields.push('homeName');
+      fields.push('name');
       this.bean.registrationId = '';
     }
-
     let arr = simpleValidate.getObjectEmpty_byFilds(_self.api.map(_self.bean), fields);
-    //let arr = simpleValidate.getObjectEmpty(_self.api.map(_self.bean), ignores);
-    if(arr.length<=0 && _self.bean.registrationId.trim().length==11){
+    if(_self.bean.homeTypeCode=='01' && _self.bean.registrationId.trim().length!=11){
+      arr.push('registrationId');
+    }
+    console.log(arr);
+    if(arr.length<=0){
       _self.api.commit_save(_self.bean, function(response){
         let strAction = _self.action==_self.ass_action.ADD?'เพิ่ม':'แก้ไข';
         if(response && response.status.toString().toUpperCase()=='SUCCESS'){
