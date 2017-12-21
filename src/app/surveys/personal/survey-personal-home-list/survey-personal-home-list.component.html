@@ -8,7 +8,7 @@
   <div class="panel-body">
     <app-filter-personal (notifyFilter)="onClickSearch($event)"></app-filter-personal>
 
-    <div class="row">
+    <div class="row"  *ngIf="!isStaff">
       <div class="col-md-12">
         <button class="btn btn-primary btn-sm" (click)="onClickAdd();">เพิ่มบ้าน</button>
       </div>

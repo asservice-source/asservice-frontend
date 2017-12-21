@@ -135,4 +135,9 @@ export class FilterHeadSurveyComponent extends BaseComponent implements OnInit {
     this.changeFilter.emit(this.filterBean);
   }
 
+  onClearFilter(){
+    this.filterBean.villageId = '';
+    this.filterBean.osmId = '';
+    this.filterBean.fullName = '';
+  }
 }

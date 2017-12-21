@@ -22,13 +22,13 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
   public action: string = this.ass_action.ADD;
   public homeBean: HomeBean = new HomeBean();
   public paramHome: PersonalHomeBean = new PersonalHomeBean();
-
   public filterRoundId: string = "";
-
   public settings: any;
   public source: LocalDataSource;
   public isShowTable: boolean = false;
   public loading: boolean = false;
+
+  
   constructor(private http: Http, private router: Router, private changeRef: ChangeDetectorRef) {
     super();
 
@@ -138,7 +138,7 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
 
     // $("app-management-osm-area-form #modalForm").modal({ backdrop: 'static', keyboard: false });
 
-    self.router.navigate(['/main/managements/osm/home']);
+    self.router.navigate(['/main/managements/osm/home/type01']);
   }
 
   bindHomeList(roundId: string, villageId: string, osmId: string, homeId: string, suyveyStatus: string) {

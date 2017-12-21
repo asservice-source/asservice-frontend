@@ -444,7 +444,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
 }
 
 @Component({
-  template: "<div class=\"text-center\"><button (click)=\"clickEdit();\" style=\"padding-top: 0px; padding-bottom: 0px\" class=\"btn btn-primary\">แก้ไข</button></div>",
+  template: "<div class=\"text-center\"><button (click)=\"clickEdit();\" style=\"padding-top: 0px; padding-bottom: 0px\" class=\"btn btn-primary\">สำรวจ</button></div>",
 })
 export class SurveyPersonalMemberListButtonEditComponent implements ViewCell, OnInit {
   renderValue: string;

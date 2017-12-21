@@ -21,21 +21,31 @@ export class FilterPersonalComponent extends BaseComponent implements OnInit {
   public listVillageNo;
   public listOsm;
   public listHomeNo;
-
   public isDisabledOSM: boolean = true;
   public isDisabledHomeNo: boolean = true;
+  public isStaff: boolean;
 
   constructor(private http: Http) {
     super();
-
     this.filterBean = new FilterBean();
+    
+
   }
 
   ngOnInit() {
     let self = this;
-
     self.bindRound();
-    self.bindVillageNo();
+    if(this.isStaffRole(this.userInfo.roleId)){
+      this.isStaff = true;
+      self.bindVillageNo();
+    }else{
+      this.isStaff = false;
+      this.filterBean.villageId = this.userInfo.villageId;
+      this.filterBean.osmId = this.userInfo.personId;
+      this.description.village = this.userInfo.villageName;
+      this.description.osm = this.userInfo.fullName;
+      self.bindHomeNo(this.userInfo.villageId, this.userInfo.personId);
+    }
 
     self.onSearchFilter();
   }

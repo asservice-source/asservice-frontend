@@ -40,8 +40,12 @@
     </div>
 </div>
 
-<div class="row">
-    <div class="col-md-12 text-center">
-        <button class="btn btn-primary btn-sm" (click)="onSearchFilter()" id="filter-btnSearch">แสดงข้อมูล</button>
-    </div>
-</div>
+
+<div class="row text-center" style="margin-top: 10px;">
+    <button id="filter-btnSearch" class="btn btn-primary btn-sm" (click)="onSearchFilter()">
+      <i class="fa fa-search"> ค้นหา</i>
+    </button> &nbsp;&nbsp;
+    <button id="filter-btnClear" class="btn btn-primary btn-sm" (click)="onClearFilter()">
+      <i class="fa fa-refresh"> ล้างค่า</i>
+    </button>
+  </div>
