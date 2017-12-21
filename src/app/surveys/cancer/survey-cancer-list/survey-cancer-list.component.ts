@@ -32,6 +32,7 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
   public datas: any = [];
   public filtersearch: FilterHeadSurveyBean;
   public documentId: string;
+  public loading : boolean;
 
   mStatusNo = 0;
   isDisable = true;
@@ -129,10 +130,10 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
       "rowGUID": ""
     };
     let params = JSON.stringify(param);
-
+    this.loading = true;
     this.api.post('survey_patient/filter', params, function (resp) {
       console.log("loadData ==== " + resp.status);
-      
+      self.loading = false;
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.datas = [];
         console.log(resp);

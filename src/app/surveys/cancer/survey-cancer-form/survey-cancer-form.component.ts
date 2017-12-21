@@ -85,6 +85,7 @@ export class SurveyCancerFormComponent extends BaseComponent implements OnInit, 
     public disabilityTypeCause: any;
     public diseaseStatusTypeList: any;
     public code: string = "CANCER";
+    public loading : boolean;
     public inputValidate: InputValidateInfo = new InputValidateInfo();
   
   
