@@ -127,6 +127,7 @@ export class FilterFindPersonComponent extends BaseComponent implements OnInit {
           _self.source = _self.ng2STDatasource(response);
           _self.isShowPersons = true;
           _self.loading = false;
+          _self.changeRef.detectChanges();
           
         });
   }
@@ -141,6 +142,7 @@ export class FilterFindPersonComponent extends BaseComponent implements OnInit {
       // _self.personData = response;
       _self.isShowPersons = true;
       _self.loading = false;
+      _self.changeRef.detectChanges();
     });
   }
 

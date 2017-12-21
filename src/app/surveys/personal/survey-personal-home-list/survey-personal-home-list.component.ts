@@ -27,6 +27,7 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
   public source: LocalDataSource;
   public isShowTable: boolean = false;
   public loading: boolean = false;
+  public isStaff: boolean;
 
   
   constructor(private http: Http, private router: Router, private changeRef: ChangeDetectorRef) {
@@ -34,6 +35,11 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
 
     let self = this;
 
+    if(this.isStaffRole(this.userInfo.roleId)){
+      this.isStaff = true;
+    }else{
+      this.isStaff = false;
+    }
     self.settings = self.getTableSetting({
       villageNo: {
         title: 'หมู่',
