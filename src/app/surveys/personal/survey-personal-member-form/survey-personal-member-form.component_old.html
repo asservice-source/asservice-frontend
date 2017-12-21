@@ -1,0 +1,410 @@
+<div id="modalMember" class="modal fade" role="dialog">
+  <div class="modal-xl modal-dialog">
+
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">ข้อมูลสมาชิก</h4>
+      </div>
+
+      <div class="panel-body">
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            ข้อมูลบุคคล
+          </div>
+          <div class="panel-body">
+
+            <div class="row">
+              <div class="col-md-1"></div>
+              <div class="col-md-2 text-right">
+                <label class="label-form">หมายเลขประจำตัว</label>
+              </div>
+              <div class="col-md-3">
+                <div [InputValidate]="validateVerify" [citizenId]="true">
+                  <div class="input-group">
+                    <input type="text" class="ng-pristine ng-valid ng-touched form-control" maxlength="13" [OnlyNumber]="true" [disabled]="isDisabledCitizenId"
+                      [(ngModel)]="member.citizenId">
+                    <span class="input-group-btn">
+                      <button class="btn btn-primary" (click)="onClickVerifyCitizenId();" *ngIf="isDisplayButtonVerifyCitizenId">ตรวจสอบ</button>
+                      <button class="btn btn-primary" (click)="onClickEditCitizenId();" *ngIf="isDisplayButtonEditCitizenId">แก้ไข</button>
+                    </span>
+                  </div>
+                  <label class="error">กรุณาใส่หมายเลขประชาชนเป็นตัวเลข 13 หลัก</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-1"></div>
+              <div class="col-md-2 text-right">
+                <label class="label-form">เพศ</label>
+              </div>
+              <div class="col-md-3">
+                <div [InputValidate]="validateSave">
+                  <select name="dropdown-gender" id="dropdown-gender" [(ngModel)]="member.genderId" (change)="onChangeGender()" [disabled]="isDisablePersonData">
+                    <option value="">--เลือก เพศ--</option>
+                    <option *ngFor="let item of listGender" [value]="item.id">{{item.name}}</option>
+                  </select>
+                  <label class="error">กรุณาเลือก</label>
+                </div>
+              </div>
+              <div class="col-md-2 text-right">
+                <label class="label-form">คำนำหน้าชื่อ</label>
+              </div>
+              <div class="col-md-3">
+                <div [InputValidate]="validateSave">
+                  <select name="dropdown-prefix" id="dropdown-prefix" [(ngModel)]="member.prefixCode" [disabled]="isDisablePersonData">
+                    <option value="">--เลือก คำนำหน้าชื่อ--</option>
+                    <option *ngFor="let item of listPrefix" [value]="item.code">{{item.name}}</option>
+                  </select>
+                  <label class="error">กรุณาเลือก</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-1"></div>
+              <div class="col-md-2 text-right">
+                <label class="label-form">ชื่อจริง</label>
+              </div>
+              <div class="col-md-3">
+                <div [InputValidate]="validateSave">
+                  <input type="text" class="ng-pristine ng-valid ng-touched" maxlength="50" [(ngModel)]="member.firstName" [disabled]="isDisablePersonData">
+                  <label class="error">กรุณาระบุ ชื่อจริง</label>
+                </div>
+              </div>
+              <div class="col-md-2 text-right">
+                <label class="label-form">นามสกุล</label>
+              </div>
+              <div class="col-md-3">
+                <div [InputValidate]="validateSave">
+                  <input type="text" class="ng-pristine ng-valid ng-touched" maxlength="50" [(ngModel)]="member.lastName" [disabled]="isDisablePersonData">
+                  <label class="error">กรุณาระบุ นามสกุล</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-1"></div>
+              <div class="col-md-2 text-right">
+                <label class="label-form">วันเดือนปี เกิด</label>
+              </div>
+              <div class="col-md-3">
+                <div [InputValidate]="validateSave">
+                  <my-date-picker name="birthDate" [options]="datePickerOptions" [(ngModel)]="modelBirthDate" (dateChanged)="onChangeBirthDate($event)"
+                    [disabled]="isDisablePersonData"></my-date-picker>
+                  <label class="error">กรุณาเลือก วันเดือนปี เกิด</label>
+                </div>
+              </div>
+              <div class="col-md-2 text-right">
+                <label class="label-form">เชื้อชาติ</label>
+              </div>
+              <div class="col-md-3">
+                <div [InputValidate]="validateSave">
+                  <select name="dropdown-race" id="dropdown-race" [(ngModel)]="member.raceCode" [disabled]="isDisablePersonData">
+                    <option value="">--เลือก เชื้อชาติ--</option>
+                    <option *ngFor="let item of listRace" [value]="item.code">{{item.name}}</option>
+                  </select>
+                  <label class="error">กรุณาเลือก เชื้อชาติ</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-1"></div>
+              <div class="col-md-2 text-right">
+                <label class="label-form">สัญชาติ</label>
+              </div>
+              <div class="col-md-3">
+                <div [InputValidate]="validateSave">
+                  <select name="dropdown-nation" id="dropdown-nation" [(ngModel)]="member.nationalityCode" [disabled]="isDisablePersonData">
+                    <option value="">--เลือก สัญชาติ--</option>
+                    <option *ngFor="let item of listNationality" [value]="item.code">{{item.name}}</option>
+                  </select>
+                  <label class="error">กรุณาเลือก สัญชาติ</label>
+                </div>
+              </div>
+              <div class="col-md-2 text-right">
+                <label class="label-form">ศาสนา</label>
+              </div>
+              <div class="col-md-3">
+                <div [InputValidate]="validateSave">
+                  <select name="dropdown-religion" id="dropdown-religion" [(ngModel)]="member.religionCode" [disabled]="isDisablePersonData">
+                    <option value="">--เลือก ศาสนา--</option>
+                    <option *ngFor="let item of listReligion" [value]="item.code">{{item.name}}</option>
+                  </select>
+                  <label class="error">กรุณาเลือก ศาสนา</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-1"></div>
+              <div class="col-md-2 text-right">
+                <label class="label-form">กรุ๊ปเลือด</label>
+              </div>
+              <div class="col-md-3">
+                <div [InputValidate]="validateSave">
+                  <select name="dropdown-blood" id="dropdown-blood" [(ngModel)]="member.bloodTypeId" [disabled]="isDisablePersonData">
+                    <option value="">--เลือก กรุ๊ปเลือด--</option>
+                    <option *ngFor="let item of listBloodType" [value]="item.id">{{item.name}}</option>
+                  </select>
+                  <label class="error">กรุณาเลือก กรุ๊ปเลือด</label>
+                </div>
+              </div>
+              <div class="col-md-2 text-right">
+                <label class="label-form">RH Group</label>
+              </div>
+              <div class="col-md-3">
+                <select name="dropdown-rhGroup" id="dropdown-rhGroup" [(ngModel)]="member.rhGroupId" [disabled]="isDisablePersonData">
+                  <option value="">--เลือก RH Group--</option>
+                  <option *ngFor="let item of listRHGroup" [value]="item.id">{{item.name}}</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-1"></div>
+              <div class="col-md-2 text-right">
+                <label class="label-form">การศึกษา</label>
+              </div>
+              <div class="col-md-3">
+                <select name="dropdown-education" id="dropdown-education" [(ngModel)]="member.educationCode" [disabled]="isDisablePersonData">
+                  <option value="">--เลือก ระดับการศึกษา--</option>
+                  <option *ngFor="let item of listEducation" [value]="item.code">{{item.name}}</option>
+                </select>
+              </div>
+              <div class="col-md-2 text-right">
+                <label class="label-form">อาชีพ</label>
+              </div>
+              <div class="col-md-3">
+                <select name="dropdown-occupationCode" id="dropdown-occupationCode" [(ngModel)]="member.occupationCode" [disabled]="isDisablePersonData">
+                  <option value="">--เลือก อาชีพ--</option>
+                  <option *ngFor="let item of listOccupation" [value]="item.code">{{item.name}}</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-1"></div>
+              <div class="col-md-2 text-right">
+                <label class="label-form">ความสัมพันธ์</label>
+              </div>
+              <div class="col-md-3">
+                <div [InputValidate]="validateSave">
+                  <select name="dropdown-familyStatus" id="dropdown-familyStatus" [(ngModel)]="member.familyStatusId" [disabled]="isDisablePersonData">
+                    <option value="">--เลือก ความสัมพันธ์--</option>
+                    <option *ngFor="let item of listFamilyStatus" [value]="item.id">{{item.name}}</option>
+                  </select>
+                  <label class="error">กรุณาเลือก กรุ๊ปเลือด</label>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              ข้อมูลการสำรวจ
+            </div>
+            <div class="panel-body">
+
+              <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-2 text-right">
+                  <label class="label-form">ประเภทการอยู่อาศัย</label>
+                </div>
+                <div class="col-md-9">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="radio">
+                        <label class="label-form" style="font-size: 1em">
+                          <input type="radio" name="guestType" id="guest1" [value]="false" [(ngModel)]="member.isGuest">
+                          <span class="cr">
+                            <i class="cr-icon fa fa-check"></i>
+                          </span>
+                          มีชื่อในสำเนาทะเบียนบ้านจริง
+                        </label>
+                      </div>
+                      <div class="radio">
+                        <label class="label-form" style="font-size: 1em">
+                          <input type="radio" name="guestType" id="guest2" [value]="true" [(ngModel)]="member.isGuest">
+                          <span class="cr">
+                            <i class="cr-icon fa fa-check"></i>
+                          </span>
+                          ไม่มีชื่อในสำเนาทะเบียนบ้าน แต่ตัวอยู่จริง
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div *ngIf="member.isGuest">
+                <div class="row">
+                  <div class="col-md-1"></div>
+                  <div class="col-md-2 text-right">
+                    <label class="label-form">บ้านเลขที่</label>
+                  </div>
+                  <div class="col-md-3">
+                    <input type="text" class="ng-pristine ng-valid ng-touched" [(ngModel)]="member.homeNo">
+                  </div>
+                  <div class="col-md-2 text-right">
+                    <label class="label-form">หมู่</label>
+                  </div>
+                  <div class="col-md-3">
+                    <input type="text" class="ng-pristine ng-valid ng-touched" [(ngModel)]="member.mooNo">
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-1"></div>
+                  <div class="col-md-2 text-right">
+                    <label class="label-form">ถนน</label>
+                  </div>
+                  <div class="col-md-3">
+                    <input type="text" class="ng-pristine ng-valid ng-touched" [(ngModel)]="member.road">
+                  </div>
+                  <div class="col-md-2 text-right">
+                    <label class="label-form">จังหวัด</label>
+                  </div>
+                  <div class="col-md-3">
+                    <select class="ng-pristine ng-valid ng-touched" [(ngModel)]="member.provinceCode" (change)="onChangeProvince()">
+                      <option value="">--เลือกจังหวัด--</option>
+                      <option *ngFor="let item of listProvince" [ngValue]="item.codeId">{{ item.name }}</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-1"></div>
+                  <div class="col-md-2 text-right">
+                    <label class="label-form">อำเภอ</label>
+                  </div>
+                  <div class="col-md-3">
+                    <select class="ng-pristine ng-valid ng-touched" [(ngModel)]="member.amphurCode" (change)="onChangeDistrict()" [disabled]="member.provinceCode == '' ? true : false">
+                      <option value="">--เลือกอำเภอ--</option>
+                      <option *ngFor="let item of listDistrict" [value]="item.code">{{ item.name }}</option>
+                    </select>
+                  </div>
+                  <div class="col-md-2 text-right">
+                    <label class="label-form">ตำบล</label>
+                  </div>
+                  <div class="col-md-3">
+                    <select class="ng-pristine ng-valid ng-touched" [(ngModel)]="member.tumbolCode" (change)="onChangeSubDistrict()" [disabled]="member.amphurCode == '' ? true : false">
+                      <option value="">--เลือกตำบล--</option>
+                      <option *ngFor="let item of listSubDistrict" [value]="item.codeId">{{ item.name }}</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-1"></div>
+                  <div class="col-md-2 text-right">
+                    <label class="label-form">รหัสไปรษณีย์</label>
+                  </div>
+                  <div class="col-md-3">
+                    <input type="text" class="ng-pristine ng-valid ng-touched" [(ngModel)]="member.zipCode">
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-2 text-right">
+                  <label class="label-form">ความสัมพันธ์</label>
+                </div>
+                <div class="col-md-3">
+                  <select name="dropdown-familyStatus" id="dropdown-familyStatus" [(ngModel)]="member.familyStatusId">
+                    <option value="">--เลือก ความสัมพันธ์--</option>
+                    <option *ngFor="let item of listFamilyStatus" [value]="item.id">{{item.name}}</option>
+                  </select>
+                </div>
+                <!-- <div *ngIf="isDisplayActionEdit">
+            <div class="col-md-2 text-right">
+              <label class="label-form">สถานะการจำหน่าย</label>
+            </div>
+            <div class="col-md-3">
+              <select name="dropdown-discharge" id="dropdown-discharge" [(ngModel)]="member.dischargeId">
+                <option value="">--เลือก สถานะการจำหน่าย--</option>
+                <option *ngFor="let item of listDischarge" [value]="item.id">{{item.name}}</option>
+              </select>
+            </div>
+          </div> -->
+              </div>
+
+              <div class="row" *ngIf="isDisplayActionEdit">
+                <div class="col-md-1"></div>
+                <div class="col-md-2 text-right">
+                  <label class="label-form">สถานะอยู่</label>
+                </div>
+                <div class="col-md-1">
+                  <div class="radio">
+                    <label class="label-form" style="font-size: 1em">
+                      <input type="radio" name="existsType" id="existsType1" [value]="true" [(ngModel)]="member.isExists">
+                      <span class="cr">
+                        <i class="cr-icon fa fa-check"></i>
+                      </span>
+                      อยู่จริง
+                    </label>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="radio">
+                    <label class="label-form" style="font-size: 1em">
+                      <input type="radio" name="existsType" id="existsType2" [value]="false" [(ngModel)]="member.isExists">
+                      <span class="cr">
+                        <i class="cr-icon fa fa-check"></i>
+                      </span>
+                      ไม่อยู่จริง
+                    </label>
+                  </div>
+                </div>
+                <div class="col-md-2 text-right">
+                  <label class="label-form">สถานะการจำหน่าย</label>
+                </div>
+                <div class="col-md-3">
+                  <select name="dropdown-discharge" id="dropdown-discharge" [(ngModel)]="member.dischargeId">
+                    <option value="">--เลือก สถานะการจำหน่าย--</option>
+                    <option *ngFor="let item of listDischarge" [value]="item.id">{{item.name}}</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-2 text-right">
+                  <label class="label-form">โรคประจำตัว</label>
+                </div>
+                <div class="col-md-3">
+                  <input type="text" class="ng-pristine ng-valid ng-touched" [(ngModel)]="member.congenitalDisease">
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-2 text-right">
+                  <label class="label-form">หมายเหตุ</label>
+                </div>
+                <div class="col-md-3">
+                  <textarea style="height: 50px;" class="ng-pristine ng-valid ng-touched" placeholder="ระบุหมายเหตุ ถ้ามี" [(ngModel)]="member.remark"></textarea>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn btn-primary btn-sm" (click)="onClickSave();" [disabled]="isDisabledButtonSave">บันทึก</button>
+          <button class="btn btn-primary btn-sm" data-dismiss="modal">ยกเลิก</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <ass-loading [show]="loading"></ass-loading>

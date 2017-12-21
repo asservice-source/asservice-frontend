@@ -40,7 +40,7 @@ export class Service_Home extends ApiHTTPService{
            }
         let _self = this;
         this.post('/home/home_list_by_village_or_osm', parameter, function(response){
-            if(response && response.status.toString().toUpperCase()=='SUCCESS'){
+            if(response && response.status.toUpperCase()=='SUCCESS'){
                 callback(response.response);
             }else{
                 _self.baseComponent.message_servNotRespond('', response.message);

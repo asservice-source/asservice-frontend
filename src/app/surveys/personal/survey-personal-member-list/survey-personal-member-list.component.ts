@@ -236,44 +236,22 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
 
   bindHomeMemberList() {
     let self = this;
-
     self.loading = true;
-
-    let URL_LIST_HOME_MEMBERS: string = "survey_population/homemember_by_home";
-    let params = { "documentId": self.paramRoundId,"homeId": self.paramHomeId };
-
-    self.apiHttp.post(URL_LIST_HOME_MEMBERS, params, function (d) {
-      if (d != null && d.status.toUpperCase() == "SUCCESS") {
-        // console.log(d);
-        let data = d.response;
-        for (let item of data) {
-          if (item && item.isGuest === true) {
-            self.tempData2.push(item);
-          } else {
-            self.tempData.push(item);
-          }
+    self.apiHttp.getListMember(self.paramRoundId, self.paramHomeId, function (data) {
+      for (let item of data) {
+        if (item && item.isGuest === true) {
+          self.tempData2.push(item);
+        } else {
+          self.tempData.push(item);
         }
-
-        // self.tempData = d.response;
-        self.source = self.ng2STDatasource(self.tempData);
-        self.isShowTable = true;
-
-        // self.tempData2 = d.response;
-        self.source2 = self.ng2STDatasource(self.tempData2);
-        self.isShowTable2 = true;
-      } else {
-        console.log('survey-personal-member-list(bindHomeMemberList) occured error(s) => ' + d.message);
       }
+      self.source = self.ng2STDatasource(self.tempData);
+      self.isShowTable = true;
+      self.source2 = self.ng2STDatasource(self.tempData2);
+      self.isShowTable2 = true;
       self.loading = false;
       self.changeRef.detectChanges();
     });
-
-    // this.http.get("assets/data_test/data_personal.json")
-    //   .map(res => res.json())
-    //   .subscribe((data) => {
-    //     self.source = new LocalDataSource(data);
-    //     self.setNg2STDatasource(self.source);
-    //   });
   }
 
   onUpdatedMember(member: PersonalMemberBean) {
@@ -458,10 +436,37 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     this.memberBean = new PersonalBasicBean();
     this.memberBean.homeId = this.paramHomeId;
     this.changeRef.detectChanges();
-    $("#modal-management-home-member-form").modal();
+    $("#modal-management-home-member-form").modal('show');
   }
   onSaveCompleted(event: any){
-    console.log();
+    let self = this;
+    if(event.success){
+      $("#modal-management-home-member-form").modal('hide');
+      let update: PersonalMemberBean = new PersonalMemberBean();
+      let bean: PersonalBasicBean = event.bean;
+      // update.personId = bean.personId;
+      // update.citizenId = bean.citizenId;
+      // update.genderId = bean.genderId;
+      // update.prefixCode = bean.prefixCode;
+      // update.firstName = bean.firstName;
+      // update.lastName = bean.lastName;
+      // update.birthDate = bean.birthDate;
+      // update.educationCode = bean.educationCode;
+      // update.occupationCode = bean.occupationCode;
+      // update.bloodTypeId = bean.bloodTypeId;
+      // update.rhGroupId = bean.rhGroupId;
+      // update.familyStatusId = bean.familyStatusId;
+      // update.isGuest = bean.isGuest;
+
+      self.copyObj(bean, update);
+      this.message_success('',event.message, function(){
+        self.onUpdatedMember(update);
+      });
+
+    }else{
+
+    }
+    console.log(event);
   }
 
 }
