@@ -56,6 +56,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
   public isFocusEmail: boolean = false;
   public isFocusPhone: boolean = false;
   public loading: boolean = false;
+  public citizen : string;
 
 
   constructor(private route: Router, private completerService: CompleterService, private changeRef: ChangeDetectorRef) {
@@ -200,15 +201,14 @@ export class RegisterComponent extends BaseComponent implements OnInit {
 
   saveRegister(){
     let self = this;
-    this.registerBean.contactCitizenId = this.formatForJson(this.registerBean.contactCitizenId);
-    this.registerBean.contactTelephone = this.formatForJson(this.registerBean.contactTelephone);
+    // this.registerBean.contactTelephone = 
     let params = {
       code5: this.registerBean.code5,
       contactPrefix: this.registerBean.contactPrefix,
       contactFirstName: this.registerBean.contactFirstName,
       contactLastName: this.registerBean.contactLastName,
-      contactCitizenId: this.registerBean.contactCitizenId,
-      contactTelephone: this.registerBean.contactTelephone,
+      contactCitizenId: this.formatForJson(this.registerBean.contactCitizenId),
+      contactTelephone: this.formatForJson(this.registerBean.contactTelephone),
       contactEmail: this.registerBean.contactEmail
     };
     console.log(params);
@@ -218,10 +218,11 @@ export class RegisterComponent extends BaseComponent implements OnInit {
       self.loading = false;
       console.log(resp);
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-        self.message_success('', 'กรุณาตรวจสอบอีเมลของท่านเพื่อยืนยันการลงทะเบียน', function () {
+          self.message_success('', 'กรุณาตรวจสอบอีเมลของท่านเพื่อยืนยันการลงทะเบียน', function () {
           location.href = '/login';
         })
-      } else {
+      } 
+      else {
         if(resp.message == 'CitizenIdIsMappedToOtherRoles'){
           self.message_error('', 'หมายเลขประชาชนนี้ใช้ในการลงทะเบียนไปแล้ว');
         }
