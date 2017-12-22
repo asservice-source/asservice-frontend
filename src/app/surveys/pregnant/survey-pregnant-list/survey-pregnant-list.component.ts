@@ -73,14 +73,30 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
           return '<div class="text-center">' + cell + '</div>'
         }
       },
-      bornDueDate: {
-        title: 'วันกำหนดคลอด',
+      // bornDueDate: {
+      //   title: 'กำหนดคลอด/วันที่คลอด',
+      //   filter: false,
+      //   width: '100px',
+      //   type: 'html',
+      //   valuePrepareFunction: (cell, row) => {
+      //     let birthDate = self.displayFormatDate(cell);
+      //     return '<div class="text-center">' + birthDate + '</div>'
+      //   }
+      // },
+      date: {
+        title: 'กำหนดคลอด/วันที่คลอด',
         filter: false,
         width: '100px',
         type: 'html',
         valuePrepareFunction: (cell, row) => {
-          let birthDate = self.displayFormatDate(cell);
-          return '<div class="text-center">' + birthDate + '</div>'
+          let surveyTypeCode = row.pSurveyTypeCode;
+          let bornDueDate = self.displayFormatDate(row.bornDueDate);
+          if(surveyTypeCode == "Born"){
+            let bornDate = self.displayFormatDate(row.childs[0].birthDate);
+            return '<div class="text-center">' + bornDate + '</div>';
+          } else {
+            return '<div class="text-center">' + bornDueDate + '</div>';
+          }
         }
       },
       pSurveyTypeCode: {
@@ -91,11 +107,11 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
         valuePrepareFunction: (cell, row) => {
           let wombStatus = "";
           if (cell == "Born") {
-            wombStatus = "คลอดแล้ว";
+            wombStatus = '<div class="text-center text-active">คลอดแล้ว</div>';
           } else {
-            wombStatus = "กำลังตั้งครรภ์";
+            wombStatus = '<div class="text-center text-inactive">กำลังตั้งครรภ์</div>';
           }
-          return '<div class="text-center">' + wombStatus + '</div>'
+          return wombStatus;
         }
       },
       action: {
@@ -142,14 +158,6 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
     self.filter_fullName = event.fullName;
 
     self.bindPregnantList(self.filter_documentId, self.filter_villageId, self.filter_osmId, self.filter_fullName);
-
-    // this.http.get("assets/data_test/data_home_personal.json")
-    //   .map(res => res.json())
-    //   .subscribe((data) => {
-    //     self.source = new LocalDataSource(data);
-    //     self.setNg2STDatasource(self.source);
-    //     self.isShowTable = true;
-    //   });
   }
 
   bindPregnantList(documentId, villageId, osmId, name) {
@@ -171,11 +179,12 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
       self.changeRef.detectChanges();
     });
 
-    // self.http.get("assets/test-list.json")
+    // this.http.get("assets/data_test/data_home_personal.json")
     //   .map(res => res.json())
-    //   .subscribe(function (response) {
-    //     self.data = response;
-    //     self.setUpTable();
+    //   .subscribe((data) => {
+    //     self.source = new LocalDataSource(data);
+    //     self.setNg2STDatasource(self.source);
+    //     self.isShowTable = true;
     //   });
 
   }
@@ -199,7 +208,7 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
     let self = this;
 
     self.message_comfirm('', 'คุณต้องการลบ "' + bean.citizenId + '" หรือไม่?', function (confirm) {
-      if (confirm) {
+      if (confirm == true) {
         self.loading = true;
 
         self.apiHttp.commit_delete(bean, function (d) {

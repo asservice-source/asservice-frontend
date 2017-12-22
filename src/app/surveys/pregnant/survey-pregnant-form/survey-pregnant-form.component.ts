@@ -8,6 +8,7 @@ import { Service_SurveyPregnant } from '../../../service/service-survey-pregnant
 import { IMyDateModel } from 'mydatepicker-thai';
 import { InputValidateInfo } from '../../../directives/inputvalidate.directive';
 import { SimpleValidateForm } from '../../../utils.util';
+import { parse } from 'querystring';
 declare var $: any
 
 @Component({
@@ -56,12 +57,19 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
   public modelBornDate: any = null;
 
   public validateCitizenId: InputValidateInfo = new InputValidateInfo();
+  public validateWombNo: InputValidateInfo = new InputValidateInfo();
+  public validateBornDueDate: InputValidateInfo = new InputValidateInfo();
+  public validateBornDate: InputValidateInfo = new InputValidateInfo();
+
   public validateVerify: InputValidateInfo = new InputValidateInfo();
   public validateSave: InputValidateInfo = new InputValidateInfo();
 
   public loading: boolean = false;
 
   public error_message_citizenId: string = "กรุณาระบุ หมายเลขประจำตัว";
+  public error_message_wombNo: string = "กรุณาระบุ ครรภ์ที่";
+  public error_message_bornDueDate: string = "กรุณาระบุ กำหนดคลอด";
+  public error_message_bornDate: string = "กรุณาระบุ วันที่คลอด";
 
   constructor(private changeRef: ChangeDetectorRef) {
     super();
@@ -255,6 +263,8 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
     let self = this;
 
     self.validateCitizenId = new InputValidateInfo();
+    self.validateWombNo = new InputValidateInfo();
+
     self.validateVerify = new InputValidateInfo();
     self.validateSave = new InputValidateInfo();
 
@@ -270,13 +280,14 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
     self.pregnantBean.bornTypeId = self.pregnantBean.bornTypeId || "";
     self.pregnantBean.abortionCause = self.pregnantBean.abortionCause || "";
 
-    self.onChangePregnantType();
+    self.onChangePregnantType(false);
     self.onChangeBornType();
 
     // self.modelBornDueDate = self.getDatePickerModel(self.pregnantBean.bornDueDate);
 
     self.clearListChild();
     if (self.pregnantBean.childs && self.pregnantBean.childs.length > 0) {
+      self.pregnantBean.bornDate = self.pregnantBean.childs[0].birthDate;
       self.modelBornDate = self.getDatePickerModel(self.pregnantBean.childs[0].birthDate);
       self.pregnantBean.bornLocationId = self.pregnantBean.childs[0].bornLocationId;
       self.pregnantBean.bornTypeId = self.pregnantBean.childs[0].bornTypeId;
@@ -300,7 +311,7 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
     self.clearInputChild();
   }
 
-  onChangePregnantType() {
+  onChangePregnantType(isClearData: boolean) {
     let self = this;
 
     if (self.pregnantBean.pSurveyTypeCode == self.surveyTypeBorn) {
@@ -309,8 +320,19 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
       self.isShowPregnantType = false;
     }
 
-    self.clearListChild();
-    self.bindChildList();
+    if (isClearData) {
+      self.pregnantBean.bornDueDate = "";
+      self.modelBornDueDate = null;
+
+      self.pregnantBean.bornDate = "";
+      self.modelBornDate = null;
+
+      self.pregnantBean.bornLocationId = "";
+      self.pregnantBean.bornTypeId = "";
+
+      self.clearListChild();
+      self.bindChildList();
+    }
 
     self.validateSave = new InputValidateInfo();
   }
@@ -416,42 +438,94 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
   onClickConfirm() {
     let self = this;
 
-    let simpValidate = new SimpleValidateForm();
-    let validatePregnantFields = ["wombNo", "bornDueDate"];
-    let validateBornFields = ["wombNo", "bornDate", "bornLocationId", "bornTypeId"];
+    let errors_count = 0;
 
     self.validateSave = new InputValidateInfo();
     self.validateSave.isCheck = true;
 
+    self.validateWombNo = new InputValidateInfo();
+    self.validateWombNo.isCheck = true;
+
+    self.validateBornDueDate = new InputValidateInfo();
+    self.validateBornDueDate.isCheck = false;
+
+    self.validateBornDate = new InputValidateInfo();
+    self.validateBornDate.isCheck = false;
+
+    if (self.isEmpty(self.pregnantBean.wombNo)) {
+      self.error_message_wombNo = "กรุณาระบุ ครรภ์ที่";
+      self.validateWombNo = new InputValidateInfo();
+      self.validateWombNo.isCheck = true;
+      self.validateWombNo.isShowError = true;
+      errors_count++;
+    } else {
+      let intWombNo = parseInt(self.pregnantBean.wombNo) || 0;
+      if (intWombNo <= 0) {
+        self.error_message_wombNo = "ครรภ์ที่ ต้องมีค่ามากกว่า 0";
+        self.validateWombNo = new InputValidateInfo();
+        self.validateWombNo.isCheck = true;
+        self.validateWombNo.isShowError = true;
+        errors_count++;
+      }
+    }
+
     if (self.isEmpty(self.pregnantBean.pSurveyTypeCode)) {
-      return;
+      errors_count++;
     }
 
     if (self.pregnantBean.pSurveyTypeCode == self.surveyTypeBorn) {
-      let errors = simpValidate.getObjectEmpty_byFilds(self.pregnantBean, validateBornFields);
-      if (errors.length > 0) {
-        console.log(errors);
-        return;
+      self.validateBornDate = new InputValidateInfo();
+      self.validateBornDate.isCheck = true;
+
+      if (self.isEmpty(self.pregnantBean.bornDate)) {
+        self.error_message_bornDate = "กรุณาระบุ วันที่คลอด";
+        self.validateBornDate = new InputValidateInfo();
+        self.validateBornDate.isCheck = true;
+        self.validateBornDate.isShowError = true;
+        errors_count++;
+      } else if (self.isLessThanCurrentDate(self.pregnantBean.bornDate)) {
+        self.error_message_bornDate = "วันที่คลอด ต้องมีค่ามากกว่าหรือเท่ากับวันที่ปัจจุบัน";
+        self.validateBornDate = new InputValidateInfo();
+        self.validateBornDate.isCheck = true;
+        self.validateBornDate.isShowError = true;
+        errors_count++;
       }
 
-      // if (self.isEmpty(self.pregnantBean.bornLocationId.toString())) {
-      //   return;
-      // }
+      if (self.isEmpty(self.pregnantBean.bornLocationId.toString())) {
+        errors_count++;
+      }
 
-      // if (self.isEmpty(self.pregnantBean.bornTypeId.toString())) {
-      //   return;
-      // }
+      if (self.isEmpty(self.pregnantBean.bornTypeId.toString())) {
+        errors_count++;
+      }
 
       if (self.listChild.length <= 0) {
         self.message_error('', 'กรุณาระบุข้อมูลของเด็กทารก');
-        return;
+        errors_count++;
       }
     } else {
-      let errors = simpValidate.getObjectEmpty_byFilds(self.pregnantBean, validatePregnantFields);
-      if (errors.length > 0) {
-        console.log(errors);
-        return;
+      self.validateBornDueDate = new InputValidateInfo();
+      self.validateBornDueDate.isCheck = true;
+
+      if (self.isEmpty(self.pregnantBean.bornDueDate)) {
+        self.error_message_bornDueDate = "กรุณาระบุ กำหนดคลอด";
+        self.validateBornDueDate = new InputValidateInfo();
+        self.validateBornDueDate.isCheck = true;
+        self.validateBornDueDate.isShowError = true;
+        errors_count++;
       }
+
+      if (self.isLessThanCurrentDate(self.pregnantBean.bornDueDate)) {
+        self.error_message_bornDueDate = "กำหนดคลอด ต้องมีค่ามากกว่าหรือเท่ากับวันที่ปัจจุบัน";
+        self.validateBornDueDate = new InputValidateInfo();
+        self.validateBornDueDate.isCheck = true;
+        self.validateBornDueDate.isShowError = true;
+        errors_count++;
+      }
+    }
+
+    if (errors_count > 0) {
+      return;
     }
 
     self.loading = true;

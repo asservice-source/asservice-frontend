@@ -43,9 +43,9 @@
                         <label class="label-form">ครรภ์ที่</label>
                     </div>
                     <div class="col-md-3">
-                        <div [InputValidate]="validateSave">
+                        <div [InputValidate]="validateWombNo">
                             <input maxlength="2" [OnlyNumber]="true" type="text" [(ngModel)]="pregnantBean.wombNo">
-                            <label class="error">กรุณาระบุ ครรภ์ที่</label>
+                            <label class="error">{{ error_message_wombNo }}</label>
                         </div>
                     </div>
                 </div>
@@ -56,7 +56,7 @@
                     </div>
                     <div class="col-md-3">
                         <div [InputValidate]="validateSave">
-                            <select [(ngModel)]="pregnantBean.pSurveyTypeCode" (change)="onChangePregnantType();">
+                            <select [(ngModel)]="pregnantBean.pSurveyTypeCode" (change)="onChangePregnantType(true);">
                                 <option value="Pregnant">กำลังตั้งครรภ์</option>
                                 <option value="Born">คลอดแล้ว</option>
                             </select>
@@ -65,13 +65,13 @@
                     </div>
 
                     <div [hidden]="isShowPregnantType">
-                        <div class="col-md-1 text-right">
+                        <div class="col-md-2 text-right">
                             <label class="label-form">กำหนดคลอด</label>
                         </div>
                         <div class="col-md-3">
-                            <div [InputValidate]="validateSave">
+                            <div [InputValidate]="validateBornDueDate">
                                 <my-date-picker name="bornDueDate" [options]="datePickerOptions" [(ngModel)]="modelBornDueDate" (dateChanged)="onChangeBornDueDate($event)"></my-date-picker>
-                                <label class="error">กรุณาระบุ กำหนดคลอด</label>
+                                <label class="error">{{ error_message_bornDueDate }}</label>
                             </div>
                         </div>
                     </div>
@@ -81,9 +81,9 @@
                             <label class="label-form">วันที่คลอด</label>
                         </div>
                         <div class="col-md-3">
-                            <div [InputValidate]="validateSave">
+                            <div [InputValidate]="validateBornDate">
                                 <my-date-picker name="bornDate" [options]="datePickerOptions" [(ngModel)]="modelBornDate" (dateChanged)="onChangeBornDate($event)"></my-date-picker>
-                                <label class="error">กรุณาระบุ วันที่คลอด</label>
+                                <label class="error">{{ error_message_bornDate }}</label>
                             </div>
                         </div>
                     </div>
@@ -180,7 +180,7 @@
                                     <div class="col-md-1 text-right">
                                         <label class="label-form">นามสกุล</label>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <div [InputValidate]="validateVerify">
                                             <input maxlength="50" type="text" [(ngModel)]="childBean.lastName">
                                             <label class="error">กรุณาระบุ นามสกุล</label>

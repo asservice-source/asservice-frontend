@@ -42,7 +42,7 @@ export class BaseComponent implements OnInit {
     }
 
     public getUserFullName(): string {
-        
+
         return this.userInfo.fullName;
     }
     public getHospitalCode(): string {
@@ -86,7 +86,7 @@ export class BaseComponent implements OnInit {
     public ng2STDatasource(source: any): LocalDataSource {
         this.ng2STDataSource = new LocalDataSource(source);
         this.ng2STDataSource.refresh();
-        
+
         return this.ng2STDataSource;
     }
     private isRefrestData = false;
@@ -119,12 +119,30 @@ export class BaseComponent implements OnInit {
         return firstName + " " + lastname;
     }
 
+    public isLessThanCurrentDate(dateString: string) {
+        let currentDate = moment(moment().format('YYYY-MM-DD'));
+        let inpuDate = moment(dateString);
+        if (inpuDate < currentDate) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public displayFormatDate(dateString: string) {
-        return moment(dateString).format('DD/MM/YYYY');
+        if(dateString){
+            return moment(dateString).format('DD/MM/YYYY');
+        } else {
+            return "";
+        }
     }
 
     public displayFormatDateTime(dateString: string) {
-        return moment(dateString).format('DD/MM/YYYY HH:mm');
+        if(dateString){
+            return moment(dateString).format('DD/MM/YYYY HH:mm');
+        } else {
+            return "";
+        }
     }
 
     public getAge(birthDate: string) {
@@ -323,43 +341,43 @@ export class BaseComponent implements OnInit {
     message_comfirm(title: string, message: string, callback?: (doc: any) => void) {
         title = title || 'ยืนยันการทำรายการ';
         title = "<div class='bootbox-title'><span class='fa fa-question' style='color: #2a7ec7;'></span> " + title + "</div>";
-        messageBox.confirm(title, message , callback);
+        messageBox.confirm(title, message, callback);
     }
 
     message_success(title: string, message: string, callback?: (doc: any) => void) {
         title = title || 'ทำรายการสำเร็จ';
         title = "<div class='bootbox-title'><span class='fa fa-check' style='color: #14b713;'></span> " + title + "</div>"
-        messageBox.alert(title, message , callback);
+        messageBox.alert(title, message, callback);
     }
 
     message_error(title: string, message: string, callback?: (doc: any) => void) {
         title = title || 'ไม่สามารถทำรายการได้';
         title = "<div class='bootbox-title'><span class='fa fa-close' style='color: #d02626;'></span> " + title + "</div>";
-        messageBox.alert(title, message , callback);
+        messageBox.alert(title, message, callback);
     }
 
     message_servNotRespond(title: string, message: string, callback?: (doc: any) => void) {
         title = title || 'Server Not Responding';
         title = "<div class='bootbox-title'><span class='fa fa-close' style='color: #d02626;'></span> " + title + "</div>";
         message = message || 'ไม่สามารถดึงข้อมูลได้';
-        messageBox.alert(title, message , callback);
+        messageBox.alert(title, message, callback);
     }
 
-    isOsmRole(roleId: string){
-        if(roleId=='4' || roleId=='5')
+    isOsmRole(roleId: string) {
+        if (roleId == '4' || roleId == '5')
             return true;
         else
             return false;
     }
 
-    isStaffRole(roleId: string){
-        if(roleId=='2' || roleId=='3')
+    isStaffRole(roleId: string) {
+        if (roleId == '2' || roleId == '3')
             return true;
         else
             return false;
     }
 
-    getYearDiff(year){
+    getYearDiff(year) {
         let currentYear = (new Date()).getFullYear();
         return (currentYear - (+year));
     }
