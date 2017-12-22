@@ -7,6 +7,7 @@ export class PersonalBasicBean{
     public fullName: string;
     public nickName: string;
     public birthDate: string;
+    public age: string;
     public prefixCode: string;
     public prefixName: string;
     public genderId: string;
@@ -29,8 +30,6 @@ export class PersonalBasicBean{
     public religionName: string;
     public raceCode: string;
     public raceName: string;
-    public mStatusCode: string;
-    public mStatusName: string;
     public hospitalCode5: string;
     public address: string;
     public homeId: string;
@@ -46,12 +45,25 @@ export class PersonalBasicBean{
     public zipcode: string;
     public mooNo: string;
     public road: string;
+    public laborCode: string;
+    public mStatusCode: string;
+    public mStatusName: string;
+    public vStatusCode: string;
+    public vStatusName: string;
+    public passport: string;
+    public deadDate: string;
+    public fatherCid: string;
+    public motherCid: string;
+    public coupleCid: string;
+    public congenitalDisease: string;
+    public remark: string;
     
     public userId: string;
     public osmId: string;
     public roleId: string;
     public isDead: boolean;
     public isGuest: any;
+    public isExists: boolean;
     public isActive: boolean;
     
 }

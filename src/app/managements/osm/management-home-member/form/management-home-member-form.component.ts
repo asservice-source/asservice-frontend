@@ -19,6 +19,7 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
   @Input() bean: PersonalBasicBean;
   @Input() action: string;
   @Input() address: Address;
+  @Input() isSurvey: boolean;
   @Output() success: EventEmitter<any>;
   public api: Service_HomeMember;
   public inputValidate: InputValidateInfo;
@@ -143,11 +144,32 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
 
     });
   }
-  onGenderChange(){
+  onGenderChange(element: any){
     this.bean.prefixCode = '';
     this.setupPrefix();
+    let options = element.options;
+    for(let item of options){
+      if(item.value==element.value){
+        this.bean.genderName = item.text;
+      }
+    }
   }
-
+  onPrefixChange(element: any){
+    let options = element.options;
+    for(let item of options){
+      if(item.value==element.value){
+        this.bean.prefixName = item.text;
+      }
+    }
+  }
+  onChangeFamilyStatus(element: any){
+    let options = element.options;
+    for(let item of options){
+      if(item.value==element.value){
+        this.bean.familyStatusName = item.text;
+      }
+    }
+  }
   onChangeBirthDate(event: any){
 
   }

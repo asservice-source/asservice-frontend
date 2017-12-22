@@ -29,6 +29,7 @@ export class FilterHeadSurveyComponent extends BaseComponent implements OnInit {
   public description: any = {round: '', village: 'ทั้งหมด', osm: 'ทั้งหมด', name: ''};
   public headerList: any = [];
   public isStaff: boolean;
+  public currentDocumentId: string;
 
   constructor(private http: Http) {
     super();
@@ -61,6 +62,7 @@ export class FilterHeadSurveyComponent extends BaseComponent implements OnInit {
         _self.filterBean.status = item.status;
         if(item.status == '2'){
           _self.filterBean.rowGUID = item.rowGUID;
+          _self.currentDocumentId = item.rowGUID;
           _self.description.round = item.round;
           _self.onSearchFilter();
           break;
@@ -136,6 +138,7 @@ export class FilterHeadSurveyComponent extends BaseComponent implements OnInit {
   }
 
   onClearFilter(){
+    this.filterBean.rowGUID = this.currentDocumentId;
     this.filterBean.villageId = '';
     this.filterBean.osmId = '';
     this.filterBean.fullName = '';

@@ -1,10 +1,9 @@
-<div id="modalMember" class="modal fade" role="dialog">
+<div id="modalMember" class="modal fade" role="dialog" data-backdrop="false" data-keyboard="false">
   <div class="modal-xl modal-dialog">
 
     <div class="modal-content">
 
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">ข้อมูลสมาชิก</h4>
       </div>
 
@@ -29,7 +28,7 @@
               </div>
               <div class="col-md-3">
                 <div [InputValidate]="validateSave">
-                  <select name="dropdown-gender" id="dropdown-gender" [(ngModel)]="member.genderId" (change)="onChangeGender()" [disabled]="isDisablePersonData">
+                  <select name="dropdown-gender" id="dropdown-gender" [(ngModel)]="member.genderId" #gender (change)="onChangeGender(gender)" [disabled]="isDisablePersonData">
                     <option value="">--เลือก--</option>
                     <option *ngFor="let item of listGender" [value]="item.id">{{item.name}}</option>
                   </select>
@@ -41,7 +40,7 @@
               </div>
               <div class="col-md-3">
                 <div [InputValidate]="validateSave">
-                  <select name="dropdown-prefix" id="dropdown-prefix" [(ngModel)]="member.prefixCode" [disabled]="isDisablePersonData">
+                  <select name="dropdown-prefix" id="dropdown-prefix" [(ngModel)]="member.prefixCode" #prefix (change)="onChangePrefix(prefix)" [disabled]="isDisablePersonData">
                     <option value="">--เลือก--</option>
                     <option *ngFor="let item of listPrefix" [value]="item.code">{{item.name}}</option>
                   </select>
@@ -57,7 +56,7 @@
               </div>
               <div class="col-md-3">
                 <div [InputValidate]="validateSave">
-                  <input type="text" class="ng-pristine ng-valid ng-touched" maxlength="50" [(ngModel)]="member.firstName" [disabled]="isDisablePersonData">
+                  <input maxlength="50" [(ngModel)]="member.firstName" [disabled]="isDisablePersonData">
                   <label class="error">กรุณาใส ชื่อ</label>
                 </div>
               </div>
@@ -66,7 +65,7 @@
               </div>
               <div class="col-md-3">
                 <div [InputValidate]="validateSave">
-                  <input type="text" class="ng-pristine ng-valid ng-touched" maxlength="50" [(ngModel)]="member.lastName" [disabled]="isDisablePersonData">
+                  <input type="text" maxlength="50" [(ngModel)]="member.lastName" [disabled]="isDisablePersonData">
                   <label class="error">กรุณาใสนามสกุล</label>
                 </div>
               </div>
@@ -111,7 +110,7 @@
                 <label class="label-form">โรคประจำตัว</label>
               </div>
               <div class="col-md-3">
-                <input type="text" class="ng-pristine ng-valid ng-touched" [(ngModel)]="member.congenitalDisease">
+                <input type="text" [(ngModel)]="member.congenitalDisease">
               </div>
 
             </div>
@@ -123,11 +122,43 @@
               </div>
               <div class="col-md-3">
                 <div [InputValidate]="validateSave">
-                  <select name="dropdown-familyStatus" id="dropdown-familyStatus" [(ngModel)]="member.familyStatusId" [disabled]="isDisablePersonData">
+                  <select name="dropdown-familyStatus" id="dropdown-familyStatus" [(ngModel)]="member.familyStatusId" #familyStatus (change)="onChangeFamilyStatus(familyStatus)" [disabled]="isDisablePersonData">
                     <option value="">--เลือก--</option>
                     <option *ngFor="let item of listFamilyStatus" [value]="item.id">{{item.name}}</option>
                   </select>
                   <label class="error">กรุณาเลือกความสัมพันธ์</label>
+                </div>
+              </div>
+              <div class="col-md-2 text-right">
+                <label class="label-form">สถานะการจำหน่าย</label>
+              </div>
+              <div class="col-md-3">
+                <select name="dropdown-discharge" id="dropdown-discharge" [(ngModel)]="member.dischargeId">
+                  <option *ngFor="let item of listDischarge" [value]="item.id">{{item.name}}</option>
+                </select>
+              </div>
+              
+
+            </div>
+
+            <div class="row">
+              <div class="col-md-1"></div>
+              <div class="col-md-2 text-right">
+                <label class="label-form">หมายเหตุ</label>
+              </div>
+              <div class="col-md-3">
+                <textarea style="height: 50px;" placeholder="หมายเหตุ" [(ngModel)]="member.remark"></textarea>
+              </div>
+              <div *ngIf="member.dischargeId != '9'">
+                <div class="col-md-2 text-right">
+                  <label class="label-form">วันที่จำหน่าย</label>
+                </div>
+                <div class="col-md-3">
+                  <div [InputValidate]="validateSave">
+                    <my-date-picker name="birthDate" [options]="datePickerOptions" [(ngModel)]="modelBirthDate" (dateChanged)="onChangeBirthDate($event)"
+                      [disabled]="isDisablePersonData"></my-date-picker>
+                    <label class="error">กรุณาเลือกวันที่จำหน่าย</label>
+                  </div>
                 </div>
               </div>
             </div>
@@ -159,40 +190,19 @@
                   </label>
                 </div>
               </div>
-              <div class="col-md-2 text-right">
-                <label class="label-form">สถานะการจำหน่าย</label>
-              </div>
-              <div class="col-md-3">
-                <select name="dropdown-discharge" id="dropdown-discharge" [(ngModel)]="member.dischargeId">
-                  <option value="">--เลือก--</option>
-                  <option *ngFor="let item of listDischarge" [value]="item.id">{{item.name}}</option>
-                </select>
-              </div>
             </div>
 
-            
-
-            <div class="row">
-              <div class="col-md-1"></div>
-              <div class="col-md-2 text-right">
-                <label class="label-form">หมายเหตุ</label>
-              </div>
-              <div class="col-md-3">
-                <textarea style="height: 50px;" class="ng-pristine ng-valid ng-touched" placeholder="ระบุหมายเหตุ ถ้ามี" [(ngModel)]="member.remark"></textarea>
-              </div>
-            </div>
-          
             <div class="row">
               <div class="col-md-1"></div>
               <div class="col-md-2 text-right">
                 <label class="label-form">ประเภทการอยู่อาศัย</label>
               </div>
-              <div class="col-md-9">
+              <div class="col-md-4">
                 <div class="row">
                   <div class="col-md-12">
                     <div class="radio">
                       <label class="label-form" style="font-size: 1em">
-                        <input type="radio" name="guestType" id="guest1" [value]="false" [(ngModel)]="member.isGuest">
+                        <input type="radio" name="guestType" id="guest1" [value]="false" [(ngModel)]="member.isGuest" (change)="onIsGuest()">
                         <span class="cr">
                           <i class="cr-icon fa fa-check"></i>
                         </span>
@@ -201,7 +211,7 @@
                     </div>
                     <div class="radio">
                       <label class="label-form" style="font-size: 1em">
-                        <input type="radio" name="guestType" id="guest2" [value]="true" [(ngModel)]="member.isGuest">
+                        <input type="radio" name="guestType" id="guest2" [value]="true" [(ngModel)]="member.isGuest" (change)="onIsGuest()">
                         <span class="cr">
                           <i class="cr-icon fa fa-check"></i>
                         </span>
@@ -221,13 +231,13 @@
                   <label class="label-form">บ้านเลขที่</label>
                 </div>
                 <div class="col-md-3">
-                  <input type="text" class="ng-pristine ng-valid ng-touched" [(ngModel)]="member.homeNo">
+                  <input type="text" [(ngModel)]="member.homeNo">
                 </div>
                 <div class="col-md-2 text-right">
-                  <label class="label-form">หมู่</label>
+                  <label class="label-form">หมู่ที่</label>
                 </div>
                 <div class="col-md-3">
-                  <input type="text" class="ng-pristine ng-valid ng-touched" [(ngModel)]="member.mooNo">
+                  <input type="text" [(ngModel)]="member.mooNo">
                 </div>
               </div>
       
@@ -237,13 +247,13 @@
                   <label class="label-form">ถนน</label>
                 </div>
                 <div class="col-md-3">
-                  <input type="text" class="ng-pristine ng-valid ng-touched" [(ngModel)]="member.road">
+                  <input type="text" [(ngModel)]="member.road">
                 </div>
                 <div class="col-md-2 text-right">
                   <label class="label-form">จังหวัด</label>
                 </div>
                 <div class="col-md-3">
-                  <select class="ng-pristine ng-valid ng-touched" [(ngModel)]="member.provinceCode" (change)="onChangeProvince()">
+                  <select [(ngModel)]="member.provinceCode" (change)="onChangeProvince()">
                     <option value="">--เลือก--</option>
                     <option *ngFor="let item of listProvince" [ngValue]="item.codeId">{{ item.name }}</option>
                   </select>
@@ -256,7 +266,7 @@
                   <label class="label-form">อำเภอ</label>
                 </div>
                 <div class="col-md-3">
-                  <select class="ng-pristine ng-valid ng-touched" [(ngModel)]="member.amphurCode" (change)="onChangeDistrict()" [disabled]="member.provinceCode == '' ? true : false">
+                  <select  [(ngModel)]="member.amphurCode" (change)="onChangeDistrict()" [disabled]="member.provinceCode == '' ? true : false">
                     <option value="">--เลือก--</option>
                     <option *ngFor="let item of listDistrict" [value]="item.code">{{ item.name }}</option>
                   </select>
@@ -265,24 +275,14 @@
                   <label class="label-form">ตำบล</label>
                 </div>
                 <div class="col-md-3">
-                  <select class="ng-pristine ng-valid ng-touched" [(ngModel)]="member.tumbolCode" (change)="onChangeSubDistrict()" [disabled]="member.amphurCode == '' ? true : false">
+                  <select [(ngModel)]="member.tumbolCode" (change)="onChangeSubDistrict()" [disabled]="member.amphurCode == '' ? true : false">
                     <option value="">--เลือก--</option>
                     <option *ngFor="let item of listSubDistrict" [value]="item.codeId">{{ item.name }}</option>
                   </select>
                 </div>
               </div>
       
-              <div class="row">
-                <div class="col-md-1"></div>
-                <div class="col-md-2 text-right">
-                  <label class="label-form">รหัสไปรษณีย์</label>
-                </div>
-                <div class="col-md-3">
-                  <input type="text" class="ng-pristine ng-valid ng-touched" [(ngModel)]="member.zipCode">
-                </div>
-              </div>
-          
-
+        
         </div>
 
         <div class="modal-footer">

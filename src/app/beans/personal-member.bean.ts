@@ -9,6 +9,7 @@ export class PersonalMemberBean {
     public isExists: boolean = false;
     public typeAreaCode: string = "";
     public prefixCode: string = "";
+    public prefixName: string = "";
     public firstName: string = "";
     public lastName: string = "";
     public raceCode: string = "";

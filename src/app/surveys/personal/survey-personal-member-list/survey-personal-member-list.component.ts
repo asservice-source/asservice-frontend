@@ -5,13 +5,12 @@ import { ActivatedRoute } from '@angular/router';
 import { ViewCell, LocalDataSource } from 'ng2-smart-table';
 import { BaseComponent } from '../../../base-component';
 import { PersonBean } from '../../../beans/person.bean';
-import { PersonalMemberBean } from '../../../beans/personal-member.bean';
+//import { PersonalMemberBean } from '../../../beans/personal-member.bean';
 // import { ApiHTTPService } from '../../../service/api-http.service';
 import { Service_SurveyPersonal } from '../../../service/service-survey-personal';
 import { PersonalBasicBean } from '../../../beans/personal-basic.bean';
 import { Address } from '../../../beans/address';
 declare var $;
-declare var bootbox: any;
 
 @Component({
   selector: 'app-survey-personal-member-list',
@@ -27,8 +26,8 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
   private paramRoundId: string;
 
   public action: string = this.ass_action.ADD;
-  public paramMember: PersonalMemberBean;
-  public cloneMember: PersonalMemberBean;
+  public paramMember: PersonalBasicBean;
+  public cloneMember: PersonalBasicBean;
   public memberBean: PersonalBasicBean;
   public address: Address;
   public roundName: string = "";
@@ -53,8 +52,8 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
 
   constructor(private http: Http, private router: Router, private route: ActivatedRoute, private changeRef: ChangeDetectorRef) {
     super();
-    this.paramMember = new PersonalMemberBean();
-    this.cloneMember = new PersonalMemberBean();
+    this.paramMember = new PersonalBasicBean();
+    this.cloneMember = new PersonalBasicBean();
     this.memberBean = new PersonalBasicBean();
     this.address = new Address();
     let self = this;
@@ -62,12 +61,15 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
       fullName: {
         title: 'ชื่อ-สกุล',
         filter: false,
-        width: '300px'
       },
       citizenId: {
         title: 'เลขประจำตัวประชาชน',
         filter: false,
-        width: '300px'
+        width: '200px',
+        type: 'html',
+        valuePrepareFunction: (cell, row) => {
+          return '<div class="text-center">' + self.formatCitizenId(cell) + '</div>';
+        }
       },
       genderName: {
         title: 'เพศ',
@@ -103,16 +105,9 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
         type: 'custom',
         renderComponent: SurveyPersonalMemberListButtonEditComponent,
         onComponentInitFunction(instance) {
-          instance.action.subscribe((row: PersonalMemberBean) => {
+          instance.action.subscribe((row: PersonalBasicBean) => {
             // console.log(row);
-            self.action = self.ass_action.EDIT;
-            row.homeId = self.paramHomeId;
-            self.cloneMember = self.cloneObj(row);
-            self.paramMember = row;
-            self.paramMember = self.strNullToEmpty(self.paramMember);
-
-            self.changeRef.detectChanges();
-            $("#modalMember").modal({ backdrop: 'static', keyboard: false });
+            self.onModalForm(row);
           });
         }
       }
@@ -122,12 +117,15 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
       fullName: {
         title: 'ชื่อ-สกุล',
         filter: false,
-        width: '300px'
       },
       citizenId: {
         title: 'เลขประจำตัวประชาชน',
         filter: false,
-        width: '300px'
+        width: '200px',
+        type: 'html',
+        valuePrepareFunction: (cell, row) => {
+          return '<div class="text-center">' + self.formatCitizenId(cell) + '</div>';
+        }
       },
       genderName: {
         title: 'เพศ',
@@ -163,16 +161,10 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
         type: 'custom',
         renderComponent: SurveyPersonalMemberListButtonEditComponent,
         onComponentInitFunction(instance) {
-          instance.action.subscribe((row: PersonalMemberBean) => {
+          instance.action.subscribe((row: PersonalBasicBean) => {
             // console.log(row);
-            self.action = self.ass_action.EDIT;
-            row.homeId = self.paramHomeId;
-            self.cloneMember = self.cloneObj(row);
-            self.paramMember = row;
-            self.paramMember = self.strNullToEmpty(self.paramMember);
-
-            self.changeRef.detectChanges();
-            $("#modalMember").modal({ backdrop: 'static', keyboard: false });
+            
+            self.onModalForm(row);
           });
         }
       }
@@ -207,7 +199,6 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
 
   bindHomeInfo() {
     let self = this;
-    let params = { "homeId": parseInt(this.paramHomeId) };
     self.apiHttp.api_HomrInfo(self.paramHomeId, function (d) {
       if (d && d.status.toUpperCase() == "SUCCESS") {
         console.log(d);
@@ -254,16 +245,15 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     });
   }
 
-  onUpdatedMember(member: PersonalMemberBean) {
+  onUpdatedMember(member: PersonalBasicBean) {
+    console.log(member);
     let self = this;
-
     self.copyObj(member, self.paramMember);
-
+    let tmpMember = member;
     let isActionAdd = (self.action == self.ass_action.ADD);
     let isDuplicated = false;
-
     let index = -1;
-    let tmpMember = member;
+    self.paramMember.fullName = self.getFullName(member.prefixName, member.firstName, member.lastName);
 
     let listAll: Array<any> = [];
     for (let item of self.tempData) {
@@ -289,52 +279,18 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     }
 
     if (isDuplicated) {
-      bootbox.alert('Duplicated');
-      self.message_error('', 'ไม่สามารถเพิ่มยข้อมูลได้เนื่องจากมีข้อมูลซ้ำซ้อน');
+      self.message_error('', 'ไม่สามารถเพิ่มข้อมูลได้เนื่องจากหมายเลขประชาชนซ้ำ');
       return;
     }
-
-    let prefix = '';
-    if (member.listPrefix) {
-      for (let p of member.listPrefix) {
-        if (p.code == member.prefixCode) {
-          prefix = p.name;
-          break;
-        }
-      }
-    }
-    tmpMember.fullName = self.getFullName(prefix, member.firstName, member.lastName);
-
-    let gender = '';
-    if (member.listGender) {
-      for (let g of member.listGender) {
-        if (g.id == member.genderId) {
-          gender = g.name;
-          break;
-        }
-      }
-    }
-    tmpMember.genderName = gender;
-
+    
     if (member.birthDate) {
       tmpMember.age = self.getAge(member.birthDate).toString();
     } else {
       tmpMember.age = '';
     }
 
-    let familyStatus = '';
-    if (member.listFamilyStatus) {
-      for (let g of member.listFamilyStatus) {
-        if (g.id == member.familyStatusId) {
-          familyStatus = g.name;
-          break;
-        }
-      }
-    }
-    tmpMember.familyStatusName = familyStatus;
 
     if (!isActionAdd) {
-      // listAll[index] = tmpMember;
       let deleteIndex1 = -1;
       let pushItem1 = null;
       for (let item of self.tempData) {
@@ -388,13 +344,9 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     let self = this;
 
     self.action = this.ass_action.ADD;
-    self.cloneMember = new PersonalMemberBean();
-    self.paramMember = new PersonalMemberBean();
+    self.cloneMember = new PersonalBasicBean();
+    self.paramMember = new PersonalBasicBean();
     self.paramMember.homeId = this.paramHomeId;
-
-    //self.changeRef.detectChanges();
-   // $("#modalMember").modal({ backdrop: 'static', keyboard: false });
-
     this.onModalManagementMemberForm();
 
   }
@@ -428,8 +380,16 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     this.router.navigate(['/main/surveys/personal']);
   }
 
-  onModalForm(row: PersonalMemberBean) {
-    $("#modalMember").modal({ backdrop: 'static', keyboard: false });
+  onModalForm(row: PersonalBasicBean) {
+    let self = this;
+    self.action = self.ass_action.EDIT;
+    row.homeId = self.paramHomeId;
+    self.cloneMember = self.cloneObj(row);
+    self.paramMember = row;
+    self.paramMember = self.strNullToEmpty(self.paramMember);
+
+    self.changeRef.detectChanges();
+    $("#modalMember").modal();
   }
 
   onModalManagementMemberForm(){
@@ -442,24 +402,10 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     let self = this;
     if(event.success){
       $("#modal-management-home-member-form").modal('hide');
-      let update: PersonalMemberBean = new PersonalMemberBean();
+      let update: PersonalBasicBean = new PersonalBasicBean();
       let bean: PersonalBasicBean = event.bean;
-      // update.personId = bean.personId;
-      // update.citizenId = bean.citizenId;
-      // update.genderId = bean.genderId;
-      // update.prefixCode = bean.prefixCode;
-      // update.firstName = bean.firstName;
-      // update.lastName = bean.lastName;
-      // update.birthDate = bean.birthDate;
-      // update.educationCode = bean.educationCode;
-      // update.occupationCode = bean.occupationCode;
-      // update.bloodTypeId = bean.bloodTypeId;
-      // update.rhGroupId = bean.rhGroupId;
-      // update.familyStatusId = bean.familyStatusId;
-      // update.isGuest = bean.isGuest;
-
       self.copyObj(bean, update);
-      this.message_success('',event.message, function(){
+      self.message_success('',event.message, function(){
         self.onUpdatedMember(update);
       });
 

@@ -1,11 +1,13 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { IMyDpOptions, IMyDateModel } from 'mydatepicker';
 import { PersonBean } from "../../../beans/person.bean";
-import { PersonalMemberBean } from '../../../beans/personal-member.bean';
+//import { PersonalMemberBean } from '../../../beans/personal-member.bean';
+import { PersonalBasicBean } from "../../../beans/personal-basic.bean";
 import { BaseComponent } from '../../../base-component';
 import { Service_SurveyPersonal } from '../../../service/service-survey-personal';
 import { InputValidateInfo } from '../../../directives/inputvalidate.directive';
 import { SimpleValidateForm } from '../../../utils.util';
+import { Address } from '../../../beans/address';
 declare var $;
 
 @Component({
@@ -17,18 +19,19 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
 
   // private apiHttp: ApiHTTPService = new ApiHTTPService();
   private apiHttp: Service_SurveyPersonal = new Service_SurveyPersonal();
-  public member: PersonalMemberBean = new PersonalMemberBean();
+  public member: PersonalBasicBean = new PersonalBasicBean();
 
   @Input() action: string;
-  @Input() set triggerMember(paramMember: PersonalMemberBean) {
+  @Input() set triggerMember(paramMember: PersonalBasicBean) {
     let self = this;
 
     self.member = self.strNullToEmpty(paramMember);
     self.bindPrefix(self.member.genderId);
     self.modelBirthDate = self.getDatePickerModel(self.member.birthDate);
   }
-  @Output() memberUpdated = new EventEmitter<PersonalMemberBean>();
-  @Output() memberInserted = new EventEmitter<PersonalMemberBean>();
+  @Input() address: Address;
+  @Output() memberUpdated = new EventEmitter<PersonalBasicBean>();
+  @Output() memberInserted = new EventEmitter<PersonalBasicBean>();
 
   public listTypeArea: any = [];
   public listPrefix: any = [];
@@ -64,6 +67,7 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
   
   constructor() {
     super();
+    this.address = new Address();
   }
 
   ngOnInit() {
@@ -89,6 +93,7 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
     let self = this;
 
     $("#modalMember").on('show.bs.modal', function (e) {
+      self.member.dischargeId = self.member.dischargeId || '9';
       if (self.action == self.ass_action.EDIT) {
         //self.member.isExists = true;
         self.toggleCitizenId(true);
@@ -125,7 +130,16 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
       }
     });
   }
-
+  onIsGuest(){
+    if(this.member.isGuest){
+      this.member.homeNo = '';
+      this.member.mooNo = '';
+      this.member.road = '';
+      this.member.tumbolCode = '';
+      this.member.amphurCode = '';
+      this.member.provinceCode = '';
+    }
+  }
   bindGender() {
     let self = this;
     self.apiHttp.api_GenderList(function (response) {
@@ -229,14 +243,33 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
     self.member.isExists = true;
   }
 
-  onChangeGender() {
-    let self = this;
-
-    self.bindPrefix(self.member.genderId);
-
-    self.member.prefixCode = "";
+  onChangeGender(element: any) {
+    this.bindPrefix(this.member.genderId);
+    this.member.prefixCode = "";
+    let options = element.options;
+    for(let option of options){
+      if(option.value == element.value){
+        this.member.genderName = option.text;
+      }
+    }
   }
-
+  onChangePrefix(element: any){
+    let options = element.options;
+    for(let option of options){
+      if(option.value == element.value){
+        this.member.prefixName = option.text;
+        console.log(this.member.prefixName);
+      }
+    }
+  }
+  onChangeFamilyStatus(element: any){
+    let options = element.options;
+    for(let option of options){
+      if(option.value == element.value){
+        this.member.familyStatusName = option.text;
+      }
+    }
+  }
   onChangeBirthDate(event: IMyDateModel) {
     let self = this;
     self.member.birthDate = self.getStringDateForDatePickerModel(event.date);
@@ -367,52 +400,45 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
     let self = this;
 
     let simpValidate = new SimpleValidateForm();
+
     let validateFields = ["genderId", "prefixCode", "firstName", "lastName", "birthDate", "raceCode", "nationalityCode", "religionCode", "bloodTypeId"];
+    if(bean.isGuest){
+      validateFields.push('homeNo','mooNo','tumbolCode','amphurCode','provinceCode');
+    }else{
+      // Home Address  Added to Personal Address 
+      this.member.homeNo = this.address.homeNo;
+      this.member.mooNo = this.address.mooNo;
+      this.member.road = this.address.road;
+      this.member.tumbolCode = this.address.tumbolCode;
+      this.member.amphurCode = this.address.amphurCode;
+      this.member.provinceCode = this.address.provinceCode;
+    }
 
     self.validateSave = new InputValidateInfo();
     self.validateSave.isCheck = true;
 
     let errors = simpValidate.getObjectEmpty_byFilds(bean, validateFields);
     if (errors.length > 0) {
+
       return false;
+
     } else {
+      
       return true;
+
     }
   }
 
   onClickSave() {
     let self = this;
-
-    // console.log(JSON.stringify(self.member));
     if (!self.isValidClickSave(self.member)) {
       return;
     }
 
-    if (self.action == self.ass_action.ADD) {
-      self.loading = true;
-      self.apiHttp.commit_save(self.member, function (d) {
-        // console.log(d);
-        if (d != null && d.status.toUpperCase() == "SUCCESS") {
-          self.member.personId = d.response.personId;
-          self.member.listPrefix = self.listPrefix;
-          self.member.listGender = self.listGender;
-          self.member.listFamilyStatus = self.listFamilyStatus;
-          self.memberUpdated.emit(self.member);
-          self.message_success('', 'เพิ่มข้อมูลบุคคล : ' + self.member.fullName + ' สำเร็จ');
-        } else {
-          self.message_error('', 'เพิ่มข้อมูลบุคคล : ' + self.member.fullName + ' ไม่สำเร็จ');
-        }
-        self.loading = false;
-      });
-    } else {
-      self.loading = true;
-      self.member.listPrefix = self.listPrefix;
-      self.member.listGender = self.listGender;
-      self.member.listFamilyStatus = self.listFamilyStatus;
-      self.memberUpdated.emit(self.member);
-      self.message_success('', 'แก้ไขข้อมูลบุคคล : ' + self.member.fullName);
-      self.loading = false;
-    }
+    self.loading = true;
+    self.memberUpdated.emit(self.member);
+    self.message_success('', 'แก้ไขข้อมูลบุคคล : ' + self.member.fullName);
+    self.loading = false;
   }
 
 }
