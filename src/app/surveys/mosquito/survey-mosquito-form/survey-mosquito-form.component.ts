@@ -22,6 +22,7 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
   private api: ApiHTTPService;
   public containerTypeList: any;
   public loading: boolean = false;
+  public obj = [];
 
   public mosquitobean: MosquitoBean;
 
@@ -64,6 +65,7 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
     let self = this;
     $('#find-person-md').on('show.bs.modal', function (e) {
       self.resetFind = self.resetFind + 1;
+      console.log(self.action)
       if (self.action == self.ass_action.EDIT) {
         self.onChoosePlace(self.data);
       }
@@ -116,17 +118,38 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
   //   }
   // }
 
-  setValueNull(x){
-    console.log("keypress");
-    // if(!x){
-    //   x = "0";
-    // }
+  setNullContainerTypeSurvey(total, containerType) {
+    if (!total) {
+      this.mosquitobean.listContainerType[containerType].totalSurvey = 0;
+    }
+  }
+
+  setNullContainerTypeDetect(total, containerType) {
+    if (!total) {
+      this.mosquitobean.listContainerType[containerType].totalDetect = 0;
+    }
+  }
+
+  validateSum(): boolean {
+    let self = this;
+    let validate = true;
+    self.obj = [];
+    for (let i = 0; i < this.containerTypeList.length; i++) {
+      if (parseInt(this.mosquitobean.listContainerType[i].totalDetect) > parseInt(this.mosquitobean.listContainerType[i].totalSurvey)) {
+        self.obj[i] = true;
+        validate = false;
+      } else {
+        self.obj[i] = false;
+      }
+    }
+    console.log(this.obj);
+    console.log(validate);
+    return validate;
   }
 
   addSurvey() {
-    console.log("TotalDetect ============================== " + this.mosquitobean.totalSurvey)
-    let self = this;
 
+    let self = this;
     for (let item of this.mosquitobean.listContainerType) {
       delete item.containerTypeName;
     }
@@ -134,25 +157,32 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
       listContainerType: this.mosquitobean.listContainerType
     }
     let params = JSON.stringify(obj);
-    console.log(params);
-    if (this.mosquitobean.totalSurvey) {
-      this.message_error('','กรุณาระบุจำนวนภาชนะที่สำรวจ');
-    } else {
-      self.message_comfirm('', 'ยืนยันการทำแบบสำรวจ', function (confirm) {
-        if (confirm) {
-          self.loading = true;
-          self.api.post('survey_hici/ins_upd_hici_info', params, function (resp) {
-            console.log(resp);
-            self.loading = false;
-            if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-              $("#find-person-md").modal('hide');
-              self.completed.emit(true);
-              // self.message_success('','ท่านได้ทำการส่งแบบสำรวจลูกน้ำยุงลายแล้ว');
-            }
-          })
-        }
-      })
+    console.log(obj);
+
+    let sumtotal = 0;
+    for (let i = 0; i < this.containerTypeList.length; i++) {
+      sumtotal += parseInt(this.mosquitobean.listContainerType[i].totalSurvey);
+    }
+
+
+    if (this.validateSum()) {
+      if (sumtotal <= 0) {
+        this.message_error('', 'กรุณาระบุจำนวนภาชนะที่สำรวจ');
+      } else {
+        self.message_comfirm('', 'ยืนยันการทำแบบสำรวจ', function (confirm) {
+          if (confirm) {
+            self.loading = true;
+            self.api.post('survey_hici/ins_upd_hici_info', params, function (resp) {
+              console.log(resp);
+              self.loading = false;
+              if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+                $("#find-person-md").modal('hide');
+                self.completed.emit(true);
+              }
+            })
+          }
+        })
+      }
     }
   }
-
 }
