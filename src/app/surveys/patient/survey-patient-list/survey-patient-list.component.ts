@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { BaseComponent } from '../../../base-component';
 import { ApiHTTPService } from '../../../service/api-http.service';
-import { ActionCustomViewComponent } from '../../../action-custom-table/action-custom-view.component';
+import { ActionCustomView_2_Component } from '../../../action-custom-table/action-custom-view.component';
 import { FilterHeadSurveyBean } from '../../../beans/filter-head-survey.bean';
 import { LocalDataSource } from 'ng2-smart-table';
 import { PatientBean } from '../../../beans/patient.bean'
@@ -40,7 +40,7 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
 
       fullName: {
         title: 'ชื่อ - นามสกุล',
-        filter: false
+        filter: false,
       },
       citizenId: {
         title: 'เลขประจำตัวประชาชน',
@@ -54,7 +54,11 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
       remark: {
         title: 'สาเหตุความพิการ/ป่วย',
         filter: false,
-        width: '190px',
+        // width: '190px',
+        type: 'html',
+        valuePrepareFunction: (cell, row) => {
+          return '<div class="wrap-text" title="' + cell + '">' + this.displaySubstring(cell) + '</div>'
+        }
       },
       genderName: {
         title: 'เพศ',
@@ -68,7 +72,7 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
       age: {
         title: 'อายุ',
         filter: false,
-        width: '70px',
+        width: '60px',
         type: 'html',
         valuePrepareFunction: (cell, row) => {
           return '<div class="text-center">' + cell + '</div>'
@@ -89,7 +93,7 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
         sort: false,
         width: '100px',
         type: 'custom',
-        renderComponent: ActionCustomViewComponent,
+        renderComponent: ActionCustomView_2_Component,
         onComponentInitFunction(instance) {
 
           instance.edit.subscribe((row: PatientBean, cell) => {
@@ -201,6 +205,16 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
         });
       }
     })
+  }
+
+  displaySubstring(string: string) {
+    let strValue;
+    if (string.length > 25) {
+      strValue = string.substring(0, 25) + '...';
+    } else {
+      strValue = string;
+    }
+    return strValue;
   }
 
 }

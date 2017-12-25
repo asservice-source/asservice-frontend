@@ -184,9 +184,9 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
   }
 
   onModalFrom(action: string) {
+    //
     this.action = action;
-    this.changeRef.detectChanges();
-    $('#find-person-md').modal('show');
+    this.getSurveyData(this.metabolicbean.rowGUID);
   }
 
   reloadData(event: any) {
@@ -198,6 +198,21 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
     } else {
       this.message_error('', 'Error');
     }
+  }
+
+  getSurveyData(rowGUID){
+    let self=this;
+    let param = {
+      "rowGUID":rowGUID
+    }
+    this.api.post('survey_metabolic/metabolic_by_rowguid', param, function (resp) {
+      //self.loading = false;
+      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+        self.metabolicbean = resp.response;
+        self.changeRef.detectChanges();
+        $('#find-person-md').modal('show');
+      }
+    })
   }
 
 }
