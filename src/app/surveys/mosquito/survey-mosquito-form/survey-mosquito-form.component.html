@@ -41,199 +41,21 @@
                                         <div class="col-md-3 text-left">
                                             <label class="label-form">{{item.containerTypeName}}</label>
                                         </div>
-                                        <div class="col-md-2">
-                                            <input class="text-center" [(ngModel)]="mosquitobean.listContainerType[i].totalSurvey" (keyup)="setValueNull(mosquitobean.listContainerType[i].totalSurvey);"  maxlength="3" [OnlyNumber]="true">
+                                        <div class="col-md-4">
+                                        <div class="col-md-6">
+                                            <input class="text-center" [(ngModel)]="mosquitobean.listContainerType[i].totalSurvey" (blur)="setNullContainerTypeSurvey(mosquitobean.listContainerType[i].totalSurvey,i);"  maxlength="3" [OnlyNumber]="true">
                                            
                                         </div>
-                                        <div class="col-md-2">
-                                            <input class="text-center" [(ngModel)]="mosquitobean.listContainerType[i].totalDetect" (keyup)="setValueNull(mosquitobean.listContainerType[i].totalDetect);" maxlength="3" [OnlyNumber]="true">
+                                        <div class="col-md-6">
+                                            <input class="text-center" [(ngModel)]="mosquitobean.listContainerType[i].totalDetect" (blur)="setNullContainerTypeDetect(mosquitobean.listContainerType[i].totalDetect,i);" maxlength="3" [OnlyNumber]="true">
                                         </div>
+                                        <label *ngIf="obj[i]" class="error2">จำนวนภาชนะที่สำรวจน้อยกว่าภาชนะที่พบ</label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- *ngFor = "let item of containerTypeList" -->
-                <!-- <div class="row" >
-                    <div class="col-md-12">
-                        <div class="well">
-                            <div class="row">
-                                <div class="col-md-5"></div>
-                                <div class="col-md-2">
-                                    <label>จำนวนภาชนะ</label>
-                                </div>
-                                <div class="col-md-2">
-                                    <label>ภาชนะที่พบลูกน้ำ</label>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-2"></div>
-                                <div class="col-md-1 text-right">
-                                    <img src="../../assets/img/iconmosquito/one.png" height="30px">
-                                </div>
-
-                                <div class="col-md-2 text-left">
-                                    <label class="label-form">ภาชนะน้ำใช้</label>
-                                </div>
-                                <div class="col-md-2">
-                                    <input maxlength="3" class="valuecenter" name="find-homeNo" id="find-homeNo" value="0">
-                                </div>
-                                <div class="col-md-2">
-                                    <input maxlength="3" class="valuecenter" name="find-homeNo" id="find-homeNo" value="0">
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-2"></div>
-                                <div class="col-md-1 text-right">
-                                    <img src="../../assets/img/iconmosquito/two.png" height="30px">
-                                </div>
-
-                                <div class="col-md-2 text-left">
-                                    <label class="label-form">ภาชนะใส่น้ำดื่ม</label>
-                                </div>
-                                <div class="col-md-2">
-                                    <input maxlength="3" class="valuecenter" name="find-homeNo" id="find-homeNo" value="0">
-                                </div>
-                                <div class="col-md-2">
-                                    <input maxlength="3" class="valuecenter" name="find-homeNo" id="find-homeNo" value="0">
-
-                                </div>
-
-                            </div>
-                            <div class="row">
-                                <div class="col-md-2"></div>
-                                <div class="col-md-1 text-right">
-                                    <img src="../../assets/img/iconmosquito/three.png" height="30px">
-                                </div>
-
-                                <div class="col-md-2 text-left">
-                                    <label class="label-form">แจกัน</label>
-                                </div>
-                                <div class="col-md-2">
-                                    <input maxlength="3" class="valuecenter" name="find-homeNo" id="find-homeNo" value="0">
-                                </div>
-                                <div class="col-md-2">
-                                    <input maxlength="3" class="valuecenter" name="find-homeNo" id="find-homeNo" value="0">
-
-                                </div>
-
-
-                            </div>
-                            <div class="row">
-                                <div class="col-md-2"></div>
-                                <div class="col-md-1 text-right">
-                                    <img src="../../assets/img/iconmosquito/four.png" height="30px">
-                                </div>
-
-                                <div class="col-md-2 text-left">
-                                    <label class="label-form">จานรองกระถาง</label>
-                                </div>
-                                <div class="col-md-2">
-                                    <input maxlength="3" class="valuecenter" name="find-homeNo" id="find-homeNo" value="0">
-                                </div>
-                                <div class="col-md-2">
-                                    <input maxlength="3" class="valuecenter" name="find-homeNo" id="find-homeNo" value="0">
-
-                                </div>
-
-
-                            </div>
-                            <div class="row">
-                                <div class="col-md-2"></div>
-                                <div class="col-md-1 text-right">
-                                    <img src="../../assets/img/iconmosquito/five.png" height="30px">
-                                </div>
-
-                                <div class="col-md-2 text-left">
-                                    <label class="label-form">ที่รองกันมด</label>
-                                </div>
-                                <div class="col-md-2">
-                                    <input maxlength="3" class="valuecenter" name="find-homeNo" id="find-homeNo" value="0">
-                                </div>
-                                <div class="col-md-2">
-                                    <input maxlength="3" class="valuecenter" name="find-homeNo" id="find-homeNo" value="0">
-
-                                </div>
-
-
-                            </div>
-                            <div class="row">
-                                <div class="col-md-2"></div>
-                                <div class="col-md-1 text-right">
-                                    <img src="../../assets/img/iconmosquito/six.png" height="30px">
-                                </div>
-
-                                <div class="col-md-2 text-left">
-                                    <label class="label-form">อ่างบัว/ไม้น้ำ</label>
-                                </div>
-                                <div class="col-md-2">
-                                    <input maxlength="3" class="valuecenter" name="find-homeNo" id="find-homeNo" value="0">
-                                </div>
-                                <div class="col-md-2">
-                                    <input maxlength="3" class="valuecenter" name="find-homeNo" id="find-homeNo" value="0">
-
-                                </div>
-
-
-                            </div>
-                            <div class="row">
-                                <div class="col-md-2"></div>
-                                <div class="col-md-1 text-right">
-                                    <img src="../../assets/img/iconmosquito/seven.png" height="30px">
-                                </div>
-
-                                <div class="col-md-2 text-left">
-                                    <label class="label-form">ยางรถยนต์เก่า</label>
-                                </div>
-                                <div class="col-md-2">
-                                    <input maxlength="3" class="valuecenter" name="find-homeNo" id="find-homeNo" value="0">
-                                </div>
-                                <div class="col-md-2">
-                                    <input maxlength="3" class="valuecenter" name="find-homeNo" id="find-homeNo" value="0">
-
-                                </div>
-
-
-                            </div>
-                            <div class="row">
-                                <div class="col-md-2"></div>
-                                <div class="col-md-1 text-right">
-                                    <img src="../../assets/img/iconmosquito/eight.png" height="30px">
-                                </div>
-
-                                <div class="col-md-2 text-left">
-                                    <label class="label-form">ไม่ใช้ประโยชน์</label>
-                                </div>
-                                <div class="col-md-2">
-                                    <input maxlength="3" class="valuecenter" name="find-homeNo" id="find-homeNo" value="0">
-                                </div>
-                                <div class="col-md-2">
-                                    <input maxlength="3" class="valuecenter" name="find-homeNo" id="find-homeNo" value="0">
-
-                                </div>
-
-
-                            </div>
-                            <div class="row">
-                                <div class="col-md-2"></div>
-                                <div class="col-md-1 text-right">
-                                    <img src="../../assets/img/iconmosquito/nine.png" height="30px">
-                                </div>
-
-                                <div class="col-md-2 text-left">
-                                    <label class="label-form">อื่นๆ</label>
-                                </div>
-                                <div class="col-md-2">
-                                    <input maxlength="3" class="valuecenter" name="find-homeNo" id="find-homeNo" value="0">
-                                </div>
-                                <div class="col-md-2">
-                                    <input maxlength="3" class="valuecenter" name="find-homeNo" id="find-homeNo" value="0">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
 
                 <div class="row text-center">
                     <button type="buttoon" class="btn btn-primary btn-sm" (click)="addSurvey()">ยืนยัน</button>

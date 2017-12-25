@@ -1,6 +1,6 @@
 import { Component, OnInit,ChangeDetectorRef } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
-import { ActionCustomViewComponent } from '../../../action-custom-table/action-custom-view.component';
+import { ActionCustomView_2_Component } from '../../../action-custom-table/action-custom-view.component';
 import { BaseComponent } from '../../../base-component';
 import { ApiHTTPService } from '../../../service/api-http.service';
 import { FilterHeadMosquitoBean } from '../../../beans/filter-head-mosquito.bean';
@@ -79,10 +79,11 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
         sort: false,
         width: '100px',
         type: 'custom',
-        renderComponent: ActionCustomViewComponent,
+        renderComponent: ActionCustomView_2_Component,
         onComponentInitFunction(instance) {
 
           instance.edit.subscribe((row: MosquitoBean, cell) => {
+            self.mosquitobean = new MosquitoBean();
             self.mosquitobean = self.cloneObj(row);
             self.onModalFrom(self.ass_action.EDIT);
           });
@@ -142,6 +143,7 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
   }
 
   onModalFrom(action: string) {
+    //this.mosquitobean = new MosquitoBean();
     this.action = action;
     this.changeRef.detectChanges();
     $('#find-person-md').modal('show');
