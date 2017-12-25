@@ -159,7 +159,11 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
     this.metabolicbean = new MetabolicBean();
     this.metabolicbean = bean;
     if (this.ass_action.ADD == this.action) {
+      console.log(this.action);
+      this.changeRef.detectChanges();
       this.metabolicbean.hInsuranceTypeId = "89";
+      this.activeBtnsmoke("2");
+      this.activeBtnDrink("2");
     }
     this.isDuplicate();
     this.isFindPersonal = false;
