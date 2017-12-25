@@ -96,7 +96,7 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
         width: '120px',
         type: 'html',
         valuePrepareFunction: (cell, row) => {
-          return '<div class="text-center">' + cell + '</div>'
+          return '<div class="text-center">' + self.formatCitizenId(cell) + '</div>'
         }
       },
       genderName: {
@@ -123,7 +123,7 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
         filter: false,
         type: 'html',
         valuePrepareFunction: (cell, row) => {
-          return '<div class="text-right">' + cell + '</div>'
+          return '<div class="text-center">' + self.formatNumber(cell) + '</div>'
         }
       },
       action: {
@@ -178,6 +178,7 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
       self.resetFind = self.resetFind + 1;
       if (self.action == self.ass_action.EDIT) {
         self.onChoosePersonal(self.data);
+        // self.onChoosePersonal(self.getPregnantInfo(self.rowGUID));
       }
       self.changeRef.detectChanges();
     })
@@ -598,6 +599,14 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
     let self = this;
 
     self.listChild = [];
+  }
+
+  getPregnantInfo() {
+    let self = this;
+
+    self.apiHttp.get_pregnant_info('', function (d) {
+      return d.response;
+    });
   }
 
   findGenderName(genderId) {

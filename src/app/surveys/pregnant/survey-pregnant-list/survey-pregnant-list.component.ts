@@ -43,7 +43,7 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
     self.settings = self.getTableSetting({
       fullName: {
         title: 'ชื่อ - นามสกุล',
-        width: '120px',
+        width: '180px',
         filter: false,
       },
       citizenId: {
@@ -52,13 +52,13 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
         width: '180px',
         type: 'html',
         valuePrepareFunction: (cell, row) => {
-          return '<div class="text-center">' + cell + '</div>'
+          return '<div class="text-center">' + self.formatCitizenId(cell) + '</div>'
         }
       },
       age: {
         title: 'อายุ',
         filter: false,
-        width: '70px',
+        width: '50px',
         type: 'html',
         valuePrepareFunction: (cell, row) => {
           return '<div class="text-center">' + cell + '</div>'
@@ -67,7 +67,7 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
       wombNo: {
         title: 'ครรภ์ที่',
         filter: false,
-        width: '70px',
+        width: '50px',
         type: 'html',
         valuePrepareFunction: (cell, row) => {
           return '<div class="text-center">' + cell + '</div>'

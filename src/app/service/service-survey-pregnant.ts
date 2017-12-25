@@ -59,6 +59,16 @@ export class Service_SurveyPregnant extends ApiHTTPService {
         return list;
     }
 
+    public get_pregnant_info(id, callback: (doc: any) => void) {
+        let self = this;
+
+        let parameters = { };
+
+        self.post('survey_pregnant/get_pregnant_info', parameters, function (d) {
+            callback(d);
+        });
+    }
+
     public commit_save(bean: PregnantBean, callback: (doc: any) => void) {
         let self = this;
 
