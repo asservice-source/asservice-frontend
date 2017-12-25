@@ -155,7 +155,6 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
   }
 
   onChoosePersonal(bean: any): void {
-    console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
     console.log(bean);
     this.metabolicbean = new MetabolicBean();
     this.metabolicbean = bean;
