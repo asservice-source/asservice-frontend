@@ -81,10 +81,10 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
       self.modelDischargeDate = self.getDatePickerModel(self.memberBean.dischargeDate);
       if(self.memberBean.isGuest){
         if (!self.isEmpty(self.memberBean.provinceCode)) {
-          self.bindDistrict(self.memberBean.provinceCode);
+          self.bindDistrict();
         }
         if (!self.isEmpty(self.memberBean.amphurCode)) {
-          self.bindSubDistrict(self.memberBean.amphurCode);
+          self.bindSubDistrict();
         }
       }else{
         self.isGuestClearAddress();
@@ -178,16 +178,16 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
     });
   }
 
-  bindDistrict(provinceCode) {
+  bindDistrict() {
     let self = this;
-    self.apiHttp.api_AmphurList(provinceCode, function (resp) {
+    self.apiHttp.api_AmphurList(self.memberBean.provinceCode, function (resp) {
       self.listDistrict = resp;
     });
   }
 
-  bindSubDistrict(districtCode) {
+  bindSubDistrict() {
     let self = this;
-    self.apiHttp.api_TumbolList(districtCode, function (resp) {
+    self.apiHttp.api_TumbolList(self.memberBean.amphurCode, function (resp) {
       self.listSubDistrict = resp;
     });
   }
@@ -233,12 +233,12 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
   onChangeProvince() {
     this.memberBean.amphurCode = "";
     this.memberBean.tumbolCode = "";
-    this.bindProvince();
+    this.bindDistrict();
   }
 
   onChangeDistrict() {
     this.memberBean.tumbolCode = "";
-    this.bindSubDistrict(this.memberBean.amphurCode);
+    this.bindSubDistrict();
   }
 
   onChangeSubDistrict() {
@@ -333,14 +333,12 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
     }
   }
   isGuestClearAddress(){
-    if(this.memberBean.isGuest){
-      this.memberBean.homeNo = '';
-      this.memberBean.mooNo = '';
-      this.memberBean.road = '';
-      this.memberBean.tumbolCode = '';
-      this.memberBean.amphurCode = '';
-      this.memberBean.provinceCode = '';
-    }
+    this.memberBean.homeNo = '';
+    this.memberBean.mooNo = '';
+    this.memberBean.road = '';
+    this.memberBean.tumbolCode = '';
+    this.memberBean.amphurCode = '';
+    this.memberBean.provinceCode = '';
   }
   onClickSave() {
     let self = this;

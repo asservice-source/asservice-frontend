@@ -136,12 +136,18 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
   onUpdatedMember(member: PersonalBasicBean) {
     console.log(member);
     let self = this;
+    member.fullName = self.getFullName(member.prefixName, member.firstName, member.lastName);
+    if (member.birthDate) {
+      member.age = self.getAge(member.birthDate).toString();
+    } else {
+      member.age = '';
+    }
     self.copyObj(member, self.paramMember);
     let tmpMember = member;
     let isActionAdd = (self.action == self.ass_action.ADD);
     let citizenIdsDup: Array<string> = []
     let index = -1;
-    self.paramMember.fullName = self.getFullName(member.prefixName, member.firstName, member.lastName);
+    
 
     let listAll: Array<any> = [];
     for (let item of self.tempData) {
@@ -160,12 +166,6 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     if (citizenIdsDup.length>0) {
       self.message_error('', 'ไม่สามารถเพิ่มข้อมูลได้เนื่องจากหมายเลขประชาชนซ้ำ <br>' + JSON.stringify(citizenIdsDup));
       return;
-    }
-    
-    if (member.birthDate) {
-      tmpMember.age = self.getAge(member.birthDate).toString();
-    } else {
-      tmpMember.age = '';
     }
 
 
@@ -203,15 +203,15 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
       }
 
     } else {
-      if (tmpMember.isGuest == true) {
+      if (tmpMember.isGuest) {
         self.tempData2.push(tmpMember);
       } else {
         self.tempData.push(tmpMember);
       }
     }
 
-    // console.log(self.tempData);
-    // console.log(self.tempData2);
+    console.log(self.tempData);
+    console.log(self.tempData2);
 
     self.source.refresh();
     self.source2.refresh();
@@ -221,7 +221,6 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
 
   onClickAdd() {
     let self = this;
-
     self.action = this.ass_action.ADD;
     self.cloneMember = new PersonalBasicBean();
     self.paramMember = new PersonalBasicBean();

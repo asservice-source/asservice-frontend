@@ -385,4 +385,29 @@ export class BaseComponent implements OnInit {
     formatNumber(num) {
         return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
+
+    compareDateCurrent_DDMMYYYY(compareDate: string): number{
+        let result = -1;
+        if(compareDate && compareDate.length==10){
+            let dates = compareDate.split('/');
+            let year:number;
+            let time = 1;
+            let currentTime = 0;
+            if(dates.length==3){
+                let strDate = dates[2]+'-'+dates[1]+'-'+dates[0];
+                strDate += ' 00:00:00';
+                let date = new Date(strDate);
+                let cDate = new Date();
+                cDate.setHours(0);
+                cDate.setMinutes(0);
+                cDate.setSeconds(0);
+                cDate.setMilliseconds(0);
+                currentTime = cDate.getTime();
+                time = date.getTime();
+            }
+            result = currentTime - time;
+        }
+
+        return result;
+    }
 }
