@@ -79,8 +79,7 @@
             </div>
             <div class="col-md-4">
               <div [InputValidate]="inputValidate" BirthDate="BirthDate" (notify)="validBirthDate($event);">
-                  <my-date-picker [options]="datePickerOptions" [(ngModel)]="modelBirthDate" (dateChanged)="onChangeBirthDate($event)"
-                  [disabled]="isDisablePersonData"></my-date-picker>
+                  <my-date-picker [options]="datePickerOptions" [(ngModel)]="modelBirthDate" (dateChanged)="onChangeBirthDate($event)"></my-date-picker>
                 <label class="error">{{msgError_BirthDate}}</label>
               </div>
             </div>
@@ -145,13 +144,10 @@
               <label>RH Group</label>
             </div>
             <div class="col-md-4">
-              <div [InputValidate]="inputValidate">
-                <select type="text" [(ngModel)]="bean.rhGroupId">
-                  <option value="">---เลือก---</option>
-                  <option *ngFor="let item of rhGroupList" [value]="item.id">{{item.name}}</option>
-                </select>
-                <label class="error">กรุณาเลือก RH Group</label>
-              </div>
+              <select type="text" [(ngModel)]="bean.rhGroupId">
+                <option value="">---เลือก---</option>
+                <option *ngFor="let item of rhGroupList" [value]="item.id">{{item.name}}</option>
+              </select>
             </div>
           </div>
 
@@ -196,8 +192,36 @@
                 <label class="error">กรุณาเลือกความสัมพันธ์</label>
               </div>
             </div>
-            
+            <div class="col-md-2 text-right">
+              <label>สถานะการจำหน่าย</label>
+            </div>
+            <div class="col-md-4">
+              <div [InputValidate]="inputValidate">
+                <select type="text" [(ngModel)]="bean.dischargeId">
+                  <option *ngFor="let item of dischargeList" [value]="item.id">{{item.name}}</option>
+                </select>
+                <label class="error">กรุณาเลือกสถานะการจำหน่าย</label>
+              </div>
+            </div>
           </div> 
+
+          <div class="row" *ngIf="bean.dischargeId!='9'">
+            <div class="col-md-2 text-right">
+              <label></label>
+            </div>
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-2 text-right">
+              <label>วันที่จำหน่าย</label>
+            </div>
+            <div class="col-md-4">
+              <div [InputValidate]="inputValidate">
+                <my-date-picker [options]="datePickerOptions" [(ngModel)]="bean.dischargeDate"></my-date-picker>
+                <label class="error">กรุณาเลือกวันที่จำหน่าย</label>
+              </div>
+            </div>
+          </div>
+
           <div class="row">
             <div class="col-md-2 text-right" style="padding:0;">
               <label>ประเภทการอยู่อาศัย</label>

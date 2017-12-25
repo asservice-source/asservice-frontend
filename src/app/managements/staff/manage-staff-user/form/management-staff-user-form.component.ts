@@ -122,19 +122,22 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
               let userRoleId = +(person.userRoleId);
               let code5 = person.hospitalCode5;
               let isNotChange = false;
-   
-              if(_self.isStaff){
-               if(code5 != _self.getHospitalCode() && (userRoleId != 0)){
+              if(!code5){
+                  isNotChange = false;
+
+              } else if(_self.isStaff){
+                if(code5 != _self.getHospitalCode() && (userRoleId != 0)){
                  isNotChange = true;
-               }else{
+                }else{
                  isNotChange = false;
                }
+
               }else{
-                 if(code5 != _self.getHospitalCode() || userRoleId == 2 || userRoleId == 3){
-                   isNotChange = true;
-                 }else{
-                   isNotChange = false;
-                 }
+                if(code5 != _self.getHospitalCode() || userRoleId == 2 || userRoleId == 3){
+                  isNotChange = true;
+                }else{
+                  isNotChange = false;
+                }
               }
    
               if(isNotChange){

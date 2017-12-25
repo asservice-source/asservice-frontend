@@ -38,6 +38,7 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
   public provinceList: any = [];
   public amphurList: any = [];
   public tumbolList: any = [];
+  public dischargeList: any = [];
   public oldCitizenId: string;
   public actionName: string;
   public msgError_CitizenId: string = '';
@@ -105,6 +106,9 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
     _self.api.api_FamilyStatusList(function(response){
       _self.familyStatusList = response;
     });
+    _self.api.api_DischargeList(function (data) {
+      _self.dischargeList = data;
+    });
 
     this.setupProvince();
   }
@@ -119,6 +123,7 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
       $('#is-guest-error').hide();
       _self.inputValidate = new InputValidateInfo();
       _self.msgError_CitizenId = _self.msgError_CitizenIdEmty;
+      _self.bean.dischargeId = _self.bean.dischargeId || '9';
       //---
       if(_self.action == _self.ass_action.ADD){
         _self.actionName = 'เพิ่ม';

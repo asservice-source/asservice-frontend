@@ -156,20 +156,19 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     for (let item of self.tempData2) {
       listAll.push(item);
     }
-
-    for (let item of listAll) {
-      if (item.citizenId == tmpMember.citizenId) {
-        citizenIdsDup.push(item.citizenId);
-      }
-    }
-
-    if (citizenIdsDup.length>0) {
-      self.message_error('', 'ไม่สามารถเพิ่มข้อมูลได้เนื่องจากหมายเลขประชาชนซ้ำ <br>' + JSON.stringify(citizenIdsDup));
-      return;
-    }
-
-
     if (!isActionAdd) {
+      // check CitizenId Duplicate in List
+      for (let item of listAll) {
+        if (item.citizenId == tmpMember.citizenId && item.personId != tmpMember.personId) {
+          citizenIdsDup.push(item.citizenId);
+        }
+      }
+  
+      if (citizenIdsDup.length>0) {
+        self.message_error('', 'ไม่สามารถแก้ไขข้อมูลได้เนื่องจากหมายเลขประชาชนซ้ำ <br>' + citizenIdsDup);
+        return;
+      }
+
       let moveIndex1 = -1;
       let pushItem1 = null;
       for (let item of self.tempData) {
@@ -217,6 +216,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     self.source2.refresh();
 
     $("#modalMember").modal('hide');
+    self.message_success('', 'แก้ไขข้อมูลบุคคล <b>' + member.fullName + '</b> เรียบร้อย');
   }
 
   onClickAdd() {

@@ -26,10 +26,6 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
   public listTypeArea: any = [];
   public listPrefix: any = [];
   public listGender: any = [];
-  public listRace: any = [];
-  public listNationality: any = [];
-  public listReligion: any = [];
-  public listBloodType: any = [];
   public listRHGroup: any = [];
   public listEducation: any = [];
   public listOccupation: any = [];
@@ -54,13 +50,7 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
     let self = this;
 
     self.onModalEvent();
-
-    self.bindPrefix("");
     self.bindGender();
-    self.bindRace();
-    self.bindNationality();
-    self.bindReligion();
-    self.bindBloodType();
     self.bindRHGroup();
     self.bindEducation();
     self.bindOccupation();
@@ -76,7 +66,7 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
       console.log(self.memberBean);
       self.memberBean.dischargeId = self.memberBean.dischargeId || '9';
       self.memberBean = self.strNullToEmpty(self.memberBean);
-      self.bindPrefix(self.memberBean.genderId);
+      self.bindPrefix();
       self.modelBirthDate = self.getDatePickerModel(self.memberBean.birthDate);
       self.modelDischargeDate = self.getDatePickerModel(self.memberBean.dischargeDate);
       if(self.memberBean.isGuest){
@@ -102,38 +92,10 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
     });
   }
 
-  bindPrefix(genderId) {
+  bindPrefix() {
     let self = this;
-    self.apiHttp.api_PrefixNameList(genderId, function (data) {
+    self.apiHttp.api_PrefixNameList(self.memberBean.genderId, function (data) {
       self.listPrefix = data;
-    });
-  }
-
-  bindRace() {
-    let self = this;
-    self.apiHttp.api_RaceList(function (data) {
-      self.listRace = data;
-    });
-  }
-
-  bindNationality() {
-    let self = this;
-    self.apiHttp.api_NationalityList(function (data) {
-      self.listNationality = data;
-    });
-  }
-
-  bindReligion() {
-    let self = this;
-    self.apiHttp.api_ReligionList(function (data) {
-      self.listReligion = data;
-    });
-  }
-
-  bindBloodType() {
-    let self = this;
-    self.apiHttp.api_BloodTypeList(function (data) {
-      self.listBloodType = data;
     });
   }
 
@@ -199,7 +161,7 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
   }
 
   onChangeGender(element: any) {
-    this.bindPrefix(this.memberBean.genderId);
+    this.bindPrefix();
     this.memberBean.prefixCode = "";
     let options = element.options;
     for(let option of options){
@@ -364,8 +326,8 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
     // });
     self.memberBean.citizenId = self.reverseFormatCitizenId(self.memberBean.citizenId)
     self.memberUpdated.emit(self.memberBean);
-    $("#modalMember").modal('hide');
-    self.message_success('', 'แก้ไขข้อมูลบุคคล <b>' + self.memberBean.fullName + '</b> เรียบร้อย');
+    //$("#modalMember").modal('hide');
+    
     
     
   }
