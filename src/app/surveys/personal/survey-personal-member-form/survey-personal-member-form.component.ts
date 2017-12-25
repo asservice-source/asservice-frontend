@@ -17,22 +17,12 @@ declare var $;
 })
 export class SurveyPersonalMemberFormComponent extends BaseComponent implements OnInit {
 
-  // private apiHttp: ApiHTTPService = new ApiHTTPService();
-  private apiHttp: Service_SurveyPersonal = new Service_SurveyPersonal();
-  public member: PersonalBasicBean = new PersonalBasicBean();
-
   @Input() action: string;
-  @Input() set triggerMember(paramMember: PersonalBasicBean) {
-    let self = this;
-
-    self.member = self.strNullToEmpty(paramMember);
-    self.bindPrefix(self.member.genderId);
-    self.modelBirthDate = self.getDatePickerModel(self.member.birthDate);
-  }
+  @Input() memberBean: PersonalBasicBean;
   @Input() address: Address;
   @Output() memberUpdated = new EventEmitter<PersonalBasicBean>();
-  @Output() memberInserted = new EventEmitter<PersonalBasicBean>();
 
+  private apiHttp: Service_SurveyPersonal = new Service_SurveyPersonal();
   public listTypeArea: any = [];
   public listPrefix: any = [];
   public listGender: any = [];
@@ -48,18 +38,8 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
   public listProvince: any = [];
   public listDistrict: any = [];
   public listSubDistrict: any = [];
-
-  public isDisabledCitizenId: boolean = true;
-  public isDisplayButtonVerifyCitizenId: boolean = true;
-  public isDisplayButtonEditCitizenId: boolean = false;
-  public isDisabledButtonSave: boolean = true;
-
-  public isDisplayActionEdit: boolean = false;
-  public isDisabledActionAdd: boolean = false;
-  public isDisablePersonData: boolean = true;
-
   public modelBirthDate: any = null;
-
+  public modelDischargeDate: any = null;
   public validateVerify: InputValidateInfo = new InputValidateInfo();
   public validateSave: InputValidateInfo = new InputValidateInfo();
 
@@ -93,53 +73,28 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
     let self = this;
 
     $("#modalMember").on('show.bs.modal', function (e) {
-      self.member.dischargeId = self.member.dischargeId || '9';
-      if (self.action == self.ass_action.EDIT) {
-        //self.member.isExists = true;
-        self.toggleCitizenId(true);
-        console.log(self.member);
-        self.isDisplayActionEdit = true;
-        self.isDisabledActionAdd = true;
-        self.isDisablePersonData = false;
-
-        if (!self.isEmpty(self.member.provinceCode)) {
-          self.bindDistrict(self.member.provinceCode);
+      console.log(self.memberBean);
+      self.memberBean.dischargeId = self.memberBean.dischargeId || '9';
+      self.memberBean = self.strNullToEmpty(self.memberBean);
+      self.bindPrefix(self.memberBean.genderId);
+      self.modelBirthDate = self.getDatePickerModel(self.memberBean.birthDate);
+      self.modelDischargeDate = self.getDatePickerModel(self.memberBean.dischargeDate);
+      if(self.memberBean.isGuest){
+        if (!self.isEmpty(self.memberBean.provinceCode)) {
+          self.bindDistrict(self.memberBean.provinceCode);
         }
-        if (!self.isEmpty(self.member.amphurCode)) {
-          self.bindSubDistrict(self.member.amphurCode);
+        if (!self.isEmpty(self.memberBean.amphurCode)) {
+          self.bindSubDistrict(self.memberBean.amphurCode);
         }
-
-      } else {
-        self.modelBirthDate = null;
-        self.member.isGuest = false;
-        self.member.isExists = true;
-
-        self.toggleCitizenId(false);
-
-        self.isDisplayActionEdit = false;
-        self.isDisabledActionAdd = false;
-        self.isDisablePersonData = true;
+      }else{
+        self.isGuestClearAddress();
       }
+      
       self.validateVerify = new InputValidateInfo();
       self.validateSave = new InputValidateInfo();
-
-      if (!self.isEmpty(self.member.citizenId)) {
-        self.isDisabledButtonSave = false;
-      } else {
-        self.isDisabledButtonSave = true;
-      }
     });
   }
-  onIsGuest(){
-    if(this.member.isGuest){
-      this.member.homeNo = '';
-      this.member.mooNo = '';
-      this.member.road = '';
-      this.member.tumbolCode = '';
-      this.member.amphurCode = '';
-      this.member.provinceCode = '';
-    }
-  }
+  
   bindGender() {
     let self = this;
     self.apiHttp.api_GenderList(function (response) {
@@ -239,17 +194,17 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
 
   defaultValue() {
     let self = this;
-    self.member.isGuest = false;
-    self.member.isExists = true;
+    self.memberBean.isGuest = false;
+    self.memberBean.isExists = true;
   }
 
   onChangeGender(element: any) {
-    this.bindPrefix(this.member.genderId);
-    this.member.prefixCode = "";
+    this.bindPrefix(this.memberBean.genderId);
+    this.memberBean.prefixCode = "";
     let options = element.options;
     for(let option of options){
       if(option.value == element.value){
-        this.member.genderName = option.text;
+        this.memberBean.genderName = option.text;
       }
     }
   }
@@ -257,8 +212,8 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
     let options = element.options;
     for(let option of options){
       if(option.value == element.value){
-        this.member.prefixName = option.text;
-        console.log(this.member.prefixName);
+        this.memberBean.prefixName = option.text;
+        console.log(this.memberBean.prefixName);
       }
     }
   }
@@ -266,64 +221,28 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
     let options = element.options;
     for(let option of options){
       if(option.value == element.value){
-        this.member.familyStatusName = option.text;
+        this.memberBean.familyStatusName = option.text;
       }
     }
   }
   onChangeBirthDate(event: IMyDateModel) {
     let self = this;
-    self.member.birthDate = self.getStringDateForDatePickerModel(event.date);
+    self.memberBean.birthDate = self.getStringDateForDatePickerModel(event.date);
   }
 
   onChangeProvince() {
-    this.member.amphurCode = "";
-    this.member.tumbolCode = "";
+    this.memberBean.amphurCode = "";
+    this.memberBean.tumbolCode = "";
     this.bindProvince();
   }
 
   onChangeDistrict() {
-    this.member.tumbolCode = "";
-    this.bindSubDistrict(this.member.amphurCode);
+    this.memberBean.tumbolCode = "";
+    this.bindSubDistrict(this.memberBean.amphurCode);
   }
 
   onChangeSubDistrict() {
 
-  }
-
-  toggleCitizenId(flag: boolean) {
-    let self = this;
-
-    if (flag === true) {
-      self.isDisabledCitizenId = true;
-      self.isDisplayButtonVerifyCitizenId = false;
-      self.isDisplayButtonEditCitizenId = true;
-    } else {
-      self.isDisabledCitizenId = false;
-      self.isDisplayButtonVerifyCitizenId = true;
-      self.isDisplayButtonEditCitizenId = false;
-    }
-  }
-
-  clearPersonalData() {
-    let self = this;
-
-    self.member.personId = '';
-    self.member.prefixCode = '';
-    self.member.firstName = '';
-    self.member.lastName = '';
-    self.member.genderId = '';
-    self.member.raceCode = '';
-    self.member.nationalityCode = '';
-    self.member.religionCode = '';
-    self.member.bloodTypeId = '';
-    self.member.rhGroupId = '';
-    self.member.birthDate = '';
-    self.modelBirthDate = null;
-    self.member.educationCode = '';
-    self.member.occupationCode = '';
-
-    self.toggleCitizenId(true);
-    self.isDisablePersonData = false;
   }
 
   isValidClickVerify(cid: any) {
@@ -339,79 +258,64 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
     }
   }
 
-  onClickVerifyCitizenId(): void {
-    let self = this;
-    self.validateVerify = new InputValidateInfo();
-    let cid = self.member.citizenId;
-    let personData: any;
-    if (!self.isValidClickVerify(cid)) {
-      self.isDisabledButtonSave = true;
-      return;
-    }
-    self.apiHttp.api_PersonByCitizenId(cid, function (d) {
-      if (d && d.status.toUpperCase() == "SUCCESS") {
-        personData = d.response;
-        if (personData && personData.personId) {
-          self.message_comfirm('', 'หมายเลขประจำตัว "' + cid + '" มีข้อมูลแล้ว คุณต้องการดึงข้อมูลหรือไม่ ?', function (isConfirm) {
-            if (isConfirm) {
-              personData = self.strNullToEmpty(personData);
-              self.member.personId = personData.personId;
-              self.member.genderId = personData.genderId;
-              self.bindPrefix(self.member.genderId);
-              self.member.prefixCode = personData.prefixCode;
-              self.member.firstName = personData.firstName;
-              self.member.lastName = personData.lastName;
-              self.member.raceCode = personData.raceCode;
-              self.member.nationalityCode = personData.nationalityCode;
-              self.member.religionCode = personData.religionCode;
-              self.member.bloodTypeId = personData.bloodTypeID;
-              self.member.rhGroupId = personData.rhGroupId;
-              self.member.birthDate = personData.birthDate;
-              self.modelBirthDate = self.getDatePickerModel(personData.birthDate);
-              self.member.educationCode = personData.educationCode;
-              self.member.occupationCode = personData.occupationCode;
+  // onClickVerifyCitizenId(): void {
+  //   let self = this;
+  //   self.validateVerify = new InputValidateInfo();
+  //   let cid = self.memberBean.citizenId;
+  //   let personData: any;
+  //   self.apiHttp.api_PersonByCitizenId(cid, function (d) {
+  //     if (d && d.status.toUpperCase() == "SUCCESS") {
+  //       personData = d.response;
+  //       if (personData && personData.personId) {
+  //         self.message_comfirm('', 'หมายเลขประจำตัว "' + cid + '" มีข้อมูลแล้ว คุณต้องการดึงข้อมูลหรือไม่ ?', function (isConfirm) {
+  //           if (isConfirm) {
+  //             personData = self.strNullToEmpty(personData);
+  //             self.memberBean.personId = personData.personId;
+  //             self.memberBean.genderId = personData.genderId;
+  //             self.bindPrefix(self.memberBean.genderId);
+  //             self.memberBean.prefixCode = personData.prefixCode;
+  //             self.memberBean.firstName = personData.firstName;
+  //             self.memberBean.lastName = personData.lastName;
+  //             self.memberBean.raceCode = personData.raceCode;
+  //             self.memberBean.nationalityCode = personData.nationalityCode;
+  //             self.memberBean.religionCode = personData.religionCode;
+  //             self.memberBean.bloodTypeId = personData.bloodTypeID;
+  //             self.memberBean.rhGroupId = personData.rhGroupId;
+  //             self.memberBean.birthDate = personData.birthDate;
+  //             self.modelBirthDate = self.getDatePickerModel(personData.birthDate);
+  //             self.memberBean.educationCode = personData.educationCode;
+  //             self.memberBean.occupationCode = personData.occupationCode;
 
-              self.toggleCitizenId(true);
-              self.isDisablePersonData = false;
-            }
-          });
-        } else {
-          self.clearPersonalData();
-          self.toggleCitizenId(true);
-          self.isDisablePersonData = false;
-        }
-        self.isDisabledButtonSave = false;
-      } else {
-        self.message_error('','ไม่สามารถตรวจสอบข้อมูลหมายเลขบัตรประชาชน <b>'+self.formatCitizenId(cid)+'</b> ได้');
-      }
-    });
-  }
+  //           }
+  //         });
+  //       }
+       
+  //     } else {
+  //       self.message_error('','ไม่สามารถตรวจสอบข้อมูลหมายเลขบัตรประชาชน <b>'+self.formatCitizenId(cid)+'</b> ได้');
+  //     }
+  //   });
+  // }
 
-  onClickEditCitizenId() {
-    let self = this;
-    self.validateVerify = new InputValidateInfo();
-    self.clearPersonalData();
-    self.toggleCitizenId(false);
-    self.isDisablePersonData = true;
-    self.isDisabledButtonSave = true;
-  }
 
-  isValidClickSave(bean) {
+  isValidClickSave(bean: PersonalBasicBean) {
     let self = this;
 
     let simpValidate = new SimpleValidateForm();
 
     let validateFields = ["genderId", "prefixCode", "firstName", "lastName", "birthDate", "raceCode", "nationalityCode", "religionCode", "bloodTypeId"];
+    if(bean.dischargeId!='9'){
+      validateFields.push('dischargeDate');
+    }
     if(bean.isGuest){
       validateFields.push('homeNo','mooNo','tumbolCode','amphurCode','provinceCode');
     }else{
       // Home Address  Added to Personal Address 
-      this.member.homeNo = this.address.homeNo;
-      this.member.mooNo = this.address.mooNo;
-      this.member.road = this.address.road;
-      this.member.tumbolCode = this.address.tumbolCode;
-      this.member.amphurCode = this.address.amphurCode;
-      this.member.provinceCode = this.address.provinceCode;
+      this.memberBean.homeNo = this.address.homeNo;
+      this.memberBean.mooNo = this.address.mooNo;
+      this.memberBean.road = this.address.road;
+      this.memberBean.tumbolCode = this.address.tumbolCode;
+      this.memberBean.amphurCode = this.address.amphurCode;
+      this.memberBean.provinceCode = this.address.provinceCode;
     }
 
     self.validateSave = new InputValidateInfo();
@@ -428,17 +332,44 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
 
     }
   }
-
+  isGuestClearAddress(){
+    if(this.memberBean.isGuest){
+      this.memberBean.homeNo = '';
+      this.memberBean.mooNo = '';
+      this.memberBean.road = '';
+      this.memberBean.tumbolCode = '';
+      this.memberBean.amphurCode = '';
+      this.memberBean.provinceCode = '';
+    }
+  }
   onClickSave() {
     let self = this;
-    if (!self.isValidClickSave(self.member)) {
+    if (!self.isValidClickSave(self.memberBean)) {
       return;
-    }
-
-    self.loading = true;
-    self.memberUpdated.emit(self.member);
-    self.message_success('', 'แก้ไขข้อมูลบุคคล : ' + self.member.fullName);
-    self.loading = false;
+    } 
+    
+    // self.loading = true;
+    // let citizenId = self.reverseFormatCitizenId(self.memberBean.citizenId);
+    // self.apiHttp.api_PersonByCitizenId(citizenId, function (d) {
+    //   self.loading = false;
+    //   if (d && d.status.toUpperCase() == "SUCCESS") {
+    //     let personData = d.response;
+    //     if (personData && personData.personId) {
+    //       self.message_error('', 'หมายเลขประชาชน <b>' + self.memberBean.citizenId + '</b> ซ้ำ');
+    //     }else{
+    //       self.memberUpdated.emit(self.memberBean);
+    //       self.message_success('', 'แก้ไขข้อมูลบุคคล <b>' + self.memberBean.fullName + '</b> เรียบร้อย');
+    //     }
+    //   }else{
+    //       self.message_error('', 'ไม่สามารถตรวจสอบหมายเลขประชาชนได้');
+    //   }
+    // });
+    self.memberBean.citizenId = self.reverseFormatCitizenId(self.memberBean.citizenId)
+    self.memberUpdated.emit(self.memberBean);
+    $("#modalMember").modal('hide');
+    self.message_success('', 'แก้ไขข้อมูลบุคคล <b>' + self.memberBean.fullName + '</b> เรียบร้อย');
+    
+    
   }
 
 }

@@ -1,6 +1,6 @@
 <div class="panel panel-default">
 
-  <div style="background-color: rgba(118, 128, 218, 0.25);" class="panel-heading">
+  <div class="panel-heading">
     <label>รายละเอียดแบบสำรวจข้อมูลบุคคล</label>
   </div>
 
@@ -37,19 +37,19 @@
     </div>
 
     <br>
-    <div class="filter-discription">ส่วนที่ 1 มีชื่อในสำเนาทะเบียนบ้านจริง</div>
+    
     <div class="row" *ngIf="isShowTable">
       <div class="col-md-12">
-        <!-- <table id="tableMember" class="table table-striped table-bordered"></table> -->
+        <div class="filter-discription">ส่วนที่ 1 มีชื่อในสำเนาทะเบียนบ้านจริง</div>
         <ng2-smart-table [settings]="settings" [source]="source" (rowSelect)="onRowSelect($event)"></ng2-smart-table>
       </div>
     </div>
 
     <br>
-    <div class="filter-discription">ส่วนที่ 2 ไม่มีชื่อในทะเบียนบ้าน แต่ตัวอยู่จริง</div>
+    
     <div class="row" *ngIf="isShowTable">
       <div class="col-md-12">
-        <!-- <table id="tableMember" class="table table-striped table-bordered"></table> -->
+        <div class="filter-discription">ส่วนที่ 2 ไม่มีชื่อในทะเบียนบ้าน แต่ตัวอยู่จริง</div>
         <ng2-smart-table [settings]="settings2" [source]="source2" (rowSelect)="onRowSelect($event)"></ng2-smart-table>
       </div>
     </div>
@@ -65,7 +65,7 @@
 
 </div>
 
-<app-survey-personal-member-form [action]="action" [triggerMember]="cloneMember" (memberUpdated)="onUpdatedMember($event)"></app-survey-personal-member-form>
+<app-survey-personal-member-form [action]="action" [memberBean]="cloneMember" (memberUpdated)="onUpdatedMember($event)"></app-survey-personal-member-form>
 <app-management-home-member-form [bean]="memberBean" [action]="action"  [isSurvey]="true" [address]="address" (success)="onSaveCompleted($event)"></app-management-home-member-form>
 
 <ass-loading [show]="loading"></ass-loading>

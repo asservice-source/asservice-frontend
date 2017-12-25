@@ -15,7 +15,7 @@
               </div>
               <div class="col-md-3">
                 <div [InputValidate]="validateVerify" [citizenId]="true">
-                  <input type="text" [CitizenId]="member.citizenId" [(ngModel)]="member.citizenId">
+                  <input type="text" [CitizenId]="memberBean.citizenId" [(ngModel)]="memberBean.citizenId">
                   <label class="error">กรุณาใส่หมายเลขประชาชนเป็นตัวเลข 13 หลัก</label>
                 </div>
               </div>
@@ -28,7 +28,7 @@
               </div>
               <div class="col-md-3">
                 <div [InputValidate]="validateSave">
-                  <select name="dropdown-gender" id="dropdown-gender" [(ngModel)]="member.genderId" #gender (change)="onChangeGender(gender)" [disabled]="isDisablePersonData">
+                  <select name="dropdown-gender" id="dropdown-gender" [(ngModel)]="memberBean.genderId" #gender (change)="onChangeGender(gender)">
                     <option value="">--เลือก--</option>
                     <option *ngFor="let item of listGender" [value]="item.id">{{item.name}}</option>
                   </select>
@@ -40,7 +40,7 @@
               </div>
               <div class="col-md-3">
                 <div [InputValidate]="validateSave">
-                  <select name="dropdown-prefix" id="dropdown-prefix" [(ngModel)]="member.prefixCode" #prefix (change)="onChangePrefix(prefix)" [disabled]="isDisablePersonData">
+                  <select name="dropdown-prefix" id="dropdown-prefix" [(ngModel)]="memberBean.prefixCode" #prefix (change)="onChangePrefix(prefix)">
                     <option value="">--เลือก--</option>
                     <option *ngFor="let item of listPrefix" [value]="item.code">{{item.name}}</option>
                   </select>
@@ -56,7 +56,7 @@
               </div>
               <div class="col-md-3">
                 <div [InputValidate]="validateSave">
-                  <input maxlength="50" [(ngModel)]="member.firstName" [disabled]="isDisablePersonData">
+                  <input maxlength="50" [(ngModel)]="memberBean.firstName">
                   <label class="error">กรุณาใส ชื่อ</label>
                 </div>
               </div>
@@ -65,7 +65,7 @@
               </div>
               <div class="col-md-3">
                 <div [InputValidate]="validateSave">
-                  <input type="text" maxlength="50" [(ngModel)]="member.lastName" [disabled]="isDisablePersonData">
+                  <input type="text" maxlength="50" [(ngModel)]="memberBean.lastName">
                   <label class="error">กรุณาใสนามสกุล</label>
                 </div>
               </div>
@@ -78,8 +78,8 @@
               </div>
               <div class="col-md-3">
                 <div [InputValidate]="validateSave">
-                  <my-date-picker name="birthDate" [options]="datePickerOptions" [(ngModel)]="modelBirthDate" (dateChanged)="onChangeBirthDate($event)"
-                    [disabled]="isDisablePersonData"></my-date-picker>
+                  <my-date-picker name="birthDate" [options]="datePickerOptions" [(ngModel)]="modelBirthDate" (dateChanged)="onChangeBirthDate($event)">
+                  </my-date-picker>
                   <label class="error">กรุณาเลือกวัน/เดือน/ปี เกิด</label>
                 </div>
               </div>
@@ -87,7 +87,7 @@
                 <label class="label-form">การศึกษา</label>
               </div>
               <div class="col-md-3">
-                <select name="dropdown-education" id="dropdown-education" [(ngModel)]="member.educationCode" [disabled]="isDisablePersonData">
+                <select name="dropdown-education" id="dropdown-education" [(ngModel)]="memberBean.educationCode">
                   <option value="">--เลือก--</option>
                   <option *ngFor="let item of listEducation" [value]="item.code">{{item.name}}</option>
                 </select>
@@ -100,7 +100,7 @@
                 <label class="label-form">อาชีพ</label>
               </div>
               <div class="col-md-3">
-                <select name="dropdown-occupationCode" id="dropdown-occupationCode" [(ngModel)]="member.occupationCode" [disabled]="isDisablePersonData">
+                <select name="dropdown-occupationCode" id="dropdown-occupationCode" [(ngModel)]="memberBean.occupationCode">
                   <option value="">--เลือก--</option>
                   <option *ngFor="let item of listOccupation" [value]="item.code">{{item.name}}</option>
                 </select>
@@ -110,7 +110,7 @@
                 <label class="label-form">โรคประจำตัว</label>
               </div>
               <div class="col-md-3">
-                <input type="text" [(ngModel)]="member.congenitalDisease">
+                <input type="text" [(ngModel)]="memberBean.congenitalDisease">
               </div>
 
             </div>
@@ -122,7 +122,7 @@
               </div>
               <div class="col-md-3">
                 <div [InputValidate]="validateSave">
-                  <select name="dropdown-familyStatus" id="dropdown-familyStatus" [(ngModel)]="member.familyStatusId" #familyStatus (change)="onChangeFamilyStatus(familyStatus)" [disabled]="isDisablePersonData">
+                  <select name="dropdown-familyStatus" id="dropdown-familyStatus" [(ngModel)]="memberBean.familyStatusId" #familyStatus (change)="onChangeFamilyStatus(familyStatus)">
                     <option value="">--เลือก--</option>
                     <option *ngFor="let item of listFamilyStatus" [value]="item.id">{{item.name}}</option>
                   </select>
@@ -133,7 +133,7 @@
                 <label class="label-form">สถานะการจำหน่าย</label>
               </div>
               <div class="col-md-3">
-                <select name="dropdown-discharge" id="dropdown-discharge" [(ngModel)]="member.dischargeId">
+                <select name="dropdown-discharge" id="dropdown-discharge" [(ngModel)]="memberBean.dischargeId">
                   <option *ngFor="let item of listDischarge" [value]="item.id">{{item.name}}</option>
                 </select>
               </div>
@@ -147,16 +147,15 @@
                 <label class="label-form">หมายเหตุ</label>
               </div>
               <div class="col-md-3">
-                <textarea style="height: 50px;" placeholder="หมายเหตุ" [(ngModel)]="member.remark"></textarea>
+                <textarea style="height: 50px;" placeholder="หมายเหตุ" [(ngModel)]="memberBean.remark"></textarea>
               </div>
-              <div *ngIf="member.dischargeId != '9'">
+              <div *ngIf="memberBean.dischargeId != '9'">
                 <div class="col-md-2 text-right">
                   <label class="label-form">วันที่จำหน่าย</label>
                 </div>
                 <div class="col-md-3">
                   <div [InputValidate]="validateSave">
-                    <my-date-picker name="birthDate" [options]="datePickerOptions" [(ngModel)]="modelBirthDate" (dateChanged)="onChangeBirthDate($event)"
-                      [disabled]="isDisablePersonData"></my-date-picker>
+                    <my-date-picker name="dischargeDate" [options]="datePickerOptions" [(ngModel)]="modelDischargeDate"></my-date-picker>
                     <label class="error">กรุณาเลือกวันที่จำหน่าย</label>
                   </div>
                 </div>
@@ -171,7 +170,7 @@
               <div class="col-md-1">
                 <div class="radio">
                   <label class="label-form" style="font-size: 1em">
-                    <input type="radio" name="existsType" id="existsType1" [value]="true" [(ngModel)]="member.isExists">
+                    <input type="radio" name="existsType" id="existsType1" [value]="true" [(ngModel)]="memberBean.isExists">
                     <span class="cr">
                       <i class="cr-icon fa fa-check"></i>
                     </span>
@@ -182,7 +181,7 @@
               <div class="col-md-2">
                 <div class="radio">
                   <label class="label-form" style="font-size: 1em">
-                    <input type="radio" name="existsType" id="existsType2" [value]="false" [(ngModel)]="member.isExists">
+                    <input type="radio" name="existsType" id="existsType2" [value]="false" [(ngModel)]="memberBean.isExists">
                     <span class="cr">
                       <i class="cr-icon fa fa-check"></i>
                     </span>
@@ -202,7 +201,7 @@
                   <div class="col-md-12">
                     <div class="radio">
                       <label class="label-form" style="font-size: 1em">
-                        <input type="radio" name="guestType" id="guest1" [value]="false" [(ngModel)]="member.isGuest" (change)="onIsGuest()">
+                        <input type="radio" name="guestType" id="guest1" [value]="false" [(ngModel)]="memberBean.isGuest">
                         <span class="cr">
                           <i class="cr-icon fa fa-check"></i>
                         </span>
@@ -211,7 +210,7 @@
                     </div>
                     <div class="radio">
                       <label class="label-form" style="font-size: 1em">
-                        <input type="radio" name="guestType" id="guest2" [value]="true" [(ngModel)]="member.isGuest" (change)="onIsGuest()">
+                        <input type="radio" name="guestType" id="guest2" [value]="true" [(ngModel)]="memberBean.isGuest" (change)="onIsGuest()">
                         <span class="cr">
                           <i class="cr-icon fa fa-check"></i>
                         </span>
@@ -223,7 +222,7 @@
               </div>
             </div>
 
-            <div *ngIf="member.isGuest">
+            <div *ngIf="memberBean.isGuest">
               
               <div class="row">
                 <div class="col-md-1"></div>
@@ -231,13 +230,13 @@
                   <label class="label-form">บ้านเลขที่</label>
                 </div>
                 <div class="col-md-3">
-                  <input type="text" [(ngModel)]="member.homeNo">
+                  <input type="text" [(ngModel)]="memberBean.homeNo">
                 </div>
                 <div class="col-md-2 text-right">
                   <label class="label-form">หมู่ที่</label>
                 </div>
                 <div class="col-md-3">
-                  <input type="text" [(ngModel)]="member.mooNo">
+                  <input type="text" [(ngModel)]="memberBean.mooNo">
                 </div>
               </div>
       
@@ -247,13 +246,13 @@
                   <label class="label-form">ถนน</label>
                 </div>
                 <div class="col-md-3">
-                  <input type="text" [(ngModel)]="member.road">
+                  <input type="text" [(ngModel)]="memberBean.road">
                 </div>
                 <div class="col-md-2 text-right">
                   <label class="label-form">จังหวัด</label>
                 </div>
                 <div class="col-md-3">
-                  <select [(ngModel)]="member.provinceCode" (change)="onChangeProvince()">
+                  <select [(ngModel)]="memberBean.provinceCode" (change)="onChangeProvince()">
                     <option value="">--เลือก--</option>
                     <option *ngFor="let item of listProvince" [ngValue]="item.codeId">{{ item.name }}</option>
                   </select>
@@ -266,7 +265,7 @@
                   <label class="label-form">อำเภอ</label>
                 </div>
                 <div class="col-md-3">
-                  <select  [(ngModel)]="member.amphurCode" (change)="onChangeDistrict()" [disabled]="member.provinceCode == '' ? true : false">
+                  <select  [(ngModel)]="memberBean.amphurCode" (change)="onChangeDistrict()" [disabled]="memberBean.provinceCode == '' ? true : false">
                     <option value="">--เลือก--</option>
                     <option *ngFor="let item of listDistrict" [value]="item.code">{{ item.name }}</option>
                   </select>
@@ -275,7 +274,7 @@
                   <label class="label-form">ตำบล</label>
                 </div>
                 <div class="col-md-3">
-                  <select [(ngModel)]="member.tumbolCode" (change)="onChangeSubDistrict()" [disabled]="member.amphurCode == '' ? true : false">
+                  <select [(ngModel)]="memberBean.tumbolCode" (change)="onChangeSubDistrict()" [disabled]="memberBean.amphurCode == '' ? true : false">
                     <option value="">--เลือก--</option>
                     <option *ngFor="let item of listSubDistrict" [value]="item.codeId">{{ item.name }}</option>
                   </select>
@@ -286,7 +285,7 @@
         </div>
 
         <div class="modal-footer">
-          <button class="btn btn-primary btn-sm" (click)="onClickSave();" [disabled]="isDisabledButtonSave">บันทึก</button>
+          <button class="btn btn-primary btn-sm" (click)="onClickSave();">บันทึก</button>
           <button class="btn btn-primary btn-sm" data-dismiss="modal">ยกเลิก</button>
         </div>
 

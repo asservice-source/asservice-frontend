@@ -14,6 +14,7 @@ export class PersonalBasicBean{
     public genderName: string;
     public dischargeId: string;
     public dischargeName: string;
+    public dischargeDate: string;
     public bloodTypeId: string;
     public bloodTypeName: string;
     public educationCode: string;
