@@ -146,6 +146,7 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
       }
       _self.strNullToEmpty(_self.bean);
       console.log(_self.bean);
+      console.log(_self.modelBirthDate);
 
     });
   }
