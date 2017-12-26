@@ -42,8 +42,8 @@ export class MetabolicBean{
     public rowGUID : string;
     public personId : string;
   
-    public smokingStatusId : string ;
-    public drinkingStatusId : string;
+    public smokingStatusId : string = "2";
+    public drinkingStatusId : string = "2";
     public drugHistory_Smoke: string;
     public drugHistory_Drink: string;
     public rollPerDay: string;
