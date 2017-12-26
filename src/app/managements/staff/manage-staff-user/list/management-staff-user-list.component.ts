@@ -7,6 +7,7 @@ import { ApiHTTPService } from '../../../../service/api-http.service';
 import { Service_UserStaffAndOSM } from '../../../../service/service-user-staff-osm';
 import { ActivatedRoute } from '@angular/router';
 import { HomeBean } from '../../../../beans/home.bean';
+import { PersonalBasicBean } from '../../../../beans/personal-basic.bean';
 
 declare var $:any;
 declare var bootbox:any;
@@ -22,6 +23,7 @@ export class ManagementStaffUserListComponent extends BaseComponent implements O
   public settings: any;
   public bean: StaffUserBean;
   public source: LocalDataSource;
+  public datas: any;
   public villageList: any=[];
   public searchName: string;
   public searchVillageId: string = '';
@@ -34,9 +36,12 @@ export class ManagementStaffUserListComponent extends BaseComponent implements O
     super();
     this.api = new Service_UserStaffAndOSM();
     this.bean = new StaffUserBean();
+    
   }
 
   ngOnInit() {
+
+    this.source = new LocalDataSource(this.datas);
     this.activatedRoute.params.subscribe(params => {
       let _self = this;
       this.settings = this.getTableSetting({
@@ -118,19 +123,22 @@ export class ManagementStaffUserListComponent extends BaseComponent implements O
     if(this.isStaff){
       this.api.staff_findList(_self.searchName,  function(response){
         _self.loading = false;
-        _self.source = _self.ng2STDatasource(response);
-        _self.detectChange.detectChanges();
+        _self.setDatas(response);
 
       });
     }else{
       this.api.osm_findList(_self.searchName, _self.searchVillageId, function(response){
         _self.loading = false;
-        _self.source = _self.ng2STDatasource(response);
-        _self.detectChange.detectChanges();
+        _self.setDatas(response);
       });
     }
     
-    
+  }
+  setDatas(response){
+    this.datas = response;
+    this.source.load(this.datas);
+    this.detectChange.detectChanges();
+    this.source.refresh();
   }
   setupVillage(){
     

@@ -84,10 +84,17 @@ export class BaseComponent implements OnInit {
         this.ng2STDataSource = source;
     }
     public ng2STDatasource(source: any): LocalDataSource {
-        this.ng2STDataSource = new LocalDataSource(source);
-        this.ng2STDataSource.refresh();
-
-        return this.ng2STDataSource;
+        return new LocalDataSource(source);
+        // console.log("---ng2STDatasource---");
+        // if(this.ng2STDataSource){
+        //     this.ng2STDataSource.load(source);
+        // }else{
+           
+        //     this.ng2STDataSource = new LocalDataSource(source);
+        // }
+        // //this.ng2STDataSource = new LocalDataSource(source);
+        // this.ng2STDataSource.refresh();
+        // return this.ng2STDataSource;
     }
     private isRefrestData = false;
     public onRowSelect(event): void {
@@ -97,7 +104,7 @@ export class BaseComponent implements OnInit {
             return;
         }
         $("#btn-view-child").html("จัดการสมาชิก");
-        let source = event.source
+        let source = event.source;
         if (source) {
 
             source.getElements().then(list => {
