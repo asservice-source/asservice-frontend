@@ -31,7 +31,7 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
   public isFindPersonal: boolean = true;
   public loading: boolean = false;
 
-  public code: string = "METABOLIC";
+  public code: string = this.surveyHeaderCode.METABOLIC;
   public personBean = new PersonBean();
   public isShowForm: boolean = false;
   public resetFind: number = 1;
@@ -60,17 +60,19 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
   public isPackPerYearDisabled = true;
   public isOftenPerWeekDisabled = true;
   public errorinput = "error-input";
+ 
 
 
   public errorSmoke;
   public errorDrink;
   public errorWeight;
   public errorHeight;
-  public errorWaistline;
+  // public errorWaistline;
   public errorBMI;
   public errorPeripheralName;
   public errorOthercomplication;
-
+  public isErrorOverWeight;
+  public isErrorOverHeight;
 
 
 
@@ -280,41 +282,41 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
       this.errorDrink = "";
     }
 
-    if (!this.metabolicbean.weight || this.metabolicbean.weight >= 255) {
+    if (!this.metabolicbean.weight || this.metabolicbean.weight <= 0){
       this.isErrorWeight = true;
       this.errorWeight = this.errorinput;
+      this.isErrorOverWeight = false;
       validateform = false;
-    } else {
+    }else{
       this.isErrorWeight = false;
       this.errorWeight = "";
+      if(this.metabolicbean.weight >= 255){
+        this.isErrorOverWeight = true;
+        this.errorWeight = this.errorinput;
+        validateform = false;
+      }else{
+        this.isErrorOverWeight = false;
+        this.errorWeight = "";
+      }
     }
 
-    if (!this.metabolicbean.height || this.metabolicbean.height >= 255) {
+    if (!this.metabolicbean.height || this.metabolicbean.height <= 0) {
       this.isErrorHeight = true;
       this.errorHeight = this.errorinput;
+      this.isErrorOverHeight = false;
       validateform = false;
     } else {
       this.isErrorHeight = false;
       this.errorHeight = "";
+      if(this.metabolicbean.height >= 255){
+        this.isErrorOverHeight = true;
+        this.errorHeight = this.errorinput;
+        validateform = false;
+      }else{
+        this.isErrorOverHeight = false;
+        this.errorHeight = "";
+      }
     }
-
-    if (!this.metabolicbean.waistline) {
-      this.isErrorWaistline = true;
-      this.errorWaistline = this.errorinput;
-      validateform = false;
-    } else {
-      this.isErrorWaistline = false;
-      this.errorWaistline = "";
-    }
-
-    // if (!this.metabolicbean.bmi) {
-    //   this.isErrorBMI = true;
-    //   this.errorBMI = this.errorinput;
-    //   validateform = false;
-    // } else {
-    //   this.isErrorBMI = false;
-    //   this.errorBMI = "";
-    // }
 
     if (this.metabolicbean.isPeripheralNeuropathy == true) {
       if (!this.metabolicbean.peripheralName) {
@@ -345,13 +347,17 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
     if (this.metabolicbean.bp1MM && this.metabolicbean.bp1HG) {
       this.metabolicbean.bp1 = this.metabolicbean.bp1MM + "/" + this.metabolicbean.bp1HG;
     } else {
-      this.metabolicbean.bp1 = undefined;
+      this.metabolicbean.bp1MM = "0";
+      this.metabolicbean.bp1HG = "0";
+      this.metabolicbean.bp1 = this.metabolicbean.bp1MM + "/" + this.metabolicbean.bp1HG;
     }
 
     if (this.metabolicbean.bp2MM && this.metabolicbean.bp2HG) {
       this.metabolicbean.bp2 = this.metabolicbean.bp2MM + "/" + this.metabolicbean.bp2HG;
     } else {
-      this.metabolicbean.bp2 = undefined;
+      this.metabolicbean.bp2MM = "0";
+      this.metabolicbean.bp2HG = "0";
+      this.metabolicbean.bp2 = this.metabolicbean.bp2MM + "/" + this.metabolicbean.bp2HG;
     }
 
 
