@@ -22,6 +22,7 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
   @Input() surveyTypeCode: string;
   @Input() documentId: string;
   @Input() data: PregnantBean;
+  @Input() rowGUID: string;
 
   @Output() memberUpdated = new EventEmitter<PregnantBean>();
 
@@ -178,6 +179,7 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
       self.resetFind = self.resetFind + 1;
       if (self.action == self.ass_action.EDIT) {
         self.onChoosePersonal(self.data);
+        // alert(self.rowGUID);
         // self.onChoosePersonal(self.getPregnantInfo(self.rowGUID));
       }
       self.changeRef.detectChanges();
