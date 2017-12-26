@@ -18,16 +18,19 @@ declare var $: any
 })
 export class SurveyPregnantListComponent extends BaseComponent implements OnInit {
 
-  public surveyTypeCode: string = "PREGNANT";
   private apiHttp: Service_SurveyPregnant = new Service_SurveyPregnant();
 
   public action: string = this.ass_action.ADD;
+  public surveyTypeCode: string = "PREGNANT";
+  
   public current_documentId: string = "";
   public filter_documentId: string = "";
   public filter_villageId: string = "";
   public filter_osmId: string = "";
   public filter_fullName: string = "";
-  public pregnantBean: PregnantBean = new PregnantBean();
+  
+  public param_pregnantBean: PregnantBean = new PregnantBean();
+  public param_rowGUID: string = "";
 
   public settings: any;
   public source: LocalDataSource;
@@ -125,7 +128,8 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
 
           instance.action.subscribe((row: PregnantBean, cell) => {
             if (row && row.action.toUpperCase() == self.ass_action.EDIT) {
-              self.pregnantBean = row;
+              self.param_rowGUID = row.rowGUID;
+              self.param_pregnantBean = row;
               self.onModalForm(self.ass_action.EDIT);
             }
           });
