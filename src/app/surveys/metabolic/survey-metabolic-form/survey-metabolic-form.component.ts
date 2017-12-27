@@ -67,7 +67,6 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
   public errorDrink;
   public errorWeight;
   public errorHeight;
-  // public errorWaistline;
   public errorBMI;
   public errorPeripheralName;
   public errorOthercomplication;
@@ -186,6 +185,17 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
     this.isErrorBMI = false;
     this.isErrorOthercomplication = false;
     this.isErrorPeripheralName = false;
+    this. isErrorOverWeight = false;
+    this.isErrorOverHeight = false;
+
+    this.errorSmoke = "";
+    this.errorDrink = "";
+    this.errorWeight = "";
+    this.errorHeight = "";
+    this.errorBMI = "";
+    this.errorPeripheralName = "";
+    this.errorOthercomplication = "";
+   
 
     if (this.ass_action.EDIT == this.action) {
       $('#find-person-md').modal('hide');
@@ -290,7 +300,7 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
     }else{
       this.isErrorWeight = false;
       this.errorWeight = "";
-      if(this.metabolicbean.weight >= 255){
+      if(this.metabolicbean.weight > 255){
         this.isErrorOverWeight = true;
         this.errorWeight = this.errorinput;
         validateform = false;
@@ -308,7 +318,7 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
     } else {
       this.isErrorHeight = false;
       this.errorHeight = "";
-      if(this.metabolicbean.height >= 255){
+      if(this.metabolicbean.height > 255){
         this.isErrorOverHeight = true;
         this.errorHeight = this.errorinput;
         validateform = false;

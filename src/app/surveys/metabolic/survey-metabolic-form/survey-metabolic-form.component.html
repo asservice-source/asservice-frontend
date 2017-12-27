@@ -235,45 +235,43 @@
                 <!-- การตรวจร่างกาย -->
 
                 <div class="row">
-
-                    <div class="col-md-2 col-md-offset-1 text-right">
-                        <label class="label-form">น้ำหนัก</label>
-                    </div>
-
-                    <div class="col-md-2">
-                        <input class="text-center" [ngClass]="errorWeight" type="text" placeholder="น้ำหนัก" [(ngModel)]="metabolicbean.weight" [OnlyNumber]="true"
-                            maxlength="3" (keypress)="calculateBMI();">
-                        <div *ngIf="isErrorWeight">
-                            <label class="error2">กรุณาใส่น้ำหนัก</label>
+                   
+                        <div class="col-md-2 col-md-offset-1 text-right">
+                            <label class="label-form">น้ำหนัก</label>
                         </div>
-                        <div *ngIf="isErrorOverWeight">
-                            <label class="error2">กรุณาใส่น้ำหนักให้ถูกต้อง</label>
+
+                        <div class="col-md-2">
+                            <input class="text-center" [ngClass]="errorWeight" type="text" placeholder="น้ำหนัก" [(ngModel)]="metabolicbean.weight" [OnlyNumber]="true"
+                                maxlength="3" (keypress)="calculateBMI();">
+                            <div *ngIf="isErrorWeight">
+                                <label class="error2">กรุณาใส่น้ำหนัก</label>
+                            </div>
+                            <div *ngIf="isErrorOverWeight">
+                                <label class="error2">น้ำหนักไม่ถูกต้อง</label>
+                            </div>
                         </div>
-                    </div>
-
-
-                    <div class="col-md-1" style="padding-left: 0px;">
-                        <label class="label-form">กิโลกรัม</label>
-                    </div>
-
-                    <div class="col-md-2 text-right">
-                        <label class="label-form">ส่วนสูง</label>
-                    </div>
-
-                    <div class="col-md-2">
-                        <input class="text-center" [ngClass]="errorHeight" type="text" placeholder="ส่วนสูง" [(ngModel)]="metabolicbean.height" maxlength="3"
-                            [OnlyNumber]="true" (keypress)="calculateBMI();">
-                        <div *ngIf="isErrorHeight">
-                            <label class="error2">กรุณาใส่ส่วนสูง</label>
+                        <div class="col-md-1" style="padding-left: 0px;">
+                            <label class="label-form">กิโลกรัม</label>
                         </div>
-                        <div *ngIf="isErrorOverHeight">
-                            <label class="error2">กรุณาใส่ส่วนสูงให้ถูกต้อง</label>
+                  
+                   
+                        <div class="col-md-2 text-right">
+                            <label class="label-form">ส่วนสูง</label>
                         </div>
-                    </div>
-
-                    <div class="col-md-1" style="padding-left: 0px;">
-                        <label class="label-form">เซนติเมตร</label>
-                    </div>
+                        <div class="col-md-2">
+                            <input class="text-center" [ngClass]="errorHeight" type="text" placeholder="ส่วนสูง" [(ngModel)]="metabolicbean.height" maxlength="3"
+                                [OnlyNumber]="true" (keypress)="calculateBMI();">
+                            <div *ngIf="isErrorHeight">
+                                <label class="error2">กรุณาใส่ส่วนสูง</label>
+                            </div>
+                            <div *ngIf="isErrorOverHeight">
+                                <label class="error2">ส่วนสูงไม่ถูกต้อง</label>
+                            </div>
+                        </div>
+                        <div class="col-md-1" style="padding-left: 0px;">
+                            <label class="label-form">เซนติเมตร</label>
+                        </div>
+                  
                 </div>
 
                 <div class="row">
