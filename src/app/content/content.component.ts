@@ -13,7 +13,6 @@ export class ContentComponent implements OnInit {
   headers: any;
 
   public positions: any = [];
-  public pos = '16.442481, 102.808265';
  
   constructor(private http: Http) { }
 
@@ -29,12 +28,12 @@ export class ContentComponent implements OnInit {
     console.log('map', event.target);
   }
   onMarkerInit(marker) {
-    this.pos = marker;
     console.log('marker', marker);
   }
   onMapClick(event) {
-    this.pos = event.latLng;
-    // this.positions.push(event.latLng);
+    console.log(event.latLng);
+    this.positions =  [];
+    this.positions.push(event.latLng);
     // event.target.panTo(event.latLng);
   }
 
