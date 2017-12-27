@@ -172,8 +172,13 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
 
   onModalFrom(action: string) {
     this.action = action;
-    this.changeRef.detectChanges();
-    $('#find-person-md').modal('show');
+    if (action == this.ass_action.EDIT) {
+      this.getSurveyData(this.patientbean.rowGUID);
+    } else {
+      this.changeRef.detectChanges();
+      $('#find-person-md').modal('show');
+    }
+
   }
 
   reloadData(event: any) {
@@ -215,6 +220,22 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
       strValue = string;
     }
     return strValue;
+  }
+
+  getSurveyData(rowGUID) {
+    let self = this;
+    let param = {
+      "rowGUID": rowGUID
+    }
+    self.loading = true;
+    this.api.post('survey_patient/patient_by_rowguid', param, function (resp) {
+      self.loading = false;
+      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+        self.patientbean = resp.response;
+        self.changeRef.detectChanges();
+        $('#find-person-md').modal('show');
+      }
+    })
   }
 
 }

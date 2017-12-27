@@ -7,7 +7,7 @@ import { ApiHTTPService } from '../../../service/api-http.service';
 import { CancerBean } from '../../../beans/cancer.bean';
 import { FilterHeadSurveyBean } from '../../../beans/filter-head-survey.bean';
 import { FilterBean } from "../../../beans/filter.bean";
-import { ActionCustomViewComponent } from '../../../action-custom-table/action-custom-view.component';
+import { ActionCustomView_2_Component } from '../../../action-custom-table/action-custom-view.component';
 
 declare var $;
 
@@ -88,7 +88,7 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
         title: 'การทำงาน',
         filter: false,
         type: 'custom',
-        renderComponent: ActionCustomViewComponent,
+        renderComponent: ActionCustomView_2_Component,
         onComponentInitFunction(instance) {
           instance.action.subscribe((row: CancerBean) => {
             

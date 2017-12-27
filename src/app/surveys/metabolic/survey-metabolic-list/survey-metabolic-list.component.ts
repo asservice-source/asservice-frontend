@@ -5,7 +5,7 @@ import { LocalDataSource } from 'ng2-smart-table';
 import { BaseComponent } from '../../../base-component';
 import { PersonBean } from "../../../beans/person.bean";
 import { ApiHTTPService } from '../../../service/api-http.service';
-import { ActionCustomViewComponent } from '../../../action-custom-table/action-custom-view.component';
+import { ActionCustomView_2_Component } from '../../../action-custom-table/action-custom-view.component';
 import { FilterHeadSurveyBean } from '../../../beans/filter-head-survey.bean';
 import { MetabolicBean } from '../../../beans/metabolic.bean';
 declare var $: any;
@@ -90,7 +90,7 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
         sort: false,
         width: '100px',
         type: 'custom',
-        renderComponent: ActionCustomViewComponent,
+        renderComponent: ActionCustomView_2_Component,
         onComponentInitFunction(instance) {
           instance.edit.subscribe((row: MetabolicBean, cell) => {
             self.metabolicbean = self.cloneObj(row);
