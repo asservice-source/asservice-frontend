@@ -92,6 +92,8 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
               msg = 'รหัสบ้าน <b>'+_self.bean.registrationId + '</b> ซ้ำ กรุณาใส่รหัสบ้านอื่น';
             }else if(response.response.toUpperCase() == 'DUPLICATED[HOMENO]'){
               msg = 'บ้านเลขที่ <b>'+_self.bean.homeNo + '</b> ซ้ำ กรุณาใส่บ้านเลขที่อื่น';
+            }else if(response.response == 'Duplicated[LocationName]'){
+              msg = 'ชื่อสถานที่นี้ <b>'+ _self.bean.name +'</b> มีอยู่แล้ว'
             }else{
               msg = 'ไม่สามารถ'+strAction+'บ้านเลขที่ <b>' + _self.bean.homeNo + '</b> ได้';
             }

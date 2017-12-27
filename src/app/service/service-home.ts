@@ -48,6 +48,25 @@ export class Service_Home extends ApiHTTPService{
         });
     }
 
+    // public getList(villageId:string, osmId:string, homeTypeCode:string, name:string, callback: (doc: any) => void){
+        
+    //     let parameter = {
+    //         "code5": this.baseComponent.getHospitalCode(),
+    //         "villageId": villageId,
+    //         "osmId": osmId,
+    //         "homeTypeCode": homeTypeCode,
+    //         "name": name,
+    //        }
+    //     let _self = this;
+    //     this.post('/home/find', parameter, function(response){
+    //         if(response && response.status.toUpperCase()=='SUCCESS'){
+    //             callback(response.response);
+    //         }else{
+    //             _self.baseComponent.message_servNotRespond('', response.message);
+    //         }
+    //     });
+    // }
+
     public commit_del(homeId: string, callback:(doc:any)=>void){
         let parameter = {"homeId": homeId};
         this.post('home/del_home', parameter, function(response){

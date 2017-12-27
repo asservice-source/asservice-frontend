@@ -34,8 +34,7 @@ export class ManagementStaffVillageFormComponent extends BaseComponent implement
     this.inputValidate = new InputValidateInfo();
     this.inputValidate.isCheck = true;
     let _self = this;
-    
-    if(this.bean.villageNo && this.bean.villageName.trim()){
+    if(+this.bean.villageNo && this.bean.villageName && this.bean.villageName.trim().length>0){
       _self.loading = true;
       this.api.commit_save(this.bean, function(response){
         _self.loading = false;

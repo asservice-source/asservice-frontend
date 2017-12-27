@@ -5,7 +5,7 @@
   <div class="panel-body">
     <div class="header-info">
 
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-sm-12">
           <div class="box-body">
             <dl class="dl-horizontal">
@@ -16,10 +16,56 @@
             </dl>
           </div>
         </div>
-      </div>
+      </div> -->
 
 
     </div>
+
+    <div class="row">
+      <div class="col-md-2 text-right">
+        <label class="label-form">หมู่ที่</label>
+      </div>
+      <div class="col-md-4">
+        <select [(ngModel)]="findVillageId" *ngIf="isStaff">
+          <option></option>
+        </select>
+        <input *ngIf="!isStaff" [value]="userInfo.villageNo" disabled>
+      </div>
+
+
+      <div class="col-md-1 text-right">
+        <label class="label-form">อสม.</label>
+      </div>
+      <div class="col-md-4">
+        <select [(ngModel)]="findOsmId" *ngIf="isStaff">
+          <option></option>
+        </select>
+        <input *ngIf="!isStaff" [value]="userInfo.fullName" disabled>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col-md-2 text-right">
+        <label class="label-form">ประเภทสถานที่</label>
+      </div>
+      <div class="col-md-4">
+        <select [(ngModel)]="findTypeCode">
+          <option value="">--ทั้งหมด--</option>
+          <option *ngFor="let item of homeTypeList" [value]="item.code">{{item.name}}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row text-center" style="margin-top: 10px;">
+      <button id="filter-btnSearch" class="btn btn-primary btn-sm" (click)="onSearchFilter()">
+        <i class="fa fa-search"> ค้นหา</i>
+      </button> &nbsp;&nbsp;
+      <button id="filter-btnClear" class="btn btn-primary btn-sm" (click)="onClearFilter()">
+        <i class="fa fa-refresh"> ล้างค่า</i>
+      </button>
+    </div>
+
     <div class="row">
       <div class="col-md-12 text-left">
         <button class="btn btn-sm btn-primary" (click)="onAdd();">เพิ่มบ้านเลขที่</button>

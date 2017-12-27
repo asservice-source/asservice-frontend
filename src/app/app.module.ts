@@ -59,14 +59,16 @@ import { MyDatePickerModule } from 'mydatepicker-thai';
 import { RegisterActiveComponent } from './register/register-active/register-active.component';
 import { ManagementHomeComponent, ViewChildTableHomeManagement } from './managements/osm/management-home/list/management-home.component';
 import { ManagementHomeFormComponent } from './managements/osm/management-home/form/management-home-form.component';
-import { LoadingComponent} from './ng2-loading/ass-loading.component'
+import { LoadingComponent } from './ng2-loading/ass-loading.component'
 import { LoadingConfigService } from './ng2-loading/ass-loading.service';
-import { FilterFindMosquitoComponent , SelectHomeListButton} from './filter/filter-find-mosquito/filter-find-mosquito.component';
+import { FilterFindMosquitoComponent, SelectHomeListButton } from './filter/filter-find-mosquito/filter-find-mosquito.component';
 import { ManagementHomeMemberComponent } from "./managements/osm/management-home-member/list/management-home-member.component";
 import { ManagementHomeMemberFormComponent } from './managements/osm/management-home-member/form/management-home-member-form.component';
 import { TestService } from './service/test.service';
 import { UserService } from './service/user.service';
 import { CitizenIdFormatDirective } from './directives/citizenid-format.directive'
+
+import { NguiMapModule } from '@ngui/map';
 
 @NgModule({
   declarations: [
@@ -135,7 +137,8 @@ import { CitizenIdFormatDirective } from './directives/citizenid-format.directiv
     MyDatePickerModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAOwQqNjFQlk-Fi8wkwUnIQYafBVLfyobY'
-    })
+    }),
+    NguiMapModule.forRoot({ apiUrl: 'https://maps.google.com/maps/api/js?key=AIzaSyBpBMthbC5-MRsz8Vga99LLlxMDibt24dc' })
   ],
   entryComponents: [
     ActionCustomViewComponent,

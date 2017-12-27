@@ -22,10 +22,95 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
   public settings: any;
   public source: LocalDataSource;
   public loading: boolean = false;
+  public isStaff: boolean = false;
+  public findVillageId: string;
+  public findOsmId: string;
+  public findTypeCode: string;
+  public homeTypeList: any =  [];
+
   constructor(private router: Router, private changeRef: ChangeDetectorRef) { 
     super();
+    this.isStaff = this.isStaffRole(this.userInfo.userId);
     this.bean = new HomeBean();
     this.api = new Service_Home();
+    if(!this.isStaff){
+      this.findVillageId = this.userInfo.villageId;
+      this.findOsmId = this.userInfo.personId;
+    }
+    this.findTypeCode = '';
+    this.settingColumn();
+  }
+
+  ngOnInit() {
+    
+    this.setupHomeTypeList();
+    this.setupTable();
+  }
+  setupTable(){    
+    let _self = this;
+    _self.loading = true;
+    this.api.getList(this.userInfo.villageId, this.userInfo.personId, function(response){
+      _self.source = _self.ng2STDatasource(response);
+      _self.loading = false;
+      _self.changeRef.detectChanges();
+    });
+  }
+  setupHomeTypeList(){
+    let _self = this;
+    _self.loading=true;
+    _self.api.api_HomeTypeList(function(list){
+      _self.loading=false;
+      _self.homeTypeList = list
+      _self.changeRef.detectChanges();
+    });
+  }
+  onModalForm(action:string){
+    this.action = action;
+    this.changeRef.detectChanges();
+    $('#modalForm').modal('show');
+  }
+  onAdd(){
+
+    this.bean = new HomeBean();
+    this.bean.homeId = "";
+    this.bean.registrationId = "";
+    this.bean.homeNo = "";
+    this.bean.soi = "";
+    this.bean.road = "";
+    this.bean.latitude = "";
+    this.bean.longitude = "";
+    this.bean.homeTypeCode = "";
+    this.onModalForm(this.ass_action.ADD);
+  }
+
+  onComplete(event:any){
+    console.log(event);
+    let _self = this;
+    if(event.success){
+     
+      _self.message_success('', event.message, function(){
+        _self.setupTable();
+      })
+     
+    }else{
+      _self.message_error('', event.message);
+    }
+    
+  }
+
+  onMemberManage(row: any){
+    this.router.navigate(['main/managements/osm/home/member',row.homeId]);
+    //location.href='main/managements/osm/home/member/1';
+  }
+  onSearchFilter(){
+    
+  }
+  onClearFilter(){
+    this.findVillageId = '';
+    this.findOsmId = '';
+    this.findTypeCode = '';
+  }
+  settingColumn(){
     let _self = this;
     this.settings = this.getTableSetting({
       homeNo: {
@@ -79,60 +164,7 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
       }
     });
   }
-
-  ngOnInit() {
-    this.setupTable();
-  }
-  setupTable(){    
-    let _self = this;
-    _self.loading = true;
-    this.api.getList(this.userInfo.villageId, this.userInfo.personId, function(response){
-      _self.source = _self.ng2STDatasource(response);
-      _self.loading = false;
-      _self.changeRef.detectChanges();
-    });
-  }
-  onModalForm(action:string){
-    this.action = action;
-    this.changeRef.detectChanges();
-    $('#modalForm').modal('show');
-  }
-  onAdd(){
-
-    this.bean = new HomeBean();
-    this.bean.homeId = "";
-    this.bean.registrationId = "";
-    this.bean.homeNo = "";
-    this.bean.soi = "";
-    this.bean.road = "";
-    this.bean.latitude = "";
-    this.bean.longitude = "";
-    this.bean.homeTypeCode = "";
-    this.onModalForm(this.ass_action.ADD);
-  }
-
-  onComplete(event:any){
-    console.log(event);
-    let _self = this;
-    if(event.success){
-     
-      _self.message_success('', event.message, function(){
-        _self.setupTable();
-      })
-     
-    }else{
-      _self.message_error('', event.message);
-    }
-    
-  }
-
-  onMemberManage(row: any){
-    this.router.navigate(['main/managements/osm/home/member',row.homeId]);
-    //location.href='main/managements/osm/home/member/1';
-  }
 }
-
-
 
 @Component({
     selector: 'app-view-child-table-home-management',
