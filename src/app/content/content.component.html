@@ -1,5 +1,17 @@
-
 <br>
-<div align="center"><br>
-  <img src="./../assets/img/anamai_smart_service_logo_1.png" >
+<div align="center">
+  <br>
+  <img src="./../assets/img/anamai_smart_service_logo_1.png">
+</div>
+
+<div class="row">
+  <div class="col-md-5">
+    <ngui-map zoom="12" center="16.442481, 102.808265" (mapReady$)="onMapReady($event)" (mapClick)="onMapClick($event)" (idle)="onIdle($event)"
+      mapTypeId="ROADMAP" draggable="true">
+      <!-- <marker *ngFor="let pos of positions" 
+        [position]="pos"
+        (initialized$)="onMarkerInit($event)"></marker> -->
+      <marker [position]="pos" (initialized$)="onMarkerInit($event)"></marker>
+    </ngui-map>
+  </div>
 </div>
