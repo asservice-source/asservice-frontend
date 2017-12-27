@@ -9,39 +9,39 @@ export class CitizenIdFormatDirective{
     private maxlength: number = 17;
 
     @HostListener('keypress', ['$event']) onKeyPress($event) {
-        if(this.CitizenId){
-            let e = <KeyboardEvent> event;
-            $event = ($event) ? $event : window.event;
-            let charCode = ($event.which) ? $event.which : $event.keyCode;
-            if(this.maxlength < $event.target.value.length){
-                return false;
-            }
-            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-                return false;
-            }
-            this.keypressInputCitizenID($event);
-            return true;
+       
+        let e = <KeyboardEvent> event;
+        $event = ($event) ? $event : window.event;
+        let charCode = ($event.which) ? $event.which : $event.keyCode;
+        if(this.maxlength < $event.target.value.length){
+            return false;
         }
+        console.log(charCode);
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            console.log('false');
+            return false;
+        }
+        this.keypressInputCitizenID($event);
+        return true;
+       
     }
 
     @HostListener('paste', ['$event']) onPaste($event) {
-        if(this.CitizenId){
-            let _self = this;
-            let event = $event;
-            setTimeout(function(){ 
-              if(event.target.value){
-                let value = event.target.value;
-                value = value.replace(/[^0-9\.]+/g, '');
-                if(_self.maxlength){
-                  if(value.length>_self.maxlength){
-                    value = value.substr(0,_self.maxlength-1);
-                  }
-                }
-                event.target.value = value;
-                _self.keypressInputCitizenID($event);
+        let _self = this;
+        let event = $event;
+        setTimeout(function(){ 
+          if(event.target.value){
+            let value = event.target.value;
+            value = value.replace(/[^0-9\.]+/g, '');
+            if(_self.maxlength){
+              if(value.length>_self.maxlength){
+                value = value.substr(0,_self.maxlength-1);
               }
-            }, 50);
-        }
+            }
+            event.target.value = _self.formatCitizenId(value);
+           // _self.keypressInputCitizenID($event);
+          }
+        }, 50);
     }
 
     constructor(private el: ElementRef){
