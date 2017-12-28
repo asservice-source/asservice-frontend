@@ -28,6 +28,7 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
   public findTypeCode: string;
   public findName: string = '';
   public homeTypeList: any =  [];
+  public infoMaps: string = '';
 
   constructor(private router: Router, private changeRef: ChangeDetectorRef) { 
     super();
@@ -98,6 +99,13 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
     
   }
   onViewMaps(row: any){
+    let type = row.homeTypeCode;
+    if(type=='01' || type=='02' || type=='03' || type=='04' || type=='05'){
+      this.infoMaps = 'บ้านเลขที่ ' + row.homeNo
+    }else{
+      this.infoMaps = row.name;
+    }
+    
     $('#modalMaps').modal('show');
   }
   onDelelteHome(row: any){
