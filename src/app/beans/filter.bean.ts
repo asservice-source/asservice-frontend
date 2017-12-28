@@ -5,4 +5,5 @@ export class FilterBean {
     public homeId: string = "";
     public name: string = "";
     public suyveyStatus: string = "";
+    public description: string;
 }

@@ -13,7 +13,7 @@
             </div>
             <div class="col-md-5">
               <div [InputValidate]="inputValidate">
-                  <select [(ngModel)]="bean.homeTypeCode" [disabled]="disabledHomeType">
+                  <select [(ngModel)]="bean.homeTypeCode" #homeTypeCode (change)="onChangeHomeTypeCode(homeTypeCode);" [disabled]="disabledHomeType">
                     <option value="">---เลือก---</option>
                     <option *ngFor="let item of homeTypeList" [value]="item.code">{{item.name}}</option>
                   </select>
@@ -53,7 +53,7 @@
             <div class="col-md-5">
               <div [InputValidate]="inputValidate">
                 <input type="text" [(ngModel)]="bean.homeNo" placeholder="บ้านเลขที่" maxlength="10">
-                <label class="error">กรุณาใส่บ้านเลขที่</label>
+                <label *ngIf="isHome" class="error">กรุณาใส่บ้านเลขที่</label>
               </div>
             </div>
           </div>

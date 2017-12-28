@@ -79,5 +79,19 @@
   </div> 
 </div>
 
+ <!-- Modal -->
+ <div class="modal fade" id="modalMaps" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="myModalLabel">{{bean.homeId?'แก้ไข':'เพิ่ม'}}บ้านเลขที่/สถานที่</h4>
+        </div>
+        <div class="modal-body">
+          <app-maps [latitude]="bean.latitude" [longitude]="bean.longitude" [info]="infoMaps"></app-maps>
+        </div>
+      </div>
+    </div>
+  </div>
+
 <app-management-home-form [bean]="bean" [action]="action" (success)="onComplete($event)"></app-management-home-form>
 <ass-loading [show]="loading"></ass-loading>

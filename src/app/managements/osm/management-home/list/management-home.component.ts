@@ -4,7 +4,7 @@ import { HomeBean } from '../../../../beans/home.bean';
 import { BaseComponent } from '../../../../base-component';
 import { ApiHTTPService } from '../../../../service/api-http.service';
 import { LocalDataSource } from 'ng2-smart-table';
-import { ActionCustomViewComponent } from '../../../../action-custom-table/action-custom-view.component';
+import { ActionCustomViewMapsComponent } from '../../../../action-custom-table/action-custom-view.component';
 import { Service_Home } from '../../../../service/service-home';
 import { ViewCell } from 'ng2-smart-table';
 
@@ -26,7 +26,9 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
   public findVillageId: string;
   public findOsmId: string;
   public findTypeCode: string;
+  public findName: string = '';
   public homeTypeList: any =  [];
+  public infoMaps: string = '';
 
   constructor(private router: Router, private changeRef: ChangeDetectorRef) { 
     super();
@@ -49,7 +51,7 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
   setupTable(){    
     let _self = this;
     _self.loading = true;
-    this.api.getList(this.userInfo.villageId, this.userInfo.personId, function(response){
+    this.api.getList(this.findVillageId, this.findOsmId, this.findTypeCode, this.findName, function(response){
       _self.source = _self.ng2STDatasource(response);
       _self.loading = false;
       _self.changeRef.detectChanges();
@@ -82,12 +84,68 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
     this.bean.homeTypeCode = "";
     this.onModalForm(this.ass_action.ADD);
   }
+  onEdit(homeId: any){
+    let _self = this;
+    _self.loading = true;
+    this.api.getHomeByID(homeId, function(resp){
+      _self.loading = false;
+      let response = resp.response;
+      if(response && resp.status.toUpperCase()=='SUCCESS'){
+        _self.bean = response;
+        _self.changeRef.detectChanges();
+        _self.onModalForm(_self.ass_action.EDIT);
+      }
+    });
+    
+  }
+  onViewMaps(row: any){
+    let type = row.homeTypeCode;
+    if(type=='01' || type=='02' || type=='03' || type=='04' || type=='05'){
+      this.infoMaps = 'บ้านเลขที่ ' + row.homeNo
+    }else{
+      this.infoMaps = row.name;
+    }
+    
+    $('#modalMaps').modal('show');
+  }
+  onDelelteHome(row: any){
+    let _self = this;
+    let msg = 'ต้องการลบ';
+    let msgType = '';
+    let type = row.homeTypeCode;
+    if(type=='01' || type=='02' || type=='03' || type=='04' || type=='05'){
+      msg += 'บ้านเลขที่ ';
+      msgType = '<b>'+ row.homeNo +'</b>';
+      
+    }else{
+      msgType = ' <b>'+ row.name +'</b>';
+    }
+    msg += msgType + ' ใช่หรือไม่';
 
+    _self.message_comfirm('', msg, function(result){
+      if(result){
+        _self.loading = true;
+        _self.api.commit_del(row.homeId, function(resp){
+          _self.loading = false;
+          _self.changeRef.detectChanges();
+          let response = resp.response;
+          if(response && resp.status.toUpperCase() == 'SUCCESS'){
+            _self.message_success('','ลบ '+msgType+' เรียบร้อย', function(){
+              _self.setupTable();
+            });
+          }else{
+            _self.message_error('','ไม่สามารถลบ'+msgType);
+          }
+        });
+      }
+      
+    });
+    
+  }
   onComplete(event:any){
     console.log(event);
     let _self = this;
     if(event.success){
-     
       _self.message_success('', event.message, function(){
         _self.setupTable();
       })
@@ -99,16 +157,23 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
   }
 
   onMemberManage(row: any){
-    this.router.navigate(['main/managements/osm/home/member',row.homeId]);
-    //location.href='main/managements/osm/home/member/1';
-  }
-  onSearchFilter(){
+    let type = row.homeTypeCode;
+    if(type=='01' || type=='02' || type=='03' || type=='04' || type=='05'){
+      this.router.navigate(['main/managements/osm/home/member',row.homeId]);
+    }else{
+      return;
+    }
     
   }
+  onSearchFilter(){
+    this.setupTable();
+  }
   onClearFilter(){
-    this.findVillageId = '';
-    this.findOsmId = '';
     this.findTypeCode = '';
+    if(this.isStaff){
+      this.findVillageId = '';
+      this.findOsmId = '';
+    }
   }
   settingColumn(){
     let _self = this;
@@ -118,9 +183,35 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
         filter: false,
         width: '120px',
       },
-      holderFullName:{
-        title: "เจ้าบ้าน",
+      homeTypeName:{
+        title: "ประเภท",
         filter: false,
+        type: "html",
+        valuePrepareFunction: (cell, row) => { 
+          let value = '';
+          let type = row.homeTypeCode;
+          if(type=='01' || type=='02' || type=='03' || type=='04' || type=='05'){
+            value = 'บ้าน';
+          }else{
+            value = cell;
+          }
+          return value;
+        }
+      },
+      holderFullName:{
+        title: "เจ้าบ้าน/ชื่อสถานที่",
+        filter: false,
+        type: "html",
+        valuePrepareFunction: (cell, row) => { 
+          let value = '';
+          let type = row.homeTypeCode;
+          if(type=='01' || type=='02' || type=='03' || type=='04' || type=='05'){
+            value = cell;
+          }else{
+            value = row.name;
+          }
+          return value;
+        }
       },
       choose:{
         title: 'จัดการสมาชิกในบ้าน',
@@ -144,22 +235,18 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
         sort: false,
         width: '100px',
         type: 'custom',
-        renderComponent: ActionCustomViewComponent,
+        renderComponent: ActionCustomViewMapsComponent,
         onComponentInitFunction(instance) {
        
-          instance.view.subscribe(row => {
-            _self.message_error('','<h3>ยังดูไม่ได้ครับ รอแป๊บ..</h3>');
+          instance.maps.subscribe(row => {
+            _self.onViewMaps(row);
            });
            instance.edit.subscribe(row => {
-            _self.bean = _self.cloneObj(row);
-            _self.onModalForm(_self.ass_action.EDIT);
+            _self.onEdit(row.homeId);
            });
            instance.delete.subscribe(row => {
-            _self.message_error('','<h3>ยังลบไม่ได้ครับ รอแป๊บ..</h3>');
+            _self.onDelelteHome(row);
            });
-          instance.action.subscribe((row, cell) => {
-            console.log(row);
-          });
         }
       }
     });

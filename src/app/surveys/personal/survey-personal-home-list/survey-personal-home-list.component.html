@@ -17,6 +17,7 @@
     <div id="panel_table_personal" class="row" *ngIf="isShowTable">
       <div class="col-md-12">
         <div class="table-responsive">
+          <div class="filter-discription" [innerHtml]="filterBean.description"></div>
           <ng2-smart-table [settings]="settings" [source]="source" (rowSelect)="onRowSelect($event)"></ng2-smart-table>
         </div>
       </div>

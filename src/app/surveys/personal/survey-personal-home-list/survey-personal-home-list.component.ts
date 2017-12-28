@@ -23,6 +23,7 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
   public homeBean: HomeBean = new HomeBean();
   public paramHome: PersonalHomeBean = new PersonalHomeBean();
   public filterRoundId: string = "";
+  public filterBean: any;
   public settings: any;
   public source: LocalDataSource;
   public isShowTable: boolean = false;
@@ -115,8 +116,8 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
   }
 
   onClickSearch(event: FilterBean) {
+    this.filterBean = event;
     let self = this;
-
     let roundId = event.roundId;
     let villageId = event.villageId;
     let osmId = event.osmId;

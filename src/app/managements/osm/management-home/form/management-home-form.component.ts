@@ -22,6 +22,7 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
   public homeTypeList: any = [];
   public disabledHomeType = false;
   public loading: boolean = false;
+  public isHome: boolean;
   constructor() { 
     super();
     this.inputValidate = new InputValidateInfo();
@@ -37,12 +38,14 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
     let _self = this;
     $('#modalForm').on('show.bs.modal', function(){
       console.log('show.bs.modal >> Action:'+_self.action);
+      _self.disabledHomeType=false;
       if(_self.action == _self.ass_action.EDIT){
-        if(_self.bean.homeTypeCode=='01'){
+        if(_self.bean.homeTypeCode=='01' || _self.bean.homeTypeCode=='02' || _self.bean.homeTypeCode=='03' || _self.bean.homeTypeCode=='04' || _self.bean.homeTypeCode=='05'){
           _self.disabledHomeType=true;
+          _self.isHome = true;
+        }else{
+          _self.isHome = false;
         }
-      }else{
-        _self.disabledHomeType=false;
       }
         
     });
@@ -57,17 +60,20 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
       _self.homeTypeList = response;
     });
   }
+  onChangeHomeTypeCode(select: any){
+    this.isHome = (select.value=='01'?true:false);
+    this.inputValidate = new InputValidateInfo();
+  }
   onSave(){
     this.inputValidate = new InputValidateInfo();
     this.inputValidate.isCheck = true;
     let simpleValidate = new SimpleValidateForm();
-    //this.bean.homeTypeCode = '01';
     
     this.bean.villageId = this.userInfo.villageId;
     this.bean.osmId = this.userInfo.personId; //'891037A9-36CF-E711-AB84-005056C00008';
     let _self = this;
     let fields = ['homeTypeCode'];
-    if(this.bean.homeTypeCode=='01'){
+    if(this.isHome){
       fields.push('registrationId', 'homeNo');
       this.bean.name = '';
     }else{
@@ -84,7 +90,13 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
         let strAction = _self.action==_self.ass_action.ADD?'เพิ่ม':'แก้ไข';
         if(response && response.status.toString().toUpperCase()=='SUCCESS'){
           $('#modalForm').modal('hide');
-          _self.success.emit({"success": true, "message": 'ทำการ'+strAction+'บ้านเลขที่ <b>' + _self.bean.homeNo + '</b> เรียบร้อย'});
+          let msg = '';
+          if(_self.isHome){
+            msg = 'ทำการ'+strAction+'บ้านเลขที่ <b>' + _self.bean.homeNo + '</b> เรียบร้อย';
+          }else{
+            msg = 'ทำการ'+strAction+' <b>' + _self.bean.name + '</b> เรียบร้อย';
+          }
+          _self.success.emit({"success": true, "message": msg});
         }else{
           let msg = '';
           if(response.response){

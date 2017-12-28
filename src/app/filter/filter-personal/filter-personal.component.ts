@@ -16,7 +16,7 @@ export class FilterPersonalComponent extends BaseComponent implements OnInit {
   public filterBean: FilterBean;
 
   // List of Data
-  public description: any = { round: '', village: 'ทั้งหมด', osm: 'ทั้งหมด', name: '' };
+  public description: any = { round: '', village: 'ทั้งหมด', osm: 'ทั้งหมด', homeNo: '', status: '' };
   public listRound: any = [];
   public listVillageNo;
   public listOsm;
@@ -50,7 +50,16 @@ export class FilterPersonalComponent extends BaseComponent implements OnInit {
     self.onSearchFilter();
   }
 
-  onChangeVillageNo() {
+  onChangeRound(select: any) {
+    let self = this;
+    for (let item of select.options) {
+      if (item.value == select.value) {
+        self.description.round = item.text;
+      }
+    }
+  }
+
+  onChangeVillageNo(select: any) {
     let self = this;
 
     self.isDisabledOSM = true;
@@ -69,16 +78,48 @@ export class FilterPersonalComponent extends BaseComponent implements OnInit {
       self.bindOSM(self.filterBean.villageId);
       self.bindHomeNo(self.filterBean.villageId, self.filterBean.osmId);
     }
+
+    let options = select.options;
+    for(let item of options){
+      if(item.value==this.filterBean.villageId){
+        this.description.village = item.text;
+        break;
+      }
+    }
   }
 
-  onChangeOSM() {
+  onChangeOSM(select: any) {
     let self = this;
-
     self.isDisabledHomeNo = true;
-
     self.bindHomeNo(self.filterBean.villageId, self.filterBean.osmId);
+
+    let options = select.options;
+    for(let item of options){
+      if(item.value==select.value){
+        this.description.osm = item.text;
+        break;
+      }
+    }
   }
 
+  onChangeHome(select:any){
+    let options = select.options;
+    for(let item of options){
+      if(item.value==select.value){
+        this.description.homeNo = item.text;
+        break;
+      }
+    }
+  }
+  onChangeStatus(select:any){
+    let options = select.options;
+    for(let item of options){
+      if(item.value==select.value){
+        this.description.status = item.text;
+        break;
+      }
+    }
+  }
   bindRound() {
     let self = this;
 
@@ -91,15 +132,6 @@ export class FilterPersonalComponent extends BaseComponent implements OnInit {
         self.description.round = currentRound.round;
         self.onSearchFilter();
       }
-
-      // for (let item of self.listRound) {
-      //   if (item.status == '2') { // รอบปัจจุบัน
-      //     self.filterBean.roundId = item.rowGUID;
-      //     self.description.round = item.round;
-      //     self.onSearchFilter();
-      //     break;
-      //   }
-      // }
     });
   }
 
@@ -131,15 +163,7 @@ export class FilterPersonalComponent extends BaseComponent implements OnInit {
     });
   }
 
-  onChangeRound(select: any) {
-    let self = this;
-
-    for (let item of select.options) {
-      if (item.value == select.value) {
-        self.description.round = item.text;
-      }
-    }
-  }
+  
 
   public getCurrentRound(listRound) {
     let self = this;
@@ -153,28 +177,42 @@ export class FilterPersonalComponent extends BaseComponent implements OnInit {
 
   onSearchFilter() {
     let self = this;
-
+    let str = '<b>ผลลัพธ์การค้นหา </b>';
+    str +='รอบสำรวจ: ' + this.description.round;
+    str += ' , หมู่บ้าน: ' + this.description.village;
+    str += ' , อสม.: ' + this.description.osm;
+    str += ' , บ้านเลขที่: ' + this.description.homeNo;
+    str += ' , สถานะ: ' + this.description.status;
+    this.filterBean.description = str;
     self.notifyFilter.emit(self.filterBean);
   }
 
   onClearFilter() {
-    let self = this;
-
-    let currentRound = self.getCurrentRound(self.listRound);
+    let currentRound = this.getCurrentRound(this.listRound);
     if (currentRound) {
-      self.filterBean.roundId = currentRound.rowGUID;
-      self.description.round = currentRound.round;
+      this.filterBean.roundId = currentRound.rowGUID;
+      this.description.round = currentRound.round;
     } else {
-      self.filterBean.roundId = "";
+      this.filterBean.roundId = "";
     }
-
-    self.filterBean.villageId = "";
-    self.filterBean.osmId = "";
-    self.filterBean.homeId = "";
-    self.filterBean.suyveyStatus = "";
-
-    self.isDisabledOSM = true;
-    self.isDisabledHomeNo = true;
+    this.description.village = '';
+    this.description.osm = '';
+    this.description.status = '';
+    this.description.homeNo = '';
+    this.filterBean.homeId = "";
+    this.filterBean.suyveyStatus = "";
+    if(this.isStaff){
+      this.filterBean.villageId = "";
+      this.filterBean.osmId = "";
+      this.isDisabledOSM = true;
+      this.isDisabledHomeNo = true;
+      
+    }else{
+      this.description.village = this.userInfo.villageName;
+      this.description.osm = this.userInfo.fullName;
+    }
+  
+    
   }
 
 }

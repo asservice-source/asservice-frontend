@@ -139,8 +139,10 @@ export class FilterHeadSurveyComponent extends BaseComponent implements OnInit {
 
   onClearFilter(){
     this.filterBean.rowGUID = this.currentDocumentId;
-    this.filterBean.villageId = '';
-    this.filterBean.osmId = '';
     this.filterBean.fullName = '';
+    if(this.isStaff){
+      this.filterBean.villageId = '';
+      this.filterBean.osmId = '' 
+    }
   }
 }
