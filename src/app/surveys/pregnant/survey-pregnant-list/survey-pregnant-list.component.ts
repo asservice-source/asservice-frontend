@@ -4,7 +4,7 @@ import { Router } from "@angular/router";
 import { FilterHeadSurveyBean } from '../../../beans/filter-head-survey.bean';
 import { BaseComponent } from "./../../../base-component";
 import { PersonBean } from "../../../beans/person.bean";
-import { ActionCustomView_2_Component } from '../../../action-custom-table/action-custom-view.component';
+import { ActionCustomViewMapsComponent } from '../../../action-custom-table/action-custom-view.component';
 import { LocalDataSource } from 'ng2-smart-table';
 import { PregnantBean } from '../../../beans/pregnant.bean'
 import { Service_SurveyPregnant } from '../../../service/service-survey-pregnant';
@@ -31,6 +31,7 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
   
   public param_pregnantBean: PregnantBean = new PregnantBean();
   public param_rowGUID: string = "";
+  public param_latLng: string = "";
 
   public settings: any;
   public source: LocalDataSource;
@@ -123,7 +124,7 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
         sort: false,
         width: '120px',
         type: 'custom',
-        renderComponent: ActionCustomView_2_Component,
+        renderComponent: ActionCustomViewMapsComponent,
         onComponentInitFunction(instance) {
 
           instance.action.subscribe((row: PregnantBean, cell) => {
@@ -136,6 +137,12 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
 
           instance.delete.subscribe(row => {
             self.onDeleteSurveyPregnant(row);
+          });
+
+          instance.maps.subscribe(row => {
+            let latLng = "16.442481, 102.808265";
+            self.param_latLng = latLng;
+            $("#modalMaps").modal("show");
           });
 
         }
