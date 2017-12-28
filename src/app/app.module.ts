@@ -6,7 +6,6 @@ import { NgModule } from '@angular/core';
 import { Ng2CompleterModule } from "ng2-completer";
 import { Ng2SmartTableModule } from "ng2-smart-table";
 import { HttpModule } from '@angular/http';
-import { AgmCoreModule } from '@agm/core';
 import 'rxjs/add/operator/map';
 
 import { AppComponent } from './app.component';
@@ -46,7 +45,7 @@ import { FilterHeadMosquitoComponent } from './filter/filter-head-mosquito/filte
 import { FilterFindPersonComponent, FilterFindPersonButtonChooseComponent } from './filter/filter-find-person/filter-find-person.component';
 import { FilterHeadSurveyComponent } from './filter/filter-head-survey/filter-head-survey.component';
 import { FilterPersonalComponent } from './filter/filter-personal/filter-personal.component';
-import { ActionCustomViewComponent, ActionCustomView_2_Component } from './action-custom-table/action-custom-view.component'
+import { ActionCustomViewComponent, ActionCustomView_2_Component, ActionCustomViewMapsComponent } from './action-custom-table/action-custom-view.component'
 import { OnlyNumberDirective } from './directives/onlynumber.directive';
 import { AutofocusDirective } from './directives/autofocus.directive';
 import { InputValidateDirective } from './directives/inputvalidate.directive';
@@ -69,6 +68,7 @@ import { UserService } from './service/user.service';
 import { CitizenIdFormatDirective } from './directives/citizenid-format.directive'
 
 import { NguiMapModule } from '@ngui/map';
+import { MapsComponent } from './maps/maps.component';
 
 @NgModule({
   declarations: [
@@ -107,6 +107,7 @@ import { NguiMapModule } from '@ngui/map';
     SurveyPatientFormComponent,
     ActionCustomViewComponent,
     ActionCustomView_2_Component,
+    ActionCustomViewMapsComponent,
     OnlyNumberDirective,
     AutofocusDirective,
     InputValidateDirective,
@@ -123,7 +124,8 @@ import { NguiMapModule } from '@ngui/map';
     ViewChildTableHomeManagement,
     ManagementHomeMemberComponent,
     ManagementHomeMemberFormComponent,
-    CitizenIdFormatDirective
+    CitizenIdFormatDirective,
+    MapsComponent
   ],
   imports: [
     BrowserModule,
@@ -135,14 +137,12 @@ import { NguiMapModule } from '@ngui/map';
     Ng2CompleterModule,
     Ng2SmartTableModule,
     MyDatePickerModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyAOwQqNjFQlk-Fi8wkwUnIQYafBVLfyobY'
-    }),
     NguiMapModule.forRoot({ apiUrl: 'https://maps.google.com/maps/api/js?key=AIzaSyBpBMthbC5-MRsz8Vga99LLlxMDibt24dc' })
   ],
   entryComponents: [
     ActionCustomViewComponent,
     ActionCustomView_2_Component,
+    ActionCustomViewMapsComponent,
     SurveyPersonalHomeListButtonEditComponent,
     SurveyPersonalMemberListButtonEditComponent,
     SelectHomeListButton,

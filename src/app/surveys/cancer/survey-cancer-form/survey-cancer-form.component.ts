@@ -123,7 +123,7 @@ export class SurveyCancerFormComponent extends BaseComponent implements OnInit, 
         this.cancerbean.patientSurveyTypeCode = "Cancer"
         this.cancerbean.cancerDate = this.getCurrentDatePickerModel();
       }
-      this.isDuplicate();
+      //this.isDuplicate();
       this.isFindPersonal = false;
       this.isShowForm = true;
   
@@ -238,51 +238,51 @@ export class SurveyCancerFormComponent extends BaseComponent implements OnInit, 
     // }
   
   
-    isDuplicate() {
-      let self = this;
-      let params = {
-        "headerTypeCode": this.code,
-        "documentId": this.documentId,
-        "personId": this.cancerbean.personId
-      };
+    // isDuplicate() {
+    //   let self = this;
+    //   let params = {
+    //     "headerTypeCode": this.code,
+    //     "documentId": this.documentId,
+    //     "personId": this.cancerbean.personId
+    //   };
   
-      console.log(JSON.stringify(params));
-      this.api.post('survey/survey_is_duplicate', params, function (resp) {
-        if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-          if (self.action != self.ass_action.EDIT) {
-            if (resp.response.isDuplicate == true) {
-              $('#find-person-md').modal('hide');
-              bootbox.alert({
-                size: "large",
-                title: "<div style='color:white;font-weight: bold;'><span class='glyphicon glyphicon-alert'></span> ไม่ถูกต้อง</div>",
-                message: "คนที่ท่านเลือกได้ทำการสำรวจไปแล้ว",
-                callback: function () {
+    //   console.log(JSON.stringify(params));
+    //   this.api.post('survey/survey_is_duplicate', params, function (resp) {
+    //     if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+    //       if (self.action != self.ass_action.EDIT) {
+    //         if (resp.response.isDuplicate == true) {
+    //           $('#find-person-md').modal('hide');
+    //           bootbox.alert({
+    //             size: "large",
+    //             title: "<div style='color:white;font-weight: bold;'><span class='glyphicon glyphicon-alert'></span> ไม่ถูกต้อง</div>",
+    //             message: "คนที่ท่านเลือกได้ทำการสำรวจไปแล้ว",
+    //             callback: function () {
   
-                }
-              });
-            }
-          }
-        }
-      })
-    }
+    //             }
+    //           });
+    //         }
+    //       }
+    //     }
+    //   })
+    // }
   
-    formatPhoneNumber() {
-      let self = this;
+    // formatPhoneNumber() {
+    //   let self = this;
   
-      if (!self.isEmpty(self.cancerbean.telephone)) {
-        let patternPhone: string = "__-____-____";
-        let patternPhone_ex: string = "-";
-        let returnText = "";
-        let obj_1: number = self.cancerbean.telephone.length;
-        let obj_2 = obj_1 - 1;
-        for (let i = 0; i < patternPhone.length; i++) {
-          if (obj_2 == i && patternPhone.charAt(i + 1) == patternPhone_ex) {
-            returnText += self.cancerbean.telephone + patternPhone_ex;
-            self.cancerbean.telephone = returnText;
-          }
-        }
-      }
-    }
+    //   if (!self.isEmpty(self.cancerbean.telephone)) {
+    //     let patternPhone: string = "__-____-____";
+    //     let patternPhone_ex: string = "-";
+    //     let returnText = "";
+    //     let obj_1: number = self.cancerbean.telephone.length;
+    //     let obj_2 = obj_1 - 1;
+    //     for (let i = 0; i < patternPhone.length; i++) {
+    //       if (obj_2 == i && patternPhone.charAt(i + 1) == patternPhone_ex) {
+    //         returnText += self.cancerbean.telephone + patternPhone_ex;
+    //         self.cancerbean.telephone = returnText;
+    //       }
+    //     }
+    //   }
+    // }
   
     formatForJson(value) {
       let pure_value = value.split("-");
@@ -312,14 +312,16 @@ export class SurveyCancerFormComponent extends BaseComponent implements OnInit, 
     let objs = simpVal.getObjectEmpty(obj, ignore);
     console.log(objs);
 
-    if (objs.length > 0) {
+    console.log(this.compareDateCurrent_DDMMYYYY(this.cancerbean.cancerDate));
+    if (objs.length > 0 || this.compareDateCurrent_DDMMYYYY(this.cancerbean.cancerDate)<0) {
       validate = false;
     } else {
-      if (this.cancerbean.telephone.length < 12) {
-        validate = false;
-      } else {
-        validate = true;
-      }
+      // if (this.patientbean.telephone.length < 12) {
+      //   validate = false;
+      // } else {
+        
+      // }
+      validate = true;
     }
 
   

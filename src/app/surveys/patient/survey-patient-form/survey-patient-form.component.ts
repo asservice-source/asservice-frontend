@@ -72,7 +72,7 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
       this.patientbean.diseaseStatusTypeId = "";
       this.patientbean.patientDate = this.getCurrentDatePickerModel();
     }
-    this.isDuplicate();
+    // this.isDuplicate();
     this.isFindPersonal = false;
     this.isShowForm = true;
 
@@ -176,6 +176,8 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
   }
 
   onChangePatientSyurvey() {
+    this.inputValidate = new InputValidateInfo();
+    // this.patientbean = new PatientBean();
     if (this.action == this.ass_action.ADD) {
       if (this.patientbean.patientSurveyTypeCode == 'Patient') {
         this.inputValidate = new InputValidateInfo();
@@ -188,26 +190,26 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
     }
   }
 
-  isDuplicate() {
-    let self = this;
-    let params = {
-      "headerTypeCode": this.code,
-      "documentId": this.documentId,
-      "personId": this.patientbean.personId
-    };
+  // isDupDuplicate() {
+  //   let self = this;
+  //   let params = {
+  //     "headerTypeCode": this.code,
+  //     "documentId": this.documentId,
+  //     "personId": this.patientbean.personId
+  //   };
 
-    console.log(JSON.stringify(params));
-    this.api.post('survey/survey_is_duplicate', params, function (resp) {
-      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-        if (self.action != self.ass_action.EDIT) {
-          if (resp.response.isDuplicate == true) {
-            $('#find-person-md').modal('hide');
-            self.message_error('', 'คนที่ท่านเลือกได้ทำการสำรวจไปแล้ว');
-          }
-        }
-      }
-    })
-  }
+  //   console.log(JSON.stringify(params));
+  //   this.api.post('survey/survey_is_duplicate', params, function (resp) {
+  //     if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+  //       if (self.action != self.ass_action.EDIT) {
+  //         if (resp.response.isDuplicate == true) {
+  //           $('#find-person-md').modal('hide');
+  //           self.message_error('', 'คนที่ท่านเลือกได้ทำการสำรวจไปแล้ว');
+  //         }
+  //       }
+  //     }
+  //   })
+  // }
 
   formatPhoneNumber() {
     let self = this;
@@ -261,8 +263,10 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
     }
     let objs = simpVal.getObjectEmpty(obj, ignore);
     console.log(objs);
-    
-    if (objs.length > 0) {
+
+
+    console.log(this.compareDateCurrent_DDMMYYYY(this.patientbean.patientDate));
+    if (objs.length > 0 || this.compareDateCurrent_DDMMYYYY(this.patientbean.patientDate)<0) {
       validate = false;
     } else {
       // if (this.patientbean.telephone.length < 12) {
@@ -336,7 +340,6 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
           })
         }
       })
-
     }
   }
 
