@@ -13,12 +13,10 @@ export class CitizenIdFormatDirective{
         let e = <KeyboardEvent> event;
         $event = ($event) ? $event : window.event;
         let charCode = ($event.which) ? $event.which : $event.keyCode;
-        if(this.maxlength < $event.target.value.length){
+        if(this.maxlength <= $event.target.value.length){
             return false;
         }
-        console.log(charCode);
         if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-            console.log('false');
             return false;
         }
         this.keypressInputCitizenID($event);
