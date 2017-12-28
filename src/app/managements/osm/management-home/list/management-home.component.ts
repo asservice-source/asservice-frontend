@@ -4,7 +4,7 @@ import { HomeBean } from '../../../../beans/home.bean';
 import { BaseComponent } from '../../../../base-component';
 import { ApiHTTPService } from '../../../../service/api-http.service';
 import { LocalDataSource } from 'ng2-smart-table';
-import { ActionCustomViewComponent } from '../../../../action-custom-table/action-custom-view.component';
+import { ActionCustomViewMapsComponent } from '../../../../action-custom-table/action-custom-view.component';
 import { Service_Home } from '../../../../service/service-home';
 import { ViewCell } from 'ng2-smart-table';
 
@@ -96,6 +96,9 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
       }
     });
     
+  }
+  onViewMaps(row: any){
+    $('#modalMaps').modal('show');
   }
   onDelelteHome(row: any){
     let _self = this;
@@ -224,11 +227,11 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
         sort: false,
         width: '100px',
         type: 'custom',
-        renderComponent: ActionCustomViewComponent,
+        renderComponent: ActionCustomViewMapsComponent,
         onComponentInitFunction(instance) {
        
-          instance.view.subscribe(row => {
-            _self.message_error('','<h3>ยังดูไม่ได้ครับ รอแป๊บ..</h3>');
+          instance.maps.subscribe(row => {
+            _self.onViewMaps(row);
            });
            instance.edit.subscribe(row => {
             _self.onEdit(row.homeId);
@@ -236,9 +239,6 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
            instance.delete.subscribe(row => {
             _self.onDelelteHome(row);
            });
-          instance.action.subscribe((row, cell) => {
-            console.log(row);
-          });
         }
       }
     });
