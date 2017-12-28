@@ -8,8 +8,9 @@ import { Marker } from '@ngui/map/dist/directives/marker';
 })
 export class MapsComponent implements OnInit {
 
-  @Input() paramLatLng: string;
-  @Input() paramInfo: string;
+  @Input() latitude: string;
+  @Input() longitude: string;
+  @Input() info: string;
 
   public zoom: number = 15;
   public center = "16.442481, 102.808265";
@@ -26,9 +27,9 @@ export class MapsComponent implements OnInit {
   }
 
   ngOnChanges() {
-    this.center = this.paramLatLng;
-    this.position = this.paramLatLng;
-    this.info_content = this.paramInfo;
+    this.center = this.getLatLong();
+    this.position = this.getLatLong();
+    this.info_content = this.info;
     // alert(this.paramLatLng);
     // alert(this.paramInfo);
   }
@@ -68,6 +69,10 @@ export class MapsComponent implements OnInit {
     // this.positions = [];
     // this.positions.push(event.latLng);
     // event.target.panTo(event.latLng);
+  }
+
+  getLatLong() {
+    return this.latitude + ',' + this.longitude;
   }
 
 }

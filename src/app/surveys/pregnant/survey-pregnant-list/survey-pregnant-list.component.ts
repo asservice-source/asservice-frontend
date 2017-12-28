@@ -22,16 +22,17 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
 
   public action: string = this.ass_action.ADD;
   public surveyTypeCode: string = "PREGNANT";
-  
+
   public current_documentId: string = "";
   public filter_documentId: string = "";
   public filter_villageId: string = "";
   public filter_osmId: string = "";
   public filter_fullName: string = "";
-  
+
   public param_pregnantBean: PregnantBean = new PregnantBean();
   public param_rowGUID: string = "";
-  public param_latLng: string = "";
+  public param_latitude: string = "";
+  public param_longitude: string = "";
   public param_info: string = "";
 
   public settings: any;
@@ -96,7 +97,7 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
         valuePrepareFunction: (cell, row) => {
           let surveyTypeCode = row.pSurveyTypeCode;
           let bornDueDate = self.displayFormatDate(row.bornDueDate);
-          if(surveyTypeCode == "Born"){
+          if (surveyTypeCode == "Born") {
             let bornDate = self.displayFormatDate(row.childs[0].birthDate);
             return '<div class="text-center">' + bornDate + '</div>';
           } else {
@@ -141,8 +142,8 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
           });
 
           instance.maps.subscribe(row => {
-            let latLng = "16.442481, 102.808265";
-            self.param_latLng = latLng;
+            self.param_latitude = "16.442481";
+            self.param_longitude = "102.808265";
             self.param_info = 'บ้านของ ' + row.fullName;
             $("#modalMaps").modal("show");
           });
