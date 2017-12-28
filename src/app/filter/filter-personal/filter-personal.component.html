@@ -4,15 +4,15 @@
     <label class="label-form">รอบสำรวจ</label>
   </div>
   <div class="col-md-4">
-    <select #round [(ngModel)]="filterBean.roundId" (change)="onChangeRound(round)">
+    <select [(ngModel)]="filterBean.roundId" #round (change)="onChangeRound(round)">
       <option *ngFor="let item of listRound" [value]="item.rowGUID">{{ item.round }}</option>
     </select>
   </div>
   <div class="col-md-1 text-right">
-    <label class="label-form">เลือกหมู่</label>
+    <label class="label-form">หมู่บ้าน</label>
   </div>
   <div class="col-md-4">
-    <select *ngIf="isStaff" name="filter-villageNo" [(ngModel)]="filterBean.villageId" (change)="onChangeVillageNo()">
+    <select *ngIf="isStaff" name="filter-villageNo" [(ngModel)]="filterBean.villageId" #village (change)="onChangeVillageNo(village)">
       <option value="">--ทั้งหมด--</option>
       <option *ngFor="let village of listVillageNo" [value]="village.id">{{ 'หมู่ที่ ' + village.villageNo + ' : ' + village.villageName }}</option>
     </select>
@@ -26,7 +26,7 @@
     <label class="label-form">ชื่อ อสม.</label>
   </div>
   <div class="col-md-4">
-    <select *ngIf="isStaff" name="filter-osmName" [(ngModel)]="filterBean.osmId" (change)="onChangeOSM()" [disabled]="isDisabledOSM">
+    <select *ngIf="isStaff" name="filter-osmName" [(ngModel)]="filterBean.osmId" #osm (change)="onChangeOSM(osm)" [disabled]="isDisabledOSM">
       <option value="">--ทั้งหมด--</option>
       <option *ngFor="let osm of listOsm" [value]="osm.personId">{{ osm.fullName }}</option>
     </select>
@@ -36,7 +36,7 @@
     <label class="label-form">บ้านเลขที่</label>
   </div>
   <div class="col-md-4">
-    <select name="filter-homeNo" [(ngModel)]="filterBean.homeId" [disabled]="isDisabledHomeNo">
+    <select name="filter-homeNo" [(ngModel)]="filterBean.homeId" #home (change)="onChangeHome(home);" [disabled]="isDisabledHomeNo">
       <option value="">--ทั้งหมด--</option>
       <option *ngFor="let home of listHomeNo" [value]="home.homeId">{{ home.homeNo }}</option>
     </select>
@@ -49,7 +49,7 @@
     <label class="label-form">สถานะ</label>
   </div>
   <div class="col-md-4">
-    <select name="filter-suyveyStatus" [(ngModel)]="filterBean.suyveyStatus">
+    <select name="filter-suyveyStatus" [(ngModel)]="filterBean.suyveyStatus" #status (change)="onChangeStatus(status);">
       <option value="">--ทั้งหมด--</option>
       <option value="0">สำรวจแล้ว</option>
       <option value="1">ยังไม่ได้สำรวจ</option>

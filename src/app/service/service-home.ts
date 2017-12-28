@@ -32,14 +32,17 @@ export class Service_Home extends ApiHTTPService{
         });
     }
 
-    public getList(villageId: string, osmId: string, callback: (doc: any) => void){
+    public getList(villageId:string, osmId:string, homeTypeCode:string, name:string, callback: (doc: any) => void){
         
         let parameter = {
+            "code5": this.baseComponent.getHospitalCode(),
             "villageId": villageId,
-            "osmId": osmId
+            "osmId": osmId,
+            "homeTypeCode": homeTypeCode,
+            "name": name,
            }
         let _self = this;
-        this.post('/home/home_list_by_village_or_osm', parameter, function(response){
+        this.post('/home/find', parameter, function(response){
             if(response && response.status.toUpperCase()=='SUCCESS'){
                 callback(response.response);
             }else{
@@ -48,24 +51,14 @@ export class Service_Home extends ApiHTTPService{
         });
     }
 
-    // public getList(villageId:string, osmId:string, homeTypeCode:string, name:string, callback: (doc: any) => void){
+    public getHomeByID(homeId:string, callback: (doc: any) => void){
+
+        this.api_HomrInfo(homeId, function(response){
+            callback(response);
+        });
         
-    //     let parameter = {
-    //         "code5": this.baseComponent.getHospitalCode(),
-    //         "villageId": villageId,
-    //         "osmId": osmId,
-    //         "homeTypeCode": homeTypeCode,
-    //         "name": name,
-    //        }
-    //     let _self = this;
-    //     this.post('/home/find', parameter, function(response){
-    //         if(response && response.status.toUpperCase()=='SUCCESS'){
-    //             callback(response.response);
-    //         }else{
-    //             _self.baseComponent.message_servNotRespond('', response.message);
-    //         }
-    //     });
-    // }
+    
+    }
 
     public commit_del(homeId: string, callback:(doc:any)=>void){
         let parameter = {"homeId": homeId};
