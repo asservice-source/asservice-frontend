@@ -3,7 +3,6 @@ import { CancerBean } from '../../../beans/cancer.bean';
 import { IMyDpOptions, IMyDateModel } from 'mydatepicker';
 import { PersonalMemberBean } from '../../../beans/personal-member.bean';
 import { BaseComponent } from '../../../base-component';
-// import { Output } from '@angular/core/src/metadata/directives';
 import { ApiHTTPService } from '../../../service/api-http.service';
 import { Http } from '@angular/http';
 import { InputValidateInfo } from '../../../directives/inputvalidate.directive';
@@ -16,54 +15,6 @@ declare var bootbox: any;
   templateUrl: './survey-cancer-form.component.html',
   styleUrls: ['./survey-cancer-form.component.css']
 })
-// export class SurveyCancerFormComponent extends BaseComponent implements OnInit {
-
-//   // @Input() action: string;
-//   // @Input() data: CancerBean;
-//   // @Input() documentId: string;
-
-//   // @Output() completed: EventEmitter<any> = new EventEmitter<any>();
-
-//   // public isFindPersonal: boolean = true;
-//   // public isShowForm: boolean = false;
-//   // public cancerbean: CancerBean;
-//   // public resetFind: number = 1;
-//   // private api: ApiHTTPService;
-//   // public healtInsuranceTypeList: any;
-//   // public surveyStatusTypeList: any;
-//   // public cancerTypeList: any;
-//   // public disabilityTypeList: any;
-//   // public disabilityTypeCause: any;
-//   // public diseaseStatusTypeList: any;
-//   // public code: string = "Cancer";
-
-
-
-
-  
-//   public member: PersonalMemberBean = new PersonalMemberBean();
-
-
-
-//   constructor() {
-//     super();
-//   }
-
-//   ngOnInit() {
-
-//   }
-
-//   showModal() {
-//     let self = this;
-//   }
-
-//   onChangeDate(event: IMyDateModel) {
-//     let self = this;
-
-//     // console.log(event);
-//     self.member.birthDate = self.getStringDateForDatePickerModel(event.date);
-//   }
-// }
 
 export class SurveyCancerFormComponent extends BaseComponent implements OnInit, AfterViewInit {
   
@@ -226,64 +177,6 @@ export class SurveyCancerFormComponent extends BaseComponent implements OnInit, 
       })
     }
   
-    // onChangeCancerSyurvey() {
-    //   if (this.action == this.ass_action.ADD) {
-    //     if (this.cancerbean.patientSurveyTypeCode == 'Cancer') {
-    //       this.cancerbean.hInsuranceTypeId = "89";
-    //     }
-    //     else {
-    //       this.cancerbean.hInsuranceTypeId = "74";
-    //     }
-    //   }
-    // }
-  
-  
-    // isDuplicate() {
-    //   let self = this;
-    //   let params = {
-    //     "headerTypeCode": this.code,
-    //     "documentId": this.documentId,
-    //     "personId": this.cancerbean.personId
-    //   };
-  
-    //   console.log(JSON.stringify(params));
-    //   this.api.post('survey/survey_is_duplicate', params, function (resp) {
-    //     if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-    //       if (self.action != self.ass_action.EDIT) {
-    //         if (resp.response.isDuplicate == true) {
-    //           $('#find-person-md').modal('hide');
-    //           bootbox.alert({
-    //             size: "large",
-    //             title: "<div style='color:white;font-weight: bold;'><span class='glyphicon glyphicon-alert'></span> ไม่ถูกต้อง</div>",
-    //             message: "คนที่ท่านเลือกได้ทำการสำรวจไปแล้ว",
-    //             callback: function () {
-  
-    //             }
-    //           });
-    //         }
-    //       }
-    //     }
-    //   })
-    // }
-  
-    // formatPhoneNumber() {
-    //   let self = this;
-  
-    //   if (!self.isEmpty(self.cancerbean.telephone)) {
-    //     let patternPhone: string = "__-____-____";
-    //     let patternPhone_ex: string = "-";
-    //     let returnText = "";
-    //     let obj_1: number = self.cancerbean.telephone.length;
-    //     let obj_2 = obj_1 - 1;
-    //     for (let i = 0; i < patternPhone.length; i++) {
-    //       if (obj_2 == i && patternPhone.charAt(i + 1) == patternPhone_ex) {
-    //         returnText += self.cancerbean.telephone + patternPhone_ex;
-    //         self.cancerbean.telephone = returnText;
-    //       }
-    //     }
-    //   }
-    // }
-  
     formatForJson(value) {
       let pure_value = value.split("-");
       let result = pure_value.join('');
@@ -383,65 +276,4 @@ export class SurveyCancerFormComponent extends BaseComponent implements OnInit, 
 
     }
   }
-  
-    // addSurvey(): void {
-    //   let self = this;
-  
-    //   if(!self.isEmpty(self.cancerbean.telephone)){
-    //     self.cancerbean.telephone = self.formatForJson(self.cancerbean.telephone);
-    //   }
-  
-    //   console.log(this.documentId);
-    //   if (this.action == this.ass_action.ADD) {
-    //     this.cancerbean.documentId = this.documentId;
-    //   }
-  
-    //   if (this.cancerbean.patientSurveyTypeCode == 'Cancer') {
-    //     this.cancerbean.disabilityTypeId = "";
-    //     this.cancerbean.disabilityCauseTypeId = "";
-    //   }
-  
-  
-    //   let obj = {
-        
-    //       "rowGUID" : this.cancerbean.rowGUID
-    //       ,"personId" : this.cancerbean.personId
-    //       ,"documentId" : this.cancerbean.documentId
-    //       ,"osmId" : this.cancerbean.osmId
-    //       ,"homeId" : this.cancerbean.homeId
-    //       ,"cancerTypeId" : this.cancerbean.cancerTypeId
-    //       ,"diseaseStatusTypeId": this.cancerbean.diseaseStatusTypeId
-    //       ,"patientDate" : this.getStringDateForDatePickerModel(this.cancerbean.cancerDate)
-    //       ,"patientSurveyTypeCode" : "Cancer"
-    //       ,"hInsuranceTypeId" : this.cancerbean.hInsuranceTypeId
-    //       , "treatmentPlace": this.cancerbean.treatmentPlace
-    //       , "remark": this.cancerbean.remark
-    //       , "telephone": this.cancerbean.telephone
-    //       , "latitude": this.cancerbean.latitude
-    //       , "longitude": this.cancerbean.longitude
-    //   };
-
-  
-    //   let params = this.strNullToEmpty(obj);
-    //   let params2 = JSON.stringify(params);
-    //   console.log(params);
-    //   console.log(params2);
-
-    //   this.api.post('survey_patient/ins_upd', params, function (resp) {
-    //     console.log(resp);
-    //     if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-    //       $("#find-person-md").modal('hide');
-    //       self.completed.emit(true);
-    //       bootbox.alert({
-    //         size: "large",
-    //         title: "<div style='color:#5cb85c;font-weight: bold;'><span class='glyphicon glyphicon-ok'></span> ส่งแบบสำรวจสำเร็จ</div>",
-    //         message: "ท่านได้ทำการส่งแบบสำรวจความเสี่ยงโรค Metabolic แล้ว",
-    //         callback: function () {
-    //         }
-    //       });
-    //     }
-    //   })
-  
-    // }
-  
   }
