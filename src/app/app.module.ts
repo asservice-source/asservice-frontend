@@ -46,7 +46,7 @@ import { FilterHeadMosquitoComponent } from './filter/filter-head-mosquito/filte
 import { FilterFindPersonComponent, FilterFindPersonButtonChooseComponent } from './filter/filter-find-person/filter-find-person.component';
 import { FilterHeadSurveyComponent } from './filter/filter-head-survey/filter-head-survey.component';
 import { FilterPersonalComponent } from './filter/filter-personal/filter-personal.component';
-import { ActionCustomViewComponent, ActionCustomView_2_Component } from './action-custom-table/action-custom-view.component'
+import { ActionCustomViewComponent, ActionCustomView_2_Component, ActionCustomViewMapsComponent } from './action-custom-table/action-custom-view.component'
 import { OnlyNumberDirective } from './directives/onlynumber.directive';
 import { AutofocusDirective } from './directives/autofocus.directive';
 import { InputValidateDirective } from './directives/inputvalidate.directive';
@@ -69,6 +69,7 @@ import { UserService } from './service/user.service';
 import { CitizenIdFormatDirective } from './directives/citizenid-format.directive'
 
 import { NguiMapModule } from '@ngui/map';
+import { MapsComponent } from './maps/maps.component';
 
 @NgModule({
   declarations: [
@@ -107,6 +108,7 @@ import { NguiMapModule } from '@ngui/map';
     SurveyPatientFormComponent,
     ActionCustomViewComponent,
     ActionCustomView_2_Component,
+    ActionCustomViewMapsComponent,
     OnlyNumberDirective,
     AutofocusDirective,
     InputValidateDirective,
@@ -123,7 +125,8 @@ import { NguiMapModule } from '@ngui/map';
     ViewChildTableHomeManagement,
     ManagementHomeMemberComponent,
     ManagementHomeMemberFormComponent,
-    CitizenIdFormatDirective
+    CitizenIdFormatDirective,
+    MapsComponent
   ],
   imports: [
     BrowserModule,
@@ -143,6 +146,7 @@ import { NguiMapModule } from '@ngui/map';
   entryComponents: [
     ActionCustomViewComponent,
     ActionCustomView_2_Component,
+    ActionCustomViewMapsComponent,
     SurveyPersonalHomeListButtonEditComponent,
     SurveyPersonalMemberListButtonEditComponent,
     SelectHomeListButton,
