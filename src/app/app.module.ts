@@ -6,7 +6,6 @@ import { NgModule } from '@angular/core';
 import { Ng2CompleterModule } from "ng2-completer";
 import { Ng2SmartTableModule } from "ng2-smart-table";
 import { HttpModule } from '@angular/http';
-import { AgmCoreModule } from '@agm/core';
 import 'rxjs/add/operator/map';
 
 import { AppComponent } from './app.component';
@@ -138,9 +137,6 @@ import { MapsComponent } from './maps/maps.component';
     Ng2CompleterModule,
     Ng2SmartTableModule,
     MyDatePickerModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyAOwQqNjFQlk-Fi8wkwUnIQYafBVLfyobY'
-    }),
     NguiMapModule.forRoot({ apiUrl: 'https://maps.google.com/maps/api/js?key=AIzaSyBpBMthbC5-MRsz8Vga99LLlxMDibt24dc' })
   ],
   entryComponents: [

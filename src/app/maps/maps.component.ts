@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Marker } from '@ngui/map/dist/directives/marker';
 
 @Component({
   selector: 'app-maps',
@@ -7,22 +8,47 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class MapsComponent implements OnInit {
 
-  @Input() LatLng: string;
+  @Input() paramLatLng: string;
+  @Input() paramInfo: string;
 
-  public zoom: number = 11;
+  public zoom: number = 15;
   public center = "16.442481, 102.808265";
-  public positions: any = [];
+  public position = "16.442481, 102.808265";
+  public info_content = "";
+  // public positions: any = [];
 
-  constructor() { }
+  constructor() {
+
+  }
 
   ngOnInit() {
+
+  }
+
+  ngOnChanges() {
+    this.center = this.paramLatLng;
+    this.position = this.paramLatLng;
+    this.info_content = this.paramInfo;
+    // alert(this.paramLatLng);
+    // alert(this.paramInfo);
   }
 
   onMapReady(map) {
     console.log('map', map);
     console.log('markers', map.markers);  // to get all markers as an array 
-    this.positions.push(this.LatLng);
-    console.log('positions', this.positions);
+
+    // this.positions.push(this.param_latLng);
+    // console.log('positions', this.positions);
+    // this.marker = { display: true, lat: 16.442481, lng: 102.808265, };
+
+    // if (map.markers) {
+    //   for (let m of map.markers) {
+    //     this.marker.lat = m.getPosition().lat();
+    //     this.marker.lng = m.getPosition().lng();
+
+    //     m.nguiMapComponent.openInfoWindow('iw', m);
+    //   }
+    // }
   }
 
   onIdle(event) {
@@ -31,6 +57,10 @@ export class MapsComponent implements OnInit {
 
   onMarkerInit(marker) {
     console.log('marker', marker);
+
+    setTimeout(function () {
+      marker.nguiMapComponent.openInfoWindow('iw', marker);
+    }, 2000);
   }
 
   onMapClick(event) {

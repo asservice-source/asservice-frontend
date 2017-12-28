@@ -32,6 +32,7 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
   public param_pregnantBean: PregnantBean = new PregnantBean();
   public param_rowGUID: string = "";
   public param_latLng: string = "";
+  public param_info: string = "";
 
   public settings: any;
   public source: LocalDataSource;
@@ -142,6 +143,7 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
           instance.maps.subscribe(row => {
             let latLng = "16.442481, 102.808265";
             self.param_latLng = latLng;
+            self.param_info = 'บ้านของ ' + row.fullName;
             $("#modalMaps").modal("show");
           });
 
