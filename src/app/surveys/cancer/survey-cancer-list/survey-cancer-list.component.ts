@@ -32,7 +32,7 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
   public datas: any = [];
   public filtersearch: FilterHeadSurveyBean;
   public documentId: string;
-  public loading : boolean;
+  public loading: boolean;
 
   mStatusNo = 0;
   isDisable = true;
@@ -40,7 +40,7 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
   private apiHttp: ApiHTTPService = new ApiHTTPService();
   private paramHomeId: string;
 
-  
+
   public isShowTable: boolean = false;
   public tempData: Array<any> = [];
 
@@ -56,22 +56,37 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
         title: 'ชื่อ-สกุล',
         filter: false,
       },
-      age: {
-        title: 'อายุ',
+      citizenId: {
+        title: 'เลขประจำตัวประชาชน',
         filter: false,
+        width: '200px',
         type: 'html',
         valuePrepareFunction: (cell, row) => {
-          return '<div class="text-center">' + cell + '</div>';
+          return '<div class="text-center">' + cell + '</div>'
         }
       },
       cancerTypeName: {
         title: 'ชนิดของมะเร็ง',
         filter: false,
+        type: 'html',
+        valuePrepareFunction: (cell, row) => {
+          return '<div class="wrap-text" title="' + cell + '">' + this.displaySubstring(cell) + '</div>'
+        }
       },
-      telephone: {
-        title: 'เบอร์ติดต่อ',
+      genderName: {
+        title: 'เพศ',
+        filter: false,
+        width: '70px',
+        type: 'html',
+        valuePrepareFunction: (cell, row) => {
+          return '<div class="text-center">' + cell + '</div>'
+        }
+      },
+      age: {
+        title: 'อายุ',
         filter: false,
         type: 'html',
+        width: '60px',
         valuePrepareFunction: (cell, row) => {
           return '<div class="text-center">' + cell + '</div>';
         }
@@ -80,6 +95,7 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
         title: 'สถานะ',
         filter: false,
         type: 'html',
+        width: '120px',
         valuePrepareFunction: (cell, row) => {
           return '<div class="text-center">' + cell + '</div>';
         }
@@ -90,23 +106,18 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
         type: 'custom',
         renderComponent: ActionCustomView_2_Component,
         onComponentInitFunction(instance) {
-          instance.action.subscribe((row: CancerBean) => {
-            
-            $("#modalCancer").modal({ backdrop: 'static', keyboard: false });
-          });
-
           instance.edit.subscribe((row: CancerBean, cell) => {
             self.cancerbean = self.cloneObj(row);
             self.onModalFrom(self.ass_action.EDIT);
-        });
-
-        instance.delete.subscribe((row: CancerBean, cell) => {
-          self.message_comfirm("", "ต้องการยกเลิกการทำรายการสำรวจของ : " + row.fullName + " ใช่หรือไม่", function (resp) {
-            if (resp) {
-              self.actionDelete(row.rowGUID);
-            }
           });
-         });
+
+          instance.delete.subscribe((row: CancerBean, cell) => {
+            self.message_comfirm("", "ต้องการยกเลิกการทำรายการสำรวจของ " + row.fullName + " ใช่หรือไม่", function (resp) {
+              if (resp) {
+                self.actionDelete(row.rowGUID);
+              }
+            });
+          });
         }
       }
     });
@@ -114,53 +125,60 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
 
 
   ngOnInit(): void {
-    
+
   }
   onChangeFilter(event: FilterHeadSurveyBean) {
     console.log("ChangeFilter");
     //this.isShowList = false;
   }
-  loadData(event: FilterHeadSurveyBean){
+  loadData(event: FilterHeadSurveyBean) {
     let self = this;
     let param = {
       "documentId": event.rowGUID,
       "villageId": event.villageId,
       "osmId": event.osmId,
       "name": event.fullName,
-      "rowGUID": ""
     };
     let params = JSON.stringify(param);
     this.loading = true;
     this.api.post('survey_patient/filter', params, function (resp) {
-      console.log("loadData ==== " + resp.status);
       self.loading = false;
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-        self.datas = [];
-        console.log(resp);
-        for (let item of resp.response) {
-          console.log("dataCancer2 ____________ " + item.patientSurveyTypeCode);
-          if (item.patientSurveyTypeCode == 'Cancer') {          
-            self.datas.push(item);
-          } 
-        }
+        self.datas = resp.response;
+        console.log(resp.response);
+        // for (let item of resp.response) {
+        //   if (item.patientSurveyTypeCode == 'Cancer') {          
+        //     self.datas.push(item);
+        //   } 
+        // }
         self.setUpTable();
-        self.changeRef.detectChanges();
       }
+      self.changeRef.detectChanges();
     })
   }
 
   setUpTable() {
-    this.source = new LocalDataSource(this.datas);
+    // this.source = new LocalDataSource(this.datas);
+    // this.isShowList = true;
+    // super.setNg2STDatasource(this.source);
+    this.source = this.ng2STDatasource(this.datas);
     this.isShowList = true;
-    super.setNg2STDatasource(this.source);
   }
 
- 
+
 
   onModalFrom(action: string) {
+    // this.action = action;
+    // this.changeRef.detectChanges();
+    // $('#find-person-md').modal('show');
     this.action = action;
-    this.changeRef.detectChanges();
-    $('#find-person-md').modal('show');
+    if (action == this.ass_action.EDIT) {
+      this.getSurveyData(this.cancerbean.rowGUID);
+    } else {
+      this.changeRef.detectChanges();
+      $('#find-person-md').modal('show');
+    }
+
   }
 
   onSearch(event: FilterHeadSurveyBean) {
@@ -208,6 +226,31 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
     })
   }
 
-  
+  displaySubstring(string: string) {
+    let strValue;
+    if (string.length > 25) {
+      strValue = string.substring(0, 25) + '...';
+    } else {
+      strValue = string;
+    }
+    return strValue;
+  }
+
+  getSurveyData(rowGUID) {
+    let self = this;
+    let param = {
+      "rowGUID": rowGUID
+    }
+    self.loading = true;
+    this.api.post('survey_patient/patient_by_rowguid', param, function (resp) {
+      self.loading = false;
+      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+        self.cancerbean = resp.response;
+        self.changeRef.detectChanges();
+        $('#find-person-md').modal('show');
+      }
+    })
+  }
+
 }
 

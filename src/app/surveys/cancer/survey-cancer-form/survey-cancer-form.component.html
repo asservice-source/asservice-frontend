@@ -19,7 +19,7 @@
                                 <dt>ชื่อ-สกุล : </dt>
                                 <dd>{{ cancerbean.fullName }}</dd>
                                 <dt>เพศ : </dt>
-                                <dd>{{ cancerbean.gender }}</dd>
+                                <dd>{{ cancerbean.genderName }}</dd>
                                 <dt>อายุ : </dt>
                                 <dd>{{ cancerbean.age }}</dd>
                                 <dt>ที่อยู่ : </dt>
@@ -58,13 +58,16 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row" style="padding-bottom: 0px">
                     <div class="col-md-2 text-right">
                         <label class="label-form">วันที่ป่วย</label>
                     </div>
 
-                    <div class="col-md-3" style="height: 27px;">
-                        <my-date-picker [options]="datePickerOptions" [(ngModel)]="cancerbean.cancerDate" required></my-date-picker>
+                    <div class="col-md-3">
+                        <div [InputValidate]="inputValidate" BirthDate="BirthDate">
+                            <my-date-picker [options]="datePickerOptions" [(ngModel)]="cancerbean.cancerDate" required></my-date-picker>
+                            <label style="margin-top:-5px" class="error">กรุณาใส่วันที่ให้ถูกต้อง</label>
+                        </div>
                     </div>
 
                     <div class="col-md-2 text-right">
@@ -84,7 +87,7 @@
                     </div>
                     <div class="col-md-3">
                         <div [InputValidate]="inputValidate" [fixLength]="12">
-                            <input type="text" [(ngModel)]="cancerbean.telephone" (keypress)="formatPhoneNumber()" maxlength="12" [OnlyNumber]="true">
+                            <input type="text" [(ngModel)]="cancerbean.telephone" maxlength="50">
                             <label class="error">กรุณาใส่หมายเลขโทรศัพท์</label>
                         </div>
                     </div>

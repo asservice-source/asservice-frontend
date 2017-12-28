@@ -54,7 +54,6 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
       remark: {
         title: 'สาเหตุความพิการ/ป่วย',
         filter: false,
-        // width: '190px',
         type: 'html',
         valuePrepareFunction: (cell, row) => {
           return '<div class="wrap-text" title="' + cell + '">' + this.displaySubstring(cell) + '</div>'
@@ -95,7 +94,6 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
         type: 'custom',
         renderComponent: ActionCustomView_2_Component,
         onComponentInitFunction(instance) {
-
           instance.edit.subscribe((row: PatientBean, cell) => {
             self.patientbean = self.cloneObj(row);
             self.onModalFrom(self.ass_action.EDIT);
@@ -136,7 +134,6 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
       "villageId": event.villageId,
       "osmId": event.osmId,
       "name": event.fullName,
-      "rowGUID": ""
     };
     let params = JSON.stringify(param);
     console.log(params);
@@ -144,12 +141,14 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
     this.api.post('survey_patient/filter', params, function (resp) {
       self.loading = false;
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-        self.datas = [];
-        for (let item of resp.response) {
-          if (item.patientSurveyTypeCode != 'Cancer') {
-            self.datas.push(item);
-          }
-        }
+        self.datas = resp.response
+        // for (let item of resp.response) {
+        //   if (item.patientSurveyTypeCode != 'Cancer') {
+        //     self.datas.push(item);
+        //   }
+        // }
+        // console.log("==============================================");
+        console.log(self.datas);
         self.setUpTable();
       }
       self.changeRef.detectChanges();
@@ -165,9 +164,11 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
   }
 
   setUpTable() {
-    this.source = new LocalDataSource(this.datas);
+    // this.source = new LocalDataSource(this.datas);
+    // this.isShowList = true;
+    // super.setNg2STDatasource(this.source);
+    this.source = this.ng2STDatasource(this.datas);
     this.isShowList = true;
-    super.setNg2STDatasource(this.source);
   }
 
   onModalFrom(action: string) {

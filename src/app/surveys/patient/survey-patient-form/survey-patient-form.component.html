@@ -93,7 +93,7 @@
                         <div class="col-md-3">
                             <div [InputValidate]="inputValidate" BirthDate="BirthDate">
                                 <my-date-picker [options]="datePickerOptions" [(ngModel)]="patientbean.patientDate" required></my-date-picker>
-                                <label class="error">กรุณาใส่วันที่ให้ถูกต้อง</label>
+                                <label style="margin-top:-5px" class="error">กรุณาใส่วันที่ให้ถูกต้อง</label>
                             </div>
                         </div>
                     </div>
@@ -129,7 +129,7 @@
                         </div>
                         <div class="col-md-3">
                             <div [InputValidate]="inputValidate">
-                                <input type="text" [(ngModel)]="patientbean.telephone" maxlength="50" [OnlyNumber]="true">
+                                <input type="text" [(ngModel)]="patientbean.telephone" maxlength="50">
                                 <label class="error">กรุณาใส่เบอร์โทรศัพท์</label>
                             </div>
                         </div>
@@ -211,7 +211,7 @@
                         <div class="col-md-3">
                             <div [InputValidate]="inputValidate" BirthDate="BirthDate">
                                 <my-date-picker [options]="datePickerOptions" [(ngModel)]="patientbean.patientDate" required></my-date-picker>
-                                <label class="error">กรุณาใส่วันที่ให้ถูกต้อง</label>
+                                <label style="margin-top:-5px" class="error">กรุณาใส่วันที่ให้ถูกต้อง</label>
                             </div>
                         </div>
 
@@ -248,7 +248,7 @@
                         </div>
                         <div class="col-md-3">
                             <div [InputValidate]="inputValidate">
-                                <input type="text" [(ngModel)]="patientbean.telephone" maxlength="50" [OnlyNumber]="true">
+                                <input type="text" [(ngModel)]="patientbean.telephone" maxlength="50" >
                                 <label class="error">กรุณาใส่เบอร์โทรศัพท์</label>
                             </div>
                         </div>
