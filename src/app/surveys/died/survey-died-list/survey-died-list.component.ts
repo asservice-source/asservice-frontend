@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { BaseComponent } from "../../../base-component";
 import { ApiHTTPService } from "../../../service/api-http.service";
-import { ActionCustomViewComponent } from '../../../action-custom-table/action-custom-view.component';
+import { ActionCustomView_2_Component } from '../../../action-custom-table/action-custom-view.component';
 import { FilterHeadSurveyBean } from '../../../beans/filter-head-survey.bean';
 import { DeadBean } from '../../../beans/dead.bean';
 import { LocalDataSource } from 'ng2-smart-table';
@@ -76,14 +76,8 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
         sort: false,
         width: '100px',
         type: 'custom',
-        renderComponent: ActionCustomViewComponent,
+        renderComponent: ActionCustomView_2_Component,
         onComponentInitFunction(instance) {
-
-          instance.view.subscribe(row => {
-            self.bean = self.cloneObj(row);
-            self.onModalForm(self.ass_action.EDIT);
-          });
-
           instance.edit.subscribe(row => {
             self.bean = self.cloneObj(row);
             self.onModalForm(self.ass_action.EDIT);

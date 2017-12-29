@@ -32,28 +32,34 @@ export class Service_UserStaffAndOSM extends ApiHTTPService{
 
    public commit_save(isStaff:boolean, bean: PersonalBasicBean, callback: (doc: any) => void){
         let parameter = this.baseComponent.strNullToEmpty(this.map(isStaff, bean));
-        this.post('user/insert_update', parameter , function(response){
-            callback(response);
+        this.post('user/insert_update', parameter , function(resp){
+            callback(resp);
         });
     } 
 
+    public getUserById(userId: string, callback: (doc: any) => void){
+        let parameter = {"userId": userId};
+        this.post('user/info', parameter, function(resp){
+            callback(resp);
+        });
+    }
     public commit_del(userId: string, callback: (doc: any)=>void){
         let parameter = {"deleteId": userId};
-        this.post('user/insert_update', parameter, function(response){
-            callback(response);
+        this.post('user/insert_update', parameter, function(resp){
+            callback(resp);
         });
     }
     public osm_findList(name: string, villageId: string, callback:(doc: any) => void): any{
         let parameter = {"name": name, "villageId": villageId, "code5": this.baseComponent.getHospitalCode()};
-        this.callResponse('/user/find/osm', parameter, function(response){
-            callback(response);
+        this.callResponse('/user/find/osm', parameter, function(resp){
+            callback(resp);
         });
     }
 
     public staff_findList(name: string, callback:(doc: any) => void): any{
         let parameter = {"name": name, "code5": this.baseComponent.getHospitalCode()};
-        this.callResponse('/user/find/staff', parameter, function(response){
-            callback(response);
+        this.callResponse('/user/find/staff', parameter, function(resp){
+            callback(resp);
         });
     }
     

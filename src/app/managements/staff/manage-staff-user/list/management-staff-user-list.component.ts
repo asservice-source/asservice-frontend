@@ -30,7 +30,6 @@ export class ManagementStaffUserListComponent extends BaseComponent implements O
   public isStaff: boolean= false;
   public titlePanel: string = '';
   public loading: boolean = false;
-  private tempBean: StaffUserBean;
 
   constructor(private element: ElementRef,private activatedRoute: ActivatedRoute, private detectChange: ChangeDetectorRef) { 
     super();
@@ -82,9 +81,7 @@ export class ManagementStaffUserListComponent extends BaseComponent implements O
            renderComponent: ActionCustomView_2_Component,
            onComponentInitFunction(instance) {
               instance.edit.subscribe(row => {
-                _self.tempBean = row;
-                _self.bean = _self.cloneObj(row);
-                _self.onModalForm(_self.ass_action.EDIT);
+                _self.onClickEdit(row);
               });
               instance.delete.subscribe(row => {
                 _self.onClickDelete(row);
@@ -150,6 +147,20 @@ export class ManagementStaffUserListComponent extends BaseComponent implements O
   }
   onClickAdd(){
     this.onModalForm(this.ass_action.ADD);
+  }
+  onClickEdit(row: any){
+    let _self = this;
+    _self.loading = true;
+    _self.api.getUserById(row.userId, function(resp){
+      _self.loading = false;
+      let response = resp.response;
+      if(response && resp.status.toUpperCase()=='SUCCESS'){
+        _self.bean = row;
+        _self.onModalForm(_self.ass_action.EDIT);
+      }else{
+        _self.message_servNotRespond('', resp.status + ' : ' + resp.message);
+      }
+    });
   }
   onClickDelete(row:any): any{
     let _self = this;

@@ -116,8 +116,7 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
   bindModal(){
     let _self = this;
     $('#modal-management-home-member-form').on('show.bs.modal', function(){
-      console.log(">>>>>>");
-      console.log(_self.action);
+      
       // reset validate error class
       _self.msgError_BirthDate = 'กรุณาเลือก วัน/เดือน/ปี เกิด';
       $('#is-guest-error').hide();
@@ -125,7 +124,8 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
       _self.msgError_CitizenId = _self.msgError_CitizenIdEmty;
       _self.bean.dischargeId = _self.bean.dischargeId || '9';
       //---
-      if(_self.action == _self.ass_action.ADD){
+      if(_self.isEmpty(_self.bean.personId)){
+        _self.action = _self.ass_action.ADD
         _self.actionName = 'เพิ่ม';
         _self.isVerify = false;
         _self.modelBirthDate = null;
@@ -137,6 +137,7 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
         _self.bean.raceCode = '099';
         //---
       }else{
+        _self.action = _self.ass_action.EDIT;
         _self.actionName = 'แก้ไข';
         _self.isVerify = true;
         _self.oldCitizenId = _self.bean.citizenId;
@@ -144,9 +145,7 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
         _self.setupAmphur();
         _self.setupTumbol();
       }
-      _self.strNullToEmpty(_self.bean);
-      console.log(_self.bean);
-      console.log(_self.modelBirthDate);
+      _self.bean = _self.strNullToEmpty(_self.bean);
 
     });
   }
