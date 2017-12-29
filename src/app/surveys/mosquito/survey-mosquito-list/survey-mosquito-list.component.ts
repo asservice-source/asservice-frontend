@@ -46,28 +46,37 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
         filter: false,
         type:'html'
       },
+      address: {
+        title: 'ที่อยู่',
+        filter: false,
+        width: '340px',
+        type:'html',
+        valuePrepareFunction: (cell, row) => {
+          return '<div class="wrap-text" title="' + cell + '">' + this.displaySubstring(cell) + '</div>'
+        }
+      },
       homeTypeName: {
         title: 'ประเภท',
         filter: false,
-        width: '180px',
+        width: '100px',
         type:'html',
         valuePrepareFunction: (cell, row) => { 
           return '<div class="text-center">'+cell+'</div>'
         }
       },
       totalSurvey: {
-        title: 'ภาชนะที่สำรวจ',
+        title: 'จำนวนสำรวจ',
         filter: false,
-        width: '150px',
+        width: '120px',
         type:'html',
         valuePrepareFunction: (cell, row) => { 
           return '<div class="text-center">'+this.formatNumber(cell)+'</div>'
         }
       },
       totalDetect: {
-        title: 'ภาชนะที่พบ',
+        title: 'จำนวนพบ',
         filter: false,
-        width: '150px',
+        width: '100px',
         type:'html',
         valuePrepareFunction: (cell, row) => { 
           return '<div class="text-center">'+this.formatNumber(cell)+'</div>'
@@ -206,6 +215,16 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
         })
       }
     })
+  }
+
+  displaySubstring(string: string) {
+    let strValue;
+    if (string.length > 50) {
+      strValue = string.substring(0, 50) + '...';
+    } else {
+      strValue = string;
+    }
+    return strValue;
   }
 
 }
