@@ -123,7 +123,6 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
     });
   }
 
-
   ngOnInit(): void {
 
   }
@@ -146,11 +145,6 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.datas = resp.response;
         console.log(resp.response);
-        // for (let item of resp.response) {
-        //   if (item.patientSurveyTypeCode == 'Cancer') {          
-        //     self.datas.push(item);
-        //   } 
-        // }
         self.setUpTable();
       }
       self.changeRef.detectChanges();
@@ -158,9 +152,6 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
   }
 
   setUpTable() {
-    // this.source = new LocalDataSource(this.datas);
-    // this.isShowList = true;
-    // super.setNg2STDatasource(this.source);
     this.source = this.ng2STDatasource(this.datas);
     this.isShowList = true;
   }
@@ -168,9 +159,6 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
 
 
   onModalFrom(action: string) {
-    // this.action = action;
-    // this.changeRef.detectChanges();
-    // $('#find-person-md').modal('show');
     this.action = action;
     if (action == this.ass_action.EDIT) {
       this.getSurveyData(this.cancerbean.rowGUID);
