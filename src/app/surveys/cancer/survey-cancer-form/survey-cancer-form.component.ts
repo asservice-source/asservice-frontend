@@ -94,7 +94,7 @@ export class SurveyCancerFormComponent extends BaseComponent implements OnInit, 
         self.inputValidate = new InputValidateInfo();
         self.resetFind = self.resetFind + 1;
         if (self.action == self.ass_action.EDIT) {
-          self.data.telephone = self.formatPhoneToDisplay(self.data.telephone);
+          //self.data.telephone = self.formatPhoneToDisplay(self.data.telephone);
           self.data.cancerDate = self.getCurrentDatePickerModel(self.data.cancerDate);
           self.onChoosePersonal(self.data);
         }
@@ -177,20 +177,19 @@ export class SurveyCancerFormComponent extends BaseComponent implements OnInit, 
       })
     }
   
-    formatForJson(value) {
-      let pure_value = value.split("-");
-      let result = pure_value.join('');
-      return result;
-    }
+    // formatForJson(value) {
+    //   let pure_value = value.split("-");
+    //   let result = pure_value.join('');
+    //   return result;
+    // }
   
   
-    formatPhoneToDisplay(phone): string{
-      // if(this.isEmpty(phone) && phone.length==10) return phone;
-      if(!this.isEmpty(phone)){
-      let arr = phone.split('');
-      return arr[0]+arr[1]+'-'+arr[2]+arr[3]+arr[4]+arr[5]+'-'+arr[6]+arr[7]+arr[8]+arr[9];
-      }
-  }
+  //   formatPhoneToDisplay(phone): string{
+  //     if(!this.isEmpty(phone)){
+  //     let arr = phone.split('');
+  //     return arr[0]+arr[1]+'-'+arr[2]+arr[3]+arr[4]+arr[5]+'-'+arr[6]+arr[7]+arr[8]+arr[9];
+  //     }
+  // }
 
   validate(obj: any): boolean {
     let validate = true;
@@ -252,9 +251,9 @@ export class SurveyCancerFormComponent extends BaseComponent implements OnInit, 
     };
 
     if (this.validate(obj)) {
-      if (!self.isEmpty(obj["telephone"])) {
-        obj["telephone"] = self.formatForJson(obj["telephone"]);
-      }
+      // if (!self.isEmpty(obj["telephone"])) {
+      //   obj["telephone"] = self.formatForJson(obj["telephone"]);
+      // }
       let params = this.strNullToEmpty(obj);
       console.log(params);
 
