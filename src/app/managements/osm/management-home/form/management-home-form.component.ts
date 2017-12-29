@@ -37,7 +37,6 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
   bindModalForm(){
     let _self = this;
     $('#modalForm').on('show.bs.modal', function(){
-      console.log('show.bs.modal >> Action:'+_self.action);
       _self.disabledHomeType=false;
       if(_self.action == _self.ass_action.EDIT){
         if(_self.bean.homeTypeCode=='01' || _self.bean.homeTypeCode=='02' || _self.bean.homeTypeCode=='03' || _self.bean.homeTypeCode=='04' || _self.bean.homeTypeCode=='05'){
@@ -50,7 +49,6 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
         
     });
     $('#modalForm').on('hidden.bs.modal', function(){
-      console.log('hidden.bs.modal');
       _self.inputValidate = new InputValidateInfo();
     });
   }
@@ -84,7 +82,6 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
     if(_self.bean.homeTypeCode=='01' && _self.bean.registrationId.trim().length!=11){
       arr.push('registrationId');
     }
-    console.log(arr);
     if(arr.length<=0){
       _self.api.commit_save(_self.bean, function(response){
         let strAction = _self.action==_self.ass_action.ADD?'เพิ่ม':'แก้ไข';

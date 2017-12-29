@@ -214,7 +214,6 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
         ignores.push('villageId');
       }
       let arr = valid.getObjectEmpty(this.api.map(this.isStaff,this.bean),ignores);
-      console.log(arr);
       if(arr.length<=0){
         let _self = this;
         if(_self.getYearDiff(_self.mBirthDate.date.year) < 15){

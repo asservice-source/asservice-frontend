@@ -85,7 +85,6 @@ export class ManagementHomeMemberComponent extends BaseComponent implements OnIn
            });
            instance.edit.subscribe(row => {
             _self.bean = _self.cloneObj(row);
-            console.log(_self.bean);
             _self.onModalShow(_self.ass_action.EDIT);
            });
            instance.delete.subscribe(row => {
