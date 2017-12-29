@@ -95,7 +95,6 @@ export class ManagementStaffUserListComponent extends BaseComponent implements O
 
       this.titlePanel = 'การจัดการ เจ้าหน้าที่';
       let roleName = params['roleName'];
-      console.log("roleName >>> " + roleName);
       if('staff'==roleName){
         this.isStaff = true;
         this.titlePanel += " รพ.สต.";
@@ -203,7 +202,6 @@ export class ManagementStaffUserListComponent extends BaseComponent implements O
       this.bean.isActive = true;
     }
     this.action = action;
-    console.log("CCCCCCCCCCCC . ."+this.action);
     
     this.detectChange.detectChanges();
     $('#modalForm').modal('show');

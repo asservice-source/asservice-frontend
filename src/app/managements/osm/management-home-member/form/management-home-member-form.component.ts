@@ -94,11 +94,9 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
     });
     _self.api.api_BloodTypeList(function(response){
       _self.bloodTypeList = response;
-      console.log(response);
     });
     _self.api.api_RHGroupList(function(response){
       _self.rhGroupList = response;
-      console.log(response);
     });
     _self.api.api_EducationList(function(response){
       _self.educationList = response;
@@ -265,7 +263,6 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
   
                   _self.setDatePickerModel();
                   _self.oldCitizenId = _self.bean.citizenId;
-                  console.log(_self.bean);
                 }else{
                   _self.isVerify = false;
                 }
@@ -308,13 +305,10 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
         this.bean.amphurCode = this.address.amphurCode;
         this.bean.provinceCode = this.address.provinceCode;
       }
-      console.log('>>> Bean Before Save <<<');
-      console.log(this.bean);
       let objsEmpty: Array<string> = simpValidate.getObjectEmpty_byFilds(this.api.map(this.bean), fildsCheck);
       if(objsEmpty.indexOf('isGuest')>=0){
         $('#is-guest-error').show();
       }
-      console.log(objsEmpty);
       if(!this.isBirthDate){
         this.msgError_BirthDate = 'วัน/เดือน/ปี เกิดไม่ถูกต้อง';
         return;
