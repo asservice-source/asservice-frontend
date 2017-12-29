@@ -14,9 +14,9 @@ export class OnlyNumberDirective {
     let e = <KeyboardEvent> event;
     event = (event) ? event : window.event;
     let charCode = (event.which) ? event.which : event.keyCode;
-    if(event.target.value.length<=0 && charCode==48){
-      return false;
-    }
+    // if(event.target.value.length<=0 && charCode==48){
+    //   return false;
+    // }
     if (charCode > 31 && (charCode < 48 || charCode > 57)) {
       return false;
     }
