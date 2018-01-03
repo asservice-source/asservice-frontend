@@ -27,11 +27,17 @@ export class ManagementHomeMemberComponent extends BaseComponent implements OnIn
   public homeId: string;
   public address: Address;
   public loading: boolean = false;
+  public isStaff: boolean;
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private changeRef: ChangeDetectorRef) { 
     super();
     this.bean = new PersonalBasicBean();
     this.api = new Service_HomeMember();
     this.address = new Address();
+    if(this.isStaffRole(this.userInfo.roleId)){
+      this.isStaff = true;
+    }else{
+      this.isStaff = false;
+    }
     let _self = this;
     this.settings = this.getTableSetting({
       fullName: {
@@ -159,6 +165,13 @@ export class ManagementHomeMemberComponent extends BaseComponent implements OnIn
   }
 
   onBack(){
-    this.router.navigate(['main/managements/osm/home/type01']);
+    if(this.isStaff){
+      this.router.navigate(['main/managements/osm/home/U/01']);
+    }else{
+      this.router.navigate(['main/managements/osm/home/T/01']);
+    }
+  }
+  onBackStaffManageOSM(){
+    this.router.navigate(['main/managements/staff/osm']);
   }
 }

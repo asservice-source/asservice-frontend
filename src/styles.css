@@ -2,6 +2,9 @@
 .row{
     padding: 5px;
 }
+a{
+    cursor: pointer;
+}
 label{
     color: #000000;
     font-size: 15px;
@@ -134,4 +137,8 @@ table .btn-sm{
 
 .dl-horizontal {
     margin-bottom: 0;
+}
+.fa-caret-right{
+    margin-left: 3px;
+    margin-right: 3px; 
 }

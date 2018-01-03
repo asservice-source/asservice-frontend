@@ -37,6 +37,7 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
   bindModalForm(){
     let _self = this;
     $('#modalForm').on('show.bs.modal', function(){
+      console.log(_self.bean);
       _self.disabledHomeType=false;
       if(_self.action == _self.ass_action.EDIT){
         if(_self.bean.homeTypeCode=='01' || _self.bean.homeTypeCode=='02' || _self.bean.homeTypeCode=='03' || _self.bean.homeTypeCode=='04' || _self.bean.homeTypeCode=='05'){
@@ -66,9 +67,9 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
     this.inputValidate = new InputValidateInfo();
     this.inputValidate.isCheck = true;
     let simpleValidate = new SimpleValidateForm();
-    
-    this.bean.villageId = this.userInfo.villageId;
-    this.bean.osmId = this.userInfo.personId; //'891037A9-36CF-E711-AB84-005056C00008';
+    // this.bean.villageId = this.userInfo.villageId;
+    // this.bean.osmId = this.userInfo.personId;
+
     let _self = this;
     let fields = ['homeTypeCode'];
     if(this.isHome){

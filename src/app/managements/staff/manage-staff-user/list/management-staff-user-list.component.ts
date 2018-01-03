@@ -107,7 +107,7 @@ export class ManagementStaffUserListComponent extends BaseComponent implements O
          }
        });
 
-      this.titlePanel = 'การจัดการ เจ้าหน้าที่';
+      this.titlePanel = 'จัดการเจ้าหน้าที่';
       let roleName = params['roleName'];
       if('staff'==roleName){
         this.isStaff = true;
@@ -161,7 +161,7 @@ export class ManagementStaffUserListComponent extends BaseComponent implements O
   }
   onClickManageScope(row: any){
     console.log(row);
-    this.route.navigate(['main/managements/osm/home/s', row.personId]);
+    this.route.navigate(['main/managements/osm/home','U', row.userId]);
   }
   onClickAdd(){
     this.onModalForm(this.ass_action.ADD);

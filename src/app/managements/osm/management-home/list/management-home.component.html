@@ -1,24 +1,9 @@
 <div class="panel panel-default">
   <div class="panel-heading">
-    <label>จัดการเขตรับผิดชอบ {{userInfo.roleAcronym}}</label>
+    <label *ngIf="isStaff"><a (click)="onBack();" >การจัดการ เจ้าหน้าที่ อสม.</a> <i class="fa fa-caret-right"></i> </label><label>จัดการเขตรับผิดชอบ อสม.</label>
   </div>
   <div class="panel-body">
     <div class="header-info">
-
-      <!-- <div class="row">
-        <div class="col-sm-12">
-          <div class="box-body">
-            <dl class="dl-horizontal">
-              <dt>{{userInfo.roleAcronym}} : </dt>
-              <dd>{{userInfo.fullName}}</dd>
-              <dt>หมู่ที่ : </dt>
-              <dd>{{userInfo.villageNo + ' ' + userInfo.villageName}}</dd>
-            </dl>
-          </div>
-        </div>
-      </div> -->
-
-
     </div>
 
     <div class="row">
@@ -26,10 +11,11 @@
         <label class="label-form">หมู่ที่</label>
       </div>
       <div class="col-md-4">
-        <select [(ngModel)]="findVillageId" *ngIf="isStaff">
+        <!-- <select [(ngModel)]="findVillageId" *ngIf="isStaff">
           <option></option>
         </select>
-        <input *ngIf="!isStaff" [value]="userInfo.villageNo" disabled>
+        <input *ngIf="!isStaff" [value]="villageNo" disabled> -->
+        <input [value]="villageNo" disabled>
       </div>
 
 
@@ -37,10 +23,12 @@
         <label class="label-form">อสม.</label>
       </div>
       <div class="col-md-4">
-        <select [(ngModel)]="findOsmId" *ngIf="isStaff">
+        <!-- <select [(ngModel)]="findOsmId" *ngIf="isStaff">
           <option></option>
         </select>
-        <input *ngIf="!isStaff" [value]="userInfo.fullName" disabled>
+        <input *ngIf="!isStaff" [value]="osmName" disabled> -->
+
+        <input [value]="osmName" disabled>
       </div>
 
     </div>

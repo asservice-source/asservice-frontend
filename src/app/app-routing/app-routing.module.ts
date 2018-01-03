@@ -91,7 +91,7 @@ import { GuardPermissionService } from '../service/guard.permission.service';
                     component: ManagementHomeComponent
                   },
                   {
-                    path: 'member/:homeId',
+                    path: 'member/H/:homeId',
                     component: ManagementHomeMemberComponent
                 }]
               }]

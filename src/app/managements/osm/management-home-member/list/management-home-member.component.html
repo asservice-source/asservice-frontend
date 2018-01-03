@@ -1,6 +1,6 @@
 <div class="panel panel-default">
   <div class="panel-heading">
-    <label><a (click)="onBack();" >จัดการเขตรับผิดชอบ</a> > จัดการสมาชิกในบ้าน</label>
+    <label *ngIf="isStaff"><a (click)="onBackStaffManageOSM();" >จัดการเจ้าหน้าที่ อสม.</a> <i class="fa fa-caret-right"></i> </label><label><a (click)="onBack();" >จัดการเขตรับผิดชอบ อสม.</a> <i class="fa fa-caret-right"></i> จัดการสมาชิกในบ้าน</label>
   </div>
   <div class="panel-body">
 
