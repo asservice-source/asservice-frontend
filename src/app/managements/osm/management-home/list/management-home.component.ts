@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { HomeBean } from '../../../../beans/home.bean';
 import { BaseComponent } from '../../../../base-component';
 import { ApiHTTPService } from '../../../../service/api-http.service';
@@ -29,8 +29,9 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
   public findName: string = '';
   public homeTypeList: any =  [];
   public infoMaps: string = '';
+  public params: any;
 
-  constructor(private router: Router, private changeRef: ChangeDetectorRef) { 
+  constructor(private activatedRoute: ActivatedRoute, private router: Router, private changeRef: ChangeDetectorRef) { 
     super();
     this.isStaff = this.isStaffRole(this.userInfo.userId);
     this.bean = new HomeBean();
@@ -45,8 +46,15 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     
-    this.setupHomeTypeList();
-    this.setupTable();
+    this.activatedRoute.params.subscribe(params => {
+      console.log(params);
+      this.params = params;
+      this.setupHomeTypeList();
+      this.setupTable();
+
+    });
+
+    
   }
   setupTable(){    
     let _self = this;
