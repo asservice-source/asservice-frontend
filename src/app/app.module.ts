@@ -69,6 +69,7 @@ import { CitizenIdFormatDirective } from './directives/citizenid-format.directiv
 
 import { NguiMapModule } from '@ngui/map';
 import { MapsComponent } from './maps/maps.component';
+import { MultiMapsComponent } from './multi-maps/multi-maps.component';
 
 @NgModule({
   declarations: [
@@ -125,7 +126,8 @@ import { MapsComponent } from './maps/maps.component';
     ManagementHomeMemberComponent,
     ManagementHomeMemberFormComponent,
     CitizenIdFormatDirective,
-    MapsComponent
+    MapsComponent,
+    MultiMapsComponent
   ],
   imports: [
     BrowserModule,

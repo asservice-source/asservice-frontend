@@ -1,0 +1,15 @@
+<div class="row">
+  <div class="col-md-12">
+    <ngui-map [zoom]="zoom" [center]="center" (mapReady$)="onMapReady($event)" (mapClick)="onMapClick($event)" (idle)="onIdle($event)"
+      mapTypeId="ROADMAP">
+      <div *ngFor="let map of positions">
+        <marker [position]="map.latlng()" (initialized$)="onMarkerInit($event)" (click)="onMarkerClick($event, map.info)"></marker>
+        <info-window id="iw">
+          <div>
+            {{ info }}
+          </div>
+        </info-window>
+      </div>
+    </ngui-map>
+  </div>
+</div>
