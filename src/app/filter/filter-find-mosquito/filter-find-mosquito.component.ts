@@ -18,7 +18,7 @@ export class FilterFindMosquitoComponent extends BaseComponent implements OnInit
 
   @Input() findHome: boolean;
   @Input() reset: any;
-  @Input() documentId : string;
+  @Input() documentId: string;
   @Output() choosePlace: EventEmitter<HomeBean> = new EventEmitter<HomeBean>();
 
   public villageData: any;
@@ -34,7 +34,7 @@ export class FilterFindMosquitoComponent extends BaseComponent implements OnInit
   public isShowPlace: boolean = false;
   public loading: boolean = false;
 
-  constructor(private route:Router,private changeRef: ChangeDetectorRef ) {
+  constructor(private route: Router, private changeRef: ChangeDetectorRef) {
     super();
     this.api = new ApiHTTPService();
     this.homeBean = new HomeBean();
@@ -92,9 +92,9 @@ export class FilterFindMosquitoComponent extends BaseComponent implements OnInit
 
   searchPlace() {
     this.setupHomeName();
-    if(this.findhomebean.homeTypeId){
+    if (this.findhomebean.homeTypeId) {
       this.changetable();
-  }
+    }
   }
 
   unlock() {
@@ -105,9 +105,9 @@ export class FilterFindMosquitoComponent extends BaseComponent implements OnInit
     let self = this;
     let params = {
       "villageId": this.findhomebean.villageId,
-      "homeTypeCode" : this.findhomebean.homeTypeId,
+      "homeTypeCode": this.findhomebean.homeTypeId,
       "documentId": self.documentId,
-      "osmId": this.userInfo.roleId == '3'?"":this.userInfo.personId
+      "osmId": this.userInfo.roleId == '3' ? "" : this.userInfo.personId
     };
 
     console.log(params);
@@ -127,7 +127,7 @@ export class FilterFindMosquitoComponent extends BaseComponent implements OnInit
     this.isShowPlace = true;
   }
 
-  changetable(){
+  changetable() {
 
     let self = this;
     if (this.findhomebean.homeTypeId == "01") {
@@ -176,7 +176,7 @@ export class FilterFindMosquitoComponent extends BaseComponent implements OnInit
           title: 'ประเภท',
           filter: false,
           type: 'html',
-           valuePrepareFunction: (cell, row) => {
+          valuePrepareFunction: (cell, row) => {
             return '<div class="text-center">' + cell + '</div>'
           }
         },
@@ -210,10 +210,10 @@ export class FilterFindMosquitoComponent extends BaseComponent implements OnInit
     this.isShowPlace = false;
   }
 
-  addHomeRedirect(){
+  addHomeRedirect() {
     this.route.navigate(["main/managements/osm/home/type00"]);
   }
-  
+
 }
 
 @Component({

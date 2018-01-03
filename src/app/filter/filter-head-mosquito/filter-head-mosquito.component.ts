@@ -30,6 +30,7 @@ export class FilterHeadMosquitoComponent extends BaseComponent implements OnInit
   public HomeTypeData : any;
   public HomeNameData : any;
   public isStaff: boolean;
+  public currentDocumentId: string;
 
   constructor() {
     super();
@@ -65,6 +66,7 @@ export class FilterHeadMosquitoComponent extends BaseComponent implements OnInit
         _self.filterBean.status = item.status;
         if (item.status == '2') {
           _self.filterBean.rowGUID = item.rowGUID;
+          _self.currentDocumentId = item.rowGUID;
           _self.description.round = item.round;
           _self.onSearchFilter();
           break;
@@ -188,6 +190,14 @@ export class FilterHeadMosquitoComponent extends BaseComponent implements OnInit
     }
   }
 
+  onClearFilter(){
+    this.filterBean.rowGUID = this.currentDocumentId;
+    this.filterBean.homeType = '';
+    if(this.isStaff){
+      this.filterBean.villageId = '';
+      this.filterBean.osmId = '' 
+    }
+  }
   
 
 }

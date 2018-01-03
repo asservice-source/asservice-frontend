@@ -4,7 +4,7 @@
       <div class="col-md-2 text-right">
         <label class="label-form">{{getLabel('lbl_villageNo')}}</label>
       </div>
-      <div class="col-md-3">
+      <div class="col-md-4">
         <select [(ngModel)]="findhomebean.villageId">
           <option ngValue="">--เลือก หมู่ที่--</option>
           <option *ngFor="let item of villageData" [value]="item.id">{{item.villageNo+' : '+item.villageName}}</option>
@@ -14,8 +14,7 @@
       <div class="col-md-1 text-right">
         <label class="label-form">ประเภท</label>
       </div>
-      <div class="col-md-3">
-          <!-- (change)="changetable();" -->
+      <div class="col-md-4">
         <select [(ngModel)]="findhomebean.homeTypeId" >
           <option ngValue="">--เลือกประเภท--</option>
           <option *ngFor="let item of HomeTypeData" [value]="item.code">{{item.name}}</option>
@@ -24,23 +23,12 @@
 
     </div>
 
-    <div class="row">
-
-      <div class="col-md-2 col-md-offset-3">
+    <div class="row text-center">
+      <div class="col-md-12">
         <button type="button" class="btn btn-sm btn-primary" [disabled]="!findhomebean.homeTypeId || !findhomebean.villageId"
          (click)="searchPlace(); unlock();">ค้นหารายชื่อสถานที่</button>
+         <button type="button" class="btn btn-sm btn-primary" (click)="addHomeRedirect();" [disabled]="!findhomebean.villageId" >เพิ่มสถานที่</button>
       </div>
-
-      <!-- <div class="col-md-1 text-right">
-        <label class="label-form">สถานที่</label>
-      </div>
-      <div class="col-md-3">
-        <select [(ngModel)]="findhomebean.homeId" [disabled]="isHomeDisable" (change)="onChoosePlace();">
-          <option ngValue="">--เลือกสถานที่--</option>
-          <option *ngFor="let item of HomeNameData" [value]="item.homeId">{{item.name}}</option>
-          <option ngValue="0">อื่นๆ</option>
-        </select>
-      </div> -->
 
     </div>
     <div class="row" *ngIf="isShowPlace">
@@ -50,10 +38,11 @@
     </div>
 
     <div class="modal-footer">
-      <button type="button" class="btn btn-sm btn-primary" (click)="addHomeRedirect();" >เพิ่มบ้าน</button>
       <button type="button" data-dismiss="modal" class="btn btn-sm btn-primary">ยกเลิก</button>
     </div>
   </div>
 </div>
 
 <ass-loading [show]="loading"></ass-loading>
+
+<!-- <app-management-home-form ></app-management-home-form> -->

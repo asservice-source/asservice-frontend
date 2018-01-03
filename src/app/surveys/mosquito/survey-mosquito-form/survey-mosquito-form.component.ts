@@ -92,10 +92,6 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
           "totalSurvey": 0,
           "totalDetect": 0,
           "locateTypeId": 1
-
-          // "containerTypeId" : item.containerTypeId,
-          // "totalSurvey": 0,
-          // "totalDetect": 0
         }
         self.mosquitobean.listContainerType.push(contain);
       }
@@ -111,12 +107,6 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
       }
     })
   }
-
-  // validate(){
-  //   if(this.mosquitobean.totalDetect){
-
-  //   }
-  // }
 
   setNullContainerTypeSurvey(total, containerType) {
     if (!total) {
