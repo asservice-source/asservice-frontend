@@ -25,7 +25,6 @@ export class FilterHeadSurveyComponent extends BaseComponent implements OnInit {
   public villageData: any;
   public osmData: any;
   public isDisabledOSM = true;
-  public isDisabledName = true;
   public description: any = {round: '', village: 'ทั้งหมด', osm: 'ทั้งหมด', name: ''};
   public headerList: any = [];
   public isStaff: boolean;
@@ -78,16 +77,15 @@ export class FilterHeadSurveyComponent extends BaseComponent implements OnInit {
     });
   }
   setupOSM() {
-    
     let self = this;
     self.filterBean.osmId='';
-    self.isDisabledOSM = false;
-    this.api.api_OsmList(this.filterBean.villageId, function (response) {
-      self.osmData = response;
-      self.isDisabledOSM = false;
-      self.isDisabledName = false;
-    })
-
+    self.isDisabledOSM = true;
+    if(this.filterBean.villageId){
+      this.api.api_OsmList(this.filterBean.villageId, function (response) {
+        self.osmData = response;
+        self.isDisabledOSM = false;
+      });
+    }
   }
 
   onChangeRound(select:any) {

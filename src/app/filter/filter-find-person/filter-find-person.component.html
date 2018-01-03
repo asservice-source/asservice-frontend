@@ -16,7 +16,7 @@
       </div>
       <div class="col-md-4">
         <select  *ngIf="isStaff" name="find-osmName" id="find-osmName" [(ngModel)]="filterBean.osmId" (change)="changeOSM()" [disabled]="isDisabledOSM">
-          <option ngValue="">--เลือก อสม.--</option>
+          <option ngValue="">--เลือก--</option>
           <option *ngFor="let item of osmData" [value]="item.personId">{{item.fullName}}</option>
         </select>
         <input  *ngIf="!isStaff" value="{{userInfo.fullName}}" disabled>
@@ -28,7 +28,7 @@
       </div>
       <div class="col-md-4">
         <select [(ngModel)]="filterBean.homeId" (change)="changHomeNo()" [disabled]="isDisabledHomeNo">
-          <option ngValue="">--เลือก บ้านเลขที่--</option>
+          <option ngValue="">--เลือก--</option>
           <option *ngFor="let item of homeData" [value]="item.homeId">{{item.homeNo}}</option>
         </select>
       </div>
