@@ -13,11 +13,11 @@ export class MapsComponent implements OnInit {
   @Input() info: string;
   @Output() positionChanged = new EventEmitter<any>();
 
+  // public autocomplete: any;
   public zoom: number = 15;
   public center = "16.442481, 102.808265";
   public position = "16.442481, 102.808265";
   public info_content = "";
-  // public positions: any = [];
   public map;
 
   constructor(private _changeRef: ChangeDetectorRef) {
@@ -29,9 +29,11 @@ export class MapsComponent implements OnInit {
   }
 
   ngOnChanges() {
-    this.center = this.getLatLong();
-    this.position = this.getLatLong();
-    this.info_content = this.info;
+    let self = this;
+
+    self.center = self.getLatLong();
+    self.position = self.getLatLong();
+    self.info_content = self.info;
   }
 
   onMapReady(map) {
@@ -59,13 +61,12 @@ export class MapsComponent implements OnInit {
   onMarkerInit(marker) {
     console.log('marker', marker);
 
-
     // setTimeout(function () {
     //   marker.nguiMapComponent.openInfoWindow('iw', marker);
     // }, 2000);
   }
 
-  onMarkerClick({target: marker}) {
+  onMarkerClick({ target: marker }) {
     marker.nguiMapComponent.openInfoWindow('iw', marker);
   }
 
@@ -87,21 +88,36 @@ export class MapsComponent implements OnInit {
     console.log('mode', this.mode);
 
     let m = self.mode;
-    if (m && m == "view") {
+    if (m == "view") {
 
     } else if (m == "edit") {
       self.position = event.latLng;
-      // this.positions = [];
-      // this.positions.push(event.latLng);
-      // event.target.panTo(event.latLng);
-      let objLatLng = { lat: event.latLng.lat(), lng: event.latLng.lng() };
 
+      let objLatLng = { lat: event.latLng.lat(), lng: event.latLng.lng() };
       self.positionChanged.emit(objLatLng);
     }
   }
 
+  // initialized(autocomplete: any) {
+  //   this.autocomplete = autocomplete;
+  // }
+
+  // placeChanged(place) {
+  //   console.log('place',place);
+  //   this.center = place.geometry.location;
+  //   for (let i = 0; i < place.address_components.length; i++) {
+  //     let addressType = place.address_components[i].types[0];
+  //     this.address[addressType] = place.address_components[i].long_name;
+  //   }
+  //   this._changeRef.detectChanges();
+  // }
+
   getLatLong() {
-    return this.latitude + ',' + this.longitude;
+    if(this.latitude && this.longitude){
+      return this.latitude + ',' + this.longitude;
+    } else {
+      return "";
+    }
   }
 
 }

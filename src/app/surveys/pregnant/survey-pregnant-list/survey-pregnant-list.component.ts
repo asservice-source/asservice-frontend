@@ -98,7 +98,10 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
           let surveyTypeCode = row.pSurveyTypeCode;
           let bornDueDate = self.displayFormatDate(row.bornDueDate);
           if (surveyTypeCode == "Born") {
-            let bornDate = self.displayFormatDate(row.childs[0].birthDate);
+            let bornDate = "";
+            if(row.childs && row.childs.length > 0){
+              self.displayFormatDate(row.childs[0].birthDate);
+            }
             return '<div class="text-center">' + bornDate + '</div>';
           } else {
             return '<div class="text-center">' + bornDueDate + '</div>';
