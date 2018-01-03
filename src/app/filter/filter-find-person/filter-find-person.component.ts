@@ -80,6 +80,10 @@ export class FilterFindPersonComponent extends BaseComponent implements OnInit {
   }
 
   changVillageNo() {
+    this.filterBean.osmId = "";
+    this.filterBean.homeId = "";
+    this.personBean.citizenId = '';
+    
     if (this.filterBean.villageId) {
       this.setupOSM();
       this.setupHome();
@@ -87,9 +91,7 @@ export class FilterFindPersonComponent extends BaseComponent implements OnInit {
       this.isDisabledHomeNo = true;
       this.isDisabledOSM = true;
     }
-    this.filterBean.osmId = "";
-    this.filterBean.homeId = "";
-    this.personBean.citizenId = '';
+    
     this.filterChanges();
   }
 
@@ -154,20 +156,20 @@ export class FilterFindPersonComponent extends BaseComponent implements OnInit {
   }
 
   setupOSM() {
+    this.isDisabledOSM = true;
     let self = this;
     this.api.api_OsmList(this.filterBean.villageId, function (response) {
       self.osmData = response;
       self.isDisabledOSM = false;
-      self.isDisabledHomeNo = false;
     })
   }
 
   setupHome() {
+    this.isDisabledHomeNo = true;
     let self = this;
     this.api.api_HomeList(this.filterBean.villageId, this.filterBean.osmId
       , function (response) {
         self.homeData = response;
-        self.isDisabledOSM = false;
         self.isDisabledHomeNo = false;
       });
   }
