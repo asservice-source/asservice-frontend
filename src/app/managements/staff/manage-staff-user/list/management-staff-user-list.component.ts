@@ -161,7 +161,7 @@ export class ManagementStaffUserListComponent extends BaseComponent implements O
   }
   onClickManageScope(row: any){
     console.log(row);
-    this.route.navigate(['main/managements/osm/home','U', row.userId]);
+    this.route.navigate(['main/managements/osm/home','PD', row.personId]);
   }
   onClickAdd(){
     this.onModalForm(this.ass_action.ADD);

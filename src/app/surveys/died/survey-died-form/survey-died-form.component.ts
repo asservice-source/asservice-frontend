@@ -88,6 +88,9 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
     this.isFindPersonal = false;
     this.isShowForm = true;
   }
+  onIsCauseOther(){
+    $("#isCauseOtherError").hide();
+  }
   onBack(){
     this.bean = new DeadBean();
     this.isFindPersonal = true;
@@ -109,7 +112,9 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
       _self.changeRef.detectChanges();
     })
     $('#modal-add-died').on('hidden.bs.modal', function () {
-      $("#isNoDisease").hide();
+      $("#isNoDiseaseError").hide();
+      $("#isCauseOtherError").hide();
+      $("#causeOther").removeClass('error-input');
       _self.inputValidate = new InputValidateInfo();
       _self.isShowForm = false;
       _self.isFindPersonal = true;
@@ -148,11 +153,18 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
     let objs = simpvalidate.getObjectEmpty_byFilds(this.apiDead.map(this.bean), fieldsCheck);
     if(this.bean.isNoDisease == undefined){
       objs.push("isNoDisease");
-      $("#isNoDisease").show();
+      $("#isNoDiseaseError").show();
     }else{
-      $("#isNoDisease").hide();
+      $("#isNoDiseaseError").hide();
     }
     console.log(objs);
+    if(objs.indexOf('causeOther')>-1){
+      $("#isCauseOtherError").show();
+      $("#causeOther").addClass('error-input');
+    }else{
+      $("#isCauseOtherError").hide();
+      $("#causeOther").removeClass('error-input');
+    }
     if(!this.isDeadDate){
       return false;
     }
@@ -182,6 +194,7 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
   validDate(event: InputValidateInfo){
     this.isDeadDate = event.isPassed;
   }
+
   setCalendarThai(){
 
     $('body').on('click','.inputnoteditable', function(){
