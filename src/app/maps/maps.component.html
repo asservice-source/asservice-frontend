@@ -2,7 +2,8 @@
   <div class="col-md-12">
     <ngui-map [zoom]="zoom" [center]="center" (mapReady$)="onMapReady($event)" (mapClick)="onMapClick($event)" (idle)="onIdle($event)"
       mapTypeId="ROADMAP">
-      <marker [position]="position" [draggable]="false" (initialized$)="onMarkerInit($event)" (positionChanged)="onPositionChanged($event)"></marker>
+      <marker *ngFor="let pos of positions" [position]="pos" (initialized$)="onMarkerInit($event)"></marker>
+      <marker [position]="position" [draggable]="false" (initialized$)="onMarkerInit($event)" (click)="onMarkerClick($event)" (positionChanged)="onPositionChanged($event)"></marker>
       <info-window id="iw">
         <div>
           {{ info_content }}

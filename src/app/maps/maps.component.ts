@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-maps',
@@ -7,6 +7,7 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 })
 export class MapsComponent implements OnInit {
 
+  @Input() mode: string;
   @Input() latitude: string;
   @Input() longitude: string;
   @Input() info: string;
@@ -17,8 +18,9 @@ export class MapsComponent implements OnInit {
   public position = "16.442481, 102.808265";
   public info_content = "";
   // public positions: any = [];
+  public map;
 
-  constructor() {
+  constructor(private _changeRef: ChangeDetectorRef) {
 
   }
 
@@ -57,10 +59,14 @@ export class MapsComponent implements OnInit {
   onMarkerInit(marker) {
     console.log('marker', marker);
 
-    
+
     // setTimeout(function () {
     //   marker.nguiMapComponent.openInfoWindow('iw', marker);
     // }, 2000);
+  }
+
+  onMarkerClick({target: marker}) {
+    marker.nguiMapComponent.openInfoWindow('iw', marker);
   }
 
   onPositionChanged(target) {
@@ -73,16 +79,25 @@ export class MapsComponent implements OnInit {
   }
 
   onMapClick(event) {
+    let self = this;
+
     console.log(event.latLng);
     console.log(event.latLng.lat());
     console.log(event.latLng.lng());
-    this.position = event.latLng;
-    // this.positions = [];
-    // this.positions.push(event.latLng);
-    // event.target.panTo(event.latLng);
-    let objLatLng = { lat: event.latLng.lat(), lng: event.latLng.lng() };
+    console.log('mode', this.mode);
 
-    this.positionChanged.emit(objLatLng);
+    let m = self.mode;
+    if (m && m == "view") {
+
+    } else if (m == "edit") {
+      self.position = event.latLng;
+      // this.positions = [];
+      // this.positions.push(event.latLng);
+      // event.target.panTo(event.latLng);
+      let objLatLng = { lat: event.latLng.lat(), lng: event.latLng.lng() };
+
+      self.positionChanged.emit(objLatLng);
+    }
   }
 
   getLatLong() {
