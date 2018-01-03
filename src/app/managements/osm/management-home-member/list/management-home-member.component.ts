@@ -166,9 +166,9 @@ export class ManagementHomeMemberComponent extends BaseComponent implements OnIn
 
   onBack(){
     if(this.isStaff){
-      this.router.navigate(['main/managements/osm/home/U/01']);
+      this.router.navigate(['main/managements/osm/home', 'PD', this.homeInfo.osmId]);
     }else{
-      this.router.navigate(['main/managements/osm/home/T/01']);
+      this.router.navigate(['main/managements/osm/home','T','01']);
     }
   }
   onBackStaffManageOSM(){

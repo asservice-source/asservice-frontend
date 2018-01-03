@@ -53,10 +53,9 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
       console.log(params);
       _self.params = params;
       
-      if(params['type']=='U'){
+      if(params['type']=='PD'){
         _self.loading = true;
-        _self.apiUser.getUserById(params['id'], function(resp){
-          console.log(resp);
+        _self.api.api_PersonByPersionId(params['id'], function(resp){
           let response = resp.response;
           if(resp && resp.status.toUpperCase() == 'SUCCESS'){
             _self.villageNo = response.villageNo;

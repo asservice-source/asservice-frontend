@@ -174,7 +174,12 @@ export class ApiHTTPService  implements OnInit {
             callback(response);
         });
     }
-   
+    public api_PersonByPersionId(personId: string, callback: (doc: any) => void){;
+        let parameter = {"personId": personId};
+        this.post('person/person_by_personid', parameter, function(response){
+            callback(response);
+        });
+    }
     public api_RaceList(callback: (doc: any) => void){
         this.callResponse('person/race_list',{}, callback);
     }
