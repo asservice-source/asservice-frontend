@@ -87,7 +87,7 @@ import { GuardPermissionService } from '../service/guard.permission.service';
                 path: 'home',
                 children:[
                   {
-                    path: ':type',
+                    path: ':type/:id',
                     component: ManagementHomeComponent
                   },
                   {

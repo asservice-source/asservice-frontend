@@ -50,7 +50,7 @@ import { OnlyNumberDirective } from './directives/onlynumber.directive';
 import { AutofocusDirective } from './directives/autofocus.directive';
 import { InputValidateDirective } from './directives/inputvalidate.directive';
 import { ManagementStaffUserFormComponent } from './managements/staff/manage-staff-user/form/management-staff-user-form.component';
-import { ManagementStaffUserListComponent } from './managements/staff/manage-staff-user/list/management-staff-user-list.component';
+import { ManagementStaffUserListComponent, ActionCustomView_StaffManageOSMScopeComponent } from './managements/staff/manage-staff-user/list/management-staff-user-list.component';
 import { ManagementStaffVillageListComponent } from './managements/staff/manage-village/list/management-staff-village-list.component';
 import { ManagementStaffVillageFormComponent } from './managements/staff/manage-village/form/management-staff-village-form.component';
 // import { MyDatePickerModule } from 'mydatepicker';
@@ -109,6 +109,7 @@ import { MultiMapsComponent } from './multi-maps/multi-maps.component';
     ActionCustomViewComponent,
     ActionCustomView_2_Component,
     ActionCustomViewMapsComponent,
+    ActionCustomView_StaffManageOSMScopeComponent,
     OnlyNumberDirective,
     AutofocusDirective,
     InputValidateDirective,
@@ -145,6 +146,7 @@ import { MultiMapsComponent } from './multi-maps/multi-maps.component';
     ActionCustomViewComponent,
     ActionCustomView_2_Component,
     ActionCustomViewMapsComponent,
+    ActionCustomView_StaffManageOSMScopeComponent,
     SurveyPersonalHomeListButtonEditComponent,
     SurveyPersonalMemberListButtonEditComponent,
     SelectHomeListButton,

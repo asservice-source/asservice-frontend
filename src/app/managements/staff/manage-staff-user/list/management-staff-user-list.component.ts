@@ -1,6 +1,6 @@
-import { Component, OnInit, ChangeDetectorRef, ElementRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ElementRef, Input, Output, EventEmitter } from '@angular/core';
 import { BaseComponent } from '../../../../base-component';
-import { LocalDataSource } from 'ng2-smart-table';
+import { LocalDataSource, ViewCell } from 'ng2-smart-table';
 import { ActionCustomView_2_Component } from '../../../../action-custom-table/action-custom-view.component';
 import { StaffUserBean } from '../../../../beans/staff-user.bean';
 import { ApiHTTPService } from '../../../../service/api-http.service';
@@ -8,6 +8,7 @@ import { Service_UserStaffAndOSM } from '../../../../service/service-user-staff-
 import { ActivatedRoute } from '@angular/router';
 import { HomeBean } from '../../../../beans/home.bean';
 import { PersonalBasicBean } from '../../../../beans/personal-basic.bean';
+import { Router } from '@angular/router';
 
 declare var $:any;
 declare var bootbox:any;
@@ -31,7 +32,7 @@ export class ManagementStaffUserListComponent extends BaseComponent implements O
   public titlePanel: string = '';
   public loading: boolean = false;
 
-  constructor(private element: ElementRef,private activatedRoute: ActivatedRoute, private detectChange: ChangeDetectorRef) { 
+  constructor(private element: ElementRef,private activatedRoute: ActivatedRoute, private route: Router, private detectChange: ChangeDetectorRef) { 
     super();
     this.api = new Service_UserStaffAndOSM();
     this.bean = new StaffUserBean();
@@ -71,7 +72,20 @@ export class ManagementStaffUserListComponent extends BaseComponent implements O
 
               return cell?'<div class="text-active text-center">พร้อมใช้งาน</div>':'<div class="text-inactive text-center">ปิดการใช้งาน</div>';
               }
-           },
+           }, 
+           manage: {
+            title: 'เขตรับผิดชอบ',
+            filter: false,
+            sort: false,
+            width: '160px',
+            type: 'custom',
+            renderComponent: ActionCustomView_StaffManageOSMScopeComponent,
+            onComponentInitFunction(instance) {
+              instance.manage.subscribe(row => {
+                _self.onClickManageScope(row);
+              });
+            }
+          },
           action: {
            title: this.getLabel('lbl_action'),
            filter: false,
@@ -99,6 +113,7 @@ export class ManagementStaffUserListComponent extends BaseComponent implements O
         this.isStaff = true;
         this.titlePanel += " รพ.สต.";
         delete this.settings.columns.villageNo;
+        delete this.settings.columns.manage;
         this.setupTable();
       }else if('osm'==roleName){
         this.isStaff = false;
@@ -143,6 +158,10 @@ export class ManagementStaffUserListComponent extends BaseComponent implements O
       _self.villageList = list;
      
     });
+  }
+  onClickManageScope(row: any){
+    console.log(row);
+    this.route.navigate(['main/managements/osm/home/s', row.personId]);
   }
   onClickAdd(){
     this.onModalForm(this.ass_action.ADD);
@@ -223,4 +242,22 @@ export class ManagementStaffUserListComponent extends BaseComponent implements O
     }
   }
 
+}
+@Component({
+  selector: 'action-custom-table-view-manage-scope',
+  template: '<div style="width:100%; text-align: center;" ><button type="button" (click)="onManage()" class="btn btn-sm btn-primary">จัดการ</button></div>',
+  styleUrls: ['./management-staff-user-list.component.css']
+})
+export class ActionCustomView_StaffManageOSMScopeComponent implements ViewCell, OnInit {
+    @Input() value: string | number;
+    @Input() rowData: any;
+    @Output() manage: EventEmitter<any> = new EventEmitter();
+
+    ngOnInit(): void {
+
+    }
+    onManage(){
+      this.manage.emit(this.rowData);
+    }
+    
 }
