@@ -155,7 +155,7 @@
                 <div class="col-md-4" style="padding-right: 0">
                     <div class="checkbox">
                       <label class="label-form">
-                          <input type="checkbox" [(ngModel)]="bean.isCauseOther">
+                          <input type="checkbox" [(ngModel)]="bean.isCauseOther" (click)="onIsCauseOther();">
                           <span class="cr">
                               <i class="cr-icon fa fa-check"></i>
                           </span>
@@ -163,8 +163,11 @@
                       </label>
                     </div> 
                   </div>
-                <div class="col-md-8" style="padding-left: 0">
-                  <input type="text" [(ngModel)]="bean.causeOther" placeholder="ระบุ สาเหตุอื่นๆ" *ngIf="bean.isCauseOther">
+                <div *ngIf="bean.isCauseOther" class="col-md-8" style="padding-left: 0">
+                  
+                  <input type="text" id="causeOther" [(ngModel)]="bean.causeOther" placeholder="ระบุ สาเหตุอื่นๆ">
+                  <label class="error" id="isCauseOtherError">กรุณาใส่สาเหตุอื่นๆ</label>
+                  
                 </div>
               </div>
 
@@ -213,7 +216,7 @@
                   
                 </div>
               </div>
-              <label class="error" id="isNoDisease">กรุณาเลือกโรคประจำตัว</label>
+              <label class="error" id="isNoDiseaseError">กรุณาเลือกโรคประจำตัว</label>
             </div>
           </div>
     
