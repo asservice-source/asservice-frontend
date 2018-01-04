@@ -6,7 +6,7 @@
         <marker [position]="map.latlng()" (initialized$)="onMarkerInit($event)" (click)="onMarkerClick($event, map.info)"></marker>
         <info-window id="iw">
           <div>
-            {{ info }}
+            {{ info_content }}
           </div>
         </info-window>
       </div>
