@@ -79,35 +79,35 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
           return '<div class="text-center">' + cell + '</div>'
         }
       },
-      // bornDueDate: {
-      //   title: 'กำหนดคลอด/วันที่คลอด',
-      //   filter: false,
-      //   width: '100px',
-      //   type: 'html',
-      //   valuePrepareFunction: (cell, row) => {
-      //     let birthDate = self.displayFormatDate(cell);
-      //     return '<div class="text-center">' + birthDate + '</div>'
-      //   }
-      // },
-      date: {
+      bornDueDate: {
         title: 'กำหนดคลอด/วันที่คลอด',
         filter: false,
         width: '100px',
         type: 'html',
         valuePrepareFunction: (cell, row) => {
-          let surveyTypeCode = row.pSurveyTypeCode;
-          let bornDueDate = self.displayFormatDate(row.bornDueDate);
-          if (surveyTypeCode == "Born") {
-            let bornDate = "";
-            if(row.childs && row.childs.length > 0){
-              self.displayFormatDate(row.childs[0].birthDate);
-            }
-            return '<div class="text-center">' + bornDate + '</div>';
-          } else {
-            return '<div class="text-center">' + bornDueDate + '</div>';
-          }
+          let birthDate = self.displayFormatDate(cell);
+          return '<div class="text-center">' + birthDate + '</div>'
         }
       },
+      // date: {
+      //   title: 'กำหนดคลอด/วันที่คลอด',
+      //   filter: false,
+      //   width: '100px',
+      //   type: 'html',
+      //   valuePrepareFunction: (cell, row) => {
+      //     let surveyTypeCode = row.pSurveyTypeCode;
+      //     let bornDueDate = self.displayFormatDate(row.bornDueDate);
+      //     if (surveyTypeCode == "Born") {
+      //       let bornDate = "";
+      //       if(row.childs && row.childs.length > 0){
+      //         self.displayFormatDate(row.childs[0].birthDate);
+      //       }
+      //       return '<div class="text-center">' + bornDate + '</div>';
+      //     } else {
+      //       return '<div class="text-center">' + bornDueDate + '</div>';
+      //     }
+      //   }
+      // },
       pSurveyTypeCode: {
         title: 'สถานะครรภ์',
         filter: false,

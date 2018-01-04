@@ -297,8 +297,10 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
 
     self.clearListChild();
     if (self.pregnantBean.childs && self.pregnantBean.childs.length > 0) {
-      self.pregnantBean.bornDate = self.pregnantBean.childs[0].birthDate;
-      self.modelBornDate = self.getDatePickerModel(self.pregnantBean.childs[0].birthDate);
+      // self.pregnantBean.bornDate = self.pregnantBean.childs[0].birthDate;
+      // self.modelBornDate = self.getDatePickerModel(self.pregnantBean.childs[0].birthDate);
+      self.pregnantBean.bornDate = self.pregnantBean.bornDueDate;
+      self.modelBornDate = self.getDatePickerModel(self.pregnantBean.bornDueDate);
       self.pregnantBean.bornLocationId = self.pregnantBean.childs[0].bornLocationId;
       self.pregnantBean.bornTypeId = self.pregnantBean.childs[0].bornTypeId;
       self.pregnantBean.abortionCause = self.pregnantBean.childs[0].abortionCause;
