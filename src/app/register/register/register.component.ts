@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { ApiHTTPService } from "../../service/api-http.service";
+import { ApiHTTPService } from "../../api-managements/api-http.service";
 import { BaseComponent } from "../../base-component";
 import { CompleterService, CompleterData } from 'ng2-completer';
 import { RegisterBean } from "../../beans/register.bean";

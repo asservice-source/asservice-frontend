@@ -4,7 +4,7 @@ import { PersonBean } from "../../../beans/person.bean";
 //import { PersonalMemberBean } from '../../../beans/personal-member.bean';
 import { PersonalBasicBean } from "../../../beans/personal-basic.bean";
 import { BaseComponent } from '../../../base-component';
-import { Service_SurveyPersonal } from '../../../service/service-survey-personal';
+import { Service_SurveyPersonal } from '../../../api-managements/service-survey-personal';
 import { InputValidateInfo } from '../../../directives/inputvalidate.directive';
 import { SimpleValidateForm } from '../../../utils.util';
 import { Address } from '../../../beans/address';

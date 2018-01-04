@@ -3,7 +3,7 @@ import { CancerBean } from '../../../beans/cancer.bean';
 import { IMyDpOptions, IMyDateModel } from 'mydatepicker';
 import { PersonalMemberBean } from '../../../beans/personal-member.bean';
 import { BaseComponent } from '../../../base-component';
-import { ApiHTTPService } from '../../../service/api-http.service';
+import { ApiHTTPService } from '../../../api-managements/api-http.service';
 import { Http } from '@angular/http';
 import { InputValidateInfo } from '../../../directives/inputvalidate.directive';
 import { SimpleValidateForm } from '../../../utils.util';

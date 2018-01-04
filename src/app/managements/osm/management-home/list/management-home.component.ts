@@ -2,12 +2,10 @@ import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } fro
 import { Router, ActivatedRoute } from '@angular/router';
 import { HomeBean } from '../../../../beans/home.bean';
 import { BaseComponent } from '../../../../base-component';
-import { ApiHTTPService } from '../../../../service/api-http.service';
 import { LocalDataSource } from 'ng2-smart-table';
 import { ActionCustomViewMapsComponent } from '../../../../action-custom-table/action-custom-view.component';
-import { Service_Home } from '../../../../service/service-home';
+import { Service_Home } from '../../../../api-managements/service-home';
 import { ViewCell } from 'ng2-smart-table';
-import { Service_UserStaffAndOSM } from '../../../../service/service-user-staff-osm';
 
 declare var $:any;
 @Component({
@@ -20,7 +18,6 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
   public bean: HomeBean;
   public action: string;
   public api: Service_Home;
-  public apiUser: Service_UserStaffAndOSM;
   public settings: any;
   public source: LocalDataSource;
   public loading: boolean = false;
@@ -40,7 +37,6 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
     
     this.bean = new HomeBean();
     this.api = new Service_Home();
-    this.apiUser = new Service_UserStaffAndOSM();
     this.isStaff = this.isStaffRole(this.userInfo.roleId);
     this.findTypeCode = '';
     this.settingColumn();

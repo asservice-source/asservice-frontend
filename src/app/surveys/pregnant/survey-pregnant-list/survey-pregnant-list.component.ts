@@ -7,7 +7,7 @@ import { PersonBean } from "../../../beans/person.bean";
 import { ActionCustomViewMapsComponent } from '../../../action-custom-table/action-custom-view.component';
 import { LocalDataSource } from 'ng2-smart-table';
 import { PregnantBean } from '../../../beans/pregnant.bean'
-import { Service_SurveyPregnant } from '../../../service/service-survey-pregnant';
+import { Service_SurveyPregnant } from '../../../api-managements/service-survey-pregnant';
 import { CompileMetadataResolver } from '@angular/compiler';
 declare var $: any
 
@@ -145,8 +145,8 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
           });
 
           instance.maps.subscribe(row => {
-            self.param_latitude = "16.442481";
-            self.param_longitude = "102.808265";
+            self.param_latitude = row.latitude;
+            self.param_longitude = row.longitude;
             self.param_info = 'บ้านของ ' + row.fullName;
             $("#modalMaps").modal("show");
           });

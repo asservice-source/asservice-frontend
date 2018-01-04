@@ -1,9 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef} from '@angular/core';
 import { BaseComponent } from '../../../../base-component';
 import { StaffUserBean } from '../../../../beans/staff-user.bean';
-import { ApiHTTPService } from '../../../../service/api-http.service';
 import { InputValidateInfo } from '../../../../directives/inputvalidate.directive';
-import { Service_UserStaffAndOSM } from '../../../../service/service-user-staff-osm';
+import { Service_UserStaffAndOSM } from '../../../../api-managements/service-user-staff-osm';
 import { SimpleValidateForm, RefreshChange } from '../../../../utils.util';
 declare var $:any;
 
