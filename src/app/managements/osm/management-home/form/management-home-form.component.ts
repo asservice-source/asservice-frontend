@@ -16,11 +16,14 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
 
   @Input() bean: HomeBean;
   @Input() action: string;
+  @Input() type: string;
   @Output() success: EventEmitter<any>;
   public inputValidate: InputValidateInfo;
   public api: Service_Home;
+  public osmList: any = [];
   public homeTypeList: any = [];
-  public disabledHomeType = false;
+  public isDisabledHomeType: boolean = false;
+  public isDisabledOsm: boolean;
   public loading: boolean = false;
   public isHome: boolean;
   constructor() { 
@@ -32,19 +35,29 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
 
   ngOnInit() {
     this.bindModalForm();
+    this.setupOsmList();
     this.setupHomeTypeList();
   }
   bindModalForm(){
     let _self = this;
     $('#modalFormHome').on('show.bs.modal', function(){
+      console.log(_self.bean);
+      if(_self.bean.osmId){
+        _self.isDisabledOsm = true;
+      }else{
+        _self.isDisabledOsm = false;
+      }
+      if(!_self.osmList || _self.osmList.length==0){
+        _self.setupOsmList();
+      }
       if(!_self.homeTypeList || _self.homeTypeList.length==0){
         _self.setupHomeTypeList();
       }
-      console.log(_self.bean);
-      _self.disabledHomeType=false;
+
+      _self.isDisabledHomeType=false;
       if(_self.action == _self.ass_action.EDIT){
         if(_self.bean.homeTypeCode=='01' || _self.bean.homeTypeCode=='02' || _self.bean.homeTypeCode=='03' || _self.bean.homeTypeCode=='04' || _self.bean.homeTypeCode=='05'){
-          _self.disabledHomeType=true;
+          _self.isDisabledHomeType=true;
           _self.isHome = true;
         }else{
           _self.isHome = false;
@@ -56,10 +69,27 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
       _self.inputValidate = new InputValidateInfo();
     });
   }
+  setupOsmList(){
+    let _self = this;
+    this.api.api_OsmList(_self.bean.villageId ,function(response){
+      _self.osmList = response;
+    });
+  }
   setupHomeTypeList(){
     let _self = this;
     this.api.api_HomeTypeList(function(response){
-      _self.homeTypeList = response;
+      if(_self.type == 'MOS'){
+        for(let item of response){
+          if(item.code == '05'){
+            continue;
+          }
+          _self.homeTypeList.push(item);
+        }
+       
+      }else{
+        _self.homeTypeList = response;
+      }
+      
     });
   }
   onChangeHomeTypeCode(select: any){
@@ -70,11 +100,8 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
     this.inputValidate = new InputValidateInfo();
     this.inputValidate.isCheck = true;
     let simpleValidate = new SimpleValidateForm();
-    // this.bean.villageId = this.userInfo.villageId;
-    // this.bean.osmId = this.userInfo.personId;
-
     let _self = this;
-    let fields = ['homeTypeCode'];
+    let fields = ['osmId', 'homeTypeCode'];
     if(this.isHome){
       fields.push('registrationId', 'homeNo');
       this.bean.name = '';

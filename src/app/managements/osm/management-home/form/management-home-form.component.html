@@ -6,14 +6,26 @@
           <h4 class="modal-title" id="myModalLabel">{{bean.homeId?'แก้ไข':'เพิ่ม'}}บ้านเลขที่/สถานที่</h4>
         </div>
         <div class="modal-body">
-
+          <div class="row">
+            <div class="col-md-4 text-right">
+              <label class="label-form">อสม.</label>
+            </div>
+            <div class="col-md-5">
+              <div [InputValidate]="inputValidate">
+                <select [(ngModel)]="bean.osmId" [disabled]="isDisabledOsm">
+                  <option *ngFor="let item of osmList" [value]="item.personId">{{item.fullName}}</option>
+                </select>
+                <label class="error">กรุณาเลือก อสม.</label>
+              </div>
+            </div>
+          </div>
           <div class="row">
             <div class="col-md-4 text-right">
               <label class="label-form">ประเภทบ้าน/สถานที่</label>
             </div>
             <div class="col-md-5">
               <div [InputValidate]="inputValidate">
-                  <select [(ngModel)]="bean.homeTypeCode" #homeTypeCode (change)="onChangeHomeTypeCode(homeTypeCode);" [disabled]="disabledHomeType">
+                  <select [(ngModel)]="bean.homeTypeCode" #homeTypeCode (change)="onChangeHomeTypeCode(homeTypeCode);" [disabled]="isDisabledHomeType">
                     <option value="">---เลือก---</option>
                     <option *ngFor="let item of homeTypeList" [value]="item.code">{{item.name}}</option>
                   </select>
