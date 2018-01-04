@@ -204,9 +204,7 @@ export class FilterFindMosquitoComponent extends BaseComponent implements OnInit
   }
 
   addHome(){
-    console.log("77777777777777777777777777777777777777777777777777777777777777777777777777777777777777");
-    console.log(this.homeBean);
-    this.addplace.emit(this.homeBean);
+    this.addplace.emit(this.findhomebean.villageId);
   }
 
 }

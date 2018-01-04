@@ -1,4 +1,4 @@
-import { Component, OnInit,ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
 import { ActionCustomView_2_Component } from '../../../action-custom-table/action-custom-view.component';
 import { BaseComponent } from '../../../base-component';
@@ -26,31 +26,31 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
   public documentId: string;
   public mosquitobean: MosquitoBean = new MosquitoBean();
   public loading;
-  public isShowAddPlace : boolean = false;
+  public isShowAddPlace: boolean = false;
 
-  public datas :any = [];
+  public datas: any = [];
 
   isDisable = true;
   constructor(private changeRef: ChangeDetectorRef) {
     super();
     this.api = new ApiHTTPService();
     let self = this;
-    this. filtersearch = new FilterHeadMosquitoBean();
+    this.filtersearch = new FilterHeadMosquitoBean();
     //let x = this.formatNumber(totalSurvey);
-    let column : string;
+    let column: string;
 
     this.settings = this.getTableSetting({
-    
+
       name: {
         title: 'ชื่อ/บ้านเลขที่',
         filter: false,
-        type:'html'
+        type: 'html'
       },
       address: {
         title: 'ที่อยู่',
         filter: false,
         width: '340px',
-        type:'html',
+        type: 'html',
         valuePrepareFunction: (cell, row) => {
           return '<div class="wrap-text" title="' + cell + '">' + this.displaySubstring(cell) + '</div>'
         }
@@ -59,27 +59,27 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
         title: 'ประเภท',
         filter: false,
         width: '100px',
-        type:'html',
-        valuePrepareFunction: (cell, row) => { 
-          return '<div class="text-center">'+cell+'</div>'
+        type: 'html',
+        valuePrepareFunction: (cell, row) => {
+          return '<div class="text-center">' + cell + '</div>'
         }
       },
       totalSurvey: {
         title: 'จำนวนสำรวจ',
         filter: false,
         width: '120px',
-        type:'html',
-        valuePrepareFunction: (cell, row) => { 
-          return '<div class="text-center">'+this.formatNumber(cell)+'</div>'
+        type: 'html',
+        valuePrepareFunction: (cell, row) => {
+          return '<div class="text-center">' + this.formatNumber(cell) + '</div>'
         }
       },
       totalDetect: {
         title: 'จำนวนพบ',
         filter: false,
         width: '100px',
-        type:'html',
-        valuePrepareFunction: (cell, row) => { 
-          return '<div class="text-center">'+this.formatNumber(cell)+'</div>'
+        type: 'html',
+        valuePrepareFunction: (cell, row) => {
+          return '<div class="text-center">' + this.formatNumber(cell) + '</div>'
         }
       },
       action: {
@@ -98,16 +98,16 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
           });
 
           instance.delete.subscribe((row: MosquitoBean, cell) => {
-            let text : string;
-            if(row.homeTypeName == 'บ้าน'){
+            let text: string;
+            if (row.homeTypeName == 'บ้าน') {
               text = "ต้องการยกเลิกการทำรายการสำรวจของบ้านเลขที่ "
-            }else{
+            } else {
               text = "ต้องการยกเลิกการทำรายการสำรวจของ "
             }
 
-            self.message_comfirm("", text + '<span style="color : red">'+row.name +'</span>' + " ใช่หรือไม่", function (resp) {
+            self.message_comfirm("", text + '<span style="color : red">' + row.name + '</span>' + " ใช่หรือไม่", function (resp) {
               if (resp) {
-                self.actionDelete(row.documentId,row.homeId);
+                self.actionDelete(row.documentId, row.homeId);
               }
             });
           });
@@ -117,7 +117,7 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
   }
 
   ngOnInit() {
-   // this.loading = true;
+    // this.loading = true;
   }
 
   changLocationNo() {
@@ -153,19 +153,28 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
 
   onModalFrom(action: string) {
     //this.mosquitobean = new MosquitoBean();
+    // this.action = action;
+    // this.changeRef.detectChanges();
+    // $('#find-person-md').modal('show');
+
     this.action = action;
-    this.changeRef.detectChanges();
-    $('#find-person-md').modal('show');
+    if (action == this.ass_action.EDIT) {
+      this.getSurveyData(this.mosquitobean.rowGUID);
+    } else {
+      this.changeRef.detectChanges();
+      $('#find-person-md').modal('show');
+    }
+
   }
 
   loadData(event: FilterHeadMosquitoBean) {
     let self = this;
-    let param = {   
-        "documentId":event.rowGUID,
-        "villageId":event.villageId,
-        "homeTypeCode": event.homeType,
-        "osmId":event.osmId,
-        "homeId":event.homeId
+    let param = {
+      "documentId": event.rowGUID,
+      "villageId": event.villageId,
+      "homeTypeCode": event.homeType,
+      "osmId": event.osmId,
+      "homeId": event.homeId
     };
     this.loading = true;
     let params = JSON.stringify(param);
@@ -195,10 +204,10 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
     } else {
       this.message_error('', 'Error');
     }
-  
+
   }
 
-  actionDelete(documentid,homeid) {
+  actionDelete(documentid, homeid) {
 
     let self = this;
     let param = {
@@ -210,7 +219,7 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
     this.api.post('survey_hici/del_hici_info', param, function (resp) {
       self.loading = false;
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-        self.message_success('','ลบรายการสำเร็จ',function(){
+        self.message_success('', 'ลบรายการสำเร็จ', function () {
           self.loadData(self.filtersearch);
         })
       }
@@ -225,6 +234,24 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
       strValue = string;
     }
     return strValue;
+  }
+
+  getSurveyData(rowGUID) {
+    let self = this;
+    let param = {
+      "rowGUID": rowGUID
+    }
+    console.log(param);
+    
+    self.loading = true;
+    this.api.post('survey_hici/hici_by_rowguid', param, function (resp) {
+      self.loading = false;
+      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+        self.mosquitobean = resp.response;
+        self.changeRef.detectChanges();
+        $('#find-person-md').modal('show');
+      }
+    })
   }
 
 }
