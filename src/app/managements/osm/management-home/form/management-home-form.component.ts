@@ -18,6 +18,7 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
   @Input() action: string;
   @Input() type: string;
   @Output() success: EventEmitter<any>;
+  @Output() cancel: EventEmitter<any>;
   public inputValidate: InputValidateInfo;
   public api: Service_Home;
   public osmList: any = [];
@@ -31,6 +32,7 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
     this.inputValidate = new InputValidateInfo();
     this.api = new Service_Home();
     this.success = new  EventEmitter<any>();
+    this.cancel = new EventEmitter<any>();
   }
 
   ngOnInit() {
@@ -94,6 +96,9 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
   onChangeHomeTypeCode(select: any){
     this.isHome = (select.value=='01'?true:false);
     this.inputValidate = new InputValidateInfo();
+  }
+  onCancel(){
+    this.cancel.emit("CANCEL");
   }
   onSave(){
     this.inputValidate = new InputValidateInfo();
