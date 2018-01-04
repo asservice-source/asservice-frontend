@@ -36,7 +36,7 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
   }
   bindModalForm(){
     let _self = this;
-    $('#modalForm').on('show.bs.modal', function(){
+    $('#modalFormHome').on('show.bs.modal', function(){
       console.log(_self.bean);
       _self.disabledHomeType=false;
       if(_self.action == _self.ass_action.EDIT){
@@ -49,7 +49,7 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
       }
         
     });
-    $('#modalForm').on('hidden.bs.modal', function(){
+    $('#modalFormHome').on('hidden.bs.modal', function(){
       _self.inputValidate = new InputValidateInfo();
     });
   }
@@ -87,7 +87,7 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
       _self.api.commit_save(_self.bean, function(response){
         let strAction = _self.action==_self.ass_action.ADD?'เพิ่ม':'แก้ไข';
         if(response && response.status.toString().toUpperCase()=='SUCCESS'){
-          $('#modalForm').modal('hide');
+          $('#modalFormHome').modal('hide');
           let msg = '';
           if(_self.isHome){
             msg = 'ทำการ'+strAction+'บ้านเลขที่ <b>' + _self.bean.homeNo + '</b> เรียบร้อย';

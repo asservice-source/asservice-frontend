@@ -113,7 +113,7 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
       this.bean.osmId = this.userInfo.personId;
     }
     this.changeRef.detectChanges();
-    $('#modalForm').modal('show');
+    $('#modalFormHome').modal('show');
   }
   onAdd(){
 
