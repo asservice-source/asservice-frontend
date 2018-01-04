@@ -42,19 +42,15 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
     let _self = this;
     $('#modalFormHome').on('show.bs.modal', function(){
       console.log(_self.bean);
+      _self.setupOsmList();
+      _self.setupHomeTypeList();
+      _self.isDisabledHomeType=false;
       if(_self.bean.osmId){
         _self.isDisabledOsm = true;
       }else{
+        _self.bean.osmId = '';
         _self.isDisabledOsm = false;
       }
-      if(!_self.osmList || _self.osmList.length==0){
-        _self.setupOsmList();
-      }
-      if(!_self.homeTypeList || _self.homeTypeList.length==0){
-        _self.setupHomeTypeList();
-      }
-
-      _self.isDisabledHomeType=false;
       if(_self.action == _self.ass_action.EDIT){
         if(_self.bean.homeTypeCode=='01' || _self.bean.homeTypeCode=='02' || _self.bean.homeTypeCode=='03' || _self.bean.homeTypeCode=='04' || _self.bean.homeTypeCode=='05'){
           _self.isDisabledHomeType=true;
@@ -80,7 +76,8 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
     this.api.api_HomeTypeList(function(response){
       if(_self.type == 'MOS'){
         for(let item of response){
-          if(item.code == '05'){
+          
+          if(item.code == '01'){
             continue;
           }
           _self.homeTypeList.push(item);

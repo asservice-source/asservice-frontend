@@ -13,6 +13,7 @@
             <div class="col-md-5">
               <div [InputValidate]="inputValidate">
                 <select [(ngModel)]="bean.osmId" [disabled]="isDisabledOsm">
+                  <option value="">---เลือก---</option>
                   <option *ngFor="let item of osmList" [value]="item.personId">{{item.fullName}}</option>
                 </select>
                 <label class="error">กรุณาเลือก อสม.</label>
