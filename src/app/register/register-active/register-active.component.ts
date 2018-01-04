@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ApiHTTPService } from '../../service/api-http.service';
+import { ApiHTTPService } from '../../api-managements/api-http.service';
 import { BaseComponent } from '../../base-component';
 declare var bootbox: any;
 

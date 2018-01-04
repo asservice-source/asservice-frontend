@@ -2,7 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Http } from "@angular/http";
 import { FilterBean } from "../../beans/filter.bean";
 import { BaseComponent } from '../../base-component';
-import { ApiHTTPService } from '../../service/api-http.service';
+import { ApiHTTPService } from '../../api-managements/api-http.service';
 @Component({
   selector: 'app-filter-personal',
   templateUrl: './filter-personal.component.html',

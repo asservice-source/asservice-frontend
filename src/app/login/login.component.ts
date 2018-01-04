@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from "./../service/user.service";
 import { Router } from "@angular/router";
 import { RequestOptions, Headers, URLSearchParams, Http } from '@angular/http';
-import { ApiHTTPService } from '../service/api-http.service';
+import { ApiHTTPService } from '../api-managements/api-http.service';
 import { BaseComponent } from '../base-component';
 
 @Component({
