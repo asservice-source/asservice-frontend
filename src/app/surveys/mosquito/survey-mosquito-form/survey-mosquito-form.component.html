@@ -25,29 +25,31 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="well">
-                                <div class="row">
-                                        <div class="col-md-3 text-right col-md-offset-5">
-                                            <label>จำนวนภาชนะที่สำรวจ</label>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label>ภาชนะที่พบลูกน้ำ</label>
-                                        </div>
-                                    </div>
+                            <div class="row">
+                                <div class="col-md-3 text-right col-md-offset-5">
+                                    <label>จำนวนภาชนะที่สำรวจ</label>
+                                </div>
+                                <div class="col-md-3">
+                                    <label>ภาชนะที่พบลูกน้ำ</label>
+                                </div>
+                            </div>
                             <div *ngFor="let item of containerTypeList; let i = index">
                                 <div class="row">
-                                        <div class="col-md-3 text-right">
-                                            <img src="../../assets/img/iconmosquito/{{item.imagePath}}"  height="30px">
-                                        </div>
-                                        <div class="col-md-3 text-left">
-                                            <label class="label-form">{{item.containerTypeName}}</label>
-                                        </div>
-                                        <div class="col-md-4">
+                                    <div class="col-md-3 text-right">
+                                        <img src="../../assets/img/iconmosquito/{{item.imagePath}}" height="30px">
+                                    </div>
+                                    <div class="col-md-3 text-left">
+                                        <label class="label-form">{{item.containerTypeName}}</label>
+                                    </div>
+                                    <div class="col-md-4">
                                         <div class="col-md-6">
-                                            <input class="text-center" [(ngModel)]="mosquitobean.listContainerType[i].totalSurvey" (blur)="setNullContainerTypeSurvey(mosquitobean.listContainerType[i].totalSurvey,i);"  maxlength="3" [OnlyNumber]="true">
-                                           
+                                            <input class="text-center" [(ngModel)]="mosquitobean.listContainerType[i].totalSurvey" (blur)="setNullContainerTypeSurvey(mosquitobean.listContainerType[i].totalSurvey,i);"
+                                                maxlength="3" [OnlyNumber]="true">
+
                                         </div>
                                         <div class="col-md-6">
-                                            <input class="text-center" [(ngModel)]="mosquitobean.listContainerType[i].totalDetect" (blur)="setNullContainerTypeDetect(mosquitobean.listContainerType[i].totalDetect,i);" maxlength="3" [OnlyNumber]="true">
+                                            <input class="text-center" [(ngModel)]="mosquitobean.listContainerType[i].totalDetect" (blur)="setNullContainerTypeDetect(mosquitobean.listContainerType[i].totalDetect,i);"
+                                                maxlength="3" [OnlyNumber]="true">
                                         </div>
                                         <label *ngIf="obj[i]" class="error2">จำนวนภาชนะที่สำรวจน้อยกว่าภาชนะที่พบ</label>
                                     </div>
@@ -61,8 +63,8 @@
                     <button type="buttoon" class="btn btn-primary btn-sm" (click)="addSurvey()">ยืนยัน</button>
                     <button type="buttoon" class="btn btn-primary btn-sm" (click)="onBack()">กลับ</button>
                 </div>
-
             </div>
         </div>
     </div>
-    <ass-loading [show]="loading"></ass-loading>
+</div>
+<ass-loading [show]="loading"></ass-loading>

@@ -15,7 +15,7 @@
         <label class="label-form">ประเภท</label>
       </div>
       <div class="col-md-4">
-        <select [(ngModel)]="findhomebean.homeTypeId" >
+        <select [(ngModel)]="findhomebean.homeTypeId">
           <option ngValue="">--เลือกประเภท--</option>
           <option *ngFor="let item of HomeTypeData" [value]="item.code">{{item.name}}</option>
         </select>
@@ -25,17 +25,22 @@
 
     <div class="row text-center">
       <div class="col-md-12">
-        <button type="button" class="btn btn-sm btn-primary" [disabled]="!findhomebean.homeTypeId || !findhomebean.villageId"
-         (click)="searchPlace(); unlock();">ค้นหารายชื่อสถานที่</button>
-         <button type="button" class="btn btn-sm btn-primary" (click)="addHomeRedirect();" [disabled]="!findhomebean.villageId" >เพิ่มสถานที่</button>
+        <button type="button" class="btn btn-sm btn-primary" [disabled]="!findhomebean.homeTypeId || !findhomebean.villageId" (click)="searchPlace(); unlock();">ค้นหารายชื่อสถานที่</button>
+        <button type="button" class="btn btn-sm btn-primary" (click)="addHome();" [disabled]="!findhomebean.villageId">เพิ่มสถานที่</button>
       </div>
 
     </div>
     <div class="row" *ngIf="isShowPlace">
       <div class="col-md-12">
-      <ng2-smart-table [settings]="settings" [source]="source" (rowSelect)="onRowSelect($event)"></ng2-smart-table>
+        <ng2-smart-table [settings]="settings" [source]="source" (rowSelect)="onRowSelect($event)"></ng2-smart-table>
+      </div>
     </div>
-    </div>
+
+    <!-- <div *ngIf="isShowAddPlace">
+      <div class="col-md-12">
+        <app-management-home-form [bean]="bean" [action]="add" (success)="onComplete($event)"></app-management-home-form>
+      </div>
+    </div> -->
 
     <div class="modal-footer">
       <button type="button" data-dismiss="modal" class="btn btn-sm btn-primary">ยกเลิก</button>

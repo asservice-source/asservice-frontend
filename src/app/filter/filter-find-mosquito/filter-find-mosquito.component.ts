@@ -32,6 +32,7 @@ export class FilterFindMosquitoComponent extends BaseComponent implements OnInit
   public source: LocalDataSource = new LocalDataSource();
   public settings: any;
   public isShowPlace: boolean = false;
+  public isShowAddPlace: boolean = false;
   public loading: boolean = false;
 
   constructor(private route: Router, private changeRef: ChangeDetectorRef) {
@@ -91,6 +92,7 @@ export class FilterFindMosquitoComponent extends BaseComponent implements OnInit
   }
 
   searchPlace() {
+    this.isShowAddPlace = false;
     this.setupHomeName();
     if (this.findhomebean.homeTypeId) {
       this.changetable();
@@ -210,8 +212,9 @@ export class FilterFindMosquitoComponent extends BaseComponent implements OnInit
     this.isShowPlace = false;
   }
 
-  addHomeRedirect() {
-    this.route.navigate(["main/managements/osm/home/type00"]);
+  addHome() {
+    this.isShowPlace = false;
+    this.isShowAddPlace = true;
   }
 
 }
