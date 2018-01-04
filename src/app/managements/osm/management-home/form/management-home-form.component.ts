@@ -74,7 +74,9 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
   setupHomeTypeList(){
     let _self = this;
     this.api.api_HomeTypeList(function(response){
+      
       if(_self.type == 'MOS'){
+        _self.homeTypeList = [];
         for(let item of response){
           
           if(item.code == '01'){
