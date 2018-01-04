@@ -6,7 +6,7 @@
             <div class="modal-header">
                 <h4 class="modal-title">ฟอร์มสำรวจลูกน้ำยุงลาย</h4>
             </div>
-            <app-filter-find-mosquito [reset]="resetFind" [findHome]="isFindHome" (choosePlace)="onChoosePlace($event)" [documentId]="documentId"></app-filter-find-mosquito>
+            <app-filter-find-mosquito (addplace)="addplace($event);" [reset]="resetFind" [findHome]="isFindHome" (choosePlace)="onChoosePlace($event)" [documentId]="documentId"></app-filter-find-mosquito>
 
             <div *ngIf="isShowForm">
                 <div class="row">
@@ -68,5 +68,10 @@
     </div>
 </div>
 
-
+<div *ngIf="isShowAddPlace">
+    <div class="col-md-12">
+        <app-management-home-form [bean]="homeBean" [action]="ass_action.ADD" (success)="onComplete($event)"></app-management-home-form>
+    </div>
+</div>
+<!-- <app-management-home-form [bean]="homeBean" [action]="ass_action.ADD" (success)="onComplete($event)"></app-management-home-form>  -->
 <ass-loading [show]="loading"></ass-loading>

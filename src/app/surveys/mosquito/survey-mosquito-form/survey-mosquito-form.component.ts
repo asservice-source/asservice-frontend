@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit, Input, ChangeDetectorRef, EventEmitte
 import { BaseComponent } from '../../../base-component';
 import { MosquitoBean } from '../../../beans/mosquito.bean';
 import { ApiHTTPService } from '../../../api-managements/api-http.service';
+import { HomeBean } from '../../../beans/home.bean'
 
 declare var $: any;
 @Component({
@@ -22,8 +23,9 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
   private api: ApiHTTPService;
   public containerTypeList: any;
   public loading: boolean = false;
+  public homebean:HomeBean = new HomeBean();
   public obj = [];
-
+  public isShowAddPlace = false;
   public mosquitobean: MosquitoBean;
 
   public valSurveyTotal: any = {};
@@ -35,11 +37,31 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
     super();
     this.mosquitobean = new MosquitoBean();
     this.api = new ApiHTTPService();
+    this.homebean = new HomeBean();
   }
 
   ngOnInit() {
+    
     this.onModalEvent();
     this.getContainerType();
+
+  }
+
+  addplace(xxx) {
+    $('#find-person-md').modal('hide');
+    this.homebean = new HomeBean();
+    this.homebean.homeId = "";
+    this.homebean.registrationId = "";
+    this.homebean.homeNo = "";
+    this.homebean.soi = "";
+    this.homebean.road = "";
+    this.homebean.latitude = "";
+    this.homebean.longitude = "";
+    this.homebean.homeTypeCode = "";
+    this.isShowAddPlace = true;
+    this.changeRef.detectChanges();
+    $('#modalFormHome').modal('show');
+
   }
 
   onBack() {

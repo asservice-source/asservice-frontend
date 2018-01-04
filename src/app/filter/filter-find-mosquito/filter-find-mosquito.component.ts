@@ -20,6 +20,7 @@ export class FilterFindMosquitoComponent extends BaseComponent implements OnInit
   @Input() reset: any;
   @Input() documentId: string;
   @Output() choosePlace: EventEmitter<HomeBean> = new EventEmitter<HomeBean>();
+  @Output() addplace : EventEmitter<any> = new EventEmitter<any>();
 
   public villageData: any;
   private api: ApiHTTPService;
@@ -40,15 +41,6 @@ export class FilterFindMosquitoComponent extends BaseComponent implements OnInit
     this.api = new ApiHTTPService();
     this.homeBean = new HomeBean();
     this.isHomeDisable = true;
-    // if(this.userInfo.roleId == '3'){
-    //   this.isStaff = true;
-    //   this.setupVillage();
-    // }else{
-    //   this.isStaff = false;
-    //   this.filterBean.villageId = this.userInfo.villageId;
-    //   this.filterBean.osmId = this.userInfo.personId;
-    //   this.setupHome();
-    // }
 
   }
 
@@ -209,6 +201,12 @@ export class FilterFindMosquitoComponent extends BaseComponent implements OnInit
 
   filterChanges() {
     this.isShowPlace = false;
+  }
+
+  addHome(){
+    console.log("77777777777777777777777777777777777777777777777777777777777777777777777777777777777777");
+    console.log(this.homeBean);
+    this.addplace.emit(this.homeBean);
   }
 
 }
