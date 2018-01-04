@@ -1,12 +1,10 @@
-import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef} from '@angular/core';
 import { Http, Response, RequestOptions } from "@angular/http";
 import { Router } from "@angular/router";
 import { ActivatedRoute } from '@angular/router';
 import { ViewCell, LocalDataSource } from 'ng2-smart-table';
 import { BaseComponent } from '../../../base-component';
 import { PersonBean } from '../../../beans/person.bean';
-//import { PersonalMemberBean } from '../../../beans/personal-member.bean';
-// import { ApiHTTPService } from '../../../service/api-http.service';
 import { Service_SurveyPersonal } from '../../../api-managements/service-survey-personal';
 import { PersonalBasicBean } from '../../../beans/personal-basic.bean';
 import { Address } from '../../../beans/address';
@@ -18,8 +16,6 @@ declare var $;
   styleUrls: ['./survey-personal-member-list.component.css']
 })
 export class SurveyPersonalMemberListComponent extends BaseComponent implements OnInit {
-
-  // private apiHttp: ApiHTTPService = new ApiHTTPService();
   private apiHttp: Service_SurveyPersonal = new Service_SurveyPersonal();
 
   private paramHomeId: string;
@@ -50,7 +46,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
 
   public loading: boolean = false;
 
-  constructor(private http: Http, private router: Router, private route: ActivatedRoute, private changeRef: ChangeDetectorRef) {
+  constructor(private http: Http, private route: Router, private routeAct: ActivatedRoute, private changeRef: ChangeDetectorRef) {
     super();
     this.paramMember = new PersonalBasicBean();
     this.cloneMember = new PersonalBasicBean();
@@ -67,7 +63,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
   }
 
   receiveParameters() {
-    this.route.params.subscribe(params => {
+    this.routeAct.params.subscribe(params => {
       this.paramHomeId = params['homeId'];
       this.paramRoundId = params['roundId'];
     });
@@ -247,15 +243,17 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     self.apiHttp.commit_save_survey(self.paramHomeId, self.osmId, self.paramRoundId, listAll, function (d) {
       console.log(d);
       if (d != null && d.status.toUpperCase() == "SUCCESS") {
-        self.message_success('', 'เพิ่มข้อมูลการสำรวจสำเร็จ');
+        self.message_success('', 'ส่งข้อมูลการสำรวจสำเร็จ', function(){
+          self.route.navigate(['/main/surveys/personal']);
+        });
       } else {
-        self.message_error('', 'เพิ่มข้อมูลการสำรวจไม่สำเร็จ');
+        self.message_error('', 'ส่งข้อมูลการสำรวจไม่สำเร็จ');
       }
     });
   }
 
   onClickBack() {
-    this.router.navigate(['/main/surveys/personal']);
+    this.route.navigate(['/main/surveys/personal']);
   }
 
   onModalForm(row: PersonalBasicBean) {

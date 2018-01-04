@@ -37,6 +37,9 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
   bindModalForm(){
     let _self = this;
     $('#modalFormHome').on('show.bs.modal', function(){
+      if(!_self.homeTypeList || _self.homeTypeList.length==0){
+        _self.setupHomeTypeList();
+      }
       console.log(_self.bean);
       _self.disabledHomeType=false;
       if(_self.action == _self.ass_action.EDIT){
