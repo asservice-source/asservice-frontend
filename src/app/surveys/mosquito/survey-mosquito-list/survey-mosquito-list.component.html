@@ -24,6 +24,6 @@
 
 </div>
 
-<app-survey-mosquito-form type="MOS" [action]='action' [data]="mosquitobean" [documentId]="documentId" (completed)="reloadData($event);"></app-survey-mosquito-form>
+<app-survey-mosquito-form [action]='action' [data]="mosquitobean" [documentId]="documentId" (completed)="reloadData($event);"></app-survey-mosquito-form>
 
 <ass-loading [show]="loading"></ass-loading>
