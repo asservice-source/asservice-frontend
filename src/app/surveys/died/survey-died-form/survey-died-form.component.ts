@@ -3,7 +3,7 @@ import { PersonBean } from "../../../beans/person.bean";
 import { BaseComponent } from "../../../base-component";
 import { DeadBean } from '../../../beans/dead.bean';
 import {IMyDpOptions} from 'mydatepicker';
-import { Service_SurveyDead } from '../../../service/service-survey-dead';
+import { Service_SurveyDead } from '../../../api-managements/service-survey-dead';
 import { InputValidateInfo } from '../../../directives/inputvalidate.directive';
 import { SimpleValidateForm } from '../../../utils.util';
 declare var $: any;

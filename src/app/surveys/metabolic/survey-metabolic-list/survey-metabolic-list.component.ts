@@ -4,7 +4,7 @@ import { Router } from "@angular/router";
 import { LocalDataSource } from 'ng2-smart-table';
 import { BaseComponent } from '../../../base-component';
 import { PersonBean } from "../../../beans/person.bean";
-import { ApiHTTPService } from '../../../service/api-http.service';
+import { ApiHTTPService } from '../../../api-managements/api-http.service';
 import { ActionCustomView_2_Component } from '../../../action-custom-table/action-custom-view.component';
 import { FilterHeadSurveyBean } from '../../../beans/filter-head-survey.bean';
 import { MetabolicBean } from '../../../beans/metabolic.bean';

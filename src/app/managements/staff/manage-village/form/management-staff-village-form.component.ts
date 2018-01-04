@@ -2,8 +2,7 @@ import { Component, OnInit, Input, ChangeDetectorRef ,ViewChild, EventEmitter, O
 import { VillageBean } from '../../../../beans/village.bean';
 import { InputValidateInfo } from "../../../../directives/inputvalidate.directive";
 import { BaseComponent } from '../../../../base-component';
-import { ApiHTTPService } from '../../../../service/api-http.service';
-import { Service_Village } from '../../../../service/service-village';
+import { Service_Village } from '../../../../api-managements/service-village';
 declare var $:any, bootbox:any;
 @Component({
   selector: 'app-management-staff-village-form',

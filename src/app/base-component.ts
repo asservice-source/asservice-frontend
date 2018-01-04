@@ -6,7 +6,7 @@ import * as myconf from "./global-config";
 import * as moment from 'moment'
 import { IMyDpOptions } from 'mydatepicker';
 import { ANIMATION_TYPES } from './ng2-loading/ass-loading.config';
-import { ApiHTTPService } from './service/api-http.service';
+import { ApiHTTPService } from './api-managements/api-http.service';
 import { UserService } from './service/user.service';
 import { AppComponent } from './app.component';
 import { MainContentComponent } from './main/main-content/main-content.component';

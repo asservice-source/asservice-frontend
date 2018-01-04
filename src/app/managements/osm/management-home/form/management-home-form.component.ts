@@ -3,7 +3,7 @@ import { HomeBean } from '../../../../beans/home.bean';
 import { InputValidateInfo } from '../../../../directives/inputvalidate.directive';
 import { BaseComponent } from '../../../../base-component';
 import { SimpleValidateForm } from "../../../../utils.util";
-import { Service_Home } from '../../../../service/service-home';
+import { Service_Home } from '../../../../api-managements/service-home';
 declare var $:any;
 declare var modal:any;
 

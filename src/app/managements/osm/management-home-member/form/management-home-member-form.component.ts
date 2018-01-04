@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef} from
 import { BaseComponent } from '../../../../base-component';
 import { PersonalBasicBean } from '../../../../beans/personal-basic.bean';
 import { InputValidateInfo } from '../../../../directives/inputvalidate.directive';
-import { Service_HomeMember } from '../../../../service/service-home-member';
+import { Service_HomeMember } from '../../../../api-managements/service-home-member';
 import { SimpleValidateForm } from '../../../../utils.util';
 import { Address } from '../../../../beans/address';
 

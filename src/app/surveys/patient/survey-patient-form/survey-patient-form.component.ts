@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectorRef, AfterViewInit, Input, Output, Eve
 import { PatientBean } from '../../../beans/patient.bean'
 import { Http } from '@angular/http';
 import { BaseComponent } from '../../../base-component';
-import { ApiHTTPService } from '../../../service/api-http.service';
+import { ApiHTTPService } from '../../../api-managements/api-http.service';
 import { InputValidateInfo } from '../../../directives/inputvalidate.directive';
 import { SimpleValidateForm } from '../../../utils.util';
 declare var $: any;

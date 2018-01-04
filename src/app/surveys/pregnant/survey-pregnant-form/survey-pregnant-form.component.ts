@@ -4,7 +4,7 @@ import { BaseComponent } from '../../../base-component';
 import { LocalDataSource } from 'ng2-smart-table';
 import { ActionCustomView_2_Component } from '../../../action-custom-table/action-custom-view.component';
 import { PregnantChildBean } from '../../../beans/pregnant-child.bean';
-import { Service_SurveyPregnant } from '../../../service/service-survey-pregnant';
+import { Service_SurveyPregnant } from '../../../api-managements/service-survey-pregnant';
 import { IMyDateModel } from 'mydatepicker-thai';
 import { InputValidateInfo } from '../../../directives/inputvalidate.directive';
 import { SimpleValidateForm } from '../../../utils.util';

@@ -7,7 +7,7 @@ import { PersonBean } from "../../../beans/person.bean";
 import { ActionCustomViewMapsComponent } from '../../../action-custom-table/action-custom-view.component';
 import { LocalDataSource } from 'ng2-smart-table';
 import { PregnantBean } from '../../../beans/pregnant.bean'
-import { Service_SurveyPregnant } from '../../../service/service-survey-pregnant';
+import { Service_SurveyPregnant } from '../../../api-managements/service-survey-pregnant';
 import { CompileMetadataResolver } from '@angular/compiler';
 declare var $: any
 

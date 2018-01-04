@@ -3,7 +3,7 @@ import { Headers } from '@angular/http';
 import { NgModel } from '@angular/forms';
 import { Http, Response, RequestOptions, RequestMethod } from "@angular/http";
 import { FilterHeadSurveyBean } from '../../beans/filter-head-survey.bean';
-import { ApiHTTPService } from '../../service/api-http.service';
+import { ApiHTTPService } from '../../api-managements/api-http.service';
 import { BaseComponent } from '../../base-component';
 import { UserService } from '../../service/user.service';
 
