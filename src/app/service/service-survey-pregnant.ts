@@ -62,9 +62,9 @@ export class Service_SurveyPregnant extends ApiHTTPService {
     public get_pregnant_info(id, callback: (doc: any) => void) {
         let self = this;
 
-        let parameters = { };
+        let parameters = { rowGUID: id };
 
-        self.post('survey_pregnant/get_pregnant_info', parameters, function (d) {
+        self.post('survey_pregnant/get_pregnant_detail_info', parameters, function (d) {
             callback(d);
         });
     }

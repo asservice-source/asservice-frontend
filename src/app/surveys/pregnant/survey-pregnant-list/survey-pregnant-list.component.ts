@@ -145,8 +145,8 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
           });
 
           instance.maps.subscribe(row => {
-            self.param_latitude = "16.442481";
-            self.param_longitude = "102.808265";
+            self.param_latitude = row.latitude;
+            self.param_longitude = row.longitude;
             self.param_info = 'บ้านของ ' + row.fullName;
             $("#modalMaps").modal("show");
           });

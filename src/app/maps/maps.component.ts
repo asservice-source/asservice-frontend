@@ -15,10 +15,9 @@ export class MapsComponent implements OnInit {
 
   // public autocomplete: any;
   public zoom: number = 15;
-  public center = "16.442481, 102.808265";
-  public position = "16.442481, 102.808265";
+  public center = "";
+  public position = "";
   public info_content = "";
-  public map;
 
   constructor(private _changeRef: ChangeDetectorRef) {
 
@@ -31,9 +30,17 @@ export class MapsComponent implements OnInit {
   ngOnChanges() {
     let self = this;
 
-    self.center = self.getLatLong();
-    self.position = self.getLatLong();
-    self.info_content = self.info;
+    let latlng = self.getLatLong();
+    if (latlng) {
+      self.zoom = 15;
+      self.center = latlng;
+      self.position = latlng;
+      self.info_content = self.info;
+    } else {
+      self.zoom = 5;
+      self.center = "Thailand";
+      self.position = "";
+    }
   }
 
   onMapReady(map) {
@@ -85,7 +92,7 @@ export class MapsComponent implements OnInit {
     console.log(event.latLng);
     console.log(event.latLng.lat());
     console.log(event.latLng.lng());
-    console.log('mode', this.mode);
+    console.log('mode', self.mode);
 
     let m = self.mode;
     if (m == "view") {
@@ -113,8 +120,10 @@ export class MapsComponent implements OnInit {
   // }
 
   getLatLong() {
-    if(this.latitude && this.longitude){
-      return this.latitude + ',' + this.longitude;
+    let self = this;
+
+    if (self.latitude && self.longitude) {
+      return self.latitude + ',' + self.longitude;
     } else {
       return "";
     }
