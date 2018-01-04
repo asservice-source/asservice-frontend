@@ -10,7 +10,7 @@ export class MultiMapsComponent implements OnInit {
   public zoom: number = 15;
   public center = "16.442481, 102.808265";
   public positions: Array<MapsBean> = [];
-  public info = "";
+  public info_content = "";
 
   constructor() {
     let self = this;
@@ -30,12 +30,15 @@ export class MultiMapsComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+
   }
 
   onMapReady(map) {
     console.log('onMapReady -> map -> ', map);
-    console.log('onMapReady -> markers -> ', map.markers);  // to get all markers as an array 
+    console.log('onMapReady -> markers -> ', map.markers);  // to get all markers as an array
+
+    var infowindow = new google.maps.InfoWindow();
+    console.log(infowindow);
   }
 
   onMapClick(event) {
@@ -46,17 +49,19 @@ export class MultiMapsComponent implements OnInit {
   }
 
   onIdle(event) {
-    console.log('onIdle -> event ->', event.target);
+    console.log('onIdle -> map ->', event.target);
   }
 
   onMarkerInit(marker) {
     console.log('onMarkerInit -> marker ->', marker);
   }
 
-  onMarkerClick({ target: marker }, _info) {
+  onMarkerClick({ target: marker }, infoDesc) {
+    console.log('onMarkerClick -> marker ->', marker);
+
     let self = this;
 
-    self.info = _info;
+    self.info_content = infoDesc;
     marker.nguiMapComponent.openInfoWindow('iw', marker);
   }
 
