@@ -1,11 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { BaseComponent } from "../../../base-component";
-import { ApiHTTPService } from "../../../service/api-http.service";
 import { ActionCustomView_2_Component } from '../../../action-custom-table/action-custom-view.component';
 import { FilterHeadSurveyBean } from '../../../beans/filter-head-survey.bean';
 import { DeadBean } from '../../../beans/dead.bean';
 import { LocalDataSource } from 'ng2-smart-table';
-import { Service_SurveyDead } from '../../../service/service-survey-dead';
+import { Service_SurveyDead } from '../../../api-managements/service-survey-dead';
 declare var $: any;
 
 @Component({

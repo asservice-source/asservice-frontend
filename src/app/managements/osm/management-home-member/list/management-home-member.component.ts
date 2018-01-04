@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectorRef} from '@angular/core';
 import { BaseComponent } from '../../../../base-component';
 import { LocalDataSource } from 'ng2-smart-table';
 import { ActionCustomViewComponent } from '../../../../action-custom-table/action-custom-view.component';
-import { Service_HomeMember } from '../../../../service/service-home-member';
+import { Service_HomeMember } from '../../../../api-managements/service-home-member';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PersonalBasicBean } from '../../../../beans/personal-basic.bean';
 import { Address } from '../../../../beans/address';

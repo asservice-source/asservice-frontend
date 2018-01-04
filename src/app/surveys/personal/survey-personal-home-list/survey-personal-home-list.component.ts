@@ -7,7 +7,7 @@ import { FilterBean } from "../../../beans/filter.bean";
 import { PersonalHomeBean } from '../../../beans/personal-home.bean';
 import { HomeBean } from '../../../beans/home.bean';
 import { BaseComponent } from '../../../base-component';
-import { ApiHTTPService } from '../../../service/api-http.service';
+import { ApiHTTPService } from '../../../api-managements/api-http.service';
 declare var $: any;
 
 @Component({

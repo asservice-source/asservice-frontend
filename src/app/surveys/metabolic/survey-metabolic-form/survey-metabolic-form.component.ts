@@ -5,7 +5,7 @@ import { NgModel } from '@angular/forms';
 import { PersonBean } from './../../../beans/person.bean';
 import { BaseComponent } from '../../../base-component';
 import { MetabolicBean } from '../../../beans/metabolic.bean';
-import { ApiHTTPService } from '../../../service/api-http.service';
+import { ApiHTTPService } from '../../../api-managements/api-http.service';
 
 declare var bootbox: any;
 declare var $: any;
