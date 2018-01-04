@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { BaseComponent } from '../../base-component';
-import { ApiHTTPService } from '../../service/api-http.service';
+import { ApiHTTPService } from '../../api-managements/api-http.service';
 import { findHomeBean } from '../../beans/findhome.bean';
 import { HomeBean } from '../../beans/home.bean';
 import { LocalDataSource, ViewCell } from 'ng2-smart-table';
@@ -40,7 +40,6 @@ export class FilterFindMosquitoComponent extends BaseComponent implements OnInit
     this.api = new ApiHTTPService();
     this.homeBean = new HomeBean();
     this.isHomeDisable = true;
-
     // if(this.userInfo.roleId == '3'){
     //   this.isStaff = true;
     //   this.setupVillage();
@@ -92,7 +91,7 @@ export class FilterFindMosquitoComponent extends BaseComponent implements OnInit
   }
 
   searchPlace() {
-    this.isShowAddPlace = false;
+    //this.isShowAddPlace = false;
     this.setupHomeName();
     if (this.findhomebean.homeTypeId) {
       this.changetable();
@@ -210,11 +209,6 @@ export class FilterFindMosquitoComponent extends BaseComponent implements OnInit
 
   filterChanges() {
     this.isShowPlace = false;
-  }
-
-  addHome() {
-    this.isShowPlace = false;
-    this.isShowAddPlace = true;
   }
 
 }

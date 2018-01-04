@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterViewInit, Input, ChangeDetectorRef, EventEmitter, Output } from '@angular/core';
 import { BaseComponent } from '../../../base-component';
 import { MosquitoBean } from '../../../beans/mosquito.bean';
-import { ApiHTTPService } from '../../../service/api-http.service';
+import { ApiHTTPService } from '../../../api-managements/api-http.service';
 
 declare var $: any;
 @Component({

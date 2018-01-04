@@ -2,7 +2,7 @@ import { Component, OnInit,ChangeDetectorRef } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
 import { ActionCustomView_2_Component } from '../../../action-custom-table/action-custom-view.component';
 import { BaseComponent } from '../../../base-component';
-import { ApiHTTPService } from '../../../service/api-http.service';
+import { ApiHTTPService } from '../../../api-managements/api-http.service';
 import { FilterHeadMosquitoBean } from '../../../beans/filter-head-mosquito.bean';
 import { MosquitoBean } from '../../../beans/mosquito.bean';
 
@@ -26,7 +26,7 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
   public documentId: string;
   public mosquitobean: MosquitoBean = new MosquitoBean();
   public loading;
-
+  public isShowAddPlace : boolean = false;
 
   public datas :any = [];
 

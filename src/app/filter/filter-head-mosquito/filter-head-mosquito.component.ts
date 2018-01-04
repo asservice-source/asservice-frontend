@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { BaseComponent } from '../../base-component';
-import { ApiHTTPService } from '../../service/api-http.service';
+import { ApiHTTPService } from '../../api-managements/api-http.service';
 import { FilterHeadMosquitoBean } from '../../beans/filter-head-mosquito.bean';
 
 
