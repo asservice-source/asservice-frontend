@@ -41,13 +41,12 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
   }
 
   ngOnInit() {
-    
     this.onModalEvent();
     this.getContainerType();
 
   }
 
-  addplace(xxx) {
+  addplace(villageId) {
     $('#find-person-md').modal('hide');
     this.homebean = new HomeBean();
     this.homebean.homeId = "";
@@ -58,6 +57,8 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
     this.homebean.latitude = "";
     this.homebean.longitude = "";
     this.homebean.homeTypeCode = "";
+    this.homebean.villageId = villageId;
+    //this.homebean.osmId = this.userInfo.personId;
     this.isShowAddPlace = true;
     this.changeRef.detectChanges();
     $('#modalFormHome').modal('show');
@@ -76,6 +77,8 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
   onChoosePlace(bean: any): void {
     this.mosquitobean = new MosquitoBean();
     this.mosquitobean = bean;
+    console.log("7777777777777777777777777777777777777777777");
+    console.log(this.mosquitobean);
     this.isFindHome = false;
     this.isShowForm = true;
     if (this.action == this.ass_action.ADD) {
