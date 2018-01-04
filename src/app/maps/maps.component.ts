@@ -17,6 +17,7 @@ export class MapsComponent implements OnInit {
   public zoom: number = 15;
   public center = "";
   public position = "";
+  public draggable = false;
   public info_content = "";
 
   constructor(private _changeRef: ChangeDetectorRef) {
@@ -44,29 +45,16 @@ export class MapsComponent implements OnInit {
   }
 
   onMapReady(map) {
-    console.log('map', map);
-    console.log('markers', map.markers);  // to get all markers as an array 
-
-    // this.positions.push(this.param_latLng);
-    // console.log('positions', this.positions);
-    // this.marker = { display: true, lat: 16.442481, lng: 102.808265, };
-
-    // if (map.markers) {
-    //   for (let m of map.markers) {
-    //     this.marker.lat = m.getPosition().lat();
-    //     this.marker.lng = m.getPosition().lng();
-
-    //     m.nguiMapComponent.openInfoWindow('iw', m);
-    //   }
-    // }
+    console.log('onMapReady -> map -> ', map);
+    console.log('onMapReady -> markers -> ', map.markers);  // to get all markers as an array 
   }
 
   onIdle(event) {
-    console.log('map', event.target);
+    console.log('onIdle -> map -> ', event.target);
   }
 
   onMarkerInit(marker) {
-    console.log('marker', marker);
+    console.log('onMarkerInit -> marker -> ', marker);
 
     // setTimeout(function () {
     //   marker.nguiMapComponent.openInfoWindow('iw', marker);
@@ -74,6 +62,8 @@ export class MapsComponent implements OnInit {
   }
 
   onMarkerClick({ target: marker }) {
+    console.log('onMarkerClick -> marker -> ', marker);
+
     marker.nguiMapComponent.openInfoWindow('iw', marker);
   }
 
@@ -89,19 +79,18 @@ export class MapsComponent implements OnInit {
   onMapClick(event) {
     let self = this;
 
-    console.log(event.latLng);
-    console.log(event.latLng.lat());
-    console.log(event.latLng.lng());
-    console.log('mode', self.mode);
+    console.log('onMapClick -> event -> ', event);
+    console.log('onMapClick -> latlng -> ', event.latLng);
+    console.log('onMapClick -> mode -> ', self.mode);
 
     let m = self.mode;
-    if (m == "view") {
-
-    } else if (m == "edit") {
+    if (m == "edit") {
       self.position = event.latLng;
 
       let objLatLng = { lat: event.latLng.lat(), lng: event.latLng.lng() };
       self.positionChanged.emit(objLatLng);
+    } else {
+
     }
   }
 
@@ -122,7 +111,7 @@ export class MapsComponent implements OnInit {
   getLatLong() {
     let self = this;
 
-    if (self.latitude && self.longitude) {
+    if (self.latitude || self.longitude) {
       return self.latitude + ',' + self.longitude;
     } else {
       return "";

@@ -1,15 +1,16 @@
 <div class="row">
   <div class="col-md-12">
     <!-- <input places-auto-complete (place_changed)="placeChanged($event)" [types]="['geocode']" /> -->
-    <ngui-map [zoom]="zoom" [center]="center" (mapReady$)="onMapReady($event)" (mapClick)="onMapClick($event)" (idle)="onIdle($event)"
+    <ngui-map scrollwheel="false" [zoom]="zoom" [center]="center" (mapReady$)="onMapReady($event)" (mapClick)="onMapClick($event)" (idle)="onIdle($event)"
       mapTypeId="ROADMAP">
-      <!-- <marker *ngFor="let pos of positions" [position]="pos" (initialized$)="onMarkerInit($event)"></marker> -->
-      <marker [position]="position" [draggable]="false" (initialized$)="onMarkerInit($event)" (click)="onMarkerClick($event)" (positionChanged)="onPositionChanged($event)"></marker>
+      <div *ngIf="position">
+      <marker [position]="position" [draggable]="draggable" (initialized$)="onMarkerInit($event)" (click)="onMarkerClick($event)" (positionChanged)="onPositionChanged($event)"></marker>
       <info-window id="iw">
         <div>
           {{ info_content }}
         </div>
       </info-window>
+    </div>
     </ngui-map>
   </div>
 </div>
