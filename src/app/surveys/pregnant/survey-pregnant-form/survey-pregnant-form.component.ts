@@ -35,6 +35,7 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
   public pregnantBean: PregnantBean;
 
   public actionChild: string;
+  public tmpChildCitizenId: string;
   public listChild: any = [];
   public childBean: PregnantChildBean;
   public tmpChildBean: PregnantChildBean;
@@ -139,6 +140,7 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
             self.validateCitizenId = new InputValidateInfo();
             self.validateVerify = new InputValidateInfo();
 
+            self.tmpChildCitizenId = row.citizenId;
             self.tmpChildBean = row;
             self.childBean = self.cloneObj(row);
             self.actionChild = self.ass_action.EDIT;
@@ -178,9 +180,14 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
     $('#find-person-md').on('show.bs.modal', function (e) {
       self.resetFind = self.resetFind + 1;
       if (self.action == self.ass_action.EDIT) {
-        self.onChoosePersonal(self.data);
+        // self.onChoosePersonal(self.data);
         // alert(self.rowGUID);
-        // self.onChoosePersonal(self.getPregnantInfo(self.rowGUID));
+        self.loading = true;
+        self.apiHttp.get_pregnant_info(self.rowGUID, function (d) {
+          let pregnantInfo = d.response;
+          console.log('pregnant info', pregnantInfo);
+          self.onChoosePersonal(pregnantInfo);
+        });
       }
       self.changeRef.detectChanges();
     })
@@ -312,6 +319,8 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
     self.bindChildList();
 
     self.clearInputChild();
+
+    self.loading = false;
   }
 
   onChangePregnantType(isClearData: boolean) {
@@ -373,46 +382,60 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
     self.validateCitizenId = new InputValidateInfo();
     self.validateCitizenId.isCheck = true;
 
-    if (self.isEmpty(self.childBean.citizenId)) {
-      self.error_message_citizenId = "กรุณาระบุ หมายเลขประจำตัว";
-      return;
-    }
-
-    if (!self.isValidCitizenIdThailand(self.childBean.citizenId)) {
-      self.error_message_citizenId = "กรุณาระบุ หมายเลขประจำตัว ให้ถูกต้อง";
-      return;
-    }
-
     self.apiHttp.api_PersonByCitizenId(self.childBean.citizenId, function (d) {
-      if (d.response) {
-        self.error_message_citizenId = "บัตรประชาชนซ้ำ";
-        self.validateCitizenId = new InputValidateInfo();
-        self.validateCitizenId.isCheck = true;
-        self.validateCitizenId.isShowError = true;
-        // self.message_error('', 'บัตรประชาชนซ้ำ');
+      console.log('api_PersonByCitizenId', d.response);
+      let duplicateData = d.response;
+
+      if (self.isEmpty(self.childBean.citizenId)) {
+        self.error_message_citizenId = "กรุณาระบุ หมายเลขประจำตัว";
         return;
       }
+
+      if (!self.isValidCitizenIdThailand(self.childBean.citizenId)) {
+        self.error_message_citizenId = "กรุณาระบุ หมายเลขประจำตัว ให้ถูกต้อง";
+        return;
+      }
+
+      if (self.actionChild == self.ass_action.ADD) {
+        if (duplicateData) {
+          self.error_message_citizenId = "บัตรประชาชนซ้ำ";
+          self.validateCitizenId = new InputValidateInfo();
+          self.validateCitizenId.isCheck = true;
+          self.validateCitizenId.isShowError = true;
+          // self.message_error('', 'บัตรประชาชนซ้ำ');
+          return;
+        }
+      } else if (self.actionChild == self.ass_action.EDIT) {
+        if (duplicateData && duplicateData.citizenId != self.tmpChildCitizenId) {
+          self.error_message_citizenId = "บัตรประชาชนซ้ำ";
+          self.validateCitizenId = new InputValidateInfo();
+          self.validateCitizenId.isCheck = true;
+          self.validateCitizenId.isShowError = true;
+          // self.message_error('', 'บัตรประชาชนซ้ำ');
+          return;
+        }
+      }
+
+      if (self.isEmpty(self.childBean.firstName)) {
+        return;
+      }
+
+      if (self.isEmpty(self.childBean.lastName)) {
+        return;
+      }
+
+      self.childBean.genderName = self.findGenderName(self.childBean.genderId);
+      self.childBean.bloodTypeName = self.findBloodTypeName(self.childBean.bloodTypeId);
+
+      if (self.actionChild == self.ass_action.ADD) {
+        self.listChild.push(self.cloneObj(self.childBean));
+      } else {
+        self.copyObj(self.childBean, self.tmpChildBean);
+      }
+
+      self.bindChildList();
+      self.clearInputChild();
     });
-
-    if (self.isEmpty(self.childBean.firstName)) {
-      return;
-    }
-
-    if (self.isEmpty(self.childBean.lastName)) {
-      return;
-    }
-
-    self.childBean.genderName = self.findGenderName(self.childBean.genderId);
-    self.childBean.bloodTypeName = self.findBloodTypeName(self.childBean.bloodTypeId);
-
-    if (self.actionChild == self.ass_action.ADD) {
-      self.listChild.push(self.cloneObj(self.childBean));
-    } else {
-      self.copyObj(self.childBean, self.tmpChildBean);
-    }
-
-    self.bindChildList();
-    self.clearInputChild();
   }
 
   onClickClearChild() {
@@ -601,14 +624,6 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
     let self = this;
 
     self.listChild = [];
-  }
-
-  getPregnantInfo() {
-    let self = this;
-
-    self.apiHttp.get_pregnant_info('', function (d) {
-      return d.response;
-    });
   }
 
   findGenderName(genderId) {
