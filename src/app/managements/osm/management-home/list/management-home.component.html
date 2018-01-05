@@ -1,6 +1,6 @@
 <div class="panel panel-default">
   <div class="panel-heading">
-    <label *ngIf="isStaff"><a (click)="onBack();" >การจัดการ เจ้าหน้าที่ อสม.</a> <i class="fa fa-caret-right"></i> </label><label>จัดการเขตรับผิดชอบ อสม.</label>
+    <label *ngIf="isStaff"><a (click)="onBack();" >จัดการเจ้าหน้าที่ อสม.</a> <i class="fa fa-caret-right"></i> </label><label>จัดการเขตรับผิดชอบ อสม.</label>
   </div>
   <div class="panel-body">
     <div class="header-info">
@@ -11,23 +11,12 @@
         <label class="label-form">หมู่ที่</label>
       </div>
       <div class="col-md-4">
-        <!-- <select [(ngModel)]="findVillageId" *ngIf="isStaff">
-          <option></option>
-        </select>
-        <input *ngIf="!isStaff" [value]="villageNo" disabled> -->
         <input [value]="villageNo" disabled>
       </div>
-
-
       <div class="col-md-1 text-right">
         <label class="label-form">อสม.</label>
       </div>
       <div class="col-md-4">
-        <!-- <select [(ngModel)]="findOsmId" *ngIf="isStaff">
-          <option></option>
-        </select>
-        <input *ngIf="!isStaff" [value]="osmName" disabled> -->
-
         <input [value]="osmName" disabled>
       </div>
 
@@ -45,13 +34,15 @@
       </div>
     </div>
 
-    <div class="row text-center" style="margin-top: 10px;">
-      <button id="filter-btnSearch" class="btn btn-primary btn-sm" (click)="onSearchFilter()">
-        <i class="fa fa-search"> ค้นหา</i>
-      </button> &nbsp;&nbsp;
-      <button id="filter-btnClear" class="btn btn-primary btn-sm" (click)="onClearFilter()">
-        <i class="fa fa-refresh"> ล้างค่า</i>
-      </button>
+    <div class="row" style="margin-top: 10px;">
+      <div class="col-md-11 text-center">
+        <button id="filter-btnSearch" class="btn btn-primary btn-sm" id="btnSearch" (click)="onSearchFilter()">
+          <i class="fa fa-search">ค้นหา</i>
+        </button> &nbsp;&nbsp;
+        <button id="filter-btnClear" class="btn btn-primary btn-sm" (click)="onClearFilter()">
+          <i class="fa fa-refresh">ล้างค่า</i>
+        </button>
+      </div>
     </div>
 
     <div class="row">

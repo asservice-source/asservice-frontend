@@ -112,7 +112,6 @@ export class ManagementStaffVillageListComponent extends BaseComponent implement
       
     }
     onCompleted(event: any){
-      console.log(event);
       let _self = this;
       if(event.success){
         _self.message_success('',event.message, function(){

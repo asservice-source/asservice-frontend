@@ -16,7 +16,9 @@
             $('#message-box-container').html(template);
             $('#message-box-container>.modal').modal();
             $('.message-box').on('hidden.bs.modal', function (e) {
-                $('body').addClass('modal-open');
+                if($('.modal').hasClass('in')){
+                    $('body').addClass('modal-open');
+                }
             });
         }
         ,alert: function(title, message, callback){

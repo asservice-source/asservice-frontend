@@ -16,7 +16,7 @@ export class FilterPersonalComponent extends BaseComponent implements OnInit {
   public filterBean: FilterBean;
 
   // List of Data
-  public description: any = { round: '', village: 'ทั้งหมด', osm: 'ทั้งหมด', homeNo: '', status: '' };
+  public description: any = { round: '', village: 'ทั้งหมด', osm: 'ทั้งหมด', homeNo: '', status: 'ทั้งหมด' };
   public listRound: any = [];
   public listVillageNo;
   public listOsm;
@@ -176,13 +176,15 @@ export class FilterPersonalComponent extends BaseComponent implements OnInit {
   }
 
   onSearchFilter() {
+    console.log('------------description-------------')
+    console.log(this.description);
     let self = this;
     let str = '<b>ผลลัพธ์การค้นหา </b>';
     str +='รอบสำรวจ: ' + this.description.round;
-    str += ' , หมู่บ้าน: ' + this.description.village;
-    str += ' , อสม.: ' + this.description.osm;
-    str += ' , บ้านเลขที่: ' + this.description.homeNo;
-    str += ' , สถานะ: ' + this.description.status;
+    str += ' , หมู่บ้าน: ' + (this.isEmpty(this.description.village)?'ทั้งหมด':this.description.village);
+    str += ' , อสม.: ' + (this.isEmpty(this.description.osm)?'ทั้งหมด':this.description.osm);
+    str += ' , บ้านเลขที่: ' + (this.isEmpty(this.description.homeNo)?'ทั้งหมด':this.description.homeNo);
+    str += ' , สถานะ: ' + (this.isEmpty(this.description.status)?'ทั้งหมด':this.description.status);
     this.filterBean.description = str;
     self.notifyFilter.emit(self.filterBean);
   }

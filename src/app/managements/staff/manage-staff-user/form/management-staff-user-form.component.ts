@@ -98,6 +98,7 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
     this.oldCitizenId = this.bean.citizenId;
     this.inputValidate = new InputValidateInfo();
     this.inputValidate.isCheck = true;
+    console.log(this.bean);
     if(this.isValidCitizenIdThailand(this.bean.citizenId)){
     //if(this.bean.citizenId){
       this.inputValidate = new InputValidateInfo();
@@ -221,9 +222,10 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
           return false;
         }
         _self.loading = true;
-        this.api.api_PersonByCitizenId(_self.bean.citizenId, function(response){
-          if(response.status.toString().toUpperCase()=="SUCCESS"){
-            if(response.response && response.response.citizenId != _self.oldCitizenId){
+        this.api.api_PersonByCitizenId(_self.bean.citizenId, function(resp){
+          if(resp.status.toString().toUpperCase()=="SUCCESS"){
+            let person = resp.response;
+            if(person && person.citizenId && person.citizenId != _self.oldCitizenId){
               _self.loading = false;
               _self.message_error('', 'หมายเลขบัตรประจำตัว <b>'+ _self.formatCitizenId(_self.bean.citizenId) +'</b> ซ้ำ');
             }else{

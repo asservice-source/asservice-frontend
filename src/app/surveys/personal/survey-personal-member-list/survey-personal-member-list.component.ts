@@ -133,7 +133,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     console.log(member);
     let self = this;
     member.fullName = self.getFullName(member.prefixName, member.firstName, member.lastName);
-    if (member.birthDate) {
+    if(member.birthDate) {
       member.age = self.getAge(member.birthDate).toString();
     } else {
       member.age = '';
@@ -152,9 +152,14 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     for (let item of self.tempData2) {
       listAll.push(item);
     }
+
     if (!isActionAdd) {
       // check CitizenId Duplicate in List
       for (let item of listAll) {
+        if(item.personId != tmpMember.personId && item.familyStatusId=='1' && tmpMember.familyStatusId=='1'){
+          item.familyStatusId='2';
+          item.familyStatusName = 'ผู้อาศัย'
+        }
         if (item.citizenId == tmpMember.citizenId && item.personId != tmpMember.personId) {
           citizenIdsDup.push(item.citizenId);
         }
@@ -205,6 +210,8 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
       }
     }
 
+
+
     console.log(self.tempData);
     console.log(self.tempData2);
 
@@ -244,7 +251,8 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
       console.log(d);
       if (d != null && d.status.toUpperCase() == "SUCCESS") {
         self.message_success('', 'ส่งข้อมูลการสำรวจสำเร็จ', function(){
-          self.route.navigate(['/main/surveys/personal']);
+          $('#btnBack').click();
+          self.changeRef.detectChanges();
         });
       } else {
         self.message_error('', 'ส่งข้อมูลการสำรวจไม่สำเร็จ');

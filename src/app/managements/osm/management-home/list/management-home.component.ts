@@ -171,7 +171,7 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
           let response = resp.response;
           if(response && resp.status.toUpperCase() == 'SUCCESS'){
             _self.message_success('','ลบ '+msgType+' เรียบร้อย', function(){
-              _self.setupTable();
+              $('#btnSearch').click();
             });
           }else{
             _self.message_error('','ไม่สามารถลบ'+msgType);
@@ -187,7 +187,7 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
     let _self = this;
     if(event.success){
       _self.message_success('', event.message, function(){
-        _self.setupTable();
+        $('#btnSearch').click();
       })
      
     }else{

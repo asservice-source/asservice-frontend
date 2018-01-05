@@ -38,7 +38,7 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
   public modelDischargeDate: any = null;
   public validateVerify: InputValidateInfo = new InputValidateInfo();
   public validateSave: InputValidateInfo = new InputValidateInfo();
-
+  public validateAddress: InputValidateInfo = new InputValidateInfo();
   public loading: boolean = false;
   
   constructor() {
@@ -82,6 +82,7 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
       
       self.validateVerify = new InputValidateInfo();
       self.validateSave = new InputValidateInfo();
+      self.validateAddress = new InputValidateInfo();
     });
   }
   
@@ -163,33 +164,21 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
   onChangeGender(element: any) {
     this.bindPrefix();
     this.memberBean.prefixCode = "";
-    let options = element.options;
-    for(let option of options){
-      if(option.value == element.value){
-        this.memberBean.genderName = option.text;
-      }
-    }
+    this.listPrefix = [];
+
   }
   onChangePrefix(element: any){
-    let options = element.options;
-    for(let option of options){
-      if(option.value == element.value){
-        this.memberBean.prefixName = option.text;
-        console.log(this.memberBean.prefixName);
-      }
-    }
+
   }
   onChangeFamilyStatus(element: any){
-    let options = element.options;
-    for(let option of options){
-      if(option.value == element.value){
-        this.memberBean.familyStatusName = option.text;
-      }
+
+    if(this.memberBean.familyStatusId=='1' && this.memberBean.isGuest){
+      this.memberBean.isGuest = false;
+      this.validateAddress = new InputValidateInfo();
     }
   }
   onChangeBirthDate(event: IMyDateModel) {
-    let self = this;
-    self.memberBean.birthDate = self.getStringDateForDatePickerModel(event.date);
+    //this.memberBean.birthDate = this.getStringDateForDatePickerModel(event.date);
   }
 
   onChangeProvince() {
@@ -206,7 +195,6 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
   onChangeSubDistrict() {
 
   }
-
   isValidClickVerify(cid: any) {
     let self = this;
 
@@ -268,7 +256,9 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
     if(bean.dischargeId!='9'){
       validateFields.push('dischargeDate');
     }
+    self.validateAddress = new InputValidateInfo();
     if(bean.isGuest){
+      self.validateAddress.isCheck = true;
       validateFields.push('homeNo','mooNo','tumbolCode','amphurCode','provinceCode');
     }else{
       // Home Address  Added to Personal Address 
@@ -285,13 +275,27 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
 
     let errors = simpValidate.getObjectEmpty_byFilds(bean, validateFields);
     if (errors.length > 0) {
-
+      console.log(errors);
       return false;
 
     } else {
-      
+      this.memberBean.birthDate = this.getStringDateForDatePickerModel(this.modelBirthDate.date);
+      for(let item of this.listGender){
+        if(this.memberBean.genderId==item.id){
+          this.memberBean.genderName = item.name;
+        }
+      }
+      for(let item of this.listPrefix){
+        if(this.memberBean.prefixCode==item.code){
+          this.memberBean.prefixName = item.name;
+        }
+      }
+      for(let item of this.listFamilyStatus){
+        if(this.memberBean.familyStatusId==item.id){
+          this.memberBean.familyStatusName = item.name;
+        }
+      }
       return true;
-
     }
   }
   isGuestClearAddress(){
@@ -301,6 +305,24 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
     this.memberBean.tumbolCode = '';
     this.memberBean.amphurCode = '';
     this.memberBean.provinceCode = '';
+  }
+  onChangeGuest(){
+    console.log(this.memberBean.isGuest)
+    this.validateAddress = new InputValidateInfo();
+    if(this.memberBean.isGuest && this.memberBean.familyStatusId=='1'){
+      let msg = 'เมื่อเลือกประเภทการอยู่อาศัย เป็น "ไม่มีชื่อในสำเนาทะเบียนบ้าน แต่ตัวอยู่จริง"';
+      msg += ' จะทำให้ สถานะความสัมพันธ์ เปลี่ยนเป็น "ผู้อยู่อาศัย" ทันที'
+      msg += ' ต้องการทำต่อ ใช่หรือไม่ ?';
+      let _self = this;
+      _self.message_comfirm('',msg, function(isComfirm){
+        if(isComfirm){
+          _self.memberBean.familyStatusId = '2';
+        }else{
+          _self.memberBean.isGuest = false;
+        }
+        
+      });
+    }
   }
   onClickSave() {
     let self = this;

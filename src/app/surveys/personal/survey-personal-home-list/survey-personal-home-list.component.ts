@@ -22,7 +22,7 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
   public action: string = this.ass_action.ADD;
   public homeBean: HomeBean = new HomeBean();
   public paramHome: PersonalHomeBean = new PersonalHomeBean();
-  public filterRoundId: string = "";
+  public currentRoundId: string;
   public filterBean: any;
   public settings: any;
   public source: LocalDataSource;
@@ -99,7 +99,7 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
           instance.action.subscribe((row: PersonalHomeBean) => {
             // console.log(row);
             let homeId = row.homeId;
-            let roundId = self.filterRoundId;
+            let roundId = self.currentRoundId;
             self.router.navigate(['/main/surveys/personal-detail', homeId, roundId]);
           });
         }
@@ -117,23 +117,18 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
 
   onClickSearch(event: FilterBean) {
     this.filterBean = event;
+    console.log(this.filterBean);
     let self = this;
     let roundId = event.roundId;
     let villageId = event.villageId;
     let osmId = event.osmId;
     let homeId = event.homeId;
     let suyveyStatus = event.suyveyStatus;
-    self.filterRoundId = roundId;
-
+    if(this.isEmpty(this.currentRoundId)){
+      self.currentRoundId = roundId;
+    }
+   
     self.bindHomeList(roundId, villageId, osmId, homeId, suyveyStatus);
-
-    // this.http.get("assets/data_test/data_home_personal.json")
-    //   .map(res => res.json())
-    //   .subscribe((data) => {
-    //     self.source = new LocalDataSource(data);
-    //     self.setNg2STDatasource(self.source);
-    //     self.isShowTable = true;
-    //   });
   }
 
   onClickAdd() {

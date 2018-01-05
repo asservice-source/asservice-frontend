@@ -158,10 +158,20 @@ export class ManagementStaffUserListComponent extends BaseComponent implements O
      
     });
   }
+  
   onClickManageScope(row: any){
     console.log(row);
     this.route.navigate(['main/managements/osm/home','PD', row.personId]);
   }
+  
+  onSearch(){
+    this.setupTable();
+  }
+  onClearFilter(){
+    this.searchName = '';
+    this.searchVillageId = '';
+  }
+
   onClickAdd(){
     this.onModalForm(this.ass_action.ADD);
   }
@@ -187,7 +197,6 @@ export class ManagementStaffUserListComponent extends BaseComponent implements O
       _self.message_error('','ไม่สามารถลบตัวเองได้');
       return false;
     }
-
     _self.message_comfirm('','ต้องการลบ <b>' + row.fullName +'</b> ใช่หรือไม่',function(result){
       if(result){
         _self.loading = true;
@@ -220,21 +229,20 @@ export class ManagementStaffUserListComponent extends BaseComponent implements O
       this.bean.isActive = true;
     }
     this.action = action;
-    
     this.detectChange.detectChanges();
     $('#modalForm').modal('show');
   }
 
-  onSearch(){
-    this.setupTable();
-  }
   
   onCompleted(event: any){
     console.log(event);
     let _self = this;
     if(event.success){
       _self.message_success('',event.message, function(){
-        _self.setupTable();
+        //_self.setupTable();
+
+        $('#btnSearch').click();
+
       });
     }else{
       _self.message_error('',event.message);
