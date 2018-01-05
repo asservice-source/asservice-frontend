@@ -9,6 +9,7 @@ import { LocalDataSource } from 'ng2-smart-table';
 import { PregnantBean } from '../../../beans/pregnant.bean'
 import { Service_SurveyPregnant } from '../../../api-managements/service-survey-pregnant';
 import { CompileMetadataResolver } from '@angular/compiler';
+import { MapsBean } from '../../../multi-maps/multi-maps.component';
 declare var $: any
 
 @Component({
@@ -28,12 +29,14 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
   public filter_villageId: string = "";
   public filter_osmId: string = "";
   public filter_fullName: string = "";
+  public filterBean: FilterHeadSurveyBean;
 
   public param_pregnantBean: PregnantBean = new PregnantBean();
   public param_rowGUID: string = "";
   public param_latitude: string = "";
   public param_longitude: string = "";
   public param_info: string = "";
+  public param_listPosition: any = [];
 
   public settings: any;
   public source: LocalDataSource;
@@ -45,6 +48,8 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
     super();
 
     let self = this;
+
+    self.filterBean = new FilterHeadSurveyBean();
 
     self.settings = self.getTableSetting({
       fullName: {
@@ -165,6 +170,8 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
   onClickSearch(event: FilterHeadSurveyBean) {
     let self = this;
 
+    self.filterBean = event;
+
     // รอบปัจจุบัน
     if (self.isEmpty(self.current_documentId))
       self.current_documentId = event.rowGUID;
@@ -177,6 +184,12 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
     self.bindPregnantList(self.filter_documentId, self.filter_villageId, self.filter_osmId, self.filter_fullName);
   }
 
+  onClickMultiMaps() {
+    let self = this;
+
+    $("#modalMultiMaps").modal("show");
+  }
+
   bindPregnantList(documentId, villageId, osmId, name) {
     let self = this;
 
@@ -187,6 +200,7 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
     self.apiHttp.post("survey_pregnant/search_pregnant_info_list", params, function (d) {
       if (d != null && d.status.toString().toUpperCase() == "SUCCESS") {
         // console.log(d);
+        self.bindMultiMaps(d.response);
         self.source = self.ng2STDatasource(d.response);
         self.isShowTable = true;
       } else {
@@ -204,6 +218,21 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
     //     self.isShowTable = true;
     //   });
 
+  }
+
+  bindMultiMaps(data) {
+    let self = this;
+
+    for (let item of data) {
+      if (item.latitude && item.longitude) {
+        let map = new MapsBean();
+        map.latitude = item.latitude;
+        map.longitude = item.longitude;
+        map.info = 'บ้านของ ' + item.fullName;
+        self.param_listPosition.push(map);
+      }
+    }
+    console.log(self.param_listPosition);
   }
 
   onChangeFilter(event: FilterHeadSurveyBean) {

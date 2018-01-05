@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-multi-maps',
@@ -7,38 +7,44 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MultiMapsComponent implements OnInit {
 
+  @Input() list: any;
+  @Input() defaultAddress: string;
+
   public zoom: number = 15;
-  public center = "16.442481, 102.808265";
+  public center = "";
   public positions: Array<MapsBean> = [];
   public info_content = "";
 
   constructor() {
     let self = this;
 
-    let m1 = new MapsBean();
-    m1.latitude = "16.442481";
-    m1.longitude = "102.808265";
-    m1.info = "m111111111111";
+    // let m1 = new MapsBean();
+    // m1.latitude = "16.442481";
+    // m1.longitude = "102.808265";
+    // m1.info = "m111111111111";
 
-    let m2 = new MapsBean();
-    m2.latitude = "16.542481";
-    m2.longitude = "102.708265";
-    m2.info = "m2222222222";
+    // let m2 = new MapsBean();
+    // m2.latitude = "16.542481";
+    // m2.longitude = "102.708265";
+    // m2.info = "m2222222222";
 
-    self.positions.push(m1);
-    self.positions.push(m2);
+    // self.positions.push(m1);
+    // self.positions.push(m2);
   }
 
   ngOnInit() {
 
   }
 
+  ngOnChanges() {
+    let self = this;
+
+    self.positions = self.list;
+  }
+
   onMapReady(map) {
     console.log('onMapReady -> map -> ', map);
     console.log('onMapReady -> markers -> ', map.markers);  // to get all markers as an array
-
-    var infowindow = new google.maps.InfoWindow();
-    console.log(infowindow);
   }
 
   onMapClick(event) {
