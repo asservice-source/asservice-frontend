@@ -28,6 +28,7 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
   public filter_villageId: string = "";
   public filter_osmId: string = "";
   public filter_fullName: string = "";
+  public filterBean: FilterHeadSurveyBean;
 
   public param_pregnantBean: PregnantBean = new PregnantBean();
   public param_rowGUID: string = "";
@@ -45,6 +46,8 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
     super();
 
     let self = this;
+
+    self.filterBean = new FilterHeadSurveyBean();
 
     self.settings = self.getTableSetting({
       fullName: {
@@ -164,6 +167,8 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
 
   onClickSearch(event: FilterHeadSurveyBean) {
     let self = this;
+
+    self.filterBean = event;
 
     // รอบปัจจุบัน
     if (self.isEmpty(self.current_documentId))
