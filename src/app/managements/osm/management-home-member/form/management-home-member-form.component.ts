@@ -293,7 +293,7 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
     if(this.isValidCitizenIdThailand(this.bean.citizenId)){
       let birthDate = this.modelBirthDate && this.getStringDateForDatePickerModel(this.modelBirthDate.date);
       this.bean.birthDate = birthDate || '';
-      let fildsCheck = ['citizenId', 'firstName', 'lastName', 'prefixCode', 'genderId', 'raceCode', 'nationCode', 'religionCode', 'bloodTypeId', 'rhGroupId', 'birthDate', 'educationCode', 'occupCode', 'familyStatusId', 'isGuest'];
+      let fildsCheck = ['citizenId', 'firstName', 'lastName', 'prefixCode', 'genderId', 'raceCode', 'nationCode', 'religionCode', 'birthDate', 'educationCode', 'occupCode', 'familyStatusId', 'isGuest'];
       if(this.bean.isGuest){
         fildsCheck.push('homeNo','mooNo','tumbolCode','amphurCode','provinceCode');
       }else{
@@ -318,7 +318,7 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
         _self.loading = true;
         this.api.api_PersonByCitizenId(_self.bean.citizenId, function(response){
           if(response.status.toUpperCase()=="SUCCESS"){
-            if(response.response && response.response.citizenId != _self.oldCitizenId){
+            if(response.response && response.response.citizenId && response.response.citizenId != _self.oldCitizenId){
               _self.loading = false;
               _self.message_error('', 'หมายเลขบัตรประจำตัว <b>'+ _self.formatCitizenId(_self.bean.citizenId) +'</b> ซ้ำ');
             }else{

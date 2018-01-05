@@ -10,10 +10,14 @@
         , init: function(template){
             if($('#message-box-container').length<=0){
                 $('body').append('<div id="message-box-container"></div>');
+                
             } 
             
             $('#message-box-container').html(template);
             $('#message-box-container>.modal').modal();
+            $('.message-box').on('hidden.bs.modal', function (e) {
+                $('body').addClass('modal-open');
+            });
         }
         ,alert: function(title, message, callback){
             if(callback){
@@ -21,7 +25,7 @@
             }else{
                 this.callback = function(result){}
             }
-            var html = '<div class="modal fade" id="message-box-alert" data-backdrop="false" data-keyboard="false" tabindex="-1" role="dialog">';
+            var html = '<div class="modal fade message-box" id="message-box-alert" data-backdrop="false" data-keyboard="false" tabindex="-1" role="dialog">';
             html += '<div class="modal-dialog" role="document">';
             html += '<div class="modal-content">';
             html += '<div class="modal-header">';
@@ -44,7 +48,7 @@
             }else{
                 this.callback = function(result){}
             }
-            var html = '<div class="modal fade" id="message-box-confirm" data-backdrop="false" data-keyboard="false" tabindex="-1" role="dialog">';
+            var html = '<div class="modal fade message-box" id="message-box-confirm" data-backdrop="false" data-keyboard="false" tabindex="-1" role="dialog">';
             html += '<div class="modal-dialog" role="document">';
             html += '<div class="modal-content">';
             html += '<div class="modal-header">';

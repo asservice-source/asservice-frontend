@@ -131,13 +131,13 @@
               <label>กรุ๊ปเลือด</label>
             </div>
             <div class="col-md-4">
-              <div [InputValidate]="inputValidate">
+              <!-- <div [InputValidate]="inputValidate"> -->
                 <select type="text" [(ngModel)]="bean.bloodTypeId">
                   <option value="">---เลือก---</option>
                   <option *ngFor="let item of bloodTypeList" [value]="item.id">{{item.name}}</option>
                 </select>
-                <label class="error">กรุณาเลือกกรุ๊ปเลือด</label>
-              </div>
+                <!-- <label class="error">กรุณาเลือกกรุ๊ปเลือด</label>
+              </div> -->
             </div>
 
             <div class="col-md-2 text-right">

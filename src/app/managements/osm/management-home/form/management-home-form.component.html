@@ -117,11 +117,21 @@
                   <input type="text" [(ngModel)]="bean.longitude" placeholder="Longitude" maxlength="50" disabled>
                 </div>
               </div>
-        </div>
-        <div class="col-md-6">
+          </div>
+          <div class="col-md-6 text-center">
             <app-maps [latitude]="bean.latitude" [longitude]="bean.longitude" [defaultAddress]="userInfo.address" [info]="" mode="edit" (positionChanged)="onMapChange($event)"></app-maps>
+          </div>
         </div>
+
+        <div class="row">
+          <div class="col-md-4 text-right">
+              <label class="label-form">*หมายเหตุ</label>
+          </div>
+          <div class="col-md-8">
+            <label class="label-form" style="color: #f57600;">สามารถเลือก <b>Latitude</b> และ <b>Longitude</b> ได้จากแผนที่</label>
+          </div>
         </div>
+
         </div>
         <div class="modal-footer">
           
