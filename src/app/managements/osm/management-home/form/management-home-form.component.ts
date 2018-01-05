@@ -97,6 +97,13 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
     this.isHome = (select.value=='01'?true:false);
     this.inputValidate = new InputValidateInfo();
   }
+  onMapChange(event: any){
+    if(event){
+      this.bean.latitude = event.lat;
+      this.bean.longitude = event.lng;
+    }
+    console.log(event);
+  }
   onCancel(){
     this.cancel.emit("CANCEL");
   }
@@ -152,5 +159,6 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
     }
 
   }
+  
 
 }

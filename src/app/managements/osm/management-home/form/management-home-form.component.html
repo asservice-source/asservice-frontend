@@ -1,121 +1,127 @@
   <!-- Modal -->
   <div class="modal fade" id="modalFormHome" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="false" data-keyboard="false">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-xlg" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title" id="myModalLabel">{{bean.homeId?'แก้ไข':'เพิ่ม'}}บ้านเลขที่/สถานที่</h4>
         </div>
         <div class="modal-body">
           <div class="row">
-            <div class="col-md-4 text-right">
-              <label class="label-form">อสม.</label>
-            </div>
-            <div class="col-md-5">
-              <div [InputValidate]="inputValidate">
-                <select [(ngModel)]="bean.osmId" [disabled]="isDisabledOsm">
-                  <option value="">---เลือก---</option>
-                  <option *ngFor="let item of osmList" [value]="item.personId">{{item.fullName}}</option>
-                </select>
-                <label class="error">กรุณาเลือก อสม.</label>
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4 text-right">
+                  <label class="label-form">อสม.</label>
+                </div>
+                <div class="col-md-8">
+                  <div [InputValidate]="inputValidate">
+                    <select [(ngModel)]="bean.osmId" [disabled]="isDisabledOsm">
+                      <option value="">---เลือก---</option>
+                      <option *ngFor="let item of osmList" [value]="item.personId">{{item.fullName}}</option>
+                    </select>
+                    <label class="error">กรุณาเลือก อสม.</label>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-4 text-right">
-              <label class="label-form">ประเภทบ้าน/สถานที่</label>
-            </div>
-            <div class="col-md-5">
-              <div [InputValidate]="inputValidate">
-                  <select [(ngModel)]="bean.homeTypeCode" #homeTypeCode (change)="onChangeHomeTypeCode(homeTypeCode);" [disabled]="isDisabledHomeType">
-                    <option value="">---เลือก---</option>
-                    <option *ngFor="let item of homeTypeList" [value]="item.code">{{item.name}}</option>
-                  </select>
-                  <label class="error">กรุณาเลือกประเภทบ้าน/สถานที่</label>
+              <div class="row">
+                <div class="col-md-4 text-right">
+                  <label class="label-form">ประเภทสถานที่</label>
+                </div>
+                <div class="col-md-8">
+                  <div [InputValidate]="inputValidate">
+                      <select [(ngModel)]="bean.homeTypeCode" #homeTypeCode (change)="onChangeHomeTypeCode(homeTypeCode);" [disabled]="isDisabledHomeType">
+                        <option value="">---เลือก---</option>
+                        <option *ngFor="let item of homeTypeList" [value]="item.code">{{item.name}}</option>
+                      </select>
+                      <label class="error">กรุณาเลือกประเภทสถานที่</label>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
 
-          <div class="row" *ngIf="bean.homeTypeCode && bean.homeTypeCode=='01'">
-            <div class="col-md-4 text-right">
-              <label class="label-form">รหัสบ้าน</label>
-            </div>
-            <div class="col-md-5">
-              <div [InputValidate]="inputValidate" [fixLength]="11">
-                  <input type="text" placeholder="รหัสบ้าน" [(ngModel)]="bean.registrationId" [OnlyNumber]="true" maxlength="11">
-                  <label class="error">กรุณาใส่รหัสบ้านเป็นตัวเลข 11 หลัก</label>
+              <div class="row" *ngIf="bean.homeTypeCode && bean.homeTypeCode=='01'">
+                <div class="col-md-4 text-right">
+                  <label class="label-form">รหัสบ้าน</label>
+                </div>
+                <div class="col-md-8">
+                  <div [InputValidate]="inputValidate" [fixLength]="11">
+                      <input type="text" placeholder="รหัสบ้าน" [(ngModel)]="bean.registrationId" [OnlyNumber]="true" maxlength="11">
+                      <label class="error">กรุณาใส่รหัสบ้านเป็นตัวเลข 11 หลัก</label>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
 
-          <div class="row" *ngIf="bean.homeTypeCode && bean.homeTypeCode!='01'">
-            <div class="col-md-4 text-right">
-              <label class="label-form">ชื่อสถานที่</label>
-            </div>
-            <div class="col-md-5">
-              <div [InputValidate]="inputValidate">
-                  <input type="text" [(ngModel)]="bean.name" placeholder="ชื่อสถานที่" >
-                  <label class="error">กรุณาใส่ชื่อสถานที่</label>
+              <div class="row" *ngIf="bean.homeTypeCode && bean.homeTypeCode!='01'">
+                <div class="col-md-4 text-right">
+                  <label class="label-form">ชื่อสถานที่</label>
+                </div>
+                <div class="col-md-8">
+                  <div [InputValidate]="inputValidate">
+                      <input type="text" [(ngModel)]="bean.name" placeholder="ชื่อสถานที่" >
+                      <label class="error">กรุณาใส่ชื่อสถานที่</label>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
 
-          <div class="row">
-            <div class="col-md-4 text-right">
-              <label class="label-form">บ้านเลขที่</label>
-            </div>
-            <div class="col-md-5">
-              <div [InputValidate]="inputValidate">
-                <input type="text" [(ngModel)]="bean.homeNo" placeholder="บ้านเลขที่" maxlength="10">
-                <label *ngIf="isHome" class="error">กรุณาใส่บ้านเลขที่</label>
+              <div class="row">
+                <div class="col-md-4 text-right">
+                  <label class="label-form">บ้านเลขที่</label>
+                </div>
+                <div class="col-md-8">
+                  <div [InputValidate]="inputValidate">
+                    <input type="text" [(ngModel)]="bean.homeNo" placeholder="บ้านเลขที่" maxlength="10">
+                    <label *ngIf="isHome" class="error">กรุณาใส่บ้านเลขที่</label>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
 
-          <div class="row">
-            <div class="col-md-4 text-right">
-              <label class="label-form">ถนน</label>
-            </div>
-            <div class="col-md-5">
-              <input type="text" [(ngModel)]="bean.road" placeholder="ถนน" maxlength="255">
-            </div>
-          </div>
+              <div class="row">
+                <div class="col-md-4 text-right">
+                  <label class="label-form">ถนน</label>
+                </div>
+                <div class="col-md-8">
+                  <input type="text" [(ngModel)]="bean.road" placeholder="ถนน" maxlength="255">
+                </div>
+              </div>
 
-          <div class="row">
-            <div class="col-md-4 text-right">
-              <label class="label-form">ตรอก/ซอย</label>
-            </div>
-            <div class="col-md-5">
-              <input type="text" [(ngModel)]="bean.soi" placeholder="ตรอก/ซอย" maxlength="255">
-            </div>
-          </div>
+              <div class="row">
+                <div class="col-md-4 text-right">
+                  <label class="label-form">ตรอก/ซอย</label>
+                </div>
+                <div class="col-md-8">
+                  <input type="text" [(ngModel)]="bean.soi" placeholder="ตรอก/ซอย" maxlength="255">
+                </div>
+              </div>
 
-          <div class="row">
-            <div class="col-md-4 text-right">
-              <label class="label-form">เบอร์โทรศัพท์</label>
-            </div>
-            <div class="col-md-5">
-              <input type="text" [(ngModel)]="bean.telephone" [OnlyNumber]="true" placeholder="เบอร์โทรศัพท์" maxlength="50">
-            </div>
-          </div>
+              <div class="row">
+                <div class="col-md-4 text-right">
+                  <label class="label-form">เบอร์โทรศัพท์</label>
+                </div>
+                <div class="col-md-8">
+                  <input type="text" [(ngModel)]="bean.telephone" [OnlyNumber]="true" placeholder="เบอร์โทรศัพท์" maxlength="50">
+                </div>
+              </div>
 
-          <div class="row">
-            <div class="col-md-4 text-right">
-              <label class="label-form">Latitude</label>
-            </div>
-            <div class="col-md-5">
-              <input type="text" [(ngModel)]="bean.latitude" placeholder="Latitude" maxlength="50">
-            </div>
-          </div>
+              <div class="row">
+                <div class="col-md-4 text-right">
+                  <label class="label-form">Latitude</label>
+                </div>
+                <div class="col-md-8">
+                  <input type="text" [(ngModel)]="bean.latitude" placeholder="Latitude" maxlength="50" disabled>
+                </div>
+              </div>
 
-          <div class="row">
-            <div class="col-md-4 text-right">
-              <label class="label-form">Longitude</label>
-            </div>
-            <div class="col-md-5">
-              <input type="text" [(ngModel)]="bean.longitude" placeholder="Longitude" maxlength="50">
-            </div>
-          </div>
-
+              <div class="row">
+                <div class="col-md-4 text-right">
+                  <label class="label-form">Longitude</label>
+                </div>
+                <div class="col-md-8">
+                  <input type="text" [(ngModel)]="bean.longitude" placeholder="Longitude" maxlength="50" disabled>
+                </div>
+              </div>
+        </div>
+        <div class="col-md-6">
+            <app-maps [latitude]="bean.latitude" [longitude]="bean.longitude" [defaultAddress]="userInfo.address" [info]="" mode="edit" (positionChanged)="onMapChange($event)"></app-maps>
+        </div>
+        </div>
         </div>
         <div class="modal-footer">
           

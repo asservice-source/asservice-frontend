@@ -142,3 +142,9 @@ table .btn-sm{
     margin-left: 3px;
     margin-right: 3px; 
 }
+
+@media (min-width: 992px){
+    .modal-xlg {
+        width: 1100px;
+    }
+}
