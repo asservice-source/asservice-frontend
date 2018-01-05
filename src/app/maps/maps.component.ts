@@ -40,7 +40,7 @@ export class MapsComponent implements OnInit {
       self.info_content = self.info;
     } else {
       self.zoom = 5;
-      self.center = (self.defaultAddress) ? "Thailand" : self.defaultAddress;
+      self.center = (self.defaultAddress) ? self.defaultAddress : "Thailand";
       self.position = "";
     }
   }
@@ -63,9 +63,13 @@ export class MapsComponent implements OnInit {
   }
 
   onMarkerClick({ target: marker }) {
+    let self = this;
+
     console.log('onMarkerClick -> marker -> ', marker);
 
-    marker.nguiMapComponent.openInfoWindow('iw', marker);
+    if (self.info_content) {
+      marker.nguiMapComponent.openInfoWindow('iw', marker);
+    }
   }
 
   onPositionChanged(target) {
