@@ -11,6 +11,7 @@ export class MapsComponent implements OnInit {
   @Input() latitude: string;
   @Input() longitude: string;
   @Input() info: string;
+  @Input() defaultAddress: string;
   @Output() positionChanged = new EventEmitter<any>();
 
   // public autocomplete: any;
@@ -39,7 +40,7 @@ export class MapsComponent implements OnInit {
       self.info_content = self.info;
     } else {
       self.zoom = 5;
-      self.center = "Thailand";
+      self.center = (self.defaultAddress) ? "Thailand" : self.defaultAddress;
       self.position = "";
     }
   }
