@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-multi-maps',
@@ -8,14 +8,16 @@ import { Component, OnInit, Input } from '@angular/core';
 export class MultiMapsComponent implements OnInit {
 
   @Input() list: any;
+  @Input() reset: any;
   @Input() defaultAddress: string;
 
   public zoom: number = 15;
   public center = "";
   public positions: Array<MapsBean> = [];
   public info_content = "";
+  public map: any;
 
-  constructor() {
+  constructor(private _changeRef: ChangeDetectorRef) {
     let self = this;
 
     // let m1 = new MapsBean();
@@ -36,15 +38,25 @@ export class MultiMapsComponent implements OnInit {
 
   }
 
-  ngOnChanges() {
+  ngOnChanges(changes) {
     let self = this;
 
-    self.positions = self.list;
+    if (changes['reset']) {
+      self.positions = self.list;
+      if (self.positions && self.positions.length > 0) {
+        self.zoom = 12;
+        self.center = self.positions[0].latlng();
+      }
+    }
   }
 
   onMapReady(map) {
+    let self = this;
+
     console.log('onMapReady -> map -> ', map);
     console.log('onMapReady -> markers -> ', map.markers);  // to get all markers as an array
+
+    self.map = map;
   }
 
   onMapClick(event) {
@@ -67,8 +79,10 @@ export class MultiMapsComponent implements OnInit {
 
     let self = this;
 
-    self.info_content = infoDesc;
-    marker.nguiMapComponent.openInfoWindow('iw', marker);
+    if (infoDesc) {
+      self.info_content = infoDesc;
+      marker.nguiMapComponent.openInfoWindow('iw', marker);
+    }
   }
 
 }
