@@ -90,8 +90,8 @@ export class ManagementHomeMemberComponent extends BaseComponent implements OnIn
             _self.message_error('','<h3>ยังดูไม่ได้ครับ รอแป๊บ..</h3>');
            });
            instance.edit.subscribe(row => {
-            _self.bean = _self.cloneObj(row);
-            _self.onModalShow(_self.ass_action.EDIT);
+            _self.onEdit(row);
+            //_self.onModalShow(_self.ass_action.EDIT);
            });
            instance.delete.subscribe(row => {
             _self.message_error('','<h3>ยังลบไม่ได้ครับ รอแป๊บ..</h3>');
@@ -131,22 +131,34 @@ export class ManagementHomeMemberComponent extends BaseComponent implements OnIn
     _self.api.getList(_self.homeId, function(response){
       _self.source = _self.ng2STDatasource(response);
       _self.loading = false;
+      // detectChangeRef
+      $('.ng2-smart-sort').click();
       _self.changeRef.detectChanges();
 
     });
   }
   onModalShow(action){
     this.action = action;
-    if(action == this.ass_action.ADD){
-      this.bean = new PersonalBasicBean();
-      this.bean.homeId = this.homeId;
-    }else{
-      
-    }
     this.changeRef.detectChanges();
     $('#modal-management-home-member-form').modal();
   }
+  onEdit(row: any){
+    let _self = this;
+    _self.api.api_PersonByPersionId(row.personId, function(resp){
+      let response = resp.response;
+      if(response && resp.status.toUpperCase()=='SUCCESS'){
+        _self.bean = response;
+        _self.onModalShow(_self.ass_action.EDIT);
+      }else{
+        _self.message_servNotRespond('', '');
+      }
+      
+    });
+    
+  }
   onClickAdd(){
+    this.bean = new PersonalBasicBean();
+    this.bean.homeId = this.homeId;
     this.onModalShow(this.ass_action.ADD);
   }
 

@@ -256,7 +256,7 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
                   _self.bean.homeId = homeId;
                   _self.bean.familyStatusId = '';
                   _self.bean.isGuest = '';
-                  _self.bean.dischargeId = _self.bean.dischargeId || '';
+                  _self.bean.dischargeId = _self.bean.dischargeId || '9';
                   //set default ไทย
                   _self.bean.nationalityCode = _self.bean.nationalityCode || '099';
                   _self.bean.raceCode = _self.bean.raceCode || '099';
