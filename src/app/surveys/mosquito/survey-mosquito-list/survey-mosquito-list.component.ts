@@ -117,7 +117,6 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
   }
 
   ngOnInit() {
-    // this.loading = true;
   }
 
   changLocationNo() {
@@ -135,14 +134,6 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
     //this.isShowList = false;
   }
 
-
-  // onSearch(event: FilterHeadSurveyBean) {
-  //   console.log(event);
-  //   this.source = new LocalDataSource(this.datas);
-  //   this.isShowList = true;
-  //   super.setNg2STDatasource(this.source);
-  // }
-
   onSearch(event: FilterHeadMosquitoBean) {
     this.filtersearch = event;
     if (this.isEmpty(this.documentId)) {
@@ -152,14 +143,9 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
   }
 
   onModalFrom(action: string) {
-    //this.mosquitobean = new MosquitoBean();
-    // this.action = action;
-    // this.changeRef.detectChanges();
-    // $('#find-person-md').modal('show');
-
     this.action = action;
     if (action == this.ass_action.EDIT) {
-      this.getSurveyData(this.mosquitobean.rowGUID);
+      this.getSurveyData(this.mosquitobean.documentId, this.mosquitobean.homeId);
     } else {
       this.changeRef.detectChanges();
       $('#find-person-md').modal('show');
@@ -236,15 +222,16 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
     return strValue;
   }
 
-  getSurveyData(rowGUID) {
+  getSurveyData(docId, homeId) {
     let self = this;
     let param = {
-      "rowGUID": rowGUID
+      "documentId": docId,
+      "homeId": homeId
     }
     console.log(param);
-    
+
     self.loading = true;
-    this.api.post('survey_hici/hici_by_rowguid', param, function (resp) {
+    this.api.post('survey_hici/hici_by_homeid', param, function (resp) {
       self.loading = false;
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.mosquitobean = resp.response;

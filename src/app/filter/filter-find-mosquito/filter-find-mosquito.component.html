@@ -5,10 +5,11 @@
         <label class="label-form">{{getLabel('lbl_villageNo')}}</label>
       </div>
       <div class="col-md-4">
-        <select [(ngModel)]="findhomebean.villageId">
+        <select *ngIf="isStaff" [(ngModel)]="findhomebean.villageId">
           <option ngValue="">--เลือก หมู่ที่--</option>
           <option *ngFor="let item of villageData" [value]="item.id">{{item.villageNo+' : '+item.villageName}}</option>
         </select>
+        <input  *ngIf="!isStaff" [(ngModel)]="findhomebean.villageId" value="{{userInfo.villageNo + ' ' + userInfo.villageName}}" disabled>
       </div>
 
       <div class="col-md-1 text-right">
