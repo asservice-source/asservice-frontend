@@ -128,7 +128,7 @@ export class ManagementHomeMemberComponent extends BaseComponent implements OnIn
   setupTable(){
     let _self = this;
     _self.loading = true;
-    _self.api.getList(_self.homeId, function(response){
+    _self.api.getList(_self.homeId, true, function(response){
       _self.source = _self.ng2STDatasource(response);
       _self.loading = false;
       // detectChangeRef

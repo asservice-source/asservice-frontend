@@ -58,9 +58,10 @@ export class Service_HomeMember extends ApiHTTPService{
         });
     }
 
-    public getList(homeId: string, callback: (doc: any) => void){        
+    public getList(homeId: string, isManage: boolean, callback: (doc: any) => void){        
         let parameter = {
-            "homeId": homeId
+            "homeId": homeId,
+            "isManage": isManage || false
            }
         let _self = this;
         this.post('homemember/homemember_by_home', parameter, function(response){
