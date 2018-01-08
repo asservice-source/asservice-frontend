@@ -66,5 +66,6 @@ export class PersonalBasicBean{
     public isGuest: any;
     public isExists: boolean;
     public isActive: boolean;
+    public activateHome: boolean;
     
 }

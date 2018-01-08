@@ -182,7 +182,7 @@ export class ManagementStaffUserListComponent extends BaseComponent implements O
       _self.loading = false;
       let response = resp.response;
       if(response && resp.status.toUpperCase()=='SUCCESS'){
-        _self.bean = row;
+        _self.bean = response;
         _self.onModalForm(_self.ass_action.EDIT);
       }else{
         _self.message_servNotRespond('', resp.status + ' : ' + resp.message);

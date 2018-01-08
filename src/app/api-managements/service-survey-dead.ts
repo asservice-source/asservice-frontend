@@ -32,20 +32,25 @@ export class Service_SurveyDead extends ApiHTTPService {
 
         return  this.attr;
    }
-   public getList(filter: FilterHeadSurveyBean, callback: (doc: any) => void){
+    public getList(filter: FilterHeadSurveyBean, callback: (doc: any) => void){
        let parameter = this.api_mapFilterSurveyHeader(filter);
         this.callResponse('survey_death/search_death_info_list'
         , parameter
         , callback);
     }
-
-   public commit_save(bean: DeadBean, callback: (doc: any) => void){
+    public getDeadInfo(rowGUID: string, callback: (doc: any) => void){
+        let parameter = {"rowGUID": rowGUID};
+        this.post('survey_death/get_death_detail_info'
+        , parameter
+        , callback);
+    }
+    public commit_save(bean: DeadBean, callback: (doc: any) => void){
        
         let parameter = this.baseComponent.strNullToEmpty(this.map(bean));
         this.post('survey_death/ins_upd_death_info', parameter , callback);
-   }
+    }
 
-   public commit_del(rowGUID: string, callback: (doc: any) => void){
+    public commit_del(rowGUID: string, callback: (doc: any) => void){
         let parameter = {"rowGUID": rowGUID};
         this.post('survey_death/del_death_info', parameter , callback);
     }

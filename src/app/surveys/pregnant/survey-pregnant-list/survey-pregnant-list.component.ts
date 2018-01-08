@@ -33,10 +33,11 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
 
   public param_pregnantBean: PregnantBean = new PregnantBean();
   public param_rowGUID: string = "";
+  public param_reset: number = 0;
   public param_latitude: string = "";
   public param_longitude: string = "";
   public param_info: string = "";
-  public param_listPosition: any = [];
+  public param_listPosition: Array<MapsBean>;
 
   public settings: any;
   public source: LocalDataSource;
@@ -182,11 +183,15 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
     self.filter_fullName = event.fullName;
 
     self.bindPregnantList(self.filter_documentId, self.filter_villageId, self.filter_osmId, self.filter_fullName);
+    self.bindMultiMaps(self.filter_documentId, self.filter_villageId, self.filter_osmId, self.filter_fullName);
   }
 
   onClickMultiMaps() {
     let self = this;
 
+    self.bindMultiMaps(self.filter_documentId, self.filter_villageId, self.filter_osmId, self.filter_fullName)
+    self.param_reset++;
+    self.changeRef.detectChanges();
     $("#modalMultiMaps").modal("show");
   }
 
@@ -200,7 +205,6 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
     self.apiHttp.post("survey_pregnant/search_pregnant_info_list", params, function (d) {
       if (d != null && d.status.toString().toUpperCase() == "SUCCESS") {
         // console.log(d);
-        self.bindMultiMaps(d.response);
         self.source = self.ng2STDatasource(d.response);
         self.isShowTable = true;
       } else {
@@ -220,19 +224,32 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
 
   }
 
-  bindMultiMaps(data) {
+  bindMultiMaps(documentId, villageId, osmId, name) {
     let self = this;
 
-    for (let item of data) {
-      if (item.latitude && item.longitude) {
-        let map = new MapsBean();
-        map.latitude = item.latitude;
-        map.longitude = item.longitude;
-        map.info = 'บ้านของ ' + item.fullName;
-        self.param_listPosition.push(map);
+    self.loading = true;
+
+    let params = { "documentId": documentId, "villageId": villageId, "osmId": osmId, "name": name };
+
+    self.apiHttp.post("survey_pregnant/search_pregnant_info_list", params, function (d) {
+      if (d != null && d.status.toString().toUpperCase() == "SUCCESS") {
+        // console.log(d);
+        self.param_listPosition = [];
+        for (let item of d.response) {
+          if (item.latitude && item.longitude) {
+            let map = new MapsBean();
+            map.latitude = item.latitude;
+            map.longitude = item.longitude;
+            map.info = 'บ้านของ ' + item.fullName;
+            self.param_listPosition.push(map);
+          }
+        }
+      } else {
+        console.log('survey-personal-pregnant-list(bindMultiMaps) occured error(s) => ' + d.message);
       }
-    }
-    console.log(self.param_listPosition);
+      self.loading = false;
+      self.changeRef.detectChanges();
+    });
   }
 
   onChangeFilter(event: FilterHeadSurveyBean) {
@@ -276,6 +293,7 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
     let self = this;
 
     self.bindPregnantList(self.filter_documentId, self.filter_villageId, self.filter_osmId, self.filter_fullName)
+    self.bindMultiMaps(self.filter_documentId, self.filter_villageId, self.filter_osmId, self.filter_fullName)
   }
 
 }

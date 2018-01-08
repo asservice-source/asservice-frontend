@@ -366,7 +366,7 @@ export class BaseComponent implements OnInit {
     message_servNotRespond(title: string, message: string, callback?: (doc: any) => void) {
         title = title || 'Server Not Responding';
         title = "<div class='bootbox-title'><span class='fa fa-close' style='color: #d02626;'></span> " + title + "</div>";
-        message = message || 'ไม่สามารถดึงข้อมูลได้';
+        message = message || 'ไม่สามารถเข้าถึงข้อมูลได้ในขณะนี้';
         messageBox.alert(title, message, callback);
     }
 

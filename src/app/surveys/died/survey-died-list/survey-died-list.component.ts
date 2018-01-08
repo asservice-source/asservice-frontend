@@ -78,8 +78,7 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
         renderComponent: ActionCustomView_2_Component,
         onComponentInitFunction(instance) {
           instance.edit.subscribe(row => {
-            self.bean = self.cloneObj(row);
-            self.onModalForm(self.ass_action.EDIT);
+            self.onEdit(row);
           });
           instance.delete.subscribe(row => {
             self.onDelete(row);
@@ -119,13 +118,31 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
     this.changeRef.detectChanges();
     $('#modal-add-died').modal('show');
   }
-
+  onAdd(){
+    this.onModalForm(this.ass_action.ADD);
+  }
+  onEdit(row: any){
+    let _self = this;
+    _self.loading=true;
+    _self.apiDead.getDeadInfo(row.rowGUID, function(resp){
+      _self.loading=false;
+      let response = resp.response;
+      if(response && resp.status.toUpperCase()=='SUCCESS'){
+        _self.bean = response;
+        _self.onModalForm(_self.ass_action.EDIT);
+      }else{
+        _self.message_servNotRespond('','ไม่สามารถทำรายการได้ในขณะนี้');
+      }
+    });
+  }
+  
   onCompleted(event: any) {
     console.log(">>> OnCommit");
     let _seft = this;
     if(event.success){
       this.message_success('', event.message, function(){
-        _seft.onSearch(_seft.filterBean);
+        //_seft.onSearch(_seft.filterBean);
+        $('#filter-btnSearch').click();
       });
       
     }else{
