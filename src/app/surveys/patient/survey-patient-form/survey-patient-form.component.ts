@@ -60,7 +60,7 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
   }
 
   onChoosePersonal(bean: any): void {
-    this.patientbean = bean;
+    this.patientbean = this.cloneObj(bean);;
     console.log(bean);
     console.log(this.patientbean.homeId);
 

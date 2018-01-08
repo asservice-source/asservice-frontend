@@ -63,7 +63,7 @@ export class SurveyCancerFormComponent extends BaseComponent implements OnInit, 
   
     onChoosePersonal(bean: any): void {
       console.log(bean);
-      this.cancerbean = bean;
+      this.cancerbean = this.cloneObj(bean);
   
       if (this.action == this.ass_action.ADD) {
         this.cancerbean.disabilityCauseTypeId = "";
