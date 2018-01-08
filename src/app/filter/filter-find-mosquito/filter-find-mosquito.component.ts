@@ -35,6 +35,7 @@ export class FilterFindMosquitoComponent extends BaseComponent implements OnInit
   public isShowPlace: boolean = false;
   public isShowAddPlace: boolean = false;
   public loading: boolean = false;
+  public isStaff: boolean;
 
   constructor(private route: Router, private changeRef: ChangeDetectorRef) {
     super();
@@ -42,10 +43,19 @@ export class FilterFindMosquitoComponent extends BaseComponent implements OnInit
     this.homeBean = new HomeBean();
     this.isHomeDisable = true;
 
+    if(this.isStaffRole(this.userInfo.roleId)){
+      this.isStaff = true;
+      this.setupVillage();
+    }else{
+      this.isStaff = false;
+      this.findhomebean.villageId = this.userInfo.villageId;
+      //this.findhomebean.osmId = this.userInfo.personId;
+    }
+
   }
 
   ngOnInit() {
-    this.setupVillage();
+    // this.setupVillage();
     this.setupHomeType();
   }
 
