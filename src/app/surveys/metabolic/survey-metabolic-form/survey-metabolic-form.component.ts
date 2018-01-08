@@ -158,7 +158,7 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
   onChoosePersonal(bean: any): void {
     console.log(bean);
     this.metabolicbean = new MetabolicBean();
-    this.metabolicbean = bean;
+    this.metabolicbean = this.cloneObj(bean);
     if (this.ass_action.ADD == this.action) {
       console.log(this.action);
       this.changeRef.detectChanges();
@@ -185,7 +185,7 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
     this.isErrorBMI = false;
     this.isErrorOthercomplication = false;
     this.isErrorPeripheralName = false;
-    this. isErrorOverWeight = false;
+    this.isErrorOverWeight = false;
     this.isErrorOverHeight = false;
 
     this.errorSmoke = "";
@@ -200,6 +200,8 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
     if (this.ass_action.EDIT == this.action) {
       $('#find-person-md').modal('hide');
     }
+
+    // this.changeRef.detectChanges();
   }
 
   onModalEvent() {

@@ -20,7 +20,7 @@ export class FilterFindMosquitoComponent extends BaseComponent implements OnInit
   @Input() reset: any;
   @Input() documentId: string;
   @Output() choosePlace: EventEmitter<HomeBean> = new EventEmitter<HomeBean>();
-  @Output() addplace : EventEmitter<any> = new EventEmitter<any>();
+  @Output() addplace: EventEmitter<any> = new EventEmitter<any>();
 
   public villageData: any;
   private api: ApiHTTPService;
@@ -43,13 +43,12 @@ export class FilterFindMosquitoComponent extends BaseComponent implements OnInit
     this.homeBean = new HomeBean();
     this.isHomeDisable = true;
 
-    if(this.isStaffRole(this.userInfo.roleId)){
+    if (this.isStaffRole(this.userInfo.roleId)) {
       this.isStaff = true;
       this.setupVillage();
-    }else{
+    } else {
       this.isStaff = false;
       this.findhomebean.villageId = this.userInfo.villageId;
-      //this.findhomebean.osmId = this.userInfo.personId;
     }
 
   }
@@ -67,10 +66,11 @@ export class FilterFindMosquitoComponent extends BaseComponent implements OnInit
 
     }
     if (changes['reset']) {
-      this.findhomebean.villageId = "";
-      this.findhomebean.homeTypeId = "";
-      this.filterChanges();
-
+      if (this.isStaffRole(this.userInfo.roleId)) {
+        this.findhomebean.villageId = "";
+        this.findhomebean.homeTypeId = "";
+      }
+      this.isShowPlace = false;
     }
   }
 
@@ -106,12 +106,14 @@ export class FilterFindMosquitoComponent extends BaseComponent implements OnInit
 
   setupHomeName() {
     let self = this;
-    let params = {
+    let param = {
       "villageId": this.findhomebean.villageId,
       "homeTypeCode": this.findhomebean.homeTypeId,
       "documentId": self.documentId,
       "osmId": this.userInfo.roleId == '3' ? "" : this.userInfo.personId
     };
+
+    let params = JSON.stringify(param);
 
     console.log(params);
     this.loading = true;
@@ -209,11 +211,11 @@ export class FilterFindMosquitoComponent extends BaseComponent implements OnInit
     this.choosePlace.emit(homeBean);
   }
 
-  filterChanges() {
-    this.isShowPlace = false;
-  }
+  // filterChanges() {
+  //   this.isShowPlace = false;
+  // }
 
-  addHome(){
+  addHome() {
     this.addplace.emit(this.findhomebean.villageId);
   }
 

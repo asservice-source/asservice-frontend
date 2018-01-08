@@ -9,14 +9,15 @@
           <option ngValue="">--เลือก หมู่ที่--</option>
           <option *ngFor="let item of villageData" [value]="item.id">{{item.villageNo+' : '+item.villageName}}</option>
         </select>
-        <input  *ngIf="!isStaff" [(ngModel)]="findhomebean.villageId" value="{{userInfo.villageNo + ' ' + userInfo.villageName}}" disabled>
+        <input  *ngIf="!isStaff" value="{{userInfo.villageNo + ' ' + userInfo.villageName}}" disabled>
+        <!-- value="{{userInfo.villageNo + ' ' + userInfo.villageName}}"  -->
       </div>
 
       <div class="col-md-1 text-right">
         <label class="label-form">ประเภท</label>
       </div>
       <div class="col-md-4">
-        <select [(ngModel)]="findhomebean.homeTypeId">
+        <select [(ngModel)]="findhomebean.homeTypeId" >
           <option ngValue="">--เลือกประเภท--</option>
           <option *ngFor="let item of HomeTypeData" [value]="item.code">{{item.name}}</option>
         </select>
