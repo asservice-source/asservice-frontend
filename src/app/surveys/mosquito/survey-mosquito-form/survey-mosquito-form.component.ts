@@ -23,7 +23,7 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
   private api: ApiHTTPService;
   public containerTypeList: any;
   public loading: boolean = false;
-  public homebean:HomeBean = new HomeBean();
+  public homebean: HomeBean = new HomeBean();
   public obj = [];
   public isShowAddPlace = false;
   public mosquitobean: MosquitoBean;
@@ -58,7 +58,9 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
     this.homebean.longitude = "";
     this.homebean.homeTypeCode = "";
     this.homebean.villageId = villageId;
-    //this.homebean.osmId = this.userInfo.personId;
+    if (!this.isStaffRole(this.userInfo.roleId)) {
+      this.homebean.osmId = this.userInfo.personId;
+    }
     this.isShowAddPlace = true;
     this.changeRef.detectChanges();
     $('#modalFormHome').modal('show');
@@ -67,6 +69,11 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
 
   onBack() {
     this.mosquitobean = new MosquitoBean();
+
+    for (let i = 0; i < this.containerTypeList.length; i++) {
+      this.obj[i] = false;
+    }
+
     this.isFindHome = true;
     this.isShowForm = false;
     if (this.ass_action.EDIT == this.action) {
@@ -77,8 +84,6 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
   onChoosePlace(bean: any): void {
     this.mosquitobean = new MosquitoBean();
     this.mosquitobean = bean;
-    console.log("7777777777777777777777777777777777777777777");
-    console.log(this.mosquitobean);
     this.isFindHome = false;
     this.isShowForm = true;
     if (this.action == this.ass_action.ADD) {
@@ -168,11 +173,11 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
     for (let item of this.mosquitobean.listContainerType) {
       delete item.containerTypeName;
     }
-    let obj = {
+    let objs = {
       listContainerType: this.mosquitobean.listContainerType
     }
-    let params = JSON.stringify(obj);
-    console.log(obj);
+    let params = JSON.stringify(objs);
+    console.log(objs);
 
     let sumtotal = 0;
     for (let i = 0; i < this.containerTypeList.length; i++) {
@@ -198,6 +203,15 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
           }
         })
       }
+    }
+  }
+
+  onComplete(isSuccess) {
+    let self = this;
+    if (isSuccess.success) {
+      self.message_success('', 'เพิ่มสถานที่สำเร็จ', function (confirm) {
+
+      })
     }
   }
 }
