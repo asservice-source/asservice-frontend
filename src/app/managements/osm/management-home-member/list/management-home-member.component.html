@@ -29,7 +29,14 @@
     </div>
     <div class="row">
       <div class="col-md-12">
+          <label>รายชื่อสมาชิกปัจจุบัน</label>
         <ng2-smart-table [settings]="settings" [source]="source" (rowSelect)="onRowSelect($event)"></ng2-smart-table>
+      </div>
+    </div>
+    <div *ngIf="isShowDeadList" class="row">
+      <div class="col-md-12">
+        <label>ประวัติสมาชิกที่เสียชีวิต</label>
+        <ng2-smart-table [settings]="deadSettings" [source]="deadSource" (rowSelect)="onRowSelect($event)"></ng2-smart-table>
       </div>
     </div>
   </div>
