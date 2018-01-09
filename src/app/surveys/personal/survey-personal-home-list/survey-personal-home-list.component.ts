@@ -186,7 +186,7 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
 }
 
 @Component({
-  template: "<div class=\"text-center\"><button (click)=\"clickEdit();\" style=\"padding-top: 0px; padding-bottom: 0px\" class=\"btn btn-primary\">ทำแบบสำรวจ</button></div>",
+  template: '<div class="text-center"><button (click)="clickEdit();" class="btn btn-sm btn-primary">ทำแบบสำรวจ</button></div>',
 })
 export class SurveyPersonalHomeListButtonEditComponent implements ViewCell, OnInit {
   renderValue: string;

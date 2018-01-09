@@ -252,16 +252,16 @@ export class ManagementStaffUserListComponent extends BaseComponent implements O
 }
 @Component({
   selector: 'action-custom-table-view-manage-scope',
-  template: '<div style="width:100%; text-align: center;" ><button type="button" (click)="onManage()" class="btn btn-sm btn-primary">จัดการ</button></div>',
+  template: '<div style="width:100%; text-align: center;" ><button *ngIf="isActive" type="button" (click)="onManage()" class="btn btn-sm btn-primary">จัดการ</button></div>',
   styleUrls: ['./management-staff-user-list.component.css']
 })
 export class ActionCustomView_StaffManageOSMScopeComponent implements ViewCell, OnInit {
     @Input() value: string | number;
     @Input() rowData: any;
     @Output() manage: EventEmitter<any> = new EventEmitter();
-
+    private isActive: boolean = true;
     ngOnInit(): void {
-
+      this.isActive = this.rowData.isActive;
     }
     onManage(){
       this.manage.emit(this.rowData);

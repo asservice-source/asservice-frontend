@@ -139,8 +139,7 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
     
   }
   onViewMaps(row: any){
-    let type = row.homeTypeCode;
-    if(type=='01' || type=='02' || type=='03' || type=='04' || type=='05'){
+    if(this.isHomeType(row.homeTypeCode)){
       this.infoMaps = 'บ้านเลขที่ ' + row.homeNo
     }else{
       this.infoMaps = row.name;
@@ -152,8 +151,7 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
     let _self = this;
     let msg = 'ต้องการลบ';
     let msgType = '';
-    let type = row.homeTypeCode;
-    if(type=='01' || type=='02' || type=='03' || type=='04' || type=='05'){
+    if(this.isHomeType(row.homeTypeCode)){
       msg += 'บ้านเลขที่ ';
       msgType = '<b>'+ row.homeNo +'</b>';
       
@@ -197,8 +195,7 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
   }
 
   onMemberManage(row: any){
-    let type = row.homeTypeCode;
-    if(type=='01' || type=='02' || type=='03' || type=='04' || type=='05'){
+    if(this.isHomeType(row.homeTypeCode)){
       this.route.navigate(['main/managements/osm/home/member/H',row.homeId]);
     }else{
       return;
@@ -232,8 +229,7 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
         type: "html",
         valuePrepareFunction: (cell, row) => { 
           let value = '';
-          let type = row.homeTypeCode;
-          if(type=='01' || type=='02' || type=='03' || type=='04' || type=='05'){
+          if(this.isHomeType(row.homeTypeCode)){
             value = 'บ้าน';
           }else{
             value = cell;
@@ -247,8 +243,7 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
         type: "html",
         valuePrepareFunction: (cell, row) => { 
           let value = '';
-          let type = row.homeTypeCode;
-          if(type=='01' || type=='02' || type=='03' || type=='04' || type=='05'){
+          if(this.isHomeType(row.homeTypeCode)){
             value = cell;
           }else{
             value = row.name;

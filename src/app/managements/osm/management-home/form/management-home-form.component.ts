@@ -54,7 +54,7 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
         _self.isDisabledOsm = false;
       }
       if(_self.action == _self.ass_action.EDIT){
-        if(_self.bean.homeTypeCode=='01' || _self.bean.homeTypeCode=='02' || _self.bean.homeTypeCode=='03' || _self.bean.homeTypeCode=='04' || _self.bean.homeTypeCode=='05'){
+        if(_self.isHomeType(_self.bean.homeTypeCode)){
           _self.isDisabledHomeType=true;
           _self.isHome = true;
         }else{

@@ -324,9 +324,11 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
               _self.message_error('', 'หมายเลขบัตรประจำตัว <b>'+ _self.formatCitizenId(_self.bean.citizenId) +'</b> ซ้ำ');
             }else{
               // Save To API
-              _self.api.commit_save(_self.bean, function(response){
-                _self.loading = false;   
-                if(response && response.status.toString().toUpperCase()=='SUCCESS'){
+              _self.api.commit_save(_self.bean, function(resp){
+                _self.loading = false;
+                let response = resp.response;
+                if(response && resp.status.toUpperCase()=='SUCCESS'){
+                  _self.bean.personId = response.personId;
                   _self.success.emit({"success": true, "bean": _self.bean ,"message": _self.actionName + ' สมาชิกใหม่เรียบร้อย'}); 
                 }else{
                   _self.success.emit({"success": false, "bean": _self.bean, "message": 'ไม่สามารถ'+_self.actionName+'ได้'});

@@ -31,6 +31,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
   public homeTel: string = "";
   public osmId: string = "";
   public osmFullName: string = "";
+  public homeInfo: any = {};
 
   public settings: any;
   public source: LocalDataSource;
@@ -41,13 +42,15 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
   public source2: LocalDataSource;
   public isShowTable2: boolean = false;
   public tempData2: Array<any> = [];
-
   public isShowInfo: boolean = false;
-
   public loading: boolean = false;
+
+  public isEditing: boolean = false;
+  public warningLeavPage = 'เมื่อกดยกเลิกหรือย้อนกับ ข้อมูลการแก้ไขแบบสำรวจจะยังไม่ถูกบันทึกลงฐานข้อมูล<br>ต้องการทำต่อใช่หรือไม่?';
 
   constructor(private http: Http, private route: Router, private routeAct: ActivatedRoute, private changeRef: ChangeDetectorRef) {
     super();
+    this.isEditing = false;
     this.paramMember = new PersonalBasicBean();
     this.cloneMember = new PersonalBasicBean();
     this.memberBean = new PersonalBasicBean();
@@ -60,6 +63,14 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     this.bindRoundName();
     this.bindHomeInfo();
     this.bindHomeMemberList();
+
+    let _self = this;
+    window.onbeforeunload = function() {
+      return _self.warningLeavPage;
+    };
+    $(window).bind('beforeunload', function(){
+      return _self.warningLeavPage;
+    });
   }
 
   receiveParameters() {
@@ -83,10 +94,12 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
 
   bindHomeInfo() {
     let self = this;
+    self.loading = true;
     self.apiHttp.api_HomrInfo(self.paramHomeId, function (d) {
       if (d && d.status.toUpperCase() == "SUCCESS") {
         console.log(d);
-        let homeInfo = d.response;
+        self.homeInfo = d.response;
+        let homeInfo = self.homeInfo;
         self.homeAddress = homeInfo.address;
         self.homeTel = homeInfo.telephone;
         self.osmId = homeInfo.osmId;
@@ -131,6 +144,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
 
   onUpdatedMember(member: PersonalBasicBean) {
     console.log(member);
+    this.isEditing = true;
     let self = this;
     member.fullName = self.getFullName(member.prefixName, member.firstName, member.lastName);
     if(member.birthDate) {
@@ -263,7 +277,18 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
   }
 
   onClickBack() {
-    this.route.navigate(['/main/surveys/personal']);
+    let _self = this;
+    if(this.isEditing){
+      this.message_comfirm('', this.warningLeavPage
+        , function(isConfirm){
+          if(isConfirm){
+            _self.route.navigate(['/main/surveys/personal']);
+          }
+      });
+    }else{
+      _self.route.navigate(['/main/surveys/personal']);
+    }
+    
   }
 
   onModalForm(row: PersonalBasicBean) {
@@ -285,6 +310,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     $("#modal-management-home-member-form").modal('show');
   }
   onSaveCompleted(event: any){
+    console.log(event);
     let self = this;
     if(event.success){
       $("#modal-management-home-member-form").modal('hide');
@@ -298,7 +324,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     }else{
 
     }
-    console.log(event);
+    
   }
 
 
@@ -421,7 +447,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
 }
 
 @Component({
-  template: "<div class=\"text-center\"><button (click)=\"clickEdit();\" style=\"padding-top: 0px; padding-bottom: 0px\" class=\"btn btn-primary\">สำรวจ</button></div>",
+  template: '<div class="text-center"><button (click)="clickEdit();" class="btn btn-sm btn-primary">สำรวจ</button></div>',
 })
 export class SurveyPersonalMemberListButtonEditComponent implements ViewCell, OnInit {
   renderValue: string;
