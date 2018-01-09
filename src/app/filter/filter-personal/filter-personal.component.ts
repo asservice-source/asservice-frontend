@@ -27,24 +27,24 @@ export class FilterPersonalComponent extends BaseComponent implements OnInit {
 
   constructor(private http: Http) {
     super();
-    this.filterBean = new FilterBean();
-    
 
+    this.filterBean = new FilterBean();
   }
 
   ngOnInit() {
     let self = this;
+
     self.bindRound();
-    if(this.isStaffRole(this.userInfo.roleId)){
-      this.isStaff = true;
+    if (self.isStaffRole(self.userInfo.roleId)) {
+      self.isStaff = true;
       self.bindVillageNo();
-    }else{
-      this.isStaff = false;
-      this.filterBean.villageId = this.userInfo.villageId;
-      this.filterBean.osmId = this.userInfo.personId;
-      this.description.village = this.userInfo.villageName;
-      this.description.osm = this.userInfo.fullName;
-      self.bindHomeNo(this.userInfo.villageId, this.userInfo.personId);
+    } else {
+      self.isStaff = false;
+      self.filterBean.villageId = self.userInfo.villageId;
+      self.filterBean.osmId = self.userInfo.personId;
+      self.description.village = self.userInfo.villageName;
+      self.description.osm = self.userInfo.fullName;
+      self.bindHomeNo(self.userInfo.villageId, self.userInfo.personId);
     }
 
     self.onSearchFilter();
@@ -80,9 +80,9 @@ export class FilterPersonalComponent extends BaseComponent implements OnInit {
     }
 
     let options = select.options;
-    for(let item of options){
-      if(item.value==this.filterBean.villageId){
-        this.description.village = item.text;
+    for (let item of options) {
+      if (item.value == self.filterBean.villageId) {
+        self.description.village = item.text;
         break;
       }
     }
@@ -90,40 +90,43 @@ export class FilterPersonalComponent extends BaseComponent implements OnInit {
 
   onChangeOSM(select: any) {
     let self = this;
+
     self.isDisabledHomeNo = true;
     self.bindHomeNo(self.filterBean.villageId, self.filterBean.osmId);
 
     let options = select.options;
-    for(let item of options){
-      if(item.value==select.value){
-        this.description.osm = item.text;
+    for (let item of options) {
+      if (item.value == select.value) {
+        self.description.osm = item.text;
         break;
       }
     }
   }
 
-  onChangeHome(select:any){
+  onChangeHome(select: any) {
     let options = select.options;
-    for(let item of options){
-      if(item.value==select.value){
+    for (let item of options) {
+      if (item.value == select.value) {
         this.description.homeNo = item.text;
         break;
       }
     }
   }
-  onChangeStatus(select:any){
+
+  onChangeStatus(select: any) {
     let options = select.options;
-    for(let item of options){
-      if(item.value==select.value){
+    for (let item of options) {
+      if (item.value == select.value) {
         this.description.status = item.text;
         break;
       }
     }
   }
+
   bindRound() {
     let self = this;
 
-    this.apiHttp.api_SurveyHeaderList(self.surveyHeaderCode.POPULATION, function (response) {
+    self.apiHttp.api_SurveyHeaderList(self.surveyHeaderCode.POPULATION, function (response) {
       self.listRound = response;
 
       let currentRound = self.getCurrentRound(self.listRound);
@@ -138,7 +141,7 @@ export class FilterPersonalComponent extends BaseComponent implements OnInit {
   bindVillageNo() {
     let self = this;
 
-    this.apiHttp.api_villageList(this.getHospitalCode(), function (response) {
+    self.apiHttp.api_villageList(self.getHospitalCode(), function (response) {
       self.listVillageNo = response;
     });
   }
@@ -146,7 +149,7 @@ export class FilterPersonalComponent extends BaseComponent implements OnInit {
   bindOSM(villageId: string) {
     let self = this;
 
-    this.apiHttp.api_OsmList(villageId, function (response) {
+    self.apiHttp.api_OsmList(villageId, function (response) {
       self.listOsm = response;
       self.filterBean.osmId = "";
       self.isDisabledOSM = false;
@@ -156,14 +159,12 @@ export class FilterPersonalComponent extends BaseComponent implements OnInit {
   bindHomeNo(villageId: string, osmId: string) {
     let self = this;
 
-    this.apiHttp.api_HomeList(villageId, osmId,"", function (response) {
+    self.apiHttp.api_HomeList(villageId, osmId, "", function (response) {
       self.listHomeNo = response;
       self.filterBean.homeId = "";
       self.isDisabledHomeNo = false;
     });
   }
-
-  
 
   public getCurrentRound(listRound) {
     let self = this;
@@ -176,45 +177,47 @@ export class FilterPersonalComponent extends BaseComponent implements OnInit {
   }
 
   onSearchFilter() {
-    console.log('------------description-------------')
-    console.log(this.description);
     let self = this;
+
+    console.log('------------description-------------')
+    console.log(self.description);
+
     let str = '<b>ผลลัพธ์การค้นหา </b>';
-    str +='รอบสำรวจ: ' + this.description.round;
-    str += ' , หมู่บ้าน: ' + (this.isEmpty(this.description.village)?'ทั้งหมด':this.description.village);
-    str += ' , อสม.: ' + (this.isEmpty(this.description.osm)?'ทั้งหมด':this.description.osm);
-    str += ' , บ้านเลขที่: ' + (this.isEmpty(this.description.homeNo)?'ทั้งหมด':this.description.homeNo);
-    str += ' , สถานะ: ' + (this.isEmpty(this.description.status)?'ทั้งหมด':this.description.status);
-    this.filterBean.description = str;
+    str += 'รอบสำรวจ: ' + self.description.round;
+    str += ' , หมู่บ้าน: ' + (self.isEmpty(self.description.village) ? 'ทั้งหมด' : self.description.village);
+    str += ' , อสม.: ' + (self.isEmpty(self.description.osm) ? 'ทั้งหมด' : self.description.osm);
+    str += ' , บ้านเลขที่: ' + (self.isEmpty(self.description.homeNo) ? 'ทั้งหมด' : self.description.homeNo);
+    str += ' , สถานะ: ' + (self.isEmpty(self.description.status) ? 'ทั้งหมด' : self.description.status);
+    self.filterBean.description = str;
     self.notifyFilter.emit(self.filterBean);
   }
 
   onClearFilter() {
-    let currentRound = this.getCurrentRound(this.listRound);
+    let self = this;
+
+    let currentRound = self.getCurrentRound(self.listRound);
     if (currentRound) {
-      this.filterBean.roundId = currentRound.rowGUID;
-      this.description.round = currentRound.round;
+      self.filterBean.roundId = currentRound.rowGUID;
+      self.description.round = currentRound.round;
     } else {
-      this.filterBean.roundId = "";
+      self.filterBean.roundId = "";
     }
-    this.description.village = '';
-    this.description.osm = '';
-    this.description.status = '';
-    this.description.homeNo = '';
-    this.filterBean.homeId = "";
-    this.filterBean.suyveyStatus = "";
-    if(this.isStaff){
-      this.filterBean.villageId = "";
-      this.filterBean.osmId = "";
-      this.isDisabledOSM = true;
-      this.isDisabledHomeNo = true;
-      
-    }else{
-      this.description.village = this.userInfo.villageName;
-      this.description.osm = this.userInfo.fullName;
+    self.description.village = "";
+    self.description.osm = "";
+    self.description.status = "";
+    self.description.homeNo = "";
+    self.filterBean.homeId = "";
+    self.filterBean.suyveyStatus = "";
+
+    if (self.isStaff) {
+      self.filterBean.villageId = "";
+      self.filterBean.osmId = "";
+      self.isDisabledOSM = true;
+      self.isDisabledHomeNo = true;
+    } else {
+      self.description.village = self.userInfo.villageName;
+      self.description.osm = self.userInfo.fullName;
     }
-  
-    
   }
 
 }
