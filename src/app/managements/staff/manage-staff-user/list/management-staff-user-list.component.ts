@@ -259,7 +259,7 @@ export class ActionCustomView_StaffManageOSMScopeComponent implements ViewCell, 
     @Input() value: string | number;
     @Input() rowData: any;
     @Output() manage: EventEmitter<any> = new EventEmitter();
-    private isActive: boolean = true;
+    public isActive: boolean = true;
     ngOnInit(): void {
       this.isActive = this.rowData.isActive;
     }

@@ -301,7 +301,7 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
     @Input() value: string | number;
     @Input() rowData: any;
     @Output() click: EventEmitter<any> = new EventEmitter();
-    private isHome: boolean = false;
+    public isHome: boolean = false;
     private baseComponent: BaseComponent;
     ngOnInit() {
       this.baseComponent = new BaseComponent();

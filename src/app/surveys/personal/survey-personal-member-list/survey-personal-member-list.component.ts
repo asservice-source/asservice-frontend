@@ -65,12 +65,12 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     this.bindHomeMemberList();
 
     let _self = this;
-    window.onbeforeunload = function() {
-      return _self.warningLeavPage;
-    };
-    $(window).bind('beforeunload', function(){
-      return _self.warningLeavPage;
-    });
+    // window.onbeforeunload = function() {
+    //   return _self.warningLeavPage;
+    // };
+    // $(window).bind('beforeunload', function(){
+    //   return _self.warningLeavPage;
+    // });
   }
 
   receiveParameters() {
