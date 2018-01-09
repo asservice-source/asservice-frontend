@@ -104,7 +104,7 @@
                 <div class="col-md-4 text-right">
                   <label class="label-form">Latitude</label>
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-6">
                   <input type="text" [(ngModel)]="bean.latitude" placeholder="Latitude" maxlength="50" disabled>
                 </div>
               </div>
@@ -113,10 +113,36 @@
                 <div class="col-md-4 text-right">
                   <label class="label-form">Longitude</label>
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-6">
                   <input type="text" [(ngModel)]="bean.longitude" placeholder="Longitude" maxlength="50" disabled>
                 </div>
+                <div class="col-md-2" style="padding-left: 0;">
+                  <button type="button" class="btn btn-primary btn-sm" (click)="bean.latitude='';bean.longitude=''">ล้างค่า</button>
+                </div>
               </div>
+
+              <!-- <div class="row">
+                <div class="col-md-4">
+
+                </div>
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input type="text" [(ngModel)]="bean.latitude" placeholder="Latitude" maxlength="50" disabled>
+                        </div>
+                      </div>
+                    <div class="row">
+                        <div class="col-md-9">
+                           <input type="text" [(ngModel)]="bean.longitude" placeholder="Longitude" maxlength="50" disabled>
+                        </div>
+                        <div class="col-md-3">
+                            <button type="button" class="btn btn-sm">ล้างค่า</button>
+                        </div>
+                    </div>
+                </div>
+                
+              </div> -->
+
           </div>
           <div class="col-md-6 text-center">
             <app-maps [latitude]="bean.latitude" [longitude]="bean.longitude" [defaultAddress]="userInfo.address" [info]="" mode="edit" (positionChanged)="onMapChange($event)"></app-maps>
