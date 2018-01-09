@@ -428,4 +428,11 @@ export class BaseComponent implements OnInit {
 
         return result;
     }
+    private homeTypeCodes: Array<any> = ['01', '02', '03', '04', '05'];
+    isHomeType(homeTypeCode: string):boolean{   
+        if(this.homeTypeCodes.indexOf(homeTypeCode)>=0){
+            return true;
+        }
+        return false;
+    }
 }

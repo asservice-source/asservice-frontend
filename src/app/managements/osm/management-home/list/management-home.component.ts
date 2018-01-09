@@ -311,7 +311,7 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
     ngOnInit() {
       this.baseComponent = new BaseComponent();
       this.renderValue = this.value.toString();
-      if( this.baseComponent.isHomeType(this.rowData.homeTypeCode)){
+      if(this.baseComponent.isHomeType(this.rowData.homeTypeCode)){
         this.isHome = true;
       }else{
         this.isHome = false;
