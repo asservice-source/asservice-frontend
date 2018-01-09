@@ -298,7 +298,7 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
 
 @Component({
     selector: 'app-view-child-table-home-management',
-    template: '<div class="text-center"><button type="button" (click)="onClick()" class="btn btn-sm btn-primary">จัดการสมาชิก</button></div>',
+    template: '<div class="text-center"><button *ngIf="isHome" type="button" (click)="onClick()" class="btn btn-sm btn-primary">จัดการสมาชิก</button></div>',
     styles: ['']
   })
   export class ViewChildTableHomeManagement implements OnInit ,ViewCell{
@@ -306,9 +306,16 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
     @Input() value: string | number;
     @Input() rowData: any;
     @Output() click: EventEmitter<any> = new EventEmitter();
-
+    private isHome: boolean = false;
+    private baseComponent: BaseComponent;
     ngOnInit() {
+      this.baseComponent = new BaseComponent();
       this.renderValue = this.value.toString();
+      if( this.baseComponent.isHomeType(this.rowData.homeTypeCode)){
+        this.isHome = true;
+      }else{
+        this.isHome = false;
+      }
     }
     onClick() {
       this.click.emit(this.rowData);
