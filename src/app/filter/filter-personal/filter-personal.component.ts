@@ -156,7 +156,7 @@ export class FilterPersonalComponent extends BaseComponent implements OnInit {
   bindHomeNo(villageId: string, osmId: string) {
     let self = this;
 
-    this.apiHttp.api_HomeList(villageId, osmId, function (response) {
+    this.apiHttp.api_HomeList(villageId, osmId,"", function (response) {
       self.listHomeNo = response;
       self.filterBean.homeId = "";
       self.isDisabledHomeNo = false;
