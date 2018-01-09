@@ -110,9 +110,9 @@ export class FilterFindMosquitoComponent extends BaseComponent implements OnInit
       "villageId": this.findhomebean.villageId,
       "homeTypeCode": this.findhomebean.homeTypeId,
       "documentId": self.documentId,
-      "osmId": this.userInfo.roleId == '3' ? "" : this.userInfo.personId
+      "osmId": this.isStaffRole(this.userInfo.roleId) ? "" : this.userInfo.personId
     };
-
+    //this.isStaffRole(this.userInfo.roleId)
     let params = JSON.stringify(param);
 
     console.log(params);
