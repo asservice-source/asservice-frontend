@@ -181,7 +181,8 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
     let self = this;
     if (event) {
       this.message_success('', 'ท่านได้ทำการส่งแบบสำรวจผู้ป่วยมะเร็ง', function () {
-        self.loadData(self.filtersearch);
+        //self.loadData(self.filtersearch);
+        $('#filter-btnSearch').click();
       });
     } else {
       this.message_error('', 'Error');
@@ -208,7 +209,8 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
       console.log("actionDelete ==== " + resp);
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.message_success('', 'ลบรายการสำเร็จ', function () {
-          self.loadData(self.filtersearch);
+          //self.loadData(self.filtersearch);
+          $('#filter-btnSearch').click();
         });
       }
     })
