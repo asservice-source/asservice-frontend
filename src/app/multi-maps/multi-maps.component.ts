@@ -35,7 +35,7 @@ export class MultiMapsComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    
   }
 
   ngOnChanges(changes) {
@@ -44,8 +44,14 @@ export class MultiMapsComponent implements OnInit {
     if (changes['reset']) {
       self.positions = self.list;
       if (self.positions && self.positions.length > 0) {
+        let numLat = +self.positions[0].latitude;
+        let numLng = +self.positions[0].longitude;
+        let latLngLiteral = { lat: numLat, lng: numLng };
         self.zoom = 12;
-        self.center = self.positions[0].latlng();
+        self.center = numLat + "," + numLng;
+        if (self.map) {
+          self.map.panTo(latLngLiteral);
+        }
       }
     }
   }
@@ -61,6 +67,8 @@ export class MultiMapsComponent implements OnInit {
 
   onMapClick(event) {
     let self = this;
+
+    console.log('onMapClick -> map ->', event.target);
 
     // self.positions.push(event.latLng);
     // event.target.panTo(event.latLng);
