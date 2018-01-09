@@ -42,7 +42,7 @@ export class FilterHeadMosquitoComponent extends BaseComponent implements OnInit
     this.filterBean.homeType = '';
     this.filterBean.homeId = '';
 
-    if(this.userInfo.roleId == '3'){
+    if(this.isStaffRole(this.userInfo.roleId)){
       this.isStaff = true;
       this.setupVillage();
     }else{

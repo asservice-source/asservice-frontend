@@ -156,10 +156,10 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     if (!isActionAdd) {
       // check CitizenId Duplicate in List
       for (let item of listAll) {
-        if(item.personId != tmpMember.personId && item.familyStatusId=='1' && tmpMember.familyStatusId=='1'){
-          item.familyStatusId='2';
-          item.familyStatusName = 'ผู้อาศัย'
-        }
+        // if(item.personId != tmpMember.personId && item.familyStatusId=='1' && tmpMember.familyStatusId=='1'){
+        //   item.familyStatusId='2';
+        //   item.familyStatusName = 'ผู้อาศัย'
+        // }
         if (item.citizenId == tmpMember.citizenId && item.personId != tmpMember.personId) {
           citizenIdsDup.push(item.citizenId);
         }
@@ -210,10 +210,12 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
       }
     }
 
-
-
-    console.log(self.tempData);
-    console.log(self.tempData2);
+    for (let item of listAll) {
+      if(item.personId != tmpMember.personId && item.familyStatusId=='1' && tmpMember.familyStatusId=='1'){
+        item.familyStatusId='2';
+        item.familyStatusName = 'ผู้อาศัย'
+      }
+    }
 
     self.source.refresh();
     self.source2.refresh();

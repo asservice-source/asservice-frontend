@@ -107,8 +107,8 @@ export class ApiHTTPService  implements OnInit {
     public api_OsmList(villageId: string, callback: (doc: any) => void) {
         this.callResponse('osm/osm_list_by_village', {"villageId": villageId}, callback);
     }
-    public api_HomeList(villageId: string, osmId: string, callback: (doc: any) => void) {
-        this.callResponse('home/home_no_list_by_village_or_osm', {"villageId": villageId, "osmId": osmId}, callback);
+    public api_HomeList(villageId: string, osmId: string,headerTypeCode: string, callback: (doc: any) => void) {
+        this.callResponse('home/home_no_list_by_village_or_osm', {"villageId": villageId, "osmId": osmId,"headerTypeCode":headerTypeCode}, callback);
     }
     public api_HomeTypeList(callback: (doc: any) => void){
         this.callResponse('home/home_type_list',{}, callback);
