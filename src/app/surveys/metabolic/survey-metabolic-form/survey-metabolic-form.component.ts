@@ -215,14 +215,16 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
         self.activeBtnDrink(self.data.drinkingStatusId);
 
         if (self.data.bp1) {
-          self.data.bp1MM = self.splitBP(self.data.bp1)[0];
-          self.data.bp1HG = self.splitBP(self.data.bp1)[1];
+          self.metabolicbean.bp1MM = self.splitBP(self.data.bp1)[0];
+          self.metabolicbean.bp1HG = self.splitBP(self.data.bp1)[1];
         }
 
         if (self.data.bp2) {
-          self.data.bp2MM = self.splitBP(self.data.bp2)[0];
-          self.data.bp2HG = self.splitBP(self.data.bp2)[1];
+          self.metabolicbean.bp2MM = self.splitBP(self.data.bp2)[0];
+          self.metabolicbean.bp2HG = self.splitBP(self.data.bp2)[1];
         }
+        // console.log(self.data.bp2MM);
+        // console.log(self.data.bp2HG);
       }
 
       // if (self.action == self.ass_action.ADD){
