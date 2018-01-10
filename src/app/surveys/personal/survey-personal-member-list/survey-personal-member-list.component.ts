@@ -175,7 +175,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
           citizenIdsDup.push(item.citizenId);
         }
       }
-      
+
       if (citizenIdsDup.length>0) {
         self.message_error('', 'ไม่สามารถแก้ไขข้อมูลได้เนื่องจากหมายเลขประชาชนซ้ำ <br>' + citizenIdsDup);
         return;
@@ -275,7 +275,9 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
       }
     });
   }
-
+  onClickBackNavigate(){
+    $('#btnBack').click();
+  }
   onClickBack() {
     let _self = this;
     if(this.isEditing && !this.isSaveData){

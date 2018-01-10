@@ -311,22 +311,6 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
       return;
     } 
     
-    // self.loading = true;
-    // let citizenId = self.reverseFormatCitizenId(self.memberBean.citizenId);
-    // self.apiHttp.api_PersonByCitizenId(citizenId, function (d) {
-    //   self.loading = false;
-    //   if (d && d.status.toUpperCase() == "SUCCESS") {
-    //     let personData = d.response;
-    //     if (personData && personData.personId) {
-    //       self.message_error('', 'หมายเลขประชาชน <b>' + self.memberBean.citizenId + '</b> ซ้ำ');
-    //     }else{
-    //       self.memberUpdated.emit(self.memberBean);
-    //       self.message_success('', 'แก้ไขข้อมูลบุคคล <b>' + self.memberBean.fullName + '</b> เรียบร้อย');
-    //     }
-    //   }else{
-    //       self.message_error('', 'ไม่สามารถตรวจสอบหมายเลขประชาชนได้');
-    //   }
-    // });
     self.memberBean.citizenId = self.reverseFormatCitizenId(self.memberBean.citizenId)
     self.memberUpdated.emit(self.memberBean);
     //$("#modalMember").modal('hide');

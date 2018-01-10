@@ -77,7 +77,7 @@
                 <label class="label-form">วัน/เดือน/ปี เกิด</label>
               </div>
               <div class="col-md-3">
-                <div [InputValidate]="validateSave" BirthDate="BirthDate">
+                <div [InputValidate]="validateSave" BirthDate="BirthDate" (notify)="validBirthDate($event);">
                   <my-date-picker name="birthDate" [options]="datePickerOptions" [(ngModel)]="modelBirthDate" (dateChanged)="onChangeBirthDate($event)">
                   </my-date-picker>
                   <label class="error">กรุณาเลือกวัน/เดือน/ปี เกิด</label>
@@ -154,7 +154,7 @@
                   <label class="label-form">วันที่จำหน่าย</label>
                 </div>
                 <div class="col-md-3">
-                  <div [InputValidate]="validateSave" BirthDate="BirthDate">
+                  <div [InputValidate]="validateSave" BirthDate="BirthDate" (notify)="validDischargeDate($event);">
                     <my-date-picker name="dischargeDate" [options]="datePickerOptions" [(ngModel)]="modelDischargeDate"></my-date-picker>
                     <label class="error">กรุณาเลือกวันที่จำหน่าย</label>
                   </div>
