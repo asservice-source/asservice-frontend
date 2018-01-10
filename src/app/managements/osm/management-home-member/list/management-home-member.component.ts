@@ -110,7 +110,7 @@ export class ManagementHomeMemberComponent extends BaseComponent implements OnIn
       _self.loading = false;
       let response = resp.response;
       if(response && resp.status.toUpperCase()=='SUCCESS'){
-        _self.bean = response;
+        _self.bean = _self.cloneObj(response);
         _self.onModalShow(_self.ass_action.EDIT);
       }else{
         _self.message_servNotRespond('', '');
@@ -122,6 +122,7 @@ export class ManagementHomeMemberComponent extends BaseComponent implements OnIn
   onClickAdd(){
     this.bean = new PersonalBasicBean();
     this.bean.homeId = this.homeId;
+    this.changeRef.detectChanges();
     this.onModalShow(this.ass_action.ADD);
   }
 

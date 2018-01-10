@@ -239,10 +239,10 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
       this.inputValidate = new InputValidateInfo();
       let _self = this;
       _self.loading = true;
-      this.api.api_PersonByCitizenId(this.bean.citizenId, function(response){
+      this.api.api_PersonByCitizenId(this.bean.citizenId, function(resp){
         _self.loading = false;
-        if(response.status.toUpperCase()=="SUCCESS"){
-          let person = response.response;
+        if(resp.status.toUpperCase()=="SUCCESS"){
+          let person = resp.response;
           if(person && person.personId){
            
             let msg = 'หมายเลขประชาชน <b>'+ _self.formatCitizenId(_self.bean.citizenId) +'</b> มีข้อมูลในระบบแล้ว';
@@ -258,20 +258,27 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
               _self.message_comfirm('', msg, function(result){
                 if(result){
                   // Change Action to EDIT
+                  let response = _self.cloneObj(resp.response);
                   _self.action = _self.ass_action.EDIT;
                   _self.actionName = 'แก้ไข';
                   _self.isVerify = true;
-                  let homeId = _self.bean.homeId;
-                  _self.bean = _self.strNullToEmpty(response.response);
-                  _self.bean.homeId = homeId;
-                  _self.bean.familyStatusId = '';
-                  _self.bean.isGuest = '';
+                  _self.bean = _self.strNullToEmpty(response);
+
+                  let homeId = response.homeId;
+
+                  if(_self.bean.homeId == homeId){
+                    _self.bean.familyStatusId = response.familyStatusId;
+                    _self.bean.isGuest = response.isGuest;
+                  }else{
+                    _self.bean.homeId = homeId;
+                    _self.bean.familyStatusId = '';
+                    _self.bean.isGuest = '';
+                  }
                   _self.bean.dischargeId = _self.bean.dischargeId || '9';
                   //set default ไทย
                   _self.bean.nationalityCode = _self.bean.nationalityCode || '099';
                   _self.bean.raceCode = _self.bean.raceCode || '099';
                   //---
-  
                   _self.setDatePickerModel();
                   _self.oldCitizenId = _self.bean.citizenId;
                 }else{
@@ -388,6 +395,13 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
       this.modelBirthDate = this.getCurrentDatePickerModel(this.bean.birthDate);
     }else{
       this.modelBirthDate = null;
+    }
+
+    if(this.bean.dischargeDate){
+      this.modelDischargeDate = this.getCurrentDatePickerModel(this.bean.dischargeDate);
+    }else{
+      this.modelDischargeDate = null;
     } 
+
   }
 }
