@@ -76,7 +76,7 @@ export class SurveyCancerFormComponent extends BaseComponent implements OnInit, 
       self.cancerbean.diseaseStatusTypeId = "";
       self.cancerbean.hInsuranceTypeId = "89";
       self.cancerbean.patientSurveyTypeCode = "Cancer"
-      self.cancerbean.cancerDate = self.getCurrentDatePickerModel();
+      self.cancerbean.patientDate = self.getCurrentDatePickerModel();
     }
     //this.isDuplicate();
     self.isFindPersonal = false;
@@ -97,13 +97,13 @@ export class SurveyCancerFormComponent extends BaseComponent implements OnInit, 
 
   onModalEvent() {
     let self = this;
-
     $('#find-person-md').on('show.bs.modal', function (e) {
       self.inputValidate = new InputValidateInfo();
       self.resetFind = self.resetFind + 1;
       if (self.action == self.ass_action.EDIT) {
         //self.data.telephone = self.formatPhoneToDisplay(self.data.telephone);
-        self.data.cancerDate = self.getCurrentDatePickerModel(self.data.cancerDate);
+        console.log("DDDDAAAATTTTEEEE ==== "+self.data.patientDate);
+        self.data.patientDate = self.getCurrentDatePickerModel(self.data.patientDate);
         self.onChoosePersonal(self.data);
       }
       self.changeRef.detectChanges();
@@ -120,9 +120,7 @@ export class SurveyCancerFormComponent extends BaseComponent implements OnInit, 
 
   getHealthInsuranceType() {
     let self = this;
-
     let params = {};
-
     self.api.post('person/health_insurance_type_list', params, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.healtInsuranceTypeList = resp.response;
@@ -133,9 +131,7 @@ export class SurveyCancerFormComponent extends BaseComponent implements OnInit, 
 
   getSurveyStatusType() {
     let self = this;
-
     let params = {};
-
     self.api.post('person/patient_survey_type_list', params, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.surveyStatusTypeList = resp.response;
@@ -145,9 +141,7 @@ export class SurveyCancerFormComponent extends BaseComponent implements OnInit, 
 
   getCancerType() {
     let self = this;
-
     let params = {};
-
     self.api.post('person/cancer_type_list', params, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.cancerTypeList = resp.response;
@@ -157,9 +151,7 @@ export class SurveyCancerFormComponent extends BaseComponent implements OnInit, 
 
   getDisabilityType() {
     let self = this;
-
     let params = {};
-
     self.api.post('person/disability_type_list', params, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.disabilityTypeList = resp.response;
@@ -169,9 +161,7 @@ export class SurveyCancerFormComponent extends BaseComponent implements OnInit, 
 
   getDisabilityTypeCause() {
     let self = this;
-
     let params = {};
-
     self.api.post('person/disability_cause_type_list', params, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.disabilityTypeCause = resp.response;
@@ -191,20 +181,6 @@ export class SurveyCancerFormComponent extends BaseComponent implements OnInit, 
     });
   }
 
-  // formatForJson(value) {
-  //   let pure_value = value.split("-");
-  //   let result = pure_value.join('');
-  //   return result;
-  // }
-
-
-  //   formatPhoneToDisplay(phone): string{
-  //     if(!this.isEmpty(phone)){
-  //     let arr = phone.split('');
-  //     return arr[0]+arr[1]+'-'+arr[2]+arr[3]+arr[4]+arr[5]+'-'+arr[6]+arr[7]+arr[8]+arr[9];
-  //     }
-  // }
-
   validate(obj: any): boolean {
     let self = this;
 
@@ -223,7 +199,7 @@ export class SurveyCancerFormComponent extends BaseComponent implements OnInit, 
 
     // console.log(objs);
     // console.log(self.compareDateCurrent_DDMMYYYY(self.cancerbean.cancerDate));
-    if (objs.length > 0 || self.compareDateCurrent_DDMMYYYY(self.cancerbean.cancerDate) < 0) {
+    if (objs.length > 0 || self.compareDateCurrent_DDMMYYYY(self.cancerbean.patientDate) < 0) {
       validate = false;
     } else {
       // if (this.patientbean.telephone.length < 12) {
@@ -240,7 +216,6 @@ export class SurveyCancerFormComponent extends BaseComponent implements OnInit, 
     let self = this;
 
     let documentId;
-
     if (self.action == self.ass_action.ADD) {
       documentId = self.documentId;
     } else {
@@ -255,7 +230,7 @@ export class SurveyCancerFormComponent extends BaseComponent implements OnInit, 
       , "homeId": self.cancerbean.homeId //รอแก้
       , "cancerTypeId": self.cancerbean.cancerTypeId
       , "diseaseStatusTypeId": self.cancerbean.diseaseStatusTypeId
-      , "patientDate": self.getStringDateForDatePickerModel(self.cancerbean.cancerDate.date)
+      , "patientDate": self.getStringDateForDatePickerModel(self.cancerbean.patientDate.date)
       , "patientTypeId": ""
       , "hInsuranceTypeId": self.cancerbean.hInsuranceTypeId
       , "patientSurveyTypeCode": self.cancerbean.patientSurveyTypeCode
@@ -268,10 +243,9 @@ export class SurveyCancerFormComponent extends BaseComponent implements OnInit, 
       , "longitude": self.cancerbean.longitude
     };
 
+    console.log(JSON.stringify(obj));
+
     if (self.validate(obj)) {
-      // if (!self.isEmpty(obj["telephone"])) {
-      //   obj["telephone"] = self.formatForJson(obj["telephone"]);
-      // }
       let params = self.strNullToEmpty(obj);
       console.log(params);
 
@@ -290,7 +264,6 @@ export class SurveyCancerFormComponent extends BaseComponent implements OnInit, 
           });
         }
       })
-
     }
   }
 }

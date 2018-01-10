@@ -93,8 +93,9 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
 
   }
 
-  calculateBMI() {
-    if (this.metabolicbean.height && this.metabolicbean.weight) {
+  calculateBMI(event) {
+    console.log("fuckkkkkkkkkkkkkkkkkkkkkkkkkk",event);
+    // if (this.metabolicbean.height && this.metabolicbean.weight) {
       let self = this;
       setTimeout(function () {
         let H = self.metabolicbean.height;
@@ -102,7 +103,7 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
         let result = W * 10000 / (H * H);
         self.metabolicbean.bmi = result.toFixed(2);
       }, 100)
-    }
+    // }
   }
 
   getHealtinsuranceType() {

@@ -93,6 +93,7 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
       self.resetFind = self.resetFind + 1;
       if (self.action == self.ass_action.EDIT) {
         //self.data.telephone = self.formatPhoneToDisplay(self.data.telephone);
+        console.log("DDDDAAAATTTTEEEE ==== "+self.data.patientDate);
         self.data.patientDate = self.getCurrentDatePickerModel(self.data.patientDate);
         self.onChoosePersonal(self.data);
       }
@@ -189,27 +190,6 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
       }
     }
   }
-
-  // isDupDuplicate() {
-  //   let self = this;
-  //   let params = {
-  //     "headerTypeCode": this.code,
-  //     "documentId": this.documentId,
-  //     "personId": this.patientbean.personId
-  //   };
-
-  //   console.log(JSON.stringify(params));
-  //   this.api.post('survey/survey_is_duplicate', params, function (resp) {
-  //     if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-  //       if (self.action != self.ass_action.EDIT) {
-  //         if (resp.response.isDuplicate == true) {
-  //           $('#find-person-md').modal('hide');
-  //           self.message_error('', 'คนที่ท่านเลือกได้ทำการสำรวจไปแล้ว');
-  //         }
-  //       }
-  //     }
-  //   })
-  // }
 
   formatPhoneNumber() {
     let self = this;
