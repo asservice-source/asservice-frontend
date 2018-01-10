@@ -60,7 +60,7 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
   public isPackPerYearDisabled = true;
   public isOftenPerWeekDisabled = true;
   public errorinput = "error-input";
- 
+
 
 
   public errorSmoke;
@@ -95,10 +95,13 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
 
   calculateBMI() {
     if (this.metabolicbean.height && this.metabolicbean.weight) {
-      let H = this.metabolicbean.height / 100;
-      let W = this.metabolicbean.weight;
-      let result = W / (H * H);
-      this.metabolicbean.bmi = result.toFixed(2);
+      let self = this;
+      setTimeout(function () {
+        let H = self.metabolicbean.height;
+        let W = self.metabolicbean.weight;
+        let result = W * 10000 / (H * H);
+        self.metabolicbean.bmi = result.toFixed(2);
+      }, 100)
     }
   }
 
@@ -195,7 +198,7 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
     this.errorBMI = "";
     this.errorPeripheralName = "";
     this.errorOthercomplication = "";
-   
+
 
     if (this.ass_action.EDIT == this.action) {
       $('#find-person-md').modal('hide');
@@ -296,19 +299,19 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
       this.errorDrink = "";
     }
 
-    if (!this.metabolicbean.weight || this.metabolicbean.weight <= 0){
+    if (!this.metabolicbean.weight || this.metabolicbean.weight <= 0) {
       this.isErrorWeight = true;
       this.errorWeight = this.errorinput;
       this.isErrorOverWeight = false;
       validateform = false;
-    }else{
+    } else {
       this.isErrorWeight = false;
       this.errorWeight = "";
-      if(this.metabolicbean.weight > 255){
+      if (this.metabolicbean.weight > 255) {
         this.isErrorOverWeight = true;
         this.errorWeight = this.errorinput;
         validateform = false;
-      }else{
+      } else {
         this.isErrorOverWeight = false;
         this.errorWeight = "";
       }
@@ -322,11 +325,11 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
     } else {
       this.isErrorHeight = false;
       this.errorHeight = "";
-      if(this.metabolicbean.height > 255){
+      if (this.metabolicbean.height > 255) {
         this.isErrorOverHeight = true;
         this.errorHeight = this.errorinput;
         validateform = false;
-      }else{
+      } else {
         this.isErrorOverHeight = false;
         this.errorHeight = "";
       }
@@ -499,7 +502,7 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
               $("#find-person-md").modal('hide');
               self.completed.emit(true);
               // self.message_success('', 'ท่านได้ทำการส่งแบบสำรวจความเสี่ยงโรค Metabolic แล้ว');
-            }else{
+            } else {
               self.completed.emit(false);
             }
           })
