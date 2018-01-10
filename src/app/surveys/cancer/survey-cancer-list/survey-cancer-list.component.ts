@@ -7,8 +7,8 @@ import { ApiHTTPService } from '../../../api-managements/api-http.service';
 import { CancerBean } from '../../../beans/cancer.bean';
 import { FilterHeadSurveyBean } from '../../../beans/filter-head-survey.bean';
 import { FilterBean } from "../../../beans/filter.bean";
-import { ActionCustomView_2_Component } from '../../../action-custom-table/action-custom-view.component';
-
+import { ActionCustomViewMapsComponent } from '../../../action-custom-table/action-custom-view.component';
+import { MapsBean } from '../../../multi-maps/multi-maps.component';
 declare var $;
 
 @Component({
@@ -34,12 +34,17 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
   public documentId: string;
   public loading: boolean;
 
+  public param_reset: number = 0;
+  public param_latitude: string = "";
+  public param_longitude: string = "";
+  public param_info: string = "";
+  public param_listPosition: Array<MapsBean>;
+
   mStatusNo = 0;
   isDisable = true;
 
   private apiHttp: ApiHTTPService = new ApiHTTPService();
   private paramHomeId: string;
-
 
   public isShowTable: boolean = false;
   public tempData: Array<any> = [];
@@ -48,9 +53,10 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
     super();
 
     let self = this;
-    this.api = new ApiHTTPService();
-    this.filtersearch = new FilterHeadSurveyBean();
-    this.settings = this.getTableSetting({
+
+    self.api = new ApiHTTPService();
+    self.filtersearch = new FilterHeadSurveyBean();
+    self.settings = self.getTableSetting({
 
       fullName: {
         title: 'ชื่อ-สกุล',
@@ -104,8 +110,9 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
         title: 'การทำงาน',
         filter: false,
         type: 'custom',
-        renderComponent: ActionCustomView_2_Component,
+        renderComponent: ActionCustomViewMapsComponent,
         onComponentInitFunction(instance) {
+
           instance.edit.subscribe((row: CancerBean, cell) => {
             self.cancerbean = self.cloneObj(row);
             self.onModalFrom(self.ass_action.EDIT);
@@ -118,6 +125,14 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
               }
             });
           });
+
+          instance.maps.subscribe(row => {
+            self.param_latitude = row.latitude;
+            self.param_longitude = row.longitude;
+            self.param_info = 'บ้านของ ' + row.fullName;
+            $("#modalMaps").modal("show");
+          });
+
         }
       }
     });
@@ -126,37 +141,56 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
   ngOnInit(): void {
 
   }
+
   onChangeFilter(event: FilterHeadSurveyBean) {
     console.log("ChangeFilter");
     //this.isShowList = false;
   }
+
   loadData(event: FilterHeadSurveyBean) {
     let self = this;
+
+    self.loading = true;
+
     let param = {
       "documentId": event.rowGUID,
       "villageId": event.villageId,
       "osmId": event.osmId,
       "name": event.fullName,
     };
+
     let params = JSON.stringify(param);
-    this.loading = true;
-    this.api.post('survey_patient/filter', params, function (resp) {
-      self.loading = false;
+
+    self.api.post('survey_patient/filter', params, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+        self.bindMultiMaps(resp.response);
         self.datas = resp.response;
-        console.log(resp.response);
         self.setUpTable();
       }
       self.changeRef.detectChanges();
-    })
+      self.loading = false;
+    });
+  }
+
+  bindMultiMaps(data) {
+    let self = this;
+
+    self.param_listPosition = [];
+    for (let item of data) {
+      if (item.latitude && item.longitude) {
+        let map = new MapsBean();
+        map.latitude = item.latitude;
+        map.longitude = item.longitude;
+        map.info = 'บ้านของ ' + item.fullName;
+        self.param_listPosition.push(map);
+      }
+    }
   }
 
   setUpTable() {
     this.source = this.ng2STDatasource(this.datas);
     this.isShowList = true;
   }
-
-
 
   onModalFrom(action: string) {
     this.action = action;
@@ -166,7 +200,6 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
       this.changeRef.detectChanges();
       $('#find-person-md').modal('show');
     }
-
   }
 
   onSearch(event: FilterHeadSurveyBean) {
@@ -177,22 +210,29 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
     this.loadData(event);
   }
 
+  onClickMultiMaps() {
+    let self = this;
+
+    self.param_reset++;
+    self.changeRef.detectChanges();
+    $("#modalMultiMaps").modal("show");
+  }
+
   reloadData(event: any) {
     let self = this;
     if (event) {
-      this.message_success('', 'ท่านได้ทำการส่งแบบสำรวจผู้ป่วยมะเร็ง', function () {
+      self.message_success('', 'ท่านได้ทำการส่งแบบสำรวจผู้ป่วยมะเร็ง', function () {
         //self.loadData(self.filtersearch);
         $('#filter-btnSearch').click();
       });
     } else {
-      this.message_error('', 'Error');
+      self.message_error('', 'Error');
     }
   }
 
   changStatusNo() {
     if (this.mStatusNo == 21) {
       this.isDisable = false;
-
     } else {
       this.isDisable = true;
     }
@@ -200,12 +240,14 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
 
   actionDelete(rowguid) {
     let self = this;
+
+    self.loading = true;
+
     let param = {
       "rowGUID": rowguid
     };
-    this.loading = true;
-    this.api.post('survey_patient/del', param, function (resp) {
-      self.loading = false;
+
+    self.api.post('survey_patient/del', param, function (resp) {
       console.log("actionDelete ==== " + resp);
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.message_success('', 'ลบรายการสำเร็จ', function () {
@@ -213,6 +255,7 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
           $('#filter-btnSearch').click();
         });
       }
+      self.loading = false;
     })
   }
 
@@ -228,18 +271,21 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
 
   getSurveyData(rowGUID) {
     let self = this;
+
+    self.loading = true;
+
     let param = {
       "rowGUID": rowGUID
     }
-    self.loading = true;
-    this.api.post('survey_patient/patient_by_rowguid', param, function (resp) {
+
+    self.api.post('survey_patient/patient_by_rowguid', param, function (resp) {
       self.loading = false;
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.cancerbean = resp.response;
         self.changeRef.detectChanges();
         $('#find-person-md').modal('show');
       }
-    })
+    });
   }
 
 }

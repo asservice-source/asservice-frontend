@@ -29,7 +29,7 @@ export class MapsComponent implements OnInit {
 
   }
 
-  ngOnChanges() {
+  ngOnChanges() { 
     let self = this;
 
     let latlng = self.getLatLong();

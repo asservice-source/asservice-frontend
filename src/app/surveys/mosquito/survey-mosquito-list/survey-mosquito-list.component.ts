@@ -49,7 +49,7 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
       address: {
         title: 'ที่อยู่',
         filter: false,
-        width: '340px',
+        width: '350px',
         type: 'html',
         valuePrepareFunction: (cell, row) => {
           return '<div class="wrap-text" title="' + cell + '">' + this.displaySubstring(cell) + '</div>'
@@ -214,12 +214,17 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
 
   displaySubstring(string: string) {
     let strValue;
-    if (string.length > 50) {
-      strValue = string.substring(0, 50) + '...';
-    } else {
-      strValue = string;
+    if(string){
+      if (string.length > 50) {
+        strValue = string.substring(0, 50) + '...';
+      } else {
+        strValue = string;
+      }
+      return strValue;
+    }else{
+       strValue = "";
+       return strValue;
     }
-    return strValue;
   }
 
   getSurveyData(docId, homeId) {

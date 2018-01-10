@@ -215,12 +215,17 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
 
   displaySubstring(string: string) {
     let strValue;
-    if (string.length > 25) {
-      strValue = string.substring(0, 25) + '...';
-    } else {
-      strValue = string;
-    }
-    return strValue;
+    if(string){
+      if (string.length > 25) {
+        strValue = string.substring(0, 25) + '...';
+      } else {
+        strValue = string;
+      }
+      return strValue;
+    }else{
+      strValue = "";
+      return strValue;
+   }
   }
 
   getSurveyData(rowGUID) {
