@@ -221,10 +221,11 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
       homeNo: {
         title: "บ้านเลขที่",
         filter: false,
-        width: '120px',
+        width: '100px',
       },
       homeTypeName:{
         title: "ประเภท",
+        width: '140px',
         filter: false,
         type: "html",
         valuePrepareFunction: (cell, row) => { 

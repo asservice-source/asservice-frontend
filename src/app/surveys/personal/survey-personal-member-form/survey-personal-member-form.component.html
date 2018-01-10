@@ -78,8 +78,7 @@
               </div>
               <div class="col-md-3">
                 <div [InputValidate]="validateSave" BirthDate="BirthDate" (notify)="validBirthDate($event);">
-                  <my-date-picker name="birthDate" [options]="datePickerOptions" [(ngModel)]="modelBirthDate" (dateChanged)="onChangeBirthDate($event)">
-                  </my-date-picker>
+                  <my-date-picker name="birthDate" [options]="datePickerOptions" [(ngModel)]="modelBirthDate" (dateChanged)="onChangeBirthDate($event)"></my-date-picker>
                   <label class="error">กรุณาเลือกวัน/เดือน/ปี เกิด</label>
                 </div>
               </div>

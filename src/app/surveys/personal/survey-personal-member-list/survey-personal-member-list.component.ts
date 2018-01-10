@@ -340,7 +340,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
       citizenId: {
         title: 'เลขประจำตัวประชาชน',
         filter: false,
-        width: '200px',
+        width: '180px',
         type: 'html',
         valuePrepareFunction: (cell, row) => {
           return '<div class="text-center">' + self.formatCitizenId(cell) + '</div>';
@@ -349,7 +349,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
       genderName: {
         title: 'เพศ',
         filter: false,
-        width: '100px',
+        width: '80px',
         type: 'html',
         valuePrepareFunction: (cell, row) => {
           return '<div class="text-center">' + cell + '</div>';
@@ -358,16 +358,16 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
       age: {
         title: 'อายุ',
         filter: false,
-        width: '100px',
+        width: '80px',
         type: 'html',
         valuePrepareFunction: (cell, row) => {
           return '<div class="text-center">' + cell + '</div>';
         }
       },
       familyStatusName: {
-        title: 'สถานะผู้อยู่อาศัย',
+        title: 'สถานะ',
         filter: false,
-        width: '200px',
+        width: '80px',
         type: 'html',
         valuePrepareFunction: (cell, row) => {
           return '<div class="text-center">' + cell + '</div>';
@@ -396,7 +396,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
       citizenId: {
         title: 'เลขประจำตัวประชาชน',
         filter: false,
-        width: '200px',
+        width: '180px',
         type: 'html',
         valuePrepareFunction: (cell, row) => {
           return '<div class="text-center">' + self.formatCitizenId(cell) + '</div>';
@@ -405,7 +405,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
       genderName: {
         title: 'เพศ',
         filter: false,
-        width: '100px',
+        width: '80px',
         type: 'html',
         valuePrepareFunction: (cell, row) => {
           return '<div class="text-center">' + cell + '</div>';
@@ -414,16 +414,16 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
       age: {
         title: 'อายุ',
         filter: false,
-        width: '100px',
+        width: '80px',
         type: 'html',
         valuePrepareFunction: (cell, row) => {
           return '<div class="text-center">' + cell + '</div>';
         }
       },
       familyStatusName: {
-        title: 'สถานะผู้อยู่อาศัย',
+        title: 'สถานะ',
         filter: false,
-        width: '200px',
+        width: '80px',
         type: 'html',
         valuePrepareFunction: (cell, row) => {
           return '<div class="text-center">' + cell + '</div>';

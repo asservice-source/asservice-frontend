@@ -216,14 +216,15 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
   }
 
   isValidClickSave():boolean {
-    this.memberBean.birthDate = this.getStringDateForDatePickerModel(this.modelBirthDate.date);
-    if(!this.isBirthDate){
-      return false;
-    }
+    
     let self = this;
     self.validateSave = new InputValidateInfo();
     self.validateSave.isCheck = true;
     self.changeRef.detectChanges();
+    if(!this.isBirthDate){
+      return false;
+    }
+    this.memberBean.birthDate = this.getStringDateForDatePickerModel(this.modelBirthDate.date);
     let simpValidate = new SimpleValidateForm();
     let validateFields = ["genderId", "prefixCode", "firstName", "lastName", "birthDate", "raceCode", "nationalityCode", "religionCode"];
     if(this.memberBean.dischargeId!='9'){
@@ -281,7 +282,7 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
     this.memberBean.provinceCode = '';
   }
   validBirthDate(event: InputValidateInfo){
-    this.isBirthDate =event.isPassed;
+    this.isBirthDate = event.isPassed;
   }
 
   validDischargeDate(event: InputValidateInfo){
@@ -310,7 +311,7 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
     if (!self.isValidClickSave()) {
       return;
     } 
-    
+
     self.memberBean.citizenId = self.reverseFormatCitizenId(self.memberBean.citizenId)
     self.memberUpdated.emit(self.memberBean);
     //$("#modalMember").modal('hide');

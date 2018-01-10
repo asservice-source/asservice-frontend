@@ -160,7 +160,7 @@ export class ManagementHomeMemberComponent extends BaseComponent implements OnIn
       citizenId: {
         title: "เลขประจำตัวประชาชน",
         filter: false,
-        width: '200px',
+        width: '180px',
         type: 'html',
         valuePrepareFunction: (cell, row) => { 
           return '<div class="text-center">'+_self.formatCitizenId(cell)+'</div>'
@@ -169,6 +169,7 @@ export class ManagementHomeMemberComponent extends BaseComponent implements OnIn
       genderName:{
         title: "เพศ",
         filter: false,
+        width: '80px',
         type: 'html',
         valuePrepareFunction: (cell, row) => { 
           return '<div class="text-center">'+cell+'</div>'
@@ -177,13 +178,15 @@ export class ManagementHomeMemberComponent extends BaseComponent implements OnIn
       age:{
         title: "อายุ",
         filter: false,
+        width: '80px',
         type: 'html',
         valuePrepareFunction: (cell, row) => { 
           return '<div class="text-center">'+cell+'</div>'
         }
       },
       familyStatusName: {
-        title: "สถานะผู้อยู่อาศัย",
+        title: "สถานะ",
+        width: '80px',
         filter: false,
         type: 'html',
         valuePrepareFunction: (cell, row) => { 
@@ -220,7 +223,7 @@ export class ManagementHomeMemberComponent extends BaseComponent implements OnIn
       citizenId: {
         title: "เลขประจำตัวประชาชน",
         filter: false,
-        width: '200px',
+        width: '180px',
         type: 'html',
         valuePrepareFunction: (cell, row) => { 
           return '<div class="text-center">'+_self.formatCitizenId(cell)+'</div>'
@@ -229,6 +232,7 @@ export class ManagementHomeMemberComponent extends BaseComponent implements OnIn
       genderName:{
         title: "เพศ",
         filter: false,
+        width: '80px',
         type: 'html',
         valuePrepareFunction: (cell, row) => { 
           return '<div class="text-center">'+cell+'</div>'
@@ -245,6 +249,7 @@ export class ManagementHomeMemberComponent extends BaseComponent implements OnIn
       deadDate:{
         title: "วันที่เสียชีวิต",
         filter: false,
+        width: '80px',
         type: 'html',
         valuePrepareFunction: (cell, row) => { 
           return '<div class="text-center">'+_self.displayFormatDate(cell)+'</div>'
