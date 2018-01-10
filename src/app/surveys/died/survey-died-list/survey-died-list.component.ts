@@ -125,10 +125,11 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
     let _self = this;
     _self.loading=true;
     _self.apiDead.getDeadInfo(row.rowGUID, function(resp){
+      
       _self.loading=false;
       let response = resp.response;
       if(response && resp.status.toUpperCase()=='SUCCESS'){
-        _self.bean = response;
+        _self.bean = _self.cloneObj(response);
         _self.onModalForm(_self.ass_action.EDIT);
       }else{
         _self.message_servNotRespond('','ไม่สามารถทำรายการได้ในขณะนี้');
