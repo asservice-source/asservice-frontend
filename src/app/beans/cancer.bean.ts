@@ -1,13 +1,13 @@
-export class CancerBean{
-    public fullName: string;
+export class CancerBean {
+    public fullName: string = "";
     public age: number;
-    public cancerType: string;
-    public hospital: string;
-    public sickDate: string;
-    public tel: string;
-    public other: string;
-    public status: string;
-    public inputDate: string;
+    public cancerType: string = "";
+    public hospital: string = "";
+    public sickDate: string = "";
+    public tel: string = "";
+    public other: string = "";
+    public status: string = "";
+    public inputDate: string = "";
 
     public citizenId: string = "";
     public firstName: string = "";
@@ -36,31 +36,31 @@ export class CancerBean{
     public occupationName: string = "";
     public dischargeId: string = "";
     public familyStatus: string = "";
- 
-    public address : string;
-    public gender : string;
 
-    public patientSurveyTypeCode : string;
-    public diseaseStatusType : string;
-    public cancerDate : any;
-    public hInsuranceTypeId : string;
-    public disabilityCauseTypeId : string;
+    public address: string = "";
+    public gender: string = "";
 
-    public disabilityTypeId : string;
-    public disabilityCauseType : string;
-    public remark : string;
-    public telephone : string;
-    public operationDate : string;
-    public homeId : string;
+    public patientSurveyTypeCode: string = "";
+    public diseaseStatusType: string = "";
+    public cancerDate: any;
+    public hInsuranceTypeId: string = "";
+    public disabilityCauseTypeId: string = "";
 
-    public cancerTypeId : string;
-    public rowGUID : string;
-    public personId : string;
-    public documentId : string;
-    public osmId : string;
-    public diseaseStatusTypeId : string;
+    public disabilityTypeId: string = "";
+    public disabilityCauseType: string = "";
+    public remark: string = "";
+    public telephone: string = "";
+    public operationDate: string = "";
+    public homeId: string = "";
 
-    public treatmentPlace : string;
-    public latitude : string;
-    public longitude : string;
+    public cancerTypeId: string = "";
+    public rowGUID: string = "";
+    public personId: string = "";
+    public documentId: string = "";
+    public osmId: string = "";
+    public diseaseStatusTypeId: string = "";
+
+    public treatmentPlace: string = "";
+    public latitude: string = "";
+    public longitude: string = "";
 }

@@ -11,20 +11,26 @@
 
             <div *ngIf="isShowForm">
                 <div class="row">
-                    <div class="col-md-11 col-md-offset-1">
-                        <div class="box-body">
-                            <dl class="dl-horizontal">
-                                <dt>หมายเลขประจำตัว : </dt>
-                                <dd>{{ cancerbean.citizenId }}</dd>
-                                <dt>ชื่อ-สกุล : </dt>
-                                <dd>{{ cancerbean.fullName }}</dd>
-                                <dt>เพศ : </dt>
-                                <dd>{{ cancerbean.genderName }}</dd>
-                                <dt>อายุ : </dt>
-                                <dd>{{ cancerbean.age }}</dd>
-                                <dt>ที่อยู่ : </dt>
-                                <dd>{{ cancerbean.address }}</dd>
-                            </dl>
+                    <div class="col-md-12">
+                        <div class="panel-body">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <div class="box-body">
+                                        <dl class="dl-horizontal">
+                                            <dt>หมายเลขประจำตัว : </dt>
+                                            <dd>{{ cancerbean.citizenId }}</dd>
+                                            <dt>ชื่อ-สกุล : </dt>
+                                            <dd>{{ cancerbean.fullName }}</dd>
+                                            <dt>เพศ : </dt>
+                                            <dd>{{ cancerbean.genderName }}</dd>
+                                            <dt>อายุ : </dt>
+                                            <dd>{{ cancerbean.age }}</dd>
+                                            <dt>ที่อยู่ : </dt>
+                                            <dd>{{ cancerbean.address }}</dd>
+                                        </dl>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -120,7 +126,7 @@
 
                 <div class="modal-footer">
                     <button class="btn btn-sm btn-primary" (click)="addSurvey()">ยืนยัน</button> &nbsp;&nbsp;
-                    <button class="btn btn-sm btn-primary" (click)="onBack()">กลับ</button>
+                    <button class="btn btn-sm btn-primary" (click)="onClickBack()">กลับ</button>
                 </div>
                 <!-- "cancerbean.cancerSurveyTypeCode == ''?true : false" -->
             </div>

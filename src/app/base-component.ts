@@ -89,7 +89,7 @@ export class BaseComponent implements OnInit {
         // if(this.ng2STDataSource){
         //     this.ng2STDataSource.load(source);
         // }else{
-           
+
         //     this.ng2STDataSource = new LocalDataSource(source);
         // }
         // //this.ng2STDataSource = new LocalDataSource(source);
@@ -137,7 +137,7 @@ export class BaseComponent implements OnInit {
     }
 
     public displayFormatDate(dateString: string) {
-        if(dateString){
+        if (dateString) {
             return moment(dateString).format('DD/MM/YYYY');
         } else {
             return "";
@@ -145,7 +145,7 @@ export class BaseComponent implements OnInit {
     }
 
     public displayFormatDateTime(dateString: string) {
-        if(dateString){
+        if (dateString) {
             return moment(dateString).format('DD/MM/YYYY HH:mm');
         } else {
             return "";
@@ -393,24 +393,24 @@ export class BaseComponent implements OnInit {
         return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
 
-    compareDateCurrent_DDMMYYYY(compareDate: any): number{
+    compareDateCurrent_DDMMYYYY(compareDate: any): number {
         let result = -1;
         let strDate = '';
-        if(compareDate.date){
+        if (compareDate.date) {
             let date = compareDate.date;
-            strDate = date.year+'-'+date.month+'-'+date.day;
+            strDate = date.year + '-' + date.month + '-' + date.day;
             strDate += ' 00:00:00';
 
-        }else if(compareDate && compareDate.length==10){
+        } else if (compareDate && compareDate.length == 10) {
             let dates = compareDate.split('/');
-            let year:number;
-            if(dates.length==3){
-                strDate = dates[2]+'-'+dates[1]+'-'+dates[0];
+            let year: number;
+            if (dates.length == 3) {
+                strDate = dates[2] + '-' + dates[1] + '-' + dates[0];
                 strDate += ' 00:00:00';
-            }else{
-                return result; 
+            } else {
+                return result;
             }
-        }else{
+        } else {
             return result;
         }
 
@@ -429,8 +429,8 @@ export class BaseComponent implements OnInit {
         return result;
     }
     private homeTypeCodes: Array<any> = ['01', '02', '03', '04', '05'];
-    isHomeType(homeTypeCode: string):boolean{   
-        if(this.homeTypeCodes.indexOf(homeTypeCode)>=0){
+    isHomeType(homeTypeCode: string): boolean {
+        if (this.homeTypeCodes.indexOf(homeTypeCode) >= 0) {
             return true;
         }
         return false;
