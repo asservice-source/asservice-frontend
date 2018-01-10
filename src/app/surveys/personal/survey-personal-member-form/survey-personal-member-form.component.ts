@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef} from '@angular/core';
 import { IMyDpOptions, IMyDateModel } from 'mydatepicker';
 import { PersonBean } from "../../../beans/person.bean";
 //import { PersonalMemberBean } from '../../../beans/personal-member.bean';
@@ -40,8 +40,10 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
   public validateSave: InputValidateInfo = new InputValidateInfo();
   public validateAddress: InputValidateInfo = new InputValidateInfo();
   public loading: boolean = false;
-  
-  constructor() {
+  public isBirthDate: boolean = false;
+  public isDischargeDate: boolean = false;
+
+  constructor(private changeRef: ChangeDetectorRef) {
     super();
     this.address = new Address();
   }
@@ -172,10 +174,15 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
   }
   onChangeFamilyStatus(element: any){
 
+    if(this.memberBean.familyStatusId=='1'){
+      this.memberBean.isGuest = false;
+    }
+
     if(this.memberBean.familyStatusId=='1' && this.memberBean.isGuest){
       this.memberBean.isGuest = false;
       this.validateAddress = new InputValidateInfo();
     }
+
   }
   onChangeBirthDate(event: IMyDateModel) {
     //this.memberBean.birthDate = this.getStringDateForDatePickerModel(event.date);
@@ -208,57 +215,28 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
     }
   }
 
-  // onClickVerifyCitizenId(): void {
-  //   let self = this;
-  //   self.validateVerify = new InputValidateInfo();
-  //   let cid = self.memberBean.citizenId;
-  //   let personData: any;
-  //   self.apiHttp.api_PersonByCitizenId(cid, function (d) {
-  //     if (d && d.status.toUpperCase() == "SUCCESS") {
-  //       personData = d.response;
-  //       if (personData && personData.personId) {
-  //         self.message_comfirm('', 'หมายเลขประจำตัว "' + cid + '" มีข้อมูลแล้ว คุณต้องการดึงข้อมูลหรือไม่ ?', function (isConfirm) {
-  //           if (isConfirm) {
-  //             personData = self.strNullToEmpty(personData);
-  //             self.memberBean.personId = personData.personId;
-  //             self.memberBean.genderId = personData.genderId;
-  //             self.bindPrefix(self.memberBean.genderId);
-  //             self.memberBean.prefixCode = personData.prefixCode;
-  //             self.memberBean.firstName = personData.firstName;
-  //             self.memberBean.lastName = personData.lastName;
-  //             self.memberBean.raceCode = personData.raceCode;
-  //             self.memberBean.nationalityCode = personData.nationalityCode;
-  //             self.memberBean.religionCode = personData.religionCode;
-  //             self.memberBean.bloodTypeId = personData.bloodTypeID;
-  //             self.memberBean.rhGroupId = personData.rhGroupId;
-  //             self.memberBean.birthDate = personData.birthDate;
-  //             self.modelBirthDate = self.getDatePickerModel(personData.birthDate);
-  //             self.memberBean.educationCode = personData.educationCode;
-  //             self.memberBean.occupationCode = personData.occupationCode;
-
-  //           }
-  //         });
-  //       }
-       
-  //     } else {
-  //       self.message_error('','ไม่สามารถตรวจสอบข้อมูลหมายเลขบัตรประชาชน <b>'+self.formatCitizenId(cid)+'</b> ได้');
-  //     }
-  //   });
-  // }
-
-
-  isValidClickSave(bean: PersonalBasicBean) {
+  isValidClickSave():boolean {
+    this.memberBean.birthDate = this.getStringDateForDatePickerModel(this.modelBirthDate.date);
+    if(!this.isBirthDate){
+      return false;
+    }
     let self = this;
-
+    self.validateSave = new InputValidateInfo();
+    self.validateSave.isCheck = true;
+    self.changeRef.detectChanges();
     let simpValidate = new SimpleValidateForm();
-
-    let validateFields = ["genderId", "prefixCode", "firstName", "lastName", "birthDate", "raceCode", "nationalityCode", "religionCode", "bloodTypeId"];
-    if(bean.dischargeId!='9'){
+    let validateFields = ["genderId", "prefixCode", "firstName", "lastName", "birthDate", "raceCode", "nationalityCode", "religionCode"];
+    if(this.memberBean.dischargeId!='9'){
+      if(!this.isDischargeDate){
+        return false;
+      }
+      this.memberBean.dischargeDate = this.modelDischargeDate?this.getStringDateForDatePickerModel(this.modelDischargeDate.date):'';
       validateFields.push('dischargeDate');
     }
     self.validateAddress = new InputValidateInfo();
-    if(bean.isGuest){
+    if(this.memberBean.isGuest){
       self.validateAddress.isCheck = true;
+      self.changeRef.detectChanges();
       validateFields.push('homeNo','mooNo','tumbolCode','amphurCode','provinceCode');
     }else{
       // Home Address  Added to Personal Address 
@@ -270,16 +248,12 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
       this.memberBean.provinceCode = this.address.provinceCode;
     }
 
-    self.validateSave = new InputValidateInfo();
-    self.validateSave.isCheck = true;
-
-    let errors = simpValidate.getObjectEmpty_byFilds(bean, validateFields);
+    let errors = simpValidate.getObjectEmpty_byFilds(this.memberBean, validateFields);
     if (errors.length > 0) {
       console.log(errors);
       return false;
 
     } else {
-      this.memberBean.birthDate = this.getStringDateForDatePickerModel(this.modelBirthDate.date);
       for(let item of this.listGender){
         if(this.memberBean.genderId==item.id){
           this.memberBean.genderName = item.name;
@@ -306,6 +280,13 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
     this.memberBean.amphurCode = '';
     this.memberBean.provinceCode = '';
   }
+  validBirthDate(event: InputValidateInfo){
+    this.isBirthDate =event.isPassed;
+  }
+
+  validDischargeDate(event: InputValidateInfo){
+    this.isDischargeDate =event.isPassed;
+  }
   onChangeGuest(){
     console.log(this.memberBean.isGuest)
     this.validateAddress = new InputValidateInfo();
@@ -326,7 +307,7 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
   }
   onClickSave() {
     let self = this;
-    if (!self.isValidClickSave(self.memberBean)) {
+    if (!self.isValidClickSave()) {
       return;
     } 
     

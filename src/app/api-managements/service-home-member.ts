@@ -30,6 +30,7 @@ export class Service_HomeMember extends ApiHTTPService{
             "isDead":  false,
             "deadDate": "",
             "dischargeId": bean.dischargeId,
+            "dischargeDate": bean.dischargeDate,
             "familyStatusId": bean.familyStatusId,
             "fatherCid": "",
             "motherCid": "",
@@ -72,5 +73,4 @@ export class Service_HomeMember extends ApiHTTPService{
             }
         });
     }
-
 }

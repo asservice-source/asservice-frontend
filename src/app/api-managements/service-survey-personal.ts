@@ -35,6 +35,7 @@ export class Service_SurveyPersonal extends ApiHTTPService {
                 "isDead": bean.isDead,
                 "deadDate": bean.deadDate,
                 "dischargeId": bean.dischargeId,
+                "dischargeDate": bean.dischargeDate,
                 "familyStatusId": bean.familyStatusId,
                 "fatherCid": bean.fatherCid,
                 "motherCid": bean.motherCid,

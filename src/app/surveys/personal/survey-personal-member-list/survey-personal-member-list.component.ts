@@ -46,6 +46,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
   public loading: boolean = false;
 
   public isEditing: boolean = false;
+  public isSaveData: boolean = false;
   public warningLeavPage = 'เมื่อกดยกเลิกหรือย้อนกับ ข้อมูลการแก้ไขแบบสำรวจจะยังไม่ถูกบันทึกลงฐานข้อมูล<br>ต้องการทำต่อใช่หรือไม่?';
 
   constructor(private http: Http, private route: Router, private routeAct: ActivatedRoute, private changeRef: ChangeDetectorRef) {
@@ -170,15 +171,11 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     if (!isActionAdd) {
       // check CitizenId Duplicate in List
       for (let item of listAll) {
-        // if(item.personId != tmpMember.personId && item.familyStatusId=='1' && tmpMember.familyStatusId=='1'){
-        //   item.familyStatusId='2';
-        //   item.familyStatusName = 'ผู้อาศัย'
-        // }
         if (item.citizenId == tmpMember.citizenId && item.personId != tmpMember.personId) {
           citizenIdsDup.push(item.citizenId);
         }
       }
-  
+      
       if (citizenIdsDup.length>0) {
         self.message_error('', 'ไม่สามารถแก้ไขข้อมูลได้เนื่องจากหมายเลขประชาชนซ้ำ <br>' + citizenIdsDup);
         return;
@@ -222,6 +219,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
       } else {
         self.tempData.push(tmpMember);
       }
+      listAll.push(tmpMember);
     }
 
     for (let item of listAll) {
@@ -233,7 +231,8 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
 
     self.source.refresh();
     self.source2.refresh();
-
+    console.log(self.tempData);
+    console.log(self.tempData2);
     $("#modalMember").modal('hide');
     self.message_success('', 'แก้ไขข้อมูลบุคคล <b>' + member.fullName + '</b> เรียบร้อย');
   }
@@ -267,6 +266,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
       console.log(d);
       if (d != null && d.status.toUpperCase() == "SUCCESS") {
         self.message_success('', 'ส่งข้อมูลการสำรวจสำเร็จ', function(){
+          self.isSaveData = true;
           $('#btnBack').click();
           self.changeRef.detectChanges();
         });
@@ -278,7 +278,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
 
   onClickBack() {
     let _self = this;
-    if(this.isEditing){
+    if(this.isEditing && !this.isSaveData){
       this.message_comfirm('', this.warningLeavPage
         , function(isConfirm){
           if(isConfirm){

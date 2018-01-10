@@ -23,8 +23,10 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
   @Output() success: EventEmitter<any>;
   public api: Service_HomeMember;
   public inputValidate: InputValidateInfo;
+  public inputValidateAddress: InputValidateInfo;
   public isVerify: boolean = false;
   public modelBirthDate: any;
+  public modelDischargeDate: any;
   public genderList: any = [];
   public prefixList: any = [];
   public raceList: any = [];
@@ -47,10 +49,12 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
   public msgError_BirthDate: string = 'กรุณาเลือก วัน/เดือน/ปี เกิด';
   public loading: boolean = false;
   public isBirthDate: boolean = false;
+  public isDischargeDate: boolean = false;
   constructor(private changeRef: ChangeDetectorRef) { 
     super();
     this.bean = new PersonalBasicBean();
     this.inputValidate = new InputValidateInfo();
+    this.inputValidateAddress = new InputValidateInfo();
     this.api = new Service_HomeMember();
     this.success = new EventEmitter<any>();
     this.address = new Address();
@@ -119,6 +123,7 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
       _self.msgError_BirthDate = 'กรุณาเลือก วัน/เดือน/ปี เกิด';
       $('#is-guest-error').hide();
       _self.inputValidate = new InputValidateInfo();
+      _self.inputValidateAddress = new InputValidateInfo();
       _self.msgError_CitizenId = _self.msgError_CitizenIdEmty;
       _self.bean.dischargeId = _self.bean.dischargeId || '9';
       //---
@@ -127,6 +132,7 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
         _self.actionName = 'เพิ่ม';
         _self.isVerify = false;
         _self.modelBirthDate = null;
+        _self.modelDischargeDate = null;
         // new Bean as set default empty value
         _self.bean = _self.api.map(_self.bean);
         _self.bean.occupationCode = '';//objMap.occupCode;
@@ -166,6 +172,10 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
     }
   }
   onChangeFamilyStatus(element: any){
+    if(this.bean.familyStatusId=='1'){
+      this.bean.isGuest = false;
+    }
+
     let options = element.options;
     for(let item of options){
       if(item.value==element.value){
@@ -286,6 +296,7 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
     }
   }
   onSave(){
+    this.inputValidateAddress = new InputValidateInfo();
     this.inputValidate = new InputValidateInfo();
     this.inputValidate.isCheck = true; // validate input error form
     this.changeRef.detectChanges();
@@ -293,18 +304,28 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
 
     if(this.isValidCitizenIdThailand(this.bean.citizenId)){
       let birthDate = this.modelBirthDate && this.getStringDateForDatePickerModel(this.modelBirthDate.date);
+      
       this.bean.birthDate = birthDate || '';
       let fildsCheck = ['citizenId', 'firstName', 'lastName', 'prefixCode', 'genderId', 'raceCode', 'nationCode', 'religionCode', 'birthDate', 'educationCode', 'occupCode', 'familyStatusId', 'isGuest'];
       if(this.bean.isGuest){
         fildsCheck.push('homeNo','mooNo','tumbolCode','amphurCode','provinceCode');
       }else{
         // Home Address  Added to Personal Address 
+        this.inputValidateAddress.isCheck = true;
+        this.changeRef.detectChanges();
         this.bean.homeNo = this.address.homeNo;
         this.bean.mooNo = this.address.mooNo;
         this.bean.road = this.address.road;
         this.bean.tumbolCode = this.address.tumbolCode;
         this.bean.amphurCode = this.address.amphurCode;
         this.bean.provinceCode = this.address.provinceCode;
+      }
+      if(this.bean.dischargeId!='9'){
+        if(!this.isDischargeDate){
+          return;
+        }
+        this.bean.dischargeDate = this.modelDischargeDate && this.getStringDateForDatePickerModel(this.modelDischargeDate.date);
+        fildsCheck.push('dischargeDate');
       }
       let objsEmpty: Array<string> = simpValidate.getObjectEmpty_byFilds(this.api.map(this.bean), fildsCheck);
       if(objsEmpty.indexOf('isGuest')>=0){
@@ -357,6 +378,10 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
 
   validBirthDate(event: InputValidateInfo){
     this.isBirthDate =event.isPassed;
+  }
+
+  validDischargeDate(event: InputValidateInfo){
+    this.isDischargeDate =event.isPassed;
   }
   setDatePickerModel(){
     if(this.bean.birthDate){
