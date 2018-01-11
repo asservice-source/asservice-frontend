@@ -242,7 +242,7 @@
 
                         <div class="col-md-2">
                             <input class="text-center" [ngClass]="errorWeight" type="text" placeholder="น้ำหนัก" [(ngModel)]="metabolicbean.weight" [OnlyNumber]="true"
-                                maxlength="3" (keypress)="calculateBMI();">
+                                maxlength="3" (input)="calculateBMI();">
                             <div *ngIf="isErrorWeight">
                                 <label class="error2">กรุณาใส่น้ำหนัก</label>
                             </div>
@@ -260,7 +260,7 @@
                         </div>
                         <div class="col-md-2">
                             <input class="text-center" [ngClass]="errorHeight" type="text" placeholder="ส่วนสูง" [(ngModel)]="metabolicbean.height" maxlength="3"
-                                [OnlyNumber]="true" (keypress)="calculateBMI();">
+                                [OnlyNumber]="true" (input)="calculateBMI();">
                             <div *ngIf="isErrorHeight">
                                 <label class="error2">กรุณาใส่ส่วนสูง</label>
                             </div>

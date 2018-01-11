@@ -36,6 +36,7 @@ export class CancerBean {
     public occupationName: string = "";
     public dischargeId: string = "";
     public familyStatus: string = "";
+    public patientDate : any;
 
     public address: string = "";
     public gender: string = "";
