@@ -46,4 +46,6 @@ export class PregnantBean {
     public masterGUID: string = "";
     public personId: string = "";
     public wombNo: string = "";
+
+    public isEditOrDelete: boolean = false;
 }
