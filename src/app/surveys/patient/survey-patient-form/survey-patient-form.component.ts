@@ -25,7 +25,7 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
   public isShowForm: boolean = false;
   public patientbean: PatientBean;
   public resetFind: number = 1;
-  private api: ApiHTTPService;
+  private apiHttp: ApiHTTPService;
   public healtInsuranceTypeList: any;
   public surveyStatusTypeList: any;
   public patientTypeList: any;
@@ -33,26 +33,31 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
   public disabilityTypeCause: any;
   public diseaseStatusTypeList: any;
   public code: string = "PATIENT";
-  public isErrorDisabilityType: any;//
+  public isErrorDisabilityType: any;
   public disabilityCauseType: boolean = true;
-  public loading;
+  public loading: boolean = false;
   public inputValidate: InputValidateInfo = new InputValidateInfo();
 
   constructor(private http: Http, private changeRef: ChangeDetectorRef) {
     super();
 
-    this.patientbean = new PatientBean();
-    this.api = new ApiHTTPService();
-    this.getHealtinsuranceType();
-    this.getSurveyStatusType();
-    this.getPatientType();
-    this.getDisabilityType();
-    this.getDisabilityTypeCause();
-    this.getDiseaseStatusType();
+    let self = this;
+
+    self.patientbean = new PatientBean();
+    self.apiHttp = new ApiHTTPService();
+
+    self.getHealtinsuranceType();
+    self.getSurveyStatusType();
+    self.getPatientType();
+    self.getDisabilityType();
+    self.getDisabilityTypeCause();
+    self.getDiseaseStatusType();
   }
 
   ngOnInit() {
-    this.onModalEvent();
+    let self = this;
+
+    self.onModalEvent();
   }
 
   ngAfterViewInit() {
@@ -60,25 +65,29 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
   }
 
   onChoosePersonal(bean: any): void {
-    this.patientbean = this.cloneObj(bean);
+    let self = this;
 
-    if (this.action == this.ass_action.ADD) {
-      this.patientbean.patientSurveyTypeCode = "";
-      this.patientbean.disabilityCauseTypeId = "";
-      this.patientbean.disabilityTypeId = "";
-      this.patientbean.patientTypeId = "";
-      this.patientbean.diseaseStatusTypeId = "";
-      this.patientbean.patientDate = this.getCurrentDatePickerModel();
+    self.patientbean = self.cloneObj(bean);
+
+    if (self.action == self.ass_action.ADD) {
+      self.patientbean.patientSurveyTypeCode = "";
+      self.patientbean.disabilityCauseTypeId = "";
+      self.patientbean.disabilityTypeId = "";
+      self.patientbean.patientTypeId = "";
+      self.patientbean.diseaseStatusTypeId = "";
+      self.patientbean.patientDate = self.getCurrentDatePickerModel();
     }
-    // this.isDuplicate();
-    this.isFindPersonal = false;
-    this.isShowForm = true;
+    self.isFindPersonal = false;
+    self.isShowForm = true;
   }
   onBack() {
-    this.patientbean = new PatientBean();
-    this.isFindPersonal = true;
-    this.isShowForm = false;
-    if (this.ass_action.EDIT == this.action) {
+    let self = this;
+
+    self.patientbean = new PatientBean();
+    self.isFindPersonal = true;
+    self.isShowForm = false;
+
+    if (self.action == self.ass_action.EDIT) {
       $('#find-person-md').modal('hide');
     }
   }
@@ -98,9 +107,9 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
 
     $('#find-person-md').on('hidden.bs.modal', function () {
       self.inputValidate = new InputValidateInfo();
+      self.resetFind = self.resetFind + 1;
       self.isShowForm = false;
       self.isFindPersonal = true;
-      self.resetFind = self.resetFind + 1;
       self.changeRef.detectChanges();
     });
   }
@@ -110,7 +119,7 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
 
     let params = {};
 
-    self.api.post('person/health_insurance_type_list', params, function (resp) {
+    self.apiHttp.post('person/health_insurance_type_list', params, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.healtInsuranceTypeList = resp.response;
         self.healtInsuranceTypeList.id = 89;
@@ -123,7 +132,7 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
 
     let params = {};
 
-    self.api.post('person/patient_survey_type_list', params, function (resp) {
+    self.apiHttp.post('person/patient_survey_type_list', params, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.surveyStatusTypeList = resp.response;
       }
@@ -135,7 +144,7 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
 
     let params = {};
 
-    self.api.post('person/patient_type_list', params, function (resp) {
+    self.apiHttp.post('person/patient_type_list', params, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.patientTypeList = resp.response;
       }
@@ -147,7 +156,7 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
 
     let params = {};
 
-    self.api.post('person/disability_type_list', params, function (resp) {
+    self.apiHttp.post('person/disability_type_list', params, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.disabilityTypeList = resp.response;
       }
@@ -159,7 +168,7 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
 
     let params = {};
 
-    self.api.post('person/disability_cause_type_list', params, function (resp) {
+    self.apiHttp.post('person/disability_cause_type_list', params, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.disabilityTypeCause = resp.response;
       }
@@ -171,7 +180,7 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
 
     let params = {};
 
-    self.api.post('person/disease_status_type_list', params, function (resp) {
+    self.apiHttp.post('person/disease_status_type_list', params, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.diseaseStatusTypeList = resp.response;
       }
@@ -302,10 +311,10 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
 
           let params = self.strNullToEmpty(obj);
 
-          self.api.post('survey_patient/ins_upd', params, function (resp) {
+          self.apiHttp.post('survey_patient/ins_upd', params, function (resp) {
             if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-              $("#find-person-md").modal('hide');
               self.completed.emit(true);
+              $("#find-person-md").modal('hide');
             }
             self.loading = false;
           });

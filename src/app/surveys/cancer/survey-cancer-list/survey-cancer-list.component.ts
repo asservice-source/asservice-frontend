@@ -142,7 +142,7 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
   }
 
   onChangeFilter(event: FilterHeadSurveyBean) {
-    
+
   }
 
   loadData(event: FilterHeadSurveyBean) {
@@ -220,6 +220,7 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
 
     if (event) {
       self.message_success('', 'ท่านได้ทำการส่งแบบสำรวจผู้ป่วยมะเร็ง', function () {
+        // self.loadData(self.filtersearch);
         $('#filter-btnSearch').click();
       });
     } else {
@@ -247,7 +248,6 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
     };
 
     self.apiHttp.post('survey_patient/del', param, function (resp) {
-      console.log("actionDelete ==== " + resp);
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.message_success('', 'ลบรายการสำเร็จ', function () {
           $('#filter-btnSearch').click();
