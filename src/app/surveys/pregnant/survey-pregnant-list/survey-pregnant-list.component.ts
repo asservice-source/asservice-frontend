@@ -141,7 +141,6 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
           instance.action.subscribe((row: PregnantBean, cell) => {
             if (row && row.action.toUpperCase() == self.ass_action.EDIT) {
               self.param_rowGUID = row.rowGUID;
-              self.param_pregnantBean = row;
               self.onModalForm(self.ass_action.EDIT);
             }
           });
@@ -239,18 +238,33 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
   }
 
   onChangeFilter(event: FilterHeadSurveyBean) {
-    let self = this;
 
-    // console.log("ChangeFilter");
-    // self.isShowTable = false;
   }
 
   onModalForm(action: string) {
     let self = this;
 
     self.action = action;
-    self.changeRef.detectChanges();
-    $("#find-person-md").modal("show");
+
+    if (action == self.ass_action.EDIT) {
+      self.onEditSurveyPregnant();
+    } else {
+      self.changeRef.detectChanges();
+      $("#find-person-md").modal("show");
+    }
+  }
+
+  onEditSurveyPregnant() {
+    let self = this;
+
+    self.loading = true;
+
+    self.apiHttp.get_pregnant_info(self.param_rowGUID, function (d) {
+      self.param_pregnantBean = d.response;
+      self.changeRef.detectChanges();
+      $("#find-person-md").modal("show");
+      self.loading = false;
+    });
   }
 
   onDeleteSurveyPregnant(bean) {
@@ -272,7 +286,7 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
           }
         });
       }
-    })
+    });
   }
 
   onUpdatedMember(member: PregnantBean) {

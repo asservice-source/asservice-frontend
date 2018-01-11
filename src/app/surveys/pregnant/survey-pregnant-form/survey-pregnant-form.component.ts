@@ -180,14 +180,14 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
     $('#find-person-md').on('show.bs.modal', function (e) {
       self.resetFind = self.resetFind + 1;
       if (self.action == self.ass_action.EDIT) {
-        // self.onChoosePersonal(self.data);
+        self.onChoosePersonal(self.data);
         // alert(self.rowGUID);
-        self.loading = true;
-        self.apiHttp.get_pregnant_info(self.rowGUID, function (d) {
-          let pregnantInfo = d.response;
-          console.log('pregnant info', pregnantInfo);
-          self.onChoosePersonal(pregnantInfo);
-        });
+        // self.loading = true;
+        // self.apiHttp.get_pregnant_info(self.rowGUID, function (d) {
+        //   let pregnantInfo = d.response;
+        //   console.log('pregnant info', pregnantInfo);
+        //   self.onChoosePersonal(pregnantInfo);
+        // });
       }
       self.changeRef.detectChanges();
     })
@@ -364,14 +364,12 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
   onChangeBornDueDate(event: IMyDateModel) {
     let self = this;
 
-    // console.log(event);
     self.pregnantBean.bornDueDate = self.getStringDateForDatePickerModel(event.date);
   }
 
   onChangeBornDate(event: IMyDateModel) {
     let self = this;
 
-    // console.log(event);
     self.pregnantBean.bornDate = self.getStringDateForDatePickerModel(event.date);
   }
 
@@ -404,7 +402,6 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
           self.validateCitizenId = new InputValidateInfo();
           self.validateCitizenId.isCheck = true;
           self.validateCitizenId.isShowError = true;
-          // self.message_error('', 'บัตรประชาชนซ้ำ');
           return;
         }
       } else if (self.actionChild == self.ass_action.EDIT) {
@@ -413,7 +410,6 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
           self.validateCitizenId = new InputValidateInfo();
           self.validateCitizenId.isCheck = true;
           self.validateCitizenId.isShowError = true;
-          // self.message_error('', 'บัตรประชาชนซ้ำ');
           return;
         }
       }
