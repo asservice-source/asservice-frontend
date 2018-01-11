@@ -81,8 +81,15 @@ export class BaseComponent implements OnInit {
         }
         return settings;
     }
-    public ng2STDatasource(source: any): LocalDataSource {
-        return new LocalDataSource(source);
+    public ng2STDatasource(datas: any): LocalDataSource {
+        let source = new LocalDataSource(datas);
+        source.getElements().then(list => {
+            let num = 0;
+            for(let item of list){
+                item.sequenceNumber = num++;
+            }
+        });
+        return source;
     }
     private isRefrestData = false;
     public onRowSelect(event): void {
@@ -98,28 +105,25 @@ export class BaseComponent implements OnInit {
             source.getElements().then(list => {
                 let page = source.getPaging();
                 let startSeq = page.page > 1 ? ((page.perPage * page.page) - page.perPage) + 1 : 1;
-                let num = 0;
+                let startSeqNo = startSeq;
                 let isNoSort = false;
+                let num = 0;
+                let sequenceNumber = 0;
                 for (let item of list) {
-                    item.sequenceNumber = startSeq++;
-                    let sequenceNo = +item.sequenceNo;
-                    console.log(item.sequenceNo);
-                    if(sequenceNo>num){
-                        num = item.sequenceNo;
+                    sequenceNumber = +(item.sequenceNumber);
+                    if(sequenceNumber>num && (sequenceNumber-num)==1){
+                        num = sequenceNumber;
                     }else{
                         isNoSort = true;
                     }
-                    item.sequenceNo = '<div class="text-center">' + (startSeq) + '</div>';
-                    //item.sequenceNo = startSeq++;
+                    item.sequenceNumber = startSeqNo++;
+                    item.sequenceNo = '<div class="text-center">' + (item.sequenceNumber) + '</div>';
                 }
                 if(isNoSort){
                     source.refresh();
-                    
-                }else{
-                    
+                    this.isRefrestData = true;
                 }
                 
-                this.isRefrestData = true;
             });
         }
     }
