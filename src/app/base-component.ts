@@ -73,16 +73,14 @@ export class BaseComponent implements OnInit {
             filter: false,
             sort: false,
             width: '60px',
-            type: 'html'
+            type: 'html',
+            class: 'sequenceNo'
         }
         for (var obj in columns) {
             settings.columns[obj] = columns[obj];
         }
         return settings;
     }
-    // public setNg2STDatasource(source: LocalDataSource) {
-    //     this.ng2STDataSource = source;
-    // }
     public ng2STDatasource(source: any): LocalDataSource {
         return new LocalDataSource(source);
     }
@@ -103,12 +101,16 @@ export class BaseComponent implements OnInit {
                 let num = 0;
                 let isNoSort = false;
                 for (let item of list) {
-                    if(item.sequenceNo>num){
+                    item.sequenceNumber = startSeq++;
+                    let sequenceNo = +item.sequenceNo;
+                    console.log(item.sequenceNo);
+                    if(sequenceNo>num){
                         num = item.sequenceNo;
                     }else{
                         isNoSort = true;
                     }
-                    item.sequenceNo = '<div class="text-center">' + (startSeq++) + '</div>';
+                    item.sequenceNo = '<div class="text-center">' + (startSeq) + '</div>';
+                    //item.sequenceNo = startSeq++;
                 }
                 if(isNoSort){
                     source.refresh();
@@ -116,7 +118,7 @@ export class BaseComponent implements OnInit {
                 }else{
                     
                 }
-                console.log(isNoSort);
+                
                 this.isRefrestData = true;
             });
         }

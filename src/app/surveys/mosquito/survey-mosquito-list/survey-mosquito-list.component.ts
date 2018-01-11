@@ -172,13 +172,11 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
       }
       self.changeRef.detectChanges();
     })
-
   }
 
   setUpTable() {
-    this.source = new LocalDataSource(this.datas);
+    this.source = this.ng2STDatasource(this.datas);
     this.isShowList = true;
-    super.setNg2STDatasource(this.source);
   }
 
   reloadData(event: any) {
