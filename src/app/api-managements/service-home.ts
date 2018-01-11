@@ -46,11 +46,26 @@ export class Service_Home extends ApiHTTPService{
             if(response && response.status.toUpperCase()=='SUCCESS'){
                 callback(response.response);
             }else{
-                _self.baseComponent.message_servNotRespond('', response.message);
+                callback([]);
+                _self.baseComponent.message_servNotRespond('', '');
             }
         });
     }
-
+    public getHomeWithoutOSM(villageId:string, callback: (doc: any) => void){
+        
+        let parameter = {
+            "villageId": villageId,
+           }
+        let _self = this;
+        this.post('/home/home_no_list_without_osm', parameter, function(response){
+            if(response && response.status.toUpperCase()=='SUCCESS'){
+                callback(response.response);
+            }else{
+                callback([]);
+                _self.baseComponent.message_servNotRespond('', '');
+            }
+        });
+    }
     public getHomeByID(homeId:string, callback: (doc: any) => void){
 
         this.api_HomrInfo(homeId, function(response){

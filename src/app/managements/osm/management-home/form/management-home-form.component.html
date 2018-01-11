@@ -59,15 +59,15 @@
                     <label *ngIf="isHome" class="error">กรุณาใส่บ้านเลขที่</label>
                   </div>
                   <div *ngIf="isShowSelectHome" [InputValidate]="inputValidate">
-                    <select type="text" [(ngModel)]="bean.homeId">
+                    <select type="text" [(ngModel)]="bean.homeId" (change)="onChangeHomeNo()">
                       <option value="">--เลือก--</option>
-                      <option *ngFor="let item of homeList" [value]="item.id">{{item.homeNo}}</option>
+                      <option *ngFor="let item of homeList" [value]="item.homeId">{{item.homeNo}}</option>
                     </select>
                     <label *ngIf="isHome" class="error">กรุณาเลือกบ้านเลขที่</label>
                   </div>
                 </div>
                 <div class="col-md-2" style="padding-left: 4px">
-                  <button type="button" class="btn btn-sm btn-primary" [disabled]="!isHomeType(bean.homeTypeCode)" (click)="onClickSelectHome()">{{isShowSelectHome?'สร้างบ้านเลขที่ใหม่':'เลือกจากบ้านที่ไม่มี อสม.'}}</button>
+                  <button type="button" class="btn btn-sm btn-primary" [disabled]="!isHomeType(bean.homeTypeCode) || isEdit" (click)="onClickSelectHome()">{{isShowSelectHome?'สร้างบ้านเลขที่ใหม่':'เลือกจากบ้านที่ไม่มี อสม.'}}</button>
                 </div>
               </div>
 
