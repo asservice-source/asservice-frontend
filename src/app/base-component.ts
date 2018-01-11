@@ -80,21 +80,11 @@ export class BaseComponent implements OnInit {
         }
         return settings;
     }
-    public setNg2STDatasource(source: LocalDataSource) {
-        this.ng2STDataSource = source;
-    }
+    // public setNg2STDatasource(source: LocalDataSource) {
+    //     this.ng2STDataSource = source;
+    // }
     public ng2STDatasource(source: any): LocalDataSource {
         return new LocalDataSource(source);
-        // console.log("---ng2STDatasource---");
-        // if(this.ng2STDataSource){
-        //     this.ng2STDataSource.load(source);
-        // }else{
-
-        //     this.ng2STDataSource = new LocalDataSource(source);
-        // }
-        // //this.ng2STDataSource = new LocalDataSource(source);
-        // this.ng2STDataSource.refresh();
-        // return this.ng2STDataSource;
     }
     private isRefrestData = false;
     public onRowSelect(event): void {
@@ -110,10 +100,23 @@ export class BaseComponent implements OnInit {
             source.getElements().then(list => {
                 let page = source.getPaging();
                 let startSeq = page.page > 1 ? ((page.perPage * page.page) - page.perPage) + 1 : 1;
+                let num = 0;
+                let isNoSort = false;
                 for (let item of list) {
+                    if(item.sequenceNo>num){
+                        num = item.sequenceNo;
+                    }else{
+                        isNoSort = true;
+                    }
                     item.sequenceNo = '<div class="text-center">' + (startSeq++) + '</div>';
                 }
-                source.refresh();
+                if(isNoSort){
+                    source.refresh();
+                    
+                }else{
+                    
+                }
+                console.log(isNoSort);
                 this.isRefrestData = true;
             });
         }

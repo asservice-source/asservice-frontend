@@ -202,9 +202,9 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
 
   bindChildList() {
     let self = this;
-
-    self.source = new LocalDataSource(self.listChild);
-    self.setNg2STDatasource(self.source);
+    // self.source = new LocalDataSource(self.listChild);
+    // self.setNg2STDatasource(self.source);
+    self.source = self.ng2STDatasource(self.listChild);
   }
 
   bindBornLocation() {
