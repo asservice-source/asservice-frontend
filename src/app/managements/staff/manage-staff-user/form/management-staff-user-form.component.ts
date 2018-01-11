@@ -33,6 +33,7 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
   public msgError_BirthDate: string  = 'กรุณาเลือก วัน/เดือน/ปี เกิด';
   public loading: boolean = false;
   public refreshChange: RefreshChange;
+  public isDisabledVillage: boolean;
   constructor(private changeRef: ChangeDetectorRef) { 
     super();
     this.bean = new StaffUserBean();
@@ -83,9 +84,16 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
         _self.action = _self.ass_action.EDIT;
         _self.oldCitizenId = _self.bean.citizenId;
         _self.isVerify = true;
+        if(_self.bean.homeId || (_self.bean.userId && (_self.bean.activateHome || _self.bean.homeId))){
+          _self.isDisabledVillage = true;
+        }else{
+          _self.isDisabledVillage = false;
+        }
+        
       }else{
         _self.action = _self.ass_action.ADD;
         _self.isVerify = false;
+        _self.isDisabledVillage = false;
       }
       _self.setDatePickerModel();
 
@@ -95,6 +103,9 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
     this.setupPrefix();
   }
   onClickVerifyCitizenId(){
+    if(this.bean.citizenId){
+      this.bean.citizenId = this.bean.citizenId.trim();
+    }
     this.oldCitizenId = this.bean.citizenId;
     this.inputValidate = new InputValidateInfo();
     this.inputValidate.isCheck = true;
@@ -157,6 +168,13 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
                    _self.bean.isActive = person.isActive==undefined?true:person.isActive;
                    _self.setDatePickerModel();
                    _self.oldCitizenId = _self.bean.citizenId;
+
+                   if(_self.bean.activateHome || _self.bean.homeId){
+                    _self.isDisabledVillage = true;
+                  }else{
+                    _self.isDisabledVillage = false;
+                  }
+
                    console.log(_self.bean);
                  }else{
                    _self.isVerify = false;

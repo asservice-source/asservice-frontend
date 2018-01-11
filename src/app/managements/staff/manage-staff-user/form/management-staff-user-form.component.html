@@ -97,7 +97,7 @@
             </div>
             <div class="col-md-6">  
               <div [InputValidate]="inputValidate">
-                <select [(ngModel)]="bean.villageId" [disabled]="bean.activateHome">
+                <select [(ngModel)]="bean.villageId" [disabled]="isDisabledVillage">
                   <option value="">---เลือก---</option>
                   <option *ngFor="let item of villageList" [value]="item.id">{{item.villageNo}} : {{item.villageName}}</option>
                 </select>
