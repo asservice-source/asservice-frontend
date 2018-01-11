@@ -38,9 +38,9 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
   public loading;
   public inputValidate: InputValidateInfo = new InputValidateInfo();
 
-
   constructor(private http: Http, private changeRef: ChangeDetectorRef) {
     super();
+
     this.patientbean = new PatientBean();
     this.api = new ApiHTTPService();
     this.getHealtinsuranceType();
@@ -60,9 +60,7 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
   }
 
   onChoosePersonal(bean: any): void {
-    this.patientbean = this.cloneObj(bean);;
-    console.log(bean);
-    console.log(this.patientbean.homeId);
+    this.patientbean = this.cloneObj(bean);
 
     if (this.action == this.ass_action.ADD) {
       this.patientbean.patientSurveyTypeCode = "";
@@ -75,7 +73,6 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
     // this.isDuplicate();
     this.isFindPersonal = false;
     this.isShowForm = true;
-
   }
   onBack() {
     this.patientbean = new PatientBean();
@@ -88,19 +85,18 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
 
   onModalEvent() {
     let self = this;
+
     $('#find-person-md').on('show.bs.modal', function (e) {
       self.inputValidate = new InputValidateInfo();
       self.resetFind = self.resetFind + 1;
       if (self.action == self.ass_action.EDIT) {
-        //self.data.telephone = self.formatPhoneToDisplay(self.data.telephone);
-        console.log("DDDDAAAATTTTEEEE ==== "+self.data.patientDate);
         self.data.patientDate = self.getCurrentDatePickerModel(self.data.patientDate);
         self.onChoosePersonal(self.data);
       }
       self.changeRef.detectChanges();
-    })
+    });
+
     $('#find-person-md').on('hidden.bs.modal', function () {
-      console.log("hide.bs.modal");
       self.inputValidate = new InputValidateInfo();
       self.isShowForm = false;
       self.isFindPersonal = true;
@@ -111,74 +107,79 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
 
   getHealtinsuranceType() {
     let self = this;
+
     let params = {};
-    this.api.post('person/health_insurance_type_list', params, function (resp) {
+
+    self.api.post('person/health_insurance_type_list', params, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.healtInsuranceTypeList = resp.response;
         self.healtInsuranceTypeList.id = 89;
       }
-
-    })
+    });
   }
 
   getSurveyStatusType() {
     let self = this;
+
     let params = {};
-    this.api.post('person/patient_survey_type_list', params, function (resp) {
+
+    self.api.post('person/patient_survey_type_list', params, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.surveyStatusTypeList = resp.response;
       }
-
-    })
+    });
   }
 
   getPatientType() {
     let self = this;
+
     let params = {};
-    this.api.post('person/patient_type_list', params, function (resp) {
+
+    self.api.post('person/patient_type_list', params, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.patientTypeList = resp.response;
       }
-
-    })
+    });
   }
 
   getDisabilityType() {
     let self = this;
+
     let params = {};
-    this.api.post('person/disability_type_list', params, function (resp) {
+
+    self.api.post('person/disability_type_list', params, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.disabilityTypeList = resp.response;
       }
-
-    })
+    });
   }
 
   getDisabilityTypeCause() {
     let self = this;
+
     let params = {};
-    this.api.post('person/disability_cause_type_list', params, function (resp) {
+
+    self.api.post('person/disability_cause_type_list', params, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.disabilityTypeCause = resp.response;
       }
-
-    })
+    });
   }
 
   getDiseaseStatusType() {
     let self = this;
+
     let params = {};
-    this.api.post('person/disease_status_type_list', params, function (resp) {
+
+    self.api.post('person/disease_status_type_list', params, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.diseaseStatusTypeList = resp.response;
       }
-
-    })
+    });
   }
 
   onChangePatientSyurvey() {
     this.inputValidate = new InputValidateInfo();
-    // this.patientbean = new PatientBean();
     if (this.action == this.ass_action.ADD) {
       if (this.patientbean.patientSurveyTypeCode == 'Patient') {
         this.inputValidate = new InputValidateInfo();
@@ -215,9 +216,7 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
     return result;
   }
 
-
   formatPhoneToDisplay(phone): string {
-    // if(this.isEmpty(phone) && phone.length==10) return phone;
     if (!this.isEmpty(phone)) {
       let arr = phone.split('');
       return arr[0] + arr[1] + '-' + arr[2] + arr[3] + arr[4] + arr[5] + '-' + arr[6] + arr[7] + arr[8] + arr[9];
@@ -229,6 +228,7 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
 
     this.inputValidate = new InputValidateInfo();
     this.inputValidate.isCheck = true;
+
     let simpVal: SimpleValidateForm = new SimpleValidateForm();
     let ignore = ["documentId", "cancerTypeId", "diseaseStatusTypeId", "patientTypeId", "disabilityTypeId", "disabilityCauseTypeId", "treatmentPlace", "remark", "telephone", "latitude", "longitude"];
 
@@ -241,19 +241,12 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
     if (this.action == this.ass_action.ADD) {
       ignore.push("rowGUID");
     }
+
     let objs = simpVal.getObjectEmpty(obj, ignore);
-    console.log(objs);
 
-
-    console.log(this.compareDateCurrent_DDMMYYYY(this.patientbean.patientDate));
-    if (objs.length > 0 || this.compareDateCurrent_DDMMYYYY(this.patientbean.patientDate)<0) {
+    if (objs.length > 0 || this.compareDateCurrent_DDMMYYYY(this.patientbean.patientDate) < 0) {
       validate = false;
     } else {
-      // if (this.patientbean.telephone.length < 12) {
-      //   validate = false;
-      // } else {
-        
-      // }
       validate = true;
     }
     return validate;
@@ -261,65 +254,63 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
 
   addSurvey(): void {
     let self = this;
+
     let documentId;
     let disabilityTypeId;
     let disabilityCauseTypeId;
-    if (this.action == this.ass_action.ADD) {
-      documentId = this.documentId;
+
+    if (self.action == self.ass_action.ADD) {
+      documentId = self.documentId;
     } else {
-      documentId = this.patientbean.documentId;
+      documentId = self.patientbean.documentId;
     }
 
-    if (this.patientbean.patientSurveyTypeCode == 'Patient') {
+    if (self.patientbean.patientSurveyTypeCode == 'Patient') {
       disabilityTypeId = "";
       disabilityCauseTypeId = "";
     } else {
-      disabilityTypeId = this.patientbean.disabilityTypeId;
-      disabilityCauseTypeId = this.patientbean.disabilityCauseTypeId;
+      disabilityTypeId = self.patientbean.disabilityTypeId;
+      disabilityCauseTypeId = self.patientbean.disabilityCauseTypeId;
     }
+
     let obj = {
-      "rowGUID": this.patientbean.rowGUID
-      , "personId": this.patientbean.personId
+      "rowGUID": self.patientbean.rowGUID
+      , "personId": self.patientbean.personId
       , "documentId": documentId
-      , "osmId": this.patientbean.osmId
-      , "homeId": this.patientbean.homeId //รอแก้
-      , "cancerTypeId": this.patientbean.cancerTypeId
-      , "diseaseStatusTypeId": this.patientbean.diseaseStatusTypeId
-      , "patientDate": this.getStringDateForDatePickerModel(this.patientbean.patientDate.date)
-      , "patientTypeId": this.patientbean.patientTypeId
-      , "hInsuranceTypeId": this.patientbean.hInsuranceTypeId
-      , "patientSurveyTypeCode": this.patientbean.patientSurveyTypeCode
+      , "osmId": self.patientbean.osmId
+      , "homeId": self.patientbean.homeId //รอแก้
+      , "cancerTypeId": self.patientbean.cancerTypeId
+      , "diseaseStatusTypeId": self.patientbean.diseaseStatusTypeId
+      , "patientDate": self.getStringDateForDatePickerModel(self.patientbean.patientDate.date)
+      , "patientTypeId": self.patientbean.patientTypeId
+      , "hInsuranceTypeId": self.patientbean.hInsuranceTypeId
+      , "patientSurveyTypeCode": self.patientbean.patientSurveyTypeCode
       , "disabilityTypeId": disabilityTypeId
       , "disabilityCauseTypeId": disabilityCauseTypeId
-      , "treatmentPlace": this.patientbean.treatmentPlace
-      , "remark": this.patientbean.remark
-      , "telephone": this.patientbean.telephone
-      , "latitude": this.patientbean.latitude
-      , "longitude": this.patientbean.longitude
+      , "treatmentPlace": self.patientbean.treatmentPlace
+      , "remark": self.patientbean.remark
+      , "telephone": self.patientbean.telephone
+      , "latitude": self.patientbean.latitude
+      , "longitude": self.patientbean.longitude
     };
 
-    if (this.validate(obj)) {
-      // if (!self.isEmpty(obj["telephone"])) {
-      //   obj["telephone"] = self.formatForJson(obj["telephone"]);
-      // }
-      let params = this.strNullToEmpty(obj);
-      console.log(params);
-
+    if (self.validate(obj)) {
       self.message_comfirm('', 'ยืนยันการทำแบบสำรวจ', function (confirm) {
         self.inputValidate = new InputValidateInfo();
         if (confirm) {
           self.loading = true;
+
+          let params = self.strNullToEmpty(obj);
+
           self.api.post('survey_patient/ins_upd', params, function (resp) {
-            self.loading = false;
-            console.log(resp);
             if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
               $("#find-person-md").modal('hide');
               self.completed.emit(true);
-              // self.message_success('', 'ท่านได้ทำการส่งแบบสำรวจผู้พิการ และผู้ป่วยติดเตียงแล้ว')
             }
-          })
+            self.loading = false;
+          });
         }
-      })
+      });
     }
   }
 

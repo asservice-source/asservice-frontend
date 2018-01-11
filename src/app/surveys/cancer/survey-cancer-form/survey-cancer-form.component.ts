@@ -78,7 +78,6 @@ export class SurveyCancerFormComponent extends BaseComponent implements OnInit, 
       self.cancerbean.patientSurveyTypeCode = "Cancer"
       self.cancerbean.patientDate = self.getCurrentDatePickerModel();
     }
-    //this.isDuplicate();
     self.isFindPersonal = false;
     self.isShowForm = true;
   }
@@ -97,12 +96,12 @@ export class SurveyCancerFormComponent extends BaseComponent implements OnInit, 
 
   onModalEvent() {
     let self = this;
+
     $('#find-person-md').on('show.bs.modal', function (e) {
       self.inputValidate = new InputValidateInfo();
       self.resetFind = self.resetFind + 1;
+
       if (self.action == self.ass_action.EDIT) {
-        //self.data.telephone = self.formatPhoneToDisplay(self.data.telephone);
-        console.log("DDDDAAAATTTTEEEE ==== "+self.data.patientDate);
         self.data.patientDate = self.getCurrentDatePickerModel(self.data.patientDate);
         self.onChoosePersonal(self.data);
       }
@@ -120,7 +119,9 @@ export class SurveyCancerFormComponent extends BaseComponent implements OnInit, 
 
   getHealthInsuranceType() {
     let self = this;
+
     let params = {};
+
     self.api.post('person/health_insurance_type_list', params, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.healtInsuranceTypeList = resp.response;
@@ -131,7 +132,9 @@ export class SurveyCancerFormComponent extends BaseComponent implements OnInit, 
 
   getSurveyStatusType() {
     let self = this;
+
     let params = {};
+
     self.api.post('person/patient_survey_type_list', params, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.surveyStatusTypeList = resp.response;
@@ -141,7 +144,9 @@ export class SurveyCancerFormComponent extends BaseComponent implements OnInit, 
 
   getCancerType() {
     let self = this;
+
     let params = {};
+
     self.api.post('person/cancer_type_list', params, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.cancerTypeList = resp.response;
@@ -151,7 +156,9 @@ export class SurveyCancerFormComponent extends BaseComponent implements OnInit, 
 
   getDisabilityType() {
     let self = this;
+
     let params = {};
+
     self.api.post('person/disability_type_list', params, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.disabilityTypeList = resp.response;
@@ -161,7 +168,9 @@ export class SurveyCancerFormComponent extends BaseComponent implements OnInit, 
 
   getDisabilityTypeCause() {
     let self = this;
+
     let params = {};
+
     self.api.post('person/disability_cause_type_list', params, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.disabilityTypeCause = resp.response;
@@ -197,16 +206,9 @@ export class SurveyCancerFormComponent extends BaseComponent implements OnInit, 
 
     let objs = simpVal.getObjectEmpty(obj, ignore);
 
-    // console.log(objs);
-    // console.log(self.compareDateCurrent_DDMMYYYY(self.cancerbean.cancerDate));
     if (objs.length > 0 || self.compareDateCurrent_DDMMYYYY(self.cancerbean.patientDate) < 0) {
       validate = false;
     } else {
-      // if (this.patientbean.telephone.length < 12) {
-      //   validate = false;
-      // } else {
-
-      // }
       validate = true;
     }
     return validate;
@@ -258,7 +260,6 @@ export class SurveyCancerFormComponent extends BaseComponent implements OnInit, 
             if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
               $("#find-person-md").modal('hide');
               self.completed.emit(true);
-              // self.message_success('', 'ท่านได้ทำการส่งแบบสำรวจผู้ป่วยมะเร็ง')
             }
             self.loading = false;
           });

@@ -11,25 +11,31 @@
 
             <div *ngIf="isShowForm">
                 <div class="row">
-                    <div class="col-md-11 col-md-offset-1">
-                        <div class="box-body">
-                            <dl class="dl-horizontal">
-                                <dt>หมายเลขประจำตัว : </dt>
-                                <dd>{{ patientbean.citizenId }}</dd>
-                                <dt>ชื่อ-สกุล : </dt>
-                                <dd>{{ patientbean.fullName }}</dd>
-                                <dt>เพศ : </dt>
-                                <dd>{{ patientbean.genderName }}</dd>
-                                <dt>อายุ : </dt>
-                                <dd>{{ patientbean.age }}</dd>
-                                <dt>ที่อยู่ : </dt>
-                                <dd>{{ patientbean.address }}</dd>
-                            </dl>
+                    <div class="col-md-12">
+                        <div class="panel-body">
+                            <div class="panel panel-default" style="margin-bottom: inherit;">
+                                <div class="panel-body">
+                                    <div class="box-body">
+                                        <dl class="dl-horizontal">
+                                            <dt>หมายเลขประจำตัว : </dt>
+                                            <dd>{{ patientbean.citizenId }}</dd>
+                                            <dt>ชื่อ-สกุล : </dt>
+                                            <dd>{{ patientbean.fullName }}</dd>
+                                            <dt>เพศ : </dt>
+                                            <dd>{{ patientbean.genderName }}</dd>
+                                            <dt>อายุ : </dt>
+                                            <dd>{{ patientbean.age }}</dd>
+                                            <dt>ที่อยู่ : </dt>
+                                            <dd>{{ patientbean.address }}</dd>
+                                        </dl>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <hr style=" margin-top: 0px">
+                <!-- <hr style=" margin-top: 0px"> -->
 
                 <div class="row">
                     <div class="col-md-4 text-right">
@@ -248,7 +254,7 @@
                         </div>
                         <div class="col-md-3">
                             <div [InputValidate]="inputValidate">
-                                <input type="text" [(ngModel)]="patientbean.telephone" maxlength="50" >
+                                <input type="text" [(ngModel)]="patientbean.telephone" maxlength="50">
                                 <label class="error">กรุณาใส่เบอร์โทรศัพท์</label>
                             </div>
                         </div>

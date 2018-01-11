@@ -1,10 +1,11 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { BaseComponent } from '../../../base-component';
 import { ApiHTTPService } from '../../../api-managements/api-http.service';
-import { ActionCustomView_2_Component } from '../../../action-custom-table/action-custom-view.component';
+import { ActionCustomViewMapsComponent } from '../../../action-custom-table/action-custom-view.component';
 import { FilterHeadSurveyBean } from '../../../beans/filter-head-survey.bean';
 import { LocalDataSource } from 'ng2-smart-table';
 import { PatientBean } from '../../../beans/patient.bean'
+import { MapsBean } from '../../../multi-maps/multi-maps.component';
 declare var $: any;
 
 @Component({
@@ -20,24 +21,32 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
   public patientbean: PatientBean = new PatientBean();
   public action: string = this.ass_action.ADD;
 
-  private api: ApiHTTPService;
+  private apiHttp: ApiHTTPService;
+  public loading: boolean = false;
+
   public settings: any;
-  public loading;
   public isShowList: boolean = false;
   public source: LocalDataSource = new LocalDataSource();
+
   public healtInsuranceID = 7;
-  public datas: any = [];
   public filtersearch: FilterHeadSurveyBean;
   public documentId: string;
+
+  public param_reset: number = 0;
+  public param_latitude: string = "";
+  public param_longitude: string = "";
+  public param_info: string = "";
+  public param_listPosition: Array<MapsBean>;
 
   constructor(private changeRef: ChangeDetectorRef) {
     super();
 
-    this.api = new ApiHTTPService();
     let self = this;
-    this.filtersearch = new FilterHeadSurveyBean();
-    this.settings = this.getTableSetting({
 
+    self.apiHttp = new ApiHTTPService();
+
+    self.filtersearch = new FilterHeadSurveyBean();
+    self.settings = self.getTableSetting({
       fullName: {
         title: 'ชื่อ - นามสกุล',
         filter: false,
@@ -92,11 +101,12 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
         sort: false,
         width: '100px',
         type: 'custom',
-        renderComponent: ActionCustomView_2_Component,
+        renderComponent: ActionCustomViewMapsComponent,
         onComponentInitFunction(instance) {
+
           instance.edit.subscribe((row: PatientBean, cell) => {
             self.patientbean = self.cloneObj(row);
-            self.onModalFrom(self.ass_action.EDIT);
+            self.onModalForm(self.ass_action.EDIT);
           });
 
           instance.delete.subscribe((row: PatientBean, cell) => {
@@ -106,12 +116,21 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
               }
             });
           });
+
+          instance.maps.subscribe(row => {
+            self.param_latitude = row.latitude;
+            self.param_longitude = row.longitude;
+            self.param_info = 'บ้านของ ' + row.fullName;
+            $("#modalMaps").modal("show");
+          });
+
         }
       }
     });
   }
 
   ngOnInit() {
+
   }
 
   checkPatient() {
@@ -123,125 +142,137 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
   }
 
   onChangeFilter(event: FilterHeadSurveyBean) {
-    console.log("ChangeFilter");
-    //this.isShowList = false;
+
   }
 
   loadData(event: FilterHeadSurveyBean) {
     let self = this;
-    let param = {
+
+    self.loading = true;
+
+    let params = {
       "documentId": event.rowGUID,
       "villageId": event.villageId,
       "osmId": event.osmId,
       "name": event.fullName,
     };
-    let params = JSON.stringify(param);
-    console.log(params);
-    self.loading = true;
-    this.api.post('survey_patient/filter', params, function (resp) {
-      self.loading = false;
+
+    self.apiHttp.post('survey_patient/filter', params, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-        self.datas = resp.response
-        // for (let item of resp.response) {
-        //   if (item.patientSurveyTypeCode != 'Cancer') {
-        //     self.datas.push(item);
-        //   }
-        // }
-        // console.log("==============================================");
-        console.log(self.datas);
-        self.setUpTable();
+        self.bindMultiMaps(resp.response);
+        self.source = self.ng2STDatasource(resp.response);
+        self.isShowList = true;
       }
       self.changeRef.detectChanges();
-    })
+      self.loading = false;
+    });
   }
 
   onSearch(event: FilterHeadSurveyBean) {
-    this.filtersearch = event;
-    if (this.isEmpty(this.documentId)) {
-      this.documentId = event.rowGUID;
+    let self = this;
+
+    self.filtersearch = event;
+    if (self.isEmpty(self.documentId)) {
+      self.documentId = event.rowGUID;
     }
-    this.loadData(event);
+    self.loadData(event);
   }
 
-  setUpTable() {
-    // this.source = new LocalDataSource(this.datas);
-    // this.isShowList = true;
-    // super.setNg2STDatasource(this.source);
-    this.source = this.ng2STDatasource(this.datas);
-    this.isShowList = true;
+  bindMultiMaps(data) {
+    let self = this;
+
+    self.param_listPosition = [];
+    for (let item of data) {
+      if (item.latitude && item.longitude) {
+        let map = new MapsBean();
+        map.latitude = item.latitude;
+        map.longitude = item.longitude;
+        map.info = 'บ้านของ ' + item.fullName;
+        self.param_listPosition.push(map);
+      }
+    }
   }
 
-  onModalFrom(action: string) {
-    this.action = action;
-    if (action == this.ass_action.EDIT) {
-      this.getSurveyData(this.patientbean.rowGUID);
+  onClickMultiMaps() {
+    let self = this;
+
+    self.param_reset++;
+    self.changeRef.detectChanges();
+    $("#modalMultiMaps").modal("show");
+  }
+
+  onModalForm(action: string) {
+    let self = this;
+
+    self.action = action;
+    if (action == self.ass_action.EDIT) {
+      self.getSurveyData(self.patientbean.rowGUID);
     } else {
-      this.changeRef.detectChanges();
+      self.changeRef.detectChanges();
       $('#find-person-md').modal('show');
     }
-
   }
 
   reloadData(event: any) {
-    // if (event) {
-    //   this.loadData(this.filtersearch);
-    // }
     let self = this;
+
     if (event) {
-      this.message_success('', 'ท่านได้ทำการส่งแบบสำรวจผู้พิการ และผู้ป่วยติดเตียงแล้ว', function () {
+      self.message_success('', 'ท่านได้ทำการส่งแบบสำรวจผู้พิการ และผู้ป่วยติดเตียงแล้ว', function () {
         self.loadData(self.filtersearch);
       });
     } else {
-      this.message_error('', 'Error');
+      self.message_error('', 'Error');
     }
-
   }
 
   actionDelete(rowguid) {
     let self = this;
-    let param = {
-      "rowGUID": rowguid
-    };
+
     self.loading = true;
-    this.api.post('survey_patient/del', param, function (resp) {
-      self.loading = false;
+
+    let params = { "rowGUID": rowguid };
+
+    self.apiHttp.post('survey_patient/del', params, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.message_success('', 'ลบรายการสำเร็จ', function () {
           self.loadData(self.filtersearch);
         });
       }
-    })
+      self.loading = false;
+    });
   }
 
   displaySubstring(string: string) {
     let strValue;
-    if(string){
+    if (string) {
       if (string.length > 25) {
         strValue = string.substring(0, 25) + '...';
       } else {
         strValue = string;
       }
       return strValue;
-    }else{
+    } else {
       strValue = "";
       return strValue;
-   }
+    }
   }
 
   getSurveyData(rowGUID) {
     let self = this;
-    let param = {
-      "rowGUID": rowGUID
-    }
+
     self.loading = true;
-    this.api.post('survey_patient/patient_by_rowguid', param, function (resp) {
-      self.loading = false;
+
+    let params = { "rowGUID": rowGUID };
+
+    self.apiHttp.post('survey_patient/patient_by_rowguid', params, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.patientbean = resp.response;
+        self.strNullToEmpty(self.patientbean)
         self.changeRef.detectChanges();
         $('#find-person-md').modal('show');
       }
-    })
+      self.loading = false;
+    });
   }
 
 }
