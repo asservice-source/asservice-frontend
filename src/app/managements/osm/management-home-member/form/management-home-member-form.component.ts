@@ -50,6 +50,7 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
   public loading: boolean = false;
   public isBirthDate: boolean = false;
   public isDischargeDate: boolean = false;
+  public homeId: string;
   constructor(private changeRef: ChangeDetectorRef) { 
     super();
     this.bean = new PersonalBasicBean();
@@ -118,7 +119,7 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
   bindModal(){
     let _self = this;
     $('#modal-management-home-member-form').on('show.bs.modal', function(){
-      
+      _self.homeId = _self.bean.homeId;
       // reset validate error class
       _self.msgError_BirthDate = 'กรุณาเลือก วัน/เดือน/ปี เกิด';
       $('#is-guest-error').hide();
@@ -174,6 +175,7 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
   onChangeFamilyStatus(element: any){
     if(this.bean.familyStatusId=='1'){
       this.bean.isGuest = false;
+      $('#is-guest-error').hide();
     }
 
     let options = element.options;
@@ -264,13 +266,12 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
                   _self.isVerify = true;
                   _self.bean = _self.strNullToEmpty(response);
 
-                  let homeId = response.homeId;
 
-                  if(_self.bean.homeId == homeId){
-                    _self.bean.familyStatusId = response.familyStatusId;
+                  if(_self.bean.homeId == _self.homeId){
+                    _self.bean.familyStatusId = response.familyStatusId || '';
                     _self.bean.isGuest = response.isGuest;
                   }else{
-                    _self.bean.homeId = homeId;
+                    _self.bean.homeId = _self.homeId;
                     _self.bean.familyStatusId = '';
                     _self.bean.isGuest = '';
                   }
