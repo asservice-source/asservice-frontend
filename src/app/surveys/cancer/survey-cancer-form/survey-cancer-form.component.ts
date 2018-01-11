@@ -245,16 +245,13 @@ export class SurveyCancerFormComponent extends BaseComponent implements OnInit, 
       , "longitude": self.cancerbean.longitude
     };
 
-    console.log(JSON.stringify(obj));
-
     if (self.validate(obj)) {
-      let params = self.strNullToEmpty(obj);
-      console.log(params);
-
       self.message_comfirm('', 'ยืนยันการทำแบบสำรวจ', function (confirm) {
         self.inputValidate = new InputValidateInfo();
         if (confirm) {
           self.loading = true;
+
+          let params = self.strNullToEmpty(obj);
 
           self.api.post('survey_patient/ins_upd', params, function (resp) {
             if (resp != null && resp.status.toUpperCase() == "SUCCESS") {

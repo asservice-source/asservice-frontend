@@ -44,8 +44,8 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
     let self = this;
 
     self.apiHttp = new ApiHTTPService();
-
     self.filtersearch = new FilterHeadSurveyBean();
+
     self.settings = self.getTableSetting({
       fullName: {
         title: 'ชื่อ - นามสกุล',
@@ -110,8 +110,8 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
           });
 
           instance.delete.subscribe((row: PatientBean, cell) => {
-            self.message_comfirm("", "ต้องการยกเลิกการทำรายการสำรวจของ " + row.fullName + " ใช่หรือไม่", function (resp) {
-              if (resp) {
+            self.message_comfirm("", "ต้องการยกเลิกการทำรายการสำรวจของ " + row.fullName + " ใช่หรือไม่", function (confirm) {
+              if (confirm) {
                 self.actionDelete(row.rowGUID);
               }
             });
@@ -134,9 +134,11 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
   }
 
   checkPatient() {
-    if (this.patientType == 1) {
-      this.isShowsick = false;
-    } else if (this.patientType == 2) {
+    let self = this;
+
+    if (self.patientType == 1) {
+      self.isShowsick = false;
+    } else if (self.patientType == 2) {
       $("#disabled").hide();
     }
   }
@@ -150,12 +152,14 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
 
     self.loading = true;
 
-    let params = {
+    let param = {
       "documentId": event.rowGUID,
       "villageId": event.villageId,
       "osmId": event.osmId,
       "name": event.fullName,
     };
+
+    let params = JSON.stringify(param);
 
     self.apiHttp.post('survey_patient/filter', params, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
@@ -163,19 +167,9 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
         self.source = self.ng2STDatasource(resp.response);
         self.isShowList = true;
       }
-      self.changeRef.detectChanges();
       self.loading = false;
+      self.changeRef.detectChanges();
     });
-  }
-
-  onSearch(event: FilterHeadSurveyBean) {
-    let self = this;
-
-    self.filtersearch = event;
-    if (self.isEmpty(self.documentId)) {
-      self.documentId = event.rowGUID;
-    }
-    self.loadData(event);
   }
 
   bindMultiMaps(data) {
@@ -193,14 +187,6 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
     }
   }
 
-  onClickMultiMaps() {
-    let self = this;
-
-    self.param_reset++;
-    self.changeRef.detectChanges();
-    $("#modalMultiMaps").modal("show");
-  }
-
   onModalForm(action: string) {
     let self = this;
 
@@ -213,12 +199,31 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
     }
   }
 
+  onSearch(event: FilterHeadSurveyBean) {
+    let self = this;
+
+    self.filtersearch = event;
+    if (self.isEmpty(self.documentId)) {
+      self.documentId = event.rowGUID;
+    }
+    self.loadData(event);
+  }
+
+  onClickMultiMaps() {
+    let self = this;
+
+    self.param_reset++;
+    self.changeRef.detectChanges();
+    $("#modalMultiMaps").modal("show");
+  }
+
   reloadData(event: any) {
     let self = this;
 
     if (event) {
       self.message_success('', 'ท่านได้ทำการส่งแบบสำรวจผู้พิการ และผู้ป่วยติดเตียงแล้ว', function () {
-        self.loadData(self.filtersearch);
+        // self.loadData(self.filtersearch);
+        $('#filter-btnSearch').click();
       });
     } else {
       self.message_error('', 'Error');
@@ -235,7 +240,8 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
     self.apiHttp.post('survey_patient/del', params, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.message_success('', 'ลบรายการสำเร็จ', function () {
-          self.loadData(self.filtersearch);
+          // self.loadData(self.filtersearch);
+          $('#filter-btnSearch').click();
         });
       }
       self.loading = false;
