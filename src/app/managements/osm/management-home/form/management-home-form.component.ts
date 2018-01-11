@@ -23,10 +23,12 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
   public api: Service_Home;
   public osmList: any = [];
   public homeTypeList: any = [];
+  public homeList: any = [];
   public isDisabledHomeType: boolean = false;
   public isDisabledOsm: boolean;
   public loading: boolean = false;
   public isHome: boolean;
+  public isShowSelectHome: boolean = false;
   constructor() { 
     super();
     this.inputValidate = new InputValidateInfo();
@@ -93,8 +95,29 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
       
     });
   }
+  onClickSelectHome(): void{
+    if(this.isShowSelectHome && this.bean.homeId){
+      this.message_comfirm('','ยกเลิกบ้านเลขที่ที่ดึงมา ใช่หรือไม่?', function(isConfirm){
+        if(!isConfirm){
+          return;
+        }
+      })
+    }
+    this.isShowSelectHome = !this.isShowSelectHome;
+    this.bean.homeId='';
+    this.bean.homeNo = '';
+    
+  }
   onChangeHomeTypeCode(select: any){
-    this.isHome = (select.value=='01'?true:false);
+    this.bean.homeId='';
+    this.bean.homeNo = '';
+    if(this.isHomeType(select.value)){
+      this.isHome = true;
+    }else{
+      this.isHome = false;
+      this.isShowSelectHome = false;
+    }
+
     this.inputValidate = new InputValidateInfo();
   }
   onMapChange(event: any){
