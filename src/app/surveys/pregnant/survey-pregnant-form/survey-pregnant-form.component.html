@@ -46,7 +46,7 @@
                     </div>
                     <div class="col-md-3">
                         <div [InputValidate]="validateWombNo">
-                            <input maxlength="2" [OnlyNumber]="true" type="text" [(ngModel)]="pregnantBean.wombNo">
+                            <input [disabled]="isHiddenEditChild" maxlength="2" [OnlyNumber]="true" type="text" [(ngModel)]="pregnantBean.wombNo">
                             <label class="error">{{ error_message_wombNo }}</label>
                         </div>
                     </div>
@@ -58,7 +58,7 @@
                     </div>
                     <div class="col-md-3">
                         <div [InputValidate]="validateSave">
-                            <select [(ngModel)]="pregnantBean.pSurveyTypeCode" (change)="onChangePregnantType(true);">
+                            <select [disabled]="isHiddenEditChild" [(ngModel)]="pregnantBean.pSurveyTypeCode" (change)="onChangePregnantType(true);">
                                 <option value="Pregnant">กำลังตั้งครรภ์</option>
                                 <option value="Born">คลอดแล้ว</option>
                             </select>
@@ -72,7 +72,8 @@
                         </div>
                         <div class="col-md-3">
                             <div [InputValidate]="validateBornDueDate">
-                                <my-date-picker name="bornDueDate" [options]="datePickerOptions" [(ngModel)]="modelBornDueDate" (dateChanged)="onChangeBornDueDate($event)"></my-date-picker>
+                                <my-date-picker *ngIf="!isHiddenEditChild" name="bornDueDate" [options]="datePickerOptions" [(ngModel)]="modelBornDueDate" (dateChanged)="onChangeBornDueDate($event)"></my-date-picker>
+                                <input *ngIf="isHiddenEditChild" [disabled]="isHiddenEditChild" [value]="displayFormatDate(pregnantBean.bornDueDate)" />
                                 <label class="error">{{ error_message_bornDueDate }}</label>
                             </div>
                         </div>
@@ -84,7 +85,8 @@
                         </div>
                         <div class="col-md-3">
                             <div [InputValidate]="validateBornDate">
-                                <my-date-picker name="bornDate" [options]="datePickerOptions" [(ngModel)]="modelBornDate" (dateChanged)="onChangeBornDate($event)"></my-date-picker>
+                                <my-date-picker *ngIf="!isHiddenEditChild" name="bornDate" [options]="datePickerOptions" [(ngModel)]="modelBornDate" (dateChanged)="onChangeBornDate($event)"></my-date-picker>
+                                <input *ngIf="isHiddenEditChild" [disabled]="isHiddenEditChild" [value]="displayFormatDate(pregnantBean.bornDate)" />
                                 <label class="error">{{ error_message_bornDate }}</label>
                             </div>
                         </div>
@@ -97,7 +99,7 @@
                     </div>
                     <div class="col-md-3">
                         <div [InputValidate]="validateSave">
-                            <select [(ngModel)]="pregnantBean.bornLocationId">
+                            <select [disabled]="isHiddenEditChild" [(ngModel)]="pregnantBean.bornLocationId">
                                 <option value="">--เลือก โรงพยาบาล--</option>
                                 <option *ngFor="let item of listBornLocation" [value]="item.id">{{item.name}}</option>
                             </select>
@@ -109,7 +111,7 @@
                     </div>
                     <div class="col-md-3">
                         <div [InputValidate]="validateSave">
-                            <select [(ngModel)]="pregnantBean.bornTypeId" (change)="onChangeBornType();">
+                            <select [disabled]="isHiddenEditChild" [(ngModel)]="pregnantBean.bornTypeId" (change)="onChangeBornType();">
                                 <option value="">--เลือก วิธีคลอด--</option>
                                 <option *ngFor="let item of listBornType" [value]="item.id">{{item.name}}</option>
                             </select>
@@ -124,7 +126,7 @@
                         <label class="label-form">หมายเหตุ</label>
                     </div>
                     <div class="col-md-3">
-                        <input type="text" maxlength="100" [(ngModel)]="pregnantBean.abortionCause">
+                        <input [disabled]="isHiddenEditChild" type="text" maxlength="100" [(ngModel)]="pregnantBean.abortionCause">
                     </div>
                 </div>
 
@@ -147,6 +149,8 @@
                                     </div>
                                 </div>
 
+                                <div *ngIf="!isHiddenEditChild">
+                                    
                                 <div class="row">
                                     <div class="col-md-2 text-right">
                                         <label class="label-form">หมายเลขประจำตัว</label>
@@ -218,6 +222,8 @@
 
                             </div>
 
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -226,7 +232,7 @@
 
             <div class="modal-footer" *ngIf="isShowForm">
                 <div class="panel-body text-right">
-                    <button class="btn btn-sm btn-primary" (click)="onClickConfirm();">ยืนยัน</button> &nbsp;&nbsp;
+                    <button *ngIf="!isHiddenEditChild" class="btn btn-sm btn-primary" (click)="onClickConfirm();">ยืนยัน</button> &nbsp;&nbsp;
                     <button class="btn btn-sm btn-primary" (click)="onClickBack()">กลับ</button>
                 </div>
             </div>

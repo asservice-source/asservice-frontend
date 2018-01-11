@@ -51,6 +51,7 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
   public isShowForm: boolean = false;
   public isShowPregnantType: boolean = false;
   public isHiddenBornTypeAbort: boolean = true;
+  public isHiddenEditChild: boolean = false;
 
   public settings: any;
   public source: LocalDataSource;
@@ -81,79 +82,7 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
     self.pregnantBean = new PregnantBean();
     self.childBean = new PregnantChildBean();
 
-    self.settings = self.getTableSetting({
-      firstName: {
-        title: 'ชื่อ',
-        width: '70px',
-        filter: false,
-      },
-      lastName: {
-        title: 'นามสกุล',
-        width: '70px',
-        filter: false,
-      },
-      citizenId: {
-        title: 'เลขประจำตัวประชาชน',
-        filter: false,
-        width: '120px',
-        type: 'html',
-        valuePrepareFunction: (cell, row) => {
-          return '<div class="text-center">' + self.formatCitizenId(cell) + '</div>'
-        }
-      },
-      genderName: {
-        title: 'เพศ',
-        width: '50px',
-        filter: false,
-        type: 'html',
-        valuePrepareFunction: (cell, row) => {
-          return '<div class="text-center">' + cell + '</div>'
-        }
-      },
-      bloodTypeName: {
-        title: 'กรุ๊ปเลือด',
-        width: '50px',
-        filter: false,
-        type: 'html',
-        valuePrepareFunction: (cell, row) => {
-          return '<div class="text-center">' + cell + '</div>'
-        }
-      },
-      weight: {
-        title: 'น้ำหนัก',
-        width: '50px',
-        filter: false,
-        type: 'html',
-        valuePrepareFunction: (cell, row) => {
-          return '<div class="text-center">' + self.formatNumber(cell) + '</div>'
-        }
-      },
-      action: {
-        title: 'จัดการ',
-        filter: false,
-        sort: false,
-        width: '100px',
-        type: 'custom',
-        renderComponent: ActionCustomView_2_Component, onComponentInitFunction(instance) {
-
-          instance.edit.subscribe(row => {
-            self.validateCitizenId = new InputValidateInfo();
-            self.validateVerify = new InputValidateInfo();
-
-            self.tmpChildCitizenId = row.citizenId;
-            self.tmpChildBean = row;
-            self.childBean = self.cloneObj(row);
-            self.actionChild = self.ass_action.EDIT;
-          });
-
-          instance.delete.subscribe(row => {
-            self.onDeleteChild(row);
-          });
-
-        }
-      }
-    });
-
+    self.settingsColumns();
   }
 
   ngOnInit() {
@@ -190,9 +119,9 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
         // });
       }
       self.changeRef.detectChanges();
-    })
+    });
+
     $('#find-person-md').on('hidden.bs.modal', function () {
-      console.log("hide.bs.modal");
       self.isShowForm = false;
       self.isFindPersonal = true;
       self.resetFind = self.resetFind + 1;
@@ -322,6 +251,8 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
 
     self.clearInputChild();
 
+    self.isModeEditOrDelete(self.pregnantBean.isEditOrDelete);
+
     self.loading = false;
   }
 
@@ -383,7 +314,6 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
     self.validateCitizenId.isCheck = true;
 
     self.apiHttp.api_PersonByCitizenId(self.childBean.citizenId, function (d) {
-      console.log('api_PersonByCitizenId', d.response);
       let duplicateData = d.response;
 
       if (self.isEmpty(self.childBean.citizenId)) {
@@ -396,8 +326,18 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
         return;
       }
 
+      let isDuplicateInList = false;
+      if (self.listChild && self.listChild.length > 0) {
+        for (let item of self.listChild) {
+          if (self.childBean.citizenId == item.citizenId) {
+            isDuplicateInList = true;
+            break;
+          }
+        }
+      }
+
       if (self.actionChild == self.ass_action.ADD) {
-        if (duplicateData) {
+        if (duplicateData && isDuplicateInList) {
           self.error_message_citizenId = "บัตรประชาชนซ้ำ";
           self.validateCitizenId = new InputValidateInfo();
           self.validateCitizenId.isCheck = true;
@@ -405,7 +345,7 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
           return;
         }
       } else if (self.actionChild == self.ass_action.EDIT) {
-        if (duplicateData && duplicateData.citizenId != self.tmpChildCitizenId) {
+        if (duplicateData && self.childBean.citizenId != self.tmpChildCitizenId) {
           self.error_message_citizenId = "บัตรประชาชนซ้ำ";
           self.validateCitizenId = new InputValidateInfo();
           self.validateCitizenId.isCheck = true;
@@ -624,6 +564,18 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
     self.listChild = [];
   }
 
+  isModeEditOrDelete(isEditOrDelete) {
+    let self = this;
+
+    self.settingsColumns();
+    if (isEditOrDelete === false) {
+      self.isHiddenEditChild = true;
+      delete self.settings.columns.action;
+    } else {
+      self.isHiddenEditChild = false;
+    }
+  }
+
   findGenderName(genderId) {
     let self = this;
 
@@ -650,5 +602,82 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
       }
     }
     return "";
+  }
+
+  settingsColumns(){
+    let self= this;
+
+    self.settings = self.getTableSetting({
+      firstName: {
+        title: 'ชื่อ',
+        width: '70px',
+        filter: false,
+      },
+      lastName: {
+        title: 'นามสกุล',
+        width: '70px',
+        filter: false,
+      },
+      citizenId: {
+        title: 'เลขประจำตัวประชาชน',
+        filter: false,
+        width: '120px',
+        type: 'html',
+        valuePrepareFunction: (cell, row) => {
+          return '<div class="text-center">' + self.formatCitizenId(cell) + '</div>'
+        }
+      },
+      genderName: {
+        title: 'เพศ',
+        width: '50px',
+        filter: false,
+        type: 'html',
+        valuePrepareFunction: (cell, row) => {
+          return '<div class="text-center">' + cell + '</div>'
+        }
+      },
+      bloodTypeName: {
+        title: 'กรุ๊ปเลือด',
+        width: '50px',
+        filter: false,
+        type: 'html',
+        valuePrepareFunction: (cell, row) => {
+          return '<div class="text-center">' + cell + '</div>'
+        }
+      },
+      weight: {
+        title: 'น้ำหนัก',
+        width: '50px',
+        filter: false,
+        type: 'html',
+        valuePrepareFunction: (cell, row) => {
+          return '<div class="text-center">' + self.formatNumber(cell) + '</div>'
+        }
+      },
+      action: {
+        title: 'จัดการ',
+        filter: false,
+        sort: false,
+        width: '100px',
+        type: 'custom',
+        renderComponent: ActionCustomView_2_Component, onComponentInitFunction(instance) {
+
+          instance.edit.subscribe(row => {
+            self.validateCitizenId = new InputValidateInfo();
+            self.validateVerify = new InputValidateInfo();
+
+            self.tmpChildCitizenId = row.citizenId;
+            self.tmpChildBean = row;
+            self.childBean = self.cloneObj(row);
+            self.actionChild = self.ass_action.EDIT;
+          });
+
+          instance.delete.subscribe(row => {
+            self.onDeleteChild(row);
+          });
+
+        }
+      }
+    });
   }
 }

@@ -29,7 +29,7 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
   public filter_villageId: string = "";
   public filter_osmId: string = "";
   public filter_fullName: string = "";
-  public filterBean: FilterHeadSurveyBean;
+  public filter_bean: FilterHeadSurveyBean;
 
   public param_pregnantBean: PregnantBean = new PregnantBean();
   public param_rowGUID: string = "";
@@ -50,7 +50,7 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
 
     let self = this;
 
-    self.filterBean = new FilterHeadSurveyBean();
+    self.filter_bean = new FilterHeadSurveyBean();
 
     self.settings = self.getTableSetting({
       fullName: {
@@ -170,7 +170,7 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
   onClickSearch(event: FilterHeadSurveyBean) {
     let self = this;
 
-    self.filterBean = event;
+    self.filter_bean = event;
 
     // รอบปัจจุบัน
     if (self.isEmpty(self.current_documentId))
@@ -181,7 +181,7 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
     self.filter_osmId = event.osmId;
     self.filter_fullName = event.fullName;
 
-    self.bindPregnantList(self.filter_documentId, self.filter_villageId, self.filter_osmId, self.filter_fullName);
+    self.bindPregnantList(self.filter_bean);
   }
 
   onClickMultiMaps() {
@@ -192,12 +192,12 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
     $("#modalMultiMaps").modal("show");
   }
 
-  bindPregnantList(documentId, villageId, osmId, name) {
+  bindPregnantList(bean: FilterHeadSurveyBean) {
     let self = this;
 
     self.loading = true;
 
-    let params = { "documentId": documentId, "villageId": villageId, "osmId": osmId, "name": name };
+    let params = { "documentId": bean.rowGUID, "villageId": bean.villageId, "osmId": bean.osmId, "name": bean.fullName };
 
     self.apiHttp.post("survey_pregnant/search_pregnant_info_list", params, function (d) {
       if (d != null && d.status.toString().toUpperCase() == "SUCCESS") {
@@ -270,7 +270,7 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
   onDeleteSurveyPregnant(bean) {
     let self = this;
 
-    self.message_comfirm('', 'คุณต้องการลบ "' + bean.citizenId + '" หรือไม่?', function (confirm) {
+    self.message_comfirm('', 'คุณต้องการลบ "<b>' + bean.fullName + '</b>" หรือไม่?', function (confirm) {
       if (confirm == true) {
         self.loading = true;
 
@@ -278,8 +278,9 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
           self.loading = false;
 
           if (d.status.toString().toUpperCase() == "SUCCESS") {
-            self.message_success('', 'ลบสำเร็จ', function () {
-              self.bindPregnantList(self.filter_documentId, self.filter_villageId, self.filter_osmId, self.filter_fullName);
+            self.message_success('', 'ต้องการยกเลิกแจ้งการเสียชีวิต "<b>' + bean.fullName + '</b>" ใช่หรือไม่', function () {
+              // self.bindPregnantList(self.filter_bean);
+              $("#filter-btnSearch").click();
             });
           } else {
             self.message_error('', d.message);
@@ -292,7 +293,8 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
   onUpdatedMember(member: PregnantBean) {
     let self = this;
 
-    self.bindPregnantList(self.filter_documentId, self.filter_villageId, self.filter_osmId, self.filter_fullName)
+    // self.bindPregnantList(self.filter_bean);
+    $("#filter-btnSearch").click();
   }
 
 }
