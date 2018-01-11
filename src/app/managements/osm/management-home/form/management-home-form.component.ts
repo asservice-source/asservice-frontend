@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output} from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, ChangeDetectorRef} from '@angular/core';
 import { HomeBean } from '../../../../beans/home.bean';
 import { InputValidateInfo } from '../../../../directives/inputvalidate.directive';
 import { BaseComponent } from '../../../../base-component';
@@ -23,11 +23,14 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
   public api: Service_Home;
   public osmList: any = [];
   public homeTypeList: any = [];
+  public homeList: any = [];
   public isDisabledHomeType: boolean = false;
   public isDisabledOsm: boolean;
   public loading: boolean = false;
   public isHome: boolean;
-  constructor() { 
+  public isShowSelectHome: boolean = false;
+  public isEdit: boolean;
+  constructor(private changeRef: ChangeDetectorRef) { 
     super();
     this.inputValidate = new InputValidateInfo();
     this.api = new Service_Home();
@@ -44,6 +47,7 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
     let _self = this;
     $('#modalFormHome').on('show.bs.modal', function(){
       console.log(_self.bean);
+      _self.isShowSelectHome = false;
       _self.setupOsmList();
       _self.setupHomeTypeList();
       _self.isDisabledHomeType=false;
@@ -54,12 +58,15 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
         _self.isDisabledOsm = false;
       }
       if(_self.action == _self.ass_action.EDIT){
+        _self.isEdit = true;
         if(_self.isHomeType(_self.bean.homeTypeCode)){
           _self.isDisabledHomeType=true;
           _self.isHome = true;
         }else{
           _self.isHome = false;
         }
+      }else{
+        _self.isEdit = false;
       }
         
     });
@@ -93,8 +100,75 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
       
     });
   }
+  resetForm(){
+    this.bean.registrationId = '';
+    this.bean.homeId = '';
+    this.bean.homeNo = '';
+    this.bean.name = '';
+    this.bean.road = '';
+    this.bean.soi = '';
+    this.bean.telephone = '';
+    this.bean.latitude = '';
+    this.bean.longitude = '';
+  }
+  onClickSelectHome(): void{
+    if(this.isEdit){
+      return;
+    }
+    let _self = this;
+    if(this.isShowSelectHome && this.bean.homeId){
+      this.message_comfirm('','ยกเลิกบ้านเลขที่ที่ดึงมา ใช่หรือไม่?', function(isConfirm){
+        if(!isConfirm){
+          return;
+        }else{
+          _self.isShowSelectHome = !_self.isShowSelectHome;
+          _self.resetForm();
+        }
+      });
+    }else{
+      this.isShowSelectHome = !this.isShowSelectHome;
+      this.resetForm();
+      if(this.isShowSelectHome){
+        _self.loading = true;
+        _self.api.getHomeWithoutOSM(_self.bean.villageId, function(response){
+          _self.loading = false;
+          _self.homeList = response;
+          _self.changeRef.detectChanges();
+        })
+      }
+    }
+  }
+  onChangeHomeNo(){
+    console.log(this.bean)
+    if(this.bean.homeId){
+      for(let item of this.homeList){
+        if(this.bean.homeId==item.homeId){
+          this.bean.homeTypeCode = item.homeTypeCode;
+          this.bean.registrationId = item.registrationId;
+          this.bean.homeNo = item.homeNo;
+          this.bean.name = item.name;
+          this.bean.road = item.road;
+          this.bean.soi = item.soi;
+          this.bean.telephone = item.telephone;
+          this.bean.latitude = item.latitude;
+          this.bean.longitude = item.longitude;
+        }
+      }
+    }else{
+      this.resetForm();
+    }
+    
+  }
   onChangeHomeTypeCode(select: any){
-    this.isHome = (select.value=='01'?true:false);
+    this.bean.homeId='';
+    this.bean.homeNo = '';
+    if(this.isHomeType(select.value)){
+      this.isHome = true;
+    }else{
+      this.isHome = false;
+      this.isShowSelectHome = false;
+    }
+
     this.inputValidate = new InputValidateInfo();
   }
   onMapChange(event: any){
@@ -108,6 +182,12 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
     this.cancel.emit("CANCEL");
   }
   onSave(){
+    // if(1){
+    //   console.log(this.bean);
+    // return;
+    // }
+    
+
     this.inputValidate = new InputValidateInfo();
     this.inputValidate.isCheck = true;
     let simpleValidate = new SimpleValidateForm();

@@ -37,18 +37,6 @@
                 </div>
               </div>
 
-              <div class="row" *ngIf="bean.homeTypeCode && bean.homeTypeCode=='01'">
-                <div class="col-md-4 text-right">
-                  <label class="label-form">รหัสบ้าน</label>
-                </div>
-                <div class="col-md-8">
-                  <div [InputValidate]="inputValidate" [fixLength]="11">
-                      <input type="text" placeholder="รหัสบ้าน" [(ngModel)]="bean.registrationId" [OnlyNumber]="true" maxlength="11">
-                      <label class="error">กรุณาใส่รหัสบ้านเป็นตัวเลข 11 หลัก</label>
-                  </div>
-                </div>
-              </div>
-
               <div class="row" *ngIf="bean.homeTypeCode && bean.homeTypeCode!='01'">
                 <div class="col-md-4 text-right">
                   <label class="label-form">ชื่อสถานที่</label>
@@ -65,10 +53,32 @@
                 <div class="col-md-4 text-right">
                   <label class="label-form">บ้านเลขที่</label>
                 </div>
-                <div class="col-md-8">
-                  <div [InputValidate]="inputValidate">
+                <div class="col-md-4" style="padding-right: 4px">
+                  <div *ngIf="!isShowSelectHome" [InputValidate]="inputValidate">
                     <input type="text" [(ngModel)]="bean.homeNo" placeholder="บ้านเลขที่" maxlength="10">
                     <label *ngIf="isHome" class="error">กรุณาใส่บ้านเลขที่</label>
+                  </div>
+                  <div *ngIf="isShowSelectHome" [InputValidate]="inputValidate">
+                    <select type="text" [(ngModel)]="bean.homeId" (change)="onChangeHomeNo()">
+                      <option value="">--เลือก--</option>
+                      <option *ngFor="let item of homeList" [value]="item.homeId">{{item.homeNo}}</option>
+                    </select>
+                    <label *ngIf="isHome" class="error">กรุณาเลือกบ้านเลขที่</label>
+                  </div>
+                </div>
+                <div class="col-md-2" style="padding-left: 4px">
+                  <button type="button" class="btn btn-sm btn-primary" [disabled]="!isHomeType(bean.homeTypeCode) || isEdit" (click)="onClickSelectHome()">{{isShowSelectHome?'สร้างบ้านเลขที่ใหม่':'เลือกจากบ้านที่ไม่มี อสม.'}}</button>
+                </div>
+              </div>
+
+              <div class="row" *ngIf="bean.homeTypeCode && isHomeType(bean.homeTypeCode)">
+                <div class="col-md-4 text-right">
+                  <label class="label-form">รหัสบ้าน</label>
+                </div>
+                <div class="col-md-8">
+                  <div [InputValidate]="inputValidate" [fixLength]="11">
+                      <input type="text" placeholder="รหัสบ้าน" [(ngModel)]="bean.registrationId" [OnlyNumber]="true" maxlength="11">
+                      <label class="error">กรุณาใส่รหัสบ้านเป็นตัวเลข 11 หลัก</label>
                   </div>
                 </div>
               </div>
