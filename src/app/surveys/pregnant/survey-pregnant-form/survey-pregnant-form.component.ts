@@ -446,8 +446,8 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
         self.validateBornDate.isCheck = true;
         self.validateBornDate.isShowError = true;
         errors_count++;
-      } else if (self.isLessThanCurrentDate(self.pregnantBean.bornDate)) {
-        self.error_message_bornDate = "วันที่คลอด ต้องมีค่ามากกว่าหรือเท่ากับวันที่ปัจจุบัน";
+      } else if (self.isMoreThanCurrentDate(self.pregnantBean.bornDate)) {
+        self.error_message_bornDate = "วันที่คลอด ต้องมีค่าน้อยกว่าหรือเท่ากับวันที่ปัจจุบัน";
         self.validateBornDate = new InputValidateInfo();
         self.validateBornDate.isCheck = true;
         self.validateBornDate.isShowError = true;

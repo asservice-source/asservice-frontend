@@ -135,10 +135,30 @@ export class BaseComponent implements OnInit {
         return firstName + " " + lastname;
     }
 
+    public isMoreThanCurrentDate(dateString: string) {
+        let currentDate = moment(moment().format('YYYY-MM-DD'));
+        let inpuDate = moment(dateString);
+        if (inpuDate > currentDate) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public isLessThanCurrentDate(dateString: string) {
         let currentDate = moment(moment().format('YYYY-MM-DD'));
         let inpuDate = moment(dateString);
         if (inpuDate < currentDate) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public isLessThanCurrentEqualsDate(dateString: string) {
+        let currentDate = moment(moment().format('YYYY-MM-DD'));
+        let inpuDate = moment(dateString);
+        if (inpuDate <= currentDate) {
             return true;
         } else {
             return false;
