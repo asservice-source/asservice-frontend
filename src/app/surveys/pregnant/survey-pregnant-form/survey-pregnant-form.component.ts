@@ -47,6 +47,8 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
 
   public resetFind: number = 1;
 
+  public hospitalName: string = "";
+
   public isFindPersonal: boolean = true;
   public isShowForm: boolean = false;
   public isShowPregnantType: boolean = false;
@@ -66,6 +68,8 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
 
   public validateVerify: InputValidateInfo = new InputValidateInfo();
   public validateSave: InputValidateInfo = new InputValidateInfo();
+
+  public validateHospital: InputValidateInfo = new InputValidateInfo();
 
   public loading: boolean = false;
 
@@ -530,6 +534,36 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
         $("#find-person-md").modal("hide");
       } else {
         self.message_error('', d.message);
+      }
+      self.loading = false;
+    });
+  }
+
+  onClickAddHospital() {
+    let self = this;
+
+    self.hospitalName = "";
+    $("#modalHospital").modal("show");
+  }
+
+  onClickConfirmHospital() {
+    let self = this;
+
+    self.validateHospital = new InputValidateInfo();
+    self.validateHospital.isCheck = true;
+
+    if (self.isEmpty(self.hospitalName)) {
+      return;
+    }
+
+    self.loading = true;
+
+    let params = { "id": "0", "name": self.hospitalName, "hospitalCode": self.getHospitalCode() };
+
+    self.apiHttp.post('survey/ins_upd_born_location', params, function (d) {
+      if (d && d.status.toUpperCase() == "SUCCESS") {
+        self.bindBornLocation();
+        $("#modalHospital").modal("hide");
       }
       self.loading = false;
     });

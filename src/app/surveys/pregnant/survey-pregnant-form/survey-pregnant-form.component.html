@@ -72,7 +72,8 @@
                         </div>
                         <div class="col-md-3">
                             <div [InputValidate]="validateBornDueDate">
-                                <my-date-picker *ngIf="!isHiddenEditChild" name="bornDueDate" [options]="datePickerOptions" [(ngModel)]="modelBornDueDate" (dateChanged)="onChangeBornDueDate($event)"></my-date-picker>
+                                <my-date-picker *ngIf="!isHiddenEditChild" name="bornDueDate" [options]="datePickerOptions" [(ngModel)]="modelBornDueDate"
+                                    (dateChanged)="onChangeBornDueDate($event)"></my-date-picker>
                                 <input *ngIf="isHiddenEditChild" [disabled]="isHiddenEditChild" [value]="displayFormatDate(pregnantBean.bornDueDate)" />
                                 <label class="error">{{ error_message_bornDueDate }}</label>
                             </div>
@@ -99,10 +100,19 @@
                     </div>
                     <div class="col-md-3">
                         <div [InputValidate]="validateSave">
-                            <select [disabled]="isHiddenEditChild" [(ngModel)]="pregnantBean.bornLocationId">
-                                <option value="">--เลือก โรงพยาบาล--</option>
-                                <option *ngFor="let item of listBornLocation" [value]="item.id">{{item.name}}</option>
-                            </select>
+                            <div *ngIf="!isHiddenEditChild" class="input-group">
+                                <select [(ngModel)]="pregnantBean.bornLocationId">
+                                    <option value="">--เลือก โรงพยาบาล--</option>
+                                    <option *ngFor="let item of listBornLocation" [value]="item.id">{{item.name}}</option>
+                                </select>
+                                <span class="input-group-addon" style="cursor: pointer;" (click)="onClickAddHospital();">
+                                    <i class="fa fa-plus"></i>
+                                </span>
+                            </div>
+                            <select *ngIf="isHiddenEditChild" [disabled]="isHiddenEditChild" [(ngModel)]="pregnantBean.bornLocationId">
+                                    <option value="">--เลือก โรงพยาบาล--</option>
+                                    <option *ngFor="let item of listBornLocation" [value]="item.id">{{item.name}}</option>
+                                </select>
                             <label class="error">กรุณาเลือก โรงพยาบาลที่คลอด</label>
                         </div>
                     </div>
@@ -150,77 +160,77 @@
                                 </div>
 
                                 <div *ngIf="!isHiddenEditChild">
-                                    
-                                <div class="row">
-                                    <div class="col-md-2 text-right">
-                                        <label class="label-form">หมายเลขประจำตัว</label>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div [InputValidate]="validateCitizenId" [citizenId]="true">
-                                            <input maxlength="13" [OnlyNumber]="true" type="text" [(ngModel)]="childBean.citizenId">
-                                            <label class="error">{{ error_message_citizenId }}</label>
+
+                                    <div class="row">
+                                        <div class="col-md-2 text-right">
+                                            <label class="label-form">หมายเลขประจำตัว</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div [InputValidate]="validateCitizenId" [citizenId]="true">
+                                                <input maxlength="13" [OnlyNumber]="true" type="text" [(ngModel)]="childBean.citizenId">
+                                                <label class="error">{{ error_message_citizenId }}</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-1 text-right">
+                                            <label class="label-form">เพศ</label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <select [(ngModel)]="childBean.genderId">
+                                                <option value="">--เลือก เพศ--</option>
+                                                <option *ngFor="let item of listGender" [value]="item.id">{{item.name}}</option>
+                                            </select>
                                         </div>
                                     </div>
 
-                                    <div class="col-md-1 text-right">
-                                        <label class="label-form">เพศ</label>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <select [(ngModel)]="childBean.genderId">
-                                            <option value="">--เลือก เพศ--</option>
-                                            <option *ngFor="let item of listGender" [value]="item.id">{{item.name}}</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-2 text-right">
-                                        <label class="label-form">ชื่อ</label>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div [InputValidate]="validateVerify">
-                                            <input maxlength="50" type="text" [(ngModel)]="childBean.firstName">
-                                            <label class="error">กรุณาระบุ ชื่อ</label>
+                                    <div class="row">
+                                        <div class="col-md-2 text-right">
+                                            <label class="label-form">ชื่อ</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div [InputValidate]="validateVerify">
+                                                <input maxlength="50" type="text" [(ngModel)]="childBean.firstName">
+                                                <label class="error">กรุณาระบุ ชื่อ</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1 text-right">
+                                            <label class="label-form">นามสกุล</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div [InputValidate]="validateVerify">
+                                                <input maxlength="50" type="text" [(ngModel)]="childBean.lastName">
+                                                <label class="error">กรุณาระบุ นามสกุล</label>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-1 text-right">
-                                        <label class="label-form">นามสกุล</label>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div [InputValidate]="validateVerify">
-                                            <input maxlength="50" type="text" [(ngModel)]="childBean.lastName">
-                                            <label class="error">กรุณาระบุ นามสกุล</label>
+
+                                    <div class="row">
+                                        <div class="col-md-2 text-right">
+                                            <label class="label-form">กรุ๊ปเลือด</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <select [(ngModel)]="childBean.bloodTypeId">
+                                                <option value="">--เลือก กรุ๊ปเลือด--</option>
+                                                <option *ngFor="let item of listBloodType" [value]="item.id">{{item.name}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-1 text-right">
+                                            <label class="label-form">น้ำหนัก</label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <input maxlength="4" [OnlyNumber]="true" type="text" [(ngModel)]="childBean.weight">
                                         </div>
                                     </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12 text-center">
+                                            <button class="btn btn-sm btn-primary" (click)="onClickConfirmChild();">ยืนยัน</button> &nbsp;&nbsp;
+                                            <button class="btn btn-sm btn-primary" (click)="onClickClearChild()">ล้างข้อมูล</button>
+                                        </div>
+                                    </div>
+
                                 </div>
-
-                                <div class="row">
-                                    <div class="col-md-2 text-right">
-                                        <label class="label-form">กรุ๊ปเลือด</label>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <select [(ngModel)]="childBean.bloodTypeId">
-                                            <option value="">--เลือก กรุ๊ปเลือด--</option>
-                                            <option *ngFor="let item of listBloodType" [value]="item.id">{{item.name}}</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="col-md-1 text-right">
-                                        <label class="label-form">น้ำหนัก</label>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <input maxlength="4" [OnlyNumber]="true" type="text" [(ngModel)]="childBean.weight">
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-12 text-center">
-                                        <button class="btn btn-sm btn-primary" (click)="onClickConfirmChild();">ยืนยัน</button> &nbsp;&nbsp;
-                                        <button class="btn btn-sm btn-primary" (click)="onClickClearChild()">ล้างข้อมูล</button>
-                                    </div>
-                                </div>
-
-                            </div>
 
                             </div>
 
@@ -241,3 +251,36 @@
     </div>
 </div>
 <ass-loading [show]="loading"></ass-loading>
+
+<div id="modalHospital" class="modal fade" role="dialog" data-backdrop="false" data-keyboard="false">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title">เพิ่มโรงพยาบาล</h4>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3 text-right">
+                    <label class="label-form">ชื่อโรงพยาบาล</label>
+                </div>
+                <div class="col-md-6">
+                    <div [InputValidate]="validateHospital">
+                        <input maxlength="255" type="text" [(ngModel)]="hospitalName">
+                        <label class="error">กรุณาระบุ ชื่อโรงพยาบาล</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <div class="panel-body text-right">
+                    <button class="btn btn-primary btn-sm" (click)="onClickConfirmHospital();">ตกลง</button>
+                    <button class="btn btn-primary btn-sm" data-dismiss="modal">ยกเลิก</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
