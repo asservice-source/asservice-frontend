@@ -186,7 +186,7 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
     }
   }
   onChangeBirthDate(event: any){
-
+    
   }
   onChangeProvince(){
     this.bean.amphurCode = '';
@@ -225,12 +225,14 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
     let _self = this;
     _self.api.api_AmphurList(_self.bean.provinceCode, function(response){
       _self.amphurList = response;
+      _self.changeRef.detectChanges();
     });
   }
   setupTumbol(){
     let _self = this;
     _self.api.api_TumbolList(_self.bean.amphurCode, function(response){
       _self.tumbolList = response;
+      _self.changeRef.detectChanges();
     });
   }
   onVerifyCitizenId(){
@@ -280,6 +282,10 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
                   _self.bean.nationalityCode = _self.bean.nationalityCode || '099';
                   _self.bean.raceCode = _self.bean.raceCode || '099';
                   //---
+                  if(_self.bean.isGuest){
+                    _self.setupAmphur();
+                    _self.setupTumbol();
+                  }
                   _self.setDatePickerModel();
                   _self.oldCitizenId = _self.bean.citizenId;
                 }else{

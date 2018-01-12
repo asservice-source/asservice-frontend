@@ -73,6 +73,19 @@ export class Service_SurveyPersonal extends ApiHTTPService {
         });
     }
 
+    public getListHome(documentId: string, villageId: string, osmId: string, homeId: string, callback: (doc: any) => void) {
+        let path = "survey_population/search_population_list";
+        let parameter = { "documentId": documentId, "villageId": villageId, "osmId": osmId, "homeId": homeId };
+        let _self = this;
+        this.post(path, parameter, function(response){
+            if(response && response.status.toUpperCase()=='SUCCESS'){
+                callback(response.response);
+            }else{
+                _self.baseComponent.message_servNotRespond('', response.message);
+            }
+        });
+    }
+
     public commit_save(bean: PersonalBasicBean, callback: (doc: any) => void) {
         let self = this;
         let parameters = self.baseComponent.strNullToEmpty(self.map(bean));

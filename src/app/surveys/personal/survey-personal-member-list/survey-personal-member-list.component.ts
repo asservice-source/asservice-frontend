@@ -261,7 +261,10 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     for (let item of self.tempData2) {
       listAll.push(item);
     }
-
+    if(listAll.length<=0){
+      this.message_error('','สมาชิกในบ้านจะต้องมีอย่างน้อย 1 คน');
+      return;
+    }
     self.apiHttp.commit_save_survey(self.paramHomeId, self.osmId, self.paramRoundId, listAll, function (d) {
       console.log(d);
       if (d != null && d.status.toUpperCase() == "SUCCESS") {

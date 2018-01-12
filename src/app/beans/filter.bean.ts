@@ -4,6 +4,6 @@ export class FilterBean {
     public osmId: string = "";
     public homeId: string = "";
     public name: string = "";
-    public suyveyStatus: string = "";
+    public surveyStatus: string = "";
     public description: string;
 }

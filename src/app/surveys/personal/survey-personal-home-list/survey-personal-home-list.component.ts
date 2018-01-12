@@ -7,7 +7,7 @@ import { FilterBean } from "../../../beans/filter.bean";
 import { PersonalHomeBean } from '../../../beans/personal-home.bean';
 import { HomeBean } from '../../../beans/home.bean';
 import { BaseComponent } from '../../../base-component';
-import { ApiHTTPService } from '../../../api-managements/api-http.service';
+import { Service_SurveyPersonal } from '../../../api-managements/service-survey-personal';
 declare var $: any;
 
 @Component({
@@ -17,8 +17,7 @@ declare var $: any;
 })
 export class SurveyPersonalHomeListComponent extends BaseComponent implements OnInit, AfterViewInit {
 
-  private apiHttp: ApiHTTPService = new ApiHTTPService();
-
+  private api: Service_SurveyPersonal = new Service_SurveyPersonal();
   public action: string = this.ass_action.ADD;
   public homeBean: HomeBean = new HomeBean();
   public paramHome: PersonalHomeBean = new PersonalHomeBean();
@@ -54,7 +53,7 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
       homeNo: {
         title: 'บ้านเลขที่',
         filter: false,
-        width: '80px',
+        width: '100px',
         type: 'html',
         valuePrepareFunction: (cell, row) => {
           return '<div class="text-center">' + cell + '</div>';
@@ -62,22 +61,21 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
       },
       holderName: {
         title: 'ชื่อ-สกุล หัวหน้าครอบครัว',
-        filter: false,
-        width: '200px'
+        filter: false
       },
       memberAmount: {
         title: 'จำนวนสมาชิก',
         filter: false,
-        width: '110px',
+        width: '130px',
         type: 'html',
         valuePrepareFunction: (cell, row) => {
           return '<div class="text-center">' + cell + '</div>';
         }
       },
       isSurvey: {
-        title: 'สถานะการสำรวจ',
+        title: 'สถานะ',
         filter: false,
-        width: '110px',
+        width: '100px',
         type: 'html',
         valuePrepareFunction: (cell, row) => {
           var surveyStatus = '';
@@ -96,11 +94,15 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
         type: 'custom',
         renderComponent: SurveyPersonalHomeListButtonEditComponent,
         onComponentInitFunction(instance) {
-          instance.action.subscribe((row: PersonalHomeBean) => {
+          instance.action.subscribe((row) => {
             // console.log(row);
-            let homeId = row.homeId;
-            let roundId = self.currentRoundId;
-            self.router.navigate(['/main/surveys/personal-detail', homeId, roundId]);
+            if(row.isCurrent){
+              let homeId = row.homeId;
+              let roundId = self.currentRoundId;
+              self.router.navigate(['/main/surveys/personal-detail', homeId, roundId]);
+            }else{
+              alert('ประวัติ');
+            }
           });
         }
       }
@@ -117,66 +119,47 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
 
   onClickSearch(event: FilterBean) {
     this.filterBean = event;
-    console.log(this.filterBean);
+    if(this.isEmpty(this.currentRoundId)){
+      this.currentRoundId = event.roundId;
+    }
+   console.log(this.filterBean);
+    this.bindHomeList(event);
+  }
+
+  bindHomeList(event: FilterBean) {
+
     let self = this;
     let roundId = event.roundId;
     let villageId = event.villageId;
     let osmId = event.osmId;
     let homeId = event.homeId;
-    let suyveyStatus = event.suyveyStatus;
-    if(this.isEmpty(this.currentRoundId)){
-      self.currentRoundId = roundId;
-    }
-   
-    self.bindHomeList(roundId, villageId, osmId, homeId, suyveyStatus);
-  }
-
-  onClickAdd() {
-    let self = this;
-
-    // this.paramHome = new PersonalHomeBean();
-    // this.action = this.ass_action.ADD;
-    // this.changeRef.detectChanges();
-
-    // $("app-management-osm-area-form #modalForm").modal({ backdrop: 'static', keyboard: false });
-
-    self.router.navigate(['/main/managements/osm/home/type01']);
-  }
-
-  bindHomeList(roundId: string, villageId: string, osmId: string, homeId: string, suyveyStatus: string) {
-    let self = this;
-
+    let surveyStatus = event.surveyStatus;
     self.loading = true;
 
-    let URL_LIST_HOME: string = "survey_population/search_population_list";
-    let params = { "documentId": roundId, "villageId": villageId, "osmId": osmId, "homeId": homeId };
+    // let URL_LIST_HOME: string = "survey_population/search_population_list";
+    // let params = { "documentId": roundId, "villageId": villageId, "osmId": osmId, "homeId": homeId };
 
-    self.apiHttp.post(URL_LIST_HOME, params, function (d) {
-      if (d != null && d.status.toUpperCase() == "SUCCESS") {
-        console.log(d);
+    self.api.getListHome(roundId, villageId, osmId, homeId, function (response) {
 
-        let data = [];
-        if (suyveyStatus == "0") {
-          for (let item of d.response) {
-            if (item.isSurvey == true || item.isSurvey == "true") {
-              data.push(item);
-            }
+      let data = [];
+      if (surveyStatus == "0") {
+        for (let item of response) {
+          if (item.isSurvey == true || item.isSurvey == "true") {
+            data.push(item);
           }
-        } else if (suyveyStatus == "1") {
-          for (let item of d.response) {
-            if (item.isSurvey == false || item.isSurvey == "false") {
-              data.push(item);
-            }
-          }
-        } else {
-          data = d.response;
         }
+      } else if (surveyStatus == "1") {
+        for (let item of response) {
+          if (item.isSurvey == false || item.isSurvey == "false") {
+            data.push(item);
+          }
+        }
+      }else {
+        data = response;
+      }
         self.source = self.ng2STDatasource(data);
         self.isShowTable = true;
-      } else {
-        console.log('survey-personal-home-list(bindHomeList) occured error(s) => ' + d.message);
-      }
-      
+
       self.loading = false;
       self.changeRef.detectChanges();
     });
@@ -184,7 +167,11 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
 }
 
 @Component({
-  template: '<div class="text-center"><button (click)="clickEdit();" class="btn btn-sm btn-primary">ทำแบบสำรวจ</button></div>',
+  template: '<div class="text-center">'
+  +'<button *ngIf="!rowData.isWithoutOSM && rowData.isCurrent" (click)="clickEdit();" class="btn btn-sm btn-primary">ทำแบบสำรวจ</button>'
+  +'<button *ngIf="!rowData.isCurrent" (click)="clickHistory();" class="btn btn-sm btn-primary">ประวัติการสำรวจ</button>'
+  +'<label *ngIf="rowData.isWithoutOSM && rowData.isCurrent" class="value">ไม่มี อสม.</label>'
+  +'</div>',
 })
 export class SurveyPersonalHomeListButtonEditComponent implements ViewCell, OnInit {
   renderValue: string;
@@ -193,11 +180,15 @@ export class SurveyPersonalHomeListButtonEditComponent implements ViewCell, OnIn
   @Input() rowData: any;
   @Output() action: EventEmitter<any> = new EventEmitter();
 
+
   ngOnInit() {
     this.renderValue = this.value.toString();
   }
 
   clickEdit() {
+    this.action.emit(this.rowData);
+  }
+  clickHistory() {
     this.action.emit(this.rowData);
   }
 }
