@@ -121,7 +121,7 @@
 
                 </div>
 
-                <div class="row" [hidden]="isHiddenBornTypeAbort">
+                <div class="row" *ngIf="!isHiddenBornTypeAbort">
                     <div class="col-md-3 text-right">
                         <label class="label-form">หมายเหตุ</label>
                     </div>
