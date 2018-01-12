@@ -207,7 +207,7 @@ export class FilterPersonalComponent extends BaseComponent implements OnInit {
     self.description.status = "";
     self.description.homeNo = "";
     self.filterBean.homeId = "";
-    self.filterBean.suyveyStatus = "";
+    self.filterBean.surveyStatus = "";
 
     if (self.isStaff) {
       self.filterBean.villageId = "";
