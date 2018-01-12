@@ -85,7 +85,7 @@ export class BaseComponent implements OnInit {
         let source = new LocalDataSource(datas);
         source.getElements().then(list => {
             let num = 0;
-            for(let item of list){
+            for (let item of list) {
                 item.sequenceNumber = num++;
             }
         });
@@ -111,19 +111,19 @@ export class BaseComponent implements OnInit {
                 let sequenceNumber = 0;
                 for (let item of list) {
                     sequenceNumber = +(item.sequenceNumber);
-                    if(sequenceNumber>num && (sequenceNumber-num)==1){
+                    if (sequenceNumber > num && (sequenceNumber - num) == 1) {
                         num = sequenceNumber;
-                    }else{
+                    } else {
                         isNoSort = true;
                     }
                     item.sequenceNumber = startSeqNo++;
                     item.sequenceNo = '<div class="text-center">' + (item.sequenceNumber) + '</div>';
                 }
-                if(isNoSort){
+                if (isNoSort) {
                     source.refresh();
                     this.isRefrestData = true;
                 }
-                
+
             });
         }
     }
@@ -135,10 +135,30 @@ export class BaseComponent implements OnInit {
         return firstName + " " + lastname;
     }
 
+    public isMoreThanCurrentDate(dateString: string) {
+        let currentDate = moment(moment().format('YYYY-MM-DD'));
+        let inpuDate = moment(dateString);
+        if (inpuDate > currentDate) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public isLessThanCurrentDate(dateString: string) {
         let currentDate = moment(moment().format('YYYY-MM-DD'));
         let inpuDate = moment(dateString);
         if (inpuDate < currentDate) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public isLessThanCurrentEqualsDate(dateString: string) {
+        let currentDate = moment(moment().format('YYYY-MM-DD'));
+        let inpuDate = moment(dateString);
+        if (inpuDate <= currentDate) {
             return true;
         } else {
             return false;
@@ -399,7 +419,11 @@ export class BaseComponent implements OnInit {
     }
 
     formatNumber(num) {
-        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        if (num) {
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        } else {
+            return "";
+        }
     }
 
     compareDateCurrent_DDMMYYYY(compareDate: any): number {
