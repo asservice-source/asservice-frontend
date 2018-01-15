@@ -48,7 +48,7 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
   }
 
   ngAfterViewInit(){
-    this.setCalendarThai();
+    //this.setCalendarThai();
   }
 
   setupCancerList(){

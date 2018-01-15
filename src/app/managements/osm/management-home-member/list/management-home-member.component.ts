@@ -247,13 +247,23 @@ export class ManagementHomeMemberComponent extends BaseComponent implements OnIn
       //     return '<div class="text-center">'+cell+'</div>'
       //   }
       // },
+      
+      birthDate:{
+        title: "วัน/เดือน/ปี เกิด",
+        filter: false,
+        width: '130px',
+        type: 'html',
+        valuePrepareFunction: (cell, row) => { 
+          return '<div class="text-center">'+_self.displayFormatDate_Thai(cell)+'</div>'
+        }
+      },
       deadDate:{
         title: "วันที่เสียชีวิต",
         filter: false,
-        width: '80px',
+        width: '130px',
         type: 'html',
         valuePrepareFunction: (cell, row) => { 
-          return '<div class="text-center">'+_self.displayFormatDate(cell)+'</div>'
+          return '<div class="text-center">'+_self.displayFormatDate_Thai(cell)+'</div>'
         }
       }
     });

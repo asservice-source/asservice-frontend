@@ -10,6 +10,7 @@ import { ApiHTTPService } from './api-managements/api-http.service';
 import { UserService } from './service/user.service';
 import { AppComponent } from './app.component';
 import { MainContentComponent } from './main/main-content/main-content.component';
+import { Moment } from 'moment';
 
 declare var $: any;
 declare var bootbox: any;
@@ -168,6 +169,16 @@ export class BaseComponent implements OnInit {
     public displayFormatDate(dateString: string) {
         if (dateString) {
             return moment(dateString).format('DD/MM/YYYY');
+        } else {
+            return "";
+        }
+    }
+    public displayFormatDate_Thai(dateString: string) {
+        if (dateString) {
+            let date:Moment = moment(dateString)
+            let y = date.year()+543;
+            let strDates = date.format('DD/MM/YYYY').split('/');
+            return strDates[0]+'/'+strDates[1]+'/'+y;
         } else {
             return "";
         }

@@ -236,6 +236,7 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
     });
   }
   onVerifyCitizenId(){
+    this.bean.citizenId = this.bean.citizenId.trim();
     this.oldCitizenId = this.bean.citizenId;
     this.inputValidate = new InputValidateInfo();
     this.inputValidate.isCheck = true;
@@ -310,6 +311,7 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
     }
   }
   onSave(){
+    this.bean.citizenId = this.bean.citizenId.trim();
     this.inputValidateAddress = new InputValidateInfo();
     this.inputValidate = new InputValidateInfo();
     this.inputValidate.isCheck = true; // validate input error form
