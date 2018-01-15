@@ -234,7 +234,7 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
       let arr = valid.getObjectEmpty(this.api.map(this.isStaff,this.bean),ignores);
       if(arr.length<=0){
         let _self = this;
-        if(_self.getYearDiff(_self.mBirthDate.date.year) < 15){
+        if(_self.getYearDiff(_self.mBirthDate.date.year) < 18){
           _self.inputValidateBirthDate.isShowError = true;
           _self.msgError_BirthDate = 'วัน/เดือน/ปี เกิดไม่ถูกต้อง';
           return false;
