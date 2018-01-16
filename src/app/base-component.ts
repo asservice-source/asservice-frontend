@@ -175,10 +175,10 @@ export class BaseComponent implements OnInit {
     }
     public displayFormatDate_Thai(dateString: string) {
         if (dateString) {
-            let date:Moment = moment(dateString)
-            let y = date.year()+543;
+            let date: Moment = moment(dateString)
+            let y = date.year() + 543;
             let strDates = date.format('DD/MM/YYYY').split('/');
-            return strDates[0]+'/'+strDates[1]+'/'+y;
+            return strDates[0] + '/' + strDates[1] + '/' + y;
         } else {
             return "";
         }
@@ -250,6 +250,13 @@ export class BaseComponent implements OnInit {
         }
     }
 
+    public getCurrentDatePickerString() {
+        let dateObj = new Date();
+        let month = dateObj.getUTCMonth() + 1; //months from 1-12
+        let day = dateObj.getUTCDate();
+        let year = dateObj.getUTCFullYear();
+        return year + '-' + month + '-' + day;
+    }
     public getCurrentDatePickerModel(strDate?: string): any {
         if (strDate) {
             let arrDT = strDate.split(' ');

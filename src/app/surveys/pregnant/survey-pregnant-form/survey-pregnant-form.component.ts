@@ -272,8 +272,11 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
       self.pregnantBean.bornDueDate = "";
       self.modelBornDueDate = null;
 
-      self.pregnantBean.bornDate = "";
-      self.modelBornDate = null;
+      // self.pregnantBean.bornDate = "";
+      // self.modelBornDate = null;
+
+      self.pregnantBean.bornDate = self.getCurrentDatePickerString();
+      self.modelBornDate = self.getCurrentDatePickerModel();
 
       self.pregnantBean.bornLocationId = "";
       self.pregnantBean.bornTypeId = "";
