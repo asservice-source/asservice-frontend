@@ -167,7 +167,13 @@ export class FilterFindPersonComponent extends BaseComponent implements OnInit {
   setupHome() {
     let self = this;
     self.isDisabledHomeNo = true;
-    self.api.api_HomeList(self.filterBean.villageId, self.filterBean.osmId,self.surveyTypeCode
+
+    console.log(self.documentId);
+    console.log(self.filterBean.villageId);
+    console.log(self.filterBean.osmId);
+    console.log(self.surveyTypeCode);
+
+    self.api.api_HomeListByHeader(self.documentId,self.filterBean.villageId,self.filterBean.osmId,self.surveyTypeCode
       , function (response) {
         self.homeData = response;
         self.isDisabledHomeNo = false;

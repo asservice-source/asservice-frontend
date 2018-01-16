@@ -100,6 +100,10 @@ export class ApiHTTPService  implements OnInit {
             });
     }
 
+    public api_HomeListByHeader(documentId:string,villageId:string,osmId:string,headerTypeCode:string,callback: (doc: any) => void){
+        this.callResponse('home/home_list_by_headertype_code',{"documentId":documentId,"villageId":villageId,"osmId":osmId,"headerTypeCode":headerTypeCode},callback);
+    }
+
     public api_villageList(hospitalCode5: string, callback: (doc: any) => void) {
         this.callResponse('village/village_no_list_by_hospital', {"hospitalCode": hospitalCode5}, callback);
     }

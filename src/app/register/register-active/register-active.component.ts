@@ -44,7 +44,7 @@ export class RegisterActiveComponent extends BaseComponent implements OnInit {
           location.href = "/login";
         });
       }else{
-        self.message_error("","Token หมดอายุ",function(){
+        self.message_error("","Token ไม่ถูกต้อง",function(){
           location.href = "/register";
         })
       }
