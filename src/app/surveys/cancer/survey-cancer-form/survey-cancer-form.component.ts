@@ -39,6 +39,10 @@ export class SurveyCancerFormComponent extends BaseComponent implements OnInit, 
   public loading: boolean;
   public inputValidate: InputValidateInfo = new InputValidateInfo();
 
+  public latitude: string = "";
+  public longitude: string = "";
+  public info: string = "";
+
   constructor(private http: Http, private changeRef: ChangeDetectorRef) {
     super();
 
@@ -77,6 +81,12 @@ export class SurveyCancerFormComponent extends BaseComponent implements OnInit, 
       self.cancerbean.hInsuranceTypeId = "89";
       self.cancerbean.patientSurveyTypeCode = "Cancer"
       self.cancerbean.patientDate = self.getCurrentDatePickerModel();
+
+      self.cancerbean.latitude = "";
+      self.cancerbean.longitude = "";
+      self.info = "";
+    } else {
+      self.info = "บ้านของ " + self.cancerbean.fullName;
     }
     self.isFindPersonal = false;
     self.isShowForm = true;
@@ -261,7 +271,15 @@ export class SurveyCancerFormComponent extends BaseComponent implements OnInit, 
             self.loading = false;
           });
         }
-      })
+      });
     }
   }
+
+  onMapChange(event: any) {
+    if (event) {
+      this.cancerbean.latitude = event.lat;
+      this.cancerbean.longitude = event.lng;
+    }
+  }
+
 }

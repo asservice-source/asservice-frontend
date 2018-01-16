@@ -98,7 +98,6 @@
                         </div>
                     </div>
 
-
                     <div class="col-md-2 text-right">
                         <label class="label-form">สถานะการรักษา</label>
                     </div>
@@ -122,13 +121,17 @@
                     </div>
                 </div>
 
-
+                <div class="row">
+                    <div class="col-md-12">
+                        <app-maps [latitude]="cancerbean.latitude" [longitude]="cancerbean.longitude" [info]="info" [mode]="'edit'" [defaultAddress]="userInfo.address" (positionChanged)="onMapChange($event)"></app-maps>
+                    </div>
+                </div>
 
                 <div class="modal-footer">
                     <button class="btn btn-sm btn-primary" (click)="addSurvey()">ยืนยัน</button> &nbsp;&nbsp;
                     <button class="btn btn-sm btn-primary" (click)="onClickBack()">กลับ</button>
                 </div>
-                <!-- "cancerbean.cancerSurveyTypeCode == ''?true : false" -->
+                <!-- "cancerbean.cancerSurveyTypeCode == '' ? true : false" -->
             </div>
         </div>
 

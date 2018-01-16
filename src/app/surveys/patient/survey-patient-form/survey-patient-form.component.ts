@@ -38,6 +38,8 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
   public loading: boolean = false;
   public inputValidate: InputValidateInfo = new InputValidateInfo();
 
+  public info: string = "";
+
   constructor(private http: Http, private changeRef: ChangeDetectorRef) {
     super();
 
@@ -76,6 +78,10 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
       self.patientbean.patientTypeId = "";
       self.patientbean.diseaseStatusTypeId = "";
       self.patientbean.patientDate = self.getCurrentDatePickerModel();
+
+      self.info = "";
+    } else {
+      self.info = "บ้านของ " + self.patientbean.fullName;
     }
     self.isFindPersonal = false;
     self.isShowForm = true;
@@ -320,6 +326,13 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
           });
         }
       });
+    }
+  }
+
+  onMapChange(event: any) {
+    if (event) {
+      this.patientbean.latitude = event.lat;
+      this.patientbean.longitude = event.lng;
     }
   }
 
