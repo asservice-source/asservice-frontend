@@ -124,6 +124,9 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
     this.bean.homeTypeCode = "";
     this.onModalForm(this.ass_action.ADD);
   }
+  onAddWithoutOSM(){
+    
+  }
   onEdit(homeId: any){
     let _self = this;
     _self.loading = true;

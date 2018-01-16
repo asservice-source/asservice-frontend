@@ -144,7 +144,7 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
                }
 
               }else{
-                if(code5 != _self.getHospitalCode() || userRoleId == 2 || userRoleId == 3){
+                if(code5 != _self.getHospitalCode() || userRoleId == 3){
                   isNotChange = true;
                 }else{
                   isNotChange = false;
