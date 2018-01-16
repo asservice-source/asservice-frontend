@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HomeBean } from '../../../../beans/home.bean';
 import { BaseComponent } from '../../../../base-component';
@@ -14,28 +14,112 @@ declare var $:any;
 })
 export class ManagementHomeFormWithoutOSMComponent extends BaseComponent implements OnInit {
 
-  public bean: HomeBean;
+  @Input() bean: HomeBean;
   public action: string;
   public api: Service_Home;
   public settings: any;
   public source: LocalDataSource;
   public loading: boolean = false;
   public isStaff: boolean = false;
+  public homeList: Array<any>;
 
   constructor(private activatedRoute: ActivatedRoute, private route: Router, private changeRef: ChangeDetectorRef) { 
     super();
-    
-    this.bean = new HomeBean();
+
     this.api = new Service_Home();
     this.isStaff = this.isStaffRole(this.userInfo.roleId);
-
     this.settingColumn();
+    
   }
 
   ngOnInit() {
-    let _self = this;
+
+    this.bindModalForm();
+    this.$bindEvent();
   }
 
+  setupTable(){
+    console.log('xsetupTablex');
+    console.log(this.bean);
+    let _self = this;
+    _self.loading = true;
+      _self.api.getHomeWithoutOSM(_self.bean.villageId, function(response){
+        _self.loading = false;
+        _self.homeList = response;
+        //_self.source = _self.ng2STDatasource(response);
+        //_self.changeRef.detectChanges();
+      })
+  }
+  onSave(){
+
+    let options = $('#selectColumnList').find('option');
+    let strHome = '';
+    let idx = 0;
+    let homeIds: Array<any> = new Array<any>();
+    let dataObj = {"osmId": this.bean.osmId, "homeIds": homeIds};
+
+    for(let item of options){
+      homeIds.push(item.value);
+      idx++;
+      strHome += idx + '. ' + item.text + '<br>'
+      
+    }
+    if(homeIds.length <= 0){
+      this.message_error('','กรุณาเลือกอย่างน้อย 1 บ้านเลขที่');
+    }else{
+      this.message_comfirm('','ต้องการเพิ่มบ้านเลขที่ดังต่อไปนี่ ใช่หรือไม่ ? <br><b>'+strHome+'<b>', function(isConfirm){
+        console.log(dataObj);
+        if(isConfirm){
+  
+        }
+      });
+    }
+    
+  }
+  bindModalForm(){
+    console.log('bindModalForm');
+    let _self = this;
+    $('#modalFormHomeWithoutOSM').on('show.bs.modal', function(){
+      console.log('modalFormHomeWithoutOSM');
+      _self.setupTable();
+    });
+
+  }
+  $bindEvent(){
+    $('#addPop').click(function () {
+      $("#selectColumnList").removeClass("error");
+    $("#selectColumnListError").hide();
+    $("#comlumnListError").hide();
+       if ($('#comlumnList option:selected').val() != null) {
+           var tempSelect = $('#comlumnList option:selected').val();
+           $('#comlumnList option:selected').remove().appendTo('#selectColumnList');
+           $("#comlumnList").attr('selectedIndex', '-1').find("option:selected").removeAttr("selected");
+           $("#selectColumnList").attr('selectedIndex', '-1').find("option:selected").removeAttr("selected");
+           $("#selectColumnList").val(tempSelect);
+           tempSelect = '';
+          
+       } else {
+         $("#comlumnListError").show();
+       }
+   });
+
+   $('#removePop').click(function () {
+      $("#selectColumnListError").hide();
+      $("#comlumnListError").hide();
+       if ($('#selectColumnList option:selected').val() != null) {
+           var tempSelect = $('#selectColumnList option:selected').val();
+           $('#selectColumnList option:selected').remove().appendTo('#comlumnList');
+           $("#selectColumnList").attr('selectedIndex', '-1').find("option:selected").removeAttr("selected");
+           $("#comlumnList").attr('selectedIndex', '-1').find("option:selected").removeAttr("selected");
+         
+           $("#comlumnList").val(tempSelect);
+           tempSelect = '';
+          
+       } else {
+         $("#selectColumnListError").show();
+       }
+   });
+  }
   settingColumn(){
     let _self = this;
     this.settings = this.getTableSetting({
@@ -43,6 +127,10 @@ export class ManagementHomeFormWithoutOSMComponent extends BaseComponent impleme
         title: "บ้านเลขที่",
         filter: false,
         width: '100px'
+      },
+      holderFullName: {
+        title: "เจ้าบ้าน",
+        filter: false,
       }
     });
   }

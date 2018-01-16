@@ -6,13 +6,47 @@
           <h4 class="modal-title">เพิ่มบ้านเลขที่ จากบ้านเลขที่ที่ไม่มี อสม.</h4>
         </div>
         <div class="modal-body">
-          
+          <!-- <div class="row">
+            <div class="col-md-12">
+              <ng2-smart-table [settings]="settings" [source]="source" (rowSelect)="onRowSelect($event)"></ng2-smart-table>
+            </div>
+          </div> -->
+
+
+          <!-- Select column -->
+          <div class="row">  
+            <div class="col-md-5"><label  style="margin-left: 20px">บ้านเลขที่ ที่ไม่มี อสม.</label></div>
+            <div class="col-md-1"><label></label></div>
+            <div class="col-md-5"><label style="margin-left: 20px">บ้านเลขที่ที่จะเพิ่ม</label></div>
+          </div>
+          <div class="row">
+           
+            <div class="col-md-5">
+              <select id="comlumnList"  name="comlumnList"  multiple="multiple" style="height: 175px; margin: 0px 2px 0px 10px;">								
+                  <option *ngFor="let item of homeList" [value]="item.homeId" title="{{'เจ้าบ้าน นายสมาน การแพทย์'}}">บ้านเลขที่&nbsp;{{item.homeNo}}</option>
+              </select>
+              <label id="comlumnListError" class="error" for="comlumnList">กรุณาเลือกบ้านเลขที่</label>
+            </div>
+            <div class="col-md-1 text-center">
+            <br />
+            <br />
+            <br />
+              <a href="javascript:void(0);" id="addPop"><input style="margin-bottom: 5px;" type="button" class="btn-sm btn-primary" value=">"/></a><br>
+              <a href="javascript:void(0);" id="removePop"><input type="button" class="btn-sm btn-primary" value="<"/></a>
+            </div>
+            <div class="col-md-5">
+              <select id="selectColumnList" name="selectColumnList" multiple="multiple" style="height: 175px; margin: 0px 2px 0px 10px;">
+              </select>
+              <label id="selectColumnListError" class="error" hidden="hidden" for="selectColumnList">กรุณาเลือกบ้านเลขที่</label>
+            </div>
+          </div>
+            
         </div>
         <div class="modal-footer">
           
           <button type="button" class="btn btn-sm btn-primary" (click)="onSave()">ตกลง</button>
           &nbsp;
-          <button type="button" class="btn btn-sm btn-primary" (click)="onCancel()" data-dismiss="modal">ยกเลิก</button>
+          <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">ยกเลิก</button>
           
         </div>
       </div>

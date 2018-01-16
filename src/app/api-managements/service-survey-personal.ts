@@ -72,7 +72,18 @@ export class Service_SurveyPersonal extends ApiHTTPService {
             }
         });
     }
-
+    public getHistoryListMember(documentId: string, homeId: any, callback: (doc: any) => void) {
+        let path = "survey_population/homemember_by_documentid";
+        let parameter = { "documentId": documentId,"homeId": homeId};
+        let _self = this;
+        this.post(path, parameter, function(response){
+            if(response && response.status.toUpperCase()=='SUCCESS'){
+                callback(response.response);
+            }else{
+                _self.baseComponent.message_servNotRespond('', response.message);
+            }
+        });
+    }
     public getListHome(documentId: string, villageId: string, osmId: string, homeId: string, callback: (doc: any) => void) {
         let path = "survey_population/search_population_list";
         let parameter = { "documentId": documentId, "villageId": villageId, "osmId": osmId, "homeId": homeId };
