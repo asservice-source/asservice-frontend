@@ -125,7 +125,7 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
     this.onModalForm(this.ass_action.ADD);
   }
   onAddWithoutOSM(){
-    
+    $('#modalFormHomeWithoutOSM').modal();
   }
   onEdit(homeId: any){
     let _self = this;

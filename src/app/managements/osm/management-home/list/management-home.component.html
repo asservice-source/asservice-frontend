@@ -37,10 +37,10 @@
     <div class="row" style="margin-top: 10px;">
       <div class="col-md-11 text-center">
         <button id="filter-btnSearch" class="btn btn-primary btn-sm" id="btnSearch" (click)="onSearchFilter()">
-          <i class="fa fa-search">ค้นหา</i>
+          <i class="fa fa-search">&nbsp;ค้นหา</i>
         </button> &nbsp;&nbsp;
         <button id="filter-btnClear" class="btn btn-primary btn-sm" (click)="onClearFilter()">
-          <i class="fa fa-refresh">ล้างค่า</i>
+          <i class="fa fa-refresh">&nbsp;ล้างค่า</i>
         </button>
       </div>
     </div>
@@ -77,4 +77,5 @@
   </div>
 
 <app-management-home-form [bean]="bean" [action]="action" (success)="onComplete($event)"></app-management-home-form>
+<app-management-home-without-osm></app-management-home-without-osm>
 <ass-loading [show]="loading"></ass-loading>

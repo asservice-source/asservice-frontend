@@ -1,10 +1,22 @@
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <label *ngIf="isStaff"><a (click)="onBack();" >จัดการเจ้าหน้าที่ อสม.</a> <i class="fa fa-caret-right"></i> </label><label>จัดการเขตรับผิดชอบ อสม.</label>
+  <!-- Modal -->
+  <div class="modal fade" id="modalFormHomeWithoutOSM" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="false" data-keyboard="false">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">เพิ่มบ้านเลขที่ จากบ้านเลขที่ที่ไม่มี อสม.</h4>
+        </div>
+        <div class="modal-body">
+          
+        </div>
+        <div class="modal-footer">
+          
+          <button type="button" class="btn btn-sm btn-primary" (click)="onSave()">ตกลง</button>
+          &nbsp;
+          <button type="button" class="btn btn-sm btn-primary" (click)="onCancel()" data-dismiss="modal">ยกเลิก</button>
+          
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="panel-body">
-
-  </div> 
-</div>
 
 <ass-loading [show]="loading"></ass-loading>
