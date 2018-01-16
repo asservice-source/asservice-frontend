@@ -252,7 +252,7 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
 
     self.clearInputChild();
 
-    self.onChangeBornType();
+    self.onChangeBornType(false);
 
     self.isModeEditOrDelete(self.pregnantBean.isEditOrDelete);
 
@@ -285,13 +285,18 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
     self.validateSave = new InputValidateInfo();
   }
 
-  onChangeBornType() {
+  onChangeBornType(isClearData: boolean) {
     let self = this;
 
     if (self.pregnantBean.bornTypeId == self.bornTypeAbort) {
       self.isHiddenBornTypeAbort = false;
     } else {
       self.isHiddenBornTypeAbort = true;
+    }
+
+    if (isClearData) {
+      self.clearListChild();
+      self.bindChildList();
     }
   }
 

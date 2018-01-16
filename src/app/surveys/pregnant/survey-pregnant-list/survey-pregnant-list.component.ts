@@ -1,11 +1,10 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, Input, EventEmitter, Output } from '@angular/core';
 import { Http, Response, RequestOptions } from "@angular/http";
 import { Router } from "@angular/router";
 import { FilterHeadSurveyBean } from '../../../beans/filter-head-survey.bean';
 import { BaseComponent } from "./../../../base-component";
 import { PersonBean } from "../../../beans/person.bean";
-import { ActionCustomViewMapsComponent } from '../../../action-custom-table/action-custom-view.component';
-import { LocalDataSource } from 'ng2-smart-table';
+import { LocalDataSource, ViewCell } from 'ng2-smart-table';
 import { PregnantBean } from '../../../beans/pregnant.bean'
 import { Service_SurveyPregnant } from '../../../api-managements/service-survey-pregnant';
 import { CompileMetadataResolver } from '@angular/compiler';
@@ -135,7 +134,7 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
         sort: false,
         width: '120px',
         type: 'custom',
-        renderComponent: ActionCustomViewMapsComponent,
+        renderComponent: SurveyPregnantListButtonEditComponent,
         onComponentInitFunction(instance) {
 
           instance.action.subscribe((row: PregnantBean, cell) => {
@@ -297,4 +296,45 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
     $("#filter-btnSearch").click();
   }
 
+}
+
+@Component({
+  template: '<div style="width:100%; text-align: center;" >'
+    + '<a (click)="onMaps()" title="แผนที่" class="cell-action glyphicon glyphicon-road"></a>&nbsp;&nbsp;'
+    + '<a (click)="onEdit()" title="แก้ไข" class="cell-action glyphicon glyphicon-edit"></a>&nbsp;&nbsp;'
+    + '<a *ngIf="rowData.isEditOrDelete == true" (click)="onDelete()" title="ลบ" class="cell-action glyphicon glyphicon-trash"></a></div>'
+})
+export class SurveyPregnantListButtonEditComponent implements ViewCell, OnInit {
+  renderValue: string;
+
+  @Input() value: string | number;
+  @Input() rowData: any;
+  @Output() maps: EventEmitter<any> = new EventEmitter();
+  @Output() edit: EventEmitter<any> = new EventEmitter();
+  @Output() delete: EventEmitter<any> = new EventEmitter();
+  @Output() action: EventEmitter<any> = new EventEmitter();
+
+  ngOnInit() {
+    this.renderValue = this.value.toString();
+  }
+
+  onMaps() {
+    this.maps.emit(this.rowData);
+    this.doEmit('maps');
+  }
+
+  onEdit() {
+    this.edit.emit(this.rowData);
+    this.doEmit('edit');
+  }
+
+  onDelete() {
+    this.delete.emit(this.rowData);
+    this.doEmit('delete');
+  }
+
+  doEmit(atrAction) {
+    this.rowData.action = atrAction;
+    this.action.emit(this.rowData);
+  }
 }

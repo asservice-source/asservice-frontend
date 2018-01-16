@@ -26,7 +26,7 @@ import { ContentComponent } from './content/content.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register/register.component';
-import { SurveyPregnantListComponent } from './surveys/pregnant/survey-pregnant-list/survey-pregnant-list.component';
+import { SurveyPregnantListComponent, SurveyPregnantListButtonEditComponent } from './surveys/pregnant/survey-pregnant-list/survey-pregnant-list.component';
 import { SurveyPregnantFormComponent } from './surveys/pregnant/survey-pregnant-form/survey-pregnant-form.component';
 import { SurverDiedListComponent } from './surveys/died/survey-died-list/survey-died-list.component';
 import { SurveyDiedFormComponent } from './surveys/died/survey-died-form/survey-died-form.component';
@@ -90,6 +90,7 @@ import { MultiMapsComponent } from './multi-maps/multi-maps.component';
     FilterHeadSurveyComponent,
     FilterPersonalComponent,
     SurveyPregnantListComponent,
+    SurveyPregnantListButtonEditComponent,
     SurveyPregnantFormComponent,
     SurverDiedListComponent,
     SurveyPatientListComponent,
@@ -151,7 +152,8 @@ import { MultiMapsComponent } from './multi-maps/multi-maps.component';
     SurveyPersonalMemberListButtonEditComponent,
     SelectHomeListButton,
     ViewChildTableHomeManagement,
-    FilterFindPersonButtonChooseComponent
+    FilterFindPersonButtonChooseComponent,
+    SurveyPregnantListButtonEditComponent
   ],
   providers: [LoadingConfigService, UserService, TestService],
   bootstrap: [AppComponent]

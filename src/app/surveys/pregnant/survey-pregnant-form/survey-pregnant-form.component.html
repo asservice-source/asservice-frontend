@@ -121,7 +121,7 @@
                     </div>
                     <div class="col-md-3">
                         <div [InputValidate]="validateSave">
-                            <select [disabled]="isHiddenEditChild" [(ngModel)]="pregnantBean.bornTypeId" (change)="onChangeBornType();">
+                            <select [disabled]="isHiddenEditChild" [(ngModel)]="pregnantBean.bornTypeId" (change)="onChangeBornType(true);">
                                 <option value="">--เลือก วิธีคลอด--</option>
                                 <option *ngFor="let item of listBornType" [value]="item.id">{{item.name}}</option>
                             </select>
