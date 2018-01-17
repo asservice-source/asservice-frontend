@@ -1,0 +1,103 @@
+<div class="panel panel-default">
+    <div class="panel-heading">ประวัติการสำรวจข้อมูลบุคคล</div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="box-body">
+                <dl class="dl-horizontal">
+                    <dt>รอบสำรวจ : </dt>
+                    <dd>{{ roundName }}</dd>
+                    <dt>ที่อยู่ : </dt>
+                    <dd>{{ homeInfo.address }}</dd>
+                    <dt>เบอร์โทรศัพท์ : </dt>
+                    <dd>{{ homeInfo.telephone }}</dd>
+                    <dt>อสม. : </dt>
+                    <dd>{{ homeInfo.osmFullName }}</dd>
+                </dl>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-12">
+                <div class="filter-discription">ส่วนที่ 1 มีชื่อในสำเนาทะเบียนบ้านจริง</div>
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ลำดับ</th>
+                            <th>ชื่อ - นามสกุล</th>
+                            <th>เลขประจำตัวประชาชน</th>
+                            <th>วันเกิด</th>
+                            <th>การศึกษา</th>
+                            <th>อาชีพ</th>
+                            <th>โรคประจำตัว</th>
+                            <th>ความสำพันธ์</th>
+                            <th>สถานะการอยู่</th>
+                            <th>หมายเหตุ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <ng-container *ngFor="let item of memberList; let id=index;">
+                        <tr>
+                            <td>{{(id+1)}}</td>
+                            <td>{{item.fullName}}</td>
+                            <td>{{item.citizenId}}</td>
+                            <td>{{item.birthDate}}</td>
+                            <td>{{item.educationName}}</td>
+                            <td>{{item.occupationName}}</td>
+                            <td>{{item.congenitalDisease}}</td>
+                            <td>{{item.familyStatusName}}</td>
+                            <td>{{item.isExists?'อยู่จริง':'ไม่อยู่จริง'}}</td>
+                            <td>{{item.remark}}</td>
+                        </tr>
+                    </ng-container>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-12">
+                <div class="filter-discription">ส่วนที่ 2 ไม่มีชื่อในทะเบียนบ้าน แต่ตัวอยู่จริง</div>
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ลำดับ</th>
+                            <th>ชื่อ - นามสกุล</th>
+                            <th>เลขประจำตัวประชาชน</th>
+                            <th>วันเกิด</th>
+                            <th>การศึกษา</th>
+                            <th>อาชีพ</th>
+                            <th>โรคประจำตัว</th>
+                            <th>ความสำพันธ์</th>
+                            <th>สถานะการอยู่</th>
+                            <th>หมายเหตุ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <ng-container *ngFor="let item of guestList; let id=index;">
+                        <tr>
+                            <td>{{(id+1)}}</td>
+                            <td>{{item.fullName}}</td>
+                            <td>{{item.citizenId}}</td>
+                            <td>{{item.birthDate}}</td>
+                            <td>{{item.educationName}}</td>
+                            <td>{{item.occupationName}}</td>
+                            <td>{{item.congenitalDisease}}</td>
+                            <td>{{item.familyStatusName}}</td>
+                            <td>{{item.isExists?'อยู่จริง':'ไม่อยู่จริง'}}</td>
+                            <td>{{item.remark}}</td>
+                        </tr>
+                    </ng-container>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="panel-footer">
+        <button type="button" class="btn btn-primary btn-sm" (click)="onClose()">ปิด</button>
+    </div>
+</div>
+
+<ass-loading [show]="loading"></ass-loading>
+    

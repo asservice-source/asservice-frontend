@@ -83,12 +83,8 @@ export class InputValidateDirective{
                     cTime = cDate.getTime();
                     time = date.getTime();
                 }
-               
-                console.log(time);
-                console.log(cTime);
-                
+ 
                 if(cTime - time < 0){
-                    console.log(cTime - time);
                     this.InputValidate.isPassed = false;
                     this.renderer.setElementStyle(el_label,'display','block');
                     this.renderer2.addClass(el_input, 'error-input');

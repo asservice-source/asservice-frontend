@@ -24,6 +24,7 @@ import { RegisterActiveComponent } from './../register/register-active/register-
 import { ManagementHomeComponent } from "./../managements/osm/management-home/list/management-home.component";
 import { ManagementHomeMemberComponent } from "./../managements/osm/management-home-member/list/management-home-member.component";
 import { GuardPermissionService } from '../service/guard.permission.service';
+import { SurveyPersonalHistoryComponent } from '../surveys/personal/survey-personal-history/survey-personal-history.component';
 
 @NgModule({
   imports: [
@@ -135,6 +136,14 @@ import { GuardPermissionService } from '../service/guard.permission.service';
           ]
         }
         ]
+      }
+      ,
+      {
+        path: 'history/surveys',
+        children: [{
+          path: 'personal/:homeId/:roundId',
+          component: SurveyPersonalHistoryComponent
+        }]
       }
       ,
       {

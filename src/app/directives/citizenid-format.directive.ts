@@ -27,17 +27,14 @@ export class CitizenIdFormatDirective{
     @HostListener('paste', ['$event']) onPaste($event) {
         let _self = this;
         let event = $event;
-        setTimeout(function(){ 
+        setTimeout(function(){
           if(event.target.value){
             let value = event.target.value;
             value = value.replace(/[^0-9\.]+/g, '');
-            if(_self.maxlength){
-              if(value.length>_self.maxlength){
-                value = value.substr(0,_self.maxlength-1);
-              }
+            if(value.length> 13){
+                value = value.substr(0, 12);
             }
             event.target.value = _self.formatCitizenId(value);
-           // _self.keypressInputCitizenID($event);
           }
         }, 50);
     }
@@ -60,7 +57,6 @@ export class CitizenIdFormatDirective{
             }
         }
     }
-
     keypressInputCitizenID(event: any) {
         let value = event.target.value;
         let self = this;

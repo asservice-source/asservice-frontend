@@ -240,6 +240,7 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
     this.oldCitizenId = this.bean.citizenId;
     this.inputValidate = new InputValidateInfo();
     this.inputValidate.isCheck = true;
+    this.bean.citizenId = this.pastCitizenId(this.bean.citizenId);
     if(this.isValidCitizenIdThailand(this.bean.citizenId)){
       this.inputValidate = new InputValidateInfo();
       let _self = this;
@@ -325,10 +326,12 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
       let fildsCheck = ['citizenId', 'firstName', 'lastName', 'prefixCode', 'genderId', 'raceCode', 'nationCode', 'religionCode', 'birthDate', 'educationCode', 'occupCode', 'familyStatusId', 'isGuest'];
       if(this.bean.isGuest){
         fildsCheck.push('homeNo','mooNo','tumbolCode','amphurCode','provinceCode');
-      }else{
-        // Home Address  Added to Personal Address 
+        this.inputValidateAddress = new InputValidateInfo();
         this.inputValidateAddress.isCheck = true;
         this.changeRef.detectChanges();
+      }else{
+        // Home Address  Added to Personal Address 
+        
         this.bean.homeNo = this.address.homeNo;
         this.bean.mooNo = this.address.mooNo;
         this.bean.road = this.address.road;
@@ -344,6 +347,7 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
         fildsCheck.push('dischargeDate');
       }
       let objsEmpty: Array<string> = simpValidate.getObjectEmpty_byFilds(this.api.map(this.bean), fildsCheck);
+      console.log(objsEmpty);
       if(objsEmpty.indexOf('isGuest')>=0){
         $('#is-guest-error').show();
       }

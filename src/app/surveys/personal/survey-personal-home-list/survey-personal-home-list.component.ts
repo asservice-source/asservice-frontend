@@ -22,7 +22,7 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
   public homeBean: HomeBean = new HomeBean();
   public paramHome: PersonalHomeBean = new PersonalHomeBean();
   public currentRoundId: string;
-  public filterBean: any;
+  public filterBean: FilterBean;
   public settings: any;
   public source: LocalDataSource;
   public isShowTable: boolean = false;
@@ -101,7 +101,7 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
               let roundId = self.currentRoundId;
               self.router.navigate(['/main/surveys/personal-detail', homeId, roundId]);
             }else{
-              alert('ประวัติ');
+              self.onHistory(row.homeId);
             }
           });
         }
@@ -124,6 +124,10 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
     }
    console.log(this.filterBean);
     this.bindHomeList(event);
+  }
+
+  onHistory(homeId: any){
+    window.open('history/surveys/personal/'+homeId+'/'+(this.filterBean.roundId)+'/', '_blank');
   }
 
   bindHomeList(event: FilterBean) {

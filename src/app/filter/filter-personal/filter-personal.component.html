@@ -1,6 +1,5 @@
 <div class="row">
-  <div class="col-md-1"></div>
-  <div class="col-md-1 text-right">
+  <div class="col-md-2 text-right">
     <label class="label-form">รอบสำรวจ</label>
   </div>
   <div class="col-md-4">
@@ -8,7 +7,7 @@
       <option *ngFor="let item of listRound" [value]="item.rowGUID">{{ item.round }}</option>
     </select>
   </div>
-  <div class="col-md-1 text-right">
+  <div class="col-md-1 text-right" style="padding-left: 0">
     <label class="label-form">หมู่บ้าน</label>
   </div>
   <div class="col-md-4">
@@ -21,8 +20,7 @@
 </div>
 
 <div class="row">
-  <div class="col-md-1"></div>
-  <div class="col-md-1 text-right">
+  <div class="col-md-2 text-right">
     <label class="label-form">ชื่อ อสม.</label>
   </div>
   <div class="col-md-4">
@@ -32,7 +30,7 @@
     </select>
     <input *ngIf="!isStaff" value="{{userInfo.fullName}}" disabled>
   </div>
-  <div class="col-md-1 text-right">
+  <div class="col-md-1 text-right" style="padding-left: 0">
     <label class="label-form">บ้านเลขที่</label>
   </div>
   <div class="col-md-4">
@@ -44,8 +42,7 @@
 </div>
 
 <div class="row">
-  <div class="col-md-1"></div>
-  <div class="col-md-1 text-right">
+  <div class="col-md-2 text-right">
     <label class="label-form">สถานะ</label>
   </div>
   <div class="col-md-4">

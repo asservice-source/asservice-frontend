@@ -486,4 +486,17 @@ export class BaseComponent implements OnInit {
         }
         return false;
     }
+
+    pastCitizenId(citizenId: any): string{
+        if(citizenId){
+            citizenId = citizenId.replace(/[^0-9\.]+/g, '');
+            
+            if(citizenId.length > 13){
+                citizenId = citizenId.substr(0, 12);
+              
+            }
+            citizenId = this.formatCitizenId(citizenId);
+          }
+          return citizenId;
+    }
 }

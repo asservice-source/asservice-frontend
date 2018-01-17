@@ -71,6 +71,7 @@ import { NguiMapModule } from '@ngui/map';
 import { MapsComponent } from './maps/maps.component';
 import { MultiMapsComponent } from './multi-maps/multi-maps.component';
 import { ManagementHomeFormWithoutOSMComponent } from './managements/osm/management-home/form-without-osm/management-home-without-osm.component';
+import { SurveyPersonalHistoryComponent } from './surveys/personal/survey-personal-history/survey-personal-history.component';
 
 @NgModule({
   declarations: [
@@ -131,7 +132,8 @@ import { ManagementHomeFormWithoutOSMComponent } from './managements/osm/managem
     CitizenIdFormatDirective,
     MapsComponent,
     MultiMapsComponent,
-    ManagementHomeFormWithoutOSMComponent
+    ManagementHomeFormWithoutOSMComponent,
+    SurveyPersonalHistoryComponent
   ],
   imports: [
     BrowserModule,
