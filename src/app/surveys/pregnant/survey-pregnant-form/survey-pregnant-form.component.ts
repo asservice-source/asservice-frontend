@@ -552,6 +552,8 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
     let self = this;
 
     self.hospitalName = "";
+    self.validateHospital = new InputValidateInfo();
+
     $("#modalHospital").modal("show");
   }
 
@@ -710,7 +712,7 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
         }
       },
       weight: {
-        title: 'น้ำหนัก',
+        title: 'น้ำหนัก (กรัม)',
         width: '50px',
         filter: false,
         type: 'html',

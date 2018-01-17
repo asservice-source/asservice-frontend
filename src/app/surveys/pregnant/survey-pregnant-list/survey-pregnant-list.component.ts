@@ -300,9 +300,9 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
 
 @Component({
   template: '<div style="width:100%; text-align: center;" >'
-    + '<a (click)="onMaps()" title="แผนที่" class="cell-action glyphicon glyphicon-road"></a>&nbsp;&nbsp;'
+    + '<a (click)="onMaps()" title="แผนที่" class="cell-action"><img src="../../../../assets/img/ic_map.png" width="15" style="margin-top: -7px;" /></a>&nbsp;&nbsp;'
     + '<a (click)="onEdit()" title="แก้ไข" class="cell-action glyphicon glyphicon-edit"></a>&nbsp;&nbsp;'
-    + '<a *ngIf="rowData.isEditOrDelete == true" (click)="onDelete()" title="ลบ" class="cell-action glyphicon glyphicon-trash"></a></div>'
+    + '<a *ngIf="(rowData.isEditOrDelete == true)" (click)="onDelete()" title="ลบ" class="cell-action glyphicon glyphicon-trash"></a></div>'
 })
 export class SurveyPregnantListButtonEditComponent implements ViewCell, OnInit {
   renderValue: string;
