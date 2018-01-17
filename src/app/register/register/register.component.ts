@@ -178,7 +178,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
                   if(resp.response){
                     if(resp.response.isDead){
                       self.message_error('','หมายเลขประจำตัวประชาชนนี้ไม่อยู่ในสถานะที่จะทำรายการได้');
-                    }else if(resp.response.birthDate && self.getAge(resp.response.birthDate) <= 18){
+                    }else if(resp.response.birthDate && self.getAge(resp.response.birthDate) < 18){
                       self.message_error('','หมายเลขประจำตัวประชาชนนี้อายุต่ำกว่า 18 ปี');
                     }else{
                     self.saveRegister();
