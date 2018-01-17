@@ -51,15 +51,15 @@ export class ManagementHomeFormWithoutOSMComponent extends BaseComponent impleme
       })
   }
   onSave(){
-
+    let _self = this;
     let options = $('#selectColumnList').find('option');
     let strHome = '';
     let idx = 0;
     let homeIds: Array<any> = new Array<any>();
-    let dataObj = {"osmId": this.bean.osmId, "homeIds": homeIds};
+    let dataObj = {"osmId": this.bean.osmId, "list": homeIds};
 
     for(let item of options){
-      homeIds.push(item.value);
+      homeIds.push({"id":item.value});
       idx++;
       strHome += idx + '. ' + item.text + '<br>'
       
@@ -70,7 +70,9 @@ export class ManagementHomeFormWithoutOSMComponent extends BaseComponent impleme
       this.message_comfirm('','ต้องการเพิ่มบ้านเลขที่ดังต่อไปนี่ ใช่หรือไม่ ? <br><b>'+strHome+'<b>', function(isConfirm){
         console.log(dataObj);
         if(isConfirm){
-  
+          _self.api.commit_UpdateOSMHomes(dataObj, function(resp){
+            console.log(resp);
+          });
         }
       });
     }
