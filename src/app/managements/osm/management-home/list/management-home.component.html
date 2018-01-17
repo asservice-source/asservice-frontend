@@ -81,5 +81,5 @@
   </div>
 
 <app-management-home-form [bean]="bean" [action]="action" (success)="onComplete($event)"></app-management-home-form>
-<app-management-home-without-osm [bean]="bean"></app-management-home-without-osm>
+<app-management-home-without-osm [bean]="bean" (completed)="onUpdateOSMHome($event)"></app-management-home-without-osm>
 <ass-loading [show]="loading"></ass-loading>
