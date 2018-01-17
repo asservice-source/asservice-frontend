@@ -77,6 +77,7 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
   public error_message_wombNo: string = "กรุณาระบุ ครรภ์ที่";
   public error_message_bornDueDate: string = "กรุณาระบุ กำหนดคลอด";
   public error_message_bornDate: string = "กรุณาระบุ วันที่คลอด";
+  public error_message_hospitalName: string = "กรุณาระบุ ชื่อโรงพยาบาล";
 
   constructor(private changeRef: ChangeDetectorRef) {
     super();
@@ -560,20 +561,31 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
     self.validateHospital = new InputValidateInfo();
     self.validateHospital.isCheck = true;
 
-    if (self.isEmpty(self.hospitalName)) {
-      return;
-    }
-
     self.loading = true;
 
     let params = { "id": "0", "name": self.hospitalName, "hospitalCode": self.getHospitalCode() };
 
     self.apiHttp.post('survey/ins_upd_born_location', params, function (d) {
+      self.loading = false;
+      
+      if (self.isEmpty(self.hospitalName)) {
+        self.error_message_hospitalName = "กรุณาระบุ ชื่อโรงพยาบาล";
+        self.validateHospital = new InputValidateInfo();
+        self.validateHospital.isCheck = true;
+        self.validateHospital.isShowError = true;
+        return;
+      }
+
       if (d && d.status.toUpperCase() == "SUCCESS") {
         self.bindBornLocation();
         $("#modalHospital").modal("hide");
+      } else {
+        self.error_message_hospitalName = "ชื่อโรงพยาบาลซ้ำ";
+        self.validateHospital = new InputValidateInfo();
+        self.validateHospital.isCheck = true;
+        self.validateHospital.isShowError = true;
+        return;
       }
-      self.loading = false;
     });
   }
 

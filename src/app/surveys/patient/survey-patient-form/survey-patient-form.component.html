@@ -1,5 +1,5 @@
 <div id="find-person-md" class="modal fade" role="dialog" data-backdrop="false" data-keyboard="false">
-    <div class="modal-lg modal-dialog">
+    <div class="modal-xlg modal-dialog">
 
         <!-- Modal content-->
         <div class="modal-content">
@@ -10,7 +10,8 @@
                 [documentId]="documentId"></app-filter-find-person>
 
             <div *ngIf="isShowForm">
-                <div class="row">
+                <div class="modal-body">
+                    <!-- <div class="row"> -->
                     <div class="col-md-12">
                         <div class="panel-body">
                             <div class="panel panel-default" style="margin-bottom: inherit;">
@@ -33,260 +34,306 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                    <!-- </div> -->
 
-                <!-- <hr style=" margin-top: 0px"> -->
-
-                <div class="row">
-                    <div class="col-md-4 text-right">
-                        <label class="label-form">ประเภท</label>
-                    </div>
-                    <div class="col-md-4">
-                        <select [(ngModel)]="patientbean.patientSurveyTypeCode" (change)="onChangePatientSyurvey();">
-                            <option value="">--เลือกประเภท--</option>
-                            <ng-container *ngFor="let item of surveyStatusTypeList">
-                                <option value="{{item.code}}" *ngIf="item.code !='Cancer'">{{item.name}}</option>
-                            </ng-container>
-                        </select>
-                    </div>
-                </div>
-
-                <!-- ป่วย -->
-                <div *ngIf="patientbean.patientSurveyTypeCode == 'Patient'">
-                    <div class="row">
-                        <div class="col-md-2 text-right">
-                            <label class="label-form">ระบุโรค/อาการ</label>
-                        </div>
-                        <div class="col-md-3">
-                            <div [InputValidate]="inputValidate">
-                                <input type="text" [(ngModel)]="patientbean.remark" maxlength="255">
-                                <label class="error">กรุณาระบุอาการป่วย</label>
-                            </div>
-                        </div>
-
-                        <div class="col-md-2 text-right">
-                            <label class="label-form">ประเภทผู้ป่วย</label>
-                        </div>
-                        <div class="col-md-3">
-                            <div [InputValidate]="inputValidate">
-                                <select [(ngModel)]="patientbean.patientTypeId">
-                                    <option value="">--เลือกประเภท--</option>
-                                    <option *ngFor="let item of patientTypeList" value="{{item.id}}">{{item.name}}</option>
-                                </select>
-                                <label class="error">กรุณาเลือกประเภท</label>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="row" style="padding-bottom: 0px">
-                        <div class="col-md-2 text-right">
-                            <label class="label-form">สิทธิบัตร</label>
-                        </div>
-                        <div class="col-md-3">
-                            <div [InputValidate]="inputValidate">
-                                <select [(ngModel)]="patientbean.hInsuranceTypeId">
-                                    <option value="">--เลือก--</option>
-                                    <option *ngFor="let item of healtInsuranceTypeList" value="{{item.id}}">{{item.code}}</option>
-                                </select>
-                                <label class="error">กรุณาเลือกสิทธิบัตร</label>
-                            </div>
-                        </div>
-                        <div class="col-md-2 text-right">
-                            <label class="label-form">วันที่ป่วย</label>
-                        </div>
-
-                        <div class="col-md-3">
-                            <div [InputValidate]="inputValidate" BirthDate="BirthDate">
-                                <my-date-picker [options]="datePickerOptions" [(ngModel)]="patientbean.patientDate" required></my-date-picker>
-                                <label style="margin-top:-5px" class="error">กรุณาใส่วันที่ให้ถูกต้อง</label>
-                            </div>
-                        </div>
-                    </div>
+                    <!-- <hr style=" margin-top: 0px"> -->
 
                     <div class="row">
-                        <div class="col-md-2 text-right">
-                            <label class="label-form">สถานที่รักษา</label>
-                        </div>
-                        <div class="col-md-3">
-                            <div [InputValidate]="inputValidate">
-                                <input type="text" [(ngModel)]="patientbean.treatmentPlace" maxlength="255">
-                                <label class="error">กรุณาเลือกสถานที่รักษา</label>
-                            </div>
-                        </div>
-
-                        <div class="col-md-2 text-right">
-                            <label class="label-form">สถานะการรักษา</label>
-                        </div>
-                        <div class="col-md-3">
-                            <div [InputValidate]="inputValidate">
-                                <select [(ngModel)]="patientbean.diseaseStatusTypeId">
-                                    <option value="">--เลือกประเภท--</option>
-                                    <option *ngFor="let item of diseaseStatusTypeList" value="{{item.id}}">{{item.name}}</option>
-                                </select>
-                                <label class="error">กรุณาเลือกสถานะการรักษา</label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-2 text-right">
-                            <label class="label-form">เบอร์โทรศัพท์</label>
-                        </div>
-                        <div class="col-md-3">
-                            <div [InputValidate]="inputValidate">
-                                <input type="text" [(ngModel)]="patientbean.telephone" maxlength="50">
-                                <label class="error">กรุณาใส่เบอร์โทรศัพท์</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- พิการ -->
-                <div *ngIf="patientbean.patientSurveyTypeCode == 'Disabled'">
-                    <div class="row">
-                        <div class="col-md-2 text-right">
-                            <label class="label-form">ประเภทพิการ</label>
+                        <div class="col-md-4 text-right">
+                            <label class="label-form">ประเภท</label>
                         </div>
                         <div class="col-md-4">
-                            <div [InputValidate]="inputValidate">
-                                <select [(ngModel)]="patientbean.disabilityTypeId">
-                                    <option value="">--เลือกประเภท--</option>
-                                    <option *ngFor="let item of disabilityTypeList" value="{{item.id}}">{{item.name}}</option>
-                                </select>
-                                <label class="error">กรุณาเลือกประเภทความพิการ</label>
-                            </div>
+                            <select [(ngModel)]="patientbean.patientSurveyTypeCode" (change)="onChangePatientSyurvey();">
+                                <option value="">--เลือกประเภท--</option>
+                                <ng-container *ngFor="let item of surveyStatusTypeList">
+                                    <option value="{{item.code}}" *ngIf="item.code !='Cancer'">{{item.name}}</option>
+                                </ng-container>
+                            </select>
                         </div>
+                    </div>
 
-                        <div class="col-md-1 text-right">
-                            <label class="label-form">สาเหตุ</label>
-                        </div>
-                        <div class="col-md-3">
-                            <div [InputValidate]="inputValidate">
-                                <select [(ngModel)]="patientbean.disabilityCauseTypeId">
-                                    <option value="">--เลือกประเภท--</option>
-                                    <option *ngFor="let item of disabilityTypeCause" value="{{item.id}}">{{item.name}}</option>
-                                </select>
-                                <label class="error">กรุณาเลือกสาเหตุความพิการ</label>
+                    <!-- ป่วย -->
+                    <div *ngIf="patientbean.patientSurveyTypeCode == 'Patient'">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-4 text-right">
+                                        <label class="label-form">ระบุโรค/อาการ</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div [InputValidate]="inputValidate">
+                                            <input type="text" [(ngModel)]="patientbean.remark" maxlength="255">
+                                            <label class="error">กรุณาระบุอาการป่วย</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4 text-right">
+                                        <label class="label-form">ประเภทผู้ป่วย</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div [InputValidate]="inputValidate">
+                                            <select [(ngModel)]="patientbean.patientTypeId">
+                                                <option value="">--เลือกประเภท--</option>
+                                                <option *ngFor="let item of patientTypeList" value="{{item.id}}">{{item.name}}</option>
+                                            </select>
+                                            <label class="error">กรุณาเลือกประเภท</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-md-4 text-right">
+                                        <label class="label-form">สิทธิบัตร</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div [InputValidate]="inputValidate">
+                                            <select [(ngModel)]="patientbean.hInsuranceTypeId">
+                                                <option value="">--เลือก--</option>
+                                                <option *ngFor="let item of healtInsuranceTypeList" value="{{item.id}}">{{item.code}}</option>
+                                            </select>
+                                            <label class="error">กรุณาเลือกสิทธิบัตร</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="padding-bottom: 0px">
+                                    <div class="col-md-4 text-right">
+                                        <label class="label-form">วันที่ป่วย</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div [InputValidate]="inputValidate" BirthDate="BirthDate">
+                                            <my-date-picker [options]="datePickerOptions" [(ngModel)]="patientbean.patientDate" required></my-date-picker>
+                                            <label style="margin-top:-5px" class="error">กรุณาใส่วันที่ให้ถูกต้อง</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-4 text-right">
+                                        <label class="label-form">สถานที่รักษา</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div [InputValidate]="inputValidate">
+                                            <input type="text" [(ngModel)]="patientbean.treatmentPlace" maxlength="255">
+                                            <label class="error">กรุณาเลือกสถานที่รักษา</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4 text-right">
+                                        <label class="label-form">สถานะการรักษา</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div [InputValidate]="inputValidate">
+                                            <select [(ngModel)]="patientbean.diseaseStatusTypeId">
+                                                <option value="">--เลือกประเภท--</option>
+                                                <option *ngFor="let item of diseaseStatusTypeList" value="{{item.id}}">{{item.name}}</option>
+                                            </select>
+                                            <label class="error">กรุณาเลือกสถานะการรักษา</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-4 text-right">
+                                        <label class="label-form">เบอร์โทรศัพท์</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div [InputValidate]="inputValidate">
+                                            <input type="text" [(ngModel)]="patientbean.telephone" maxlength="50">
+                                            <label class="error">กรุณาใส่เบอร์โทรศัพท์</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4 text-right">
+                                        <label class="label-form">Latitude</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" [(ngModel)]="patientbean.latitude" placeholder="Latitude" maxlength="50" disabled>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4 text-right">
+                                        <label class="label-form">Longitude</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" [(ngModel)]="patientbean.longitude" placeholder="Longitude" maxlength="50" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 text-center">
+                                <app-maps [latitude]="patientbean.latitude" [longitude]="patientbean.longitude" [info]="info" [mode]="'edit'" [defaultAddress]="userInfo.address"
+                                    (positionChanged)="onMapChange($event)"></app-maps>
                             </div>
                         </div>
                     </div>
+                    <!-- พิการ -->
+                    <div *ngIf="patientbean.patientSurveyTypeCode == 'Disabled'">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-4 text-right">
+                                        <label class="label-form">ประเภทพิการ</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div [InputValidate]="inputValidate">
+                                            <select [(ngModel)]="patientbean.disabilityTypeId">
+                                                <option value="">--เลือกประเภท--</option>
+                                                <option *ngFor="let item of disabilityTypeList" value="{{item.id}}">{{item.name}}</option>
+                                            </select>
+                                            <label class="error">กรุณาเลือกประเภทความพิการ</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4 text-right">
+                                        <label class="label-form">สาเหตุ</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div [InputValidate]="inputValidate">
+                                            <select [(ngModel)]="patientbean.disabilityCauseTypeId">
+                                                <option value="">--เลือกประเภท--</option>
+                                                <option *ngFor="let item of disabilityTypeCause" value="{{item.id}}">{{item.name}}</option>
+                                            </select>
+                                            <label class="error">กรุณาเลือกสาเหตุความพิการ</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4 text-right">
+                                        <label class="label-form">ระบุโรค/อาการ</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div [InputValidate]="inputValidate">
+                                            <input type="text" [(ngModel)]="patientbean.remark" maxlength="255">
+                                            <label class="error">กรุณาใส่โรค/อาการ</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4 text-right">
+                                        <label class="label-form">ประเภทผู้ป่วย</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div [InputValidate]="inputValidate">
+                                            <select [(ngModel)]="patientbean.patientTypeId">
+                                                <option value="">--เลือกประเภท--</option>
+                                                <option *ngFor="let item of patientTypeList" value="{{item.id}}">{{item.name}}</option>
+                                            </select>
+                                            <label class="error">กรุณาเลือกประเภท</label>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row" style="padding-bottom: 0px">
+                                    <div class="col-md-4 text-right">
+                                        <label class="label-form">สิทธิบัตร</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div [InputValidate]="inputValidate">
+                                            <select [(ngModel)]="patientbean.hInsuranceTypeId">
+                                                <option value="">--เลือก--</option>
+                                                <option *ngFor="let item of healtInsuranceTypeList" value="{{item.id}}">{{item.code}}</option>
+                                            </select>
+                                            <label class="error">กรุณาเลือกสิทธิบัตร</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4 text-right">
+                                        <label class="label-form">วันที่พิการ</label>
+                                    </div>
+
+                                    <div class="col-md-8">
+                                        <div [InputValidate]="inputValidate" BirthDate="BirthDate">
+                                            <my-date-picker [options]="datePickerOptions" [(ngModel)]="patientbean.patientDate" required></my-date-picker>
+                                            <label style="margin-top:-5px" class="error">กรุณาใส่วันที่ให้ถูกต้อง</label>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-4 text-right">
+                                        <label class="label-form">สถานที่รักษา</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div [InputValidate]="inputValidate">
+                                            <input type="text" [(ngModel)]="patientbean.treatmentPlace" maxlength="255">
+                                            <label class="error">กรุณาใส่สถานที่รักษา</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4 text-right">
+                                        <label class="label-form">สถานะการรักษา</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div [InputValidate]="inputValidate">
+                                            <select [(ngModel)]="patientbean.diseaseStatusTypeId">
+                                                <option value="">--เลือกประเภท--</option>
+                                                <option *ngFor="let item of diseaseStatusTypeList" [value]="item.id">{{item.name}}</option>
+                                            </select>
+                                            <label class="error">กรุณาเลือกสถานะการรักษา</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-4 text-right">
+                                        <label class="label-form">เบอร์โทรศัพท์</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div [InputValidate]="inputValidate">
+                                            <input type="text" [(ngModel)]="patientbean.telephone" maxlength="50">
+                                            <label class="error">กรุณาใส่เบอร์โทรศัพท์</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4 text-right">
+                                        <label class="label-form">Latitude</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" [(ngModel)]="patientbean.latitude" placeholder="Latitude" maxlength="50" disabled>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4 text-right">
+                                        <label class="label-form">Longitude</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" [(ngModel)]="patientbean.longitude" placeholder="Longitude" maxlength="50" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 text-center">
+                                <app-maps [latitude]="patientbean.latitude" [longitude]="patientbean.longitude" [info]="info" [mode]="'edit'" [defaultAddress]="userInfo.address"
+                                    (positionChanged)="onMapChange($event)"></app-maps>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="row">
-                        <div class="col-md-2 text-right">
-                            <label class="label-form">ระบุโรค/อาการ</label>
+                        <div class="col-md-4 text-right">
+                            <label class="label-form">*หมายเหตุ</label>
                         </div>
-                        <div class="col-md-3">
-                            <div [InputValidate]="inputValidate">
-                                <input type="text" [(ngModel)]="patientbean.remark" maxlength="255">
-                                <label class="error">กรุณาใส่โรค/อาการ</label>
-                            </div>
-                        </div>
-                        <div class="col-md-2 text-right">
-                            <label class="label-form">ประเภทผู้ป่วย</label>
-                        </div>
-                        <div class="col-md-3">
-                            <div [InputValidate]="inputValidate">
-                                <select [(ngModel)]="patientbean.patientTypeId">
-                                    <option value="">--เลือกประเภท--</option>
-                                    <option *ngFor="let item of patientTypeList" value="{{item.id}}">{{item.name}}</option>
-                                </select>
-                                <label class="error">กรุณาเลือกประเภท</label>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="row" style="padding-bottom: 0px">
-                        <div class="col-md-2 text-right">
-                            <label class="label-form">สิทธิบัตร</label>
-                        </div>
-                        <div class="col-md-3">
-                            <div [InputValidate]="inputValidate">
-                                <select [(ngModel)]="patientbean.hInsuranceTypeId">
-                                    <option value="">--เลือก--</option>
-                                    <option *ngFor="let item of healtInsuranceTypeList" value="{{item.id}}">{{item.code}}</option>
-                                </select>
-                                <label class="error">กรุณาเลือกสิทธิบัตร</label>
-                            </div>
-                        </div>
-
-                        <div class="col-md-2 text-right">
-                            <label class="label-form">วันที่พิการ</label>
-                        </div>
-
-                        <div class="col-md-3">
-                            <div [InputValidate]="inputValidate" BirthDate="BirthDate">
-                                <my-date-picker [options]="datePickerOptions" [(ngModel)]="patientbean.patientDate" required></my-date-picker>
-                                <label style="margin-top:-5px" class="error">กรุณาใส่วันที่ให้ถูกต้อง</label>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-2 text-right">
-                            <label class="label-form">สถานที่รักษา</label>
-                        </div>
-                        <div class="col-md-3">
-                            <div [InputValidate]="inputValidate">
-                                <input type="text" [(ngModel)]="patientbean.treatmentPlace" maxlength="255">
-                                <label class="error">กรุณาใส่สถานที่รักษา</label>
-                            </div>
-                        </div>
-
-                        <div class="col-md-2 text-right">
-                            <label class="label-form">สถานะการรักษา</label>
-                        </div>
-                        <div class="col-md-3">
-                            <div [InputValidate]="inputValidate">
-                                <select [(ngModel)]="patientbean.diseaseStatusTypeId">
-                                    <option value="">--เลือกประเภท--</option>
-                                    <option *ngFor="let item of diseaseStatusTypeList" [value]="item.id">{{item.name}}</option>
-                                </select>
-                                <label class="error">กรุณาเลือกสถานะการรักษา</label>
-                            </div>
+                        <div class="col-md-8">
+                            <label class="label-form" style="color: #f57600;">สามารถเลือก
+                                <b>Latitude</b> และ
+                                <b>Longitude</b> ได้จากแผนที่</label>
                         </div>
                     </div>
-
-                    <div class="row">
-                        <div class="col-md-2 text-right">
-                            <label class="label-form">เบอร์โทรศัพท์</label>
-                        </div>
-                        <div class="col-md-3">
-                            <div [InputValidate]="inputValidate">
-                                <input type="text" [(ngModel)]="patientbean.telephone" maxlength="50">
-                                <label class="error">กรุณาใส่เบอร์โทรศัพท์</label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- <div class="row">
-                        <div class="col-md-2 text-right">
-                            <label class="label-form">Latitude</label>
-                        </div>
-                        <div>
-                            <input type="text" maxlength="50">
-                        </div>
-
-
-                    </div> -->
-
                 </div>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <app-maps [latitude]="patientbean.latitude" [longitude]="patientbean.longitude" [info]="info" [mode]="'edit'" [defaultAddress]="userInfo.address"
-                            (positionChanged)="onMapChange($event)"></app-maps>
-                    </div>
-                </div>
-                
                 <div class="modal-footer">
                     <ng-container *ngIf="patientbean.patientSurveyTypeCode == ''?false : true">
                         <button class="btn btn-sm btn-primary" (click)="addSurvey()">ยืนยัน</button> &nbsp;&nbsp;
                     </ng-container>
                     <button class="btn btn-sm btn-primary" (click)="onBack()">กลับ</button>
                 </div>
-                <!-- "patientbean.patientSurveyTypeCode == ''?true : false" -->
             </div>
         </div>
     </div>
