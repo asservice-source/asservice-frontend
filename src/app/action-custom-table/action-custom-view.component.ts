@@ -76,7 +76,13 @@ export class ActionCustomView_2_Component implements ViewCell, OnInit {
 
 @Component({
   selector: 'action-custom-table-maps',
-  template: '<div style="width:100%; text-align: center;" ><a (click)="onMaps()" title="แผนที่" class="cell-action glyphicon glyphicon-road"></a><a (click)="onEdit()" title="แก้ไข" class="cell-action glyphicon glyphicon-edit"></a><a (click)="onDelete()" title="ลบ" class="cell-action glyphicon glyphicon-trash"></a></div>',
+  template: '<div style="width:100%; text-align: center;" >'
+  +'<a (click)="onMaps()" title="แผนที่"  class="cell-action">'
+  +'<img src="../../../assets/img/ic_map.png" width="15" style="margin-top: -7px;" />'
+  +'</a>'
+  +'<a (click)="onEdit()" title="แก้ไข" class="cell-action glyphicon glyphicon-edit"></a>'
+  +'<a (click)="onDelete()" title="ลบ" class="cell-action glyphicon glyphicon-trash"></a>'
+  +'</div>',
   styleUrls: ['./action-custom-view.component.css']
 })
 export class ActionCustomViewMapsComponent implements ViewCell, OnInit {
