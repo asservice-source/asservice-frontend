@@ -4,3 +4,7 @@
       max-width:1080px;
     }
 }
+
+.modal {
+  overflow-y: auto;
+}
