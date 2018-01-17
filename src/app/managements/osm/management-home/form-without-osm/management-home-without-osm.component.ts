@@ -28,6 +28,7 @@ export class ManagementHomeFormWithoutOSMComponent extends BaseComponent impleme
     super();
 
     this.api = new Service_Home();
+    this.completed = new EventEmitter<any>();
     this.isStaff = this.isStaffRole(this.userInfo.roleId);
     this.settingColumn();
     
@@ -74,7 +75,7 @@ export class ManagementHomeFormWithoutOSMComponent extends BaseComponent impleme
           _self.api.commit_UpdateOSMHomes(dataObj, function(resp){
             if(resp.status && resp.status.toUppercase()=='SUCCESS'){
               _self.message_success('','เพิ่มบ้านเลขที่สำเร็จ', function(){
-                
+                _self.completed.emit({"success": true});
               });
             }else{
               _self.message_error('','ไม่สามารถทำรายการได้ <br>'+resp.message);

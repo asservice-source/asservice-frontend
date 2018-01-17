@@ -200,6 +200,11 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
     }
     
   }
+  onUpdateOSMHome(event: any){
+    if(event.success){
+      $('#filter-btnSearch').click();
+    }
+  }
 
   onMemberManage(row: any){
     if(this.isHomeType(row.homeTypeCode)){

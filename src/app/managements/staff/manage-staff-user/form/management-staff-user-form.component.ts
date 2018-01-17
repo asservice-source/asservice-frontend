@@ -134,19 +134,24 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
               let code5 = person.hospitalCode5;
               let isNotChange = false;
               if(!code5){
+                console.log('>>>> NOT 1');
                   isNotChange = false;
 
               } else if(_self.isStaff){
                 if(code5 != _self.getHospitalCode() && (userRoleId != 0)){
-                 isNotChange = true;
+                  console.log('>>>> S1');
+                  isNotChange = true;
                 }else{
-                 isNotChange = false;
+                  console.log('>>>> S2');
+                  isNotChange = false;
                }
 
               }else{
                 if(code5 != _self.getHospitalCode() || userRoleId == 3){
+                  console.log('>>>> X1');
                   isNotChange = true;
                 }else{
+                  console.log('>>>> X2');
                   isNotChange = false;
                 }
               }
