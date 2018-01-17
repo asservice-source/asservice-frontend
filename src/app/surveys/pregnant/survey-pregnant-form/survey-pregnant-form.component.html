@@ -167,7 +167,7 @@
                                         </div>
                                         <div class="col-md-4">
                                             <div [InputValidate]="validateCitizenId" [citizenId]="true">
-                                                <input maxlength="13" [OnlyNumber]="true" type="text" [(ngModel)]="childBean.citizenId">
+                                                <input [OnlyNumber]="true" type="text" [(ngModel)]="childBean.citizenId" [CitizenId]="childBean.citizenId">
                                                 <label class="error">{{ error_message_citizenId }}</label>
                                             </div>
                                         </div>
@@ -220,6 +220,9 @@
                                         </div>
                                         <div class="col-md-2">
                                             <input maxlength="4" [OnlyNumber]="true" type="text" [(ngModel)]="childBean.weight">
+                                        </div>
+                                        <div class="col-md-1 text-left" style="padding-left: 0;">
+                                            <label class="label-form">กรัม</label>
                                         </div>
                                     </div>
 
