@@ -103,9 +103,7 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
     this.setupPrefix();
   }
   onClickVerifyCitizenId(){
-    if(this.bean.citizenId){
-      this.bean.citizenId = this.bean.citizenId.trim();
-    }
+    this.bean.citizenId = this.pastCitizenId(this.bean.citizenId);
     this.oldCitizenId = this.bean.citizenId;
     this.inputValidate = new InputValidateInfo();
     this.inputValidate.isCheck = true;
@@ -229,7 +227,7 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
     }
 
     this.actionName = this.action==this.ass_action.ADD?'เพิ่ม':'แก้ไข';
-    
+    this.bean.citizenId = this.pastCitizenId(this.bean.citizenId);
     if(this.isValidCitizenIdThailand(this.bean.citizenId)){
     //if(true){
       let ignores = this.action==this.ass_action.ADD?['personId']:[];

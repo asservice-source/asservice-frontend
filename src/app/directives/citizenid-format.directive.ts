@@ -31,8 +31,10 @@ export class CitizenIdFormatDirective{
           if(event.target.value){
             let value = event.target.value;
             value = value.replace(/[^0-9\.]+/g, '');
-            if(value.length> 13){
-                value = value.substr(0, 12);
+            if(_self.maxlength){
+              if(value.length > 13){
+                value = value.substr(0, 13);
+              }
             }
             event.target.value = _self.formatCitizenId(value);
           }

@@ -492,7 +492,7 @@ export class BaseComponent implements OnInit {
             citizenId = citizenId.replace(/[^0-9\.]+/g, '');
             
             if(citizenId.length > 13){
-                citizenId = citizenId.substr(0, 12);
+                citizenId = citizenId.substr(0, 13);
               
             }
             citizenId = this.formatCitizenId(citizenId);
