@@ -15,6 +15,7 @@ declare var $:any;
 export class ManagementHomeFormWithoutOSMComponent extends BaseComponent implements OnInit {
 
   @Input() bean: HomeBean;
+  @Output() completed: EventEmitter<any>;
   public action: string;
   public api: Service_Home;
   public settings: any;
@@ -71,6 +72,13 @@ export class ManagementHomeFormWithoutOSMComponent extends BaseComponent impleme
         console.log(dataObj);
         if(isConfirm){
           _self.api.commit_UpdateOSMHomes(dataObj, function(resp){
+            if(resp.status && resp.status.toUppercase()=='SUCCESS'){
+              _self.message_success('','เพิ่มบ้านเลขที่สำเร็จ', function(){
+                
+              });
+            }else{
+              _self.message_error('','ไม่สามารถทำรายการได้ <br>'+resp.message);
+            }
             console.log(resp);
           });
         }
