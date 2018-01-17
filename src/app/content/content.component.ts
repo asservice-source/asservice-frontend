@@ -1,5 +1,6 @@
 import { Component, OnInit, Injectable } from '@angular/core';
-import { RequestOptions, Headers, RequestMethod, Http ,Response} from '@angular/http';
+import { RequestOptions, Headers, RequestMethod, Http, Response } from '@angular/http';
+import { BaseComponent } from '../base-component';
 
 declare var $: any
 @Component({
@@ -13,11 +14,13 @@ export class ContentComponent implements OnInit {
   headers: any;
 
   public positions: any = [];
- 
+  bbb: BaseComponent;
   constructor(private http: Http) { }
 
   ngOnInit() {
-    
+    this.bbb = new BaseComponent();
+    let x = this.bbb.getAge('1990-05-16', 'full');
+    console.log('birth date',x);
   }
 
   onMapReady(map) {
@@ -32,7 +35,7 @@ export class ContentComponent implements OnInit {
   }
   onMapClick(event) {
     console.log(event.latLng);
-    this.positions =  [];
+    this.positions = [];
     this.positions.push(event.latLng);
     // event.target.panTo(event.latLng);
   }

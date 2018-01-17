@@ -192,9 +192,27 @@ export class BaseComponent implements OnInit {
         }
     }
 
-    public getAge(birthDate: string) {
-        return moment().diff(birthDate, 'years', false);
+    public getAge(birthDate: string, format?: string) {
+        if (birthDate) {
+            let currentDate = moment(moment().format('YYYY-MM-DD'));
+            let inpuDate = moment(birthDate);
+
+            if (format == "full") {
+                var years = currentDate.diff(inpuDate, 'year');
+                inpuDate.add(years, 'years');
+
+                var months = currentDate.diff(inpuDate, 'months');
+                inpuDate.add(months, 'months');
+
+                var days = currentDate.diff(inpuDate, 'days');
+
+                return { "years": years, "months": months, "days": days };
+            } else {
+                return moment().diff(birthDate, 'years', false);
+            }
+        }
     }
+
     public isEmpty(value: string): boolean {
         if (value) {
             if (value.toString().trim().length > 0) {
