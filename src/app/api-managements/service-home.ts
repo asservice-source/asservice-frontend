@@ -51,6 +51,12 @@ export class Service_Home extends ApiHTTPService{
             }
         });
     }
+    public commit_UpdateOSMHomes(objects:any , callback:(doc:any)=>void){
+        let parameter = objects;
+        this.post('home/upd_osm', parameter, function(response){
+            callback(response);
+        });
+    }
     public getHomeWithoutOSM(villageId:string, callback: (doc: any) => void){
         
         let parameter = {

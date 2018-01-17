@@ -179,7 +179,7 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
               $('#btnSearch').click();
             });
           }else{
-            _self.message_error('','ไม่สามารถลบ'+msgType);
+            _self.message_error('','ไม่สามารถลบ '+msgType);
           }
         });
       }
