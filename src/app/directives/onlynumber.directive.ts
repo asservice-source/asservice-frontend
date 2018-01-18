@@ -10,6 +10,7 @@ export class OnlyNumberDirective {
 
   @Input() OnlyNumber: boolean;
   @Input() maxlength: number;
+  @Input() noAccept: number;
   @HostListener('keypress', ['$event']) onKeyPress(event) {
     let e = <KeyboardEvent> event;
     event = (event) ? event : window.event;
@@ -27,9 +28,11 @@ export class OnlyNumberDirective {
     let e = <KeyboardEvent> $event;
     $event = ($event) ? $event : window.event;
     let val = $event.target.value;
-    // if(+val==0){
-    //   $event.target.value = '';
-    // }
+    if(this.noAccept != undefined){
+      if(+val==this.noAccept){
+        $event.target.value = '';
+      }
+    }
   };
 
   @HostListener('paste', ['$event'])
