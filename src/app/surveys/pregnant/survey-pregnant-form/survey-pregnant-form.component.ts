@@ -299,6 +299,8 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
     }
 
     if (isClearData) {
+      self.pregnantBean.abortionCause = "";
+
       self.clearListChild();
       self.bindChildList();
     }
@@ -517,7 +519,7 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
         item.birthDate = bornDate;
         item.bornLocationId = bornLocationId;
         item.bornTypeId = bornTypeId;
-        item.abortionCause = abortionCause;
+        item.abortionCause = "";
       }
       self.pregnantBean.childs = self.listChild;
     } else {
@@ -569,7 +571,7 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
 
     self.apiHttp.post('survey/ins_upd_born_location', params, function (d) {
       self.loading = false;
-      
+
       if (self.isEmpty(self.hospitalName)) {
         self.error_message_hospitalName = "กรุณาระบุ ชื่อโรงพยาบาล";
         self.validateHospital = new InputValidateInfo();

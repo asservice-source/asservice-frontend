@@ -96,13 +96,14 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
           return '<div class="text-center">' + cell + '</div>';
         }
       },
-      diseaseStatusTypeName: {
+      diseaseStatusType: {
         title: 'สถานะ',
         filter: false,
         type: 'html',
         width: '120px',
         valuePrepareFunction: (cell, row) => {
-          return '<div class="text-center">' + cell + '</div>';
+          let cssClass = (row.diseaseStatusTypeId == '1') ? ' text-inactive' : ' text-active';
+          return '<div class="text-center' + cssClass + '">' + row.diseaseStatusTypeName + '</div>';
         }
       },
       action: {
