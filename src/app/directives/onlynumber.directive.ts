@@ -27,9 +27,9 @@ export class OnlyNumberDirective {
     let e = <KeyboardEvent> $event;
     $event = ($event) ? $event : window.event;
     let val = $event.target.value;
-    if(+val==0){
-      $event.target.value = '';
-    }
+    // if(+val==0){
+    //   $event.target.value = '';
+    // }
   };
 
   @HostListener('paste', ['$event'])
