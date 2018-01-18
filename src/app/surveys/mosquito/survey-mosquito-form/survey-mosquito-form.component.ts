@@ -140,13 +140,13 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
 
   setNullContainerTypeSurvey(total, containerType) {
     if (!total) {
-      this.mosquitobean.listContainerType[containerType].totalSurvey = 0;
+      this.mosquitobean.listContainerType[containerType].totalSurvey = "0";
     }
   }
 
   setNullContainerTypeDetect(total, containerType) {
     if (!total) {
-      this.mosquitobean.listContainerType[containerType].totalDetect = 0;
+      this.mosquitobean.listContainerType[containerType].totalDetect = "0";
     }
   }
 
