@@ -567,6 +567,9 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
 
     self.loading = true;
 
+    if (self.hospitalName)
+      self.hospitalName = self.hospitalName.trim();
+
     let params = { "id": "0", "name": self.hospitalName, "hospitalCode": self.getHospitalCode() };
 
     self.apiHttp.post('survey/ins_upd_born_location', params, function (d) {
