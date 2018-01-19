@@ -128,7 +128,7 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
               _self.isVerify = false;
             }else{
               
-              let userRoleId = +(person.userRoleId);
+              let userRoleId = +(person.userRoleId) || 0;
               let code5 = person.hospitalCode5;
               let isNotChange = false;
               if(!code5){
@@ -146,7 +146,9 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
 
               }else{
                 if(code5 != _self.getHospitalCode() || userRoleId == 3){
+                  
                   console.log('>>>> X1');
+                  console.log(code5 +  ' <<<>>> ' + _self.getHospitalCode());
                   isNotChange = true;
                 }else{
                   console.log('>>>> X2');

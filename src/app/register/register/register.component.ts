@@ -163,7 +163,9 @@ export class RegisterComponent extends BaseComponent implements OnInit {
           console.log(resp.response[0]);
           console.log(hospital);
           
-          if (hospital && self.registerBean.provinceID == hospital.provinceCode
+          if (hospital 
+            && self.registerBean.hospitalName == hospital.hospitalName
+            && self.registerBean.provinceID == hospital.provinceCode
             && self.registerBean.amphurCode == hospital.amphurCode
             && self.registerBean.tumbolID == hospital.tumbolCode
             && self.registerBean.code9 == hospital.code9 
