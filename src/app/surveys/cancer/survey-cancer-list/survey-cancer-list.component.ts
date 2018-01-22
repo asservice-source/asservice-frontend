@@ -268,11 +268,8 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
 
   getSurveyData(rowGUID) {
     let self = this;
-
     self.loading = true;
-
     let param = { "rowGUID": rowGUID };
-
     self.apiHttp.post('survey_patient/patient_by_rowguid', param, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.cancerbean = resp.response;

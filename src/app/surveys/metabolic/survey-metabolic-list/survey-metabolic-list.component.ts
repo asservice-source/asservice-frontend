@@ -8,6 +8,9 @@ import { ApiHTTPService } from '../../../api-managements/api-http.service';
 import { ActionCustomView_2_Component } from '../../../action-custom-table/action-custom-view.component';
 import { FilterHeadSurveyBean } from '../../../beans/filter-head-survey.bean';
 import { MetabolicBean } from '../../../beans/metabolic.bean';
+import { ActionCustomViewMapsComponent } from '../../../action-custom-table/action-custom-view.component';
+import { MapsBean } from '../../../multi-maps/multi-maps.component';
+
 declare var $: any;
 
 @Component({
@@ -32,6 +35,13 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
   public metabolicbean: MetabolicBean = new MetabolicBean();
   public action: string = this.ass_action.ADD;
   public filtersearch: FilterHeadSurveyBean;
+
+  public param_reset: number = 0;
+  public param_latitude: string = "";
+  public param_longitude: string = "";
+  public param_info: string = "";
+  public param_listPosition: Array<MapsBean>;
+
 
   private api: ApiHTTPService;
   public settings: any;
@@ -90,7 +100,7 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
         sort: false,
         width: '100px',
         type: 'custom',
-        renderComponent: ActionCustomView_2_Component,
+        renderComponent: ActionCustomViewMapsComponent,
         onComponentInitFunction(instance) {
           instance.edit.subscribe((row: MetabolicBean, cell) => {
             self.metabolicbean = self.cloneObj(row);
@@ -104,6 +114,14 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
               }
             });
           });
+
+          instance.maps.subscribe(row => {
+            self.param_latitude = row.latitude;
+            self.param_longitude = row.longitude;
+            self.param_info = 'บ้านของ ' + row.fullName;
+            $("#modalMaps").modal("show");
+          });
+
         }
       }
     });
@@ -129,7 +147,6 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
     let params = JSON.stringify(param);
     this.api.post('survey_metabolic/search_metabolic_list', params, function (resp) {
       console.log(resp);
-      self.loading = false; //ทำไมมันข้าม
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.source = self.ng2STDatasource(resp.response);
         self.isShowList = true;
@@ -179,12 +196,6 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
 
   }
 
-  // setUpTable() {
-  //   this.source = this.ng2STDatasource(this.data);
-  //   this.isShowList = true;
-  //    this.loading = false;
-  // }
-
   onModalFrom(action: string) {
     this.action = action;
     //console.log(action);
@@ -212,18 +223,42 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
 
   getSurveyData(rowGUID) {
     let self = this;
+    self.loading = true;
     let param = {
       "rowGUID": rowGUID
     }
-    self.loading = true;
     this.api.post('survey_metabolic/metabolic_by_rowguid', param, function (resp) {
-      self.loading = false;
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.metabolicbean = resp.response;
         self.changeRef.detectChanges();
         $('#find-person-md').modal('show');
       }
+      self.loading = false;
     })
+  }
+
+  bindMultiMaps(data) {
+    let self = this;
+
+    self.param_listPosition = [];
+    for (let item of data) {
+      if (item.latitude && item.longitude) {
+        let map = new MapsBean();
+        map.latitude = item.latitude;
+        map.longitude = item.longitude;
+        map.info = 'บ้านของ ' + item.fullName;
+        self.param_listPosition.push(map);
+      }
+    }
+  }
+
+  
+  onClickMultiMaps() {
+    let self = this;
+
+    self.param_reset++;
+    self.changeRef.detectChanges();
+    $("#modalMultiMaps").modal("show");
   }
 
 }

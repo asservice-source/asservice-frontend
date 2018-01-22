@@ -161,6 +161,7 @@ export class FilterFindPersonComponent extends BaseComponent implements OnInit {
     this.api.api_OsmList(this.filterBean.villageId, function (response) {
       self.osmData = response;
       self.isDisabledOSM = false;
+      self.changeRef.detectChanges();
     })
   }
 
@@ -177,6 +178,7 @@ export class FilterFindPersonComponent extends BaseComponent implements OnInit {
       , function (response) {
         self.homeData = response;
         self.isDisabledHomeNo = false;
+        self.changeRef.detectChanges();
       });
   }
 
