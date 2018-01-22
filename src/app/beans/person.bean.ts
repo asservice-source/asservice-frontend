@@ -48,5 +48,7 @@ export class PersonBean {
     public amphurName: string = "";
     public provinceName: string = "";
     public osmId;
+    public latitude : string ="";
+    public longitude : string = "";
 
 }
