@@ -5,6 +5,8 @@ import { BaseComponent } from '../../../base-component';
 import { ApiHTTPService } from '../../../api-managements/api-http.service';
 import { FilterHeadMosquitoBean } from '../../../beans/filter-head-mosquito.bean';
 import { MosquitoBean } from '../../../beans/mosquito.bean';
+import { MapsBean } from '../../../multi-maps/multi-maps.component';
+import { ActionCustomViewMapsComponent } from '../../../action-custom-table/action-custom-view.component';
 
 declare var $: any;
 
@@ -27,6 +29,12 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
   public mosquitobean: MosquitoBean = new MosquitoBean();
   public loading;
   public isShowAddPlace: boolean = false;
+
+ public param_reset: number = 0;
+  public param_latitude: string = "";
+  public param_longitude: string = "";
+  public param_info: string = "";
+  public param_listPosition: Array<MapsBean>;
 
   public datas: any = [];
 
@@ -88,7 +96,7 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
         sort: false,
         width: '100px',
         type: 'custom',
-        renderComponent: ActionCustomView_2_Component,
+        renderComponent: ActionCustomViewMapsComponent,
         onComponentInitFunction(instance) {
 
           instance.edit.subscribe((row: MosquitoBean, cell) => {
@@ -111,6 +119,14 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
               }
             });
           });
+
+          instance.maps.subscribe(row => {
+            self.param_latitude = row.latitude;
+            self.param_longitude = row.longitude;
+            self.param_info = 'บ้านของ ' + row.fullName;
+            $("#modalMaps").modal("show");
+          });
+
         }
       }
     });
@@ -155,6 +171,7 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
 
   loadData(event: FilterHeadMosquitoBean) {
     let self = this;
+    this.loading = true;
     let param = {
       "documentId": event.rowGUID,
       "villageId": event.villageId,
@@ -162,28 +179,31 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
       "osmId": event.osmId,
       "homeId": event.homeId
     };
-    this.loading = true;
     let params = JSON.stringify(param);
     this.api.post('survey_hici/search_hici_info_list', params, function (resp) {
-      self.loading = false;
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-        self.datas = resp.response;
-        self.setUpTable();
+        self.bindMultiMaps(resp.response);
+        self.source = self.ng2STDatasource(resp.response);
+        self.isShowList = true;
+        // self.datas = resp.response;
+        // self.setUpTable();
       }
       self.changeRef.detectChanges();
+      self.loading = false;
     })
   }
 
-  setUpTable() {
-    this.source = this.ng2STDatasource(this.datas);
-    this.isShowList = true;
-  }
+  // setUpTable() {
+  //   this.source = this.ng2STDatasource(this.datas);
+  //   this.isShowList = true;
+  // }
 
   reloadData(event: any) {
     let self = this;
     if (event) {
       this.message_success('', 'ท่านได้ทำการส่งแบบสำรวจลูกน้ำยุงลายแล้ว', function () {
-        self.loadData(self.filtersearch);
+        //self.loadData(self.filtersearch);
+        $('#filter-btnSearch').click();
       });
     } else {
       this.message_error('', 'Error');
@@ -192,21 +212,22 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
   }
 
   actionDelete(documentid, homeid) {
-
     let self = this;
+    self.loading = true;
     let param = {
       "documentId": documentid,
       "homeId": homeid
     };
     console.log(param);
-    self.loading = true;
+
     this.api.post('survey_hici/del_hici_info', param, function (resp) {
-      self.loading = false;
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.message_success('', 'ลบรายการสำเร็จ', function () {
-          self.loadData(self.filtersearch);
+          $('#filter-btnSearch').click();
+          //self.loadData(self.filtersearch);
         })
       }
+      self.loading = false;
     })
   }
 
@@ -227,21 +248,43 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
 
   getSurveyData(docId, homeId) {
     let self = this;
+    self.loading = true;
     let param = {
       "documentId": docId,
       "homeId": homeId
     }
     console.log(param);
-
-    self.loading = true;
     this.api.post('survey_hici/hici_by_homeid', param, function (resp) {
-      self.loading = false;
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.mosquitobean = resp.response;
         self.changeRef.detectChanges();
         $('#find-person-md').modal('show');
       }
-    })
+      self.loading = false;
+    });
+  }
+
+  onClickMultiMaps() {
+    let self = this;
+
+    self.param_reset++;
+    self.changeRef.detectChanges();
+    $("#modalMultiMaps").modal("show");
+  }
+
+  bindMultiMaps(data) {
+    let self = this;
+
+    self.param_listPosition = [];
+    for (let item of data) {
+      if (item.latitude && item.longitude) {
+        let map = new MapsBean();
+        map.latitude = item.latitude;
+        map.longitude = item.longitude;
+        map.info = 'บ้านของ ' + item.fullName;
+        self.param_listPosition.push(map);
+      }
+    }
   }
 
 }

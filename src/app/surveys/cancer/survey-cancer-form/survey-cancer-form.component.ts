@@ -82,8 +82,8 @@ export class SurveyCancerFormComponent extends BaseComponent implements OnInit, 
       self.cancerbean.patientSurveyTypeCode = "Cancer"
       self.cancerbean.patientDate = self.getCurrentDatePickerModel();
 
-      self.cancerbean.latitude = "";
-      self.cancerbean.longitude = "";
+      // self.cancerbean.latitude = "";
+      // self.cancerbean.longitude = "";
       self.info = "";
     } else {
       self.info = "บ้านของ " + self.cancerbean.fullName;

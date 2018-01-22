@@ -241,9 +241,7 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
 
   actionDelete(rowguid) {
     let self = this;
-
     self.loading = true;
-
     let param = {
       "rowGUID": rowguid
     };

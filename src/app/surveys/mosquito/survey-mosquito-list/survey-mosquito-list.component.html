@@ -9,6 +9,7 @@
         <div class="row">
             <div class="col-sm-12 text-left">
                 <button class="btn btn-sm btn-primary" (click)="onModalFrom(ass_action.ADD);">เพิ่มการสำรวจ</button>
+                <button class="btn btn-sm btn-primary" (click)="onClickMultiMaps();">ดูแผนที่ทั้งหมด</button>
             </div>
         </div>
 
@@ -25,5 +26,56 @@
 </div>
 
 <app-survey-mosquito-form [action]='action' [data]="mosquitobean" [documentId]="documentId" (completed)="reloadData($event);"></app-survey-mosquito-form>
-
 <ass-loading [show]="loading"></ass-loading>
+
+<div id="modalMaps" class="modal fade" role="dialog" data-backdrop="false" data-keyboard="false">
+    <div class="modal-lg modal-dialog">
+  
+      <!-- Modal content-->
+      <div class="modal-content">
+  
+        <div class="modal-header">
+          <h4 class="modal-title">แผนที่</h4>
+        </div>
+  
+        <div class="row">
+          <div class="col-md-12">
+            <app-maps [latitude]="param_latitude" [longitude]="param_longitude" [info]="param_info" [mode]="'view'" [defaultAddress]="userInfo.address"></app-maps>
+          </div>
+        </div>
+  
+        <div class="modal-footer">
+          <div class="panel-body text-right">
+            <button class="btn btn-primary btn-sm" data-dismiss="modal">กลับ</button>
+          </div>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+  
+<div id="modalMultiMaps" class="modal fade" role="dialog" data-backdrop="false" data-keyboard="false">
+    <div class="modal-lg modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title">แผนที่</h4>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <app-multi-maps [reset]="param_reset" [list]="param_listPosition" [defaultAddress]="userInfo.address"></app-multi-maps>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <div class="panel-body text-right">
+                    <button class="btn btn-primary btn-sm" data-dismiss="modal">กลับ</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
