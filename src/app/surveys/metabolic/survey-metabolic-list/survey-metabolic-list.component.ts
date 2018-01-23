@@ -148,6 +148,7 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
     this.api.post('survey_metabolic/search_metabolic_list', params, function (resp) {
       console.log(resp);
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+        self.bindMultiMaps(resp.response);
         self.source = self.ng2STDatasource(resp.response);
         self.isShowList = true;
         // self.data = resp.response;

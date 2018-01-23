@@ -78,4 +78,7 @@ export class MetabolicBean{
     public rowGUIDDetailInfo : string;
     public documentId : string;
     public hInsuranceTypeId : string;
+
+    public latitude : string;
+    public longitude : string;
 }
