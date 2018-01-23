@@ -202,7 +202,7 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
   }
   onUpdateOSMHome(event: any){
     if(event.success){
-      $('#filter-btnSearch').click();
+      $('#btnSearch').click();
     }
   }
 
