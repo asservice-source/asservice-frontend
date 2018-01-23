@@ -41,8 +41,6 @@ export class ManagementHomeFormWithoutOSMComponent extends BaseComponent impleme
   }
 
   setupTable(){
-    console.log('xsetupTablex');
-    console.log(this.bean);
     let _self = this;
     _self.loading = true;
       _self.api.getHomeWithoutOSM(_self.bean.villageId, function(response){
@@ -72,9 +70,13 @@ export class ManagementHomeFormWithoutOSMComponent extends BaseComponent impleme
       this.message_comfirm('','ต้องการเพิ่มบ้านเลขที่ดังต่อไปนี่ ใช่หรือไม่ ? <br><b>'+strHome+'<b>', function(isConfirm){
         console.log(dataObj);
         if(isConfirm){
+          _self.loading = true;
           _self.api.commit_UpdateOSMHomes(dataObj, function(resp){
-            if(resp.status && resp.status.toUppercase()=='SUCCESS'){
+            _self.loading = false;
+            _self.changeRef.detectChanges();
+            if(resp.status && resp.status.toUpperCase()=='SUCCESS'){
               _self.message_success('','เพิ่มบ้านเลขที่สำเร็จ', function(){
+                $('#modalFormHomeWithoutOSM').modal('hide');
                 _self.completed.emit({"success": true});
               });
             }else{

@@ -226,7 +226,7 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
     }
     this.memberBean.birthDate = this.getStringDateForDatePickerModel(this.modelBirthDate.date);
     let simpValidate = new SimpleValidateForm();
-    let validateFields = ["genderId", "prefixCode", "firstName", "lastName", "birthDate", "raceCode", "nationalityCode", "religionCode"];
+    let validateFields = ["genderId", "prefixCode", "firstName", "lastName", "birthDate", "educationCode"];
     if(this.memberBean.dischargeId!='9'){
       if(!this.isDischargeDate){
         return false;

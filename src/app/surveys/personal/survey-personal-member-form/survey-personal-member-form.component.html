@@ -86,10 +86,13 @@
                 <label class="label-form">การศึกษา</label>
               </div>
               <div class="col-md-3">
-                <select name="dropdown-education" id="dropdown-education" [(ngModel)]="memberBean.educationCode">
-                  <option value="">--เลือก--</option>
-                  <option *ngFor="let item of listEducation" [value]="item.code">{{item.name}}</option>
-                </select>
+                <div [InputValidate]="validateSave">
+                  <select name="dropdown-education" id="dropdown-education" [(ngModel)]="memberBean.educationCode">
+                    <option value="">--เลือก--</option>
+                    <option *ngFor="let item of listEducation" [value]="item.code">{{item.name}}</option>
+                  </select>
+                  <label class="error">กรุณาเลือกการศึกษา</label>
+                </div>
               </div>
             </div>
 
