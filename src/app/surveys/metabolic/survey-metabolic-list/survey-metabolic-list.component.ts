@@ -10,6 +10,7 @@ import { FilterHeadSurveyBean } from '../../../beans/filter-head-survey.bean';
 import { MetabolicBean } from '../../../beans/metabolic.bean';
 import { ActionCustomViewMapsComponent } from '../../../action-custom-table/action-custom-view.component';
 import { MapsBean } from '../../../multi-maps/multi-maps.component';
+import { Service_SurveyMetabolic } from '../../../api-managements/service-survey-metabolic';
 
 declare var $: any;
 
@@ -20,8 +21,7 @@ declare var $: any;
 })
 export class SurveyMetabolicListComponent extends BaseComponent implements OnInit {
 
-  public year = '2560';
-  public citizenID: string = "0";
+  private apiMetabolic: Service_SurveyMetabolic;
 
   public loading;
   public data;
@@ -49,7 +49,10 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
 
   constructor(private http: Http, private router: Router, private changeRef: ChangeDetectorRef) {
     super();
+
     this.api = new ApiHTTPService();
+    this.apiMetabolic = new Service_SurveyMetabolic();
+
     let self = this;
     this.filtersearch = new FilterHeadSurveyBean();
     this.settings = this.getTableSetting({
@@ -102,18 +105,27 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
         type: 'custom',
         renderComponent: ActionCustomViewMapsComponent,
         onComponentInitFunction(instance) {
-          instance.edit.subscribe((row: MetabolicBean, cell) => {
-            self.metabolicbean = self.cloneObj(row);
-            self.onModalFrom(self.ass_action.EDIT);
+          // instance.edit.subscribe((row: MetabolicBean, cell) => {
+          //   self.metabolicbean = self.cloneObj(row);
+          //   self.onModalForm(self.ass_action.EDIT);
+          //   self.getSurveyData(row.rowGUID);
+          // });
+
+          instance.edit.subscribe(row => {
+            self.getSurveyData(row.rowGUID);
           });
 
-          instance.delete.subscribe((row: MetabolicBean, cell) => {
-            self.message_comfirm("", "ต้องการยกเลิกการทำรายการสำรวจของ " + row.fullName + " ใช่หรือไม่", function (resp) {
-              if (resp) {
-                self.actionDelete(row.rowGUID);
-              }
-            });
+          instance.delete.subscribe(row => {
+            self.actionDelete(row.rowGUID, row.fullName);
           });
+
+          // instance.delete.subscribe((row: MetabolicBean, cell) => {
+          //   self.message_comfirm("", "ต้องการยกเลิกการทำรายการสำรวจของ " + row.fullName + " ใช่หรือไม่", function (resp) {
+          //     if (resp) {
+          //       self.actionDelete(row.rowGUID);
+          //     }
+          //   });
+          // });
 
           instance.maps.subscribe(row => {
             self.param_latitude = row.latitude;
@@ -135,80 +147,103 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
     this.check = true
   }
 
-  loadData(event: FilterHeadSurveyBean) {
+  // loadData(event: FilterHeadSurveyBean) {
+  //   let self = this;
+  //   this.loading = true;
+  //   let param = {
+  //     "documentId": event.rowGUID,
+  //     "villageId": event.villageId,
+  //     "osmId": event.osmId,
+  //     "name": event.fullName
+  //   };
+  //   let params = JSON.stringify(param);
+  //   this.api.post('survey_metabolic/search_metabolic_list', params, function (resp) {
+  //     console.log(resp);
+  //     if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+  //       self.bindMultiMaps(resp.response);
+  //       self.source = self.ng2STDatasource(resp.response);
+  //       self.isShowList = true;
+  //       // self.data = resp.response;
+  //       // self.setUpTable();
+  //     }
+  //     self.changeRef.detectChanges();
+  //     self.loading = false;
+  //   })
+
+  // }
+
+
+  actionDelete(rowGUID, fullName) {
     let self = this;
-    this.loading = true;
-    let param = {
-      "documentId": event.rowGUID,
-      "villageId": event.villageId,
-      "osmId": event.osmId,
-      "name": event.fullName
-    };
-    let params = JSON.stringify(param);
-    this.api.post('survey_metabolic/search_metabolic_list', params, function (resp) {
-      console.log(resp);
-      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-        self.bindMultiMaps(resp.response);
-        self.source = self.ng2STDatasource(resp.response);
-        self.isShowList = true;
-        // self.data = resp.response;
-        // self.setUpTable();
+
+    self.message_comfirm("", "ต้องการยกเลิกการทำรายการสำรวจของ " + fullName + " ใช่หรือไม่", function (resp) {
+      if (resp) {
+        //self.loading = true;
+        self.apiMetabolic.deleteMetabolic(rowGUID, function (resp) {
+          self.message_success('', 'ลบรายการสำเร็จ',function(){
+            self.onSearch(self.filtersearch);
+          });
+          //self.loading = false;
+        })
       }
-      self.changeRef.detectChanges();
-      self.loading = false;
-    })
+    });
+
+
+    // self.loading = true;
+    // let param = {
+    //   "rowGUID": rowguid
+    // };
+    // this.api.post('survey_metabolic/del_metabolic_info', param, function (resp) {
+    //   if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+    //       self.message_success('', 'ลบรายการสำเร็จ', function () {
+    //       $('#filter-btnSearch').click();
+    //     });
+    //   }
+    //   self.loading = false;
+    // })
 
   }
 
-
-  actionDelete(rowguid) {
-    let self = this;
-    self.loading = true;
-    let param = {
-      "rowGUID": rowguid
-    };
-    this.api.post('survey_metabolic/del_metabolic_info', param, function (resp) {
-      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-          self.message_success('', 'ลบรายการสำเร็จ', function () {
-          $('#filter-btnSearch').click();
-        });
-      }
-      self.loading = false;
-    })
-  }
-
-
-  openModal(key: string) {
-    this.citizenID = key;
-    $("#addMetabolicSurvey").modal('show');
-
-  }
 
   onChangeFilter(event: FilterHeadSurveyBean) {
-    console.log("ChangeFilter");
-    //this.isShowList = false;
+
   }
+
+  // onSearch(event: FilterHeadSurveyBean) {
+  //   this.filtersearch = event;
+  //   if (this.isEmpty(this.documentId)) {
+  //     this.documentId = event.rowGUID;
+  //   }
+  //   this.loadData(event);
+
+  // }
+
   onSearch(event: FilterHeadSurveyBean) {
+    this.loading = true;
     this.filtersearch = event;
     if (this.isEmpty(this.documentId)) {
       this.documentId = event.rowGUID;
     }
-    this.loadData(event);
-
+    let _self = this;
+    _self.apiMetabolic.getListMetabolic(event, function (response) {
+      _self.source = _self.ng2STDatasource(response);
+      _self.loading = false;
+      _self.changeRef.detectChanges();
+    });
   }
 
-  onModalFrom(action: string) {
+  onModalForm(action: string) {
     this.action = action;
-    //console.log(action);
-   
+    this.changeRef.detectChanges();
+    $('#find-person-md').modal('show');
 
-    if(action == this.ass_action.EDIT){
-      this.getSurveyData(this.metabolicbean.rowGUID);
-    }else{
-      this.changeRef.detectChanges();
-      $('#find-person-md').modal('show');
-    }
-    
+    // if(action == this.ass_action.EDIT){
+    //   this.getSurveyData(this.metabolicbean.rowGUID);
+    // }else{
+    //   this.changeRef.detectChanges();
+    //   $('#find-person-md').modal('show');
+    // }
+
   }
 
   reloadData(event: any) {
@@ -225,17 +260,29 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
   getSurveyData(rowGUID) {
     let self = this;
     self.loading = true;
-    let param = {
-      "rowGUID": rowGUID
-    }
-    this.api.post('survey_metabolic/metabolic_by_rowguid', param, function (resp) {
-      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-        self.metabolicbean = resp.response;
-        self.changeRef.detectChanges();
-        $('#find-person-md').modal('show');
+    self.apiMetabolic.getMetabolicInfo(rowGUID, function (resp) {
+
+      if (resp.response && resp.status.toUpperCase() == 'SUCCESS') {
+        self.metabolicbean = self.cloneObj(resp.response);
+        // self.changeRef.detectChanges();
+        // $('#find-person-md').modal('show');
+        self.onModalForm(self.ass_action.EDIT);
       }
       self.loading = false;
     })
+
+
+    // let param = {
+    //   "rowGUID": rowGUID
+    // }
+    // this.api.post('survey_metabolic/metabolic_by_rowguid', param, function (resp) {
+    //   if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+    //     self.metabolicbean = resp.response;
+    //     self.changeRef.detectChanges();
+    //     $('#find-person-md').modal('show');
+    //   }
+    //   self.loading = false;
+    // })
   }
 
   bindMultiMaps(data) {
@@ -253,7 +300,7 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
     }
   }
 
-  
+
   onClickMultiMaps() {
     let self = this;
 

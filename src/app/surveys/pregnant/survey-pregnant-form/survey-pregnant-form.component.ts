@@ -515,14 +515,17 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
     let abortionCause = self.pregnantBean.abortionCause;
 
     if (self.listChild.length > 0 && self.pregnantBean.bornTypeId != self.bornTypeAbort) {
+      console.log("มีเด็ก");
       for (let item of self.listChild) {
         item.birthDate = bornDate;
         item.bornLocationId = bornLocationId;
         item.bornTypeId = bornTypeId;
         item.abortionCause = "";
+        // item.bornCitizenId = self.formatCitizenId(item.bornCitizenId);
       }
       self.pregnantBean.childs = self.listChild;
     } else {
+      console.log("ไม่มีเด็ก");
       self.pregnantBean.childs = [];
       let child = new PregnantChildBean();
       child.genderId = null;
@@ -751,4 +754,13 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
       }
     });
   }
+
+  // formatCitizenId(value) {
+  //   if(value.length > 13){
+  //     let pure_value = value.split("-");
+  //     let result = pure_value.join('');
+  //     return result;
+  //   }
+  // }
+
 }
