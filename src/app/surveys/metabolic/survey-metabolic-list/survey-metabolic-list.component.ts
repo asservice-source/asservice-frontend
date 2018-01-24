@@ -133,7 +133,6 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
             self.param_info = 'บ้านของ ' + row.fullName;
             $("#modalMaps").modal("show");
           });
-
         }
       }
     });
@@ -178,30 +177,18 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
 
     self.message_comfirm("", "ต้องการยกเลิกการทำรายการสำรวจของ " + fullName + " ใช่หรือไม่", function (resp) {
       if (resp) {
-        //self.loading = true;
+        self.loading = true;
         self.apiMetabolic.deleteMetabolic(rowGUID, function (resp) {
-          self.message_success('', 'ลบรายการสำเร็จ',function(){
-            self.onSearch(self.filtersearch);
-          });
-          //self.loading = false;
+          if (resp.response && resp.status.toUpperCase() == 'SUCCESS') {
+            self.message_success('', 'ลบรายการสำเร็จ', function () {
+              //self.onSearch(self.filtersearch);
+              $('#filter-btnSearch').click();
+            });
+          }
+          self.loading = false;
         })
       }
     });
-
-
-    // self.loading = true;
-    // let param = {
-    //   "rowGUID": rowguid
-    // };
-    // this.api.post('survey_metabolic/del_metabolic_info', param, function (resp) {
-    //   if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-    //       self.message_success('', 'ลบรายการสำเร็จ', function () {
-    //       $('#filter-btnSearch').click();
-    //     });
-    //   }
-    //   self.loading = false;
-    // })
-
   }
 
 
@@ -209,14 +196,6 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
 
   }
 
-  // onSearch(event: FilterHeadSurveyBean) {
-  //   this.filtersearch = event;
-  //   if (this.isEmpty(this.documentId)) {
-  //     this.documentId = event.rowGUID;
-  //   }
-  //   this.loadData(event);
-
-  // }
 
   onSearch(event: FilterHeadSurveyBean) {
     this.loading = true;
@@ -236,14 +215,6 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
     this.action = action;
     this.changeRef.detectChanges();
     $('#find-person-md').modal('show');
-
-    // if(action == this.ass_action.EDIT){
-    //   this.getSurveyData(this.metabolicbean.rowGUID);
-    // }else{
-    //   this.changeRef.detectChanges();
-    //   $('#find-person-md').modal('show');
-    // }
-
   }
 
   reloadData(event: any) {
@@ -261,28 +232,12 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
     let self = this;
     self.loading = true;
     self.apiMetabolic.getMetabolicInfo(rowGUID, function (resp) {
-
       if (resp.response && resp.status.toUpperCase() == 'SUCCESS') {
         self.metabolicbean = self.cloneObj(resp.response);
-        // self.changeRef.detectChanges();
-        // $('#find-person-md').modal('show');
         self.onModalForm(self.ass_action.EDIT);
       }
       self.loading = false;
     })
-
-
-    // let param = {
-    //   "rowGUID": rowGUID
-    // }
-    // this.api.post('survey_metabolic/metabolic_by_rowguid', param, function (resp) {
-    //   if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-    //     self.metabolicbean = resp.response;
-    //     self.changeRef.detectChanges();
-    //     $('#find-person-md').modal('show');
-    //   }
-    //   self.loading = false;
-    // })
   }
 
   bindMultiMaps(data) {

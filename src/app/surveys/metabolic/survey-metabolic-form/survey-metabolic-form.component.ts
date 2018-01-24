@@ -5,7 +5,7 @@ import { NgModel } from '@angular/forms';
 import { PersonBean } from './../../../beans/person.bean';
 import { BaseComponent } from '../../../base-component';
 import { MetabolicBean } from '../../../beans/metabolic.bean';
-import { ApiHTTPService } from '../../../api-managements/api-http.service';
+import { Service_SurveyMetabolic } from '../../../api-managements/service-survey-metabolic';
 
 declare var bootbox: any;
 declare var $: any;
@@ -30,15 +30,13 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
   public metabolicbean: MetabolicBean;
   public isFindPersonal: boolean = true;
   public loading: boolean = false;
+  private apiMetabolic: Service_SurveyMetabolic;
 
   public code: string = this.surveyHeaderCode.METABOLIC;
   public personBean = new PersonBean();
   public isShowForm: boolean = false;
   public resetFind: number = 1;
-  public apiHttp = new ApiHTTPService();
-  private api: ApiHTTPService;
   public healtInsuranceTypeList: any;
-  //public smokeType: string;
   public drinkType: string;
   public isErrorSmoke = false;
   public isErrorDrink = false;
@@ -61,8 +59,6 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
   public isOftenPerWeekDisabled = true;
   public errorinput = "error-input";
 
-
-
   public errorSmoke;
   public errorDrink;
   public errorWeight;
@@ -74,14 +70,10 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
   public isErrorOverHeight;
 
 
-
-  // dataFor;
-
   constructor(private http: Http, private changeRef: ChangeDetectorRef) {
     super();
-    //console.log(this.metabolicbean);
+    this.apiMetabolic = new Service_SurveyMetabolic();
     this.metabolicbean = new MetabolicBean();
-    this.api = new ApiHTTPService();
   }
 
   ngOnInit() {
@@ -95,59 +87,22 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
 
   calculateBMI() {
     let self = this;
-
-    // console.log("calculateBMI", val);
-    // if (this.metabolicbean.height && this.metabolicbean.weight) {
-
-    // setTimeout(function () {
     let H = self.metabolicbean.height;
     let W = self.metabolicbean.weight;
-    // alert(H + ',' + W);
-    // let result = W * 10000 / (H * H);
     if ((H && H > 0) && (W && W > 0)) {
       let result = W * 10000 / (Math.pow(H, 2));
       self.metabolicbean.bmi = result.toFixed(2);
     } else {
       self.metabolicbean.bmi = "0";
     }
-
-    // }, 100)
-    // }
   }
 
   getHealtinsuranceType() {
     let self = this;
-    let params = {};
-    this.api.post('person/health_insurance_type_list', params, function (resp) {
-      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-        self.healtInsuranceTypeList = resp.response;
-        // self.healtInsuranceTypeList.id = 89;
-        // self.metabolicbean.hInsuranceTypeId = self.healtInsuranceTypeList.id;
-      }
-    })
+    this.apiMetabolic.api_HealtInsuranceType(function (response) {
+      self.healtInsuranceTypeList = response.response;
+    });
   }
-
-  isDuplicate() {
-    let self = this;
-    let params = {
-      "headerTypeCode": this.code,
-      "documentId": this.documentId,
-      "personId": this.metabolicbean.personId
-    };
-
-    console.log(JSON.stringify(params));
-    this.api.post('survey/survey_is_duplicate', params, function (resp) {
-      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-        if (self.action != self.ass_action.EDIT) {
-          if (resp.response.isDuplicate == true) {
-            $('#find-person-md').modal('hide');
-            self.message_error('', 'คนที่ท่านเลือกได้ทำการสำรวจไปแล้ว')
-          }
-        }
-      }
-    })
-  }
-
 
   getCitizen(event: PersonBean) {
     if (event.citizenId == '0') {
@@ -156,7 +111,6 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
       this.isShowForm = true;
     }
     this.personBean.citizenId = event.citizenId;
-    console.log("content");
   }
 
   onChangeFind(event: PersonBean) {
@@ -165,7 +119,6 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
     } else {
       this.isShowForm = true;
     }
-    console.log(event);
   }
 
   onChoosePersonal(bean: any): void {
@@ -179,7 +132,6 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
       this.activeBtnsmoke("2");
       this.activeBtnDrink("2");
     }
-    this.isDuplicate();
     this.isFindPersonal = false;
     this.isShowForm = true;
 
@@ -213,8 +165,6 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
     if (this.ass_action.EDIT == this.action) {
       $('#find-person-md').modal('hide');
     }
-
-    // this.changeRef.detectChanges();
   }
 
   onModalEvent() {
@@ -236,14 +186,8 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
           self.metabolicbean.bp2MM = self.splitBP(self.data.bp2)[0];
           self.metabolicbean.bp2HG = self.splitBP(self.data.bp2)[1];
         }
-        // console.log(self.data.bp2MM);
-        // console.log(self.data.bp2HG);
+
       }
-
-      // if (self.action == self.ass_action.ADD){
-      //   this.metabolicbean.hInsuranceTypeId = 89;
-      //  }
-
       self.changeRef.detectChanges();
     })
     $('#find-person-md').on('hidden.bs.modal', function () {
@@ -255,9 +199,7 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
     });
   }
 
-
   validateForm() {
-
     let validateform = true;
 
     this.metabolicbean.isHeredityMetabolic = this.metabolicbean.isHeredityMetabolic || false;
@@ -457,7 +399,6 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
   addSurvey() {
     let self = this;
 
-    console.log(this.documentId);
     if (this.action == this.ass_action.ADD) {
       this.metabolicbean.documentId = this.documentId;
     }
@@ -506,15 +447,14 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
       self.message_comfirm('', 'ยืนยันการทำแบบสำรวจ', function (confirm) {
         if (confirm) {
           self.loading = true;
-          self.api.post('survey_metabolic/ins_upd_metabolic_info', obj, function (resp) {
-            self.loading = false;
-            if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+          self.apiMetabolic.onSaveSurvey(obj, function (response) {
+            if (response.status.toUpperCase() == "SUCCESS") {
               $("#find-person-md").modal('hide');
               self.completed.emit(true);
-              // self.message_success('', 'ท่านได้ทำการส่งแบบสำรวจความเสี่ยงโรค Metabolic แล้ว');
             } else {
               self.completed.emit(false);
             }
+            self.loading = false;
           })
         }
       })

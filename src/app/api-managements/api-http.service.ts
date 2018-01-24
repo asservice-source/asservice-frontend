@@ -171,6 +171,11 @@ export class ApiHTTPService  implements OnInit {
     public api_DeathPlaceList(callback: (doc: any) => void){
         this.callResponse('survey/survey_death_place_list', {}, callback);
     }
+
+    public api_HealtInsuranceType(callback: (doc: any) => void){
+        this.post('person/health_insurance_type_list',{},callback);
+     }
+
     public api_PersonByCitizenId(citizenId: string, callback: (doc: any) => void){
         citizenId = this.baseComponent.reverseFormatCitizenId(citizenId);
         let parameter = {"citizenId": citizenId};

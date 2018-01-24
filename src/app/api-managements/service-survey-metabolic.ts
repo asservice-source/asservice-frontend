@@ -1,6 +1,7 @@
 import { ApiHTTPService } from "./api-http.service";
 import { RequestOptions, Headers } from "@angular/http";
 import { FilterHeadSurveyBean } from "../beans/filter-head-survey.bean";
+import { MetabolicBean } from "../beans/metabolic.bean";
 
 export class Service_SurveyMetabolic extends ApiHTTPService {
 
@@ -27,5 +28,10 @@ export class Service_SurveyMetabolic extends ApiHTTPService {
         this.post('survey_metabolic/del_metabolic_info'
         , parameter
         , callback);
+     }
+
+     public onSaveSurvey(bean,callback:(doc:any) => void){
+        let parameter = this.baseComponent.strNullToEmpty(bean); 
+        this.post('survey_metabolic/ins_upd_metabolic_info',parameter,callback);
      }
 }
