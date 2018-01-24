@@ -129,8 +129,6 @@ export class FilterFindPersonComponent extends BaseComponent implements OnInit {
           _self.source = _self.ng2STDatasource(response);
           _self.isShowPersons = true;
           _self.loading = false;
-          console.log("detect");
-          _self.source.refresh();
           _self.changeRef.detectChanges();
           setTimeout(function(){
             $('.sequenceNo').click();

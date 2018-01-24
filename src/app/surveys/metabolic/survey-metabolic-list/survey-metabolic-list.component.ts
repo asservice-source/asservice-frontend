@@ -4,7 +4,6 @@ import { Router } from "@angular/router";
 import { LocalDataSource } from 'ng2-smart-table';
 import { BaseComponent } from '../../../base-component';
 import { PersonBean } from "../../../beans/person.bean";
-import { ApiHTTPService } from '../../../api-managements/api-http.service';
 import { ActionCustomView_2_Component } from '../../../action-custom-table/action-custom-view.component';
 import { FilterHeadSurveyBean } from '../../../beans/filter-head-survey.bean';
 import { MetabolicBean } from '../../../beans/metabolic.bean';
@@ -24,11 +23,6 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
   private apiMetabolic: Service_SurveyMetabolic;
 
   public loading;
-  public data;
-  public mooID: number = 0;
-  public xxx: string;
-  public check: boolean = false;
-  public metabolicHeadID: number = 0;
   public surveyTypeCode: string = "METABOLIC";
   public isShowList: boolean = true;
   public source: LocalDataSource;
@@ -42,15 +36,12 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
   public param_info: string = "";
   public param_listPosition: Array<MapsBean>;
 
-
-  private api: ApiHTTPService;
   public settings: any;
   public documentId: string;
 
   constructor(private http: Http, private router: Router, private changeRef: ChangeDetectorRef) {
     super();
 
-    this.api = new ApiHTTPService();
     this.apiMetabolic = new Service_SurveyMetabolic();
 
     let self = this;
@@ -105,11 +96,6 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
         type: 'custom',
         renderComponent: ActionCustomViewMapsComponent,
         onComponentInitFunction(instance) {
-          // instance.edit.subscribe((row: MetabolicBean, cell) => {
-          //   self.metabolicbean = self.cloneObj(row);
-          //   self.onModalForm(self.ass_action.EDIT);
-          //   self.getSurveyData(row.rowGUID);
-          // });
 
           instance.edit.subscribe(row => {
             self.getSurveyData(row.rowGUID);
@@ -118,14 +104,6 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
           instance.delete.subscribe(row => {
             self.actionDelete(row.rowGUID, row.fullName);
           });
-
-          // instance.delete.subscribe((row: MetabolicBean, cell) => {
-          //   self.message_comfirm("", "ต้องการยกเลิกการทำรายการสำรวจของ " + row.fullName + " ใช่หรือไม่", function (resp) {
-          //     if (resp) {
-          //       self.actionDelete(row.rowGUID);
-          //     }
-          //   });
-          // });
 
           instance.maps.subscribe(row => {
             self.param_latitude = row.latitude;
@@ -142,33 +120,8 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
 
   }
 
-  save() {
-    this.check = true
-  }
-
-  // loadData(event: FilterHeadSurveyBean) {
-  //   let self = this;
-  //   this.loading = true;
-  //   let param = {
-  //     "documentId": event.rowGUID,
-  //     "villageId": event.villageId,
-  //     "osmId": event.osmId,
-  //     "name": event.fullName
-  //   };
-  //   let params = JSON.stringify(param);
-  //   this.api.post('survey_metabolic/search_metabolic_list', params, function (resp) {
-  //     console.log(resp);
-  //     if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-  //       self.bindMultiMaps(resp.response);
-  //       self.source = self.ng2STDatasource(resp.response);
-  //       self.isShowList = true;
-  //       // self.data = resp.response;
-  //       // self.setUpTable();
-  //     }
-  //     self.changeRef.detectChanges();
-  //     self.loading = false;
-  //   })
-
+  // save() {
+  //   this.check = true
   // }
 
 

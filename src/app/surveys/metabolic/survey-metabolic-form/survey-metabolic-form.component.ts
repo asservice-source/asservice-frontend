@@ -32,12 +32,11 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
   public loading: boolean = false;
   private apiMetabolic: Service_SurveyMetabolic;
 
-  public code: string = this.surveyHeaderCode.METABOLIC;
+
   public personBean = new PersonBean();
   public isShowForm: boolean = false;
   public resetFind: number = 1;
   public healtInsuranceTypeList: any;
-  public drinkType: string;
   public isErrorSmoke = false;
   public isErrorDrink = false;
   public isErrorWeight = false;
