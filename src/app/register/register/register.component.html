@@ -75,7 +75,7 @@
 
           <div class="col-md-8 ">
             <input class="ng-pristine ng-valid ng-touched" type="text" placeholder="รหัส 9 หลัก รพ.สต." [(ngModel)]="registerBean.code9"
-              id="xxx2" maxlength="9" [OnlyNumber]="true" />
+              id="xxx2" maxlength="9" [Number]="true" />
             <label class="error2 col-md-12" *ngIf="isErrorCode9">กรุณาระบุหมายเลขให้ครบ 9 หลัก</label>
           </div>
         </div>
@@ -87,7 +87,7 @@
 
           <div class="col-md-8 ">
             <input class="ng-pristine ng-valid ng-touched" type="text" placeholder="รหัส 5 หลัก" [(ngModel)]="registerBean.code5" maxlength="5"
-              [OnlyNumber]="true" />
+              [Number]="true" />
             <label class="error2 col-md-12" *ngIf="isErrorCode5">กรุณาระบุหมายเลขให้ครบ 5 หลัก</label>
           </div>
         </div>
@@ -98,8 +98,10 @@
           </div>
 
           <div class="col-md-8 ">
-            <input class="ng-pristine ng-valid ng-touched" type="text" placeholder="เลขประจำตัว 13 หลัก" [(ngModel)]="registerBean.contactCitizenId"
-              (keypress)="formatInputCitizenID()" maxlength="17" [OnlyNumber]="true" />
+            <!-- <input class="ng-pristine ng-valid ng-touched" type="text" placeholder="เลขประจำตัว 13 หลัก" [(ngModel)]="registerBean.contactCitizenId"
+              (keypress)="formatInputCitizenID()" maxlength="17" [OnlyNumber]="true" /> -->
+              <input class="ng-pristine ng-valid ng-touched" type="text" placeholder="เลขประจำตัว 13 หลัก" [(ngModel)]="registerBean.contactCitizenId"
+              [CitizenId]="registerBean.contactCitizenId" />
             <label class="error2 col-md-12" *ngIf="isErrorCitizenID">กรุณาระบุหมายเลขประจำตัวประชาชนให้ถูกต้อง</label>
           </div>
         </div>
@@ -158,7 +160,10 @@
 
           <div class="col-md-8 ">
             <input class="ng-pristine ng-valid ng-touched" type="text" placeholder="เบอร์โทรศัพท์" [(ngModel)]="registerBean.contactTelephone"
-              (keypress)="formatPhoneNumber()" maxlength="12" [OnlyNumber]="true" />
+               maxlength="10" [Number]="true" />
+
+              <!-- <input class="ng-pristine ng-valid ng-touched" type="text" placeholder="เบอร์โทรศัพท์" [(ngModel)]="registerBean.contactTelephone"
+              (keypress)="formatPhoneNumber()" (paste)="onPastePhoneNumber($event)" maxlength="12" [OnlyNumber]="true"/> -->
             <label class="error2 col-md-12" *ngIf="isErrorPhone">กรุณาระบุเบอร์โทรศัพท์ให้ถูกต้อง</label>
           </div>
         </div>

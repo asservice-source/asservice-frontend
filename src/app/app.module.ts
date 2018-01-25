@@ -47,6 +47,7 @@ import { FilterHeadSurveyComponent } from './filter/filter-head-survey/filter-he
 import { FilterPersonalComponent } from './filter/filter-personal/filter-personal.component';
 import { ActionCustomViewComponent, ActionCustomView_2_Component, ActionCustomViewMapsComponent } from './action-custom-table/action-custom-view.component'
 import { OnlyNumberDirective } from './directives/onlynumber.directive';
+import { NumberDirective } from './directives/number.directive';
 import { AutofocusDirective } from './directives/autofocus.directive';
 import { InputValidateDirective } from './directives/inputvalidate.directive';
 import { ManagementStaffUserFormComponent } from './managements/staff/manage-staff-user/form/management-staff-user-form.component';
@@ -114,6 +115,7 @@ import { SurveyPersonalHistoryComponent } from './surveys/personal/survey-person
     ActionCustomViewMapsComponent,
     ActionCustomView_StaffManageOSMScopeComponent,
     OnlyNumberDirective,
+    NumberDirective,
     AutofocusDirective,
     InputValidateDirective,
     ManagementStaffUserFormComponent,

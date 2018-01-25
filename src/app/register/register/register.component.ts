@@ -159,9 +159,9 @@ export class RegisterComponent extends BaseComponent implements OnInit {
       this.api.post('hospital/hospital_list', paramCode5, function (resp){
         if (resp.response && resp.status.toUpperCase() == "SUCCESS") {
           let hospital = resp.response[0];
-          console.log(self.registerBean);
-          console.log(resp.response[0]);
-          console.log(hospital);
+          // console.log(self.registerBean);
+          // console.log(resp.response[0]);
+          // console.log(hospital);
           
           if (hospital 
             && self.registerBean.hospitalName == hospital.hospitalName
@@ -240,7 +240,13 @@ export class RegisterComponent extends BaseComponent implements OnInit {
     let validateForm = true;
     self.isFocusHospitalname = true;
 
-    if (self.isEmpty(self.registerBean.contactTelephone) || self.registerBean.contactTelephone.length != 12) {
+    let citi = self.formatForJson(self.registerBean.contactCitizenId);
+    let phone = self.formatForJson(self.registerBean.contactTelephone);
+
+    console.log("citi ="+citi);
+    console.log("phone ="+phone);
+
+    if (self.isEmpty(phone) || phone.length != 10) {
       self.isErrorPhone = true;
       validateForm = false;
     } else {
@@ -275,9 +281,9 @@ export class RegisterComponent extends BaseComponent implements OnInit {
       self.isErrorPrefix = false;
     }
 
-    if (!self.isEmpty(self.registerBean.contactCitizenId)) {
-      if (self.registerBean.contactCitizenId.length == 17) {
-        let citi = self.formatForJson(self.registerBean.contactCitizenId);
+    if (!self.isEmpty(citi)) {
+      if (citi.length == 13) {
+        //let citi = self.formatForJson(self.registerBean.contactCitizenId);
         if (self.isValidCitizenIdThailand(citi)) {
           self.isErrorCitizenID = false;
         } else {
@@ -376,6 +382,38 @@ export class RegisterComponent extends BaseComponent implements OnInit {
     }
   }
 
+  onPastePhoneNumber($event){
+    console.log("onPaste");
+    let _self = this;
+        let event = $event;
+        let max = 12;
+        setTimeout(function(){
+          if(event.target.value){
+            let value = event.target.value;
+            value = value.replace(/[^0-9\.]+/g, '');
+            if(max){
+              if(value.length > 10){
+                value = value.substr(0, 10);
+              }
+            }
+            event.target.value = _self.displayPhoneNumber(value);
+          }
+        }, 50);
+  }
+
+  displayPhoneNumber(phone: string): string {
+    if (!phone || phone.length != 10){
+        return phone;
+    } else{
+        if(phone.indexOf('-')>=0){
+            return phone;
+        }
+    }
+    let arr = phone.split('');
+    return arr[0] + arr[1] + '-' + arr[2] + arr[3] + arr[4] + arr[5] + '-' +arr[6] + arr[7] + arr[8] + arr[9];
+}
+
+
   setCode9Maxlenght() {
     let self = this;
     if (!self.isEmpty(self.registerBean.code9)) {
@@ -395,9 +433,11 @@ export class RegisterComponent extends BaseComponent implements OnInit {
   }
 
   formatForJson(value) {
-    let pure_value = value.split("-");
-    let result = pure_value.join('');
-    return result;
+    if(!this.isEmpty(value)){
+      let pure_value = value.split("-");
+      let result = pure_value.join('');
+      return result;
+    }
   }
 
   onGotoIndex() {

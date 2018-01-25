@@ -120,11 +120,6 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
 
   }
 
-  // save() {
-  //   this.check = true
-  // }
-
-
   actionDelete(rowGUID, fullName) {
     let self = this;
 
@@ -153,6 +148,7 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
   onSearch(event: FilterHeadSurveyBean) {
     this.loading = true;
     this.filtersearch = event;
+    
     if (this.isEmpty(this.documentId)) {
       this.documentId = event.rowGUID;
     }

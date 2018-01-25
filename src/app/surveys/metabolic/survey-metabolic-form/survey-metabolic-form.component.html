@@ -7,7 +7,7 @@
                 <h4 class="modal-title">ฟอร์มคัดกรองผู้ป่วย metabolic</h4>
             </div>
 
-            <app-filter-find-person [reset]="resetFind" [findPersonal]="isFindPersonal" (choosePersonal)="onChoosePersonal($event)" [surveyTypeCode]="code"
+            <app-filter-find-person [reset]="resetFind" [findPersonal]="isFindPersonal" (choosePersonal)="onChoosePersonal($event)" [surveyTypeCode]="surveyTypeCode"
                 [documentId]="documentId"></app-filter-find-person>
 
             <div *ngIf="isShowForm">

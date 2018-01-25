@@ -50,6 +50,7 @@ export class FilterFindPersonComponent extends BaseComponent implements OnInit {
     if(this.isStaffRole(this.userInfo.roleId)){
       this.isStaff = true;
       this.setupVillage();
+      //this.setupHome();
     }else{
       this.isStaff = false;
       this.filterBean.villageId = this.userInfo.villageId;
@@ -172,6 +173,7 @@ export class FilterFindPersonComponent extends BaseComponent implements OnInit {
     let self = this;
     self.isDisabledHomeNo = true;
 
+    console.log("================================");
     console.log(self.documentId);
     console.log(self.filterBean.villageId);
     console.log(self.filterBean.osmId);

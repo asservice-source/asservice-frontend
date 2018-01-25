@@ -31,7 +31,7 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
   public isFindPersonal: boolean = true;
   public loading: boolean = false;
   private apiMetabolic: Service_SurveyMetabolic;
-
+  public surveyTypeCode: string = "METABOLIC";
 
   public personBean = new PersonBean();
   public isShowForm: boolean = false;
@@ -81,7 +81,7 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
   }
 
   ngAfterViewInit() {
-
+   
   }
 
   calculateBMI() {
