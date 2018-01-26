@@ -48,14 +48,16 @@ export class FilterFindPersonComponent extends BaseComponent implements OnInit {
     this.personBean.fullName;
 
     if(this.isStaffRole(this.userInfo.roleId)){
+      console.log("++++++++++++++++++++++++++++++++++++++++++++++ staff");
       this.isStaff = true;
       this.setupVillage();
       //this.setupHome();
     }else{
+      console.log("++++++++++++++++++++++++++++++++++++++++++++++ don't staff");
       this.isStaff = false;
       this.filterBean.villageId = this.userInfo.villageId;
       this.filterBean.osmId = this.userInfo.personId;
-      this.setupHome();
+      //this.setupHome();
     }
 
     this.settingTable();
@@ -77,6 +79,14 @@ export class FilterFindPersonComponent extends BaseComponent implements OnInit {
     }
     if(!this.isStaff){
       this.isDisabledHomeNo = false;
+      if(changes['documentId']){
+        if(this.documentId){
+          this.isStaff = false;
+          this.filterBean.villageId = this.userInfo.villageId;
+          this.filterBean.osmId = this.userInfo.personId;
+          this.setupHome();
+        }
+      }
     }
   }
 
@@ -173,11 +183,12 @@ export class FilterFindPersonComponent extends BaseComponent implements OnInit {
     let self = this;
     self.isDisabledHomeNo = true;
 
-    console.log("================================");
-    console.log(self.documentId);
-    console.log(self.filterBean.villageId);
-    console.log(self.filterBean.osmId);
-    console.log(self.surveyTypeCode);
+    console.log("===========================searchHome=================================");
+    console.log("documentId ="+self.documentId);
+    console.log("villageId ="+self.filterBean.villageId);
+    console.log("osmId ="+self.filterBean.osmId);
+    console.log("surveyTypeCode ="+self.surveyTypeCode);
+    console.log("===========================//searchHome=================================");
 
     self.api.api_HomeListByHeader(self.documentId,self.filterBean.villageId,self.filterBean.osmId,self.surveyTypeCode
       , function (response) {

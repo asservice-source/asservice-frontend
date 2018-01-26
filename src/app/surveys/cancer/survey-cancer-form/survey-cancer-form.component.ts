@@ -202,9 +202,7 @@ export class SurveyCancerFormComponent extends BaseComponent implements OnInit, 
 
   validate(obj: any): boolean {
     let self = this;
-
     let validate = true;
-
     self.inputValidate = new InputValidateInfo();
     self.inputValidate.isCheck = true;
     let simpVal: SimpleValidateForm = new SimpleValidateForm();
@@ -213,9 +211,7 @@ export class SurveyCancerFormComponent extends BaseComponent implements OnInit, 
     if (self.action == self.ass_action.ADD) {
       ignore.push("rowGUID");
     }
-
     let objs = simpVal.getObjectEmpty(obj, ignore);
-
     if (objs.length > 0 || self.compareDateCurrent_DDMMYYYY(self.cancerbean.patientDate) < 0) {
       validate = false;
     } else {
