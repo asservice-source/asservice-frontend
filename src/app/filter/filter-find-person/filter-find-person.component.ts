@@ -48,16 +48,12 @@ export class FilterFindPersonComponent extends BaseComponent implements OnInit {
     this.personBean.fullName;
 
     if(this.isStaffRole(this.userInfo.roleId)){
-      console.log("++++++++++++++++++++++++++++++++++++++++++++++ staff");
       this.isStaff = true;
       this.setupVillage();
-      //this.setupHome();
     }else{
-      console.log("++++++++++++++++++++++++++++++++++++++++++++++ don't staff");
       this.isStaff = false;
       this.filterBean.villageId = this.userInfo.villageId;
       this.filterBean.osmId = this.userInfo.personId;
-      //this.setupHome();
     }
 
     this.settingTable();

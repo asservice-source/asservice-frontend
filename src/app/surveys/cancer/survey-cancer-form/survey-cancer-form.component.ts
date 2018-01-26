@@ -251,6 +251,8 @@ export class SurveyCancerFormComponent extends BaseComponent implements OnInit, 
       , "longitude": self.cancerbean.longitude
     };
 
+    //console.log(obj.remark.length);
+
     if (self.validate(obj)) {
       self.message_comfirm('', 'ยืนยันการทำแบบสำรวจ', function (confirm) {
         self.inputValidate = new InputValidateInfo();
@@ -258,7 +260,7 @@ export class SurveyCancerFormComponent extends BaseComponent implements OnInit, 
           self.loading = true;
 
           let params = self.strNullToEmpty(obj);
-
+          console.log(params.remark.length);
           self.api.post('survey_patient/ins_upd', params, function (resp) {
             if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
               $("#find-person-md").modal('hide');
