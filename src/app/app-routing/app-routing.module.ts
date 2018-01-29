@@ -140,6 +140,7 @@ import { SurveyPersonalHistoryComponent } from '../surveys/personal/survey-perso
       ,
       {
         path: 'history/surveys',
+        canActivate: [GuardService],
         children: [{
           path: 'personal/:homeId/:roundId',
           component: SurveyPersonalHistoryComponent

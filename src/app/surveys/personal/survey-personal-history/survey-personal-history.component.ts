@@ -2,6 +2,8 @@ import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef} from
 import { BaseComponent } from '../../../base-component';
 import { Service_SurveyPersonal } from '../../../api-managements/service-survey-personal';
 import { ActivatedRoute } from '@angular/router';
+import { UserService } from '../../../service/user.service';
+import { AppComponent } from '../../../app.component';
 
 declare var $;
 
@@ -72,6 +74,7 @@ export class SurveyPersonalHistoryComponent extends BaseComponent implements OnI
             _self.roundName = d.name;
         });
       }
+
     onClose(){
         window.close();
     }

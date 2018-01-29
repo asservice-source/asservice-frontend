@@ -112,7 +112,6 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
       _self.changeRef.detectChanges();
     });
   }
-
   onModalForm(action: string) {
     this.action = action;
     this.changeRef.detectChanges();
@@ -138,11 +137,9 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
   }
   
   onCompleted(event: any) {
-    console.log(">>> OnCommit");
     let _seft = this;
     if(event.success){
       this.message_success('', event.message, function(){
-        //_seft.onSearch(_seft.filterBean);
         $('#filter-btnSearch').click();
       });
       
@@ -158,7 +155,6 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
         _self.apiDead.commit_del(bean.rowGUID, function (response) {
           if (response && response.status.toUpperCase() == 'SUCCESS') {
             _self.message_success('', 'ยกเลิกแจ้งการเสียชีวิต <b>' + bean.fullName + '</b> เรียบร้อย', function () {
-              //_self.onSearch(_self.filterBean);
               $('#filter-btnSearch').click();
             });
 
