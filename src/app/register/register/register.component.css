@@ -18,3 +18,19 @@
     margin-top:20px; 
     color: #FFF;
 }
+
+/* :host /deep/ .completer-input {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    } */
+    
+    :host /deep/ .completer-holder {
+    width: 100%;
+    height: 100%;
+    }
+    
+    :host /deep/ .completer-dropdown-holder div {
+    width: 100%;
+    }
