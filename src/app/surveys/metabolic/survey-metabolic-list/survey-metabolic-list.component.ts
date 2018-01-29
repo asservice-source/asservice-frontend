@@ -30,6 +30,8 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
   public action: string = this.ass_action.ADD;
   public filtersearch: FilterHeadSurveyBean;
 
+
+  //maps variable
   public param_reset: number = 0;
   public param_latitude: string = "";
   public param_longitude: string = "";
@@ -146,13 +148,13 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
 
 
   onSearch(event: FilterHeadSurveyBean) {
-    this.loading = true;
-    this.filtersearch = event;
-    
-    if (this.isEmpty(this.documentId)) {
-      this.documentId = event.rowGUID;
-    }
     let _self = this;
+    _self.loading = true;
+    _self.filtersearch = event;
+
+    if (_self.isEmpty(this.documentId)) {
+      _self.documentId = event.rowGUID;
+    }
     _self.apiMetabolic.getListMetabolic(event, function (response) {
       _self.source = _self.ng2STDatasource(response);
       _self.loading = false;

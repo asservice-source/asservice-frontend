@@ -1,11 +1,12 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { BaseComponent } from '../../../base-component';
-import { ApiHTTPService } from '../../../api-managements/api-http.service';
 import { ActionCustomViewMapsComponent } from '../../../action-custom-table/action-custom-view.component';
 import { FilterHeadSurveyBean } from '../../../beans/filter-head-survey.bean';
 import { LocalDataSource } from 'ng2-smart-table';
 import { PatientBean } from '../../../beans/patient.bean'
 import { MapsBean } from '../../../multi-maps/multi-maps.component';
+import { Service_SurveyPatient } from '../../../api-managements/service-survey-patient';
+
 declare var $: any;
 
 @Component({
@@ -15,23 +16,24 @@ declare var $: any;
 })
 export class SurveyPatientListComponent extends BaseComponent implements OnInit {
 
+
+  private apiPatient: Service_SurveyPatient;
+
   public patientType: number = 0;
   public isShowsick: boolean = true;
   public surveyTypeCode: string = "PATIENT";
   public patientbean: PatientBean = new PatientBean();
   public action: string = this.ass_action.ADD;
-
-  private apiHttp: ApiHTTPService;
   public loading: boolean = false;
 
   public settings: any;
-  public isShowList: boolean = false;
-  public source: LocalDataSource = new LocalDataSource();
+  public isShowList: boolean = true;
+  public source: LocalDataSource;
 
-  public healtInsuranceID = 7;
   public filtersearch: FilterHeadSurveyBean;
   public documentId: string;
 
+  //maps variable
   public param_reset: number = 0;
   public param_latitude: string = "";
   public param_longitude: string = "";
@@ -41,9 +43,9 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
   constructor(private changeRef: ChangeDetectorRef) {
     super();
 
+    this.apiPatient = new Service_SurveyPatient();
     let self = this;
 
-    self.apiHttp = new ApiHTTPService();
     self.filtersearch = new FilterHeadSurveyBean();
 
     self.settings = self.getTableSetting({
@@ -104,18 +106,14 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
         renderComponent: ActionCustomViewMapsComponent,
         onComponentInitFunction(instance) {
 
-          instance.edit.subscribe((row: PatientBean, cell) => {
-            self.patientbean = self.cloneObj(row);
-            self.onModalForm(self.ass_action.EDIT);
+          instance.edit.subscribe(row => {
+            self.getSurveyData(row.rowGUID);
           });
 
-          instance.delete.subscribe((row: PatientBean, cell) => {
-            self.message_comfirm("", "ต้องการยกเลิกการทำรายการสำรวจของ " + row.fullName + " ใช่หรือไม่", function (confirm) {
-              if (confirm) {
-                self.actionDelete(row.rowGUID);
-              }
-            });
+          instance.delete.subscribe(row => {
+            self.actionDelete(row.rowGUID, row.fullName);
           });
+
 
           instance.maps.subscribe(row => {
             self.param_latitude = row.latitude;
@@ -147,31 +145,6 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
 
   }
 
-  loadData(event: FilterHeadSurveyBean) {
-    let self = this;
-
-    self.loading = true;
-
-    let param = {
-      "documentId": event.rowGUID,
-      "villageId": event.villageId,
-      "osmId": event.osmId,
-      "name": event.fullName,
-    };
-
-    let params = JSON.stringify(param);
-
-    self.apiHttp.post('survey_patient/filter', params, function (resp) {
-      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-        self.bindMultiMaps(resp.response);
-        self.source = self.ng2STDatasource(resp.response);
-        self.isShowList = true;
-      }
-      self.loading = false;
-      self.changeRef.detectChanges();
-    });
-  }
-
   bindMultiMaps(data) {
     let self = this;
 
@@ -188,25 +161,24 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
   }
 
   onModalForm(action: string) {
-    let self = this;
-
-    self.action = action;
-    if (action == self.ass_action.EDIT) {
-      self.getSurveyData(self.patientbean.rowGUID);
-    } else {
-      self.changeRef.detectChanges();
-      $('#find-person-md').modal('show');
-    }
+    this.action = action;
+    this.changeRef.detectChanges();
+    $('#find-person-md').modal('show');
   }
 
   onSearch(event: FilterHeadSurveyBean) {
     let self = this;
-
+    self.loading = true;
     self.filtersearch = event;
+
     if (self.isEmpty(self.documentId)) {
       self.documentId = event.rowGUID;
     }
-    self.loadData(event);
+    self.apiPatient.getListPatient(event, function (response) {
+      self.source = self.ng2STDatasource(response);
+      self.loading = false;
+      self.changeRef.detectChanges();
+    });
   }
 
   onClickMultiMaps() {
@@ -219,7 +191,6 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
 
   reloadData(event: any) {
     let self = this;
-
     if (event) {
       self.message_success('', 'ท่านได้ทำการส่งแบบสำรวจผู้พิการ และผู้ป่วยติดเตียงแล้ว', function () {
         // self.loadData(self.filtersearch);
@@ -230,21 +201,21 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
     }
   }
 
-  actionDelete(rowguid) {
+  actionDelete(rowGUID, fullName) {
     let self = this;
-
-    self.loading = true;
-
-    let params = { "rowGUID": rowguid };
-
-    self.apiHttp.post('survey_patient/del', params, function (resp) {
-      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-        self.message_success('', 'ลบรายการสำเร็จ', function () {
-          // self.loadData(self.filtersearch);
-          $('#filter-btnSearch').click();
-        });
+    self.message_comfirm("", "ต้องการยกเลิกการทำรายการสำรวจของ " + fullName + " ใช่หรือไม่", function (resp) {
+      if (resp) {
+        self.loading = true;
+        self.apiPatient.deletePatient(rowGUID, function (resp) {
+          if (resp.response && resp.status.toUpperCase() == 'SUCCESS') {
+            self.message_success('', 'ลบรายการสำเร็จ', function () {
+              //self.onSearch(self.filtersearch);
+              $('#filter-btnSearch').click();
+            });
+          }
+          self.loading = false;
+        })
       }
-      self.loading = false;
     });
   }
 
@@ -267,18 +238,13 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
     let self = this;
 
     self.loading = true;
-
-    let params = { "rowGUID": rowGUID };
-
-    self.apiHttp.post('survey_patient/patient_by_rowguid', params, function (resp) {
-      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-        self.patientbean = resp.response;
-        self.strNullToEmpty(self.patientbean)
-        self.changeRef.detectChanges();
-        $('#find-person-md').modal('show');
+    self.apiPatient.getPatientInfo(rowGUID, function (resp) {
+      if (resp.response && resp.status.toUpperCase() == 'SUCCESS') {
+        self.patientbean = self.cloneObj(resp.response);
+        self.onModalForm(self.ass_action.EDIT);
       }
       self.loading = false;
-    });
+    })
   }
 
 }
