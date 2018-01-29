@@ -112,7 +112,6 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
       _self.changeRef.detectChanges();
     });
   }
-
   onModalForm(action: string) {
     this.action = action;
     this.changeRef.detectChanges();
