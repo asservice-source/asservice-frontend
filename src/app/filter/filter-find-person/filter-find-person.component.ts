@@ -69,9 +69,17 @@ export class FilterFindPersonComponent extends BaseComponent implements OnInit {
       this.isShowFind = this.findPersonal;
     }
     if (changes['reset']) {
-      this.filterBean.villageId = "";
-      this.changVillageNo();
-
+      //console.log("docmentId test ="+this.documentId);
+      if(!this.isStaff){
+        this.filterBean.villageId = "";
+        this.changVillageNo();
+        this.filterBean.villageId = this.userInfo.villageId;
+        this.filterBean.osmId = this.userInfo.personId;
+        this.setupHome();
+      }else{
+        this.filterBean.villageId = "";
+        this.changVillageNo();
+      }
     }
     if(!this.isStaff){
       this.isDisabledHomeNo = false;
