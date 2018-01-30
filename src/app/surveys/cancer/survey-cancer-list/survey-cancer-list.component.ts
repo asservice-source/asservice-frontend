@@ -7,7 +7,7 @@ import { ApiHTTPService } from '../../../api-managements/api-http.service';
 import { CancerBean } from '../../../beans/cancer.bean';
 import { FilterHeadSurveyBean } from '../../../beans/filter-head-survey.bean';
 import { FilterBean } from "../../../beans/filter.bean";
-import { ActionCustomViewMapsComponent } from '../../../action-custom-table/action-custom-view.component';
+import { ActionCustomViewMapsComponent , ActionCustomViewHistoryComponent } from '../../../action-custom-table/action-custom-view.component';
 import { MapsBean } from '../../../multi-maps/multi-maps.component';
 declare var $;
 
@@ -17,6 +17,9 @@ declare var $;
   styleUrls: ['./survey-cancer-list.component.css']
 })
 export class SurveyCancerListComponent extends BaseComponent implements OnInit {
+
+  private actionView : any;
+  private isCurrent:boolean;
 
   public cancerType: number = 0;
   public isShowsick: boolean = true;

@@ -7,6 +7,7 @@ import { ApiHTTPService } from '../../api-managements/api-http.service';
 import { BaseComponent } from '../../base-component';
 import { UserService } from '../../service/user.service';
 
+
 declare var $: any;
 
 @Component({
@@ -54,6 +55,7 @@ export class FilterHeadSurveyComponent extends BaseComponent implements OnInit {
     this.setupHeaderList();
   }
   setupHeaderList(){
+
     let _self = this;
     this.api.api_SurveyHeaderList(this.surveyTypeCode, function(response){
       _self.headerList = response;
@@ -89,9 +91,9 @@ export class FilterHeadSurveyComponent extends BaseComponent implements OnInit {
   }
 
   onChangeRound(select:any) {
-    console.log(select);
     for(let item of select.options){
       if(item.value==select.value){
+        this.filterBean.status = item.getAttribute('status');
         this.description.round = item.text;
       }
     }
@@ -126,6 +128,7 @@ export class FilterHeadSurveyComponent extends BaseComponent implements OnInit {
     str += ' , อสม.: ' + this.description.osm;
     str += ' , ชื่อ: ' + this.filterBean.fullName;
     this.filterBean.description = str;
+    //this.filterBean.status 
     this.notifyFilter.emit(this.filterBean);
     console.log("=== Filter Header Search DocumentId ===");
     console.log(this.filterBean);

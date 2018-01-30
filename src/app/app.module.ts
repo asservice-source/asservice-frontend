@@ -45,7 +45,7 @@ import { FilterHeadMosquitoComponent } from './filter/filter-head-mosquito/filte
 import { FilterFindPersonComponent, FilterFindPersonButtonChooseComponent } from './filter/filter-find-person/filter-find-person.component';
 import { FilterHeadSurveyComponent } from './filter/filter-head-survey/filter-head-survey.component';
 import { FilterPersonalComponent } from './filter/filter-personal/filter-personal.component';
-import { ActionCustomViewComponent, ActionCustomView_2_Component, ActionCustomViewMapsComponent } from './action-custom-table/action-custom-view.component'
+import { ActionCustomViewComponent, ActionCustomView_2_Component, ActionCustomViewMapsComponent, ActionCustomViewHistoryComponent } from './action-custom-table/action-custom-view.component'
 import { OnlyNumberDirective } from './directives/onlynumber.directive';
 import { NumberDirective } from './directives/number.directive';
 import { AutofocusDirective } from './directives/autofocus.directive';
@@ -74,6 +74,7 @@ import { MultiMapsComponent } from './multi-maps/multi-maps.component';
 import { ManagementHomeFormWithoutOSMComponent } from './managements/osm/management-home/form-without-osm/management-home-without-osm.component';
 import { SurveyPersonalHistoryComponent } from './surveys/personal/survey-personal-history/survey-personal-history.component';
 import { SurveyCancerHistoryComponent } from './surveys/cancer/survey-cancer-history/survey-cancer-history.component';
+import { SurveyPatientHistoryComponent } from './surveys/patient/survey-patient-history/survey-patient-history.component';
 import { ChangePasswordComponent } from './profile/change-password/change-password.component';
 
 
@@ -117,6 +118,7 @@ import { ChangePasswordComponent } from './profile/change-password/change-passwo
     ActionCustomView_2_Component,
     ActionCustomViewMapsComponent,
     ActionCustomView_StaffManageOSMScopeComponent,
+    ActionCustomViewHistoryComponent,
     OnlyNumberDirective,
     NumberDirective,
     AutofocusDirective,
@@ -140,7 +142,8 @@ import { ChangePasswordComponent } from './profile/change-password/change-passwo
     ManagementHomeFormWithoutOSMComponent,
     SurveyPersonalHistoryComponent,
     SurveyCancerHistoryComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    SurveyPatientHistoryComponent
 
   ],
   imports: [
@@ -160,6 +163,7 @@ import { ChangePasswordComponent } from './profile/change-password/change-passwo
     ActionCustomView_2_Component,
     ActionCustomViewMapsComponent,
     ActionCustomView_StaffManageOSMScopeComponent,
+    ActionCustomViewHistoryComponent,
     SurveyPersonalHomeListButtonEditComponent,
     SurveyPersonalMemberListButtonEditComponent,
     SelectHomeListButton,

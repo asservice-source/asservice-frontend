@@ -3,11 +3,11 @@ import { BaseComponent } from '../../../base-component';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-survey-cancer-history',
-  templateUrl: './survey-cancer-history.component.html',
-  styleUrls: ['./survey-cancer-history.component.css']
+  selector: 'app-survey-patient-history',
+  templateUrl: './survey-patient-history.component.html',
+  styleUrls: ['./survey-patient-history.component.css']
 })
-export class SurveyCancerHistoryComponent extends BaseComponent implements OnInit {
+export class SurveyPatientHistoryComponent extends BaseComponent implements OnInit {
 
   public loading: boolean = false;
 

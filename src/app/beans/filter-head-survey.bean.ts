@@ -6,4 +6,5 @@ export class FilterHeadSurveyBean {
     public fullName: string = '';
     public description: string = '';
     public status : string;
+    //public isCurrent :
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { BaseComponent } from '../../../base-component';
-import { ActionCustomViewMapsComponent } from '../../../action-custom-table/action-custom-view.component';
+import { ActionCustomViewMapsComponent, ActionCustomViewHistoryComponent } from '../../../action-custom-table/action-custom-view.component';
 import { FilterHeadSurveyBean } from '../../../beans/filter-head-survey.bean';
 import { LocalDataSource } from 'ng2-smart-table';
 import { PatientBean } from '../../../beans/patient.bean'
@@ -16,6 +16,8 @@ declare var $: any;
 })
 export class SurveyPatientListComponent extends BaseComponent implements OnInit {
 
+  private actionView: any;
+  private isCurrent: boolean;
 
   private apiPatient: Service_SurveyPatient;
 
@@ -42,12 +44,9 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
 
   constructor(private changeRef: ChangeDetectorRef) {
     super();
-
     this.apiPatient = new Service_SurveyPatient();
     let self = this;
-
     self.filtersearch = new FilterHeadSurveyBean();
-
     self.settings = self.getTableSetting({
       fullName: {
         title: 'ชื่อ - นามสกุล',
@@ -125,6 +124,7 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
         }
       }
     });
+    
   }
 
   ngOnInit() {
@@ -167,9 +167,15 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
   }
 
   onSearch(event: FilterHeadSurveyBean) {
+
     let self = this;
     self.loading = true;
     self.filtersearch = event;
+
+    console.log(self.filtersearch.status);
+
+    self.changeTableSetting(self.filtersearch.status);
+
 
     if (self.isEmpty(self.documentId)) {
       self.documentId = event.rowGUID;
@@ -247,4 +253,162 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
     })
   }
 
+  // change table
+  changeTableSetting(status) {
+    let self = this;
+
+   if(status =='3'){
+      self.settings = self.getTableSetting({
+        fullName: {
+          title: 'ชื่อ - นามสกุล',
+          filter: false,
+        },
+        citizenId: {
+          title: 'เลขประจำตัวประชาชน',
+          filter: false,
+          width: '200px',
+          type: 'html',
+          valuePrepareFunction: (cell, row) => {
+            return '<div class="text-center">' + cell + '</div>'
+          }
+        },
+        remark: {
+          title: 'สาเหตุความพิการ/ป่วย',
+          filter: false,
+          type: 'html',
+          valuePrepareFunction: (cell, row) => {
+            return '<div class="wrap-text" title="' + cell + '">' + this.displaySubstring(cell) + '</div>'
+          }
+        },
+        genderName: {
+          title: 'เพศ',
+          filter: false,
+          width: '70px',
+          type: 'html',
+          valuePrepareFunction: (cell, row) => {
+            return '<div class="text-center">' + cell + '</div>'
+          }
+        },
+        age: {
+          title: 'อายุ',
+          filter: false,
+          width: '60px',
+          type: 'html',
+          valuePrepareFunction: (cell, row) => {
+            return '<div class="text-center">' + cell + '</div>'
+          }
+        },
+        patientTypeName: {
+          title: 'ประเภท',
+          filter: false,
+          width: '120px',
+          type: 'html',
+          valuePrepareFunction: (cell, row) => {
+            return '<div class="text-center">' + cell + '</div>'
+          }
+        },
+        action: {
+          title: 'การทำงาน',
+          filter: false,
+          sort: false,
+          width: '100px',
+          type: 'custom',
+          renderComponent: ActionCustomViewHistoryComponent,
+          onComponentInitFunction(instance) {
+  
+            instance.maps.subscribe(row => {
+              self.param_latitude = row.latitude;
+              self.param_longitude = row.longitude;
+              self.param_info = 'บ้านของ ' + row.fullName;
+              $("#modalMaps").modal("show");
+            });
+
+            instance.view.subscribe(row => {
+              //self.getSurveyData(row.rowGUID);
+              
+            });
+
+          }
+        }
+      });
+    }else if(status =='2'){
+      self.settings = self.getTableSetting({
+        fullName: {
+          title: 'ชื่อ - นามสกุล',
+          filter: false,
+        },
+        citizenId: {
+          title: 'เลขประจำตัวประชาชน',
+          filter: false,
+          width: '200px',
+          type: 'html',
+          valuePrepareFunction: (cell, row) => {
+            return '<div class="text-center">' + cell + '</div>'
+          }
+        },
+        remark: {
+          title: 'สาเหตุความพิการ/ป่วย',
+          filter: false,
+          type: 'html',
+          valuePrepareFunction: (cell, row) => {
+            return '<div class="wrap-text" title="' + cell + '">' + this.displaySubstring(cell) + '</div>'
+          }
+        },
+        genderName: {
+          title: 'เพศ',
+          filter: false,
+          width: '70px',
+          type: 'html',
+          valuePrepareFunction: (cell, row) => {
+            return '<div class="text-center">' + cell + '</div>'
+          }
+        },
+        age: {
+          title: 'อายุ',
+          filter: false,
+          width: '60px',
+          type: 'html',
+          valuePrepareFunction: (cell, row) => {
+            return '<div class="text-center">' + cell + '</div>'
+          }
+        },
+        patientTypeName: {
+          title: 'ประเภท',
+          filter: false,
+          width: '120px',
+          type: 'html',
+          valuePrepareFunction: (cell, row) => {
+            return '<div class="text-center">' + cell + '</div>'
+          }
+        },
+        action: {
+          title: 'การทำงาน',
+          filter: false,
+          sort: false,
+          width: '100px',
+          type: 'custom',
+          renderComponent: ActionCustomViewMapsComponent,
+          onComponentInitFunction(instance) {
+  
+            instance.edit.subscribe(row => {
+              self.getSurveyData(row.rowGUID);
+            });
+  
+            instance.delete.subscribe(row => {
+              self.actionDelete(row.rowGUID, row.fullName);
+            });
+  
+  
+            instance.maps.subscribe(row => {
+              self.param_latitude = row.latitude;
+              self.param_longitude = row.longitude;
+              self.param_info = 'บ้านของ ' + row.fullName;
+              $("#modalMaps").modal("show");
+            });
+  
+          }
+        }
+      });
+    }
+  }
 }

@@ -119,3 +119,44 @@ export class ActionCustomViewMapsComponent implements ViewCell, OnInit {
     this.action.emit(this.rowData);
   }
 }
+
+
+// view history
+@Component({
+  selector: 'action-custom-table-maps',
+  template: '<div style="width:100%; text-align: center;" >'
+  +'<a (click)="onMaps()" title="แผนที่"  class="cell-action">'
+  +'<img src="../../../assets/img/ic_map.png" width="15" style="margin-top: -7px;" />'
+  +'</a>'
+  +'<a (click)="onView()" title="ดูประวัติ" class="cell-action glyphicon glyphicon-list-alt"></a>'
+  +'</div>',
+  styleUrls: ['./action-custom-view.component.css']
+})
+export class ActionCustomViewHistoryComponent implements ViewCell, OnInit {
+  renderValue: string;
+
+  @Input() value: string | number;
+  @Input() rowData: any;
+  @Output() maps: EventEmitter<any> = new EventEmitter();
+  @Output() view: EventEmitter<any> = new EventEmitter();
+  @Output() action: EventEmitter<any> = new EventEmitter();
+
+  ngOnInit() {
+    this.renderValue = this.value.toString();
+  }
+
+  onMaps() {
+    this.maps.emit(this.rowData);
+    this.doEmit('maps');
+  }
+
+  onView(){
+    this.view.emit(this.rowData);
+    this.doEmit('view');
+  }
+
+  doEmit(atrAction) {
+    this.rowData.action = atrAction;
+    this.action.emit(this.rowData);
+  }
+}
