@@ -73,7 +73,11 @@ import { MapsComponent } from './maps/maps.component';
 import { MultiMapsComponent } from './multi-maps/multi-maps.component';
 import { ManagementHomeFormWithoutOSMComponent } from './managements/osm/management-home/form-without-osm/management-home-without-osm.component';
 import { SurveyPersonalHistoryComponent } from './surveys/personal/survey-personal-history/survey-personal-history.component';
+<<<<<<< HEAD
 import { SurveyCancerHistoryComponent } from './surveys/cancer/survey-cancer-history/survey-cancer-history.component';
+=======
+import { ChangePasswordComponent } from './profile/change-password/change-password.component';
+>>>>>>> ce25abf4fdeeca34305265a5a55eb1d7aefe652e
 
 @NgModule({
   declarations: [
@@ -137,7 +141,11 @@ import { SurveyCancerHistoryComponent } from './surveys/cancer/survey-cancer-his
     MultiMapsComponent,
     ManagementHomeFormWithoutOSMComponent,
     SurveyPersonalHistoryComponent,
+<<<<<<< HEAD
     SurveyCancerHistoryComponent
+=======
+    ChangePasswordComponent
+>>>>>>> ce25abf4fdeeca34305265a5a55eb1d7aefe652e
   ],
   imports: [
     BrowserModule,
