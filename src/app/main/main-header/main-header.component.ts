@@ -8,11 +8,20 @@ import { Router } from '@angular/router';
 })
 export class MainHeaderComponent implements OnInit {
 
-  constructor(private route: Router) { }
+  constructor(private route: Router) {
+
+  }
 
   ngOnInit() {
+
   }
-  onGotoIndex(){
+
+  onGotoIndex() {
     this.route.navigate(['']);
   }
+
+  onClickChangePassword() {
+    this.route.navigate(['/main/profile/change-password']);
+  }
+
 }

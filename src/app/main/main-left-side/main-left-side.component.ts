@@ -1,6 +1,7 @@
 import { Component, OnInit,Input } from '@angular/core';
 import { ApiHTTPService } from "../../api-managements/api-http.service";
 import { UserService } from '../../service/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main-left-side',
@@ -14,7 +15,7 @@ export class MainLeftSideComponent implements OnInit {
   public osmMenus: any = {};
 
   private api: ApiHTTPService = new ApiHTTPService();
-  constructor(public userInfo: UserService) { }
+  constructor(public userInfo: UserService, private route: Router) { }
 
   ngOnInit() {
     this.setupMenu();
@@ -39,6 +40,9 @@ export class MainLeftSideComponent implements OnInit {
       }
     }
     this.surveyMenus = menuSurveys;
+  }
+  onManageProfile(){
+    this.route.navigate(['main/profile/profile-management']); 
   }
 
 }

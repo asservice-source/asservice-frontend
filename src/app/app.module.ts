@@ -76,6 +76,7 @@ import { SurveyPersonalHistoryComponent } from './surveys/personal/survey-person
 import { SurveyCancerHistoryComponent } from './surveys/cancer/survey-cancer-history/survey-cancer-history.component';
 import { SurveyPatientHistoryComponent } from './surveys/patient/survey-patient-history/survey-patient-history.component';
 import { ChangePasswordComponent } from './profile/change-password/change-password.component';
+import { ProfileManagementComponent } from './profile/profile-management/profile-management.component';
 
 
 @NgModule({
@@ -143,7 +144,11 @@ import { ChangePasswordComponent } from './profile/change-password/change-passwo
     SurveyPersonalHistoryComponent,
     SurveyCancerHistoryComponent,
     ChangePasswordComponent,
+<<<<<<< HEAD
     SurveyPatientHistoryComponent
+=======
+    ProfileManagementComponent
+>>>>>>> c4adee118d4e405f5eb793ea0c3bcdcc7eaa326b
 
   ],
   imports: [

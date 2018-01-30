@@ -1,0 +1,53 @@
+<div class="panel panel-default">
+
+    <div class="panel-heading">
+      <label>จัดการข้อมูลส่วนตัว</label>
+    </div>
+  
+    <div class="panel-body">
+  
+      <div class="row">
+        <div class="col-md-4 text-right">
+          <label class="label-form">xxx</label>
+        </div>
+        <div class="col-md-4">
+          <div [InputValidate]="validate">
+            <input type="text">
+            <label class="error">xxx</label>
+          </div>
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="col-md-4 text-right">
+          <label class="label-form">xxx</label>
+        </div>
+        <div class="col-md-4">
+          <div [InputValidate]="validate">
+            <input type="text">
+            <label class="error">xxx</label>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-4 text-right">
+          <label class="label-form">xxx</label>
+        </div>
+        <div class="col-md-4">
+          <div [InputValidate]="validate">
+            <input type="text">
+            <label class="error">xxx</label>
+          </div>
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <button class="btn btn-primary btn-sm" (click)="onClickSave();">ยืนยัน</button>
+          &nbsp;&nbsp;
+          <button class="btn btn-primary btn-sm" (click)="onClickCancel();">ยกเลิก</button>
+        </div>
+      </div>
+  
+    </div>
