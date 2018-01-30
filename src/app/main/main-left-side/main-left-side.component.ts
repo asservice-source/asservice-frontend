@@ -40,5 +40,8 @@ export class MainLeftSideComponent implements OnInit {
     }
     this.surveyMenus = menuSurveys;
   }
+  onManageProfile(){
+    
+  }
 
 }
