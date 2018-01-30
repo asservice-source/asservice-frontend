@@ -15,4 +15,7 @@ export class MainHeaderComponent implements OnInit {
   onGotoIndex(){
     this.route.navigate(['']);
   }
+  onChangePassword(){
+    this.route.navigate(['']);
+  }
 }
