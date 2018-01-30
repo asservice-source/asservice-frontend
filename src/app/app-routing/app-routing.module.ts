@@ -25,6 +25,7 @@ import { ManagementHomeComponent } from "./../managements/osm/management-home/li
 import { ManagementHomeMemberComponent } from "./../managements/osm/management-home-member/list/management-home-member.component";
 import { GuardPermissionService } from '../service/guard.permission.service';
 import { SurveyPersonalHistoryComponent } from '../surveys/personal/survey-personal-history/survey-personal-history.component';
+import { ChangePasswordComponent } from '../profile/change-password/change-password.component';
 
 @NgModule({
   imports: [
@@ -96,6 +97,15 @@ import { SurveyPersonalHistoryComponent } from '../surveys/personal/survey-perso
                     component: ManagementHomeMemberComponent
                 }]
               }]
+            }
+          ]
+        },
+        {
+          path: 'profile',
+          children: [
+            {
+              path: 'change-password',
+              component: ChangePasswordComponent
             }
           ]
         },

@@ -73,6 +73,7 @@ import { MapsComponent } from './maps/maps.component';
 import { MultiMapsComponent } from './multi-maps/multi-maps.component';
 import { ManagementHomeFormWithoutOSMComponent } from './managements/osm/management-home/form-without-osm/management-home-without-osm.component';
 import { SurveyPersonalHistoryComponent } from './surveys/personal/survey-personal-history/survey-personal-history.component';
+import { ChangePasswordComponent } from './profile/change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -135,7 +136,8 @@ import { SurveyPersonalHistoryComponent } from './surveys/personal/survey-person
     MapsComponent,
     MultiMapsComponent,
     ManagementHomeFormWithoutOSMComponent,
-    SurveyPersonalHistoryComponent
+    SurveyPersonalHistoryComponent,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,
