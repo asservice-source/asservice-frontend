@@ -12,4 +12,7 @@ export class MainFooterComponent implements OnInit {
   ngOnInit() {
   }
 
+  onClickContactUs(){
+    
+  }
 }
