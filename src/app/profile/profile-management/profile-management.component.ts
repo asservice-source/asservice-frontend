@@ -10,6 +10,18 @@ import { Service_Profile } from '../../api-managements/service-profile';
   styleUrls: ['./profile-management.component.css']
 })
 
-export class ChangePasswordComponent extends BaseComponent implements OnInit {
-    
+export class ProfileManagementComponent extends BaseComponent implements OnInit {
+    public validate: InputValidateInfo = new InputValidateInfo();
+
+    constructor(private route: Router){
+        super();
+        
+    }
+    onClickSave(){
+        
+    }
+    onClickCancel(){
+        this.route.navigate(['']);
+    }
+
 }

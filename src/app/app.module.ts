@@ -75,6 +75,7 @@ import { ManagementHomeFormWithoutOSMComponent } from './managements/osm/managem
 import { SurveyPersonalHistoryComponent } from './surveys/personal/survey-personal-history/survey-personal-history.component';
 import { SurveyCancerHistoryComponent } from './surveys/cancer/survey-cancer-history/survey-cancer-history.component';
 import { ChangePasswordComponent } from './profile/change-password/change-password.component';
+import { ProfileManagementComponent } from './profile/profile-management/profile-management.component';
 
 
 @NgModule({
@@ -140,7 +141,8 @@ import { ChangePasswordComponent } from './profile/change-password/change-passwo
     ManagementHomeFormWithoutOSMComponent,
     SurveyPersonalHistoryComponent,
     SurveyCancerHistoryComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    ProfileManagementComponent
 
   ],
   imports: [
