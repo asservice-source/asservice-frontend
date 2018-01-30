@@ -144,11 +144,8 @@ import { ProfileManagementComponent } from './profile/profile-management/profile
     SurveyPersonalHistoryComponent,
     SurveyCancerHistoryComponent,
     ChangePasswordComponent,
-<<<<<<< HEAD
-    SurveyPatientHistoryComponent
-=======
+    SurveyPatientHistoryComponent,
     ProfileManagementComponent
->>>>>>> c4adee118d4e405f5eb793ea0c3bcdcc7eaa326b
 
   ],
   imports: [
