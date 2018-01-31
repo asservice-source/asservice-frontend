@@ -6,41 +6,49 @@
   
     <div class="panel-body">
   
+        <div class="row">
+            <div class="col-md-4 text-right">
+              </div>
+            <div class="col-md-4 text-center">
+                <fancy-image-uploader [options]="options" (onUpload)="onUpload($event)"></fancy-image-uploader>
+            </div>
+          </div>
+
       <div class="row">
         <div class="col-md-4 text-right">
-          <label class="label-form">xxx</label>
+          <label class="label-form">ชื่อ</label>
         </div>
         <div class="col-md-4">
           <div [InputValidate]="validate">
-            <input type="text">
-            <label class="error">xxx</label>
+            <input type="text" maxlength="50">
+            <label class="error">กรุณาระบุ ชื่อ</label>
           </div>
         </div>
       </div>
   
       <div class="row">
         <div class="col-md-4 text-right">
-          <label class="label-form">xxx</label>
+          <label class="label-form">นามสกุล</label>
         </div>
         <div class="col-md-4">
           <div [InputValidate]="validate">
-            <input type="text">
-            <label class="error">xxx</label>
+            <input type="text" maxlength="50">
+            <label class="error">กรุณาระบุ นามสกุล</label>
           </div>
         </div>
       </div>
       
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-md-4 text-right">
-          <label class="label-form">xxx</label>
+          <label class="label-form">อีเมล์</label>
         </div>
         <div class="col-md-4">
           <div [InputValidate]="validate">
-            <input type="text">
-            <label class="error">xxx</label>
+            <input type="text" maxlength="50">
+            <label class="error">กรุณาระบุ อีเมล์</label>
           </div>
         </div>
-      </div>
+      </div> -->
   
       <div class="row">
         <div class="col-md-12 text-center">
