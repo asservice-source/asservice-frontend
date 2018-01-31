@@ -195,6 +195,11 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
     $("#modalMultiMaps").modal("show");
   }
 
+  onHistory(){
+    console.log("TTTTTTT");
+    //window.open('history/surveys/personal/'+homeId+'/'+(this.filterBean.roundId)+'/', '_blank');
+  }
+
   reloadData(event: any) {
     let self = this;
     if (event) {
@@ -325,7 +330,7 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
 
             instance.view.subscribe(row => {
               //self.getSurveyData(row.rowGUID);
-              
+              self.onHistory();
             });
 
           }
