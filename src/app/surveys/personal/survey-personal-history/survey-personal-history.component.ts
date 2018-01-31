@@ -45,6 +45,7 @@ export class SurveyPersonalHistoryComponent extends BaseComponent implements OnI
                 _self.guestList = new Array();
                 if(datas){
                     for(let item of datas){
+                        console.log(item);
                         item.citizenId = _self.formatCitizenId(item.citizenId);
                         item.birthDate = _self.displayFormatDate(item.birthDate);
                         if(item.isGuest){

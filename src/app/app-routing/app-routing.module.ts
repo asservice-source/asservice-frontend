@@ -27,6 +27,7 @@ import { GuardPermissionService } from '../service/guard.permission.service';
 import { SurveyPersonalHistoryComponent } from '../surveys/personal/survey-personal-history/survey-personal-history.component';
 import { ChangePasswordComponent } from '../profile/change-password/change-password.component';
 import { ProfileManagementComponent } from '../profile/profile-management/profile-management.component';
+import { ForgotPasswordComponent } from '../profile/forgot-password/forgot-password.component';
 
 @NgModule({
   imports: [
@@ -111,6 +112,10 @@ import { ProfileManagementComponent } from '../profile/profile-management/profil
             {
               path: 'profile-management',
               component: ProfileManagementComponent
+            },
+            {
+              path: 'reset-password',
+              component: ForgotPasswordComponent
             }
           ]
         },
