@@ -22,7 +22,6 @@ import { AdminLeftSideComponent } from './admin/admin-left-side/admin-left-side.
 import { AdminContentComponent } from './admin/admin-content/admin-content.component';
 import { AdminFooterComponent } from './admin/admin-footer/admin-footer.component';
 import { AdminControlSidebarComponent } from './admin/admin-control-sidebar/admin-control-sidebar.component';
-import { AdminDashboard1Component } from './admin/admin-dashboard1/admin-dashboard1.component';
 import { ContentComponent } from './content/content.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { LoginComponent } from './login/login.component';
