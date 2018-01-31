@@ -76,7 +76,8 @@ export class ChangePasswordComponent extends BaseComponent implements OnInit {
     }
 
     let userLoginId = self.userInfo.userId;
-    self.apiHttp.change_password(userLoginId, self.oldPassword, self.newPassword, function (d) {
+    let username = self.userInfo.username;
+    self.apiHttp.change_password(userLoginId, username, self.oldPassword, self.newPassword, function (d) {
       if (d != null && d.status.toUpperCase() == "SUCCESS") {
         self.message_success('', 'เปลี่ยนรหัสผ่านสำเร็จ', function () {
           localStorage.clear();

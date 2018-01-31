@@ -9,12 +9,12 @@ export class Service_Profile extends ApiHTTPService {
         super();
     }
 
-    public change_password(id: string, oldPassword: string, newPassword: string, callback: (doc: any) => void) {
+    public change_password(id: string, username: string, oldPassword: string, newPassword: string, callback: (doc: any) => void) {
         let self = this;
 
-        let parameters = { "id": id, "oldPassword": oldPassword, "newPassword": newPassword };
+        let parameters = { "id": id, "username": username, "oldPassword": oldPassword, "newPassword": newPassword };
 
-        self.post('survey_pregnant/ins_upd_pregnant_info', parameters, function (d) {
+        self.post('user/change_password', parameters, function (d) {
             callback(d);
         });
     }
