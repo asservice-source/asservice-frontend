@@ -1,44 +1,47 @@
 <div class="panel panel-default">
 
-    <div class="panel-heading">
-      <label>จัดการข้อมูลส่วนตัว</label>
-    </div>
-  
-    <div class="panel-body">
-  
-        <div class="row">
-            <div class="col-md-4 text-right">
-              </div>
-            <div class="col-md-4 text-center">
-                
-            </div>
-          </div>
+  <div class="panel-heading">
+    <label>จัดการข้อมูลส่วนตัว</label>
+  </div>
 
-      <div class="row">
-        <div class="col-md-4 text-right">
-          <label class="label-form">ชื่อ</label>
+  <div class="panel-body">
+
+    <div class="row">
+      <div class="col-md-4 text-right">
+      </div>
+      <div class="col-md-4 text-center">
+        <div class="image" style="text-align: center">
+          <img src="../../assets/img/p3d50dxjeb9BqD0BR0D-o.gif" class="img-circle img-user-info">
         </div>
-        <div class="col-md-4">
-          <div [InputValidate]="validate">
-            <input type="text" maxlength="50">
-            <label class="error">กรุณาระบุ ชื่อ</label>
-          </div>
+        <input name="file" type="file" (change)="onChange($event)" />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4 text-right">
+        <label class="label-form">ชื่อ</label>
+      </div>
+      <div class="col-md-4">
+        <div [InputValidate]="validate">
+          <input type="text" maxlength="50">
+          <label class="error">กรุณาระบุ ชื่อ</label>
         </div>
       </div>
-  
-      <div class="row">
-        <div class="col-md-4 text-right">
-          <label class="label-form">นามสกุล</label>
-        </div>
-        <div class="col-md-4">
-          <div [InputValidate]="validate">
-            <input type="text" maxlength="50">
-            <label class="error">กรุณาระบุ นามสกุล</label>
-          </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4 text-right">
+        <label class="label-form">นามสกุล</label>
+      </div>
+      <div class="col-md-4">
+        <div [InputValidate]="validate">
+          <input type="text" maxlength="50">
+          <label class="error">กรุณาระบุ นามสกุล</label>
         </div>
       </div>
-      
-      <!-- <div class="row">
+    </div>
+
+    <!-- <div class="row">
         <div class="col-md-4 text-right">
           <label class="label-form">อีเมล์</label>
         </div>
@@ -49,13 +52,13 @@
           </div>
         </div>
       </div> -->
-  
-      <div class="row">
-        <div class="col-md-12 text-center">
-          <button class="btn btn-primary btn-sm" (click)="onClickSave();">ยืนยัน</button>
-          &nbsp;&nbsp;
-          <button class="btn btn-primary btn-sm" (click)="onClickCancel();">ยกเลิก</button>
-        </div>
+
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <button class="btn btn-primary btn-sm" (click)="onClickSave();">ยืนยัน</button>
+        &nbsp;&nbsp;
+        <button class="btn btn-primary btn-sm" (click)="onClickCancel();">ยกเลิก</button>
       </div>
-  
     </div>
+
+  </div>

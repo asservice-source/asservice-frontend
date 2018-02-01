@@ -14,6 +14,10 @@ export class ProfileManagementComponent extends BaseComponent implements OnInit 
 
     public validate: InputValidateInfo = new InputValidateInfo();
 
+    public apiHttp: Service_Profile = new Service_Profile();
+
+    imageFiles: File[];
+
     constructor(private route: Router) {
         super();
     }
@@ -24,6 +28,19 @@ export class ProfileManagementComponent extends BaseComponent implements OnInit 
 
     onClickCancel() {
         this.route.navigate(['']);
+    }
+
+    onChange(event: EventTarget) {
+        let self = this;
+
+        let eventObj: MSInputMethodContext = <MSInputMethodContext>event;
+        let target: HTMLInputElement = <HTMLInputElement>eventObj.target;
+        let files: FileList = target.files;
+        self.imageFiles = new Array<any>();
+        self.imageFiles.push(files[0]);
+        console.log(self.imageFiles);
+
+        self.apiHttp.edit_profile('','',self.imageFiles);
     }
 
 }
