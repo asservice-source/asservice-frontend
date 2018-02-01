@@ -16,7 +16,7 @@ export class ProfileManagementComponent extends BaseComponent implements OnInit 
 
     public apiHttp: Service_Profile = new Service_Profile();
 
-    imageFiles: File[];
+    imageFile: any;
 
     constructor(private route: Router) {
         super();
@@ -36,11 +36,10 @@ export class ProfileManagementComponent extends BaseComponent implements OnInit 
         let eventObj: MSInputMethodContext = <MSInputMethodContext>event;
         let target: HTMLInputElement = <HTMLInputElement>eventObj.target;
         let files: FileList = target.files;
-        self.imageFiles = new Array<any>();
-        self.imageFiles.push(files[0]);
-        console.log(self.imageFiles);
+        self.imageFile = files[0];
+        console.log(self.imageFile);
 
-        self.apiHttp.edit_profile('','',self.imageFiles);
+        self.apiHttp.edit_profile('', '', self.imageFile);
     }
 
 }

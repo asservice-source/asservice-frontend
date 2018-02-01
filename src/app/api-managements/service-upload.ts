@@ -36,7 +36,7 @@ export class Service_FileUpload {
      * @param files
      * @returns {Promise<T>}
      */
-    public upload(url: string, files: Array<any>, callback: (doc: any) => void) {
+    public upload(url: string, file: any, callback: (doc: any) => void) {
         // return new Promise((resolve, reject) => {
         //     let formData: FormData = new FormData(),
         //         xhr: XMLHttpRequest = new XMLHttpRequest();
@@ -67,29 +67,27 @@ export class Service_FileUpload {
         //     xhr.send(formData);
         // });
 
-            let formData: FormData = new FormData(),
-                xhr: XMLHttpRequest = new XMLHttpRequest();
+        let formData: FormData = new FormData(),
+            xhr: XMLHttpRequest = new XMLHttpRequest();
 
-            for (let i = 0; i < files.length; i++) {
-                formData.append("file", files[i], files[i].name);
-            }
+        formData.append("file", file, file.name);
 
-            xhr.onreadystatechange = () => {
-                if (xhr.readyState === 4) {
-                    if (xhr.status === 200) {
-                        // resolve(JSON.parse(xhr.response));
-                    } else {
-                        // reject(xhr.response);
-                    }
+        xhr.onreadystatechange = () => {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    // resolve(JSON.parse(xhr.response));
+                } else {
+                    // reject(xhr.response);
                 }
-            };
+            }
+        };
 
-            Service_FileUpload.setUploadUpdateInterval(500);
+        Service_FileUpload.setUploadUpdateInterval(500);
 
-            xhr.open('POST', url, true);
-            xhr.send(formData);
+        xhr.open('POST', url, false);
+        xhr.send(formData);
 
-            callback(xhr);
+        callback(xhr);
     }
 
     /**
