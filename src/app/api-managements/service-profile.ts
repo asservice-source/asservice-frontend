@@ -1,9 +1,12 @@
 import { ApiHTTPService } from "./api-http.service";
 import { RequestOptions, Headers } from "@angular/http";
+import * as myconf from "../global-config";
+import { Service_FileUpload } from '../api-managements/service-upload';
 
 export class Service_Profile extends ApiHTTPService {
 
     public attr: any;
+    public service_upload: Service_FileUpload = new Service_FileUpload();
 
     constructor() {
         super();
@@ -17,6 +20,47 @@ export class Service_Profile extends ApiHTTPService {
         self.post('user/change_password', parameters, function (d) {
             callback(d);
         });
+    }
+
+    public edit_profile(firstName: string, lastName: string, file: any) {
+        let self = this;
+
+        let parameters = { "firstName": firstName, "lastName": lastName };
+
+        if (file) {
+            self.upload_profile(file, function (d) {
+                
+            });
+        } else {
+            
+        }
+    }
+
+    public upload_profile(file: any, callback: (doc: any) => void) {
+        let self = this;
+
+        let url = myconf.API_SERVER_URL + 'file_upload/upload_profile';
+        let formData: FormData = new FormData(),
+            xhr: XMLHttpRequest = new XMLHttpRequest();
+
+        formData.append("file", file, file.name);
+
+        xhr.onreadystatechange = () => {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    // resolve(JSON.parse(xhr.response));
+                } else {
+                    // reject(xhr.response);
+                }
+            }
+        };
+
+        setInterval(() => { }, 500);
+
+        xhr.open('POST', url, false);
+        xhr.send(formData);
+
+        callback(xhr);
     }
 
 }
