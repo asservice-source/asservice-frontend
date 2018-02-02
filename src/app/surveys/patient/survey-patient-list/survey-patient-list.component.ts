@@ -17,7 +17,7 @@ declare var $: any;
 export class SurveyPatientListComponent extends BaseComponent implements OnInit {
 
   private actionView: any;
-  private isCurrent: boolean;
+  private isCurrent: boolean = false;
 
   private apiPatient: Service_SurveyPatient;
 
@@ -196,8 +196,9 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
   }
 
   onHistory(){
-    console.log("TTTTTTT");
-    //window.open('history/surveys/personal/'+homeId+'/'+(this.filterBean.roundId)+'/', '_blank');
+    // console.log("TTTTTTT");
+    // this.isCurrent = true;
+    // $('#find-history-md').show();
   }
 
   reloadData(event: any) {
@@ -329,7 +330,6 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
             });
 
             instance.view.subscribe(row => {
-              //self.getSurveyData(row.rowGUID);
               self.onHistory();
             });
 
