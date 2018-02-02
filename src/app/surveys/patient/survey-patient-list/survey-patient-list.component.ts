@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { BaseComponent } from '../../../base-component';
 import { ActionCustomViewMapsComponent, ActionCustomViewHistoryComponent } from '../../../action-custom-table/action-custom-view.component';
 import { FilterHeadSurveyBean } from '../../../beans/filter-head-survey.bean';
@@ -16,9 +16,11 @@ declare var $: any;
 })
 export class SurveyPatientListComponent extends BaseComponent implements OnInit {
 
+  //@Output() viewBean: EventEmitter<any> = new EventEmitter<any>();
+
   private actionView: any;
   private isCurrent: boolean = false;
-
+  public viewBean : PatientBean;
   private apiPatient: Service_SurveyPatient;
 
   public patientType: number = 0;
@@ -124,7 +126,7 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
         }
       }
     });
-    
+
   }
 
   ngOnInit() {
@@ -195,10 +197,22 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
     $("#modalMultiMaps").modal("show");
   }
 
-  onHistory(){
-    // console.log("TTTTTTT");
-    // this.isCurrent = true;
-    // $('#find-history-md').show();
+  viewHistory(rowGUID) {
+    let self = this;
+    self.viewBean = new PatientBean();
+
+    self.loading = true;
+    self.apiPatient.getPatientInfo(rowGUID, function (resp) {
+      if (resp.response && resp.status.toUpperCase() == 'SUCCESS') {
+          self.viewBean = self.cloneObj(resp.response);
+          console.log("============viewHistory=============");
+          console.log(self.viewBean);
+          self.isCurrent = true;
+          self.changeRef.detectChanges();
+          $("#find-history-md").modal("show");
+      }
+      self.loading = false;
+    })
   }
 
   reloadData(event: any) {
@@ -263,7 +277,7 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
   changeTableSetting(status) {
     let self = this;
 
-   if(status =='3'){
+    if (status == '3') {
       self.settings = self.getTableSetting({
         fullName: {
           title: 'ชื่อ - นามสกุล',
@@ -321,7 +335,7 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
           type: 'custom',
           renderComponent: ActionCustomViewHistoryComponent,
           onComponentInitFunction(instance) {
-  
+
             instance.maps.subscribe(row => {
               self.param_latitude = row.latitude;
               self.param_longitude = row.longitude;
@@ -330,13 +344,12 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
             });
 
             instance.view.subscribe(row => {
-              self.onHistory();
+              self.viewHistory(row.rowGUID);
             });
-
           }
         }
       });
-    }else if(status =='2'){
+    } else if (status == '2') {
       self.settings = self.getTableSetting({
         fullName: {
           title: 'ชื่อ - นามสกุล',
@@ -394,23 +407,23 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
           type: 'custom',
           renderComponent: ActionCustomViewMapsComponent,
           onComponentInitFunction(instance) {
-  
+
             instance.edit.subscribe(row => {
               self.getSurveyData(row.rowGUID);
             });
-  
+
             instance.delete.subscribe(row => {
               self.actionDelete(row.rowGUID, row.fullName);
             });
-  
-  
+
+
             instance.maps.subscribe(row => {
               self.param_latitude = row.latitude;
               self.param_longitude = row.longitude;
               self.param_info = 'บ้านของ ' + row.fullName;
               $("#modalMaps").modal("show");
             });
-  
+
           }
         }
       });
