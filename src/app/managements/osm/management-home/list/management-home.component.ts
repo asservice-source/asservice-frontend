@@ -146,6 +146,8 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
     
   }
   onViewMaps(row: any){
+    this.bean.latitude = row.latitude;
+    this.bean.longitude = row.longitude;
     if(this.isHomeType(row.homeTypeCode)){
       this.infoMaps = 'บ้านเลขที่ ' + row.homeNo
     }else{
