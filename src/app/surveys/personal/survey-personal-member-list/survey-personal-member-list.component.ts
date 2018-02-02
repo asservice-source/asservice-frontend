@@ -383,7 +383,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
         type: 'html',
         valuePrepareFunction: (cell, row) => {
           let text = '';
-          if(cell){
+          if(cell || row.isSurveyed){
             text = 'สำรวจแล้ว';
           }else{
             text = 'ยังไม่สำรวจ';
