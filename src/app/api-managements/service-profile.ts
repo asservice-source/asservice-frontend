@@ -22,21 +22,23 @@ export class Service_Profile extends ApiHTTPService {
         });
     }
 
-    public edit_profile(firstName: string, lastName: string, file: any) {
+    public edit_profile(personId: string, firstName: string, lastName: string, file: any, callback: (doc: any) => void) {
         let self = this;
 
-        let parameters = { "firstName": firstName, "lastName": lastName };
+        let parameters = { "personId": personId, "firstName": firstName, "lastName": lastName };
 
         if (file) {
-            self.upload_profile(file, function (d) {
-                
+            self.upload_profile(personId, file, function (d) {
+
             });
         } else {
-            
+
         }
+
+        callback('');
     }
 
-    public upload_profile(file: any, callback: (doc: any) => void) {
+    public upload_profile(personId: string, file: any, callback: (doc: any) => void) {
         let self = this;
 
         let url = myconf.API_SERVER_URL + 'file_upload/upload_profile';
@@ -44,6 +46,7 @@ export class Service_Profile extends ApiHTTPService {
             xhr: XMLHttpRequest = new XMLHttpRequest();
 
         formData.append("file", file, file.name);
+        formData.append("personId", personId);
 
         xhr.onreadystatechange = () => {
             if (xhr.readyState === 4) {
