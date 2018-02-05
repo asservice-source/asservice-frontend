@@ -31,8 +31,6 @@ export class LoginComponent implements OnInit {
   login():any {
     let self = this;
     self.isErrorLogin = false;
-    console.log("username: " + self.user.username);
-    console.log("password: " + self.user.password);
     let strUser = self.user.username;
     let strPass = self.user.password;
 
@@ -47,13 +45,12 @@ export class LoginComponent implements OnInit {
       console.log(resp);
       self.loading = false;
       if(resp && resp.status.toString().toUpperCase() == 'SUCCESS' && resp.response.login){
-        console.log('Passed');
         let obj = self.baseComponent.strNullToEmpty(resp.response);
         self.user.set(obj);
         localStorage.setItem("uinfo", JSON.stringify(obj));
+        localStorage.setItem("sessionTimes", (Date.now()).toString());
         self.router.navigate([""]);
       }else{
-        console.log('No Pass');
         localStorage.clear();
         self.msgErrorLogin = "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง";
         self.isErrorLogin = true;

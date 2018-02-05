@@ -44,9 +44,9 @@ export class ApiHTTPService  implements OnInit {
             )
     }
     private subscribe(data: any, callback: (doc: any)=> void, params: any, path: any){
-        console.log("<<<< Call Path = " + path +" >>>>");
-        console.log(params);
-        console.log(data);
+        console.log("<<<< Call API. = " + path +" >>>>");
+        console.log('parameters', params);
+        console.log('data response', data);
         console.log("<<<< /End >>>>");
         if(data.status){
             data.status = ''+data.status;
@@ -56,9 +56,9 @@ export class ApiHTTPService  implements OnInit {
         callback(data);
     }
     private subscribe_error(data: any, callback: (doc: any)=> void, params: any, path: any){
-        console.log("<<<< Call Path = " + path +" >>>>");
-        console.log(params);
-        console.log(data);
+        console.log("<<<< Call API. = " + path +" >>>>");
+        console.log('parameters', params);
+        console.log('data response', data);
         console.log("<<<< /End >>>>");
         if(data.status){
             data.status = ''+data.status;
