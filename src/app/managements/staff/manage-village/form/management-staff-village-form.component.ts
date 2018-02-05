@@ -30,9 +30,18 @@ export class ManagementStaffVillageFormComponent extends BaseComponent implement
     this.bindModal();
   }
   onSave(){
+     let _self = this;
+    if(this.bean.villageNo==0){
+      this.bean.villageNo = null;
+      setTimeout(function(){
+        _self.inputValidate = new InputValidateInfo();
+        _self.inputValidate.isCheck = true;
+      },200);
+      return;
+    }
     this.inputValidate = new InputValidateInfo();
     this.inputValidate.isCheck = true;
-    let _self = this;
+    this.bean.villageNo = (+this.bean.villageNo);
     if(+this.bean.villageNo && this.bean.villageName && this.bean.villageName.trim().length>0){
       _self.loading = true;
       this.api.commit_save(this.bean, function(response){

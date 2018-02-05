@@ -19,7 +19,7 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
   //@Output() viewBean: EventEmitter<any> = new EventEmitter<any>();
 
   private actionView: any;
-  private isCurrent: boolean = false;
+  public isCurrent: boolean = false;
   public viewBean : PatientBean;
   private apiPatient: Service_SurveyPatient;
 
