@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef} from '@angular/core';
 import { BaseComponent } from '../../../../base-component';
 import { LocalDataSource } from 'ng2-smart-table';
-import { ActionCustomViewComponent } from '../../../../action-custom-table/action-custom-view.component';
+import { ActionCustomView_2_Component } from '../../../../action-custom-table/action-custom-view.component';
 import { Service_HomeMember } from '../../../../api-managements/service-home-member';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PersonalBasicBean } from '../../../../beans/personal-basic.bean';
@@ -200,12 +200,12 @@ export class ManagementHomeMemberComponent extends BaseComponent implements OnIn
         sort: false,
         width: '100px',
         type: 'custom',
-        renderComponent: ActionCustomViewComponent,
+        renderComponent: ActionCustomView_2_Component,
         onComponentInitFunction(instance) {
        
-          instance.view.subscribe(row => {
-            _self.message_error('','<h3>ยังดูไม่ได้ครับ รอแป๊บ..</h3>');
-           });
+          // instance.view.subscribe(row => {
+          //   _self.message_error('','<h3>ยังดูไม่ได้ครับ รอแป๊บ..</h3>');
+          //  });
            instance.edit.subscribe(row => {
             _self.onEdit(row);
             //_self.onModalShow(_self.ass_action.EDIT);
