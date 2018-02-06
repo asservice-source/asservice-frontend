@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 import { RequestOptions, Headers, URLSearchParams, Http } from '@angular/http';
 import { ApiHTTPService } from '../api-managements/api-http.service';
 import { BaseComponent } from '../base-component';
+import { LocalStorageManagement } from './localStorage-management';
 
 @Component({
   selector: 'app-login',
@@ -13,12 +14,14 @@ import { BaseComponent } from '../base-component';
 export class LoginComponent implements OnInit {
 
   private api: ApiHTTPService = new ApiHTTPService();
-  private baseComponent: BaseComponent = new BaseComponent();
+  private baseComponent: BaseComponent;
+  private storage: LocalStorageManagement;
   public loading: boolean = false;
   public isErrorLogin: boolean = false;
   public msgErrorLogin: string = "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง";
   constructor(public user: UserService, private http: Http, private router: Router) {
-
+    this.baseComponent = new BaseComponent();
+    this.storage = new LocalStorageManagement(this.user);
   }
 
   ngOnInit() {
@@ -46,9 +49,7 @@ export class LoginComponent implements OnInit {
       self.loading = false;
       if(resp && resp.status.toString().toUpperCase() == 'SUCCESS' && resp.response.login){
         let obj = self.baseComponent.strNullToEmpty(resp.response);
-        self.user.set(obj);
-        localStorage.setItem("uinfo", JSON.stringify(obj));
-        localStorage.setItem("sessionTimes", (Date.now()).toString());
+        self.storage.setUserInfo(obj);
         self.router.navigate([""]);
       }else{
         localStorage.clear();
