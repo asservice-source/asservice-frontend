@@ -4,7 +4,7 @@ import { Router } from "@angular/router";
 import { RequestOptions, Headers, URLSearchParams, Http } from '@angular/http';
 import { ApiHTTPService } from '../api-managements/api-http.service';
 import { BaseComponent } from '../base-component';
-import { LocalStorageManagement } from './localStorage-management';
+import { LocalStorageManagement } from '../service/localStorage-management';
 
 @Component({
   selector: 'app-login',
