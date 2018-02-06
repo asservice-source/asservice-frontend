@@ -23,6 +23,7 @@ export class UserService {
     public roleAcronym: string;
     public genderName: string;
     public genderId: string;
+    public imagePath: string;
     constructor() {
 
     }
@@ -49,6 +50,6 @@ export class UserService {
         this.roleAcronym = response.roleAcronym  || ''
         this.genderId = response.genderId;
         this.genderName = response.genderName  || ''
-        
+        this.imagePath = response.imagePath  || '../../assets/img/avatar5.png'
     }
 }
