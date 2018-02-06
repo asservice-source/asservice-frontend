@@ -17,14 +17,13 @@ export class SurveyPatientHistoryComponent extends BaseComponent implements OnIn
 
   constructor() {
     super();
+   }
+
+  ngOnInit() {
     this.PatientBean = new PatientBean();
     this.PatientBean = this.viewBean;
     console.log("===================viewBean===================");
     console.log(this.viewBean);
-   }
-
-  ngOnInit() {
-    
   }
 
 }

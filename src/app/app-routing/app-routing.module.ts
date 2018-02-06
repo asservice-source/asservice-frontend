@@ -26,6 +26,7 @@ import { SurveyPersonalHistoryComponent } from '../surveys/personal/survey-perso
 import { ChangePasswordComponent } from '../profile/change-password/change-password.component';
 import { ProfileManagementComponent } from '../profile/profile-management/profile-management.component';
 import { ForgotPasswordComponent } from '../profile/forgot-password/forgot-password.component';
+import { SummarytPersonalComponent } from "../summary/summary-personal/summary-personal.component";
 
 @NgModule({
   imports: [
@@ -159,7 +160,18 @@ import { ForgotPasswordComponent } from '../profile/forgot-password/forgot-passw
             }
 
           ]
+        
+        },
+        {
+          path: 'summary',
+          children: [
+            {
+              path: 'personal',
+              component: SummarytPersonalComponent
+            }
+          ]
         }
+       
         ]
       }
       ,
