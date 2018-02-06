@@ -3,11 +3,15 @@ import { UserService } from "../service/user.service";
 
 export class LocalStorageManagement{
     private baseComponent: BaseComponent;
+
     constructor(public user: UserService){
         this.baseComponent = new BaseComponent();
     }
     setUserInfo(data: any){
         let obj = this.baseComponent.strNullToEmpty(data);
+        if(!obj.userId){
+            obj = JSON.parse(obj);
+        }
         localStorage.setItem("uinfo", JSON.stringify(obj));
         localStorage.setItem("sessionTimes", (Date.now()).toString());
 
@@ -36,5 +40,14 @@ export class LocalStorageManagement{
     }
     updateStorage(){
         localStorage.setItem("uinfo", JSON.stringify(this.user));
+    }
+    getDataUserInfo():any{
+        return localStorage.getItem("uinfo");
+    }
+    setSessionTimes(){
+        localStorage.setItem("sessionTimes", (Date.now()).toString());
+    }
+    getSessionTimes():number{
+        return +localStorage.getItem('sessionTimes');
     }
 }
