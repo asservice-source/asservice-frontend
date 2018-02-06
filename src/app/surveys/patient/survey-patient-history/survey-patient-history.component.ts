@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef} from '@angular/core';
 import { BaseComponent } from '../../../base-component';
 import { ActivatedRoute } from '@angular/router';
+import { PatientBean } from '../../../beans/patient.bean';
 
 @Component({
   selector: 'app-survey-patient-history',
@@ -9,6 +10,9 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class SurveyPatientHistoryComponent extends BaseComponent implements OnInit {
 
+  @Input() viewBean : PatientBean;
+
+  public PatientBean : PatientBean;
   public loading: boolean = false;
 
   constructor() {
@@ -16,6 +20,10 @@ export class SurveyPatientHistoryComponent extends BaseComponent implements OnIn
    }
 
   ngOnInit() {
+    this.PatientBean = new PatientBean();
+    this.PatientBean = this.viewBean;
+    console.log("===================viewBean===================");
+    console.log(this.viewBean);
   }
 
 }

@@ -313,6 +313,7 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
     } 
 
     self.memberBean.citizenId = self.reverseFormatCitizenId(self.memberBean.citizenId)
+    self.memberBean.isSurveyed = true;
     self.memberUpdated.emit(self.memberBean);
     //$("#modalMember").modal('hide');
     

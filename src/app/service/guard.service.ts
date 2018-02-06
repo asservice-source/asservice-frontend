@@ -2,26 +2,21 @@ import { Injectable, Optional } from '@angular/core';
 import { Router } from "@angular/router";
 import { UserService } from "./user.service";
 import { BaseComponent } from '../base-component';
+import { SessionManagement } from './session.conf';
 
 @Injectable()
 export class GuardService {
-    private baseComp: BaseComponent;
-    constructor(private router:Router, private user: UserService) { }
+    private session: SessionManagement;
+    constructor(private router:Router, private userService: UserService) { 
+        this.session = new SessionManagement(this.router, this.userService);
+    }
     canActivate(){
         console.log("canActivate");
-        this.baseComp = new BaseComponent();
-        let jsonUInfo: any = localStorage.getItem("uinfo");
-        if(!jsonUInfo){
-            this.router.navigate(["login"]);
-            return false;
-
-        }else{
-
-            jsonUInfo = JSON.parse(jsonUInfo);
-            //this.baseComp.copyObj(jsonUInfo, this.user);
-            this.user.set(jsonUInfo);
-
-            return true;
-        }
+        return this.session.initUserSession();
     }
+    canActivateChild(){
+        console.log("canActivateChild");
+        return this.session.initUserSession();
+    }
+
 }

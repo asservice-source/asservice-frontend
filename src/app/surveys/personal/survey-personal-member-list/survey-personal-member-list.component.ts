@@ -376,6 +376,23 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
           return '<div class="text-center">' + cell + '</div>';
         }
       },
+      rowGUID: {
+        title: 'การสำรวจ',
+        filter: false,
+        width: '100px',
+        type: 'html',
+        valuePrepareFunction: (cell, row) => {
+          let text = '';
+          if(cell || row.isSurveyed){
+            text = 'สำรวจแล้ว';
+          }else{
+            text = 'ยังไม่สำรวจ';
+          }
+          console.log(cell);
+          return '<div class="text-center">' + text + '</div>';
+        }
+      }
+      ,
       action: {
         title: '',
         filter: false,
@@ -430,6 +447,21 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
         type: 'html',
         valuePrepareFunction: (cell, row) => {
           return '<div class="text-center">' + cell + '</div>';
+        }
+      },
+      rowGUID: {
+        title: 'การสำรวจ',
+        filter: false,
+        width: '100px',
+        type: 'html',
+        valuePrepareFunction: (cell, row) => {
+          let text = '';
+          if(cell.rowGUID){
+            text = 'สำรวจแล้ว';
+          }else{
+            text = 'ยังไม่สำรวจ';
+          }
+          return '<div class="text-center">' + text + '</div>';
         }
       },
       action: {

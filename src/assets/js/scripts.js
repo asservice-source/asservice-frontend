@@ -19,5 +19,10 @@ $(function () {
   // ng2-smart-table pagine
   $('[aria-label="First"]>span').text('<<');
   $('[aria-label="Last"]>span').text('>>');
+
+  // window.onbeforeunload = function() {
+  //   localStorage.clear();
+  //   return '';
+  // };
   
 });

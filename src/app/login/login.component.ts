@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 import { RequestOptions, Headers, URLSearchParams, Http } from '@angular/http';
 import { ApiHTTPService } from '../api-managements/api-http.service';
 import { BaseComponent } from '../base-component';
+import { LocalStorageManagement } from './localStorage-management';
 
 @Component({
   selector: 'app-login',
@@ -13,17 +14,19 @@ import { BaseComponent } from '../base-component';
 export class LoginComponent implements OnInit {
 
   private api: ApiHTTPService = new ApiHTTPService();
-  private baseComponent: BaseComponent = new BaseComponent();
+  private baseComponent: BaseComponent;
+  private storage: LocalStorageManagement;
   public loading: boolean = false;
   public isErrorLogin: boolean = false;
   public msgErrorLogin: string = "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง";
   constructor(public user: UserService, private http: Http, private router: Router) {
-
+    this.baseComponent = new BaseComponent();
+    this.storage = new LocalStorageManagement(this.user);
   }
 
   ngOnInit() {
     let jsonUInfo: any = localStorage.getItem("uinfo");
-    if(jsonUInfo){
+    if(jsonUInfo && this.user.userId){
       this.router.navigate(["main"]);
     }
   }
@@ -31,8 +34,6 @@ export class LoginComponent implements OnInit {
   login():any {
     let self = this;
     self.isErrorLogin = false;
-    console.log("username: " + self.user.username);
-    console.log("password: " + self.user.password);
     let strUser = self.user.username;
     let strPass = self.user.password;
 
@@ -47,13 +48,10 @@ export class LoginComponent implements OnInit {
       console.log(resp);
       self.loading = false;
       if(resp && resp.status.toString().toUpperCase() == 'SUCCESS' && resp.response.login){
-        console.log('Passed');
         let obj = self.baseComponent.strNullToEmpty(resp.response);
-        self.user.set(obj);
-        localStorage.setItem("uinfo", JSON.stringify(obj));
+        self.storage.setUserInfo(obj);
         self.router.navigate([""]);
       }else{
-        console.log('No Pass');
         localStorage.clear();
         self.msgErrorLogin = "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง";
         self.isErrorLogin = true;

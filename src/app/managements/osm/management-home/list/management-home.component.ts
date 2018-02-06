@@ -46,10 +46,9 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
     let _self = this;
     _self.setupHomeTypeList();
     _self.activatedRoute.params.subscribe(params => {
-      console.log(params);
       _self.params = params;
-      
-      if(params['type']=='PD'){
+      if(params['type']=='PD'){ 
+        // เจ้าหน้าที่ รพ.สต. เข้าใช้งานหน้าจอจัดการหมู่บ้าน
         _self.loading = true;
         _self.api.api_PersonByPersionId(params['id'], function(resp){
           let response = resp.response;
@@ -67,17 +66,17 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
           }
           
         });
-      }else{
+      }else if(params['type']=='T' && _self.isOsmRole(_self.userInfo.roleId)){
+        // เจ้าหน้าที่ อสม. เข้าใช้งานหน้าจอจัดการหมู่บ้าน
         _self.villageNo = _self.userInfo.villageNo;
         _self.osmName = _self.userInfo.fullName;
         _self.findVillageId = _self.userInfo.villageId;
         _self.findOsmId = _self.userInfo.personId;
         _self.setupTable();
 
+      }else{
+        _self.route.navigate(['main']);
       }
-      
-      
-
     });
   }
 
@@ -146,6 +145,8 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
     
   }
   onViewMaps(row: any){
+    this.bean.latitude = row.latitude;
+    this.bean.longitude = row.longitude;
     if(this.isHomeType(row.homeTypeCode)){
       this.infoMaps = 'บ้านเลขที่ ' + row.homeNo
     }else{
