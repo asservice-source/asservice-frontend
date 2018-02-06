@@ -3,6 +3,7 @@ import { BaseComponent } from '../../base-component';
 import { Router } from '@angular/router';
 import { InputValidateInfo } from '../../directives/inputvalidate.directive';
 import { Service_Profile } from '../../api-managements/service-profile';
+import { LocalStorageManagement } from '../../service/localStorage-management';
 declare var $;
 
 @Component({
@@ -16,15 +17,22 @@ export class ProfileManagementComponent extends BaseComponent implements OnInit 
     public validate: InputValidateInfo = new InputValidateInfo();
 
     public apiHttp: Service_Profile = new Service_Profile();
+    public storage: LocalStorageManagement;
 
     public imageFile: any;
     public firstName: string = "";
     public lastName: string = "";
+    public version: number = 1;
+    
 
     public loading: boolean = false;
 
     constructor(private route: Router) {
         super();
+
+        let self = this;
+
+        self.storage = new LocalStorageManagement(self.userInfo);
     }
 
     ngOnInit() {
@@ -34,9 +42,23 @@ export class ProfileManagementComponent extends BaseComponent implements OnInit 
     onClickSave() {
         let self = this;
 
-        self.apiHttp.edit_profile(self.userInfo.personId, self.firstName, self.lastName, self.imageFile, function (d) {
-            self.imageFile = null;
-            self.route.navigate(['']);
+        self.loading = true;
+        self.apiHttp.upload_profile(self.userInfo.personId, self.imageFile, function (d) {
+            console.log(d);
+            if (d != null && d.status.toString().toUpperCase() == "SUCCESS") {
+                let fullVersionPath = d.fullPath + '?v=' + self.version++;
+                self.imageFile = null;
+                self.userInfo.imagePath = fullVersionPath;
+                self.storage.updateStorage();
+                // self.apiHttp.edit_profile(self.userInfo.personId, self.firstName, self.lastName, self.imageFile, function (d) {
+                //     self.imageFile = null;
+                //     self.route.navigate(['']);
+                // });
+                self.message_success('', 'แก้ไขข้อมูลส่วนตัวสำเร็จ');
+            } else {
+                self.message_error('', 'แก้ไขข้อมูลส่วนตัวไม่สำเร็จ');
+            }
+            self.loading = false;
         });
     }
 

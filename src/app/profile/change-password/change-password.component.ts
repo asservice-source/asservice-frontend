@@ -81,7 +81,7 @@ export class ChangePasswordComponent extends BaseComponent implements OnInit {
       if (d != null && d.status.toUpperCase() == "SUCCESS") {
         self.message_success('', 'เปลี่ยนรหัสผ่านสำเร็จ', function () {
           localStorage.clear();
-          self.route.navigate(['/login']);
+          self.route.navigate(['']);
         });
       } else {
         self.message_error('', 'เปลี่ยนรหัสผ่านไม่สำเร็จ', function () {
