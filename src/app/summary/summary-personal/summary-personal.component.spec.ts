@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RepoertPersonalComponent } from './repoert-personal.component';
+import { SummarytPersonalComponent } from './summary-personal.component';
 
-describe('RepoertPersonalComponent', () => {
-  let component: RepoertPersonalComponent;
-  let fixture: ComponentFixture<RepoertPersonalComponent>;
+describe('SummarytPersonalComponent', () => {
+  let component: SummarytPersonalComponent;
+  let fixture: ComponentFixture<SummarytPersonalComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RepoertPersonalComponent ]
+      declarations: [ SummarytPersonalComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RepoertPersonalComponent);
+    fixture = TestBed.createComponent(SummarytPersonalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
