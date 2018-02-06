@@ -14,6 +14,7 @@ export class SessionManagement {
             let timesLate = (3600000/2); // = 30 minute
             let sessionTimes: number = +localStorage.getItem('sessionTimes');
             let diffTime: number = Date.now() - sessionTimes;
+            
             if(diffTime > timesLate){
                 localStorage.clear(); 
                 this.router.navigate(["login"]);
@@ -22,6 +23,10 @@ export class SessionManagement {
             localStorage.setItem("sessionTimes", (Date.now()).toString());
             jsonUInfo = JSON.parse(jsonUInfo);
             this.userService.set(jsonUInfo);
+            if(!this.userService.userId){
+                this.router.navigate(["login"]);
+                return false;   
+            }
             return true;
         }
     }

@@ -52,4 +52,12 @@ export class UserService {
         this.genderName = response.genderName  || ''
         this.imagePath = response.imagePath  || '../../assets/img/avatar5.png'
     }
+
+    setImagePath(fullPath: string){
+        this.imagePath = fullPath;
+        let jsonUInfo: any = localStorage.getItem("uinfo");
+        jsonUInfo = JSON.parse(jsonUInfo);
+        jsonUInfo.imagePath = fullPath;
+        localStorage.setItem("uinfo", JSON.stringify(jsonUInfo));
+    }
 }

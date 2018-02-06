@@ -71,6 +71,7 @@ import { ForgotPasswordComponent } from '../profile/forgot-password/forgot-passw
             {
               path: 'staff',
               canActivate: [GuardPermissionService],
+              canActivateChild: [GuardPermissionService],
               children:[
                 {
                   path: 'village',
@@ -85,6 +86,8 @@ import { ForgotPasswordComponent } from '../profile/forgot-password/forgot-passw
             },
             {
               path: 'osm',
+              canActivate: [GuardService],
+              canActivateChild: [GuardService],
               children:[{
                 path: 'home',
                 children:[
@@ -102,6 +105,8 @@ import { ForgotPasswordComponent } from '../profile/forgot-password/forgot-passw
         },
         {
           path: 'profile',
+          canActivate: [GuardService],
+          canActivateChild: [GuardService],
           children: [
             {
               path: 'change-password',
@@ -119,6 +124,8 @@ import { ForgotPasswordComponent } from '../profile/forgot-password/forgot-passw
         },
         {
           path: 'surveys',
+          canActivate: [GuardService],
+          canActivateChild: [GuardService],
           children: [
             {
               path: 'pregnant',
@@ -158,7 +165,7 @@ import { ForgotPasswordComponent } from '../profile/forgot-password/forgot-passw
       ,
       {
         path: 'history/surveys',
-        canActivate: [GuardService],
+        canActivateChild: [GuardService],
         children: [{
           path: 'personal/:homeId/:roundId',
           component: SurveyPersonalHistoryComponent

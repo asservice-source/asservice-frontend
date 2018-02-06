@@ -10,17 +10,22 @@ export class GuardPermissionService {
         this.session = new SessionManagement(this.router, this.userService);
      }
     canActivate(){
-        console.log("GuardPermissionService");
-        // let jsonUInfo: any = localStorage.getItem("uinfo");
-        // if(!jsonUInfo){
-        //     this.router.navigate(["login"]);
-        //     return false;
-        // }
-
+        console.log("canActivate : Permission");
+        return this.activate();
+    }
+    canActivateChild(){
+        console.log("canActivateChild : Permission");
+        return this.activate();
+    }
+    activate(): boolean{
         let isSession: boolean = this.session.initUserSession();
-        if(isSession && (this.userService.roleId=='2' || this.userService.roleId=='3')){
+        if(!isSession){
+            this.router.navigate(["login"]);
+            return false;
+        }else if(isSession && (this.userService.roleId=='2' || this.userService.roleId=='3')){
             return true;
         }else{
+            console.log("navigate :: GuardPermissionService");
             this.router.navigate([""]);
             return false;
         }

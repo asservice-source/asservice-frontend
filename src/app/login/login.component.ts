@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     let jsonUInfo: any = localStorage.getItem("uinfo");
-    if(jsonUInfo){
+    if(jsonUInfo && this.user.userId){
       this.router.navigate(["main"]);
     }
   }
