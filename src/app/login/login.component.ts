@@ -4,7 +4,7 @@ import { Router } from "@angular/router";
 import { RequestOptions, Headers, URLSearchParams, Http } from '@angular/http';
 import { ApiHTTPService } from '../api-managements/api-http.service';
 import { BaseComponent } from '../base-component';
-import { LocalStorageManagement } from './localStorage-management';
+import { LocalStorageManagement } from '../service/localStorage-management';
 
 @Component({
   selector: 'app-login',
@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    let jsonUInfo: any = localStorage.getItem("uinfo");
+    let jsonUInfo: any = this.storage.getDataUserInfo();
     if(jsonUInfo && this.user.userId){
       this.router.navigate(["main"]);
     }

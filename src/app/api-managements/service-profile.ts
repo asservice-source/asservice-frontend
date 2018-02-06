@@ -41,29 +41,36 @@ export class Service_Profile extends ApiHTTPService {
     public upload_profile(personId: string, file: any, callback: (doc: any) => void) {
         let self = this;
 
-        let url = myconf.API_SERVER_URL + 'file_upload/upload_profile';
-        let formData: FormData = new FormData(),
-            xhr: XMLHttpRequest = new XMLHttpRequest();
+        if (file) {
+            let url = myconf.API_SERVER_URL + 'file_upload/upload_profile';
+            let formData: FormData = new FormData(),
+                xhr: XMLHttpRequest = new XMLHttpRequest();
 
-        formData.append("file", file, file.name);
-        formData.append("personId", personId);
+            formData.append("file", file, file.name);
+            formData.append("personId", personId);
 
-        xhr.onreadystatechange = () => {
-            if (xhr.readyState === 4) {
-                if (xhr.status === 200) {
-                    // resolve(JSON.parse(xhr.response));
-                } else {
-                    // reject(xhr.response);
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        // resolve(JSON.parse(xhr.response));
+                    } else {
+                        // reject(xhr.response);
+                    }
                 }
-            }
-        };
+            };
 
-        setInterval(() => { }, 500);
+            setInterval(() => { }, 500);
 
-        xhr.open('POST', url, false);
-        xhr.send(formData);
+            xhr.open('POST', url, false);
+            xhr.send(formData);
 
-        callback(xhr);
+            let obj = JSON.parse(xhr.response)
+            obj.fullPath = myconf.API_SERVER_URL + obj.response.substr(1);
+
+            callback(obj);
+        } else {
+            callback({ status: "Success" });
+        }
     }
 
 }

@@ -1,18 +1,20 @@
 import { Router } from "@angular/router";
 import { UserService } from "./user.service";
+import { LocalStorageManagement } from "./localStorage-management";
 
 export class SessionManagement {
+    private storage: LocalStorageManagement;
     constructor(private router:Router, private userService: UserService){
-        
+        this.storage = new LocalStorageManagement(this.userService);
     }
     initUserSession(): boolean{
-        let jsonUInfo: any = localStorage.getItem("uinfo");
+        let jsonUInfo: any = this.storage.getDataUserInfo();
         if(!jsonUInfo){
             this.router.navigate(["login"]);
             return false;
         }else{
             let timesLate = (3600000/2); // = 30 minute
-            let sessionTimes: number = +localStorage.getItem('sessionTimes');
+            let sessionTimes: number = this.storage.getSessionTimes();
             let diffTime: number = Date.now() - sessionTimes;
             
             if(diffTime > timesLate){
@@ -20,9 +22,8 @@ export class SessionManagement {
                 this.router.navigate(["login"]);
                 return false;
             }
-            localStorage.setItem("sessionTimes", (Date.now()).toString());
-            jsonUInfo = JSON.parse(jsonUInfo);
-            this.userService.set(jsonUInfo);
+            this.storage.setSessionTimes();
+            this.storage.setUserInfo(jsonUInfo);
             if(!this.userService.userId){
                 this.router.navigate(["login"]);
                 return false;   
