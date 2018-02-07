@@ -22,7 +22,6 @@ export class ProfileManagementComponent extends BaseComponent implements OnInit 
     public imageFile: any;
     public firstName: string = "";
     public lastName: string = "";
-    public version: number = 1;
 
     public tmpPictureFilePath: string = "";
 
@@ -46,7 +45,7 @@ export class ProfileManagementComponent extends BaseComponent implements OnInit 
         self.loading = true;
         self.apiHttp.upload_profile(self.userInfo.personId, self.imageFile, function (d) {
             if (d != null && d.status.toString().toUpperCase() == "SUCCESS") {
-                let fullVersionPath = d.fullPath + '?v=' + self.version++;
+                let fullVersionPath = d.fullPath + '?v=' + Date.now();
                 self.imageFile = null;
                 self.userInfo.picturePath = fullVersionPath;
                 self.storage.updateStorage();
