@@ -109,9 +109,10 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
 
           instance.maps.subscribe(row => {
             self.loading = true;
+
             self.apiMetabolic.getMetabolicInfo(row.rowGUID, function (d) {
-              if (d.response && d.status.toUpperCase() == 'SUCCESS') {
-                let data = d.response;
+              let data = d.response;
+              if (!self.isEmptyObject(data)) {
                 self.param_latitude = data.latitude;
                 self.param_longitude = data.longitude;
                 self.param_info = 'บ้านของ ' + data.fullName;
