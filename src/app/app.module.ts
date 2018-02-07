@@ -78,6 +78,7 @@ import { ChangePasswordComponent } from './profile/change-password/change-passwo
 import { ProfileManagementComponent } from './profile/profile-management/profile-management.component';
 import { ForgotPasswordComponent } from './profile/forgot-password/forgot-password.component';
 import { SummarytPersonalComponent } from './summary/summary-personal/summary-personal.component';
+import { SummaryDiedComponent } from './summary/summary-died/summary-died.component';
 
 
 @NgModule({
@@ -148,7 +149,8 @@ import { SummarytPersonalComponent } from './summary/summary-personal/summary-pe
     SurveyPatientHistoryComponent,
     ProfileManagementComponent,
     ForgotPasswordComponent,
-    SummarytPersonalComponent
+    SummarytPersonalComponent,
+    SummaryDiedComponent
 
   ],
   imports: [
