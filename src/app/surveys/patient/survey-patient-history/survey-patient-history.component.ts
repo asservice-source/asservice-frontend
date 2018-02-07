@@ -10,9 +10,9 @@ import { PatientBean } from '../../../beans/patient.bean';
 })
 export class SurveyPatientHistoryComponent extends BaseComponent implements OnInit {
 
-  @Input() viewBean : PatientBean;
+  @Input() data : PatientBean;
 
-  public PatientBean : PatientBean;
+  public patientbean : PatientBean;
   public loading: boolean = false;
 
   constructor() {
@@ -20,10 +20,8 @@ export class SurveyPatientHistoryComponent extends BaseComponent implements OnIn
    }
 
   ngOnInit() {
-    this.PatientBean = new PatientBean();
-    this.PatientBean = this.viewBean;
-    console.log("===================viewBean===================");
-    console.log(this.viewBean);
+    this.patientbean = new PatientBean();
+    this.patientbean = this.data;
   }
 
 }

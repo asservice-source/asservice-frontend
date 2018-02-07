@@ -73,7 +73,7 @@ export class SurveyPatientFormComponent extends BaseComponent implements OnInit,
 
   onChoosePersonal(bean: any): void {
     let self = this;
-
+    
     self.patientbean = self.cloneObj(bean);
 
     if (self.action == self.ass_action.ADD) {

@@ -1,23 +1,42 @@
 <div id="find-history-md" class="modal fade" role="dialog" data-backdrop="false" data-keyboard="false">
-        <div class="modal-lg modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">ประวัติการสำรวจ</h4>
-                </div>
-    
-                <div class="row">
-                    <div class="col-md-12">
-                       <label>sssssssssssssssss{{viewBean.rowGUID}}</label>
+    <div class="modal-lg modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">ประวัติการสำรวจ</h4>
+            </div>
+
+            <div class="modal-body">
+                <div class="col-md-12">
+                    <div class="panel-body">
+                        <div class="panel panel-default" style="margin-bottom: inherit;">
+                            <div class="panel-body">
+                                <div class="box-body">
+                                    <dl class="dl-horizontal">
+                                        <dt>หมายเลขประจำตัว : </dt>
+                                        <dd>{{ patientbean.citizenId }}</dd>
+                                        <dt>ชื่อ-สกุล : </dt>
+                                        <dd>{{ patientbean.fullName }}</dd>
+                                        <dt>เพศ : </dt>
+                                        <dd>{{ patientbean.genderName }}</dd>
+                                        <dt>อายุ : </dt>
+                                        <dd>{{ patientbean.age }}</dd>
+                                        <dt>ที่อยู่ : </dt>
+                                        <dd>{{ patientbean.address }}</dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-    
-                <div class="modal-footer">
-                    <div class="panel-body text-right">
-                        <button class="btn btn-primary btn-sm" data-dismiss="modal">กลับ</button>
-                    </div>
+            </div>
+
+            <div class="modal-footer">
+                <div class="panel-body text-right">
+                    <button class="btn btn-primary btn-sm" data-dismiss="modal">กลับ</button>
                 </div>
             </div>
         </div>
     </div>
+</div>
 <ass-loading [show]="loading"></ass-loading>

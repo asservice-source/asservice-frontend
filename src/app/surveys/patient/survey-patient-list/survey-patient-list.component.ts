@@ -16,11 +16,8 @@ declare var $: any;
 })
 export class SurveyPatientListComponent extends BaseComponent implements OnInit {
 
-  //@Output() viewBean: EventEmitter<any> = new EventEmitter<any>();
-
   private actionView: any;
   public isCurrent: boolean = false;
-  public viewBean : PatientBean;
   private apiPatient: Service_SurveyPatient;
 
   public patientType: number = 0;
@@ -199,14 +196,11 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
 
   viewHistory(rowGUID) {
     let self = this;
-    self.viewBean = new PatientBean();
 
     self.loading = true;
     self.apiPatient.getPatientInfo(rowGUID, function (resp) {
       if (resp.response && resp.status.toUpperCase() == 'SUCCESS') {
-          self.viewBean = self.cloneObj(resp.response);
-          console.log("============viewHistory=============");
-          console.log(self.viewBean);
+          self.patientbean = self.cloneObj(resp.response);
           self.isCurrent = true;
           self.changeRef.detectChanges();
           $("#find-history-md").modal("show");
