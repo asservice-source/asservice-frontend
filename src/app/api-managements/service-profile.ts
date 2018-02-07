@@ -65,7 +65,10 @@ export class Service_Profile extends ApiHTTPService {
             xhr.send(formData);
 
             let obj = JSON.parse(xhr.response)
-            obj.fullPath = myconf.API_SERVER_URL + obj.response.substr(1);
+            obj.fullPath = obj.response;
+            // if (obj.response) {
+            //     obj.fullPath = myconf.API_SERVER_URL + obj.response.substr(1);
+            // }
 
             callback(obj);
         } else {
