@@ -23,5 +23,5 @@ export class UserService {
     public roleAcronym: string;
     public genderName: string;
     public genderId: string;
-    public imagePath: string;
+    public picturePath: string;
 }
