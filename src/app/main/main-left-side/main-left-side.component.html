@@ -7,8 +7,8 @@
 
 
 			<div class="image" style="text-align: center">
-				<img *ngIf="userInfo.picturePath" src="{{myconf.API_SERVER_URL+userInfo.picturePath}}" class="img-circle img-user-info">
-				<img *ngIf="!userInfo.picturePath" src="../../assets/img/avatar5.png" class="img-circle img-user-info">
+				<img src="{{picturePath}}" class="img-circle img-user-info">
+
 			</div>
 			<div style="text-align: center; margin-top: 6px;">
 				<label>{{userInfo.fullName}}</label>
