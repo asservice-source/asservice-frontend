@@ -20,8 +20,8 @@ export class MainHeaderComponent implements OnInit {
     this.route.navigate(['']);
   }
 
-  onClickChangePassword() {
-    this.route.navigate(['/main/profile/change-password']);
-  }
+  // onClickChangePassword() {
+  //   this.route.navigate(['/main/profile/change-password']);
+  // }
 
 }
