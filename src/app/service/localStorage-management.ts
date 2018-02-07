@@ -35,7 +35,7 @@ export class LocalStorageManagement{
         this.user.roleAcronym = obj.roleAcronym  || ''
         this.user.genderId = obj.genderId;
         this.user.genderName = obj.genderName  || ''
-        this.user.picturePath = obj.picturePath  || '../../assets/img/avatar5.png'
+        this.user.picturePath = obj.picturePath  || ''
 
     }
     updateStorage(){
