@@ -140,6 +140,27 @@ export class ManagementHomeMemberComponent extends BaseComponent implements OnIn
     }
   }
 
+  onDeleteMember(row: any){
+    let _self = this;
+    _self.message_comfirm('','คุณต้องการลบ '+ row.fullName+' ออกจากบ้านเลขที่ '+row.homeNo+' ใช่หรือไม่?', function(isConf){
+      if(isConf){
+        _self.loading=true;
+        _self.api.delete(row.personId, row.homeId, function(data){
+          let response = data.response;
+          _self.loading=false;
+          _self.changeRef.detectChanges();
+          if(response && data.status.toUpperCase()=='SUCCESS'){
+            _self.message_success('','ลบสมาชิกเรียบร้อย', function(){
+              _self.setupTable();
+            });
+          }else{
+            _self.message_error('', data.message);
+          }
+        });
+      }
+    });
+  }
+
   onBack(){
     if(this.isStaff){
       this.router.navigate(['main/managements/osm/home', 'PD', this.homeInfo.osmId]);
@@ -211,7 +232,7 @@ export class ManagementHomeMemberComponent extends BaseComponent implements OnIn
             //_self.onModalShow(_self.ass_action.EDIT);
            });
            instance.delete.subscribe(row => {
-            _self.message_error('','<h3>ยังลบไม่ได้ครับ รอแป๊บ..</h3>');
+            _self.onDeleteMember(row);
            });
         }
       }

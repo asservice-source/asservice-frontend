@@ -73,4 +73,10 @@ export class Service_HomeMember extends ApiHTTPService{
             }
         });
     }
+    public delete(personId: string, homeId: string, callback: (doc: any) => void){
+        let parameter = {"personId": personId, "homeId": homeId};
+        this.post('homemember/homemember_del', parameter, function(response){
+            callback(response);
+        });
+    }
 }
