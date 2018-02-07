@@ -118,7 +118,7 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
 
           instance.maps.subscribe(row => {
             self.loading = true;
-            
+
             self.apiPatient.getPatientInfo(row.rowGUID, function (d) {
               let data = d.response;
               if (!self.isEmptyObject(data)) {
@@ -200,9 +200,17 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
   onClickMultiMaps() {
     let self = this;
 
-    self.param_reset++;
-    self.changeRef.detectChanges();
-    $("#modalMultiMaps").modal("show");
+    self.loading = true;
+
+    self.apiPatient.getListPatient(self.filtersearch, function (d) {
+      if (!self.isEmptyObject(d)) {
+        self.bindMultiMaps(d);
+        self.param_reset++;
+        self.changeRef.detectChanges();
+        $("#modalMultiMaps").modal("show");
+      }
+      self.loading = false;
+    });
   }
 
   viewHistory(rowGUID) {

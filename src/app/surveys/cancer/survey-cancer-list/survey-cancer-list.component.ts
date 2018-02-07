@@ -224,9 +224,22 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
   onClickMultiMaps() {
     let self = this;
 
-    self.param_reset++;
-    self.changeRef.detectChanges();
-    $("#modalMultiMaps").modal("show");
+    self.loading = true;
+
+    let param = { "documentId": self.filtersearch.rowGUID, "villageId": self.filtersearch.villageId, "osmId": self.filtersearch.osmId, "name": self.filtersearch.fullName, };
+
+    let params = JSON.stringify(param);
+
+    self.apiHttp.post('survey_patient/filter', params, function (d) {
+      if (d != null && d.status.toUpperCase() == "SUCCESS") {
+        self.bindMultiMaps(d.response);
+        self.param_reset++;
+        self.changeRef.detectChanges();
+        $("#modalMultiMaps").modal("show");
+      }
+      self.loading = false;
+    });
+
   }
 
   reloadData(event: any) {

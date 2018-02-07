@@ -214,13 +214,20 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
     }
   }
 
-
   onClickMultiMaps() {
     let self = this;
 
-    self.param_reset++;
-    self.changeRef.detectChanges();
-    $("#modalMultiMaps").modal("show");
+    self.loading = true;
+
+    self.apiMetabolic.getListMetabolic(self.filtersearch, function (d) {
+      if (!self.isEmptyObject(d)) {
+        self.bindMultiMaps(d);
+        self.param_reset++;
+        self.changeRef.detectChanges();
+        $("#modalMultiMaps").modal("show");
+      }
+      self.loading = false;
+    });
   }
 
 }
