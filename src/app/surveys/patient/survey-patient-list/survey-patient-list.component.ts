@@ -20,7 +20,7 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
 
   private actionView: any;
   public isCurrent: boolean = false;
-  public viewBean : PatientBean;
+  public viewBean: PatientBean;
   private apiPatient: Service_SurveyPatient;
 
   public patientType: number = 0;
@@ -117,10 +117,17 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
 
 
           instance.maps.subscribe(row => {
-            self.param_latitude = row.latitude;
-            self.param_longitude = row.longitude;
-            self.param_info = 'บ้านของ ' + row.fullName;
-            $("#modalMaps").modal("show");
+            self.loading = true;
+            self.apiPatient.getPatientInfo(row.rowGUID, function (d) {
+              if (d.response && d.status.toUpperCase() == 'SUCCESS') {
+                let data = d.response;
+                self.param_latitude = data.latitude;
+                self.param_longitude = data.longitude;
+                self.param_info = 'บ้านของ ' + data.fullName;
+                $("#modalMaps").modal("show");
+              }
+              self.loading = false;
+            });
           });
 
         }
@@ -204,12 +211,12 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
     self.loading = true;
     self.apiPatient.getPatientInfo(rowGUID, function (resp) {
       if (resp.response && resp.status.toUpperCase() == 'SUCCESS') {
-          self.viewBean = self.cloneObj(resp.response);
-          console.log("============viewHistory=============");
-          console.log(self.viewBean);
-          self.isCurrent = true;
-          self.changeRef.detectChanges();
-          $("#find-history-md").modal("show");
+        self.viewBean = self.cloneObj(resp.response);
+        console.log("============viewHistory=============");
+        console.log(self.viewBean);
+        self.isCurrent = true;
+        self.changeRef.detectChanges();
+        $("#find-history-md").modal("show");
       }
       self.loading = false;
     })
@@ -270,7 +277,7 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
         self.onModalForm(self.ass_action.EDIT);
       }
       self.loading = false;
-    })
+    });
   }
 
   // change table

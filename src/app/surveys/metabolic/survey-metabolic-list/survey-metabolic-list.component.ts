@@ -108,10 +108,17 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
           });
 
           instance.maps.subscribe(row => {
-            self.param_latitude = row.latitude;
-            self.param_longitude = row.longitude;
-            self.param_info = 'บ้านของ ' + row.fullName;
-            $("#modalMaps").modal("show");
+            self.loading = true;
+            self.apiMetabolic.getMetabolicInfo(row.rowGUID, function (d) {
+              if (d.response && d.status.toUpperCase() == 'SUCCESS') {
+                let data = d.response;
+                self.param_latitude = data.latitude;
+                self.param_longitude = data.longitude;
+                self.param_info = 'บ้านของ ' + data.fullName;
+                $("#modalMaps").modal("show");
+              }
+              self.loading = false;
+            });
           });
         }
       }
@@ -136,7 +143,7 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
             });
           }
           self.loading = false;
-        })
+        });
       }
     });
   }

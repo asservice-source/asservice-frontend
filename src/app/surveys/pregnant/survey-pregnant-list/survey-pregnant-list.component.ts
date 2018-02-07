@@ -149,10 +149,17 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
           });
 
           instance.maps.subscribe(row => {
-            self.param_latitude = row.latitude;
-            self.param_longitude = row.longitude;
-            self.param_info = 'บ้านของ ' + row.fullName;
-            $("#modalMaps").modal("show");
+            self.loading = true;
+
+            self.apiHttp.get_pregnant_info(self.param_rowGUID, function (d) {
+              let data = d.response;
+              self.param_latitude = data.latitude;
+              self.param_longitude = data.longitude;
+              self.param_info = 'บ้านของ ' + data.fullName;
+              self.changeRef.detectChanges();
+              $("#modalMaps").modal("show");
+              self.loading = false;
+            });
           });
 
         }
