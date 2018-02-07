@@ -27,6 +27,7 @@ import { ChangePasswordComponent } from '../profile/change-password/change-passw
 import { ProfileManagementComponent } from '../profile/profile-management/profile-management.component';
 import { ForgotPasswordComponent } from '../profile/forgot-password/forgot-password.component';
 import { SummarytPersonalComponent } from "../summary/summary-personal/summary-personal.component";
+import { SummaryDiedComponent } from "../summary/summary-died/summary-died.component";
 
 @NgModule({
   imports: [
@@ -168,7 +169,11 @@ import { SummarytPersonalComponent } from "../summary/summary-personal/summary-p
             {
               path: 'personal',
               component: SummarytPersonalComponent
-            }
+            },
+            {
+              path: 'died',
+              component: SummaryDiedComponent
+            },
           ]
         }
        
