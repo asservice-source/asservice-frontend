@@ -26,7 +26,7 @@
       </div>
       <div class="col-md-4">
         <div [InputValidate]="validate">
-          <input type="text" maxlength="50" [(ngModel)]="firstName">
+          <input type="text" maxlength="50" [(ngModel)]="userInfo.firstName">
           <label class="error">กรุณาระบุ ชื่อ</label>
         </div>
       </div>
@@ -38,7 +38,7 @@
       </div>
       <div class="col-md-4">
         <div [InputValidate]="validate">
-          <input type="text" maxlength="50" [(ngModel)]="lastName">
+          <input type="text" maxlength="50" [(ngModel)]="userInfo.lastName">
           <label class="error">กรุณาระบุ นามสกุล</label>
         </div>
       </div>
