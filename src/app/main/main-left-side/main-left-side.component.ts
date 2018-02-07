@@ -48,8 +48,8 @@ export class MainLeftSideComponent implements OnInit {
     }
     this.surveyMenus = menuSurveys;
   }
-  onManageProfile(){
-    this.route.navigate(['main/profile/profile-management']); 
-  }
+  // onManageProfile(){
+  //   this.route.navigate(['main/profile/profile-management']); 
+  // }
 
 }

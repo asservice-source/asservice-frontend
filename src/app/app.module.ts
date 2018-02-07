@@ -23,7 +23,7 @@ import { AdminFooterComponent } from './admin/admin-footer/admin-footer.componen
 import { AdminControlSidebarComponent } from './admin/admin-control-sidebar/admin-control-sidebar.component';
 import { ContentComponent } from './content/content.component';
 import { NotfoundComponent } from './notfound/notfound.component';
-import { LoginComponent } from './login/login.component';
+import { HeaderLoginComponent } from './index/header-login/header-login.component';
 import { RegisterComponent } from './register/register/register.component';
 import { SurveyPregnantListComponent, SurveyPregnantListButtonEditComponent } from './surveys/pregnant/survey-pregnant-list/survey-pregnant-list.component';
 import { SurveyPregnantFormComponent } from './surveys/pregnant/survey-pregnant-form/survey-pregnant-form.component';
@@ -79,6 +79,8 @@ import { ProfileManagementComponent } from './profile/profile-management/profile
 import { ForgotPasswordComponent } from './profile/forgot-password/forgot-password.component';
 import { SummarytPersonalComponent } from './summary/summary-personal/summary-personal.component';
 import { SummaryDiedComponent } from './summary/summary-died/summary-died.component';
+import { IndexComponent } from './index/index.component';
+import { HeaderMenuComponent } from './index/header-menu/header-menu.component';
 
 
 @NgModule({
@@ -92,7 +94,7 @@ import { SummaryDiedComponent } from './summary/summary-died/summary-died.compon
     MainControlSidebarComponent,
     ContentComponent,
     NotfoundComponent,
-    LoginComponent,
+    HeaderLoginComponent,
     RegisterComponent,
     FilterHeadMosquitoComponent,
     FilterFindPersonComponent,
@@ -150,7 +152,9 @@ import { SummaryDiedComponent } from './summary/summary-died/summary-died.compon
     ProfileManagementComponent,
     ForgotPasswordComponent,
     SummarytPersonalComponent,
-    SummaryDiedComponent
+    SummaryDiedComponent,
+    IndexComponent,
+    HeaderMenuComponent
 
   ],
   imports: [

@@ -1,12 +1,10 @@
 import { MainComponent } from "./../main/main.component";
-import { AdminComponent } from './../admin/admin.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { GuardService } from "./../service/guard.service";
 import { ContentComponent } from "./../content/content.component";
 import { NotfoundComponent } from "./../notfound/notfound.component";
-import { LoginComponent } from "./../login/login.component";
 import { RegisterComponent } from "./../register/register/register.component";
 import { SurveyPregnantListComponent } from "./../surveys/pregnant/survey-pregnant-list/survey-pregnant-list.component";
 import { SurverDiedListComponent } from "./../surveys/died/survey-died-list/survey-died-list.component";
@@ -28,33 +26,42 @@ import { ProfileManagementComponent } from '../profile/profile-management/profil
 import { ForgotPasswordComponent } from '../profile/forgot-password/forgot-password.component';
 import { SummarytPersonalComponent } from "../summary/summary-personal/summary-personal.component";
 import { SummaryDiedComponent } from "../summary/summary-died/summary-died.component";
+import { IndexComponent } from "../index/index.component";
 
 @NgModule({
   imports: [
     RouterModule.forRoot([
       {
-        path: 'login',
-        component: LoginComponent
+        path: 'index',
+        redirectTo: ''
       },
       {
-        path: 'register',
-        children:[
-          {
-            path: '',
-            component: RegisterComponent,
-          },
-          {
-            path: 'activate/:tokenId',
-            component: RegisterActiveComponent,
-          }
-        ]
+        path: 'login',
+        redirectTo: ''
       },
       {
         path: '',
-        redirectTo: 'main',
-        pathMatch: 'full'
-      }
-      ,
+        component: IndexComponent,
+        children: [
+          {
+            path: 'register',
+            children:[
+              {
+                path: '',
+                component: RegisterComponent,
+              },
+              {
+                path: 'activate/:tokenId',
+                component: RegisterActiveComponent,
+              }
+            ]
+          },
+          {
+            path: 'forgot-password',
+            component: ForgotPasswordComponent
+          }
+        ]
+      },
       {
         path: 'main',
         component: MainComponent,
@@ -117,10 +124,6 @@ import { SummaryDiedComponent } from "../summary/summary-died/summary-died.compo
             {
               path: 'profile-management',
               component: ProfileManagementComponent
-            },
-            {
-              path: 'reset-password',
-              component: ForgotPasswordComponent
             }
           ]
         },
@@ -191,7 +194,7 @@ import { SummaryDiedComponent } from "../summary/summary-died/summary-died.compo
       ,
       {
         path: '**',
-        component: NotfoundComponent
+        redirectTo: ''
       }
 
     ])
