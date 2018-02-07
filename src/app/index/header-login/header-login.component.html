@@ -22,12 +22,17 @@
                                 <div class="col-md-2" style="padding-left:3px; padding-right: 4px; width: 100px">
                                         <button class="btn btn-sm btn-primary" (click)="login();">เข้าสู่ระบบ</button>
                                 </div>
-                                <div class="col-md-2" style="padding-left:0; padding-right: 0;">
-                                        <a (click)="onClickRegister()" style="cursor: pointer;font-weight: bold;color: #FFF">ลงทะเบียน รพ.สต.</a>
+                                <div class="col-md-2 text-center" style="padding-left:0; padding-right: 0;">
+                                        <button class="btn btn-warning btn-register" (click)="onClickRegister()">ลงทะเบียน Online</button>
                                 </div>
                                
                         </div>
                         <div style="padding-left: 20px;"><label *ngIf="isErrorLogin" style="display: block; color:#e90606;">{{msgErrorLogin}}</label></div>
+                        <div class="row" >
+                                <div class="col-md-9 text-right">
+                                        <a routerLink="/forgot-password">ลืมรหัสผ่าน</a>
+                                </div>
+                        </div>
                 </div>
         </div>
         

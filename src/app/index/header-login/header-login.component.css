@@ -1,0 +1,31 @@
+.navbar{
+    margin-bottom: 0;
+}
+.logo-left-top{
+    width: 80px;
+    margin-bottom: 8px;
+}
+.title-left-header{
+    font-size: 38px;
+    font-weight: bold;
+    margin-top: 15px;
+    color: #0167b2;
+}
+.navbar-static-top {
+  z-index: 1000;
+  border-width: 0 0 1px;
+  /* background-color: #42c8fb; */
+  background-color: #ffffff;
+}
+label.value{
+    font-size: 14px;
+    font-weight: bold;
+    color: #3d3d3d;
+    padding-left: 3px;
+}
+.btn-register{
+   width: 105px;
+   white-space: unset;
+   margin-top: -27px; 
+   font-size: 16px;
+}

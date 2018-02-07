@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from "./../service/user.service";
+import { UserService } from "./../../service/user.service";
 import { Router } from "@angular/router";
 import { RequestOptions, Headers, URLSearchParams, Http } from '@angular/http';
-import { ApiHTTPService } from '../api-managements/api-http.service';
-import { BaseComponent } from '../base-component';
-import { LocalStorageManagement } from '../service/localStorage-management';
+import { ApiHTTPService } from '../../api-managements/api-http.service';
+import { BaseComponent } from '../../base-component';
+import { LocalStorageManagement } from '../../service/localStorage-management';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  selector: 'app-header-login',
+  templateUrl: './header-login.component.html',
+  styleUrls: ['./header-login.component.css'],
 })
-export class LoginComponent implements OnInit {
+export class HeaderLoginComponent implements OnInit {
 
   private api: ApiHTTPService = new ApiHTTPService();
   private baseComponent: BaseComponent;
@@ -25,10 +25,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    let jsonUInfo: any = this.storage.getDataUserInfo();
-    if(jsonUInfo && this.user.userId){
-      this.router.navigate(["main"]);
-    }
+    
   }
 
   login():any {
@@ -50,7 +47,7 @@ export class LoginComponent implements OnInit {
       if(resp && resp.status.toString().toUpperCase() == 'SUCCESS' && resp.response.login){
         let obj = self.baseComponent.strNullToEmpty(resp.response);
         self.storage.setUserInfo(obj);
-        self.router.navigate([""]);
+        self.router.navigate(["main"]);
       }else{
         localStorage.clear();
         self.msgErrorLogin = "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง";

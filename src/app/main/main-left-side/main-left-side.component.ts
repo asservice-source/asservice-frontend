@@ -15,9 +15,13 @@ export class MainLeftSideComponent implements OnInit {
   public staffMenus: any = {};
   public osmMenus: any = {};
   public myconf = myconf;
+  public picturePath = '../../assets/img/avatar5.png';
   private api: ApiHTTPService = new ApiHTTPService();
-  constructor(public userInfo: UserService, private route: Router) { 
   
+  constructor(public userInfo: UserService, private route: Router) { 
+    if(userInfo.picturePath){
+      this.picturePath = userInfo.picturePath;
+    }
   }
 
   ngOnInit() {
@@ -44,8 +48,8 @@ export class MainLeftSideComponent implements OnInit {
     }
     this.surveyMenus = menuSurveys;
   }
-  onManageProfile(){
-    this.route.navigate(['main/profile/profile-management']); 
-  }
+  // onManageProfile(){
+  //   this.route.navigate(['main/profile/profile-management']); 
+  // }
 
 }

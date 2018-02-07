@@ -7,7 +7,7 @@ import { ApiHTTPService } from '../../../api-managements/api-http.service';
 import { CancerBean } from '../../../beans/cancer.bean';
 import { FilterHeadSurveyBean } from '../../../beans/filter-head-survey.bean';
 import { FilterBean } from "../../../beans/filter.bean";
-import { ActionCustomViewMapsComponent , ActionCustomViewHistoryComponent } from '../../../action-custom-table/action-custom-view.component';
+import { ActionCustomViewMapsComponent, ActionCustomViewHistoryComponent } from '../../../action-custom-table/action-custom-view.component';
 import { MapsBean } from '../../../multi-maps/multi-maps.component';
 declare var $;
 
@@ -18,8 +18,8 @@ declare var $;
 })
 export class SurveyCancerListComponent extends BaseComponent implements OnInit {
 
-  private actionView : any;
-  private isCurrent:boolean;
+  private actionView: any;
+  private isCurrent: boolean;
 
   public cancerType: number = 0;
   public isShowsick: boolean = true;
@@ -130,10 +130,20 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
           });
 
           instance.maps.subscribe(row => {
-            self.param_latitude = row.latitude;
-            self.param_longitude = row.longitude;
-            self.param_info = 'บ้านของ ' + row.fullName;
-            $("#modalMaps").modal("show");
+            self.loading = true;
+
+            let param = { "rowGUID": row.rowGUID };
+
+            self.apiHttp.post('survey_patient/patient_by_rowguid', param, function (d) {
+              let data = d.response;
+              if (!self.isEmptyObject(data)) {
+                self.param_latitude = row.latitude;
+                self.param_longitude = row.longitude;
+                self.param_info = 'บ้านของ ' + row.fullName;
+                $("#modalMaps").modal("show");
+              }
+              self.loading = false;
+            });
           });
 
         }
@@ -214,9 +224,22 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
   onClickMultiMaps() {
     let self = this;
 
-    self.param_reset++;
-    self.changeRef.detectChanges();
-    $("#modalMultiMaps").modal("show");
+    self.loading = true;
+
+    let param = { "documentId": self.filtersearch.rowGUID, "villageId": self.filtersearch.villageId, "osmId": self.filtersearch.osmId, "name": self.filtersearch.fullName, };
+
+    let params = JSON.stringify(param);
+
+    self.apiHttp.post('survey_patient/filter', params, function (d) {
+      if (d != null && d.status.toUpperCase() == "SUCCESS") {
+        self.bindMultiMaps(d.response);
+        self.param_reset++;
+        self.changeRef.detectChanges();
+        $("#modalMultiMaps").modal("show");
+      }
+      self.loading = false;
+    });
+
   }
 
   reloadData(event: any) {

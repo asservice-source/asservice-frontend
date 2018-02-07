@@ -15,13 +15,18 @@ export class SurveyPatientHistoryComponent extends BaseComponent implements OnIn
   public patientbean : PatientBean;
   public loading: boolean = false;
 
-  constructor() {
+  constructor(private changeRef: ChangeDetectorRef) {
     super();
    }
 
   ngOnInit() {
+    //this.changeRef.detectChanges();
     this.patientbean = new PatientBean();
     this.patientbean = this.data;
+    console.log("=========== view history data ===========");
+    console.log(this.patientbean);
   }
+
+  
 
 }

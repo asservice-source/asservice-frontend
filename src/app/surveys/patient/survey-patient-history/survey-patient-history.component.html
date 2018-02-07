@@ -29,6 +29,30 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="row">
+                    <div class="col-md-4 text-right">
+                        <label class="label-form">ประเภท</label>
+                    </div>
+                    <div class="col-md-4">
+                        <!-- <select [(ngModel)]="patientbean.patientSurveyTypeCode" (change)="onChangePatientSyurvey();">
+                            <option value="">--เลือกประเภท--</option>
+                            <ng-container *ngFor="let item of surveyStatusTypeList">
+                                <option value="{{item.code}}" *ngIf="item.code !='Cancer'">{{item.name}}</option>
+                            </ng-container>
+                        </select> -->
+                        <label class="label-form">{{patientbean.patientSurveyTypeName}}</label>
+                    </div>
+                </div>
+
+                <div *ngIf="patientbean.patientSurveyTypeCode == 'Patient'">
+                    Patient
+                </div>
+
+                <div *ngIf="patientbean.patientSurveyTypeCode == 'Disabled'">
+                    Disabled
+                    </div>
+
             </div>
 
             <div class="modal-footer">

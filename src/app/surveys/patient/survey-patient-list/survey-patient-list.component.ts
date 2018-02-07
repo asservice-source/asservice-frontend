@@ -18,6 +18,7 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
 
   private actionView: any;
   public isCurrent: boolean = false;
+
   private apiPatient: Service_SurveyPatient;
 
   public patientType: number = 0;
@@ -114,10 +115,18 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
 
 
           instance.maps.subscribe(row => {
-            self.param_latitude = row.latitude;
-            self.param_longitude = row.longitude;
-            self.param_info = 'บ้านของ ' + row.fullName;
-            $("#modalMaps").modal("show");
+            self.loading = true;
+
+            self.apiPatient.getPatientInfo(row.rowGUID, function (d) {
+              let data = d.response;
+              if (!self.isEmptyObject(data)) {
+                self.param_latitude = data.latitude;
+                self.param_longitude = data.longitude;
+                self.param_info = 'บ้านของ ' + data.fullName;
+                $("#modalMaps").modal("show");
+              }
+              self.loading = false;
+            });
           });
 
         }
@@ -189,9 +198,17 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
   onClickMultiMaps() {
     let self = this;
 
-    self.param_reset++;
-    self.changeRef.detectChanges();
-    $("#modalMultiMaps").modal("show");
+    self.loading = true;
+
+    self.apiPatient.getListPatient(self.filtersearch, function (d) {
+      if (!self.isEmptyObject(d)) {
+        self.bindMultiMaps(d);
+        self.param_reset++;
+        self.changeRef.detectChanges();
+        $("#modalMultiMaps").modal("show");
+      }
+      self.loading = false;
+    });
   }
 
   viewHistory(rowGUID) {
@@ -204,6 +221,7 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
           self.isCurrent = true;
           self.changeRef.detectChanges();
           $("#find-history-md").modal("show");
+
       }
       self.loading = false;
     })
@@ -264,7 +282,7 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
         self.onModalForm(self.ass_action.EDIT);
       }
       self.loading = false;
-    })
+    });
   }
 
   // change table
