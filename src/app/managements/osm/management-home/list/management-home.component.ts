@@ -145,15 +145,29 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
     
   }
   onViewMaps(row: any){
-    this.bean.latitude = row.latitude;
-    this.bean.longitude = row.longitude;
-    if(this.isHomeType(row.homeTypeCode)){
-      this.infoMaps = 'บ้านเลขที่ ' + row.homeNo
-    }else{
-      this.infoMaps = row.name;
-    }
-    
-    $('#modalMaps').modal('show');
+    let _self = this;
+    _self.loading = true;
+    _self.api.getHomeByID(row.homeId, function(resp){
+      _self.loading = false;
+      let response = resp.response;
+      if(response && resp.status.toUpperCase()=='SUCCESS'){
+
+        _self.bean.latitude = response.latitude;
+        _self.bean.longitude = response.longitude;
+
+      }else{
+        _self.bean.latitude = row.latitude;
+        _self.bean.longitude = row.longitude;
+      }
+
+      if(_self.isHomeType(row.homeTypeCode)){
+        _self.infoMaps = 'บ้านเลขที่ ' + row.homeNo
+      }else{
+        _self.infoMaps = row.name;
+      }
+      $('#modalMaps').modal('show');
+    });
+
   }
   onDelelteHome(row: any){
     let _self = this;
