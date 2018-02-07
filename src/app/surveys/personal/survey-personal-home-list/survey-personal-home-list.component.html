@@ -8,11 +8,11 @@
   <div class="panel-body">
     <app-filter-personal (notifyFilter)="onClickSearch($event)"></app-filter-personal>
 
-    <div class="row"  *ngIf="!isStaff">
+    <!-- <div class="row"  *ngIf="!isStaff">
       <div class="col-md-12">
         <button class="btn btn-primary btn-sm" (click)="onClickAdd();">เพิ่มบ้าน</button>
       </div>
-    </div>
+    </div> -->
 
     <div id="panel_table_personal" class="row" *ngIf="isShowTable">
       <div class="col-md-12">
