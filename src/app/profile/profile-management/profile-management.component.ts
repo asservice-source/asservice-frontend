@@ -23,7 +23,8 @@ export class ProfileManagementComponent extends BaseComponent implements OnInit 
     public firstName: string = "";
     public lastName: string = "";
     public version: number = 1;
-    
+
+    public tmpPictureFilePath: string = "";
 
     public loading: boolean = false;
 
@@ -44,11 +45,10 @@ export class ProfileManagementComponent extends BaseComponent implements OnInit 
 
         self.loading = true;
         self.apiHttp.upload_profile(self.userInfo.personId, self.imageFile, function (d) {
-            console.log(d);
             if (d != null && d.status.toString().toUpperCase() == "SUCCESS") {
                 let fullVersionPath = d.fullPath + '?v=' + self.version++;
                 self.imageFile = null;
-                self.userInfo.imagePath = fullVersionPath;
+                self.userInfo.picturePath = fullVersionPath;
                 self.storage.updateStorage();
                 // self.apiHttp.edit_profile(self.userInfo.personId, self.firstName, self.lastName, self.imageFile, function (d) {
                 //     self.imageFile = null;
@@ -56,6 +56,8 @@ export class ProfileManagementComponent extends BaseComponent implements OnInit 
                 // });
                 self.message_success('', 'แก้ไขข้อมูลส่วนตัวสำเร็จ');
             } else {
+                self.userInfo.picturePath = self.tmpPictureFilePath
+                self.storage.updateStorage();
                 self.message_error('', 'แก้ไขข้อมูลส่วนตัวไม่สำเร็จ');
             }
             self.loading = false;
@@ -79,18 +81,24 @@ export class ProfileManagementComponent extends BaseComponent implements OnInit 
         console.log(self.imageFile);
 
         if (self.imageFile.size > 5242880) {
-
+            self.message_error('', 'ไฟล์รูปต้องมีขนาดไม่เกิน 5MB');
+            return;
         }
 
         if (self.imageFile.type != 'image/jpeg' && self.imageFile.type != 'image/png') {
-
+            self.message_error('', 'ไฟล์รูปต้องมีนามสกุลเป็น jpg และ png เท่านั้น');
+            return;
         }
 
         self.readURL(self.imageFile);
     }
 
     readURL(file) {
+        let self = this;
+
         if (file) {
+            self.tmpPictureFilePath = self.userInfo.picturePath;
+
             var reader = new FileReader();
 
             reader.onload = function (e: any) {
