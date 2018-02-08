@@ -66,6 +66,7 @@ export class ProfileManagementComponent extends BaseComponent implements OnInit 
                 if (d != null && d.status.toString().toUpperCase() == "SUCCESS") {
                     self.userInfo.firstName = self.firstName;
                     self.userInfo.lastName = self.lastName;
+                    self.userInfo.fullName = self.firstName + ' ' + self.lastName;
                     self.storage.updateStorage();
                 } else {
                     countError++;
