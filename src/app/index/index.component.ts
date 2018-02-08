@@ -43,7 +43,7 @@ export class IndexComponent implements OnInit{
         }
       });
     }
-    , 300);
-    
+    , 1000);
+
   }
 }
