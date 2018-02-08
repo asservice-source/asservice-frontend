@@ -81,6 +81,7 @@ import { SummarytPersonalComponent } from './summary/summary-personal/summary-pe
 import { SummaryDiedComponent } from './summary/summary-died/summary-died.component';
 import { IndexComponent } from './index/index.component';
 import { HeaderMenuComponent } from './index/header-menu/header-menu.component';
+import { ResetPasswordComponent } from './profile/reset-password/reset-password.component';
 
 
 @NgModule({
@@ -154,7 +155,8 @@ import { HeaderMenuComponent } from './index/header-menu/header-menu.component';
     SummarytPersonalComponent,
     SummaryDiedComponent,
     IndexComponent,
-    HeaderMenuComponent
+    HeaderMenuComponent,
+    ResetPasswordComponent
 
   ],
   imports: [
