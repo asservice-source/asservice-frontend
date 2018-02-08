@@ -24,14 +24,5 @@ $(function () {
   //   localStorage.clear();
   //   return '';
   // };
-  
-
-  $('.header-menu').on('click','.menu-item > a', function(){
-
-    $.each($('.menu-item>a'), function(){
-      $(this).removeClass('active');
-    });
-    $(this).addClass('active');
-  });
 
 });
