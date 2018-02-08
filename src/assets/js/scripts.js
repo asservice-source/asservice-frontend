@@ -26,7 +26,7 @@ $(function () {
   // };
   
 
-  $('.header-menu').on('click','ul>li.menu-item>a', function(){
+  $('.header-menu').on('click','.menu-item > a', function(){
 
     $.each($('.menu-item>a'), function(){
       $(this).removeClass('active');
