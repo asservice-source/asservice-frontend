@@ -43,6 +43,7 @@ export class PatientBean{  action: any;
     public telephone : string;
     public operationDate : string;
     public homeId : string;
+    public patientSurveyTypeName : string;
 
     public patientTypeId : string;
     public rowGUID : string;
