@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../service/user.service';
 import { LocalStorageManagement } from '../service/localStorage-management';
 import { Router } from '@angular/router';
-
+declare var $:any;
 @Component({
   selector: 'app-index',
   templateUrl: './index.component.html',
@@ -15,6 +15,7 @@ export class IndexComponent implements OnInit{
   this.storage = new LocalStorageManagement(this.user);  
   }
   ngOnInit(): void {
+
     let jsonUInfo: any = this.storage.getDataUserInfo();
     if(jsonUInfo){
       this.storage.setUserInfo(jsonUInfo);
@@ -22,5 +23,27 @@ export class IndexComponent implements OnInit{
         this.router.navigate(["main"]);
       }
     }
+
+    setTimeout(function(){
+      let pathName = location.pathname;
+      $.each($('.header-menu>ul>li.menu-item > a'), function(){
+        if($(this).attr('href')==pathName){
+          $(this).addClass('active');
+        }else{
+          $(this).removeClass('active');
+        }
+      });
+      
+      $('.header-menu').on('click','.menu-item > a', function(){
+        $.each($('.menu-item>a'), function(){
+          $(this).removeClass('active');
+        });
+        if(!$(this).hasClass('active')){
+          $(this).addClass('active');
+        }
+      });
+    }
+    , 1000);
+
   }
 }

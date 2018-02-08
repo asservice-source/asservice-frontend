@@ -74,6 +74,9 @@ export class RegisterComponent extends BaseComponent implements OnInit {
     this.api_hospital();
     this.getProvinceList();
     this.getPrefixName();
+
+    $('.menu-item>a.active').removeClass('active');
+
   }
   api_hospital() {
     this.loading = true;

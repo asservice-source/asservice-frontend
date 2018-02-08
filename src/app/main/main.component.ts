@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-
+declare var $:any;
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -15,6 +15,15 @@ export class MainComponent implements OnInit, OnDestroy {
     // add the the body classes
     this.body.classList.add('skin-blue');
     this.body.classList.add('sidebar-mini');
+    setTimeout(function(){
+      let pathName = location.pathname;
+      $.each($('ul.treeview-menu>li>a'), function(){
+        if($(this).attr('href')==pathName){
+          $(this).parent().parent().parent().find('a').click();
+        }
+      });
+    }, 1000);
+
   }
 
    ngOnDestroy() {

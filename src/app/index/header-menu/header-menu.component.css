@@ -11,8 +11,8 @@
 
 .menu-item > a:hover{
 
-    color: #525050;
-    background-color: #facd45;
+    color: #525050 !important;
+    background-color: #facd45 !important;
 }
 
 .menu-item > a.active{
