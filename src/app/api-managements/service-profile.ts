@@ -22,20 +22,14 @@ export class Service_Profile extends ApiHTTPService {
         });
     }
 
-    public edit_profile(personId: string, firstName: string, lastName: string, file: any, callback: (doc: any) => void) {
+    public edit_profile(personId: string, firstName: string, lastName: string, callback: (doc: any) => void) {
         let self = this;
 
         let parameters = { "personId": personId, "firstName": firstName, "lastName": lastName };
 
-        if (file) {
-            self.upload_profile(personId, file, function (d) {
-
-            });
-        } else {
-
-        }
-
-        callback('');
+        self.post('user/edit_profile', parameters, function (d) {
+            callback(d);
+        });
     }
 
     public upload_profile(personId: string, file: any, callback: (doc: any) => void) {

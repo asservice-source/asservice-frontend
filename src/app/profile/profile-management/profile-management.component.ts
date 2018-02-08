@@ -36,27 +36,45 @@ export class ProfileManagementComponent extends BaseComponent implements OnInit 
     }
 
     ngOnInit() {
+        let self = this;
 
+        self.firstName = self.userInfo.firstName;
+        self.lastName = self.userInfo.lastName;
     }
 
     onClickSave() {
         let self = this;
 
         self.loading = true;
+
+        let countError = 0;
         self.apiHttp.upload_profile(self.userInfo.personId, self.imageFile, function (d) {
             if (d != null && d.status.toString().toUpperCase() == "SUCCESS") {
-                let fullVersionPath = d.fullPath + '?v=' + Date.now();
-                self.imageFile = null;
-                self.userInfo.picturePath = fullVersionPath;
-                self.storage.updateStorage();
-                // self.apiHttp.edit_profile(self.userInfo.personId, self.firstName, self.lastName, self.imageFile, function (d) {
-                //     self.imageFile = null;
-                //     self.route.navigate(['']);
-                // });
-                self.message_success('', 'แก้ไขข้อมูลส่วนตัวสำเร็จ');
+                if (self.imageFile) {
+                    let fullVersionPath = d.fullPath + '?v=' + Date.now();
+                    self.imageFile = null;
+                    self.userInfo.picturePath = fullVersionPath;
+                    self.storage.updateStorage();
+                }
             } else {
                 self.userInfo.picturePath = self.tmpPictureFilePath
                 self.storage.updateStorage();
+                countError++;
+            }
+
+            self.apiHttp.edit_profile(self.userInfo.personId, self.firstName, self.lastName, function (d) {
+                if (d != null && d.status.toString().toUpperCase() == "SUCCESS") {
+                    self.userInfo.firstName = self.firstName;
+                    self.userInfo.lastName = self.lastName;
+                    self.storage.updateStorage();
+                } else {
+                    countError++;
+                }
+            });
+
+            if (countError <= 0) {
+                self.message_success('', 'แก้ไขข้อมูลส่วนตัวสำเร็จ');
+            } else {
                 self.message_error('', 'แก้ไขข้อมูลส่วนตัวไม่สำเร็จ');
             }
             self.loading = false;

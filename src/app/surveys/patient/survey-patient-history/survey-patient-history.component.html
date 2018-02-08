@@ -46,12 +46,98 @@
                 </div>
 
                 <div *ngIf="patientbean.patientSurveyTypeCode == 'Patient'">
-                    Patient
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-4 text-right">
+                                    <label class="label-form">ระบุโรค/อาการ</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" [(ngModel)]="patientbean.remark" maxlength="255" disabled>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 text-right">
+                                    <label class="label-form">ประเภทผู้ป่วย</label>
+                                </div>
+                                <div class="col-md-8">
+                                        
+                                        <input type="text" [(ngModel)]="patientbean.patientSurveyTypeName" maxlength="255" disabled>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-md-4 text-right">
+                                    <label class="label-form">สิทธิบัตร</label>
+                                </div>
+                                <div class="col-md-8">
+                                        
+                                        <input type="text" [(ngModel)]="patientbean.hInsuranceTypeName" maxlength="255" disabled>
+
+                                </div>
+                            </div>
+                            <div class="row" style="padding-bottom: 0px">
+                                <div class="col-md-4 text-right">
+                                    <label class="label-form">วันที่ป่วย</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <my-date-picker [options]="datePickerOptions" [(ngModel)]="patientbean.patientDate" required disabled></my-date-picker>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4 text-right">
+                                    <label class="label-form">สถานที่รักษา</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" [(ngModel)]="patientbean.treatmentPlace" maxlength="255" disabled>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 text-right">
+                                    <label class="label-form">สถานะการรักษา</label>
+                                </div>
+                                <div class="col-md-8">
+                                        <input type="text" [(ngModel)]="patientbean. diseaseStatusTypeName" maxlength="255" disabled>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4 text-right">
+                                    <label class="label-form">เบอร์โทรศัพท์</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" [(ngModel)]="patientbean.telephone" maxlength="50" disabled>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 text-right">
+                                    <label class="label-form">Latitude</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" [(ngModel)]="patientbean.latitude" placeholder="Latitude" maxlength="50" disabled>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 text-right">
+                                    <label class="label-form">Longitude</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" [(ngModel)]="patientbean.longitude" placeholder="Longitude" maxlength="50" disabled>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 text-center">
+                            <app-maps [latitude]="patientbean.latitude" [longitude]="patientbean.longitude" [info]="info" [mode]="'edit'" [defaultAddress]="userInfo.address"
+                                (positionChanged)="onMapChange($event)"></app-maps>
+                        </div>
+                    </div>
                 </div>
 
                 <div *ngIf="patientbean.patientSurveyTypeCode == 'Disabled'">
                     Disabled
-                    </div>
+                </div>
 
             </div>
 

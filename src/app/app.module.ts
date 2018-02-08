@@ -81,7 +81,11 @@ import { SummarytPersonalComponent } from './summary/summary-personal/summary-pe
 import { SummaryDiedComponent } from './summary/summary-died/summary-died.component';
 import { IndexComponent } from './index/index.component';
 import { HeaderMenuComponent } from './index/header-menu/header-menu.component';
+<<<<<<< HEAD
 import { SurveyDiedHistoryComponent } from './surveys/died/survey-died-history/survey-died-history.component';
+=======
+import { ResetPasswordComponent } from './profile/reset-password/reset-password.component';
+>>>>>>> 7efaf65740d2674c2d7ceb925b4371d85b97574c
 
 
 @NgModule({
@@ -157,8 +161,14 @@ import { SurveyDiedHistoryComponent } from './surveys/died/survey-died-history/s
     SummarytPersonalComponent,
     SummaryDiedComponent,
     IndexComponent,
+<<<<<<< HEAD
     HeaderMenuComponent
   
+=======
+    HeaderMenuComponent,
+    ResetPasswordComponent
+
+>>>>>>> 7efaf65740d2674c2d7ceb925b4371d85b97574c
   ],
   imports: [
     BrowserModule,
