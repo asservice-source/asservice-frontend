@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { BaseComponent } from "../../../base-component";
-import { ActionCustomView_2_Component } from '../../../action-custom-table/action-custom-view.component';
+import { ActionCustomView_2_Component, ActionCustomSurveyHistoryComponent } from '../../../action-custom-table/action-custom-view.component';
 import { FilterHeadSurveyBean } from '../../../beans/filter-head-survey.bean';
 import { DeadBean } from '../../../beans/dead.bean';
 import { LocalDataSource } from 'ng2-smart-table';
@@ -24,13 +24,14 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
   public filterBean: FilterHeadSurveyBean;
   public currentDocumentId: string;
   public loading: boolean = false;
+  public columns: any;
   constructor(private changeRef: ChangeDetectorRef) {
     super();
     this.apiDead = new Service_SurveyDead();
     this.filterBean = new FilterHeadSurveyBean();
-    let self = this;
+    let _self = this;
 
-    let columns = {
+    this.columns = {
       fullName: {
         title: 'ชื่อ - นามสกุล',
         width: '120px',
@@ -42,7 +43,7 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
         width: '180px',
         type: 'html',
         valuePrepareFunction: (cell, row) => {
-          return '<div class="text-center">' + self.formatCitizenId(cell) + '</div>'
+          return '<div class="text-center">' + _self.formatCitizenId(cell) + '</div>'
         }
       },
       age: {
@@ -60,7 +61,7 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
         width: '120px',
         type: 'html',
         valuePrepareFunction: (cell, row) => {
-          let displayDeathDate = self.displayFormatDateTime(cell);
+          let displayDeathDate = _self.displayFormatDateTime(cell);
           return '<div class="text-center">' + displayDeathDate + '</div>'
         }
       },
@@ -78,16 +79,16 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
         renderComponent: ActionCustomView_2_Component,
         onComponentInitFunction(instance) {
           instance.edit.subscribe(row => {
-            self.onEdit(row);
+            _self.onEdit(row);
           });
           instance.delete.subscribe(row => {
-            self.onDelete(row);
+            _self.onDelete(row);
           });
         }
       }
     };
 
-    this.settings = this.getTableSetting(columns);
+    _self.settings =  _self.getTableSetting(_self.columns);
 
   }
 
@@ -105,17 +106,71 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
     if (this.isEmpty(this.currentDocumentId)) {
       this.currentDocumentId = event.rowGUID;
     }
+    
     let _self = this;
+    if(_self.currentDocumentId == event.rowGUID){
+      _self.columns.action = {
+        title: 'จัดการ',
+        filter: false,
+        sort: false,
+        width: '100px',
+        type: 'custom',
+        renderComponent: ActionCustomView_2_Component,
+        onComponentInitFunction(instance) {
+          instance.edit.subscribe(row => {
+            _self.onEdit(row);
+          });
+          instance.delete.subscribe(row => {
+            _self.onDelete(row);
+          });
+        }
+      }
+
+      _self.settings =  _self.getTableSetting(_self.columns);
+
+    }else{
+      _self.columns.action = {
+        title: 'จัดการ',
+        filter: false,
+        sort: false,
+        width: '100px',
+        type: 'custom',
+        renderComponent: ActionCustomSurveyHistoryComponent,
+        onComponentInitFunction(instance) {
+          instance.view.subscribe(row => {
+            _self.onHistory(row);
+          });
+        }
+      }
+      _self.settings =  _self.getTableSetting(_self.columns);
+    }
     _self.apiDead.getList(event, function (response) {
       _self.source = _self.ng2STDatasource(response);
       _self.loading = false;
       _self.changeRef.detectChanges();
+      
+      
     });
   }
   onModalForm(action: string) {
     this.action = action;
     this.changeRef.detectChanges();
     $('#modal-add-died').modal('show');
+  }
+  onHistory(row: any) {
+    let _self = this;
+    _self.loading=true;
+    _self.apiDead.getDeadInfo(row.rowGUID, function(resp){
+      _self.loading=false;
+      let response = resp.response;
+      if(response && resp.status.toUpperCase()=='SUCCESS'){
+        _self.bean = _self.cloneObj(response);
+        _self.changeRef.detectChanges();
+        $('#modal-history-died').modal('show');
+      }else{
+        _self.message_servNotRespond('','ไม่สามารถทำรายการได้ในขณะนี้');
+      }
+    });
   }
   onAdd(){
     this.onModalForm(this.ass_action.ADD);

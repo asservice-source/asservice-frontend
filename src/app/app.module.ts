@@ -44,7 +44,7 @@ import { FilterHeadMosquitoComponent } from './filter/filter-head-mosquito/filte
 import { FilterFindPersonComponent, FilterFindPersonButtonChooseComponent } from './filter/filter-find-person/filter-find-person.component';
 import { FilterHeadSurveyComponent } from './filter/filter-head-survey/filter-head-survey.component';
 import { FilterPersonalComponent } from './filter/filter-personal/filter-personal.component';
-import { ActionCustomViewComponent, ActionCustomView_2_Component, ActionCustomViewMapsComponent, ActionCustomViewHistoryComponent } from './action-custom-table/action-custom-view.component'
+import { ActionCustomViewComponent, ActionCustomView_2_Component, ActionCustomViewMapsComponent, ActionCustomViewHistoryComponent, ActionCustomSurveyHistoryComponent } from './action-custom-table/action-custom-view.component'
 import { OnlyNumberDirective } from './directives/onlynumber.directive';
 import { NumberDirective } from './directives/number.directive';
 import { AutofocusDirective } from './directives/autofocus.directive';
@@ -81,6 +81,7 @@ import { SummarytPersonalComponent } from './summary/summary-personal/summary-pe
 import { SummaryDiedComponent } from './summary/summary-died/summary-died.component';
 import { IndexComponent } from './index/index.component';
 import { HeaderMenuComponent } from './index/header-menu/header-menu.component';
+import { SurveyDiedHistoryComponent } from './surveys/died/survey-died-history/survey-died-history.component';
 
 
 @NgModule({
@@ -109,6 +110,7 @@ import { HeaderMenuComponent } from './index/header-menu/header-menu.component';
     SurveyMetabolicListComponent,
     SurveyMetabolicFormComponent,
     SurveyDiedFormComponent,
+    SurveyDiedHistoryComponent,
     SurveyMosquitoListComponent,
     SurveyCancerListComponent,
     SurveyCancerFormComponent,
@@ -124,6 +126,7 @@ import { HeaderMenuComponent } from './index/header-menu/header-menu.component';
     ActionCustomViewMapsComponent,
     ActionCustomView_StaffManageOSMScopeComponent,
     ActionCustomViewHistoryComponent,
+    ActionCustomSurveyHistoryComponent,
     OnlyNumberDirective,
     NumberDirective,
     AutofocusDirective,
@@ -155,7 +158,7 @@ import { HeaderMenuComponent } from './index/header-menu/header-menu.component';
     SummaryDiedComponent,
     IndexComponent,
     HeaderMenuComponent
-
+  
   ],
   imports: [
     BrowserModule,
@@ -180,7 +183,8 @@ import { HeaderMenuComponent } from './index/header-menu/header-menu.component';
     SelectHomeListButton,
     ViewChildTableHomeManagement,
     FilterFindPersonButtonChooseComponent,
-    SurveyPregnantListButtonEditComponent
+    SurveyPregnantListButtonEditComponent,
+    ActionCustomSurveyHistoryComponent
   ],
   providers: [LoadingConfigService, UserService, TestService],
   bootstrap: [AppComponent]

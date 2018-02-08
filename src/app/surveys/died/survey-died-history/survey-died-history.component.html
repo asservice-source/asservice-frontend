@@ -1,0 +1,218 @@
+<!-- Modal -->
+<div id="modal-history-died" class="modal fade" role="dialog" data-backdrop="false" data-keyboard="false">
+  <div class="modal-lg modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+        <h4 class="modal-title">รายละเอียดผู้เสียชีวิต</h4>
+      </div> 
+     <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-4 text-right">
+                <label>ชื่อ</label>
+              </div>
+              <div class="col-md-5">
+                  <label class="value">{{bean.fullName}}</label>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="col-md-4 text-right">
+                <label>หมายเลขประจำตัว</label>
+              </div>
+              <div class="col-md-5">
+                <label class="value">{{formatCitizenId(bean.citizenId)}}</label>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4 text-right">
+                <label>อายุ</label>
+              </div>
+              <div class="col-md-4">
+                <label class="value">{{bean.age}} ปี</label>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4 text-right">
+                  <label>ที่อยู่</label>
+              </div>
+               <div class="col-md-5">
+                  <label class="value">{{bean.address}}</label>
+               </div>
+            </div>
+
+          <div class="row">
+            <div class="col-md-4 text-right">
+              <label>วันที่เสียชีวิต</label>
+            </div>
+            <div class="col-md-2">
+              <label class="value">{{bean.mDateDead}}</label>
+            </div>
+            <div class="col-md-1 text-right"  style="width: 40px; padding: 0;">
+                <label>เวลา</label>
+            </div>
+            <div class="col-md-4" style="padding-right: 0;">
+              <label class="value">{{bean.mHours+':'+bean.mMins}} น.</label>
+            </div>
+            
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 text-right">
+              <label>สาเหตุการเสียชีวิต</label>
+            </div>
+
+            <div class="col-md-5">
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="checkbox">
+                    <label class="label-form">
+                        <input type="checkbox" disabled [(ngModel)]="bean.isDiabetes">
+                        <span class="cr">
+                            <i class="cr-icon fa fa-check"></i>
+                        </span>
+                        โรคเบาหวาน
+                    </label>
+                  </div> 
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="checkbox">
+                    <label class="label-form">
+                        <input type="checkbox" disabled [(ngModel)]="bean.isHypertension">
+                        <span class="cr">
+                            <i class="cr-icon fa fa-check"></i>
+                        </span>
+                        โรคความดันโลหิตสูง
+                    </label>
+                  </div> 
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="checkbox">
+                    <label class="label-form">
+                        <input type="checkbox" disabled [(ngModel)]="bean.isAccident">
+                        <span class="cr">
+                            <i class="cr-icon fa fa-check"></i>
+                        </span>
+                        อุบัติเหตุ
+                    </label>
+                  </div> 
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4" style="padding-right: 0">
+                  <div class="checkbox">
+                    <label class="label-form">
+                        <input type="checkbox" disabled [(ngModel)]="bean.isCancer" >
+                        <span class="cr">
+                            <i class="cr-icon fa fa-check"></i>
+                        </span>
+                        โรคมะเร็ง
+                    </label>
+                  </div> 
+                </div>
+                <div class="col-md-8" style="padding-left: 0">
+                  <div  *ngIf="bean.isCancer">
+                     <label class="value">{{bean.cancerName}}</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4" style="padding-right: 0">
+                    <div class="checkbox">
+                      <label class="label-form">
+                          <input type="checkbox" disabled [(ngModel)]="bean.isCauseOther">
+                          <span class="cr">
+                              <i class="cr-icon fa fa-check"></i>
+                          </span>
+                          สาเหตุอื่นๆ
+                      </label>
+                    </div> 
+                  </div>
+                <div *ngIf="bean.isCauseOther" class="col-md-8" style="padding-left: 0">
+                  <label class="value">{{bean.causeOther}}</label>
+                </div>
+              </div>
+
+          </div>
+
+            <div class="col-md-5" *ngIf="bean.causeCode==-9">
+                <label class="value">{{bean.causeOther}}</label>
+            </div>
+
+          </div>
+          <div class="row">
+            <div class="col-md-4 text-right">
+              <label >โรคประจำตัว</label>
+            </div>
+            <div class="col-md-5">
+              
+              <div class="row">
+
+                <div class="col-md-3">
+                  <div class="radio">
+                    <label class="label-form">
+                      <input type="radio" disabled name="disease_h" [value]="true" [(ngModel)]="bean.isNoDisease">
+                      <span class="cr">
+                        <i class="cr-icon fa fa-check"></i>
+                      </span>
+                      ไม่มี
+                    </label>
+                  </div> 
+                </div>
+
+                <div class="col-md-3">
+                  <div class="radio" disabled>
+                    <label class="label-form">
+                      <input type="radio" disabled name="disease_h" [value]="false" [(ngModel)]="bean.isNoDisease">
+                      <span class="cr">
+                        <i class="cr-icon fa fa-check"></i>
+                      </span>
+                      มี
+                    </label>
+                  </div> 
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+    
+          <div class="row">
+            <div class="col-md-4 text-right">
+              <label>สถานที่เสียชีวิต</label>
+            </div>
+    
+            <div class="col-md-5" *ngIf="bean.deathPlaceCode!='9'">
+                <label class="value">{{bean.placeName}}</label>
+            </div>
+            <div class="col-md-5" *ngIf="bean.deathPlaceCode=='9'">
+                <label class="value">{{bean.placeOther}}</label>
+            </div>
+        </div>
+          <div class="modal-footer">  
+            <button class="btn btn-sm btn-primary" data-dismiss="modal">ปิด</button>   
+          </div>
+
+          </div>
+     </div>
+    <!-- /END Form -->    
+    </div>
+<!-- End panel-body -->
+  </div>
+</div>
+
+
+<ass-loading [show]="loading" [config]="loadingConfig()"></ass-loading>
