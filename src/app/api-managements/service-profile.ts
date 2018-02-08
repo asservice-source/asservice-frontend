@@ -60,14 +60,31 @@ export class Service_Profile extends ApiHTTPService {
 
             let obj = JSON.parse(xhr.response)
             obj.fullPath = obj.response;
-            // if (obj.response) {
-            //     obj.fullPath = myconf.API_SERVER_URL + obj.response.substr(1);
-            // }
 
             callback(obj);
         } else {
             callback({ status: "Success" });
         }
+    }
+
+    public verify_forgot_password(code5: string, citizenId: string, birthDate: string, firstName: string, lastName: string, callback: (doc: any) => void) {
+        let self = this;
+
+        let parameters = { "code5": code5, "citizenId": citizenId, "firstName": firstName, "lastName": lastName, "birthDate": birthDate };
+
+        self.post('user/forgot_password_verified', parameters, function (d) {
+            callback(d);
+        });
+    }
+
+    public reset_password(citizenId: string, newPassword: string, callback: (doc: any) => void) {
+        let self = this;
+
+        let parameters = { "citizenId": citizenId, "newPassword": newPassword };
+
+        self.post('user/reset_password', parameters, function (d) {
+            callback(d);
+        });
     }
 
 }
