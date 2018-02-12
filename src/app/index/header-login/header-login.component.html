@@ -30,11 +30,12 @@
                         <div style="padding-left: 20px;"><label *ngIf="isErrorLogin" style="display: block; color:#e90606;">{{msgErrorLogin}}</label></div>
                         <div class="row" >
                                 <div class="col-md-9 text-right">
-                                        <a routerLink="/forgot-password">ลืมรหัสผ่าน</a>
+                                        <a routerLink="/forgot-password" (click)="onClickForgostPassword()">ลืมรหัสผ่าน</a>
                                 </div>
                         </div>
                 </div>
         </div>
         
 </nav>
+<app-forgot-password></app-forgot-password>
 <ass-loading [show]="loading"></ass-loading>

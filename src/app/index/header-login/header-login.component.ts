@@ -6,12 +6,13 @@ import { ApiHTTPService } from '../../api-managements/api-http.service';
 import { BaseComponent } from '../../base-component';
 import { LocalStorageManagement } from '../../service/localStorage-management';
 
+declare var $:any;
 @Component({
   selector: 'app-header-login',
   templateUrl: './header-login.component.html',
   styleUrls: ['./header-login.component.css'],
 })
-export class HeaderLoginComponent implements OnInit {
+export class HeaderLoginComponent extends BaseComponent implements OnInit {
 
   private api: ApiHTTPService = new ApiHTTPService();
   private baseComponent: BaseComponent;
@@ -20,6 +21,7 @@ export class HeaderLoginComponent implements OnInit {
   public isErrorLogin: boolean = false;
   public msgErrorLogin: string = "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง";
   constructor(public user: UserService, private http: Http, private router: Router) {
+    super();
     this.baseComponent = new BaseComponent();
     this.storage = new LocalStorageManagement(this.user);
   }
@@ -83,5 +85,8 @@ export class HeaderLoginComponent implements OnInit {
   onClickRegister(){
     this.router.navigate(["register"]);
   }
-
+  
+  onClickForgostPassword(){
+    $('#modalForgotPassword').modal('show');
+  }
 }
