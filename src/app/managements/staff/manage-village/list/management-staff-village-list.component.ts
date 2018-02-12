@@ -20,6 +20,7 @@ export class ManagementStaffVillageListComponent extends BaseComponent implement
   public datas: any //= [{villageId:'1', villageNo: 1, villageName: 'บ้านหนองหลุบ'}];
   public loading: boolean = false; 
   public villageId: any;
+  public villageName: any;
   constructor(private changeRef: ChangeDetectorRef) {
     super();
     this.action = this.ass_action.ADD;
@@ -45,7 +46,9 @@ export class ManagementStaffVillageListComponent extends BaseComponent implement
           renderComponent: ManagementStaffVillageListComponent_ActionCustomView,
           onComponentInitFunction(instance) {
             instance.action.subscribe(row => {
-              _self.onViewHomeList(row);
+              _self.bean = _self.cloneObj(row);
+              _self.bean.villageId = row.id;
+              _self.onViewHomeList();
              });
           }
         }
@@ -125,8 +128,7 @@ export class ManagementStaffVillageListComponent extends BaseComponent implement
       });
       
     }
-    onViewHomeList(row: any){
-      this.villageId = row.id;
+    onViewHomeList(){
       this.changeRef.detectChanges();
       $('#modalHomeList').modal();
     }

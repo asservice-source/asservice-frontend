@@ -3,28 +3,33 @@
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title"></h4>
+          <h4 class="modal-title">บ้านเลขที่/สถานที่</h4>
         </div>
         <div class="modal-body">
-
+          
           <div class="row">
+              <div class="col-md-12 text-center">
+                <label>หมู่ที่ {{bean.villageNo +' '+ bean.villageName}}</label>
+              </div>
+            </div>
+          <div class="row">
+            <div class="col-md-12 text-center">
+              <label>{{userInfo.hospitalDisplayName}}</label>
+            </div>
             
-            <dl class="dl-horizontal">
-              <dt>ที่อยู่ : </dt>
-              <dd>xxx</dd>
-            </dl>
-           
           </div>
+          
 
           <div class="row">
             <div class="col-lg-12">
+              <div class="filter-discription"><b>ส่วนที่ 1</b> ประเภทบ้าน/ที่อยู่อาศัย</div>
               <ng2-smart-table [settings]="settings_1" [source]="source_1" (rowSelect)="onRowSelect($event)"></ng2-smart-table>
             </div>
           </div>
 
-
           <div class="row">
             <div class="col-lg-12">
+              <div class="filter-discription"><b>ส่วนที่ 2</b> ประเภทสถานที่</div>
               <ng2-smart-table [settings]="settings_2" [source]="source_2" (rowSelect)="onRowSelect($event)"></ng2-smart-table>
             </div>
           </div>

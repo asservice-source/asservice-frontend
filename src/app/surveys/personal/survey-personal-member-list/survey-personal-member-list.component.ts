@@ -96,7 +96,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
   bindHomeInfo() {
     let self = this;
     self.loading = true;
-    self.apiHttp.api_HomrInfo(self.paramHomeId, function (d) {
+    self.apiHttp.api_HomeInfo(self.paramHomeId, function (d) {
       if (d && d.status.toUpperCase() == "SUCCESS") {
         console.log(d);
         self.homeInfo = d.response;

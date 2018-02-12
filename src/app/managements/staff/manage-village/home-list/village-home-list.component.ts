@@ -12,7 +12,7 @@ declare var $:any;
   styleUrls: ['./village-home-list.component.css']
 })
 export class StaffVillageHomeListComponent extends BaseComponent implements OnInit {
-  @Input() villageId : any;
+  @Input() bean: VillageBean; 
   public api: Service_Home;
   public settings_1: any;
   public settings_2: any;
@@ -22,6 +22,7 @@ export class StaffVillageHomeListComponent extends BaseComponent implements OnIn
   public loading: boolean = false; 
   constructor(private changeRef: ChangeDetectorRef) {
     super();
+    this.bean = new VillageBean();
     let _self = this;
     this.api = new Service_Home();
     this.settings_1 = this.getTableSetting({
@@ -54,8 +55,8 @@ export class StaffVillageHomeListComponent extends BaseComponent implements OnIn
      
     }
     setupTable(){
-      
-      let villageId = this.villageId;
+      console.log(this.bean);
+      let villageId = this.bean.villageId;
       let osmId = "";
       let homeTypeCode = "";
       let searchName = "";
