@@ -6,6 +6,7 @@ import { NgModule } from '@angular/core';
 import { Ng2CompleterModule } from "ng2-completer";
 import { Ng2SmartTableModule } from "ng2-smart-table";
 import { HttpModule } from '@angular/http';
+import { ChartsModule } from 'ng2-charts';
 import 'rxjs/add/operator/map';
 
 import { AppComponent } from './app.component';
@@ -171,6 +172,7 @@ import { StaffVillageHomeListComponent } from './managements/staff/manage-villag
     Ng2CompleterModule,
     Ng2SmartTableModule,
     MyDatePickerModule,
+    ChartsModule,
     NguiMapModule.forRoot({ apiUrl: 'https://maps.google.com/maps/api/js?key=AIzaSyBpBMthbC5-MRsz8Vga99LLlxMDibt24dc&language=th&region=th&libraries=visualization,places,drawing' })
   ],
   entryComponents: [

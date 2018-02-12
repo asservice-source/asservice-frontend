@@ -42,6 +42,7 @@
         "../node_modules/icheck/icheck.js",
         "../node_modules/admin-lte/dist/js/app.js",
         "../node_modules/bootbox/bootbox.js",
+        "../node_modules/chart.js/src/chart.js",
         "assets/js/scripts.js",
         "assets/message-box/message-box.js"
       ],
