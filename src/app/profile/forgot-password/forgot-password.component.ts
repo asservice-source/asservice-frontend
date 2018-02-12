@@ -4,6 +4,7 @@ import { IMyDateModel } from 'mydatepicker-thai';
 import { BaseComponent } from '../../base-component';
 import { Router } from '@angular/router';
 import { Service_Profile } from '../../api-managements/service-profile';
+declare var $;
 
 @Component({
   selector: 'app-forgot-password',
@@ -25,10 +26,15 @@ export class ForgotPasswordComponent extends BaseComponent implements OnInit {
   public firstName: string = "";
   public lastName: string = "";
   public birthDate: string = "";
+
   public newPassword: string = "";
   public confirmNewPassword: string = "";
 
+  public userLoginId: string = "";
+  public userName: string = "";
+
   public modelBirthDate: any;
+  public isBirthDate: boolean = false;
 
   public error_message_code5: string = "กรุณาระบุ รหัสโรงพยาบาล";
   public error_message_citizenId: string = "กรุณาระบุ รหัสประจำตัวประชาชน";
@@ -45,11 +51,15 @@ export class ForgotPasswordComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
+    let self = this;
 
+    self.onModalEvent();
   }
 
   validBirthDate(event: InputValidateInfo) {
-    // this.isBirthDate = event.isPassed;
+    let self = this;
+
+    self.isBirthDate = event.isPassed;
   }
 
   onChangeBirthDate(event: IMyDateModel) {
@@ -65,18 +75,36 @@ export class ForgotPasswordComponent extends BaseComponent implements OnInit {
     self.validateInput = new InputValidateInfo();
     self.validateInput.isCheck = true;
 
+    if (self.isEmpty(self.code5))
+      return;
+
+    if (self.isEmpty(self.citizenId))
+      return;
+
+    if (self.isEmpty(self.birthDate))
+      return;
+
+    if (self.isEmpty(self.firstName))
+      return;
+
+    if (self.isEmpty(self.lastName))
+      return;
+
     self.loading = true;
 
     self.apiHttp.verify_forgot_password(self.code5, self.citizenId, self.birthDate, self.firstName, self.lastName, function (d) {
       if (d != null && d.status.toUpperCase() == "SUCCESS") {
-        if (d.response.isVerified === true) {
+        let data = d.response;
+        if (data.isVerified === true) {
           self.isVerified = true;
+          self.userLoginId = data.userLoginId;
+          self.userName = data.userName;
         } else {
           self.message_error('', 'ข้อมูลของท่านไม่ถูกต้อง กรุณาระบุข้อมูลใหม่อีกครั้ง');
         }
       }
       self.loading = false;
-    })
+    });
   }
 
   onClickSave() {
@@ -112,26 +140,77 @@ export class ForgotPasswordComponent extends BaseComponent implements OnInit {
       return;
     }
 
-    let userLoginId = self.userInfo.userId;
-    let username = self.userInfo.username;
-    // self.apiHttp.reset_password(userLoginId, username, self.newPassword, function (d) {
-    //   if (d != null && d.status.toUpperCase() == "SUCCESS") {
-    //     self.message_success('', 'เปลี่ยนรหัสผ่านสำเร็จ', function () {
-    //       localStorage.clear();
-    //       self.route.navigate(['']);
-    //     });
-    //   } else {
-    //     self.message_error('', 'เปลี่ยนรหัสผ่านไม่สำเร็จ', function () {
-    //       self.clearData();
-    //     });
-    //   }
-    // });
+    self.loading = true;
+
+    self.apiHttp.reset_password(self.userLoginId, self.userName, self.newPassword, function (d) {
+      if (d != null && d.status.toUpperCase() == "SUCCESS") {
+        self.message_success('', 'รีเซ็ตรหัสผ่านสำเร็จ', function () {
+          self.clearData();
+          $('#modalForgotPassword').modal('hide');
+          // self.route.navigate(['']);
+          // let parameters = { "userName": self.userName, "password": self.newPassword };
+          // this.api.post('user/login', parameters, function (resp) {
+          //   console.log(resp);
+          //   if (resp && resp.status.toString().toUpperCase() == 'SUCCESS' && resp.response.login) {
+          //     let obj = self.baseComponent.strNullToEmpty(resp.response);
+          //     self.storage.setUserInfo(obj);
+          //     self.route.navigate(["main"]);
+          //   } else {
+          //     localStorage.clear();
+          //     // self.msgErrorLogin = "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง";
+          //     // self.isErrorLogin = true;
+          //   }
+          // });
+        });
+      } else {
+        self.message_error('', 'รีเซ็ตรหัสผ่านไม่สำเร็จ', function () {
+          self.newPassword = '';
+          self.confirmNewPassword = '';
+        });
+      }
+    });
   }
 
   onClickCancel() {
     let self = this;
 
     self.route.navigate(['']);
+  }
+
+  onModalEvent() {
+    let self = this;
+
+    $('#modalForgotPassword').on('show.bs.modal', function (e) {
+      self.clearData();
+      // self.changeRef.detectChanges();
+    });
+
+    $('#modalForgotPassword').on('hidden.bs.modal', function () {
+      // self.changeRef.detectChanges();
+    });
+  }
+
+  clearData() {
+    let self = this;
+
+    self.isVerified = false;
+
+    self.code5 = '';
+    self.citizenId = '';
+    self.birthDate = '';
+    self.modelBirthDate = null;
+    self.firstName = '';
+    self.lastName = '';
+
+    self.newPassword = '';
+    self.confirmNewPassword = '';
+
+    self.userLoginId = '';
+    self.userName = '';
+
+    self.validateInput = new InputValidateInfo();
+    self.validateNewPassword = new InputValidateInfo();
+    self.validateConfirmNewPassword = new InputValidateInfo();
   }
 
 }

@@ -77,10 +77,10 @@ export class Service_Profile extends ApiHTTPService {
         });
     }
 
-    public reset_password(citizenId: string, newPassword: string, callback: (doc: any) => void) {
+    public reset_password(userLoginId: string, userName: string, newPassword: string, callback: (doc: any) => void) {
         let self = this;
 
-        let parameters = { "citizenId": citizenId, "newPassword": newPassword };
+        let parameters = { "userLoginId": userLoginId, "userName": userName, "newPassword": newPassword };
 
         self.post('user/reset_password', parameters, function (d) {
             callback(d);

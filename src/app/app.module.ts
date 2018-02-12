@@ -82,8 +82,6 @@ import { SummaryDiedComponent } from './summary/summary-died/summary-died.compon
 import { IndexComponent } from './index/index.component';
 import { HeaderMenuComponent } from './index/header-menu/header-menu.component';
 import { SurveyDiedHistoryComponent } from './surveys/died/survey-died-history/survey-died-history.component';
-import { ResetPasswordComponent } from './profile/reset-password/reset-password.component';
-
 
 @NgModule({
   declarations: [
@@ -158,8 +156,7 @@ import { ResetPasswordComponent } from './profile/reset-password/reset-password.
     SummarytPersonalComponent,
     SummaryDiedComponent,
     IndexComponent,
-    HeaderMenuComponent,
-    ResetPasswordComponent
+    HeaderMenuComponent
   ],
   imports: [
     BrowserModule,
