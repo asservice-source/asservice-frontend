@@ -51,7 +51,7 @@ import { AutofocusDirective } from './directives/autofocus.directive';
 import { InputValidateDirective } from './directives/inputvalidate.directive';
 import { ManagementStaffUserFormComponent } from './managements/staff/manage-staff-user/form/management-staff-user-form.component';
 import { ManagementStaffUserListComponent, ActionCustomView_StaffManageOSMScopeComponent } from './managements/staff/manage-staff-user/list/management-staff-user-list.component';
-import { ManagementStaffVillageListComponent } from './managements/staff/manage-village/list/management-staff-village-list.component';
+import { ManagementStaffVillageListComponent, ManagementStaffVillageListComponent_ActionCustomView } from './managements/staff/manage-village/list/management-staff-village-list.component';
 import { ManagementStaffVillageFormComponent } from './managements/staff/manage-village/form/management-staff-village-form.component';
 // import { MyDatePickerModule } from 'mydatepicker';
 import { MyDatePickerModule } from 'mydatepicker-thai';
@@ -83,6 +83,7 @@ import { IndexComponent } from './index/index.component';
 import { HeaderMenuComponent } from './index/header-menu/header-menu.component';
 import { SurveyDiedHistoryComponent } from './surveys/died/survey-died-history/survey-died-history.component';
 import { ResetPasswordComponent } from './profile/reset-password/reset-password.component';
+import { StaffVillageHomeListComponent } from './managements/staff/manage-village/home-list/village-home-list.component';
 
 
 @NgModule({
@@ -128,6 +129,7 @@ import { ResetPasswordComponent } from './profile/reset-password/reset-password.
     ActionCustomView_StaffManageOSMScopeComponent,
     ActionCustomViewHistoryComponent,
     ActionCustomSurveyHistoryComponent,
+    ManagementStaffVillageListComponent_ActionCustomView,
     OnlyNumberDirective,
     NumberDirective,
     AutofocusDirective,
@@ -136,6 +138,7 @@ import { ResetPasswordComponent } from './profile/reset-password/reset-password.
     ManagementStaffUserListComponent,
     ManagementStaffVillageListComponent,
     ManagementStaffVillageFormComponent,
+    StaffVillageHomeListComponent,
     RegisterActiveComponent,
     ManagementHomeComponent,
     ManagementHomeFormComponent,
@@ -185,7 +188,8 @@ import { ResetPasswordComponent } from './profile/reset-password/reset-password.
     ViewChildTableHomeManagement,
     FilterFindPersonButtonChooseComponent,
     SurveyPregnantListButtonEditComponent,
-    ActionCustomSurveyHistoryComponent
+    ActionCustomSurveyHistoryComponent,
+    ManagementStaffVillageListComponent_ActionCustomView
   ],
   providers: [LoadingConfigService, UserService, TestService],
   bootstrap: [AppComponent]

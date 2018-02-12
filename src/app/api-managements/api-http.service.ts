@@ -117,7 +117,7 @@ export class ApiHTTPService  implements OnInit {
     public api_HomeTypeList(callback: (doc: any) => void){
         this.callResponse('home/home_type_list',{}, callback);
     }
-    public api_HomrInfo(homeId: any, callback: (doc: any) => void){
+    public api_HomeInfo(homeId: any, callback: (doc: any) => void){
         let parameter = {"homeId": +homeId};
         this.post('home/home_info', parameter, function(response){
             callback(response);

@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef} from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, EventEmitter, Input, Output} from '@angular/core';
 import { BaseComponent } from '../../../../base-component';
 import { LocalDataSource } from 'ng2-smart-table';
 import { ActionCustomView_2_Component } from '../../../../action-custom-table/action-custom-view.component';
@@ -19,6 +19,7 @@ export class ManagementStaffVillageListComponent extends BaseComponent implement
   public bean: VillageBean;
   public datas: any //= [{villageId:'1', villageNo: 1, villageName: 'บ้านหนองหลุบ'}];
   public loading: boolean = false; 
+  public villageId: any;
   constructor(private changeRef: ChangeDetectorRef) {
     super();
     this.action = this.ass_action.ADD;
@@ -36,6 +37,19 @@ export class ManagementStaffVillageListComponent extends BaseComponent implement
         filter: false,
         //width: '180px',
       },
+      villageId:{
+          title: 'บ้านเลขที่/สถานที่',
+          filter: false,
+          sort: false,
+          type: 'custom',
+          renderComponent: ManagementStaffVillageListComponent_ActionCustomView,
+          onComponentInitFunction(instance) {
+            instance.action.subscribe(row => {
+              _self.onViewHomeList(row);
+             });
+          }
+        }
+      ,
       
       action: {
         title: this.getLabel('lbl_action'),
@@ -111,6 +125,11 @@ export class ManagementStaffVillageListComponent extends BaseComponent implement
       });
       
     }
+    onViewHomeList(row: any){
+      this.villageId = row.id;
+      this.changeRef.detectChanges();
+      $('#modalHomeList').modal();
+    }
     onCompleted(event: any){
       let _self = this;
       if(event.success){
@@ -121,4 +140,21 @@ export class ManagementStaffVillageListComponent extends BaseComponent implement
         _self.message_error('',event.message);
       }
     }
+}
+
+@Component({
+  selector: 'action-management-staffvillagelist-actionCustomView',
+  template: '<div style="width:100%; text-align: center;" ><button type="button" (click)="onAction()" class="btn btn-sm btn-primary">ดูข้อมูล</button></div>',
+  styleUrls: []
+})
+export class ManagementStaffVillageListComponent_ActionCustomView implements OnInit {
+    @Input() value: string | number;
+    @Input() rowData: any;
+    @Output() action: EventEmitter<any> = new EventEmitter();
+    ngOnInit(): void {
+    }
+    onAction(){
+      this.action.emit(this.rowData);
+    }
+    
 }

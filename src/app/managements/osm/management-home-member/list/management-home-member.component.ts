@@ -58,7 +58,7 @@ export class ManagementHomeMemberComponent extends BaseComponent implements OnIn
 
   setupHomeInfo(){
     let _self = this;
-    _self.api.api_HomrInfo(_self.homeId, function(response){ 
+    _self.api.api_HomeInfo(_self.homeId, function(response){ 
       _self.isShowInfo = true;
       _self.homeInfo = response.response;
       _self.address.homeNo = _self.homeInfo.homeNo;

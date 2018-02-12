@@ -62,7 +62,7 @@ export class SurveyPersonalHistoryComponent extends BaseComponent implements OnI
 
     getHomeInfo(homeId){
         let _self = this;
-        this.api.api_HomrInfo(homeId, function (d) {
+        this.api.api_HomeInfo(homeId, function (d) {
             if (d && d.status.toUpperCase() == "SUCCESS") {
                 _self.homeInfo = d.response;
             }

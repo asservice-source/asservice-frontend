@@ -74,7 +74,7 @@ export class Service_Home extends ApiHTTPService{
     }
     public getHomeByID(homeId:string, callback: (doc: any) => void){
 
-        this.api_HomrInfo(homeId, function(response){
+        this.api_HomeInfo(homeId, function(response){
             callback(response);
         });
         
