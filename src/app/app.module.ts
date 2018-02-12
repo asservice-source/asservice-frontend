@@ -85,7 +85,6 @@ import { SurveyDiedHistoryComponent } from './surveys/died/survey-died-history/s
 import { ResetPasswordComponent } from './profile/reset-password/reset-password.component';
 import { StaffVillageHomeListComponent } from './managements/staff/manage-village/home-list/village-home-list.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -161,8 +160,7 @@ import { StaffVillageHomeListComponent } from './managements/staff/manage-villag
     SummarytPersonalComponent,
     SummaryDiedComponent,
     IndexComponent,
-    HeaderMenuComponent,
-    ResetPasswordComponent
+    HeaderMenuComponent
   ],
   imports: [
     BrowserModule,
