@@ -83,6 +83,8 @@ export class StaffVillageHomeListComponent extends BaseComponent implements OnIn
     bindModal(){
       let _self = this;
       $('#modalHomeList').on('show.bs.modal', function(){
+        _self.source_1 = null;
+        _self.source_2 = null;
         _self.setupTable();
       });
     }
