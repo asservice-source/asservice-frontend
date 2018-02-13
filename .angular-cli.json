@@ -25,6 +25,7 @@
         "../node_modules/icheck/skins/flat/blue.css",
         "../node_modules/morris.js/morris.css",
         "../node_modules/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.css",
+        "assets/swiper/css/swiper.min.css",
         "_variables.less",
         "styles.css"
       ],
@@ -42,6 +43,7 @@
         "../node_modules/icheck/icheck.js",
         "../node_modules/admin-lte/dist/js/app.js",
         "../node_modules/bootbox/bootbox.js",
+        "assets/swiper/js/swiper.min.js",
         "assets/js/scripts.js",
         "assets/message-box/message-box.js"
       ],

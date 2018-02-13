@@ -27,6 +27,7 @@ import { ForgotPasswordComponent } from '../profile/forgot-password/forgot-passw
 import { SummarytPersonalComponent } from "../summary/summary-personal/summary-personal.component";
 import { SummaryDiedComponent } from "../summary/summary-died/summary-died.component";
 import { IndexComponent } from "../index/index.component";
+import { IndexContentComponent } from "../index/content/content.component";
 
 @NgModule({
   imports: [
@@ -43,6 +44,10 @@ import { IndexComponent } from "../index/index.component";
         path: '',
         component: IndexComponent,
         children: [
+          {
+            path: '',
+            component: IndexContentComponent
+          },
           {
             path: 'register',
             children:[

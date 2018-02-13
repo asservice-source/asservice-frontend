@@ -84,7 +84,9 @@ import { IndexComponent } from './index/index.component';
 import { HeaderMenuComponent } from './index/header-menu/header-menu.component';
 import { SurveyDiedHistoryComponent } from './surveys/died/survey-died-history/survey-died-history.component';
 import { StaffVillageHomeListComponent } from './managements/staff/manage-village/home-list/village-home-list.component';
-
+import { IndexContentComponent } from './index/content/content.component';
+import { IndexFooterComponent } from './index/footer/footer.component';
+import { SwiperModule } from 'angular2-useful-swiper';
 @NgModule({
   declarations: [
     AppComponent,
@@ -160,7 +162,11 @@ import { StaffVillageHomeListComponent } from './managements/staff/manage-villag
     SummarytPersonalComponent,
     SummaryDiedComponent,
     IndexComponent,
-    HeaderMenuComponent
+    IndexContentComponent,
+    IndexFooterComponent,
+    HeaderMenuComponent,
+    
+    
   ],
   imports: [
     BrowserModule,
@@ -173,7 +179,8 @@ import { StaffVillageHomeListComponent } from './managements/staff/manage-villag
     Ng2SmartTableModule,
     MyDatePickerModule,
     ChartsModule,
-    NguiMapModule.forRoot({ apiUrl: 'https://maps.google.com/maps/api/js?key=AIzaSyBpBMthbC5-MRsz8Vga99LLlxMDibt24dc&language=th&region=th&libraries=visualization,places,drawing' })
+    NguiMapModule.forRoot({ apiUrl: 'https://maps.google.com/maps/api/js?key=AIzaSyBpBMthbC5-MRsz8Vga99LLlxMDibt24dc&language=th&region=th&libraries=visualization,places,drawing' }),
+    SwiperModule
   ],
   entryComponents: [
     ActionCustomViewComponent,
