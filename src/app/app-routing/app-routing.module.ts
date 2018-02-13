@@ -28,6 +28,8 @@ import { SummarytPersonalComponent } from "../summary/summary-personal/summary-p
 import { SummaryDiedComponent } from "../summary/summary-died/summary-died.component";
 import { IndexComponent } from "../index/index.component";
 import { IndexContentComponent } from "../index/content/content.component";
+import { IndexContactusComponent } from "../index/contactus/contactus.component";
+import { IndexAboutSystemComponent } from "../index/about-system/about-system.component";
 
 @NgModule({
   imports: [
@@ -47,6 +49,14 @@ import { IndexContentComponent } from "../index/content/content.component";
           {
             path: '',
             component: IndexContentComponent
+          },
+          {
+            path: 'about-system',
+            component: IndexAboutSystemComponent
+          },
+          {
+            path: 'contact-us',
+            component: IndexContactusComponent
           },
           {
             path: 'register',

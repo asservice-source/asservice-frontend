@@ -75,7 +75,15 @@ export class RegisterComponent extends BaseComponent implements OnInit {
     this.getProvinceList();
     this.getPrefixName();
 
-    $('.menu-item>a.active').removeClass('active');
+    //$('.menu-item>a.active').removeClass('active');
+
+
+    setTimeout(function(){
+      let pathName = location.pathname;
+      $('.menu-item>a.active').removeClass('active');
+      $('.header-menu>ul>li.menu-item > a[href="'+pathName+'"]').addClass('active');
+    }
+    , 1000);
 
   }
   api_hospital() {

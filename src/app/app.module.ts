@@ -87,6 +87,8 @@ import { StaffVillageHomeListComponent } from './managements/staff/manage-villag
 import { IndexContentComponent } from './index/content/content.component';
 import { IndexFooterComponent } from './index/footer/footer.component';
 import { SwiperModule } from 'angular2-useful-swiper';
+import { IndexContactusComponent } from './index/contactus/contactus.component';
+import { IndexAboutSystemComponent } from './index/about-system/about-system.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -165,7 +167,8 @@ import { SwiperModule } from 'angular2-useful-swiper';
     IndexContentComponent,
     IndexFooterComponent,
     HeaderMenuComponent,
-    
+    IndexContactusComponent,
+    IndexAboutSystemComponent
     
   ],
   imports: [
