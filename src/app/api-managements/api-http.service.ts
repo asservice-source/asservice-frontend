@@ -231,4 +231,19 @@ export class ApiHTTPService  implements OnInit {
         });
     }
 
+    public getRoundCurrent(headerTypeCode: string, callback: (doc:any)=>void): any{
+        let mitem = {};
+        this.api_SurveyHeaderList(headerTypeCode, function(response){
+            for(let item of response){
+                if(item.status=='2'){
+                    mitem = item;
+                    break;
+                }
+            }
+            callback(mitem);
+            return;
+        });
+    }
+
+
 }
