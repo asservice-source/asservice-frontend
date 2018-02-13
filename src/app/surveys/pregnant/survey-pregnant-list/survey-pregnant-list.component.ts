@@ -288,7 +288,7 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
   onDeleteSurveyPregnant(bean) {
     let self = this;
 
-    self.message_comfirm('', 'คุณต้องการลบ "<b>' + bean.fullName + '</b>" หรือไม่?', function (confirm) {
+    self.message_comfirm('', 'ต้องการยกเลิกแจ้งการตั้งครรภ์ของ "<b>' + bean.fullName + '</b>" ใช่หรือไม่?', function (confirm) {
       if (confirm == true) {
         self.loading = true;
 
@@ -296,12 +296,12 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
           self.loading = false;
 
           if (d.status.toString().toUpperCase() == "SUCCESS") {
-            self.message_success('', 'ต้องการยกเลิกแจ้งการเสียชีวิต "<b>' + bean.fullName + '</b>" ใช่หรือไม่', function () {
+            self.message_success('', 'การยกเลิกแจ้งการตั้งครรภ์ของ "<b>' + bean.fullName + '</b>" สำเร็จ', function () {
               // self.bindPregnantList(self.filter_bean);
               $("#filter-btnSearch").click();
             });
           } else {
-            self.message_error('', d.message);
+            self.message_error('', 'การยกเลิกแจ้งการตั้งครรภ์ของ "<b>' + bean.fullName + '</b>" ไม่สำเร็จ');
           }
         });
       }
