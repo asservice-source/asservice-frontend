@@ -16,6 +16,7 @@ export class ContentComponent extends BaseComponent implements OnInit {
 
   public family = 0; population = 0; male = 0; female = 0;
 
+  // Graph
   public barChartOptions: any = {
     scaleShowVerticalLines: false,
     responsive: true
@@ -27,6 +28,11 @@ export class ContentComponent extends BaseComponent implements OnInit {
     { data: [0, 0, 0, 0, 0] }
   ];
 
+  // Pie
+  public pieChartLabels: string[] = ['พบลูกน้ำ', 'ไม่พบลูกน้ำ'];
+  public pieChartData: number[] = [0, 0];
+  public pieChartType: string = 'pie';
+
   constructor(private http: Http) {
     super();
   }
@@ -35,6 +41,7 @@ export class ContentComponent extends BaseComponent implements OnInit {
     let self = this;
 
     let death = 0, cancer = 0, pregnant = 0, patient = 0, metabolic = 0;
+    let noMosquito = 0, detectedMosquito = 0;
 
     self.apiHttp.statistic_family_summary(self.userInfo.personId, function (d) {
       if (d != null && d.status.toString().toUpperCase() == "SUCCESS") {
@@ -51,6 +58,12 @@ export class ContentComponent extends BaseComponent implements OnInit {
         let data = d.response;
         for (let item of data) {
           switch (item.headerTypeCode) {
+            case 'MONITORHICI':
+              noMosquito = item.total;
+              break;
+            case 'MONITORHICI_DETECTED':
+              detectedMosquito = item.total;
+              break;
             case 'DEATH':
               death = item.survey;
               break;
@@ -69,16 +82,26 @@ export class ContentComponent extends BaseComponent implements OnInit {
           }
         }
         self.barChartData = [{ data: [death, cancer, pregnant, patient, metabolic] }];
+        self.pieChartData = [noMosquito, detectedMosquito];
       }
     });
   }
 
   // events
-  public chartClicked(e: any): void {
+  public barChartClicked(e: any): void {
     console.log(e);
   }
 
-  public chartHovered(e: any): void {
+  public barChartHovered(e: any): void {
+    console.log(e);
+  }
+
+  // events
+  public pieChartClicked(e: any): void {
+    console.log(e);
+  }
+
+  public pieChartHovered(e: any): void {
     console.log(e);
   }
 

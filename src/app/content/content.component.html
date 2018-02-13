@@ -22,19 +22,19 @@
     </div>
 
     <div class="row">
-        <div class="col-md-3">
-          <label>{{ family }}</label>
-        </div>
-        <div class="col-md-3">
-          <label>{{ population }}</label>
-        </div>
-        <div class="col-md-3">
-          <label>{{ male }}</label>
-        </div>
-        <div class="col-md-3">
-          <label>{{ female }}</label>
-        </div>
+      <div class="col-md-3">
+        <label>{{ family }}</label>
       </div>
+      <div class="col-md-3">
+        <label>{{ population }}</label>
+      </div>
+      <div class="col-md-3">
+        <label>{{ male }}</label>
+      </div>
+      <div class="col-md-3">
+        <label>{{ female }}</label>
+      </div>
+    </div>
 
   </div>
 
@@ -49,10 +49,16 @@
   <div class="panel-body">
 
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-6">
         <div style="display: block">
           <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
-            [chartType]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+            [chartType]="barChartType" (chartHover)="barChartHovered($event)" (chartClick)="barChartClicked($event)"></canvas>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div style="display: block">
+          <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType" (chartHover)="pieChartHovered($event)"
+            (chartClick)="pieChartClicked($event)"></canvas>
         </div>
       </div>
     </div>
