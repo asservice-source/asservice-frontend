@@ -15,6 +15,7 @@ export class ContentComponent extends BaseComponent implements OnInit {
   apiHttp: Service_Statistic = new Service_Statistic();
 
   public family = 0; population = 0; male = 0; female = 0;
+  public percentMosquito = ''; percentMetabolic = ''; percentPopulation = '';
 
   // Graph
   public barChartOptions: any = {
@@ -49,7 +50,7 @@ export class ContentComponent extends BaseComponent implements OnInit {
         self.family = data.family;
         self.male = data.male;
         self.female = data.female;
-        self.population = self.family + self.male + self.female;
+        self.population = self.male + self.female;
       }
     });
 
@@ -58,9 +59,13 @@ export class ContentComponent extends BaseComponent implements OnInit {
         let data = d.response;
         for (let item of data) {
           switch (item.headerTypeCode) {
-            // case 'MONITORHICI':
-            //   noMosquito = item.total;
-            //   break;
+            case 'MONITORHICI':
+              if (item.total > 0) {
+                self.percentMosquito = ((item.survey / item.total) * 100).toFixed(0) + '%';
+              } else {
+                self.percentMosquito = '0%';
+              }
+              break;
             case 'MONITORHICI_DETECTED':
               if (item.total > 0) {
                 detectedMosquito = item.survey;
@@ -84,6 +89,18 @@ export class ContentComponent extends BaseComponent implements OnInit {
               break;
             case 'METABOLIC':
               metabolic = item.survey;
+              if (item.total > 0) {
+                self.percentMetabolic = ((item.survey / item.total) * 100).toFixed(0) + '%';
+              } else {
+                self.percentMetabolic = '0%';
+              }
+              break;
+            case 'POPULATION':
+              if (item.total > 0) {
+                self.percentPopulation = ((item.survey / item.total) * 100).toFixed(0) + '%';
+              } else {
+                self.percentPopulation = '0%';
+              }
               break;
           }
         }
