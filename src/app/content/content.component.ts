@@ -58,11 +58,17 @@ export class ContentComponent extends BaseComponent implements OnInit {
         let data = d.response;
         for (let item of data) {
           switch (item.headerTypeCode) {
-            case 'MONITORHICI':
-              noMosquito = item.total;
-              break;
+            // case 'MONITORHICI':
+            //   noMosquito = item.total;
+            //   break;
             case 'MONITORHICI_DETECTED':
-              detectedMosquito = item.total;
+              if (item.total > 0) {
+                detectedMosquito = item.survey;
+                noMosquito = item.total - item.survey;
+              } else {
+                detectedMosquito = 50;
+                noMosquito = 50;
+              }
               break;
             case 'DEATH':
               death = item.survey;
@@ -82,7 +88,7 @@ export class ContentComponent extends BaseComponent implements OnInit {
           }
         }
         self.barChartData = [{ data: [death, cancer, pregnant, patient, metabolic] }];
-        self.pieChartData = [noMosquito, detectedMosquito];
+        self.pieChartData = [detectedMosquito, noMosquito];
       }
     });
   }
