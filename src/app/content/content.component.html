@@ -7,31 +7,73 @@
   <div class="panel-body text-center">
 
     <div class="row">
+      
       <div class="col-md-4">
-          <img class="imgSurvey" src="../../assets/img/mosquito.png" title="ลูกน้ำยุงลาย">
-        <label>ลูกน้ำยุงลาย</label>
+        <div class="survey-card mosquito">
+          <div class="row">
+            <div class="col-md-12">
+              <img class="imgSurvey" src="../../assets/img/mosquito.png" title="ลูกน้ำยุงลาย">
+              <label>ลูกน้ำยุงลาย</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <label>{{ roundMonitorhici.round }}</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <label>{{ percentMosquito }}</label>
+            </div>
+          </div>
       </div>
+      </div>
+
+
       <div class="col-md-4">
-          <img class="imgSurvey" src="../../assets/img/metabolic.png" title="ผู้มีความเสี่ยงโรคอ้วน">
-        <label>ผู้มีความเสี่ยงโรคอ้วน</label>
+        <div class="survey-card metabolic">
+          <div class="row">
+            <div class="col-md-12">
+              <img class="imgSurvey" src="../../assets/img/metabolic.png" title="ผู้มีความเสี่ยงโรคอ้วน">
+              <label>ผู้มีความเสี่ยงโรคอ้วน</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <label>{{ roundMetabolic.round }}</label>
+            </div>
+          </div>
+          <div class="row">
+              <div class="col-md-12">
+                <label>{{ percentMetabolic }}</label>
+              </div>
+          </div>
+        </div>
       </div>
+
       <div class="col-md-4">
-        <img class="imgSurvey" src="../../assets/img/home.png" title="ครัวเรือน">
-        <label>ครัวเรือน</label>
+        <div class="survey-card population">
+          <div class="row">
+            <div class="col-md-12">
+              <img class="imgSurvey" src="../../assets/img/home.png" title="ครัวเรือน">
+              <label>ครัวเรือน</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <label>{{ roundPopulation.round }}</label>
+            </div>
+          </div>
+          <div class="row">
+              <div class="col-md-12">
+                <label>{{ percentPopulation }}</label>
+              </div>
+          </div>
+        </div>
       </div>
+
     </div>
 
-    <div class="row">
-      <div class="col-md-4">
-        <label>{{ percentMosquito }}</label>
-      </div>
-      <div class="col-md-4">
-        <label>{{ percentMetabolic }}</label>
-      </div>
-      <div class="col-md-4">
-        <label>{{ percentPopulation }}</label>
-      </div>
-    </div>
 
   </div>
 

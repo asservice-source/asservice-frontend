@@ -16,6 +16,9 @@ export class ContentComponent extends BaseComponent implements OnInit {
 
   public family = 0; population = 0; male = 0; female = 0;
   public percentMosquito = ''; percentMetabolic = ''; percentPopulation = '';
+  public roundMonitorhici: any = {};
+  public roundMetabolic: any = {};
+  public roundPopulation: any = {};
 
   // Graph
   public barChartOptions: any = {
@@ -43,6 +46,16 @@ export class ContentComponent extends BaseComponent implements OnInit {
 
     let death = 0, cancer = 0, pregnant = 0, patient = 0, metabolic = 0;
     let noMosquito = 0, detectedMosquito = 0;
+
+    self.apiHttp.getRoundCurrent(self.surveyHeaderCode.MONITORHICI, function(data){
+      self.roundMonitorhici = data;
+    });
+    self.apiHttp.getRoundCurrent(self.surveyHeaderCode.METABOLIC, function(data){
+      self.roundMetabolic = data;
+    });
+    self.apiHttp.getRoundCurrent(self.surveyHeaderCode.POPULATION, function(data){
+      self.roundPopulation = data;
+    });
 
     self.apiHttp.statistic_family_summary(self.userInfo.personId, function (d) {
       if (d != null && d.status.toString().toUpperCase() == "SUCCESS") {
