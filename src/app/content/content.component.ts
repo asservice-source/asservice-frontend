@@ -112,20 +112,20 @@ export class ContentComponent extends BaseComponent implements OnInit {
 
   // events
   public barChartClicked(e: any): void {
-    console.log(e);
+    console.log('barChartClicked',e);
   }
 
   public barChartHovered(e: any): void {
-    console.log(e);
+    console.log('barChartHovered',e);
   }
 
   // events
   public pieChartClicked(e: any): void {
-    console.log(e);
+    console.log('pieChartClicked',e);
   }
 
   public pieChartHovered(e: any): void {
-    console.log(e);
+    console.log('pieChartHovered',e);
   }
 
 }
