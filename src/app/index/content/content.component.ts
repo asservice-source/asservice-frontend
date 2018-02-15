@@ -9,13 +9,12 @@ declare var $:any;
 })
 export class IndexContentComponent implements OnInit{
   public config: SwiperOptions = {
-   // autoHeight: true, //enable auto height
     // pagination: '.swiper-pagination',
     // paginationClickable: true,
     // nextButton: '.swiper-button-next',
     // prevButton: '.swiper-button-prev',
     // spaceBetween: 20
-    autoHeight: true,
+    //autoHeight: true, //enable auto height
     effect: 'coverflow',
     centeredSlides: true,
     slidesPerView: 'auto',

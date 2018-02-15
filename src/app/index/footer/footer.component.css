@@ -6,4 +6,12 @@
 }
 .mobile-apps{
     margin-left: 15px; 
+    float: left;
+}
+.copyright{
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    bottom: 0;
+    padding: 10px;
 }
