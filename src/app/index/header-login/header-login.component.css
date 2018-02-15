@@ -16,6 +16,10 @@
   border-width: 0 0 1px;
   /* background-color: #42c8fb; */
   background-color: #ffffff;
+  background-image: url('../../../assets/img/bg-1.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
 }
 label.value{
     font-size: 14px;
