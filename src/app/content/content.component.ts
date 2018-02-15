@@ -2,6 +2,7 @@ import { Component, OnInit, Injectable } from '@angular/core';
 import { RequestOptions, Headers, RequestMethod, Http, Response } from '@angular/http';
 import { BaseComponent } from '../base-component';
 import { Service_Statistic } from '../api-managements/service-statistic';
+import { Router } from '@angular/router';
 
 declare var $: any
 @Component({
@@ -37,7 +38,7 @@ export class ContentComponent extends BaseComponent implements OnInit {
   public pieChartData: number[] = [0, 0];
   public pieChartType: string = 'pie';
 
-  constructor(private http: Http) {
+  constructor(private http: Http, private route: Router) {
     super();
   }
 
@@ -159,6 +160,5 @@ export class ContentComponent extends BaseComponent implements OnInit {
   public pieChartHovered(e: any): void {
     console.log('pieChartHovered',e);
   }
-
 }
 

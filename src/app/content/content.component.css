@@ -6,8 +6,9 @@
     padding-top: 8px;
     border: 1px solid #bebebe;
     border-radius: 6px;
-     /* margin: 3px 5px 3px 5px; */
-    
+}
+.survey-card *{
+    cursor: pointer;
 }
 .survey-card.mosquito{
     background-color: #ffa1b5;
