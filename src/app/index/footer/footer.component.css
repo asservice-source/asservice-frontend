@@ -1,17 +1,26 @@
 .footer-indext{
-    min-height: 130px;
+    /* min-height: 130px; */
     width: 100%;
     background-color: #9b9898;
     padding: 10px;
 }
+.footer-indext .row{
+    padding: 0; margin: 0;
+}
 .mobile-apps{
-    margin-left: 15px; 
-    float: left;
+   
+    
 }
 .copyright{
-    position: absolute;
+    /* position: absolute;
     text-align: center;
     width: 100%;
     bottom: 0;
-    padding: 10px;
+    padding: 10px; */
+}
+.sitemap a{
+    color: #f5f5f5;
+}
+.sitemap a:hover{
+    text-decoration: underline;
 }
