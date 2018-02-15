@@ -43,10 +43,6 @@ export class ContentComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     let self = this;
-
-    let death = 0, cancer = 0, pregnant = 0, patient = 0, metabolic = 0;
-    let noMosquito = 0, detectedMosquito = 0;
-
     self.apiHttp.getRoundCurrent(self.surveyHeaderCode.MONITORHICI, function(data){
       self.roundMonitorhici = data;
     });
@@ -57,72 +53,95 @@ export class ContentComponent extends BaseComponent implements OnInit {
       self.roundPopulation = data;
     });
 
-    self.apiHttp.statistic_family_summary(self.userInfo.personId, function (d) {
-      if (d != null && d.status.toString().toUpperCase() == "SUCCESS") {
-        let data = d.response;
-        self.family = data.family;
-        self.male = data.male;
-        self.female = data.female;
-        self.population = self.male + self.female;
-      }
-    });
-
-    self.apiHttp.statistic_survey_summary(self.userInfo.personId, function (d) {
-      if (d != null && d.status.toString().toUpperCase() == "SUCCESS") {
-        let data = d.response;
-        for (let item of data) {
-          switch (item.headerTypeCode) {
-            case 'MONITORHICI':
-              if (item.total > 0) {
-                self.percentMosquito = ((item.survey / item.total) * 100).toFixed(0) + '%';
-              } else {
-                self.percentMosquito = '0%';
-              }
-              break;
-            case 'MONITORHICI_DETECTED':
-              if (item.total > 0) {
-                detectedMosquito = item.survey;
-                noMosquito = item.total - item.survey;
-              } else {
-                detectedMosquito = 50;
-                noMosquito = 50;
-              }
-              break;
-            case 'DEATH':
-              death = item.survey;
-              break;
-            case 'CANCER':
-              cancer = item.survey;
-              break;
-            case 'PREGNANT':
-              pregnant = item.survey;
-              break;
-            case 'PATIENT':
-              patient = item.survey;
-              break;
-            case 'METABOLIC':
-              metabolic = item.survey;
-              if (item.total > 0) {
-                self.percentMetabolic = ((item.survey / item.total) * 100).toFixed(0) + '%';
-              } else {
-                self.percentMetabolic = '0%';
-              }
-              break;
-            case 'POPULATION':
-              if (item.total > 0) {
-                self.percentPopulation = ((item.survey / item.total) * 100).toFixed(0) + '%';
-              } else {
-                self.percentPopulation = '0%';
-              }
-              break;
-          }
+   
+    if(this.isStaffRole(this.userInfo.roleId)){
+      self.apiHttp.statistic_family_summary_hospital(function (d) {
+        if (d != null && d.status.toString().toUpperCase() == "SUCCESS") {
+          let data = d.response;
+          self.family = data.family;
+          self.male = data.male;
+          self.female = data.female;
+          self.population = self.male + self.female;
         }
-        self.barChartData = [{ data: [death, cancer, pregnant, patient, metabolic] }];
-        self.pieChartData = [detectedMosquito, noMosquito];
-      }
-    });
+      });
+      self.apiHttp.statistic_survey_summary_hospital(function (d) {
+        self.setDataResponses(d);
+      });
+    }else{
+      self.apiHttp.statistic_family_summary(self.userInfo.personId, function (d) {
+        if (d != null && d.status.toString().toUpperCase() == "SUCCESS") {
+          let data = d.response;
+          self.family = data.family;
+          self.male = data.male;
+          self.female = data.female;
+          self.population = self.male + self.female;
+        }
+      });
+      self.apiHttp.statistic_survey_summary(self.userInfo.personId, function (d) {
+        self.setDataResponses(d);
+      });
+    }
+    
   }
 
+  setDataResponses(d:any){
+    let death = 0, cancer = 0, pregnant = 0, patient = 0, metabolic = 0;
+    let noMosquito = 0, detectedMosquito = 0;
+    let self = this; 
+    if (d != null && d.status.toString().toUpperCase() == "SUCCESS") {
+      let data = d.response;
+      for (let item of data) {
+        switch (item.headerTypeCode) {
+          case 'MONITORHICI':
+            if (item.total > 0) {
+              self.percentMosquito = ((item.survey / item.total) * 100).toFixed(0) + '%';
+            } else {
+              self.percentMosquito = '0%';
+            }
+            break;
+          case 'MONITORHICI_DETECTED':
+            if (item.total > 0) {
+              detectedMosquito = item.survey;
+              noMosquito = item.total - item.survey;
+            } else {
+              detectedMosquito = 50;
+              noMosquito = 50;
+            }
+            break;
+          case 'DEATH':
+            death = item.survey;
+            break;
+          case 'CANCER':
+            cancer = item.survey;
+            break;
+          case 'PREGNANT':
+            pregnant = item.survey;
+            break;
+          case 'PATIENT':
+            patient = item.survey;
+            break;
+          case 'METABOLIC':
+            metabolic = item.survey;
+            if (item.total > 0) {
+              self.percentMetabolic = ((item.survey / item.total) * 100).toFixed(0) + '%';
+            } else {
+              self.percentMetabolic = '0%';
+            }
+            break;
+          case 'POPULATION':
+            if (item.total > 0) {
+              self.percentPopulation = ((item.survey / item.total) * 100).toFixed(0) + '%';
+            } else {
+              self.percentPopulation = '0%';
+            }
+            break;
+        }
+      }
+      self.barChartData = [{ data: [death, cancer, pregnant, patient, metabolic] }];
+      self.pieChartData = [detectedMosquito, noMosquito];
+    }
+  
+  }
   // events
   public barChartClicked(e: any): void {
     console.log('barChartClicked',e);

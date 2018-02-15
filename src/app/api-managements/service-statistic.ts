@@ -20,12 +20,22 @@ export class Service_Statistic extends ApiHTTPService {
         });
     }
 
+    public statistic_family_summary_hospital(callback: (doc: any) => void) {
+        let parameters = { "code5": this.baseComponent.getHospitalCode() };
+        this.post('statistic/family_summary_hospital', parameters, function (d) {
+            callback(d);
+        });
+    }
+
     public statistic_survey_summary(osmId: string, callback: (doc: any) => void) {
-        let self = this;
-
         let parameters = { "osmId": osmId };
-
-        self.post('statistic/survey_summary', parameters, function (d) {
+        this.post('statistic/survey_summary', parameters, function (d) {
+            callback(d);
+        });
+    }
+    public statistic_survey_summary_hospital(callback: (doc: any) => void) {
+        let parameters = { "code5": this.baseComponent.getHospitalCode() };
+        this.post('statistic/survey_summary_hospital', parameters, function (d) {
             callback(d);
         });
     }
