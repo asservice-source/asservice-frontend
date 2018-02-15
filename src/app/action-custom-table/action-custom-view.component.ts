@@ -77,12 +77,12 @@ export class ActionCustomView_2_Component implements ViewCell, OnInit {
 @Component({
   selector: 'action-custom-table-maps',
   template: '<div style="width:100%; text-align: center;" >'
-  +'<a (click)="onMaps()" title="แผนที่"  class="cell-action">'
-  +'<img src="../../../assets/img/ic_map.png" width="15" style="margin-top: -7px;" />'
-  +'</a>'
-  +'<a (click)="onEdit()" title="แก้ไข" class="cell-action glyphicon glyphicon-edit"></a>'
-  +'<a (click)="onDelete()" title="ลบ" class="cell-action glyphicon glyphicon-trash"></a>'
-  +'</div>',
+    + '<a (click)="onMaps()" title="แผนที่"  class="cell-action">'
+    + '<img src="../../../assets/img/ic_map.png" width="15" style="margin-top: -7px;" />'
+    + '</a>'
+    + '<a (click)="onEdit()" title="แก้ไข" class="cell-action glyphicon glyphicon-edit"></a>'
+    + '<a (click)="onDelete()" title="ลบ" class="cell-action glyphicon glyphicon-trash"></a>'
+    + '</div>',
   styleUrls: ['./action-custom-view.component.css']
 })
 export class ActionCustomViewMapsComponent implements ViewCell, OnInit {
@@ -125,11 +125,11 @@ export class ActionCustomViewMapsComponent implements ViewCell, OnInit {
 @Component({
   selector: 'action-custom-table-maps',
   template: '<div style="width:100%; text-align: center;" >'
-  +'<a (click)="onMaps()" title="แผนที่"  class="cell-action">'
-  +'<img src="../../../assets/img/ic_map.png" width="15" style="margin-top: -7px;" />'
-  +'</a>'
-  +'<a (click)="onView()" title="ดูประวัติ" class="cell-action glyphicon glyphicon-list-alt"></a>'
-  +'</div>',
+    + '<a (click)="onMaps()" title="แผนที่"  class="cell-action">'
+    + '<img src="../../../assets/img/ic_map.png" width="15" style="margin-top: -7px;" />'
+    + '</a>'
+    + '<a (click)="onView()" title="ดูประวัติ" class="cell-action glyphicon glyphicon-list-alt"></a>'
+    + '</div>',
   styleUrls: ['./action-custom-view.component.css']
 })
 export class ActionCustomViewHistoryComponent implements ViewCell, OnInit {
@@ -150,7 +150,7 @@ export class ActionCustomViewHistoryComponent implements ViewCell, OnInit {
     this.doEmit('maps');
   }
 
-  onView(){
+  onView() {
     this.view.emit(this.rowData);
     this.doEmit('view');
   }
@@ -165,8 +165,8 @@ export class ActionCustomViewHistoryComponent implements ViewCell, OnInit {
 @Component({
   selector: 'action-custom-table-maps',
   template: '<div style="width:100%; text-align: center;" >'
-  +'<a (click)="onView()" title="ดูประวัติ" class="cell-action glyphicon glyphicon-list-alt"></a>'
-  +'</div>',
+    + '<a (click)="onView()" title="ดูประวัติ" class="cell-action glyphicon glyphicon-list-alt"></a>'
+    + '</div>',
   styleUrls: ['./action-custom-view.component.css']
 })
 export class ActionCustomSurveyHistoryComponent implements ViewCell, OnInit {
@@ -180,7 +180,31 @@ export class ActionCustomSurveyHistoryComponent implements ViewCell, OnInit {
     this.renderValue = this.value.toString();
   }
 
-  onView(){
+  onView() {
     this.view.emit(this.rowData);
+  }
+}
+
+// view history
+@Component({
+  selector: 'action-custom-table-maps',
+  template: '<div style="width:100%; text-align: center;">'
+    + '<a (click)="onEdit()" title="แก้ไข" class="cell-action glyphicon glyphicon-edit"></a>'
+    + '</div>',
+  styleUrls: ['./action-custom-view.component.css']
+})
+export class ActionCustomSurveyEditComponent implements ViewCell, OnInit {
+  renderValue: string;
+
+  @Input() value: string | number;
+  @Input() rowData: any;
+  @Output() edit: EventEmitter<any> = new EventEmitter();
+
+  ngOnInit() {
+    this.renderValue = this.value.toString();
+  }
+
+  onEdit() {
+    this.edit.emit(this.rowData);
   }
 }
