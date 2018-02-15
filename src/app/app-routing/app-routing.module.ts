@@ -13,6 +13,7 @@ import { SurveyPersonalMemberListComponent } from "./../surveys/personal/survey-
 import { SurveyPatientListComponent } from "./../surveys/patient/survey-patient-list/survey-patient-list.component";
 import { SurveyMetabolicListComponent } from "./../surveys/metabolic/survey-metabolic-list/survey-metabolic-list.component";
 import { SurveyMosquitoListComponent } from "./../surveys/mosquito/survey-mosquito-list/survey-mosquito-list.component";
+import { SurveysMosquitoPendingListComponent } from "../surveys/mosquito/surveys-mosquito-pending-list/surveys-mosquito-pending-list.component";
 import { SurveyCancerListComponent } from "./../surveys/cancer/survey-cancer-list/survey-cancer-list.component";
 import { ManagementStaffUserListComponent } from "./../managements/staff/manage-staff-user/list/management-staff-user-list.component";
 import { ManagementStaffVillageListComponent } from "./../managements/staff/manage-village/list/management-staff-village-list.component";
@@ -172,8 +173,10 @@ import { IndexAboutSystemComponent } from "../index/about-system/about-system.co
             }, {
               path: 'mosquito',
               component: SurveyMosquitoListComponent
-            }
-            , {
+            } , {
+              path: 'pending-mosquito',
+              component: SurveysMosquitoPendingListComponent
+            } , {
               path: 'cancer',
               component: SurveyCancerListComponent
             }

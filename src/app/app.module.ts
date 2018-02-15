@@ -89,6 +89,7 @@ import { IndexFooterComponent } from './index/footer/footer.component';
 import { SwiperModule } from 'angular2-useful-swiper';
 import { IndexContactusComponent } from './index/contactus/contactus.component';
 import { IndexAboutSystemComponent } from './index/about-system/about-system.component';
+import { SurveysMosquitoPendingListComponent } from './surveys/mosquito/surveys-mosquito-pending-list/surveys-mosquito-pending-list.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -168,7 +169,8 @@ import { IndexAboutSystemComponent } from './index/about-system/about-system.com
     IndexFooterComponent,
     HeaderMenuComponent,
     IndexContactusComponent,
-    IndexAboutSystemComponent
+    IndexAboutSystemComponent,
+    SurveysMosquitoPendingListComponent
     
   ],
   imports: [
