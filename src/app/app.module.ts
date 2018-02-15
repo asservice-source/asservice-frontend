@@ -45,7 +45,7 @@ import { FilterHeadMosquitoComponent } from './filter/filter-head-mosquito/filte
 import { FilterFindPersonComponent, FilterFindPersonButtonChooseComponent } from './filter/filter-find-person/filter-find-person.component';
 import { FilterHeadSurveyComponent } from './filter/filter-head-survey/filter-head-survey.component';
 import { FilterPersonalComponent } from './filter/filter-personal/filter-personal.component';
-import { ActionCustomViewComponent, ActionCustomView_2_Component, ActionCustomViewMapsComponent, ActionCustomViewHistoryComponent, ActionCustomSurveyHistoryComponent } from './action-custom-table/action-custom-view.component'
+import { ActionCustomViewComponent, ActionCustomView_2_Component, ActionCustomViewMapsComponent, ActionCustomViewHistoryComponent, ActionCustomSurveyHistoryComponent, ActionCustomSurveyEditComponent } from './action-custom-table/action-custom-view.component'
 import { OnlyNumberDirective } from './directives/onlynumber.directive';
 import { NumberDirective } from './directives/number.directive';
 import { AutofocusDirective } from './directives/autofocus.directive';
@@ -133,6 +133,7 @@ import { SurveysMosquitoPendingListComponent } from './surveys/mosquito/surveys-
     ActionCustomView_StaffManageOSMScopeComponent,
     ActionCustomViewHistoryComponent,
     ActionCustomSurveyHistoryComponent,
+    ActionCustomSurveyEditComponent,
     ManagementStaffVillageListComponent_ActionCustomView,
     OnlyNumberDirective,
     NumberDirective,
@@ -200,6 +201,7 @@ import { SurveysMosquitoPendingListComponent } from './surveys/mosquito/surveys-
     FilterFindPersonButtonChooseComponent,
     SurveyPregnantListButtonEditComponent,
     ActionCustomSurveyHistoryComponent,
+    ActionCustomSurveyEditComponent,
     ManagementStaffVillageListComponent_ActionCustomView
   ],
   providers: [LoadingConfigService, UserService, TestService],

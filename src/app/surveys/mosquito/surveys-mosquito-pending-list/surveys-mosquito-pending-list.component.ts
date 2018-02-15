@@ -1,8 +1,10 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { BaseComponent } from '../../../base-component';
-import { ActionCustomViewComponent } from '../../../action-custom-table/action-custom-view.component';
+import { ActionCustomSurveyEditComponent } from '../../../action-custom-table/action-custom-view.component';
 import { ApiHTTPService } from '../../../api-managements/api-http.service';
 import { LocalDataSource } from 'ng2-smart-table';
+import { MosquitoBean } from '../../../beans/mosquito.bean';
+declare var $;
 
 @Component({
   selector: 'app-surveys-mosquito-pending-list',
@@ -15,6 +17,11 @@ export class SurveysMosquitoPendingListComponent extends BaseComponent implement
 
   public settings: any;
   public source: LocalDataSource = new LocalDataSource();
+
+  public action: string = "";
+  public documentId: string = "";
+  public roundInfo: any;
+  public mosquitoBean: MosquitoBean = new MosquitoBean();
 
   public loading: boolean = false;
 
@@ -29,27 +36,9 @@ export class SurveysMosquitoPendingListComponent extends BaseComponent implement
   ngOnInit() {
     let self = this;
 
-    self.loadData();
-  }
-
-  loadData() {
-    let self = this;
-
     self.loading = true;
 
-    self.apiHttp.getRoundCurrent(self.surveyHeaderCode.MONITORHICI, function (roundInfo) {
-      if (!self.isEmptyObject(roundInfo)) {
-        let params = { "documentId": roundInfo.rowGUID, "osmId": self.userInfo.personId };
-
-        self.apiHttp.post('survey_hici/search_hici_info_list_not_survey', params, function (d) {
-          if (d != null && d.status.toUpperCase() == "SUCCESS") {
-            self.source = self.ng2STDatasource(d.response);
-          }
-          self.changeRef.detectChanges();
-          self.loading = false;
-        });
-      }
-    });
+    self.loadData();
   }
 
   settingsTable() {
@@ -103,40 +92,70 @@ export class SurveysMosquitoPendingListComponent extends BaseComponent implement
         sort: false,
         width: '100px',
         type: 'custom',
-        renderComponent: ActionCustomViewComponent,
+        renderComponent: ActionCustomSurveyEditComponent,
         onComponentInitFunction(instance) {
 
-          // instance.edit.subscribe((row: MosquitoBean, cell) => {
-          //   self.mosquitobean = new MosquitoBean();
-          //   self.mosquitobean = self.cloneObj(row);
-          //   self.onModalFrom(self.ass_action.EDIT);
-          // });
-
-          // instance.delete.subscribe((row: MosquitoBean, cell) => {
-          //   let text: string;
-          //   if (row.homeTypeName == 'บ้าน') {
-          //     text = "ต้องการยกเลิกการทำรายการสำรวจของบ้านเลขที่ "
-          //   } else {
-          //     text = "ต้องการยกเลิกการทำรายการสำรวจของ "
-          //   }
-
-          //   self.message_comfirm("", text + '<span style="color : red">' + row.name + '</span>' + " ใช่หรือไม่", function (resp) {
-          //     if (resp) {
-          //       self.actionDelete(row.documentId, row.homeId);
-          //     }
-          //   });
-          // });
-
-          // instance.maps.subscribe(row => {
-          //   self.param_latitude = row.latitude;
-          //   self.param_longitude = row.longitude;
-          //   self.param_info = 'บ้านของ ' + row.fullName;
-          //   $("#modalMaps").modal("show");
-          // });
+          instance.edit.subscribe((row: MosquitoBean, cell) => {
+            self.mosquitoBean = new MosquitoBean();
+            self.mosquitoBean = self.cloneObj(row);
+            self.action = self.ass_action.EDIT;
+            self.getSurveyData(row.documentId, row.homeId);
+          });
 
         }
       }
     });
+  }
+  
+  loadData() {
+    let self = this;
+
+    self.loading = true;
+
+    self.apiHttp.getRoundCurrent(self.surveyHeaderCode.MONITORHICI, function (r) {
+      if (!self.isEmptyObject(r)) {
+        self.documentId = r.rowGUID;
+        
+        let params = { "documentId": r.rowGUID, "osmId": self.userInfo.personId };
+
+        self.apiHttp.post('survey_hici/search_hici_info_list_not_survey', params, function (d) {
+          if (d != null && d.status.toUpperCase() == "SUCCESS") {
+            self.source = self.ng2STDatasource(d.response);
+          }
+          self.changeRef.detectChanges();
+          self.loading = false;
+        });
+      }
+    });
+  }
+
+  getSurveyData(docId, homeId) {
+    let self = this;
+
+    self.loading = true;
+
+    let params = { "documentId": docId, "homeId": homeId };
+    
+    self.apiHttp.post('survey_hici/hici_by_homeid', params, function (resp) {
+      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+        self.mosquitoBean = resp.response;
+        self.changeRef.detectChanges();
+        $('#find-person-md').modal('show');
+      }
+      self.loading = false;
+    });
+  }
+
+  callbackData(event: any) {
+    let self = this;
+
+    if (event) {
+      self.message_success('', 'ท่านได้ทำการส่งแบบสำรวจลูกน้ำยุงลายแล้ว', function () {
+        self.loadData();
+      });
+    } else {
+      self.message_error('', 'Error');
+    }
   }
 
 }
