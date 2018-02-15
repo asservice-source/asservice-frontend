@@ -4,49 +4,57 @@
     <label>ข้อมูลการสำรวจ</label>
   </div>
 
-  <div class="panel-body text-center">
+  <div class="panel-body">
 
     <div class="row">
-      
       <div class="col-md-4">
         <div class="survey-card mosquito">
           <div class="row">
-            <div class="col-md-12">
-              <img class="imgSurvey" src="../../assets/img/mosquito.png" title="ลูกน้ำยุงลาย">
-              <label>ลูกน้ำยุงลาย</label>
+            <div class="col-md-3 text-right">
+              <img class="imgSurvey" src="../../assets/img/mosquito_2.png" title="ลูกน้ำยุงลาย">
+            </div>
+            <div class="col-md-9">
+              <label class="survey-card-title">ลูกน้ำยุงลาย</label>
             </div>
           </div>
           <div class="row">
-            <div class="col-md-12">
-              <label>{{ roundMonitorhici.round }}</label>
+            <div class="col-md-3"></div>
+            <div class="col-md-9">
+              <label class="value survey-card-round">{{ roundMonitorhici.round }}</label>
             </div>
           </div>
           <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-3"></div>
+            <div class="col-md-9 survey-card-percent">
               <label>{{ percentMosquito }}</label>
             </div>
           </div>
+        </div>
       </div>
-      </div>
+
 
 
       <div class="col-md-4">
         <div class="survey-card metabolic">
           <div class="row">
-            <div class="col-md-12">
-              <img class="imgSurvey" src="../../assets/img/metabolic.png" title="ผู้มีความเสี่ยงโรคอ้วน">
-              <label>ผู้มีความเสี่ยงโรคอ้วน</label>
+            <div class="col-md-3 text-right">
+              <img class="imgSurvey" src="../../assets/img/metabolic.png" title="ผู้มีความเสี่ยงโรค">
+            </div>
+            <div class="col-md-9">
+              <label class="survey-card-title">ผู้มีความเสี่ยงโรค</label>
             </div>
           </div>
           <div class="row">
-            <div class="col-md-12">
-              <label>{{ roundMetabolic.round }}</label>
+            <div class="col-md-3"></div>
+            <div class="col-md-9">
+              <label class="value survey-card-round">{{ roundMetabolic.round }}</label>
             </div>
           </div>
           <div class="row">
-              <div class="col-md-12">
-                <label>{{ percentMetabolic }}</label>
-              </div>
+            <div class="col-md-3"></div>
+            <div class="col-md-9 survey-card-percent">
+              <label>{{ percentMetabolic }}</label>
+            </div>
           </div>
         </div>
       </div>
@@ -54,27 +62,28 @@
       <div class="col-md-4">
         <div class="survey-card population">
           <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-3 text-right">
               <img class="imgSurvey" src="../../assets/img/home.png" title="ครัวเรือน">
-              <label>ครัวเรือน</label>
+            </div>
+            <div class="col-md-9">
+              <label class="survey-card-title">ครัวเรือน</label>
             </div>
           </div>
           <div class="row">
-            <div class="col-md-12">
-              <label>{{ roundPopulation.round }}</label>
+            <div class="col-md-3"></div>
+            <div class="col-md-9">
+              <label class="value survey-card-round">{{ roundPopulation.round }}</label>
             </div>
           </div>
           <div class="row">
-              <div class="col-md-12">
-                <label>{{ percentPopulation }}</label>
-              </div>
+            <div class="col-md-3"></div>
+            <div class="col-md-9 survey-card-percent">
+              <label>{{ percentPopulation }}</label>
+            </div>
           </div>
         </div>
       </div>
-
     </div>
-
-
   </div>
 
 </div>
@@ -88,41 +97,61 @@
   <div class="panel-body text-center">
 
     <div class="row">
-      <div class="col-md-3 align-middle">
-        <img class="imgSurvey" src="../../assets/img/home.png" title="ครัวเรือน">
-        <label>ครัวเรือน</label>
+      <div class="col-md-3">
+        <div class="row">
+          <div class="col-md-12 align-middle">
+            <img class="imgSurvey" src="../../assets/img/home.png" title="ครัวเรือน">
+            <label>ครัวเรือน</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <label>{{ family }}</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="row">
+          <div class="col-md-12 align-middle">
+            <img class="imgSurvey" src="../../assets/img/family.png" title="ประชากร">
+            <label>ประชากร</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <label>{{ population }}</label>
+          </div>
+        </div>
       </div>
       <div class="col-md-3">
-        <img class="imgSurvey" src="../../assets/img/family.png" title="ประชากร">
-        <label>ประชากร</label>
+        <div class="row">
+          <div class="col-md-12 align-middle">
+            <img class="imgSurvey" src="../../assets/img/male.png" title="ชาย">
+            <label>ชาย</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <label>{{ male }}</label>
+          </div>
+        </div>
       </div>
       <div class="col-md-3">
-        <img class="imgSurvey" src="../../assets/img/male.png" title="ชาย">
-        <label>ชาย</label>
-      </div>
-      <div class="col-md-3">
-        <img class="imgSurvey" src="../../assets/img/female.png" title="หญิง">
-        <label>หญิง</label>
+        <div class="row">
+          <div class="col-md-12 align-middle">
+            <img class="imgSurvey" src="../../assets/img/female.png" title="หญิง">
+            <label>หญิง</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <label>{{ female }}</label>
+          </div>
+        </div>
       </div>
     </div>
-
-    <div class="row">
-      <div class="col-md-3">
-        <label>{{ family }}</label>
-      </div>
-      <div class="col-md-3">
-        <label>{{ population }}</label>
-      </div>
-      <div class="col-md-3">
-        <label>{{ male }}</label>
-      </div>
-      <div class="col-md-3">
-        <label>{{ female }}</label>
-      </div>
-    </div>
-
   </div>
-
 </div>
 
 <div class="panel panel-default">

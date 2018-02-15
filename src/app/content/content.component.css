@@ -1,7 +1,9 @@
-.imgSurvey {
+/* .imgSurvey {
+    margin-left: 20px;
     margin-right: 10px;
-}
+} */
 .survey-card{
+    padding-top: 8px;
     border: 1px solid #bebebe;
     border-radius: 6px;
      /* margin: 3px 5px 3px 5px; */
@@ -14,5 +16,27 @@
     background-color: #D7ECCD;
 }
 .survey-card.population{
-    background-color: #FAF4D4;
+    background-color: #fded94;
+}
+.survey-card-title{
+    margin-top: 5px;
+    font-size: 24px;
+}
+.survey-card-percent>label{
+    font-size: 36px;
+
+}
+
+.survey-card .row{
+    padding-top: 0;
+    padding-bottom: 0;
+}
+.survey-card.mosquito .survey-card-percent>label{
+    color: #ff5151;
+}
+.survey-card.metabolic .survey-card-percent>label{
+    color: #1dd86b;
+}
+.survey-card.population .survey-card-percent>label{
+    color: #d3b404;
 }
