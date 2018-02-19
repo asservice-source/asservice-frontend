@@ -45,7 +45,7 @@ import { FilterHeadMosquitoComponent } from './filter/filter-head-mosquito/filte
 import { FilterFindPersonComponent, FilterFindPersonButtonChooseComponent } from './filter/filter-find-person/filter-find-person.component';
 import { FilterHeadSurveyComponent } from './filter/filter-head-survey/filter-head-survey.component';
 import { FilterPersonalComponent } from './filter/filter-personal/filter-personal.component';
-import { ActionCustomViewComponent, ActionCustomView_2_Component, ActionCustomViewMapsComponent, ActionCustomViewHistoryComponent, ActionCustomSurveyHistoryComponent, ActionCustomSurveyEditComponent } from './action-custom-table/action-custom-view.component'
+import { ActionCustomViewComponent, ActionCustomView_2_Component, ActionCustomViewMapsComponent, ActionCustomViewHistoryComponent, ActionCustomSurveyHistoryComponent, ActionCustomSurveyEditComponent, ActionCustomSurveyComponent } from './action-custom-table/action-custom-view.component'
 import { OnlyNumberDirective } from './directives/onlynumber.directive';
 import { NumberDirective } from './directives/number.directive';
 import { AutofocusDirective } from './directives/autofocus.directive';
@@ -137,6 +137,7 @@ import { SurveyMetabolicPendingListComponent } from './surveys/metabolic/survey-
     ActionCustomViewHistoryComponent,
     ActionCustomSurveyHistoryComponent,
     ActionCustomSurveyEditComponent,
+    ActionCustomSurveyComponent,
     ManagementStaffVillageListComponent_ActionCustomView,
     OnlyNumberDirective,
     NumberDirective,
@@ -195,14 +196,15 @@ import { SurveyMetabolicPendingListComponent } from './surveys/metabolic/survey-
     ActionCustomViewMapsComponent,
     ActionCustomView_StaffManageOSMScopeComponent,
     ActionCustomViewHistoryComponent,
+    ActionCustomSurveyHistoryComponent,
+    ActionCustomSurveyEditComponent,
+    ActionCustomSurveyComponent,
     SurveyPersonalHomeListButtonEditComponent,
     SurveyPersonalMemberListButtonEditComponent,
     SelectHomeListButton,
     ViewChildTableHomeManagement,
     FilterFindPersonButtonChooseComponent,
     SurveyPregnantListButtonEditComponent,
-    ActionCustomSurveyHistoryComponent,
-    ActionCustomSurveyEditComponent,
     ManagementStaffVillageListComponent_ActionCustomView
   ],
   providers: [LoadingConfigService, UserService, TestService],

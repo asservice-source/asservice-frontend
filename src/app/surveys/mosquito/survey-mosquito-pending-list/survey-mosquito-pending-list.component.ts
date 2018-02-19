@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { BaseComponent } from '../../../base-component';
-import { ActionCustomSurveyEditComponent } from '../../../action-custom-table/action-custom-view.component';
+import { ActionCustomSurveyComponent } from '../../../action-custom-table/action-custom-view.component';
 import { ApiHTTPService } from '../../../api-managements/api-http.service';
 import { LocalDataSource } from 'ng2-smart-table';
 import { MosquitoBean } from '../../../beans/mosquito.bean';
@@ -93,10 +93,10 @@ export class SurveyMosquitoPendingListComponent extends BaseComponent implements
         sort: false,
         width: '100px',
         type: 'custom',
-        renderComponent: ActionCustomSurveyEditComponent,
+        renderComponent: ActionCustomSurveyComponent,
         onComponentInitFunction(instance) {
 
-          instance.edit.subscribe((row: MosquitoBean, cell) => {
+          instance.survey.subscribe((row: MosquitoBean, cell) => {
             self.mosquitoBean = new MosquitoBean();
             self.mosquitoBean = self.cloneObj(row);
             self.action = self.ass_action.EDIT;

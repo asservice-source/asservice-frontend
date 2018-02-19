@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { BaseComponent } from '../../../base-component';
-import { ActionCustomSurveyEditComponent } from '../../../action-custom-table/action-custom-view.component';
+import { ActionCustomSurveyComponent } from '../../../action-custom-table/action-custom-view.component';
 import { LocalDataSource } from 'ng2-smart-table';
 import { Router } from '@angular/router';
 import { MetabolicBean } from '../../../beans/metabolic.bean';
@@ -93,14 +93,16 @@ export class SurveyMetabolicPendingListComponent extends BaseComponent implement
         sort: false,
         width: '100px',
         type: 'custom',
-        renderComponent: ActionCustomSurveyEditComponent,
+        renderComponent: ActionCustomSurveyComponent,
         onComponentInitFunction(instance) {
 
-          instance.edit.subscribe((row: MetabolicBean, cell) => {
-            self.metabolicBean = new MetabolicBean();
-            self.metabolicBean = self.cloneObj(row);
-            self.action = self.ass_action.EDIT;
-            self.getSurveyData(row.rowGUID);
+          instance.survey.subscribe((row: MetabolicBean, cell) => {
+            // self.metabolicBean = new MetabolicBean();
+            // self.metabolicBean = self.cloneObj(row);
+            self.action = self.ass_action.ADD;
+            this.changeRef.detectChanges();
+            $('#find-person-md').modal('show');
+            // self.getSurveyData(row.rowGUID);
           });
 
         }

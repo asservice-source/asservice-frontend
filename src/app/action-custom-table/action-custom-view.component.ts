@@ -185,7 +185,7 @@ export class ActionCustomSurveyHistoryComponent implements ViewCell, OnInit {
   }
 }
 
-// view history
+// edit only
 @Component({
   selector: 'action-custom-table-maps',
   template: '<div style="width:100%; text-align: center;">'
@@ -206,5 +206,29 @@ export class ActionCustomSurveyEditComponent implements ViewCell, OnInit {
 
   onEdit() {
     this.edit.emit(this.rowData);
+  }
+}
+
+// survey only
+@Component({
+  selector: 'action-custom-table-maps',
+  template: '<div style="width:100%; text-align: center;">'
+    + '<button type="button" (click)="onSurvey()" class="btn btn-sm btn-primary">ทำแบบสำรวจ</button>'
+    + '</div>',
+  styleUrls: ['./action-custom-view.component.css']
+})
+export class ActionCustomSurveyComponent implements ViewCell, OnInit {
+  renderValue: string;
+
+  @Input() value: string | number;
+  @Input() rowData: any;
+  @Output() survey: EventEmitter<any> = new EventEmitter();
+
+  ngOnInit() {
+    this.renderValue = this.value.toString();
+  }
+
+  onSurvey() {
+    this.survey.emit(this.rowData);
   }
 }
