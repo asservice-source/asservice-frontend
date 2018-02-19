@@ -89,7 +89,8 @@ import { IndexFooterComponent } from './index/footer/footer.component';
 import { SwiperModule } from 'angular2-useful-swiper';
 import { IndexContactusComponent } from './index/contactus/contactus.component';
 import { IndexAboutSystemComponent } from './index/about-system/about-system.component';
-import { SurveysMosquitoPendingListComponent } from './surveys/mosquito/surveys-mosquito-pending-list/surveys-mosquito-pending-list.component';
+import { SurveyMosquitoPendingListComponent } from './surveys/mosquito/survey-mosquito-pending-list/survey-mosquito-pending-list.component';
+import { SurveyMetabolicPendingListComponent } from './surveys/metabolic/survey-metabolic-pending-list/survey-metabolic-pending-list.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -115,9 +116,11 @@ import { SurveysMosquitoPendingListComponent } from './surveys/mosquito/surveys-
     SurveyPatientListComponent,
     SurveyMetabolicListComponent,
     SurveyMetabolicFormComponent,
+    SurveyMetabolicPendingListComponent,
     SurveyDiedFormComponent,
     SurveyDiedHistoryComponent,
     SurveyMosquitoListComponent,
+    SurveyMosquitoPendingListComponent,
     SurveyCancerListComponent,
     SurveyCancerFormComponent,
     SurveyPersonalHomeListComponent,
@@ -170,9 +173,7 @@ import { SurveysMosquitoPendingListComponent } from './surveys/mosquito/surveys-
     IndexFooterComponent,
     HeaderMenuComponent,
     IndexContactusComponent,
-    IndexAboutSystemComponent,
-    SurveysMosquitoPendingListComponent
-    
+    IndexAboutSystemComponent
   ],
   imports: [
     BrowserModule,

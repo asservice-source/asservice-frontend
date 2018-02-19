@@ -1,19 +1,20 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { BaseComponent } from '../../../base-component';
 import { ActionCustomSurveyEditComponent } from '../../../action-custom-table/action-custom-view.component';
-import { ApiHTTPService } from '../../../api-managements/api-http.service';
 import { LocalDataSource } from 'ng2-smart-table';
-import { MosquitoBean } from '../../../beans/mosquito.bean';
+import { Router } from '@angular/router';
+import { MetabolicBean } from '../../../beans/metabolic.bean';
+import { Service_SurveyMetabolic } from '../../../api-managements/service-survey-metabolic';
 declare var $;
 
 @Component({
-  selector: 'app-surveys-mosquito-pending-list',
-  templateUrl: './surveys-mosquito-pending-list.component.html',
-  styleUrls: ['./surveys-mosquito-pending-list.component.css']
+  selector: 'app-survey-metabolic-pending-list',
+  templateUrl: './survey-metabolic-pending-list.component.html',
+  styleUrls: ['./survey-metabolic-pending-list.component.css']
 })
-export class SurveysMosquitoPendingListComponent extends BaseComponent implements OnInit {
+export class SurveyMetabolicPendingListComponent extends BaseComponent implements OnInit {
 
-  public apiHttp: ApiHTTPService = new ApiHTTPService();
+  public apiHttp: Service_SurveyMetabolic = new Service_SurveyMetabolic();
 
   public settings: any;
   public source: LocalDataSource = new LocalDataSource();
@@ -21,11 +22,11 @@ export class SurveysMosquitoPendingListComponent extends BaseComponent implement
   public action: string = "";
   public documentId: string = "";
   public roundInfo: any;
-  public mosquitoBean: MosquitoBean = new MosquitoBean();
+  public metabolicBean: MetabolicBean = new MetabolicBean();
 
   public loading: boolean = false;
 
-  constructor(private changeRef: ChangeDetectorRef) {
+  constructor(private route: Router, private changeRef: ChangeDetectorRef) {
     super();
 
     let self = this;
@@ -45,45 +46,45 @@ export class SurveysMosquitoPendingListComponent extends BaseComponent implement
     let self = this;
 
     self.settings = self.getTableSetting({
-      name: {
-        title: 'ชื่อ/บ้านเลขที่',
+
+      fullName: {
+        title: 'ชื่อ - นามสกุล',
         filter: false,
-        type: 'html'
       },
-      address: {
-        title: 'ที่อยู่',
+      citizenId: {
+        title: 'เลขประจำตัวประชาชน',
         filter: false,
-        width: '350px',
-        type: 'html',
-        valuePrepareFunction: (cell, row) => {
-          return '<div class="wrap-text" title="' + cell + '">' + cell + '</div>'
-        }
-      },
-      homeTypeName: {
-        title: 'ประเภท',
-        filter: false,
-        width: '100px',
+        width: '200px',
         type: 'html',
         valuePrepareFunction: (cell, row) => {
           return '<div class="text-center">' + cell + '</div>'
         }
       },
-      totalSurvey: {
-        title: 'จำนวนสำรวจ',
-        filter: false,
-        width: '120px',
-        type: 'html',
-        valuePrepareFunction: (cell, row) => {
-          return '<div class="text-center">' + this.formatNumber(cell) + '</div>'
-        }
-      },
-      totalDetect: {
-        title: 'จำนวนพบ',
+      homeNo: {
+        title: 'บ้านเลขที่',
         filter: false,
         width: '100px',
         type: 'html',
+        valuePrepareFunction: (value) => {
+          return '<div class="text-center">' + value + '</div>'
+        }
+      },
+      genderName: {
+        title: 'เพศ',
+        filter: false,
+        width: '70px',
+        type: 'html',
         valuePrepareFunction: (cell, row) => {
-          return '<div class="text-center">' + this.formatNumber(cell) + '</div>'
+          return '<div class="text-center">' + cell + '</div>'
+        }
+      },
+      age: {
+        title: 'อายุ',
+        filter: false,
+        width: '80px',
+        type: 'html',
+        valuePrepareFunction: (cell, row) => {
+          return '<div class="text-center">' + cell + '</div>'
         }
       },
       action: {
@@ -95,30 +96,30 @@ export class SurveysMosquitoPendingListComponent extends BaseComponent implement
         renderComponent: ActionCustomSurveyEditComponent,
         onComponentInitFunction(instance) {
 
-          instance.edit.subscribe((row: MosquitoBean, cell) => {
-            self.mosquitoBean = new MosquitoBean();
-            self.mosquitoBean = self.cloneObj(row);
+          instance.edit.subscribe((row: MetabolicBean, cell) => {
+            self.metabolicBean = new MetabolicBean();
+            self.metabolicBean = self.cloneObj(row);
             self.action = self.ass_action.EDIT;
-            self.getSurveyData(row.documentId, row.homeId);
+            self.getSurveyData(row.rowGUID);
           });
 
         }
       }
     });
   }
-  
+
   loadData() {
     let self = this;
 
     self.loading = true;
 
-    self.apiHttp.getRoundCurrent(self.surveyHeaderCode.MONITORHICI, function (r) {
+    self.apiHttp.getRoundCurrent(self.surveyHeaderCode.METABOLIC, function (r) {
       if (!self.isEmptyObject(r)) {
         self.documentId = r.rowGUID;
-        
+
         let params = { "documentId": r.rowGUID, "osmId": self.userInfo.personId };
 
-        self.apiHttp.post('survey_hici/search_hici_info_list_not_survey', params, function (d) {
+        self.apiHttp.post('survey_metabolic/search_metabolic_list_not_survey', params, function (d) {
           if (d != null && d.status.toUpperCase() == "SUCCESS") {
             self.source = self.ng2STDatasource(d.response);
           }
@@ -129,17 +130,15 @@ export class SurveysMosquitoPendingListComponent extends BaseComponent implement
     });
   }
 
-  getSurveyData(docId, homeId) {
+  getSurveyData(rowGUID) {
     let self = this;
 
     self.loading = true;
 
-    let params = { "documentId": docId, "homeId": homeId };
-    
-    self.apiHttp.post('survey_hici/hici_by_homeid', params, function (resp) {
-      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-        self.mosquitoBean = resp.response;
-        self.changeRef.detectChanges();
+    self.apiHttp.getMetabolicInfo(rowGUID, function (d) {
+      if (d.response && d.status.toUpperCase() == 'SUCCESS') {
+        self.metabolicBean = self.cloneObj(d.response);
+        this.changeRef.detectChanges();
         $('#find-person-md').modal('show');
       }
       self.loading = false;
@@ -156,6 +155,12 @@ export class SurveysMosquitoPendingListComponent extends BaseComponent implement
     } else {
       self.message_error('', 'Error');
     }
+  }
+
+  onClickBack() {
+    let self = this;
+
+    self.route.navigate(['']);
   }
 
 }

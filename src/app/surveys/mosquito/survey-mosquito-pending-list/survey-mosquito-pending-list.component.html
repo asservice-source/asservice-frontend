@@ -1,19 +1,25 @@
 <div class="panel panel-default">
   <div class="panel-heading">
-    <span>ข้อมูลแบบสำรวจลูกน้ำ</span>
+    <span>ข้อมูลแบบสำรวจลูกน้ำที่ยังไม่ได้ทำการสำรวจ</span>
   </div>
   <div class="panel-body">
 
     <div class="row">
-      <div class="col-lg-12">
+      <div class="col-md-12">
         <div class="row">
           <!-- <div class="filter-discription" [innerHtml]="filtersearch.description"></div> -->
           <ng2-smart-table [settings]="settings" [source]="source" (rowSelect)="onRowSelect($event)"></ng2-smart-table>
         </div>
       </div>
     </div>
-  </div>
 
+    <div class="row text-right">
+      <div class="col-md-12">
+        <button type="buttoon" class="btn btn-primary btn-sm" (click)="onClickBack();">กลับ</button>
+      </div>
+    </div>
+
+  </div>
 </div>
 
 <app-survey-mosquito-form [action]='action' [data]='mosquitoBean' [documentId]='documentId' (completed)='callbackData($event);'></app-survey-mosquito-form>

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SurveysMosquitoPendingListComponent } from './surveys-mosquito-pending-list.component';
+import { SurveyMosquitoPendingListComponent } from './survey-mosquito-pending-list.component';
 
 describe('SurveysMosquitoPendingListComponent', () => {
-  let component: SurveysMosquitoPendingListComponent;
-  let fixture: ComponentFixture<SurveysMosquitoPendingListComponent>;
+  let component: SurveyMosquitoPendingListComponent;
+  let fixture: ComponentFixture<SurveyMosquitoPendingListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SurveysMosquitoPendingListComponent ]
+      declarations: [ SurveyMosquitoPendingListComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SurveysMosquitoPendingListComponent);
+    fixture = TestBed.createComponent(SurveyMosquitoPendingListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -12,8 +12,9 @@ import { SurveyPersonalHomeListComponent } from "./../surveys/personal/survey-pe
 import { SurveyPersonalMemberListComponent } from "./../surveys/personal/survey-personal-member-list/survey-personal-member-list.component";
 import { SurveyPatientListComponent } from "./../surveys/patient/survey-patient-list/survey-patient-list.component";
 import { SurveyMetabolicListComponent } from "./../surveys/metabolic/survey-metabolic-list/survey-metabolic-list.component";
+import { SurveyMetabolicPendingListComponent } from "./../surveys/metabolic/survey-metabolic-pending-list/survey-metabolic-pending-list.component";
 import { SurveyMosquitoListComponent } from "./../surveys/mosquito/survey-mosquito-list/survey-mosquito-list.component";
-import { SurveysMosquitoPendingListComponent } from "../surveys/mosquito/surveys-mosquito-pending-list/surveys-mosquito-pending-list.component";
+import { SurveyMosquitoPendingListComponent } from "../surveys/mosquito/survey-mosquito-pending-list/survey-mosquito-pending-list.component";
 import { SurveyCancerListComponent } from "./../surveys/cancer/survey-cancer-list/survey-cancer-list.component";
 import { ManagementStaffUserListComponent } from "./../managements/staff/manage-staff-user/list/management-staff-user-list.component";
 import { ManagementStaffVillageListComponent } from "./../managements/staff/manage-village/list/management-staff-village-list.component";
@@ -61,7 +62,7 @@ import { IndexAboutSystemComponent } from "../index/about-system/about-system.co
           },
           {
             path: 'register',
-            children:[
+            children: [
               {
                 path: '',
                 component: RegisterComponent,
@@ -97,25 +98,25 @@ import { IndexAboutSystemComponent } from "../index/about-system/about-system.co
               path: 'staff',
               canActivate: [GuardPermissionService],
               canActivateChild: [GuardPermissionService],
-              children:[
+              children: [
                 {
                   path: 'village',
                   component: ManagementStaffVillageListComponent
                 },
                 {
-                path: ':roleName',
-                component: ManagementStaffUserListComponent
-              },
-              
+                  path: ':roleName',
+                  component: ManagementStaffUserListComponent
+                },
+
               ]
             },
             {
               path: 'osm',
               canActivate: [GuardService],
               canActivateChild: [GuardService],
-              children:[{
+              children: [{
                 path: 'home',
-                children:[
+                children: [
                   {
                     path: ':type/:id',
                     component: ManagementHomeComponent
@@ -123,7 +124,7 @@ import { IndexAboutSystemComponent } from "../index/about-system/about-system.co
                   {
                     path: 'member/H/:homeId',
                     component: ManagementHomeMemberComponent
-                }]
+                  }]
               }]
             }
           ]
@@ -151,38 +152,38 @@ import { IndexAboutSystemComponent } from "../index/about-system/about-system.co
             {
               path: 'pregnant',
               component: SurveyPregnantListComponent
-            },
-            {
+            }, {
               path: 'died',
               component: SurverDiedListComponent
-            },
-            {
+            }, {
               path: 'personal',
               component: SurveyPersonalHomeListComponent
             },
             {
               path: 'personal-detail/:homeId/:roundId',
               component: SurveyPersonalMemberListComponent
-            },
-            {
+            }, {
               path: 'patient',
               component: SurveyPatientListComponent
             }, {
               path: 'metabolic',
               component: SurveyMetabolicListComponent
             }, {
+              path: 'pending-metabolic',
+              component: SurveyMetabolicPendingListComponent
+            }, {
               path: 'mosquito',
               component: SurveyMosquitoListComponent
-            } , {
+            }, {
               path: 'pending-mosquito',
-              component: SurveysMosquitoPendingListComponent
-            } , {
+              component: SurveyMosquitoPendingListComponent
+            }, {
               path: 'cancer',
               component: SurveyCancerListComponent
             }
 
           ]
-        
+
         },
         {
           path: 'summary',
@@ -197,7 +198,7 @@ import { IndexAboutSystemComponent } from "../index/about-system/about-system.co
             },
           ]
         }
-       
+
         ]
       }
       ,
