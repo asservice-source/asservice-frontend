@@ -7,19 +7,23 @@
                 <label class="label-form">รอบสำรวจ</label>
             </div>
             <div class="col-md-4">
-                <select>
-                    <option value="">ทั้งหมด</option>
-                    <option>xxx</option>
-                </select>
+                <div [InputValidate]="inputvalidate">
+                  <select [(ngModel)]="roundRowGuid">
+                      <option value="">เลือก</option>
+                      <option *ngFor="let item of listRounds" [value]="item.rowGUID" >{{item.round}}</option>
+                  </select>
+                  <label class="error">กรุณาเลือกรอบสำรวจ</label>
+                </div>
             </div>
             <div class="col-md-1 text-right">
                 <label class="label-form">หมู่บ้าน</label>
             </div>
             <div class="col-md-4">
-                <select>
+                <select *ngIf="isStaff" [(ngModel)]="villageId" (change)="onChangeVillage()" [disabled]="isOffVillage">
                     <option value="">ทั้งหมด</option>
-                    <option>xxxx</option>
+                    <option *ngFor="let item of listVillages" [value]="item.id" >{{'หมู่ที่ '+item.villageNo +' '+ item.villageName}}</option>
                 </select>
+                <input *ngIf="!isStaff" [value]="userInfo.villageName" [disabled]="true" >
             </div>
 
         </div>
@@ -29,22 +33,26 @@
                 <label class="label-form">อสม.</label>
             </div>
             <div class="col-md-4">
-                <select>
+                <select *ngIf="isStaff" [(ngModel)]="osmId" (change)="onChangeOsm()" [disabled]="isOffOsm">
                     <option value="">ทั้งหมด</option>
-                    <option>xxxx</option>
+                    <option *ngFor="let item of listOsm" [value]="item.personId" >{{item.fullName}}</option>
                 </select>
+              <input *ngIf="!isStaff" [value]="userInfo.fullName" [disabled]="true" >
             </div>
             <div class="col-md-1 text-right">
-                <label class="label-form">ชื่อ</label>
+                <label class="label-form">บ้านเลขที่</label>
             </div>
             <div class="col-md-4">
-                <input type="text">
+                <select [(ngModel)]="homeId" [disabled]="isOffHome">
+                  <option value="">ทั้งหมด</option>
+                  <option *ngFor="let item of listHomes" [value]="item.homeId">{{item.homeNo}}</option>
+                </select>
             </div>
         </div>
 
 
         <div class="row text-center" style="margin-top: 10px;">
-            <button id="filter-btnSearch" class="btn btn-primary btn-sm">
+            <button id="filter-btnSearch" (click)="onReporting();" class="btn btn-primary btn-sm">
                 <i class="fa fa-search">&nbsp;รายงาน</i>
             </button> &nbsp;&nbsp;
             <button id="filter-btnClear" class="btn btn-primary btn-sm">
@@ -53,5 +61,3 @@
         </div>
     </div>
 </div>
-
-<div class="filter-discription" >xxxxxxxxxxxxxxxxxxxxxxxx</div>

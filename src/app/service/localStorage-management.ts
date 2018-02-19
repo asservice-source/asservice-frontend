@@ -23,8 +23,8 @@ export class LocalStorageManagement{
         this.user.fullName = obj.fullName || ''
         this.user.firstName = obj.firstName || ''
         this.user.lastName = obj.lastName || ''
-        this.user.hospitalCode5 = obj.code5
-        this.user.hospitalCode9 = obj.code9
+        this.user.hospitalCode5 = obj.code5 || obj.hospitalCode5 || ''
+        this.user.hospitalCode9 = obj.code9 || obj.hospitalCode9 || ''
         this.user.hospitalName = obj.hospitalName  || ''
         this.user.hospitalDisplayName = obj.hospitalDisplayName  || ''
         this.user.villageId = obj.villageId
