@@ -33,11 +33,11 @@
     padding-bottom: 0;
 }
 .survey-card.mosquito .survey-card-percent>label{
-    color: #ff5151;
+    color: #b10b0b;
 }
 .survey-card.metabolic .survey-card-percent>label{
-    color: #1dd86b;
+    color: #0c8a41;
 }
 .survey-card.population .survey-card-percent>label{
-    color: #d3b404;
+    color: #9e8a18;
 }

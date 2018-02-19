@@ -54,7 +54,7 @@ export class SurveyMosquitoPendingListComponent extends BaseComponent implements
       address: {
         title: 'ที่อยู่',
         filter: false,
-        width: '350px',
+        width: '500px',
         type: 'html',
         valuePrepareFunction: (cell, row) => {
           return '<div class="wrap-text" title="' + cell + '">' + cell + '</div>'
@@ -69,24 +69,24 @@ export class SurveyMosquitoPendingListComponent extends BaseComponent implements
           return '<div class="text-center">' + cell + '</div>'
         }
       },
-      totalSurvey: {
-        title: 'จำนวนสำรวจ',
-        filter: false,
-        width: '120px',
-        type: 'html',
-        valuePrepareFunction: (cell, row) => {
-          return '<div class="text-center">' + this.formatNumber(cell) + '</div>'
-        }
-      },
-      totalDetect: {
-        title: 'จำนวนพบ',
-        filter: false,
-        width: '100px',
-        type: 'html',
-        valuePrepareFunction: (cell, row) => {
-          return '<div class="text-center">' + this.formatNumber(cell) + '</div>'
-        }
-      },
+      // totalSurvey: {
+      //   title: 'จำนวนสำรวจ',
+      //   filter: false,
+      //   width: '120px',
+      //   type: 'html',
+      //   valuePrepareFunction: (cell, row) => {
+      //     return '<div class="text-center">' + this.formatNumber(cell) + '</div>'
+      //   }
+      // },
+      // totalDetect: {
+      //   title: 'จำนวนพบ',
+      //   filter: false,
+      //   width: '100px',
+      //   type: 'html',
+      //   valuePrepareFunction: (cell, row) => {
+      //     return '<div class="text-center">' + this.formatNumber(cell) + '</div>'
+      //   }
+      // },
       action: {
         title: 'การทำงาน',
         filter: false,
@@ -97,10 +97,12 @@ export class SurveyMosquitoPendingListComponent extends BaseComponent implements
         onComponentInitFunction(instance) {
 
           instance.survey.subscribe((row: MosquitoBean, cell) => {
-            self.mosquitoBean = new MosquitoBean();
-            self.mosquitoBean = self.cloneObj(row);
-            self.action = self.ass_action.EDIT;
-            self.getSurveyData(row.documentId, row.homeId);
+            // self.mosquitoBean = new MosquitoBean();
+            // self.mosquitoBean = self.cloneObj(row);
+            self.action = self.ass_action.ADD;
+            this.changeRef.detectChanges();
+            $('#find-person-md').modal('show');
+            // self.getSurveyData(row.documentId, row.homeId);
           });
 
         }
