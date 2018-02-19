@@ -3,7 +3,7 @@ import {UserService} from '../../service/user.service';
 import {BaseComponent} from '../../base-component';
 import {ApiHTTPService} from '../../api-managements/api-http.service';
 import {InputValidateInfo} from '../../directives/inputvalidate.directive';
-
+declare var $:any;
 @Component({
   selector: 'app-summary-personal',
   templateUrl: './summary-personal.component.html',
@@ -39,12 +39,14 @@ export class SummarytPersonalComponent extends BaseComponent implements OnInit {
     this.setDropdownListRounds();
     if(!this.isStaff){
       this.osmId = this.userInfo.personId;
-      this.personId = this.userInfo.personId;
+      //this.personId = this.userInfo.personId;
       this.villageId = this.userInfo.villageId;
       this.setDropdownListHomes();
     }else{
       this.setDropdownListVillages();
     }
+
+    this.personId = this.userInfo.personId;
   }
   setDropdownListRounds(){
     this.listRounds = new Array<any>();
@@ -91,5 +93,32 @@ export class SummarytPersonalComponent extends BaseComponent implements OnInit {
   onReporting(){
     this.inputvalidate = new InputValidateInfo();
     this.inputvalidate.isCheck = true;
+    if(this.roundRowGuid){
+      console.log(this.personId);
+      console.log(this.villageId);
+      console.log(this.homeId);
+      let $params = '<input name="SurveyHeaderRowGUID" value="'+this.roundRowGuid+'" >';
+      $params += ' <input name="HomeID" value="'+this.homeId+'" >';
+      $params += ' <input name="OSMPersonID" value="'+this.osmId+'" >';
+      $params += ' <input name="VillageID" value="'+this.villageId+'" >';
+      $params += ' <input name="UserPersonID" value="'+this.personId+'" >';
+      let $form = $('<form method="post" target="_blank" name="mfrm" action="http://192.168.1.203:8080/api-asservice-front/report/population/ViewYearlyReport"></form>');
+      $form.append($params);
+      $form.css('display', 'none');
+      $('body').append($form);
+
+      $form.submit();
+      $form.remove();
+    }
+  }
+  clear(){
+    this.roundRowGuid = '';
+    this.villageId = '';
+    this.homeId = '';
+    this.osmId = '';
+    this.isOffOsm = true;
+    this.isOffHome = true;
+    this.listOsm = [];
+    this.listHomes = [];
   }
 }
