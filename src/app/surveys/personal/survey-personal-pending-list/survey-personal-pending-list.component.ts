@@ -132,4 +132,10 @@ export class SurveyPersonalPendingListComponent extends BaseComponent implements
     });
   }
 
+  onClickBack() {
+    let self = this;
+
+    self.route.navigate(['']);
+  }
+
 }
