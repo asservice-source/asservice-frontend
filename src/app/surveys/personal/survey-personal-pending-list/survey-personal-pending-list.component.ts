@@ -95,7 +95,8 @@ export class SurveyPersonalPendingListComponent extends BaseComponent implements
           instance.survey.subscribe((row) => {
             let homeId = row.homeId;
             let roundId = self.documentId;
-            self.route.navigate(['/main/surveys/personal-detail', homeId, roundId]);
+            let fromPage = 'pending';
+            self.route.navigate(['/main/surveys/personal-detail', homeId, roundId, fromPage]);
           });
 
         }

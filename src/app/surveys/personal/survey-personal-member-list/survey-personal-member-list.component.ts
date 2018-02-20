@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { Http, Response, RequestOptions } from "@angular/http";
 import { Router } from "@angular/router";
 import { ActivatedRoute } from '@angular/router';
@@ -20,6 +20,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
 
   private paramHomeId: string;
   private paramRoundId: string;
+  private paramFromPage: string;
 
   public action: string = this.ass_action.ADD;
   public paramMember: PersonalBasicBean;
@@ -78,6 +79,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     this.routeAct.params.subscribe(params => {
       this.paramHomeId = params['homeId'];
       this.paramRoundId = params['roundId'];
+      this.paramFromPage = params['fromPage'];
     });
   }
 
@@ -87,7 +89,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     self.apiHttp.getRound_byDocumentId(self.surveyHeaderCode.POPULATION, self.paramRoundId, function (d) {
       self.roundName = d.name;
 
-      if(!self.isEmpty(self.homeAddress)) {
+      if (!self.isEmpty(self.homeAddress)) {
         self.isShowInfo = true;
       }
     });
@@ -117,7 +119,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
         console.log('survey-personal-member-list(bindHomeInfo) occured error(s) => ' + d.message);
       }
 
-      if(!self.isEmpty(self.roundName)) {
+      if (!self.isEmpty(self.roundName)) {
         self.isShowInfo = true;
       }
     });
@@ -148,7 +150,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     this.isEditing = true;
     let self = this;
     member.fullName = self.getFullName(member.prefixName, member.firstName, member.lastName);
-    if(member.birthDate) {
+    if (member.birthDate) {
       member.age = self.getAge(member.birthDate).toString();
     } else {
       member.age = '';
@@ -158,7 +160,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     let isActionAdd = (self.action == self.ass_action.ADD);
     let citizenIdsDup: Array<string> = []
     let index = -1;
-    
+
 
     let listAll: Array<any> = [];
     for (let item of self.tempData) {
@@ -176,7 +178,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
         }
       }
 
-      if (citizenIdsDup.length>0) {
+      if (citizenIdsDup.length > 0) {
         self.message_error('', 'ไม่สามารถแก้ไขข้อมูลได้เนื่องจากหมายเลขประชาชนซ้ำ <br>' + citizenIdsDup);
         return;
       }
@@ -223,8 +225,8 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     }
 
     for (let item of listAll) {
-      if(item.personId != tmpMember.personId && item.familyStatusId=='1' && tmpMember.familyStatusId=='1'){
-        item.familyStatusId='2';
+      if (item.personId != tmpMember.personId && item.familyStatusId == '1' && tmpMember.familyStatusId == '1') {
+        item.familyStatusId = '2';
         item.familyStatusName = 'ผู้อาศัย'
       }
     }
@@ -261,14 +263,14 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     for (let item of self.tempData2) {
       listAll.push(item);
     }
-    if(listAll.length<=0){
-      this.message_error('','สมาชิกในบ้านจะต้องมีอย่างน้อย 1 คน');
+    if (listAll.length <= 0) {
+      this.message_error('', 'สมาชิกในบ้านจะต้องมีอย่างน้อย 1 คน');
       return;
     }
     self.apiHttp.commit_save_survey(self.paramHomeId, self.osmId, self.paramRoundId, listAll, function (d) {
       console.log(d);
       if (d != null && d.status.toUpperCase() == "SUCCESS") {
-        self.message_success('', 'ส่งข้อมูลการสำรวจสำเร็จ', function(){
+        self.message_success('', 'ส่งข้อมูลการสำรวจสำเร็จ', function () {
           self.isSaveData = true;
           $('#btnBack').click();
           self.changeRef.detectChanges();
@@ -278,22 +280,33 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
       }
     });
   }
-  onClickBackNavigate(){
+  onClickBackNavigate() {
     $('#btnBack').click();
   }
   onClickBack() {
     let _self = this;
-    if(this.isEditing && !this.isSaveData){
+
+    let isFromPendingPage = (_self.paramFromPage == 'pending');
+
+    if (this.isEditing && !this.isSaveData) {
       this.message_comfirm('', this.warningLeavPage
-        , function(isConfirm){
-          if(isConfirm){
-            _self.route.navigate(['/main/surveys/personal']);
+        , function (isConfirm) {
+          if (isConfirm) {
+            if(!isFromPendingPage){
+              _self.route.navigate(['/main/surveys/personal']);
+            } else {
+              _self.route.navigate(['/main/surveys/pending-personal']);
+            }
           }
-      });
-    }else{
-      _self.route.navigate(['/main/surveys/personal']);
+        });
+    } else {
+      if(!isFromPendingPage){
+        _self.route.navigate(['/main/surveys/personal']);
+      } else {
+        _self.route.navigate(['/main/surveys/pending-personal']);
+      }
     }
-    
+
   }
 
   onModalForm(row: PersonalBasicBean) {
@@ -308,32 +321,32 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     $("#modalMember").modal();
   }
 
-  onModalManagementMemberForm(){
+  onModalManagementMemberForm() {
     this.memberBean = new PersonalBasicBean();
     this.memberBean.homeId = this.paramHomeId;
     this.changeRef.detectChanges();
     $("#modal-management-home-member-form").modal('show');
   }
-  onSaveCompleted(event: any){
+  onSaveCompleted(event: any) {
     console.log(event);
     let self = this;
-    if(event.success){
+    if (event.success) {
       $("#modal-management-home-member-form").modal('hide');
       let update: PersonalBasicBean = new PersonalBasicBean();
       let bean: PersonalBasicBean = event.bean;
       self.copyObj(bean, update);
-      self.message_success('',event.message, function(){
+      self.message_success('', event.message, function () {
         self.onUpdatedMember(update);
       });
 
-    }else{
+    } else {
 
     }
-    
+
   }
 
 
-  settingColumn(){
+  settingColumn() {
     let self = this;
     self.settings = this.getTableSetting({
       fullName: {
@@ -383,9 +396,9 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
         type: 'html',
         valuePrepareFunction: (cell, row) => {
           let text = '';
-          if(cell || row.isSurveyed){
+          if (cell || row.isSurveyed) {
             text = 'สำรวจแล้ว';
-          }else{
+          } else {
             text = 'ยังไม่สำรวจ';
           }
           console.log(cell);
@@ -456,9 +469,9 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
         type: 'html',
         valuePrepareFunction: (cell, row) => {
           let text = '';
-          if(cell.rowGUID){
+          if (cell.rowGUID) {
             text = 'สำรวจแล้ว';
-          }else{
+          } else {
             text = 'ยังไม่สำรวจ';
           }
           return '<div class="text-center">' + text + '</div>';
@@ -473,7 +486,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
         onComponentInitFunction(instance) {
           instance.action.subscribe((row: PersonalBasicBean) => {
             // console.log(row);
-            
+
             self.onModalForm(row);
           });
         }

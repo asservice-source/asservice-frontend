@@ -163,7 +163,7 @@ import { IndexAboutSystemComponent } from "../index/about-system/about-system.co
               path: 'pending-personal',
               component: SurveyPersonalPendingListComponent
             }, {
-              path: 'personal-detail/:homeId/:roundId',
+              path: 'personal-detail/:homeId/:roundId/:fromPage',
               component: SurveyPersonalMemberListComponent
             }, {
               path: 'patient',
