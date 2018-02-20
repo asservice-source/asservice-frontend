@@ -1,0 +1,21 @@
+<div class="panel panel-default">
+
+  <div class="panel-heading">
+    <!-- <h4 style="color: #000000;">แบบสำรวจข้อมูลผู้เสียชีวิต</h4> -->
+    <label>แบบสำรวจข้อมูลบุคคลที่ยังไม่ได้ทำการสำรวจ</label>
+  </div>
+
+  <div class="panel-body">
+
+    <div id="panel_table_personal" class="row">
+      <div class="col-md-12">
+        <div class="table-responsive">
+          <ng2-smart-table [settings]="settings" [source]="source" (rowSelect)="onRowSelect($event)"></ng2-smart-table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- <app-management-home-form [bean]="homeBean"></app-management-home-form> -->
+  <ass-loading [show]="loading"></ass-loading>

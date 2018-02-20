@@ -8,6 +8,7 @@ import { NotfoundComponent } from "./../notfound/notfound.component";
 import { RegisterComponent } from "./../register/register/register.component";
 import { SurveyPregnantListComponent } from "./../surveys/pregnant/survey-pregnant-list/survey-pregnant-list.component";
 import { SurverDiedListComponent } from "./../surveys/died/survey-died-list/survey-died-list.component";
+import { SurveyPersonalPendingListComponent } from "../surveys/personal/survey-personal-pending-list/survey-personal-pending-list.component";
 import { SurveyPersonalHomeListComponent } from "./../surveys/personal/survey-personal-home-list/survey-personal-home-list.component";
 import { SurveyPersonalMemberListComponent } from "./../surveys/personal/survey-personal-member-list/survey-personal-member-list.component";
 import { SurveyPatientListComponent } from "./../surveys/patient/survey-patient-list/survey-patient-list.component";
@@ -158,8 +159,10 @@ import { IndexAboutSystemComponent } from "../index/about-system/about-system.co
             }, {
               path: 'personal',
               component: SurveyPersonalHomeListComponent
-            },
-            {
+            }, {
+              path: 'pending-personal',
+              component: SurveyPersonalPendingListComponent
+            }, {
               path: 'personal-detail/:homeId/:roundId',
               component: SurveyPersonalMemberListComponent
             }, {

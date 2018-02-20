@@ -91,6 +91,8 @@ import { IndexContactusComponent } from './index/contactus/contactus.component';
 import { IndexAboutSystemComponent } from './index/about-system/about-system.component';
 import { SurveyMosquitoPendingListComponent } from './surveys/mosquito/survey-mosquito-pending-list/survey-mosquito-pending-list.component';
 import { SurveyMetabolicPendingListComponent } from './surveys/metabolic/survey-metabolic-pending-list/survey-metabolic-pending-list.component';
+import { SurveyPersonalPendingListComponent } from './surveys/personal/survey-personal-pending-list/survey-personal-pending-list.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -174,7 +176,8 @@ import { SurveyMetabolicPendingListComponent } from './surveys/metabolic/survey-
     IndexFooterComponent,
     HeaderMenuComponent,
     IndexContactusComponent,
-    IndexAboutSystemComponent
+    IndexAboutSystemComponent,
+    SurveyPersonalPendingListComponent
   ],
   imports: [
     BrowserModule,
