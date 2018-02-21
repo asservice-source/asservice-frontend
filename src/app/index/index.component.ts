@@ -17,6 +17,7 @@ export class IndexComponent implements OnInit{
   ngOnInit(): void {
 
     let jsonUInfo: any = this.storage.getDataUserInfo();
+    console.log("INDEX --- ");
     if(jsonUInfo){
       this.storage.setUserInfo(jsonUInfo);
       if(this.user.userId){
@@ -24,28 +25,21 @@ export class IndexComponent implements OnInit{
       }
     }
 
-    setTimeout(function(){
-      let pathName = location.pathname;
-      // $.each($('.header-menu>ul>li.menu-item > a'), function(){
-      //   if($(this).attr('href')==pathName){
-      //     $(this).addClass('active');
-      //   }else{
-      //     $(this).removeClass('active');
-      //   }
-      // });
-      $('.menu-item>a.active').removeClass('active');
-      $('.header-menu>ul>li.menu-item > a[href="'+pathName+'"]').addClass('active');
+    // setTimeout(function(){
+    //   let pathName = location.pathname;
+    //   $('.menu-item>a.active').removeClass('active');
+    //   $('.header-menu>ul>li.menu-item > a[href="'+pathName+'"]').addClass('active');
       
-      $('.header-menu').on('click','.menu-item > a', function(){
-        $.each($('.menu-item>a'), function(){
-          $(this).removeClass('active');
-        });
-        if(!$(this).hasClass('active')){
-          $(this).addClass('active');
-        }
-      });
-    }
-    , 1000);
+    //   $('.header-menu').on('click','.menu-item > a', function(){
+    //     $.each($('.menu-item>a'), function(){
+    //       $(this).removeClass('active');
+    //     });
+    //     if(!$(this).hasClass('active')){
+    //       $(this).addClass('active');
+    //     }
+    //   });
+    // }
+    // , 1000);
 
   }
 }

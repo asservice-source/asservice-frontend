@@ -75,16 +75,6 @@ export class RegisterComponent extends BaseComponent implements OnInit {
     this.getProvinceList();
     this.getPrefixName();
 
-    //$('.menu-item>a.active').removeClass('active');
-
-
-    setTimeout(function(){
-      let pathName = location.pathname;
-      $('.menu-item>a.active').removeClass('active');
-      $('.header-menu>ul>li.menu-item > a[href="'+pathName+'"]').addClass('active');
-    }
-    , 1000);
-
   }
   api_hospital() {
     this.loading = true;
@@ -173,13 +163,13 @@ export class RegisterComponent extends BaseComponent implements OnInit {
           // console.log(self.registerBean);
           // console.log(resp.response[0]);
           // console.log(hospital);
-          
-          if (hospital 
+
+          if (hospital
             && self.registerBean.hospitalName == hospital.hospitalName
             && self.registerBean.provinceID == hospital.provinceCode
             && self.registerBean.amphurCode == hospital.amphurCode
             && self.registerBean.tumbolID == hospital.tumbolCode
-            && self.registerBean.code9 == hospital.code9 
+            && self.registerBean.code9 == hospital.code9
             && self.registerBean.code5 == hospital.code5) {
               let citizenId =self.formatForJson(self.registerBean.contactCitizenId);
               let params =
@@ -216,7 +206,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
 
   saveRegister(){
     let self = this;
-    // this.registerBean.contactTelephone = 
+    // this.registerBean.contactTelephone =
     let params = {
       code5: this.registerBean.code5,
       contactPrefix: this.registerBean.contactPrefix,
@@ -236,7 +226,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
           self.message_success('', 'กรุณาตรวจสอบอีเมลของท่านเพื่อยืนยันการลงทะเบียน', function () {
           location.href = '/login';
         })
-      } 
+      }
       else {
         if(resp.message == 'CitizenIdIsMappedToOtherRoles'){
           self.message_error('', 'หมายเลขประชาชนนี้ใช้ในการลงทะเบียนไปแล้ว');

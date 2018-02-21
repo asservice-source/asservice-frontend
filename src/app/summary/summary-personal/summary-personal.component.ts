@@ -94,9 +94,11 @@ export class SummarytPersonalComponent extends BaseComponent implements OnInit {
     this.inputvalidate = new InputValidateInfo();
     this.inputvalidate.isCheck = true;
     if(this.roundRowGuid){
-      console.log(this.personId);
-      console.log(this.villageId);
-      console.log(this.homeId);
+      console.log('SurveyHeaderRowGUID',this.roundRowGuid);
+      console.log('UserPersonID',this.personId);
+      console.log('OSMPersonID',this.osmId);
+      console.log('VillageID',this.villageId);
+      console.log('HomeID',this.homeId);
       let $params = '<input name="SurveyHeaderRowGUID" value="'+this.roundRowGuid+'" >';
       $params += ' <input name="HomeID" value="'+this.homeId+'" >';
       $params += ' <input name="OSMPersonID" value="'+this.osmId+'" >';

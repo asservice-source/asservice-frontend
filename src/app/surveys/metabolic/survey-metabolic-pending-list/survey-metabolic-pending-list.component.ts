@@ -165,4 +165,8 @@ export class SurveyMetabolicPendingListComponent extends BaseComponent implement
     self.route.navigate(['']);
   }
 
+  reloadData(event){
+
+  }
+
 }
