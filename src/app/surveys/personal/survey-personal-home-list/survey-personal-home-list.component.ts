@@ -99,7 +99,8 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
             if(row.isCurrent){
               let homeId = row.homeId;
               let roundId = self.currentRoundId;
-              self.router.navigate(['/main/surveys/personal-detail', homeId, roundId]);
+              let fromPage = 'survey';
+              self.router.navigate(['/main/surveys/personal-detail', homeId, roundId, fromPage]);
             }else{
               self.onHistory(row.homeId);
             }
