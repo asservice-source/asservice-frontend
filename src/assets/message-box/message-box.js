@@ -60,8 +60,8 @@
             html += '<p>' + message + '</p>';
             html += '</div>';
             html += '<div class="modal-footer">';
-            html += '<button type="button" class="btn btn-primary" data-dismiss="modal" onClick="window.messageBox.response(false);">ไม่ใช่</button>';
-            html += '<button type="button" class="btn btn-primary" data-dismiss="modal" onClick="window.messageBox.response(true);">ใช่</button>';
+            html += '<button type="button" class="btn btn-cancel" data-dismiss="modal" onClick="window.messageBox.response(false);">ไม่ใช่</button>';
+            html += '<button type="button" class="btn btn-confirm" data-dismiss="modal" onClick="window.messageBox.response(true);">ใช่</button>';
             html += '</div>';
             html += '</div>';
             html += '</div>';
