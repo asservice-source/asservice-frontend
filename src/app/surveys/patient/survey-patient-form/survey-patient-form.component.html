@@ -330,9 +330,9 @@
                 </div>
                 <div class="modal-footer">
                     <ng-container *ngIf="patientbean.patientSurveyTypeCode == ''?false : true">
-                        <button class="btn btn-sm btn-primary" (click)="addSurvey()">ยืนยัน</button> &nbsp;&nbsp;
+                        <button class="btn btn-sm btn-confirm" (click)="addSurvey()">ยืนยัน</button> &nbsp;&nbsp;
                     </ng-container>
-                    <button class="btn btn-sm btn-primary" (click)="onBack()">กลับ</button>
+                    <button class="btn btn-sm btn-cancel" (click)="onBack()">ยกเลิก</button>
                 </div>
             </div>
         </div>
@@ -675,9 +675,9 @@
                     </div>
                     <div class="modal-footer">
                         <ng-container *ngIf="patientbean.patientSurveyTypeCode == ''?false : true">
-                            <button class="btn btn-sm btn-primary" (click)="addSurvey()">ยืนยัน</button> &nbsp;&nbsp;
+                            <button class="btn btn-sm btn-confirm" (click)="addSurvey()">ยืนยัน</button> &nbsp;&nbsp;
                         </ng-container>
-                        <button class="btn btn-sm btn-primary" (click)="onBack()">กลับ</button>
+                        <button class="btn btn-sm btn-cancel" (click)="onBack()">ยกเลิก</button>
                     </div>
                 </div>
             </div>

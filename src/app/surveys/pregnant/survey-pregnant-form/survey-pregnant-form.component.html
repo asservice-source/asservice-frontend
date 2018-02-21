@@ -245,8 +245,8 @@
 
             <div class="modal-footer" *ngIf="isShowForm">
                 <div class="panel-body text-right">
-                    <button *ngIf="!isHiddenEditChild" class="btn btn-sm btn-primary" (click)="onClickConfirm();">ยืนยัน</button> &nbsp;&nbsp;
-                    <button class="btn btn-sm btn-primary" (click)="onClickBack()">กลับ</button>
+                    <button *ngIf="!isHiddenEditChild" class="btn btn-sm btn-confirm" (click)="onClickConfirm();">ยืนยัน</button> &nbsp;&nbsp;
+                    <button class="btn btn-sm btn-cancel" (click)="onClickBack()">ยกเลิก</button>
                 </div>
             </div>
 
@@ -279,8 +279,8 @@
 
             <div class="modal-footer">
                 <div class="panel-body text-right">
-                    <button class="btn btn-primary btn-sm" (click)="onClickConfirmHospital();">ตกลง</button>
-                    <button class="btn btn-primary btn-sm" data-dismiss="modal">ยกเลิก</button>
+                    <button class="btn btn-confirm btn-sm" (click)="onClickConfirmHospital();">ยืนยัน</button>
+                    <button class="btn btn-cancel btn-sm" data-dismiss="modal">ยกเลิก</button>
                 </div>
             </div>
 

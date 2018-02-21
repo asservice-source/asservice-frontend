@@ -153,5 +153,95 @@ table .btn-sm{
     margin-right: 3px; 
 }
 
+/* Button */
+.btn-confirm { 
+    color: #ffffff; 
+    background-color: #039E08; 
+    border-color: #086B0B; 
+  } 
+   
+  .btn-confirm:hover, 
+  .btn-confirm:focus, 
+  .btn-confirm:active, 
+  .btn-confirm.active, 
+  .open .dropdown-toggle.btn-confirm { 
+    color: #ffffff; 
+    background-color: #07BD0D; 
+    border-color: #086B0B; 
+  } 
+   
+  .btn-confirm:active, 
+  .btn-confirm.active, 
+  .open .dropdown-toggle.btn-confirm { 
+    background-image: none; 
+  } 
+   
+  .btn-confirm.disabled, 
+  .btn-confirm[disabled], 
+  fieldset[disabled] .btn-confirm, 
+  .btn-confirm.disabled:hover, 
+  .btn-confirm[disabled]:hover, 
+  fieldset[disabled] .btn-confirm:hover, 
+  .btn-confirm.disabled:focus, 
+  .btn-confirm[disabled]:focus, 
+  fieldset[disabled] .btn-confirm:focus, 
+  .btn-confirm.disabled:active, 
+  .btn-confirm[disabled]:active, 
+  fieldset[disabled] .btn-confirm:active, 
+  .btn-confirm.disabled.active, 
+  .btn-confirm[disabled].active, 
+  fieldset[disabled] .btn-confirm.active { 
+    background-color: #039E08; 
+    border-color: #086B0B; 
+  } 
+   
+  .btn-confirm .badge { 
+    color: #039E08; 
+    background-color: #ffffff; 
+  }
 
-
+  .btn-cancel { 
+    color: #ffffff; 
+    background-color: #D69708; 
+    border-color: #856416; 
+  } 
+   
+  .btn-cancel:hover, 
+  .btn-cancel:focus, 
+  .btn-cancel:active, 
+  .btn-cancel.active, 
+  .open .dropdown-toggle.btn-cancel { 
+    color: #ffffff; 
+    background-color: #EBAA12; 
+    border-color: #856416; 
+  } 
+   
+  .btn-cancel:active, 
+  .btn-cancel.active, 
+  .open .dropdown-toggle.btn-cancel { 
+    background-image: none; 
+  } 
+   
+  .btn-cancel.disabled, 
+  .btn-cancel[disabled], 
+  fieldset[disabled] .btn-cancel, 
+  .btn-cancel.disabled:hover, 
+  .btn-cancel[disabled]:hover, 
+  fieldset[disabled] .btn-cancel:hover, 
+  .btn-cancel.disabled:focus, 
+  .btn-cancel[disabled]:focus, 
+  fieldset[disabled] .btn-cancel:focus, 
+  .btn-cancel.disabled:active, 
+  .btn-cancel[disabled]:active, 
+  fieldset[disabled] .btn-cancel:active, 
+  .btn-cancel.disabled.active, 
+  .btn-cancel[disabled].active, 
+  fieldset[disabled] .btn-cancel.active { 
+    background-color: #D69708; 
+    border-color: #856416; 
+  } 
+   
+  .btn-cancel .badge { 
+    color: #D69708; 
+    background-color: #ffffff; 
+  }
