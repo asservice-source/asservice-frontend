@@ -1,15 +1,18 @@
 .footer-indext{
-    /* min-height: 130px; */
     width: 100%;
     background-color: #9b9898;
     padding: 10px;
+    right: 0;
+    bottom: 0;
+    left: 0;
 }
+
 .footer-indext .row{
     padding: 0; margin: 0;
 }
 .mobile-apps{
-   
-    
+
+
 }
 .copyright{
     /* position: absolute;
