@@ -51,8 +51,9 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
   public isBirthDate: boolean = false;
   public isDischargeDate: boolean = false;
   public homeId: string;
-  constructor(private changeRef: ChangeDetectorRef) { 
+  constructor(private changeRef: ChangeDetectorRef) {
     super();
+    this.msgError_CitizenIdEmty = this.msgError_CitizenIdNoFormat;
     this.bean = new PersonalBasicBean();
     this.inputValidate = new InputValidateInfo();
     this.inputValidateAddress = new InputValidateInfo();
@@ -186,7 +187,7 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
     }
   }
   onChangeBirthDate(event: any){
-    
+
   }
   onChangeProvince(){
     this.bean.amphurCode = '';
@@ -250,10 +251,10 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
         if(resp.status.toUpperCase()=="SUCCESS"){
           let person = resp.response;
           if(person && person.personId){
-           
+
             let msg = 'หมายเลขประชาชน <b>'+ _self.formatCitizenId(_self.bean.citizenId) +'</b> มีข้อมูลในระบบแล้ว';
             if(person.isDead){
-             
+
               msg += ' แต่ไม่มีสิทธิ์แก้ไขข้อมูลได้';
               msg += '<br>เนื่องจากสถานะบุคคลไม่สามารถดำเนินการได้';
               _self.message_error('', msg);
@@ -295,7 +296,7 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
                 }
               });
             }
-            
+
           }else{
             _self.isVerify = true;
           }
@@ -321,7 +322,7 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
 
     if(this.isValidCitizenIdThailand(this.bean.citizenId)){
       let birthDate = this.modelBirthDate && this.getStringDateForDatePickerModel(this.modelBirthDate.date);
-      
+
       this.bean.birthDate = birthDate || '';
       let fildsCheck = ['citizenId', 'firstName', 'lastName', 'prefixCode', 'genderId', 'raceCode', 'nationCode', 'religionCode', 'birthDate', 'educationCode', 'occupCode', 'familyStatusId', 'isGuest'];
       if(this.bean.isGuest){
@@ -330,8 +331,8 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
         this.inputValidateAddress.isCheck = true;
         this.changeRef.detectChanges();
       }else{
-        // Home Address  Added to Personal Address 
-        
+        // Home Address  Added to Personal Address
+
         this.bean.homeNo = this.address.homeNo;
         this.bean.mooNo = this.address.mooNo;
         this.bean.road = this.address.road;
@@ -370,7 +371,7 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
                 let response = resp.response;
                 if(response && resp.status.toUpperCase()=='SUCCESS'){
                   _self.bean.personId = response.personId;
-                  _self.success.emit({"success": true, "bean": _self.bean ,"message": _self.actionName + ' สมาชิกใหม่เรียบร้อย'}); 
+                  _self.success.emit({"success": true, "bean": _self.bean ,"message": _self.actionName + ' สมาชิกใหม่เรียบร้อย'});
                 }else{
                   _self.success.emit({"success": false, "bean": _self.bean, "message": 'ไม่สามารถ'+_self.actionName+'ได้'});
                 }
@@ -381,7 +382,7 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
             _self.loading = false;
             _self.message_error('', 'ไม่สามารถตรวจสอบข้อมูลเลขประชาชนได้');
           }
-    
+
         });
 
       }else{
@@ -414,7 +415,7 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
       this.modelDischargeDate = this.getCurrentDatePickerModel(this.bean.dischargeDate);
     }else{
       this.modelDischargeDate = null;
-    } 
+    }
 
   }
 }
