@@ -8,7 +8,7 @@
 
     <div class="row">
       <div class="col-md-4">
-        <div class="survey-card mosquito" routerLink="/main/surveys/pending-mosquito">
+        <div class="survey-card mosquito" [routerLink]="routerMosquito">
           <div class="row">
             <div class="col-md-3 text-right">
               <img class="imgSurvey" src="../../assets/img/mosquito_circle.png" title="ลูกน้ำยุงลาย">
@@ -35,7 +35,7 @@
 
 
       <div class="col-md-4">
-        <div class="survey-card metabolic" routerLink="/main/surveys/pending-metabolic">
+        <div class="survey-card metabolic" [routerLink]="routerMetabolic">
           <div class="row">
             <div class="col-md-3 text-right">
               <img class="imgSurvey" src="../../assets/img/metabolic_circle.png" title="ผู้มีความเสี่ยงโรค">
@@ -60,7 +60,7 @@
       </div>
 
       <div class="col-md-4">
-        <div class="survey-card population" routerLink="/main/surveys/pending-personal">
+        <div class="survey-card population" [routerLink]="routerPopulation">
           <div class="row">
             <div class="col-md-3 text-right">
               <img class="imgSurvey" src="../../assets/img/home_circle.png" title="ครัวเรือน">

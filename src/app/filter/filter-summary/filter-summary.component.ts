@@ -11,6 +11,7 @@ declare var $:any;
 export class FilterSummaryComponent extends BaseComponent{
     @Input() subfixPath: string;
     @Input() report: string;
+    @Input() title: string;
     @Output() process: any;
     public reportPath = 'http://192.168.1.203:8080/api-asservice-front/report/';
     private api: ApiHTTPService;
@@ -27,16 +28,16 @@ export class FilterSummaryComponent extends BaseComponent{
     public personId: string;
     public isOffVillage: boolean = true;
     public isOffOsm: boolean = true;
-  
+
     constructor() {
       super();
       this.api = new ApiHTTPService();
       this.isStaff = this.isStaffRole(this.userInfo.roleId);
       this.inputvalidate = new InputValidateInfo();
     }
-  
+
     ngOnInit() {
-  
+
       this.setDropdownListRounds();
       if(!this.isStaff){
         this.osmId = this.userInfo.personId;
@@ -44,7 +45,7 @@ export class FilterSummaryComponent extends BaseComponent{
       }else{
         this.setDropdownListVillages();
       }
-  
+
       this.personId = this.userInfo.personId;
     }
     setDropdownListRounds(){
@@ -93,7 +94,7 @@ export class FilterSummaryComponent extends BaseComponent{
         $form.append($params);
         $form.css('display', 'none');
         $('body').append($form);
-  
+
         $form.submit();
         $form.remove();
       }

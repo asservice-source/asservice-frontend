@@ -1,6 +1,6 @@
 export class DeadBean{
     public rowGUID: string;
-    public documentId: string; 
+    public documentId: string;
     public osmId: string;
     public personId: string;
     public hospDeath: string;
@@ -14,6 +14,7 @@ export class DeadBean{
     public causeOther: string;
     public isNoDisease: boolean;
     public deathPlaceCode: string;
+    public deathPlaceName: string;
     public placeOther: string;
 
     public fullName: string;

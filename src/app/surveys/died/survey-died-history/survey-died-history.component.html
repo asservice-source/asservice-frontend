@@ -7,7 +7,7 @@
       <div class="modal-header">
         <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
         <h4 class="modal-title">รายละเอียดผู้เสียชีวิต</h4>
-      </div> 
+      </div>
      <div class="row">
         <div class="col-md-12">
             <div class="row">
@@ -18,7 +18,7 @@
                   <label class="value">{{bean.fullName}}</label>
               </div>
             </div>
-            
+
             <div class="row">
               <div class="col-md-4 text-right">
                 <label>หมายเลขประจำตัว</label>
@@ -59,7 +59,7 @@
             <div class="col-md-4" style="padding-right: 0;">
               <label class="value">{{bean.mHours+':'+bean.mMins}} น.</label>
             </div>
-            
+
         </div>
 
         <div class="row">
@@ -79,7 +79,7 @@
                         </span>
                         โรคเบาหวาน
                     </label>
-                  </div> 
+                  </div>
                 </div>
               </div>
 
@@ -93,7 +93,7 @@
                         </span>
                         โรคความดันโลหิตสูง
                     </label>
-                  </div> 
+                  </div>
                 </div>
               </div>
 
@@ -107,7 +107,7 @@
                         </span>
                         อุบัติเหตุ
                     </label>
-                  </div> 
+                  </div>
                 </div>
               </div>
 
@@ -121,7 +121,7 @@
                         </span>
                         โรคมะเร็ง
                     </label>
-                  </div> 
+                  </div>
                 </div>
                 <div class="col-md-8" style="padding-left: 0">
                   <div  *ngIf="bean.isCancer">
@@ -140,7 +140,7 @@
                           </span>
                           สาเหตุอื่นๆ
                       </label>
-                    </div> 
+                    </div>
                   </div>
                 <div *ngIf="bean.isCauseOther" class="col-md-8" style="padding-left: 0">
                   <label class="value">{{bean.causeOther}}</label>
@@ -154,7 +154,7 @@
               <label >โรคประจำตัว</label>
             </div>
             <div class="col-md-5">
-              
+
               <div class="row">
 
                 <div class="col-md-3">
@@ -166,7 +166,7 @@
                       </span>
                       ไม่มี
                     </label>
-                  </div> 
+                  </div>
                 </div>
 
                 <div class="col-md-3">
@@ -178,32 +178,32 @@
                       </span>
                       มี
                     </label>
-                  </div> 
-                  
+                  </div>
+
                 </div>
               </div>
             </div>
           </div>
-    
+
           <div class="row">
             <div class="col-md-4 text-right">
               <label>สถานที่เสียชีวิต</label>
             </div>
-    
+
             <div class="col-md-5" *ngIf="bean.deathPlaceCode!='9'">
-                <label class="value">{{bean.placeName}}</label>
+                <label class="value">{{bean.deathPlaceName}}</label>
             </div>
             <div class="col-md-5" *ngIf="bean.deathPlaceCode=='9'">
                 <label class="value">{{bean.placeOther}}</label>
             </div>
         </div>
-          <div class="modal-footer">  
-            <button class="btn btn-sm btn-primary" data-dismiss="modal">ปิด</button>   
+          <div class="modal-footer">
+            <button class="btn btn-sm btn-primary" data-dismiss="modal">ปิด</button>
           </div>
 
           </div>
      </div>
-    <!-- /END Form -->    
+    <!-- /END Form -->
     </div>
 <!-- End panel-body -->
   </div>

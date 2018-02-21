@@ -20,6 +20,9 @@ export class ContentComponent extends BaseComponent implements OnInit {
   public roundMonitorhici: any = {};
   public roundMetabolic: any = {};
   public roundPopulation: any = {};
+  public routerMosquito: string = "/main/surveys/pending-mosquito";
+  public routerMetabolic: string = "/main/surveys/pending-metabolic";
+  public routerPopulation: string = "/main/surveys/pending-personal";
 
   // Graph
   public barChartOptions: any = {
@@ -54,8 +57,11 @@ export class ContentComponent extends BaseComponent implements OnInit {
       self.roundPopulation = data;
     });
 
-   
+
     if(this.isStaffRole(this.userInfo.roleId)){
+      this.routerMetabolic = '/main/surveys/metabolic';
+      this.routerMosquito = '/main/surveys/mosquito';
+      this.routerPopulation = '/main/surveys/personal';
       self.apiHttp.statistic_family_summary_hospital(function (d) {
         if (d != null && d.status.toString().toUpperCase() == "SUCCESS") {
           let data = d.response;
@@ -82,13 +88,13 @@ export class ContentComponent extends BaseComponent implements OnInit {
         self.setDataResponses(d);
       });
     }
-    
+
   }
 
   setDataResponses(d:any){
     let death = 0, cancer = 0, pregnant = 0, patient = 0, metabolic = 0;
     let noMosquito = 0, detectedMosquito = 0;
-    let self = this; 
+    let self = this;
     if (d != null && d.status.toString().toUpperCase() == "SUCCESS") {
       let data = d.response;
       for (let item of data) {
@@ -141,7 +147,7 @@ export class ContentComponent extends BaseComponent implements OnInit {
       self.barChartData = [{ data: [death, cancer, pregnant, patient, metabolic] }];
       self.pieChartData = [detectedMosquito, noMosquito];
     }
-  
+
   }
   // events
   public barChartClicked(e: any): void {
