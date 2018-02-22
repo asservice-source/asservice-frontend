@@ -18,8 +18,13 @@
     /* position: absolute;
     text-align: center;
     width: 100%;
-    bottom: 0;
-    padding: 10px; */
+    bottom: 0; */
+    color: #000;
+    padding-top: 5px;
+
+}
+.copyright a{
+  color: #000;
 }
 .sitemap a{
     color: #f5f5f5;
