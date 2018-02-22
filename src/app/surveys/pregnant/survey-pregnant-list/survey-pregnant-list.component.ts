@@ -9,6 +9,7 @@ import { PregnantBean } from '../../../beans/pregnant.bean'
 import { Service_SurveyPregnant } from '../../../api-managements/service-survey-pregnant';
 import { CompileMetadataResolver } from '@angular/compiler';
 import { MapsBean } from '../../../multi-maps/multi-maps.component';
+import { ActionCustomSurveyHistoryComponent } from '../../../action-custom-table/action-custom-view.component';
 declare var $: any
 
 @Component({
@@ -38,6 +39,7 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
   public param_info: string = "";
   public param_listPosition: Array<MapsBean>;
 
+  public columns: any;
   public settings: any;
   public source: LocalDataSource;
   public isShowTable: boolean = true;
@@ -51,7 +53,7 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
 
     self.filter_bean = new FilterHeadSurveyBean();
 
-    self.settings = self.getTableSetting({
+    self.columns = {
       fullName: {
         title: 'ชื่อ - นามสกุล',
         width: '180px',
@@ -166,7 +168,10 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
 
         }
       }
-    });
+    };
+
+    self.settings = self.getTableSetting(self.columns);
+
   }
 
   ngOnInit() {
@@ -183,6 +188,58 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
     // รอบปัจจุบัน
     if (self.isEmpty(self.current_documentId))
       self.current_documentId = event.rowGUID;
+
+    if (self.current_documentId == event.rowGUID) {
+      self.columns.action = {
+        title: 'การทำงาน',
+        filter: false,
+        sort: false,
+        width: '120px',
+        type: 'custom',
+        renderComponent: SurveyPregnantListButtonEditComponent, onComponentInitFunction(instance) {
+          instance.action.subscribe((row: PregnantBean, cell) => {
+            if (row && row.action.toUpperCase() == self.ass_action.EDIT) {
+              self.param_rowGUID = row.rowGUID;
+              self.onModalForm(self.ass_action.EDIT);
+            }
+          });
+          instance.delete.subscribe(row => {
+            self.onDeleteSurveyPregnant(row);
+          });
+          instance.maps.subscribe(row => {
+            self.loading = true;
+
+            self.apiHttp.get_pregnant_info(row.rowGUID, function (d) {
+              let data = d.response;
+              if (!self.isEmptyObject(data)) {
+                self.param_latitude = data.latitude;
+                self.param_longitude = data.longitude;
+                self.param_info = 'บ้านของ ' + data.fullName;
+                self.changeRef.detectChanges();
+                $("#modalMaps").modal("show");
+              }
+              self.loading = false;
+            });
+          });
+        }
+      };
+
+      self.settings = self.getTableSetting(self.columns);
+    } else {
+      self.columns.action = {
+        title: 'จัดการ',
+        filter: false,
+        sort: false,
+        width: '100px',
+        type: 'custom',
+        renderComponent: ActionCustomSurveyHistoryComponent, onComponentInitFunction(instance) {
+          instance.view.subscribe(row => {
+            self.onHistory(row);
+          });
+        }
+      }
+      self.settings = self.getTableSetting(self.columns);
+    }
 
     self.filter_documentId = event.rowGUID;
     self.filter_villageId = event.villageId;
@@ -270,6 +327,19 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
       self.changeRef.detectChanges();
       $("#find-person-md").modal("show");
     }
+  }
+
+  onHistory(row: any) {
+    let self = this;
+
+    self.loading = true;
+
+    self.apiHttp.get_pregnant_info(row.rowGUID, function (d) {
+      self.param_pregnantBean = d.response;
+      self.changeRef.detectChanges();
+      $("#modal-history-pregnant").modal("show");
+      self.loading = false;
+    });
   }
 
   onEditSurveyPregnant() {
