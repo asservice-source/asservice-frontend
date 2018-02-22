@@ -93,6 +93,7 @@ import { SurveyMosquitoPendingListComponent } from './surveys/mosquito/survey-mo
 import { SurveyMetabolicPendingListComponent } from './surveys/metabolic/survey-metabolic-pending-list/survey-metabolic-pending-list.component';
 import { SurveyPersonalPendingListComponent } from './surveys/personal/survey-personal-pending-list/survey-personal-pending-list.component';
 import { FilterSummaryComponent } from './filter/filter-summary/filter-summary.component';
+import {SummaryPregnantComponent} from './summary/summary-pregnant/summary-pregnant.component';
 
 @NgModule({
   declarations: [
@@ -179,7 +180,8 @@ import { FilterSummaryComponent } from './filter/filter-summary/filter-summary.c
     IndexContactusComponent,
     IndexAboutSystemComponent,
     SurveyPersonalPendingListComponent,
-    FilterSummaryComponent
+    FilterSummaryComponent,
+    SummaryPregnantComponent
   ],
   imports: [
     BrowserModule,
