@@ -93,7 +93,11 @@ import { SurveyMosquitoPendingListComponent } from './surveys/mosquito/survey-mo
 import { SurveyMetabolicPendingListComponent } from './surveys/metabolic/survey-metabolic-pending-list/survey-metabolic-pending-list.component';
 import { SurveyPersonalPendingListComponent } from './surveys/personal/survey-personal-pending-list/survey-personal-pending-list.component';
 import { FilterSummaryComponent } from './filter/filter-summary/filter-summary.component';
+<<<<<<< HEAD
 import { SurveyPregnantHistoryComponent } from './surveys/pregnant/survey-pregnant-history/survey-pregnant-history.component';
+=======
+import {SummaryPregnantComponent} from './summary/summary-pregnant/summary-pregnant.component';
+>>>>>>> fb14660e85ea97df59cc19fddebe6c7f99bb02e7
 
 @NgModule({
   declarations: [
@@ -181,7 +185,11 @@ import { SurveyPregnantHistoryComponent } from './surveys/pregnant/survey-pregna
     IndexAboutSystemComponent,
     SurveyPersonalPendingListComponent,
     FilterSummaryComponent,
+<<<<<<< HEAD
     SurveyPregnantHistoryComponent
+=======
+    SummaryPregnantComponent
+>>>>>>> fb14660e85ea97df59cc19fddebe6c7f99bb02e7
   ],
   imports: [
     BrowserModule,

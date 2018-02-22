@@ -33,6 +33,7 @@ import { IndexComponent } from "../index/index.component";
 import { IndexContentComponent } from "../index/content/content.component";
 import { IndexContactusComponent } from "../index/contactus/contactus.component";
 import { IndexAboutSystemComponent } from "../index/about-system/about-system.component";
+import {SummaryPregnantComponent} from '../summary/summary-pregnant/summary-pregnant.component';
 
 @NgModule({
   imports: [
@@ -198,6 +199,11 @@ import { IndexAboutSystemComponent } from "../index/about-system/about-system.co
             {
               path: 'died',
               component: SummaryDiedComponent
+            }
+            ,
+            {
+              path: 'pregnant',
+              component: SummaryPregnantComponent
             },
           ]
         }
