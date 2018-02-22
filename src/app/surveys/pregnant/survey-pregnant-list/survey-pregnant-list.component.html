@@ -25,6 +25,7 @@
 
 <app-survey-pregnant-form [action]="action" [surveyTypeCode]="surveyTypeCode" [documentId]="current_documentId" [data]="param_pregnantBean"
   [rowGUID]="param_rowGUID" (memberUpdated)="onUpdatedMember($event);"></app-survey-pregnant-form>
+<app-survey-pregnant-history [data]="param_pregnantBean"></app-survey-pregnant-history>
 <ass-loading [show]="loading"></ass-loading>
 
 <div id="modalMaps" class="modal fade" role="dialog" data-backdrop="false" data-keyboard="false">
@@ -54,27 +55,27 @@
 </div>
 
 <div id="modalMultiMaps" class="modal fade" role="dialog" data-backdrop="false" data-keyboard="false">
-    <div class="modal-lg modal-dialog">
-  
-      <!-- Modal content-->
-      <div class="modal-content">
-  
-        <div class="modal-header">
-          <h4 class="modal-title">แผนที่</h4>
-        </div>
-  
-        <div class="row">
-          <div class="col-md-12">
-            <app-multi-maps [reset]="param_reset" [list]="param_listPosition" [defaultAddress]="userInfo.address"></app-multi-maps>
-          </div>
-        </div>
-  
-        <div class="modal-footer">
-          <div class="panel-body text-right">
-            <button class="btn btn-primary btn-sm" data-dismiss="modal">กลับ</button>
-          </div>
-        </div>
-  
+  <div class="modal-lg modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h4 class="modal-title">แผนที่</h4>
       </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <app-multi-maps [reset]="param_reset" [list]="param_listPosition" [defaultAddress]="userInfo.address"></app-multi-maps>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <div class="panel-body text-right">
+          <button class="btn btn-primary btn-sm" data-dismiss="modal">กลับ</button>
+        </div>
+      </div>
+
     </div>
   </div>
+</div>

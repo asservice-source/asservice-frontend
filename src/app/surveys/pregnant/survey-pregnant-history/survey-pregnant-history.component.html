@@ -1,0 +1,136 @@
+<div id="modal-history-pregnant" class="modal fade" role="dialog" data-backdrop="false" data-keyboard="false">
+  <div class="modal-lg modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">แบบสำรวจหญิงตั้งครรภ์</h4>
+      </div>
+
+      <div>
+
+        <div class="row">
+          <div class="col-sm-1">
+            &nbsp;
+          </div>
+          <div class="col-sm-10">
+            <div class="panel-body">
+              <div class="panel panel-default" style="margin-bottom: inherit;">
+                <div class="panel-body">
+                  <div class="box-body">
+                    <dl class="dl-horizontal">
+                      <dt>หมายเลขประจำตัว : </dt>
+                      <dd>{{ pregnantBean.citizenId }}</dd>
+                      <dt>ชื่อ-สกุล : </dt>
+                      <dd>{{ pregnantBean.fullName }}</dd>
+                      <dt>เพศ : </dt>
+                      <dd>{{ pregnantBean.genderId }}</dd>
+                      <dt>อายุ : </dt>
+                      <dd>{{ pregnantBean.age }}</dd>
+                      <dt>ที่อยู่ : </dt>
+                      <dd>{{ pregnantBean.address }}</dd>
+                    </dl>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3 text-right">
+            <label class="label-form">ครรภ์ที่</label>
+          </div>
+          <div class="col-md-3">
+            <label class="label-form">{{ pregnantBean.wombNo }}</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3 text-right">
+            <label class="label-form">สถานะครรภ์</label>
+          </div>
+          <div class="col-md-3">
+            <label class="label-form">{{ pregnantBean.pSurveyTypeCode }}</label>
+          </div>
+
+          <div [hidden]="isShowPregnantType">
+            <div class="col-md-2 text-right">
+              <label class="label-form">กำหนดคลอด</label>
+            </div>
+            <div class="col-md-3">
+              <label class="label-form">{{ pregnantBean.bornDueDate }}</label>
+            </div>
+          </div>
+
+          <div [hidden]="!isShowPregnantType">
+            <div class="col-md-1 text-right">
+              <label class="label-form">วันที่คลอด</label>
+            </div>
+            <div class="col-md-3">
+              <label class="label-form">{{ pregnantBean.bornDate }}</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" [hidden]="!isShowPregnantType">
+          <div class="col-md-3 text-right">
+            <label>โรงพยาบาลที่คลอด</label>
+          </div>
+          <div class="col-md-3">
+            <label class="label-form">{{ pregnantBean.bornLocationId }}</label>
+          </div>
+          <div class="col-md-1 text-right">
+            <label class="label-form">วิธีคลอด</label>
+          </div>
+          <div class="col-md-3">
+            <label class="label-form">{{ pregnantBean.bornTypeId }}</label>
+          </div>
+
+        </div>
+
+        <div class="row" *ngIf="!isHiddenBornTypeAbort">
+          <div class="col-md-3 text-right">
+            <label class="label-form">หมายเหตุ</label>
+          </div>
+          <div class="col-md-3">
+            <label class="label-form">{{ pregnantBean.abortionCause }}</label>
+          </div>
+        </div>
+
+        <div class="row" [hidden]="!(pregnantBean.pSurveyTypeCode == surveyTypeBorn && pregnantBean.bornTypeId != bornTypeAbort)">
+
+          <div class="col-md-12">
+            <div class="panel panel-default">
+
+              <div class="panel-heading">
+                ข้อมูลเด็กทารก
+              </div>
+
+              <div class="panel-body">
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <ng2-smart-table [settings]="settings" [source]="source" (rowSelect)="onRowSelect($event)"></ng2-smart-table>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+        <div class="panel-body text-right">
+            <button class="btn btn-primary btn-sm" data-dismiss="modal">กลับ</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<ass-loading [show]="loading"></ass-loading>
