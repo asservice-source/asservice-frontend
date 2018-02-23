@@ -29,6 +29,7 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
   public mosquitobean: MosquitoBean = new MosquitoBean();
   public loading;
   public isShowAddPlace: boolean = false;
+  public placeData: any = null;
 
  public param_reset: number = 0;
   public param_latitude: string = "";
@@ -146,8 +147,7 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
   }
 
   onChangeFilter(event: FilterHeadMosquitoBean) {
-    console.log("ChangeFilter");
-    //this.isShowList = false;
+
   }
 
   onSearch(event: FilterHeadMosquitoBean) {
@@ -218,7 +218,7 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
       "documentId": documentid,
       "homeId": homeid
     };
-    console.log(param);
+
 
     this.api.post('survey_hici/del_hici_info', param, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
@@ -253,7 +253,7 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
       "documentId": docId,
       "homeId": homeId
     }
-    console.log(param);
+
     this.api.post('survey_hici/hici_by_homeid', param, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.mosquitobean = resp.response;

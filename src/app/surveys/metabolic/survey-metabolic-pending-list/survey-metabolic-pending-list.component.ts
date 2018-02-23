@@ -5,6 +5,7 @@ import { LocalDataSource } from 'ng2-smart-table';
 import { Router } from '@angular/router';
 import { MetabolicBean } from '../../../beans/metabolic.bean';
 import { Service_SurveyMetabolic } from '../../../api-managements/service-survey-metabolic';
+import {PersonBean} from '../../../beans/person.bean';
 declare var $;
 
 @Component({
@@ -22,7 +23,7 @@ export class SurveyMetabolicPendingListComponent extends BaseComponent implement
   public action: string = "";
   public documentId: string = "";
   public roundInfo: any;
-  public metabolicBean: MetabolicBean = new MetabolicBean();
+  public personData: PersonBean = new PersonBean();
 
   public loading: boolean = false;
 
@@ -96,13 +97,12 @@ export class SurveyMetabolicPendingListComponent extends BaseComponent implement
         renderComponent: ActionCustomSurveyComponent,
         onComponentInitFunction(instance) {
 
-          instance.survey.subscribe((row: MetabolicBean, cell) => {
+          instance.survey.subscribe((row: any, cell) => {
             // self.metabolicBean = new MetabolicBean();
-            // self.metabolicBean = self.cloneObj(row);
+            self.personData = self.cloneObj(row);
             self.action = self.ass_action.ADD;
-            this.changeRef.detectChanges();
+            self.changeRef.detectChanges();
             $('#find-person-md').modal('show');
-            // self.getSurveyData(row.rowGUID);
           });
 
         }
@@ -139,8 +139,8 @@ export class SurveyMetabolicPendingListComponent extends BaseComponent implement
 
     self.apiHttp.getMetabolicInfo(rowGUID, function (d) {
       if (d.response && d.status.toUpperCase() == 'SUCCESS') {
-        self.metabolicBean = self.cloneObj(d.response);
-        this.changeRef.detectChanges();
+        self.personData = self.cloneObj(d.response);
+        self.changeRef.detectChanges();
         $('#find-person-md').modal('show');
       }
       self.loading = false;
@@ -163,10 +163,6 @@ export class SurveyMetabolicPendingListComponent extends BaseComponent implement
     let self = this;
 
     self.route.navigate(['']);
-  }
-
-  reloadData(event){
-
   }
 
 }

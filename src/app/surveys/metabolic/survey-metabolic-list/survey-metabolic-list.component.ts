@@ -29,6 +29,7 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
   public metabolicbean: MetabolicBean = new MetabolicBean();
   public action: string = this.ass_action.ADD;
   public filtersearch: FilterHeadSurveyBean;
+  public personData: any = null;
 
 
   //maps variable

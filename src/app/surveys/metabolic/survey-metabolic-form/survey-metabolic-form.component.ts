@@ -19,6 +19,7 @@ declare var $: any;
 export class SurveyMetabolicFormComponent extends BaseComponent implements OnInit, AfterViewInit {
   @Input() action: string;
   @Input() data: MetabolicBean;
+  @Input() personData: MetabolicBean;
   @Input() documentId: string;
 
   @Input() set citizenID(citizenID: string) {
@@ -67,7 +68,7 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
   public errorOthercomplication;
   public isErrorOverWeight;
   public isErrorOverHeight;
-
+  public isPending: boolean = false;
 
   constructor(private http: Http, private changeRef: ChangeDetectorRef) {
     super();
@@ -81,7 +82,7 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
   }
 
   ngAfterViewInit() {
-   
+
   }
 
   calculateBMI() {
@@ -121,11 +122,10 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
   }
 
   onChoosePersonal(bean: any): void {
-    console.log(bean);
     this.metabolicbean = new MetabolicBean();
     this.metabolicbean = this.cloneObj(bean);
     if (this.ass_action.ADD == this.action) {
-      console.log(this.action);
+
       this.changeRef.detectChanges();
       this.metabolicbean.hInsuranceTypeId = "89";
       this.activeBtnsmoke("2");
@@ -161,7 +161,7 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
     this.errorOthercomplication = "";
 
 
-    if (this.ass_action.EDIT == this.action) {
+    if (this.ass_action.EDIT == this.action || this.isPending) {
       $('#find-person-md').modal('hide');
     }
   }
@@ -170,6 +170,7 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
 
     let self = this;
     $('#find-person-md').on('show.bs.modal', function (e) {
+      self.isPending = false;
       self.resetFind = self.resetFind + 1;
       if (self.action == self.ass_action.EDIT) {
         self.onChoosePersonal(self.data);
@@ -186,11 +187,14 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
           self.metabolicbean.bp2HG = self.splitBP(self.data.bp2)[1];
         }
 
+      }else if(self.action==self.ass_action.ADD && self.personData){
+        self.onChoosePersonal(self.data);
+        self.isPending = true;
       }
       self.changeRef.detectChanges();
     })
     $('#find-person-md').on('hidden.bs.modal', function () {
-      console.log("hide.bs.modal");
+
       self.isShowForm = false;
       self.isFindPersonal = true;
       self.resetFind = self.resetFind + 1;
@@ -439,9 +443,6 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
         "bmi": this.metabolicbean.bmi || "",
         "personId": this.metabolicbean.personId || "",
       }
-
-      console.log(Object.keys(obj).length);
-      console.log(JSON.stringify(obj));
 
       self.message_comfirm('', 'ยืนยันการทำแบบสำรวจ', function (confirm) {
         if (confirm) {

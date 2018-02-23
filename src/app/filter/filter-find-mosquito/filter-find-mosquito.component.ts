@@ -206,7 +206,7 @@ export class FilterFindMosquitoComponent extends BaseComponent implements OnInit
   }
 
   onChoosePlace(homeBean: HomeBean) {
-    console.log(homeBean);
+    console.log('onChoosePlace',homeBean);
     this.isShowFind = false;
     this.choosePlace.emit(homeBean);
   }

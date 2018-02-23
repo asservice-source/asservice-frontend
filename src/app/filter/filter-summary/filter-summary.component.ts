@@ -86,7 +86,7 @@ export class FilterSummaryComponent extends BaseComponent{
         console.log(obj);
         let path = this.reportPath+_self.subfixPath;
         let $params = '<input name="SurveyHeaderRowGUID" value="'+this.roundRowGuid+'" >';
-        $params += ' <input name="DeadName" value="'+this.searchName+'" >';
+        $params += ' <input name="Name" value="'+this.searchName+'" >';
         $params += ' <input name="OSMPersonID" value="'+this.osmId+'" >';
         $params += ' <input name="VillageID" value="'+this.villageId+'" >';
         $params += ' <input name="UserPersonID" value="'+this.personId+'" >';

@@ -23,8 +23,8 @@ export class SurveyMosquitoPendingListComponent extends BaseComponent implements
   public documentId: string = "";
   public roundInfo: any;
   public mosquitoBean: MosquitoBean = new MosquitoBean();
-
   public loading: boolean = false;
+  public placeData: any;
 
   constructor(private changeRef: ChangeDetectorRef, private route: Router) {
     super();
@@ -96,13 +96,14 @@ export class SurveyMosquitoPendingListComponent extends BaseComponent implements
         renderComponent: ActionCustomSurveyComponent,
         onComponentInitFunction(instance) {
 
-          instance.survey.subscribe((row: MosquitoBean, cell) => {
-            // self.mosquitoBean = new MosquitoBean();
-            // self.mosquitoBean = self.cloneObj(row);
+          instance.survey.subscribe((row, cell) => {
             self.action = self.ass_action.ADD;
-            this.changeRef.detectChanges();
+            self.placeData = self.cloneObj(row);
+            self.placeData.osmId = self.userInfo.personId;
+            self.changeRef.detectChanges();
+
             $('#find-person-md').modal('show');
-            // self.getSurveyData(row.documentId, row.homeId);
+
           });
 
         }
@@ -122,30 +123,14 @@ export class SurveyMosquitoPendingListComponent extends BaseComponent implements
         let params = { "documentId": r.rowGUID, "osmId": self.userInfo.personId };
 
         self.apiHttp.post('survey_hici/search_hici_info_list_not_survey', params, function (d) {
+          self.loading = false;
           if (d != null && d.status.toUpperCase() == "SUCCESS") {
             self.source = self.ng2STDatasource(d.response);
           }
           self.changeRef.detectChanges();
-          self.loading = false;
+
         });
       }
-    });
-  }
-
-  getSurveyData(docId, homeId) {
-    let self = this;
-
-    self.loading = true;
-
-    let params = { "documentId": docId, "homeId": homeId };
-
-    self.apiHttp.post('survey_hici/hici_by_homeid', params, function (resp) {
-      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-        self.mosquitoBean = resp.response;
-        self.changeRef.detectChanges();
-        $('#find-person-md').modal('show');
-      }
-      self.loading = false;
     });
   }
 

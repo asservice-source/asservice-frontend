@@ -95,6 +95,7 @@ import { SurveyPersonalPendingListComponent } from './surveys/personal/survey-pe
 import { FilterSummaryComponent } from './filter/filter-summary/filter-summary.component';
 import { SurveyPregnantHistoryComponent } from './surveys/pregnant/survey-pregnant-history/survey-pregnant-history.component';
 import { SummaryPregnantComponent } from './summary/summary-pregnant/summary-pregnant.component';
+import {SummaryPatientComponent} from './summary/summary-patient/summary-patient.component';
 
 @NgModule({
   declarations: [
@@ -183,7 +184,8 @@ import { SummaryPregnantComponent } from './summary/summary-pregnant/summary-pre
     SurveyPersonalPendingListComponent,
     FilterSummaryComponent,
     SurveyPregnantHistoryComponent,
-    SummaryPregnantComponent
+    SummaryPregnantComponent,
+    SummaryPatientComponent
   ],
   imports: [
     BrowserModule,

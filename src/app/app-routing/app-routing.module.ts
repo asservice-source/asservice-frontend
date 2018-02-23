@@ -34,6 +34,7 @@ import { IndexContentComponent } from "../index/content/content.component";
 import { IndexContactusComponent } from "../index/contactus/contactus.component";
 import { IndexAboutSystemComponent } from "../index/about-system/about-system.component";
 import {SummaryPregnantComponent} from '../summary/summary-pregnant/summary-pregnant.component';
+import {SummaryPatientComponent} from '../summary/summary-patient/summary-patient.component';
 
 @NgModule({
   imports: [
@@ -205,6 +206,10 @@ import {SummaryPregnantComponent} from '../summary/summary-pregnant/summary-preg
               path: 'pregnant',
               component: SummaryPregnantComponent
             },
+            {
+              path: 'patient',
+              component: SummaryPatientComponent
+            }
           ]
         }
 

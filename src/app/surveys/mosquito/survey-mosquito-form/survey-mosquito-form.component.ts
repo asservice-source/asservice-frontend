@@ -15,6 +15,7 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
   @Input() action: string;
   @Input() data: MosquitoBean;
   @Input() documentId: string;
+  @Input() placeData: any;
   @Output() completed: EventEmitter<any> = new EventEmitter<any>();
 
   public isFindHome: boolean = true;
@@ -27,6 +28,7 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
   public obj = [];
   public isShowAddPlace = false;
   public mosquitobean: MosquitoBean;
+  public isFromPending: boolean = false;
 
   public valSurveyTotal: any = {};
   ngAfterViewInit(): void {
@@ -76,7 +78,7 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
 
     this.isFindHome = true;
     this.isShowForm = false;
-    if (this.ass_action.EDIT == this.action) {
+    if (this.ass_action.EDIT == this.action || this.isFromPending) {
       $('#find-person-md').modal('hide');
     }
   }
@@ -95,14 +97,18 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
     let self = this;
     $('#find-person-md').on('show.bs.modal', function (e) {
       self.resetFind = self.resetFind + 1;
-      console.log(self.action)
+      self.isFromPending = false;
+
       if (self.action == self.ass_action.EDIT) {
         self.onChoosePlace(self.data);
+      }else if(self.action == self.ass_action.ADD && self.placeData){
+        self.onChoosePlace(self.placeData);
+        self.isFromPending = true;
       }
       self.changeRef.detectChanges();
     })
     $('#find-person-md').on('hidden.bs.modal', function () {
-      console.log("hide.bs.modal");
+
       self.isShowForm = false;
       self.isFindHome = true;
       self.resetFind = self.resetFind + 1;
@@ -131,7 +137,7 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
     let self = this;
     let params = {};
     this.api.post('survey_hici/container_type_list', params, function (resp) {
-      console.log(resp);
+
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.containerTypeList = resp.response;
       }
@@ -162,8 +168,6 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
         self.obj[i] = false;
       }
     }
-    console.log(this.obj);
-    console.log(validate);
     return validate;
   }
 
@@ -177,7 +181,6 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
       listContainerType: this.mosquitobean.listContainerType
     }
     let params = JSON.stringify(objs);
-    console.log(objs);
 
     let sumtotal = 0;
     for (let i = 0; i < this.containerTypeList.length; i++) {
@@ -193,7 +196,6 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
           if (confirm) {
             self.loading = true;
             self.api.post('survey_hici/ins_upd_hici_info', params, function (resp) {
-              console.log(resp);
               self.loading = false;
               if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
                 $("#find-person-md").modal('hide');
