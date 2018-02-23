@@ -1,11 +1,12 @@
 import { Component, OnInit, Input, EventEmitter, Output, ChangeDetectorRef } from '@angular/core';
+import { BaseComponent } from '../base-component';
 
 @Component({
   selector: 'app-maps',
   templateUrl: './maps.component.html',
   styleUrls: ['./maps.component.css']
 })
-export class MapsComponent implements OnInit {
+export class MapsComponent extends BaseComponent implements OnInit {
 
   @Input() mode: string;
   @Input() latitude: string;
@@ -22,14 +23,14 @@ export class MapsComponent implements OnInit {
   public info_content = "";
 
   constructor(private _changeRef: ChangeDetectorRef) {
-
+    super();
   }
 
   ngOnInit() {
 
   }
 
-  ngOnChanges() { 
+  ngOnChanges() {
     let self = this;
 
     let latlng = self.getLatLong();
@@ -40,7 +41,8 @@ export class MapsComponent implements OnInit {
       self.info_content = self.info;
     } else {
       self.zoom = 15;
-      self.center = self.defaultAddress || "Thailand";
+      let adr = 'ตำบล' + self.userInfo.hospitalTumbolName + ' อำเภอ' + self.userInfo.hospitalAmphurName + ' จังหวัด' + self.userInfo.hospitalProvinceName + ' ' + self.userInfo.hospitalZipCode;
+      self.center = self.defaultAddress || adr;
       self.position = "";
     }
   }

@@ -1,11 +1,13 @@
 import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
+import { BaseComponent } from '../base-component';
+import { } from '@types/googlemaps';
 
 @Component({
   selector: 'app-multi-maps',
   templateUrl: './multi-maps.component.html',
   styleUrls: ['./multi-maps.component.css']
 })
-export class MultiMapsComponent implements OnInit {
+export class MultiMapsComponent extends BaseComponent implements OnInit {
 
   @Input() list: any;
   @Input() reset: any;
@@ -18,6 +20,8 @@ export class MultiMapsComponent implements OnInit {
   public map: any;
 
   constructor(private _changeRef: ChangeDetectorRef) {
+    super();
+
     let self = this;
 
     // let m1 = new MapsBean();
@@ -35,7 +39,7 @@ export class MultiMapsComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+
   }
 
   ngOnChanges(changes) {
@@ -52,6 +56,10 @@ export class MultiMapsComponent implements OnInit {
         if (self.map) {
           self.map.panTo(latLngLiteral);
         }
+      } else {
+        self.zoom = 15;
+        let adr = 'ตำบล' + self.userInfo.hospitalTumbolName + ' อำเภอ' + self.userInfo.hospitalAmphurName + ' จังหวัด' + self.userInfo.hospitalProvinceName + ' ' + self.userInfo.hospitalZipCode;
+        self.center = adr;
       }
     }
   }

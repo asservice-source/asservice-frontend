@@ -24,7 +24,7 @@
                       <dt>ชื่อ-สกุล : </dt>
                       <dd>{{ pregnantBean.fullName }}</dd>
                       <dt>เพศ : </dt>
-                      <dd>{{ pregnantBean.genderId }}</dd>
+                      <dd>{{ getGender(pregnantBean.genderId) }}</dd>
                       <dt>อายุ : </dt>
                       <dd>{{ pregnantBean.age }}</dd>
                       <dt>ที่อยู่ : </dt>
@@ -55,7 +55,7 @@
             <label class="label-form">{{ pregnantBean.pSurveyTypeCode }}</label>
           </div>
 
-          <div [hidden]="isShowPregnantType">
+          <div class="row" *ngIf="pregnantBean.pSurveyTypeCode != surveyTypeBorn">
             <div class="col-md-2 text-right">
               <label class="label-form">กำหนดคลอด</label>
             </div>
@@ -64,30 +64,29 @@
             </div>
           </div>
 
-          <div [hidden]="!isShowPregnantType">
-            <div class="col-md-1 text-right">
+          <div class="row" *ngIf="pregnantBean.pSurveyTypeCode == surveyTypeBorn">
+            <div class="col-md-2 text-right">
               <label class="label-form">วันที่คลอด</label>
             </div>
             <div class="col-md-3">
-              <label class="label-form">{{ pregnantBean.bornDate }}</label>
+              <label class="label-form">{{ bornDate }}</label>
             </div>
           </div>
         </div>
 
-        <div class="row" [hidden]="!isShowPregnantType">
+        <div class="row" *ngIf="pregnantBean.pSurveyTypeCode == surveyTypeBorn">
           <div class="col-md-3 text-right">
             <label>โรงพยาบาลที่คลอด</label>
           </div>
           <div class="col-md-3">
-            <label class="label-form">{{ pregnantBean.bornLocationId }}</label>
+            <label class="label-form">{{ bornLocationName }}</label>
           </div>
-          <div class="col-md-1 text-right">
+          <div class="col-md-2 text-right">
             <label class="label-form">วิธีคลอด</label>
           </div>
           <div class="col-md-3">
-            <label class="label-form">{{ pregnantBean.bornTypeId }}</label>
+            <label class="label-form">{{ bornTypeName }}</label>
           </div>
-
         </div>
 
         <div class="row" *ngIf="pregnantBean.bornTypeId == bornTypeAbort">
@@ -95,7 +94,7 @@
             <label class="label-form">หมายเหตุ</label>
           </div>
           <div class="col-md-3">
-            <label class="label-form">{{ pregnantBean.abortionCause }}</label>
+            <label class="label-form">{{ abortionCause }}</label>
           </div>
         </div>
 
