@@ -24,4 +24,9 @@ export class UserService {
     public genderName: string;
     public genderId: string;
     public picturePath: string;
+
+    public hospitalProvinceName: string;
+    public hospitalTumbolName: string;
+    public hospitalAmphurName: string;
+    public hospitalZipCode: string;
 }

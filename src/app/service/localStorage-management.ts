@@ -36,6 +36,11 @@ export class LocalStorageManagement{
         this.user.genderId = obj.genderId;
         this.user.genderName = obj.genderName  || ''
         this.user.picturePath = obj.picturePath  || '../../assets/img/avatar5.png'
+        this.user.hospitalProvinceName = obj.hospitalProvinceName || '';
+        this.user.hospitalAmphurName = obj.hospitalAmphurName || '';
+        this.user.hospitalTumbolName = obj.hospitalTumbolName || '';
+        this.user.hospitalZipCode = obj.hospitalZipCode || '';
+
 
     }
     updateStorage(){
