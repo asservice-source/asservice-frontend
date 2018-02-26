@@ -17,8 +17,8 @@ export class SessionManagement {
             let sessionTimes: number = this.storage.getSessionTimes();
             let diffTime: number = Date.now() - sessionTimes;
             console.log("diffTime", diffTime);
-            if(diffTime > timesLate){
-                localStorage.clear(); 
+            if(sessionTimes == undefined || diffTime > timesLate){
+                localStorage.clear();
                 this.router.navigate(["login"]);
                 return false;
             }
@@ -26,7 +26,7 @@ export class SessionManagement {
             this.storage.setUserInfo(jsonUInfo);
             if(!this.userService.userId){
                 this.router.navigate(["login"]);
-                return false;   
+                return false;
             }
             return true;
         }

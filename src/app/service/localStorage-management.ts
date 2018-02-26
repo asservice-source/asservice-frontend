@@ -12,8 +12,9 @@ export class LocalStorageManagement{
         if(!obj.userId){
             obj = JSON.parse(obj);
         }
-        localStorage.setItem("uinfo", JSON.stringify(obj));
-        localStorage.setItem("sessionTimes", (Date.now()).toString());
+        let item =  window.btoa(encodeURIComponent(JSON.stringify(obj)));
+        localStorage.setItem("uinfo", item);
+        localStorage.setItem("sessionTimes", btoa((Date.now()).toString()));
 
         this.user.userId = obj.userId
         this.user.personId =  obj.personId
@@ -44,15 +45,37 @@ export class LocalStorageManagement{
 
     }
     updateStorage(){
-        localStorage.setItem("uinfo", JSON.stringify(this.user));
+        let item = '';
+        if(this.user && this.user.userId){
+          item =  window.btoa(encodeURIComponent(JSON.stringify(this.user)));
+        }
+        console.log('USER INFO', item);
+        localStorage.setItem("uinfo", item);
     }
     getDataUserInfo():any{
-        return localStorage.getItem("uinfo");
+      try {
+        let item = localStorage.getItem("uinfo");
+        if(item){
+          return decodeURIComponent(window.atob(item));
+        }else {
+          return undefined;
+        }
+      }catch(e) {
+        //console.error("User Error", e);
+        localStorage.clear();
+        return undefined;
+      }
     }
     setSessionTimes(){
-        localStorage.setItem("sessionTimes", (Date.now()).toString());
+        let item = window.btoa((Date.now()).toString())
+        localStorage.setItem("sessionTimes", item);
     }
     getSessionTimes():number{
-        return +localStorage.getItem('sessionTimes');
+      let item = localStorage.getItem("sessionTimes");
+      if(item){
+        return +(window.atob(item));
+      }else{
+        return undefined;
+      }
     }
 }
