@@ -27,7 +27,7 @@ export class HeaderLoginComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+
   }
 
   login():any {
@@ -35,6 +35,8 @@ export class HeaderLoginComponent extends BaseComponent implements OnInit {
     self.isErrorLogin = false;
     let strUser = self.user.username;
     let strPass = self.user.password;
+    self.user.username = null;
+    self.user.password = null;
 
     if(self.baseComponent.isEmpty(strUser) || self.baseComponent.isEmpty(strPass)){
       self.msgErrorLogin = "กรุณาใส่ชื่อผู้ใช้หรือรหัสผ่าน";
@@ -66,13 +68,13 @@ export class HeaderLoginComponent extends BaseComponent implements OnInit {
     let headers = new Headers({
       'Authorization': 'Basic YXNzZXJ2aWNlLXRydXN0ZWQtY2xpZW50OnNlY3JldA==',// + btoa(this.user.username + ":" + this.user.password)
       //'Content-Type': 'application/x-www-form-urlencoded'
-      
+
     });
-    
+
     // headers.append('Access-Control-Allow-Origin', '*');
     // headers.append('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    // headers.append('Access-Control-Allow-Headers', 'X-Requested-With,contenttype'); 
-    // headers.append('Access-Control-Allow-Credentials', 'true'); 
+    // headers.append('Access-Control-Allow-Headers', 'X-Requested-With,contenttype');
+    // headers.append('Access-Control-Allow-Credentials', 'true');
     let options = new RequestOptions({headers: headers});
     this.http.post('http://192.168.1.203:8080/api-asservice/oauth/token?grant_type=password&username=anamai01&password=an123401', param, options).map(res => res.json())
       .subscribe(
@@ -85,7 +87,7 @@ export class HeaderLoginComponent extends BaseComponent implements OnInit {
   onClickRegister(){
     this.router.navigate(["register"]);
   }
-  
+
   onClickForgostPassword(){
     $('#modalForgotPassword').modal('show');
   }

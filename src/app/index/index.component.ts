@@ -12,12 +12,11 @@ export class IndexComponent implements OnInit{
   private storage: LocalStorageManagement;
 
   constructor(public user: UserService, private router: Router){
-  this.storage = new LocalStorageManagement(this.user);  
+  this.storage = new LocalStorageManagement(this.user);
   }
   ngOnInit(): void {
 
     let jsonUInfo: any = this.storage.getDataUserInfo();
-    console.log("INDEX --- ");
     if(jsonUInfo){
       this.storage.setUserInfo(jsonUInfo);
       if(this.user.userId){
@@ -29,7 +28,7 @@ export class IndexComponent implements OnInit{
     //   let pathName = location.pathname;
     //   $('.menu-item>a.active').removeClass('active');
     //   $('.header-menu>ul>li.menu-item > a[href="'+pathName+'"]').addClass('active');
-      
+
     //   $('.header-menu').on('click','.menu-item > a', function(){
     //     $.each($('.menu-item>a'), function(){
     //       $(this).removeClass('active');

@@ -3,7 +3,7 @@ import { UserService } from "../service/user.service";
 
 export class LocalStorageManagement{
     private baseComponent: BaseComponent;
-
+    public static UINFOKEY:string = window.btoa('uinfo');
     constructor(public user: UserService){
         this.baseComponent = new BaseComponent();
     }
@@ -13,7 +13,7 @@ export class LocalStorageManagement{
             obj = JSON.parse(obj);
         }
         let item =  window.btoa(encodeURIComponent(JSON.stringify(obj)));
-        localStorage.setItem("uinfo", item);
+        localStorage.setItem(LocalStorageManagement.UINFOKEY, item);
         localStorage.setItem("sessionTimes", btoa((Date.now()).toString()));
 
         this.user.userId = obj.userId
@@ -49,12 +49,11 @@ export class LocalStorageManagement{
         if(this.user && this.user.userId){
           item =  window.btoa(encodeURIComponent(JSON.stringify(this.user)));
         }
-        console.log('USER INFO', item);
-        localStorage.setItem("uinfo", item);
+        localStorage.setItem(LocalStorageManagement.UINFOKEY, item);
     }
     getDataUserInfo():any{
       try {
-        let item = localStorage.getItem("uinfo");
+        let item = localStorage.getItem(LocalStorageManagement.UINFOKEY);
         if(item){
           return decodeURIComponent(window.atob(item));
         }else {
