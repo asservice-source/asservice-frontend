@@ -5,7 +5,8 @@ export class PregnantBean {
     public lastName: string = "";
     public fullName: string = "";
     public nickName: string = "";
-    public genderCode: string = "";
+    public genderId: string = "";
+    // public genderCode: string = "";
     public genderName: string = "";
     public prefixCode: string = "";
     public prefixName: string = "";
