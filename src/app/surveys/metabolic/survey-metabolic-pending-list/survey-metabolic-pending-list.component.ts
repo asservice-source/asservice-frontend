@@ -20,7 +20,7 @@ export class SurveyMetabolicPendingListComponent extends BaseComponent implement
   public settings: any;
   public source: LocalDataSource = new LocalDataSource();
 
-  public action: string = "";
+  public action: string = this.ass_action.ADD;
   public documentId: string = "";
   public roundInfo: any;
   public personData: PersonBean = new PersonBean();
@@ -98,11 +98,7 @@ export class SurveyMetabolicPendingListComponent extends BaseComponent implement
         onComponentInitFunction(instance) {
 
           instance.survey.subscribe((row: any, cell) => {
-            // self.metabolicBean = new MetabolicBean();
-            self.personData = self.cloneObj(row);
-            self.action = self.ass_action.ADD;
-            self.changeRef.detectChanges();
-            $('#find-person-md').modal('show');
+            self.modalShow(row);
           });
 
         }
@@ -111,51 +107,52 @@ export class SurveyMetabolicPendingListComponent extends BaseComponent implement
   }
 
   loadData() {
+    this.loading = true;
+    if(this.isEmpty(this.documentId)){
+      this.getRound(this.getListMetabolic);
+    }else{
+      this.getListMetabolic(this);
+    }
+  }
+  getListMetabolic(self){
+    let params = { "documentId": self.documentId, "osmId": self.userInfo.personId };
+    self.apiHttp.post('survey_metabolic/search_metabolic_list_not_survey', params, data => {
+      self.loading = false;
+      if (data != null && data.status.toUpperCase() == "SUCCESS") {
+        self.source = self.ng2STDatasource(data.response);
+
+      }
+      setTimeout(()=>{self.changeRef.detectChanges()}, 500);
+    });
+  }
+  getRound(callBack:any){
     let self = this;
-
-    self.loading = true;
-
-    self.apiHttp.getRoundCurrent(self.surveyHeaderCode.METABOLIC, function (r) {
-      if (!self.isEmptyObject(r)) {
-        self.documentId = r.rowGUID;
-
-        let params = { "documentId": r.rowGUID, "osmId": self.userInfo.personId };
-
-        self.apiHttp.post('survey_metabolic/search_metabolic_list_not_survey', params, function (d) {
-          if (d != null && d.status.toUpperCase() == "SUCCESS") {
-            self.source = self.ng2STDatasource(d.response);
-          }
-          self.changeRef.detectChanges();
-          self.loading = false;
-        });
+    self.apiHttp.getRoundCurrent(self.surveyHeaderCode.METABOLIC, data => {
+      self.loading = false;
+      if (!self.isEmptyObject(data)) {
+        self.documentId=data.rowGUID;
+        callBack(self);
       }
     });
   }
 
-  getSurveyData(rowGUID) {
-    let self = this;
-
-    self.loading = true;
-
-    self.apiHttp.getMetabolicInfo(rowGUID, function (d) {
-      if (d.response && d.status.toUpperCase() == 'SUCCESS') {
-        self.personData = self.cloneObj(d.response);
-        self.changeRef.detectChanges();
-        $('#find-person-md').modal('show');
-      }
-      self.loading = false;
-    });
+  modalShow(row) {
+    console.log('ROW',row);
+    this.personData = this.cloneObj(row);
+    this.personData.osmId=this.userInfo.personId;
+    this.changeRef.detectChanges();
+    $('#find-person-md').modal('show');
   }
 
   callbackData(event: any) {
     let self = this;
 
     if (event) {
-      self.message_success('', 'ท่านได้ทำการส่งแบบสำรวจลูกน้ำยุงลายแล้ว', function () {
+      self.message_success('', 'ทำแบบสำรวจความเสี่ยงโรค Metabolic เรียบร้อย', () => {
         self.loadData();
       });
     } else {
-      self.message_error('', 'Error');
+      self.message_error('', 'ไม่สามารถทำรายการได้');
     }
   }
 

@@ -122,6 +122,7 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
   }
 
   onChoosePersonal(bean: any): void {
+    console.log('MetabolicBean',bean);
     this.metabolicbean = new MetabolicBean();
     this.metabolicbean = this.cloneObj(bean);
     if (this.ass_action.ADD == this.action) {
@@ -188,7 +189,7 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
         }
 
       }else if(self.action==self.ass_action.ADD && self.personData){
-        self.onChoosePersonal(self.data);
+        self.onChoosePersonal(self.personData);
         self.isPending = true;
       }
       self.changeRef.detectChanges();
