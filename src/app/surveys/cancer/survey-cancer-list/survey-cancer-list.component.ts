@@ -218,6 +218,7 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
     if (self.isEmpty(self.documentId)) {
       self.documentId = event.rowGUID;
     }
+    
     self.loadData(event);
   }
 
