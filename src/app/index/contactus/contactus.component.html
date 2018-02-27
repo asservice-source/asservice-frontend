@@ -3,42 +3,46 @@
   <hr>
   <div class="row">
     <div class="col-md-6">
-      <div class="row">
-        <div class="address-main">
+      <div class="address-main">
+        <a href="https://www.google.com/maps/@13.724214,100.549419,15z?hl=th" target="_blank">
           <label><i class="glyphicon glyphicon-map-marker"></i>&nbsp;บริษัท ฟรีวิลลโซลูชั่นส์ จำกัด (สำนักงานใหญ่)</label>
-          <br>
-          <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1168/86-88 ชั้น 29 อาคารลุมพินีทาวเวอร์</p>
-          <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ถนนพระราม 4 แขวงทุ่งมหาเมฆ เขตสาทร</p>
-          <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;กรุงเทพมหานคร 10120</p>
-          <p><i class="glyphicon glyphicon-earphone"></i>&nbsp;โทรศัพท์ 02 679 8556</p>
-        </div>
+        </a>
+        <br>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1168/86-88 ชั้น 29 อาคารลุมพินีทาวเวอร์</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ถนนพระราม 4 แขวงทุ่งมหาเมฆ เขตสาทร</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;กรุงเทพมหานคร 10120</p>
+        <p><i class="glyphicon glyphicon-earphone"></i>&nbsp;โทรศัพท์ 02 679 8556</p>
       </div>
-      <hr>
-      <div class="row">
-        <div class="address-main">
-          <label><i class="glyphicon glyphicon-map-marker"></i>&nbsp;บริษัท ฟรีวิลลโซลูชั่นส์ จำกัด (สาขาขอนแก่น)</label>
-          <br>
-          <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;490 ชั้น 4 อาคารกู๊ดวิว หมู่ที่ 6</p>
-          <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ถนนมะลิวัลย์ ตำบลบ้านเป็ด อำเภอเมือง</p>
-          <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;จังหวัดขอนแก่น 40000</p>
-          <p><i class="glyphicon glyphicon-earphone"></i>&nbsp;โทรศัพท์ 02 679 8556</p>
-        </div>
-      </div>
-      <hr>
     </div>
     <div class="col-md-6">
-        <div class="row">
-            <div class="address-main">
-                <app-maps [latitude]="'13.723778'" [longitude]="'100.549419'" [mode]="'view'"></app-maps>
-            </div>
-          </div>
-          <hr>
-          <div class="row">
-            <div class="address-main">
-                <app-maps [latitude]="'16.442106'" [longitude]="'102.808409'" [mode]="'view'"></app-maps>
-            </div>
-          </div>
-          <hr>
+      <div class="address-map">
+        <app-maps [latitude]="'13.723778'" [longitude]="'100.549419'" [mode]="'view'"></app-maps>
+      </div>
     </div>
   </div>
+
+  <hr>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="address-main">
+        <a href="https://www.google.com/maps/@16.442106,102.808409,15z?hl=th" target="_blank">
+          <label><i class="glyphicon glyphicon-map-marker"></i>&nbsp;บริษัท ฟรีวิลลโซลูชั่นส์ จำกัด (สาขาขอนแก่น)</label>
+        </a>
+        <br>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;490 ชั้น 4 อาคารกู๊ดวิว หมู่ที่ 6</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ถนนมะลิวัลย์ ตำบลบ้านเป็ด อำเภอเมือง</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;จังหวัดขอนแก่น 40000</p>
+        <p><i class="glyphicon glyphicon-earphone"></i>&nbsp;โทรศัพท์ 02 679 8556</p>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="address-map">
+        <app-maps [latitude]="'16.442106'" [longitude]="'102.808409'" [mode]="'view'"></app-maps>
+      </div>
+    </div>
+
+  </div>
+  <br><br>
 </div>
