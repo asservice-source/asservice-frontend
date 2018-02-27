@@ -223,7 +223,6 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
           });
         }
       };
-
       self.settings = self.getTableSetting(self.columns);
     } else {
       self.columns.action = {

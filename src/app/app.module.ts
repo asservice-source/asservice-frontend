@@ -96,6 +96,8 @@ import { FilterSummaryComponent } from './filter/filter-summary/filter-summary.c
 import { SurveyPregnantHistoryComponent } from './surveys/pregnant/survey-pregnant-history/survey-pregnant-history.component';
 import { SummaryPregnantComponent } from './summary/summary-pregnant/summary-pregnant.component';
 import {SummaryPatientComponent} from './summary/summary-patient/summary-patient.component';
+import { SurveyMosquitoHistoryComponent } from './surveys/mosquito/survey-mosquito-history/survey-mosquito-history.component';
+import { SurveyMetabolicHistoryComponent } from './surveys/metabolic/survey-metabolic-history/survey-metabolic-history.component';
 
 @NgModule({
   declarations: [
@@ -185,7 +187,9 @@ import {SummaryPatientComponent} from './summary/summary-patient/summary-patient
     FilterSummaryComponent,
     SurveyPregnantHistoryComponent,
     SummaryPregnantComponent,
-    SummaryPatientComponent
+    SummaryPatientComponent,
+    SurveyMosquitoHistoryComponent,
+    SurveyMetabolicHistoryComponent
   ],
   imports: [
     BrowserModule,
