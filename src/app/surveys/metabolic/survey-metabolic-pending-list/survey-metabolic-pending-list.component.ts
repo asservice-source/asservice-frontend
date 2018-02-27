@@ -58,8 +58,11 @@ export class SurveyMetabolicPendingListComponent extends BaseComponent implement
         width: '200px',
         type: 'html',
         valuePrepareFunction: (cell, row) => {
-          return '<div class="text-center">' + cell + '</div>'
+          return '<div class="text-center">' + self.formatCitizenId(cell)  + '</div>'
         }
+
+
+
       },
       homeNo: {
         title: 'บ้านเลขที่',
