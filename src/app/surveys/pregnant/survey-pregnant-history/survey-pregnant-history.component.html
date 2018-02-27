@@ -43,7 +43,7 @@
             <label class="label-form">ครรภ์ที่</label>
           </div>
           <div class="col-md-3">
-            <label class="label-form">{{ pregnantBean.wombNo }}</label>
+            {{ pregnantBean.wombNo }}
           </div>
         </div>
 
@@ -52,7 +52,7 @@
             <label class="label-form">สถานะครรภ์</label>
           </div>
           <div class="col-md-3">
-            <label class="label-form">{{ pregnantBean.pSurveyTypeCode }}</label>
+            {{ pregnantBean.pSurveyTypeCode }}
           </div>
 
           <div class="row" *ngIf="pregnantBean.pSurveyTypeCode != surveyTypeBorn">
@@ -60,7 +60,7 @@
               <label class="label-form">กำหนดคลอด</label>
             </div>
             <div class="col-md-3">
-              <label class="label-form">{{ pregnantBean.bornDueDate }}</label>
+              {{ pregnantBean.bornDueDate }}
             </div>
           </div>
 
@@ -69,7 +69,7 @@
               <label class="label-form">วันที่คลอด</label>
             </div>
             <div class="col-md-3">
-              <label class="label-form">{{ bornDate }}</label>
+              {{ bornDate }}
             </div>
           </div>
         </div>
@@ -79,13 +79,13 @@
             <label>โรงพยาบาลที่คลอด</label>
           </div>
           <div class="col-md-3">
-            <label class="label-form">{{ bornLocationName }}</label>
+            {{ bornLocationName }}
           </div>
           <div class="col-md-2 text-right">
             <label class="label-form">วิธีคลอด</label>
           </div>
           <div class="col-md-3">
-            <label class="label-form">{{ bornTypeName }}</label>
+            {{ bornTypeName }}
           </div>
         </div>
 
@@ -94,7 +94,7 @@
             <label class="label-form">หมายเหตุ</label>
           </div>
           <div class="col-md-3">
-            <label class="label-form">{{ abortionCause }}</label>
+            {{ abortionCause }}
           </div>
         </div>
 

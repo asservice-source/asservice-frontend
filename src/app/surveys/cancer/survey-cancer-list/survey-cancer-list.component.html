@@ -28,8 +28,8 @@
     </div>
 </div>
 
-<!-- <app-survey-cancer-form [triggerCancer]="1"></app-survey-cancer-form> -->
-<app-survey-cancer-form [action]='action' [data]="cancerbean" [documentId]="documentId" (completed)="reloadData($event);"></app-survey-cancer-form>
+<app-survey-cancer-form [action]="action" [data]="cancerbean" [documentId]="current_documentId" (completed)="reloadData($event);"></app-survey-cancer-form>
+<app-survey-cancer-history [data]="cancerbean"></app-survey-cancer-history>
 <ass-loading [show]="loading"></ass-loading>
 
 <div id="modalMaps" class="modal fade" role="dialog" data-backdrop="false" data-keyboard="false">

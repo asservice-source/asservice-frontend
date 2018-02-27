@@ -7,7 +7,7 @@ import { ApiHTTPService } from '../../../api-managements/api-http.service';
 import { CancerBean } from '../../../beans/cancer.bean';
 import { FilterHeadSurveyBean } from '../../../beans/filter-head-survey.bean';
 import { FilterBean } from "../../../beans/filter.bean";
-import { ActionCustomViewMapsComponent, ActionCustomViewHistoryComponent } from '../../../action-custom-table/action-custom-view.component';
+import { ActionCustomViewMapsComponent, ActionCustomViewHistoryComponent, ActionCustomSurveyHistoryComponent } from '../../../action-custom-table/action-custom-view.component';
 import { MapsBean } from '../../../multi-maps/multi-maps.component';
 declare var $;
 
@@ -28,12 +28,13 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
   public action: string = this.ass_action.ADD;
 
   public settings: any;
+  public columns: any;
   public isShowList: boolean = false;
   public source: LocalDataSource = new LocalDataSource();
 
   public healtInsuranceID = 7;
   public filtersearch: FilterHeadSurveyBean;
-  public documentId: string;
+  public current_documentId: string;
   public loading: boolean;
 
   public param_reset: number = 0;
@@ -58,7 +59,7 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
 
     self.apiHttp = new ApiHTTPService();
     self.filtersearch = new FilterHeadSurveyBean();
-    self.settings = self.getTableSetting({
+    self.columns = {
 
       fullName: {
         title: 'ชื่อ-สกุล',
@@ -148,7 +149,7 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
 
         }
       }
-    });
+    };
   }
 
   ngOnInit(): void {
@@ -215,10 +216,67 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
     let self = this;
 
     self.filtersearch = event;
-    if (self.isEmpty(self.documentId)) {
-      self.documentId = event.rowGUID;
+    if (self.isEmpty(self.current_documentId)) {
+      self.current_documentId = event.rowGUID;
     }
-    
+
+    if (self.current_documentId == event.rowGUID) {
+      self.columns.action = {
+        title: 'การทำงาน',
+        filter: false,
+        type: 'custom',
+        renderComponent: ActionCustomViewMapsComponent,
+        onComponentInitFunction(instance) {
+
+          instance.edit.subscribe((row: CancerBean, cell) => {
+            self.cancerbean = self.cloneObj(row);
+            self.onModalForm(self.ass_action.EDIT);
+          });
+
+          instance.delete.subscribe((row: CancerBean, cell) => {
+            self.message_comfirm("", "ต้องการยกเลิกการทำรายการสำรวจของ " + row.fullName + " ใช่หรือไม่", function (resp) {
+              if (resp) {
+                self.actionDelete(row.rowGUID);
+              }
+            });
+          });
+
+          instance.maps.subscribe(row => {
+            self.loading = true;
+
+            let param = { "rowGUID": row.rowGUID };
+
+            self.apiHttp.post('survey_patient/patient_by_rowguid', param, function (d) {
+              let data = d.response;
+              if (!self.isEmptyObject(data)) {
+                self.param_latitude = row.latitude;
+                self.param_longitude = row.longitude;
+                self.param_info = 'บ้านของ ' + row.fullName;
+                $("#modalMaps").modal("show");
+              }
+              self.loading = false;
+            });
+          });
+
+        }
+      };
+      self.settings = self.getTableSetting(self.columns);
+    } else {
+      self.columns.action = {
+        title: 'จัดการ',
+        filter: false,
+        sort: false,
+        width: '100px',
+        type: 'custom',
+        renderComponent: ActionCustomSurveyHistoryComponent, onComponentInitFunction(instance) {
+          instance.view.subscribe(row => {
+            self.onHistory(row);
+          });
+        }
+      }
+      self.settings = self.getTableSetting(self.columns);
+    }
+
     self.loadData(event);
   }
 
@@ -254,6 +312,23 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
     } else {
       self.message_error('', 'Error');
     }
+  }
+
+  onHistory(row) {
+    let self = this;
+
+    self.loading = true;
+
+    let param = { "rowGUID": row.rowGUID };
+
+    self.apiHttp.post('survey_patient/patient_by_rowguid', param, function (d) {
+      if (d != null && d.status.toUpperCase() == "SUCCESS") {
+        self.cancerbean = d.response;
+        self.changeRef.detectChanges();
+        $('#modal-cancer-history').modal('show');
+      }
+      self.loading = false;
+    });
   }
 
   changStatusNo() {
