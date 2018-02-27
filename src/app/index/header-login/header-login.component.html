@@ -14,7 +14,7 @@
                         </div>
                         <div class="row"  style="padding-top: 0; padding-right: 0">
                                 <div class="col-md-4" style="padding-left:3px; padding-right: 4px;">
-                                        <input style="opacity: 0.9;" type="text" [(ngModel)] = "user.username" placeholder="ชื่อผู้ใช้">
+                                        <input style="opacity: 0.9;" type="text" id="username" [(ngModel)] = "user.username" placeholder="ชื่อผู้ใช้">
                                 </div>  
                                 <div class="col-md-4" style="padding-left:3px; padding-right: 4px;">
                                         <input style="opacity: 0.9;" type="password" [(ngModel)] = "user.password" placeholder="รหัสผ่าน">
@@ -27,7 +27,9 @@
                                 </div>
                                
                         </div>
-                        <div style="padding-left: 20px;"><label *ngIf="isErrorLogin" style="display: block; color:#e90606;">{{msgErrorLogin}}</label></div>
+                        <div style="padding-left: 20px;">
+                                <div class="balloon-warning">{{msgErrorLogin}}</div>
+                        </div>
                         <div class="row" >
                                 <div class="col-md-9 text-right">
                                         <a (click)="onClickForgostPassword()">ลืมรหัสผ่าน</a>
