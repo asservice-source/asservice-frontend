@@ -1,3 +1,72 @@
-<p>
-  survey-mosquito-history works!
-</p>
+<div id="modal-history-mosquito" class="modal fade" role="dialog" data-backdrop="false" data-keyboard="false">
+  <div class="modal-lg modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">ฟอร์มสำรวจลูกน้ำยุงลาย</h4>
+      </div>
+
+      <div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="panel-body">
+              <div class="panel panel-default" style="margin-bottom: inherit;">
+                <div class="panel-body">
+                  <div class="box-body">
+                    <dl class="dl-horizontal">
+                      <dt>ที่อยู่ : </dt>
+                      <dd>{{ mosquitoBean.address }}</dd>
+                      <dt>ประเภท : </dt>
+                      <dd>{{ mosquitoBean.homeTypeName }}</dd>
+                    </dl>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="well">
+              <div class="row">
+                <div class="col-md-3 text-right col-md-offset-5">
+                  <label>จำนวนภาชนะที่สำรวจ</label>
+                </div>
+                <div class="col-md-3">
+                  <label>ภาชนะที่พบลูกน้ำ</label>
+                </div>
+              </div>
+              <div *ngFor="let item of containerTypeList; let i = index">
+                <div class="row">
+                  <div class="col-md-3 text-right">
+                    <img src="../../assets/img/iconmosquito/{{item.imagePath}}" height="30px">
+                  </div>
+                  <div class="col-md-3 text-left">
+                    <label class="label-form">{{item.containerTypeName}}</label>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="col-md-6">
+                      <!-- {{ mosquitoBean.listContainerType[i].totalSurvey }} -->
+                    </div>
+                    <div class="col-md-6">
+                      <!-- {{ mosquitoBean.listContainerType[i].totalDetect }} -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">กลับ</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ass-loading [show]="loading"></ass-loading>
