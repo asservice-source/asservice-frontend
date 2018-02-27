@@ -33,3 +33,14 @@ label.value{
    margin-top: -27px; 
    font-size: 16px;
 }
+
+.balloon-warning{
+    display: none;
+    color: #000;
+    background-color: #ffbf00;
+    width: fit-content;
+    padding: 10px 30px 10px 30px;
+    border-top-right-radius: 22px;
+    border-bottom-left-radius: 22px;
+    border-bottom-right-radius: 22px;
+}

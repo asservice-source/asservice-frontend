@@ -27,7 +27,7 @@ export class HeaderLoginComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
-
+   
   }
 
   login():any {
@@ -35,14 +35,15 @@ export class HeaderLoginComponent extends BaseComponent implements OnInit {
     self.isErrorLogin = false;
     let strUser = self.user.username;
     let strPass = self.user.password;
-    self.user.username = null;
-    self.user.password = null;
-
     if(self.baseComponent.isEmpty(strUser) || self.baseComponent.isEmpty(strPass)){
       self.msgErrorLogin = "กรุณาใส่ชื่อผู้ใช้หรือรหัสผ่าน";
       self.isErrorLogin = true;
+      $('#username').focus();
+      $('.balloon-warning').fadeIn(500);
+      setTimeout(()=>{ $('.balloon-warning').fadeOut(500); }, 5000);
       return false;
     }
+   
     self.loading = true;
     let params = { "userName": strUser, "password": strPass };
     this.api.post('user/login', params, function(resp){
@@ -51,11 +52,16 @@ export class HeaderLoginComponent extends BaseComponent implements OnInit {
       if(resp && resp.status.toString().toUpperCase() == 'SUCCESS' && resp.response.login){
         let obj = self.baseComponent.strNullToEmpty(resp.response);
         self.storage.setUserInfo(obj);
+        self.user.username = null;
+        self.user.password = null;
         self.router.navigate(["main"]);
       }else{
         localStorage.clear();
         self.msgErrorLogin = "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง";
         self.isErrorLogin = true;
+        $('.balloon-warning').fadeIn(500);
+        setTimeout(()=>{ $('.balloon-warning').fadeOut(500); }, 5000);
+        
       }
     });
   }
