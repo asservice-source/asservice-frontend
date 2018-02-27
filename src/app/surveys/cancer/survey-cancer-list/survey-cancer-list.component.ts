@@ -150,6 +150,7 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
         }
       }
     };
+    self.settings = self.getTableSetting(self.columns);
   }
 
   ngOnInit(): void {

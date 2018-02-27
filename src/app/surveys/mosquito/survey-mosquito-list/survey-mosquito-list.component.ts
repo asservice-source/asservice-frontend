@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
-import { ActionCustomView_2_Component } from '../../../action-custom-table/action-custom-view.component';
+import { ActionCustomView_2_Component, ActionCustomSurveyHistoryComponent } from '../../../action-custom-table/action-custom-view.component';
 import { BaseComponent } from '../../../base-component';
 import { ApiHTTPService } from '../../../api-managements/api-http.service';
 import { FilterHeadMosquitoBean } from '../../../beans/filter-head-mosquito.bean';
@@ -23,6 +23,7 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
   public source: LocalDataSource = new LocalDataSource();
   private api: ApiHTTPService;
   public settings: any;
+  public columns: any;
   public action: string = this.ass_action.ADD;
   public filtersearch: FilterHeadMosquitoBean;
   public documentId: string;
@@ -42,13 +43,15 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
   isDisable = true;
   constructor(private changeRef: ChangeDetectorRef) {
     super();
-    this.api = new ApiHTTPService();
+    
     let self = this;
-    this.filtersearch = new FilterHeadMosquitoBean();
+
+    self.api = new ApiHTTPService();
+    self.filtersearch = new FilterHeadMosquitoBean();
     //let x = this.formatNumber(totalSurvey);
     let column: string;
 
-    this.settings = this.getTableSetting({
+    self.columns = {
 
       name: {
         title: 'ชื่อ/บ้านเลขที่',
@@ -130,7 +133,8 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
 
         }
       }
-    });
+    };
+    self.settings = self.getTableSetting(self.columns);
   }
 
   ngOnInit() {
@@ -151,10 +155,70 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
   }
 
   onSearch(event: FilterHeadMosquitoBean) {
-    this.filtersearch = event;
-    if (this.isEmpty(this.documentId)) {
-      this.documentId = event.rowGUID;
+    let self = this;
+    
+    self.filtersearch = event;
+    if (self.isEmpty(this.documentId)) {
+      self.documentId = event.rowGUID;
     }
+
+    if (self.documentId == event.rowGUID) {
+      self.columns.action = {
+        title: 'การทำงาน',
+        filter: false,
+        sort: false,
+        width: '100px',
+        type: 'custom',
+        renderComponent: ActionCustomViewMapsComponent,
+        onComponentInitFunction(instance) {
+
+          instance.edit.subscribe((row: MosquitoBean, cell) => {
+            self.mosquitobean = new MosquitoBean();
+            self.mosquitobean = self.cloneObj(row);
+            self.onModalFrom(self.ass_action.EDIT);
+          });
+
+          instance.delete.subscribe((row: MosquitoBean, cell) => {
+            let text: string;
+            if (row.homeTypeName == 'บ้าน') {
+              text = "ต้องการยกเลิกการทำรายการสำรวจของบ้านเลขที่ "
+            } else {
+              text = "ต้องการยกเลิกการทำรายการสำรวจของ "
+            }
+
+            self.message_comfirm("", text + '<span style="color : red">' + row.name + '</span>' + " ใช่หรือไม่", function (resp) {
+              if (resp) {
+                self.actionDelete(row.documentId, row.homeId);
+              }
+            });
+          });
+
+          instance.maps.subscribe(row => {
+            self.param_latitude = row.latitude;
+            self.param_longitude = row.longitude;
+            self.param_info = 'บ้านของ ' + row.fullName;
+            $("#modalMaps").modal("show");
+          });
+
+        }
+      };
+      self.settings = self.getTableSetting(self.columns);
+    } else {
+      self.columns.action = {
+        title: 'จัดการ',
+        filter: false,
+        sort: false,
+        width: '100px',
+        type: 'custom',
+        renderComponent: ActionCustomSurveyHistoryComponent, onComponentInitFunction(instance) {
+          instance.view.subscribe(row => {
+            self.onHistory(row);
+          });
+        }
+      }
+      self.settings = self.getTableSetting(self.columns);
+    }
+
     this.loadData(event);
   }
 
@@ -169,9 +233,28 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
 
   }
 
+  onHistory(row: any) {
+    let self = this;
+
+    self.loading = true;
+
+    let params = { "documentId": row.documentId, "homeId": row.homeId };
+
+    this.api.post('survey_hici/hici_by_homeid', params, function (resp) {
+      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+        self.mosquitobean = resp.response;
+        self.changeRef.detectChanges();
+        $('#modal-history-mosquito').modal('show');
+      }
+      self.loading = false;
+    });
+  }
+
   loadData(event: FilterHeadMosquitoBean) {
     let self = this;
-    this.loading = true;
+
+    self.loading = true;
+
     let param = {
       "documentId": event.rowGUID,
       "villageId": event.villageId,
@@ -179,8 +262,10 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
       "osmId": event.osmId,
       "homeId": event.homeId
     };
+
     let params = JSON.stringify(param);
-    this.api.post('survey_hici/search_hici_info_list', params, function (resp) {
+
+    self.api.post('survey_hici/search_hici_info_list', params, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.bindMultiMaps(resp.response);
         self.source = self.ng2STDatasource(resp.response);
@@ -248,11 +333,10 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
 
   getSurveyData(docId, homeId) {
     let self = this;
+
     self.loading = true;
-    let param = {
-      "documentId": docId,
-      "homeId": homeId
-    }
+
+    let param = { "documentId": docId, "homeId": homeId };
 
     this.api.post('survey_hici/hici_by_homeid', param, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
