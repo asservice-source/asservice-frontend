@@ -26,6 +26,7 @@ export class SurveyMosquitoHistoryComponent extends BaseComponent implements OnI
     let self = this;
 
     self.mosquitoBean = new MosquitoBean();
+    self.mosquitoBean.listContainerType = [];
   }
 
   ngOnInit() {
@@ -40,6 +41,12 @@ export class SurveyMosquitoHistoryComponent extends BaseComponent implements OnI
 
     $('#modal-history-mosquito').on('show.bs.modal', function (e) {
       self.mosquitoBean = self.data;
+      if (!self.isEmptyObject(self.mosquitoBean.listContainerType)) {
+        for (let i = 0; i < self.containerTypeList.length; i++) {
+          self.containerTypeList[i].totalSurvey = self.mosquitoBean.listContainerType[i].totalSurvey;
+          self.containerTypeList[i].totalDetect = self.mosquitoBean.listContainerType[i].totalDetect;
+        }
+      }
       self.changeRef.detectChanges();
     });
 
@@ -53,12 +60,11 @@ export class SurveyMosquitoHistoryComponent extends BaseComponent implements OnI
 
     let params = {};
 
-    self.api.post('survey_hici/container_type_list', params, function (resp) {
-
-      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-        self.containerTypeList = resp.response;
+    self.api.post('survey_hici/container_type_list', params, function (d) {
+      if (d != null && d.status.toUpperCase() == "SUCCESS") {
+        self.containerTypeList = d.response;
       }
-    })
+    });
   }
 
 }
