@@ -1,0 +1,105 @@
+<div id="modal-cancer-history" class="modal fade" role="dialog" data-backdrop="false" data-keyboard="false">
+    <div class="modal-xlg modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">ฟอร์มผู้ป่วยมะเร็ง</h4>
+            </div>
+            <div class="modal-body">
+                <!-- <div class="row"> -->
+                <div class="col-md-12">
+                    <div class="panel-body">
+                        <div class="panel panel-default" style="margin-bottom: inherit;">
+                            <div class="panel-body">
+                                <div class="box-body">
+                                    <dl class="dl-horizontal">
+                                        <dt>หมายเลขประจำตัว : </dt>
+                                        <dd>{{ cancerBean.citizenId }}</dd>
+                                        <dt>ชื่อ-สกุล : </dt>
+                                        <dd>{{ cancerBean.fullName }}</dd>
+                                        <dt>เพศ : </dt>
+                                        <dd>{{ cancerBean.genderName }}</dd>
+                                        <dt>อายุ : </dt>
+                                        <dd>{{ cancerBean.age }}</dd>
+                                        <dt>ที่อยู่ : </dt>
+                                        <dd>{{ cancerBean.address }}</dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- </div> -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-4 text-right">
+                                <label class="label-form">ชนิดมะเร็ง</label>
+                            </div>
+                            <div class="col-md-8">
+                                {{ cancerBean.cancerTypeId }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 text-right">
+                                <label class="label-form">สิทธิบัตร</label>
+                            </div>
+                            <div class="col-md-8">
+                                {{ cancerBean.hInsuranceTypeId }}
+                            </div>
+                        </div>
+                        <div class="row" style="padding-bottom: 0px">
+                            <div class="col-md-4 text-right">
+                                <label class="label-form">วันที่ป่วย</label>
+                            </div>
+                            <div class="col-md-8">
+                                {{ cancerBean.patientDate }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 text-right">
+                                <label class="label-form">สถานที่รักษา</label>
+                            </div>
+                            <div class="col-md-8">
+                                {{ cancerBean.treatmentPlace }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 text-right">
+                                <label class="label-form">เบอร์โทรศัพท์</label>
+                            </div>
+                            <div class="col-md-8">
+                                {{ cancerBean.telephone }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 text-right">
+                                <label class="label-form">สถานะการรักษา</label>
+                            </div>
+                            <div class="col-md-8">
+                                {{ cancerBean.diseaseStatusTypeId }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 text-right">
+                                <label class="label-form">หมายเหตุ</label>
+                            </div>
+                            <div class="col-md-8">
+                                {{ cancerBean.remark }}
+                            </div>
+                        </div>
+                </div>
+                <div class="col-md-6 text-center">
+                    <app-maps [latitude]="cancerBean.latitude" [longitude]="cancerBean.longitude" [info]="'บ้านของ ' + cancerBean.fullName" [mode]="'view'" [defaultAddress]="userInfo.address"></app-maps>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-primary btn-sm" data-dismiss="modal">กลับ</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ass-loading [show]="loading"></ass-loading>
