@@ -16,7 +16,7 @@
                         <div class="box-body">
                             <dl class="dl-horizontal">
                                 <dt>หมายเลขประจำตัว : </dt>
-                                <dd>{{ metabolicbean.citizenId }}</dd>
+                                <dd>{{ formatCitizenId(metabolicbean.citizenId) }}</dd>
                                 <dt>ชื่อ-สกุล : </dt>
                                 <dd>{{ metabolicbean.fullName }}</dd>
                                 <dt>เพศ : </dt>
@@ -235,7 +235,7 @@
                 <!-- การตรวจร่างกาย -->
 
                 <div class="row">
-                   
+
                         <div class="col-md-2 col-md-offset-1 text-right">
                             <label class="label-form">น้ำหนัก</label>
                         </div>
@@ -253,8 +253,8 @@
                         <div class="col-md-1" style="padding-left: 0px;">
                             <label class="label-form">กิโลกรัม</label>
                         </div>
-                  
-                   
+
+
                         <div class="col-md-2 text-right">
                             <label class="label-form">ส่วนสูง</label>
                         </div>
@@ -271,7 +271,7 @@
                         <div class="col-md-1" style="padding-left: 0px;">
                             <label class="label-form">เซนติเมตร</label>
                         </div>
-                  
+
                 </div>
 
                 <div class="row">
