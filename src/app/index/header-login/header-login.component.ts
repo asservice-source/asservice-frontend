@@ -27,7 +27,7 @@ export class HeaderLoginComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
-   
+
   }
 
   login():any {
@@ -39,11 +39,13 @@ export class HeaderLoginComponent extends BaseComponent implements OnInit {
       self.msgErrorLogin = "กรุณาใส่ชื่อผู้ใช้หรือรหัสผ่าน";
       self.isErrorLogin = true;
       $('#username').focus();
-      $('.balloon-warning').fadeIn(500);
-      setTimeout(()=>{ $('.balloon-warning').fadeOut(500); }, 5000);
+      $('.balloon-warning').fadeIn(100);
+      $('.balloon-warning').fadeOut(100);
+      $('.balloon-warning').fadeIn(100);
+      setTimeout(()=>{ $('.balloon-warning').fadeOut(500); }, 5500);
       return false;
     }
-   
+
     self.loading = true;
     let params = { "userName": strUser, "password": strPass };
     this.api.post('user/login', params, function(resp){
@@ -59,9 +61,11 @@ export class HeaderLoginComponent extends BaseComponent implements OnInit {
         localStorage.clear();
         self.msgErrorLogin = "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง";
         self.isErrorLogin = true;
-        $('.balloon-warning').fadeIn(500);
-        setTimeout(()=>{ $('.balloon-warning').fadeOut(500); }, 5000);
-        
+        $('.balloon-warning').fadeIn(100);
+        $('.balloon-warning').fadeOut(100);
+        $('.balloon-warning').fadeIn(100);
+        setTimeout(()=>{ $('.balloon-warning').fadeOut(500); }, 5500);
+
       }
     });
   }

@@ -49,7 +49,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
   public isEditing: boolean = false;
   public isSaveData: boolean = false;
   public warningLeavPage = 'เมื่อกดยกเลิกหรือย้อนกับ ข้อมูลการแก้ไขแบบสำรวจจะยังไม่ถูกบันทึกลงฐานข้อมูล<br>ต้องการทำต่อใช่หรือไม่?';
-
+  //private addressHome: Address;
   constructor(private http: Http, private route: Router, private routeAct: ActivatedRoute, private changeRef: ChangeDetectorRef) {
     super();
     this.isEditing = false;
@@ -149,6 +149,14 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     console.log(member);
     this.isEditing = true;
     let self = this;
+    if(!member.isGuest){
+      member.homeNo = this.address.homeNo;
+      member.mooNo = this.address.mooNo;
+      member.road = this.address.road;
+      member.tumbolCode = this.address.tumbolCode;
+      member.amphurCode = this.address.amphurCode;
+      member.provinceCode = this.address.provinceCode;
+    }
     member.fullName = self.getFullName(member.prefixName, member.firstName, member.lastName);
     if (member.birthDate) {
       member.age = self.getAge(member.birthDate).toString();
@@ -356,7 +364,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
       citizenId: {
         title: 'เลขประจำตัวประชาชน',
         filter: false,
-        width: '180px',
+        width: '190px',
         type: 'html',
         valuePrepareFunction: (cell, row) => {
           return '<div class="text-center">' + self.formatCitizenId(cell) + '</div>';
@@ -383,7 +391,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
       familyStatusName: {
         title: 'สถานะ',
         filter: false,
-        width: '80px',
+        width: '90px',
         type: 'html',
         valuePrepareFunction: (cell, row) => {
           return '<div class="text-center">' + cell + '</div>';
@@ -392,7 +400,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
       rowGUID: {
         title: 'การสำรวจ',
         filter: false,
-        width: '100px',
+        width: '110px',
         type: 'html',
         valuePrepareFunction: (cell, row) => {
           let text = '';
@@ -429,7 +437,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
       citizenId: {
         title: 'เลขประจำตัวประชาชน',
         filter: false,
-        width: '180px',
+        width: '190px',
         type: 'html',
         valuePrepareFunction: (cell, row) => {
           return '<div class="text-center">' + self.formatCitizenId(cell) + '</div>';
@@ -456,7 +464,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
       familyStatusName: {
         title: 'สถานะ',
         filter: false,
-        width: '80px',
+        width: '90px',
         type: 'html',
         valuePrepareFunction: (cell, row) => {
           return '<div class="text-center">' + cell + '</div>';
@@ -465,7 +473,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
       rowGUID: {
         title: 'การสำรวจ',
         filter: false,
-        width: '100px',
+        width: '110px',
         type: 'html',
         valuePrepareFunction: (cell, row) => {
           let text = '';
