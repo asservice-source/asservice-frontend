@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { BaseComponent } from '../../../base-component';
-import { ActionCustomViewMapsComponent, ActionCustomViewHistoryComponent } from '../../../action-custom-table/action-custom-view.component';
+import { ActionCustomViewMapsComponent, ActionCustomViewHistoryComponent, ActionCustomSurveyHistoryComponent } from '../../../action-custom-table/action-custom-view.component';
 import { FilterHeadSurveyBean } from '../../../beans/filter-head-survey.bean';
 import { LocalDataSource } from 'ng2-smart-table';
 import { PatientBean } from '../../../beans/patient.bean'
@@ -44,9 +44,13 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
 
   constructor(private changeRef: ChangeDetectorRef) {
     super();
-    this.apiPatient = new Service_SurveyPatient();
+
     let self = this;
+
+    self.apiPatient = new Service_SurveyPatient();
+
     self.filtersearch = new FilterHeadSurveyBean();
+
     self.settings = self.getTableSetting({
       fullName: {
         title: 'ชื่อ - นามสกุล',
@@ -184,7 +188,6 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
 
     self.changeTableSetting(self.filtersearch.status);
 
-
     if (self.isEmpty(self.documentId)) {
       self.documentId = event.rowGUID;
     }
@@ -215,13 +218,13 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
     let self = this;
 
     self.loading = true;
-    self.apiPatient.getPatientInfo(rowGUID, function (resp) {
-      if (resp.response && resp.status.toUpperCase() == 'SUCCESS') {
-          self.patientbean = self.cloneObj(resp.response);
-          self.isCurrent = true;
-          self.changeRef.detectChanges();
-          $("#find-history-md").modal("show");
 
+    self.apiPatient.getPatientInfo(rowGUID, function (d) {
+      if (d.response && d.status.toUpperCase() == 'SUCCESS') {
+        self.patientbean = self.cloneObj(d.response);
+        self.isCurrent = true;
+        self.changeRef.detectChanges();
+        $('#modal-history-patient').modal('show');
       }
       self.loading = false;
     })
@@ -276,6 +279,7 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
     let self = this;
 
     self.loading = true;
+
     self.apiPatient.getPatientInfo(rowGUID, function (resp) {
       if (resp.response && resp.status.toUpperCase() == 'SUCCESS') {
         self.patientbean = self.cloneObj(resp.response);
@@ -345,19 +349,12 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
           sort: false,
           width: '100px',
           type: 'custom',
-          renderComponent: ActionCustomViewHistoryComponent,
-          onComponentInitFunction(instance) {
-
-            instance.maps.subscribe(row => {
-              self.param_latitude = row.latitude;
-              self.param_longitude = row.longitude;
-              self.param_info = 'บ้านของ ' + row.fullName;
-              $("#modalMaps").modal("show");
-            });
+          renderComponent: ActionCustomSurveyHistoryComponent, onComponentInitFunction(instance) {
 
             instance.view.subscribe(row => {
               self.viewHistory(row.rowGUID);
             });
+
           }
         }
       });
@@ -417,8 +414,7 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
           sort: false,
           width: '100px',
           type: 'custom',
-          renderComponent: ActionCustomViewMapsComponent,
-          onComponentInitFunction(instance) {
+          renderComponent: ActionCustomViewMapsComponent, onComponentInitFunction(instance) {
 
             instance.edit.subscribe(row => {
               self.getSurveyData(row.rowGUID);
@@ -428,12 +424,19 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
               self.actionDelete(row.rowGUID, row.fullName);
             });
 
-
             instance.maps.subscribe(row => {
-              self.param_latitude = row.latitude;
-              self.param_longitude = row.longitude;
-              self.param_info = 'บ้านของ ' + row.fullName;
-              $("#modalMaps").modal("show");
+              self.loading = true;
+
+              self.apiPatient.getPatientInfo(row.rowGUID, function (d) {
+                if (d.response && d.status.toUpperCase() == 'SUCCESS') {
+                  let data = d.response;
+                  self.param_latitude = data.latitude;
+                  self.param_longitude = data.longitude;
+                  self.param_info = 'บ้านของ ' + data.fullName;
+                  $("#modalMaps").modal("show");
+                }
+                self.loading = false;
+              });
             });
 
           }
