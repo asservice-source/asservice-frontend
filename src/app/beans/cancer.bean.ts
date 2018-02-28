@@ -64,4 +64,8 @@ export class CancerBean {
     public treatmentPlace: string = "";
     public latitude: string = "";
     public longitude: string = "";
+
+    public hInsuranceTypeName: string = "";
+    public cancerTypeName: string = "";
+    public diseaseStatusTypeName: string = "";
 }
