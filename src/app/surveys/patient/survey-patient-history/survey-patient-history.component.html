@@ -1,4 +1,4 @@
-<div id="find-history-md" class="modal fade" role="dialog" data-backdrop="false" data-keyboard="false">
+<div id="modal-history-patient" class="modal fade" role="dialog" data-backdrop="false" data-keyboard="false">
     <div class="modal-lg modal-dialog">
         <!-- Modal content-->
         <div class="modal-content">
@@ -35,13 +35,7 @@
                         <label class="label-form">ประเภท</label>
                     </div>
                     <div class="col-md-4">
-                        <!-- <select [(ngModel)]="patientbean.patientSurveyTypeCode" (change)="onChangePatientSyurvey();">
-                            <option value="">--เลือกประเภท--</option>
-                            <ng-container *ngFor="let item of surveyStatusTypeList">
-                                <option value="{{item.code}}" *ngIf="item.code !='Cancer'">{{item.name}}</option>
-                            </ng-container>
-                        </select> -->
-                        <label class="label-form">{{patientbean.patientSurveyTypeName}}</label>
+                        {{ patientbean.patientSurveyTypeName }}
                     </div>
                 </div>
 
@@ -53,7 +47,7 @@
                                     <label class="label-form">ระบุโรค/อาการ</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" [(ngModel)]="patientbean.remark" maxlength="255" disabled>
+                                    {{ patientbean.remark }}
                                 </div>
                             </div>
                             <div class="row">
@@ -61,7 +55,7 @@
                                     <label class="label-form">ประเภทผู้ป่วย</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" [(ngModel)]="patientbean.patientSurveyTypeName" maxlength="255" disabled>
+                                    {{ patientbean.patientSurveyTypeName }}
                                 </div>
                             </div>
 
@@ -71,7 +65,7 @@
                                     <label class="label-form">สิทธิบัตร</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" [(ngModel)]="patientbean.hInsuranceTypeName" maxlength="255" disabled>
+                                    {{ patientbean.hInsuranceTypeName }}
                                 </div>
                             </div>
                             <div class="row" style="padding-bottom: 0px">
@@ -79,7 +73,7 @@
                                     <label class="label-form">วันที่ป่วย</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <my-date-picker [options]="datePickerOptions" [(ngModel)]="patientbean.patientDate" required></my-date-picker>
+                                    {{ displayFormatDate_Thai(patientbean.patientDate) }}
                                 </div>
                             </div>
 
@@ -88,7 +82,7 @@
                                     <label class="label-form">สถานที่รักษา</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" [(ngModel)]="patientbean.treatmentPlace" maxlength="255" disabled>
+                                    {{ patientbean.treatmentPlace }}
                                 </div>
                             </div>
                             <div class="row">
@@ -96,7 +90,7 @@
                                     <label class="label-form">สถานะการรักษา</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" [(ngModel)]="patientbean. diseaseStatusTypeName" maxlength="255" disabled>
+                                    {{ patientbean.diseaseStatusTypeName }}
                                 </div>
                             </div>
 
@@ -105,7 +99,7 @@
                                     <label class="label-form">เบอร์โทรศัพท์</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" [(ngModel)]="patientbean.telephone" maxlength="50" disabled>
+                                    {{ patientbean.telephone }}
                                 </div>
                             </div>
                             <div class="row">
@@ -113,7 +107,7 @@
                                     <label class="label-form">Latitude</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" [(ngModel)]="patientbean.latitude" placeholder="Latitude" maxlength="50" disabled>
+                                    {{ patientbean.latitude }}
                                 </div>
                             </div>
                             <div class="row">
@@ -121,19 +115,118 @@
                                     <label class="label-form">Longitude</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" [(ngModel)]="patientbean.longitude" placeholder="Longitude" maxlength="50" disabled>
+                                    {{ patientbean.longitude }}
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6 text-center">
-                            <app-maps [latitude]="patientbean.latitude" [longitude]="patientbean.longitude" [info]="info" [mode]="'edit'" [defaultAddress]="userInfo.address"
-                                (positionChanged)="onMapChange($event)"></app-maps>
+                            <app-maps [latitude]="patientbean.latitude" [longitude]="patientbean.longitude" [info]="info" [mode]="'view'" [defaultAddress]="userInfo.address"></app-maps>
                         </div>
                     </div>
                 </div>
 
                 <div *ngIf="patientbean.patientSurveyTypeCode == 'Disabled'">
-                    Disabled
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-4 text-right">
+                                    <label class="label-form">ประเภทพิการ</label>
+                                </div>
+                                <div class="col-md-8">
+                                    {{ patientbean.disabilityTypeName }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 text-right">
+                                    <label class="label-form">สาเหตุ</label>
+                                </div>
+                                <div class="col-md-8">
+                                    {{ patientbean.disabilityCauseTypeName }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 text-right">
+                                    <label class="label-form">ระบุโรค/อาการ</label>
+                                </div>
+                                <div class="col-md-8">
+                                    {{ patientbean.remark }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 text-right">
+                                    <label class="label-form">ประเภทผู้ป่วย</label>
+                                </div>
+                                <div class="col-md-8">
+                                    {{ patientbean.patientTypeName }}
+                                </div>
+
+                            </div>
+
+                            <div class="row" style="padding-bottom: 0px">
+                                <div class="col-md-4 text-right">
+                                    <label class="label-form">สิทธิบัตร</label>
+                                </div>
+                                <div class="col-md-8">
+                                    {{ patientbean.hInsuranceTypeName }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 text-right">
+                                    <label class="label-form">วันที่พิการ</label>
+                                </div>
+
+                                <div class="col-md-8">
+                                    {{ displayFormatDate_Thai(patientbean.patientDate) }}
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4 text-right">
+                                    <label class="label-form">สถานที่รักษา</label>
+                                </div>
+                                <div class="col-md-8">
+                                    {{ patientbean.treatmentPlace }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 text-right">
+                                    <label class="label-form">สถานะการรักษา</label>
+                                </div>
+                                <div class="col-md-8">
+                                    {{ patientbean.diseaseStatusTypeName }}
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4 text-right">
+                                    <label class="label-form">เบอร์โทรศัพท์</label>
+                                </div>
+                                <div class="col-md-8">
+                                    {{ patientbean.telephone }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 text-right">
+                                    <label class="label-form">Latitude</label>
+                                </div>
+                                <div class="col-md-8">
+                                    {{ patientbean.latitude }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 text-right">
+                                    <label class="label-form">Longitude</label>
+                                </div>
+                                <div class="col-md-8">
+                                    {{ patientbean.longitude }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 text-center">
+                            <app-maps [latitude]="patientbean.latitude" [longitude]="patientbean.longitude" [info]="info" [mode]="'view'" [defaultAddress]="userInfo.address"></app-maps>
+                        </div>
+                    </div>
                 </div>
 
             </div>

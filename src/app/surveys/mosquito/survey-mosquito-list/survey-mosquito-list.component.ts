@@ -32,7 +32,7 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
   public isShowAddPlace: boolean = false;
   public placeData: any = null;
 
- public param_reset: number = 0;
+  public param_reset: number = 0;
   public param_latitude: string = "";
   public param_longitude: string = "";
   public param_info: string = "";
@@ -43,7 +43,7 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
   isDisable = true;
   constructor(private changeRef: ChangeDetectorRef) {
     super();
-    
+
     let self = this;
 
     self.api = new ApiHTTPService();
@@ -156,7 +156,7 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
 
   onSearch(event: FilterHeadMosquitoBean) {
     let self = this;
-    
+
     self.filtersearch = event;
     if (self.isEmpty(this.documentId)) {
       self.documentId = event.rowGUID;
@@ -194,10 +194,20 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
           });
 
           instance.maps.subscribe(row => {
-            self.param_latitude = row.latitude;
-            self.param_longitude = row.longitude;
-            self.param_info = 'บ้านของ ' + row.fullName;
-            $("#modalMaps").modal("show");
+            self.loading = true;
+
+            let param = { "documentId": row.documentId, "homeId": row.homeId };
+
+            self.api.post('survey_hici/hici_by_homeid', param, function (d) {
+              if (d != null && d.status.toUpperCase() == "SUCCESS") {
+                let data = d.response;
+                self.param_latitude = data.latitude;
+                self.param_longitude = data.longitude;
+                self.param_info = 'บ้านของ ' + data.fullName;
+                $("#modalMaps").modal("show");
+              }
+              self.loading = false;
+            });
           });
 
         }
@@ -318,16 +328,16 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
 
   displaySubstring(string: string) {
     let strValue;
-    if(string){
+    if (string) {
       if (string.length > 50) {
         strValue = string.substring(0, 50) + '...';
       } else {
         strValue = string;
       }
       return strValue;
-    }else{
-       strValue = "";
-       return strValue;
+    } else {
+      strValue = "";
+      return strValue;
     }
   }
 

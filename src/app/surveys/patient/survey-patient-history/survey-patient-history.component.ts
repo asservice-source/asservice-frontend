@@ -13,6 +13,7 @@ export class SurveyPatientHistoryComponent extends BaseComponent implements OnIn
   @Input() data : PatientBean;
 
   public patientbean : PatientBean;
+
   public loading: boolean = false;
 
   constructor(private changeRef: ChangeDetectorRef) {
@@ -20,17 +21,13 @@ export class SurveyPatientHistoryComponent extends BaseComponent implements OnIn
    }
 
   ngOnInit() {
-    //this.changeRef.detectChanges();
-  
+    
   }
 
   ngOnChanges(){
-    this.patientbean = new PatientBean();
-    this.patientbean = this.data;
-    console.log("=========== view history data ===========");
-    console.log(this.patientbean);
+    let self = this;
+    self.patientbean = new PatientBean();
+    self.patientbean = self.data;
   }
-
-  
 
 }

@@ -92,7 +92,7 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
         width: '100px',
         type: 'html',
         valuePrepareFunction: (cell, row) => {
-          let birthDate = self.displayFormatDate(cell);
+          let birthDate = self.displayFormatDate_Thai(cell);
           return '<div class="text-center">' + birthDate + '</div>'
         }
       },

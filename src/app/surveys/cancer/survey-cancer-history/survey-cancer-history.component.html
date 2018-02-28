@@ -38,7 +38,7 @@
                                 <label class="label-form">ชนิดมะเร็ง</label>
                             </div>
                             <div class="col-md-8">
-                                {{ cancerBean.cancerTypeId }}
+                                {{ cancerBean.cancerTypeName }}
                             </div>
                         </div>
                         <div class="row">
@@ -46,7 +46,7 @@
                                 <label class="label-form">สิทธิบัตร</label>
                             </div>
                             <div class="col-md-8">
-                                {{ cancerBean.hInsuranceTypeId }}
+                                {{ cancerBean.hInsuranceTypeName }}
                             </div>
                         </div>
                         <div class="row" style="padding-bottom: 0px">
@@ -54,7 +54,7 @@
                                 <label class="label-form">วันที่ป่วย</label>
                             </div>
                             <div class="col-md-8">
-                                {{ cancerBean.patientDate }}
+                                {{ displayFormatDate_Thai(cancerBean.patientDate) }}
                             </div>
                         </div>
                         <div class="row">
@@ -78,7 +78,7 @@
                                 <label class="label-form">สถานะการรักษา</label>
                             </div>
                             <div class="col-md-8">
-                                {{ cancerBean.diseaseStatusTypeId }}
+                                {{ cancerBean.diseaseStatusTypeName }}
                             </div>
                         </div>
                         <div class="row">

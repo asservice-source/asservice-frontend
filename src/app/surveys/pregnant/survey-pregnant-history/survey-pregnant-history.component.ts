@@ -67,7 +67,7 @@ export class SurveyPregnantHistoryComponent extends BaseComponent implements OnI
     $('#modal-history-pregnant').on('show.bs.modal', function (e) {
       self.pregnantBean = self.data;
       if (self.pregnantBean.childs && self.pregnantBean.childs.length > 0) {
-        self.bornDate = self.displayFormatDate(self.pregnantBean.childs[0].birthDate);
+        self.bornDate = self.displayFormatDate_Thai(self.pregnantBean.childs[0].birthDate);
         self.bornLocationId = self.pregnantBean.childs[0].bornLocationId;
         self.bornLocationName = self.getBornLocation(self.bornLocationId);
         self.bornTypeId = self.pregnantBean.childs[0].bornTypeId;
