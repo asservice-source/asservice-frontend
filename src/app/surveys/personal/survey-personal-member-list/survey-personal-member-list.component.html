@@ -32,12 +32,13 @@
     <div class="row">
       <div class="col-sm-12 text-left">
         <button class="btn btn-primary btn-sm" (click)="onClickAdd();">เพิ่มสมาชิก</button>
-        <button class="btn btn-primary btn-sm">พิมพ์เอกสาร</button>
+        &nbsp; &nbsp;
+        <button (click)="onViewInfo()" class="btn btn-primary btn-sm">ดูข้อมูลทั้งหมด</button>
       </div>
     </div>
 
     <br>
-    
+
     <div class="row" *ngIf="isShowTable">
       <div class="col-md-12">
         <div class="filter-discription">ส่วนที่ 1 มีชื่อในสำเนาทะเบียนบ้านจริง</div>
@@ -46,7 +47,7 @@
     </div>
 
     <br>
-    
+
     <div class="row" *ngIf="isShowTable">
       <div class="col-md-12">
         <div class="filter-discription">ส่วนที่ 2 ไม่มีชื่อในทะเบียนบ้าน แต่ตัวอยู่จริง</div>
@@ -57,6 +58,7 @@
     <div class="row">
       <div class="col-md-12">
         <button class="btn btn-confirm btn-sm" (click)="onClickSave();" *ngIf="isShowTable">ส่งข้อมูล</button>
+        &nbsp; &nbsp;
         <button class="btn btn-cancel btn-sm" id="btnBack" (click)="onClickBack();">ยกเลิก</button>
       </div>
     </div>

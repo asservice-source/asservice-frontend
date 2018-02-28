@@ -22,7 +22,6 @@ export class BaseComponent implements OnInit {
     public _GLOBAL = myconf;
     public ass_action = Action;
     public surveyHeaderCode = SurveyHeaderTypeCode;
-    private ng2STDataSource: LocalDataSource;// = new LocalDataSource();
     public rowPerPage: number = 10;
     public userInfo: UserService;
     constructor() {
@@ -512,10 +511,10 @@ export class BaseComponent implements OnInit {
     pastCitizenId(citizenId: any): string{
         if(citizenId){
             citizenId = citizenId.replace(/[^0-9\.]+/g, '');
-            
+
             if(citizenId.length > 13){
                 citizenId = citizenId.substr(0, 13);
-              
+
             }
             citizenId = this.formatCitizenId(citizenId);
           }

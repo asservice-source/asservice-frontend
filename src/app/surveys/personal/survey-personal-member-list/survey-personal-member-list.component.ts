@@ -64,15 +64,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     this.receiveParameters();
     this.bindRoundName();
     this.bindHomeInfo();
-    this.bindHomeMemberList();
-
     let _self = this;
-    // window.onbeforeunload = function() {
-    //   return _self.warningLeavPage;
-    // };
-    // $(window).bind('beforeunload', function(){
-    //   return _self.warningLeavPage;
-    // });
   }
 
   receiveParameters() {
@@ -114,8 +106,10 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
         self.address.tumbolCode = homeInfo.tumbolCode;
         self.address.amphurCode = homeInfo.amphurCode;
         self.address.provinceCode = homeInfo.provinceCode;
-
+        self.bindHomeMemberList();
       } else {
+        self.loading = false;
+        self.changeRef.detectChanges();
         console.log('survey-personal-member-list(bindHomeInfo) occured error(s) => ' + d.message);
       }
 
@@ -127,15 +121,24 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
 
   bindHomeMemberList() {
     let self = this;
-    self.loading = true;
-    self.apiHttp.getListMember(self.paramRoundId, self.paramHomeId, function (data) {
+    self.apiHttp.getListMember(self.paramRoundId, self.paramHomeId, (data) => {
       for (let item of data) {
         if (item && item.isGuest === true) {
           self.tempData2.push(item);
         } else {
+          item.homeNo = this.address.homeNo;
+          item.mooNo = this.address.mooNo;
+          item.road = this.address.road;
+          item.tumbolCode = this.address.tumbolCode;
+          item.amphurCode = this.address.amphurCode;
+          item.provinceCode = this.address.provinceCode;
           self.tempData.push(item);
         }
       }
+
+      console.log('tempData',self.tempData);
+      console.log('tempData2',self.tempData2);
+
       self.source = self.ng2STDatasource(self.tempData);
       self.isShowTable = true;
       self.source2 = self.ng2STDatasource(self.tempData2);
@@ -353,7 +356,9 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
 
   }
 
-
+  onViewInfo(){
+    window.open('history/surveys/personal/'+(this.homeInfo.homeId)+'/'+(this.paramRoundId)+'/', '_blank');
+  }
   settingColumn() {
     let self = this;
     self.settings = this.getTableSetting({
@@ -477,11 +482,12 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
         type: 'html',
         valuePrepareFunction: (cell, row) => {
           let text = '';
-          if (cell.rowGUID) {
+          if (!self.isEmpty(row.rowGUID)) {
             text = 'สำรวจแล้ว';
           } else {
             text = 'ยังไม่สำรวจ';
           }
+
           return '<div class="text-center">' + text + '</div>';
         }
       },
@@ -501,6 +507,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
       }
     });
   }
+
 
 }
 
