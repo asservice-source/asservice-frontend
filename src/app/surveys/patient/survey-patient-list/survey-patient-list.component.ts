@@ -204,13 +204,14 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
     self.loading = true;
 
     self.apiPatient.getListPatient(self.filtersearch, function (d) {
+      self.loading = false;
       if (!self.isEmptyObject(d)) {
         self.bindMultiMaps(d);
         self.param_reset++;
         self.changeRef.detectChanges();
-        $("#modalMultiMaps").modal("show");
       }
-      self.loading = false;
+      $("#modalMultiMaps").modal("show");
+
     });
   }
 
