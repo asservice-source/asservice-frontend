@@ -9,11 +9,10 @@ declare var $:any;
   styleUrls: []
 })
 export class FilterSummaryComponent extends BaseComponent{
-    @Input() subfixPath: string;
+    @Input() reportPath: string;
     @Input() report: string;
     @Input() title: string;
     @Output() process: any;
-    public reportPath = 'http://192.168.1.203:8080/api-asservice-front/report/';
     private api: ApiHTTPService;
     public isStaff: boolean;
     public listRounds: Array<any>;
@@ -84,7 +83,7 @@ export class FilterSummaryComponent extends BaseComponent{
         console.log('report',this.report);
         let obj = {'SurveyHeaderRowGUID':this.roundRowGuid,'OSMPersonID':this.osmId,'VillageID':this.villageId,'UserPersonID':this.personId,'DeadName':this.searchName}
         console.log(obj);
-        let path = this.reportPath+_self.subfixPath;
+        let path = _self.reportPath;
         let $params = '<input name="SurveyHeaderRowGUID" value="'+this.roundRowGuid+'" >';
         $params += ' <input name="Name" value="'+this.searchName+'" >';
         $params += ' <input name="OSMPersonID" value="'+this.osmId+'" >';

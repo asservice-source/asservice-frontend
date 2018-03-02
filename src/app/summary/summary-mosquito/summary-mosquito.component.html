@@ -1,0 +1,68 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <label>แบบสรุปข้อการสำรวจลูกน้ำ</label>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+
+      <div class="row">
+
+        <div class="col-md-2 text-right">
+          <label class="label-form">รอบสำรวจ</label>
+        </div>
+        <div class="col-md-3">
+          <div [InputValidate]="inputvalidate">
+            <select [(ngModel)]="roundRowGuid">
+              <option value="">เลือก</option>
+              <option *ngFor="let item of listRounds" [value]="item.rowGUID" >{{item.round}}</option>
+            </select>
+            <label class="error">กรุณาเลือกรอบสำรวจ</label>
+          </div>
+        </div>
+        <div class="col-md-2 text-right">
+          <label class="label-form">หมู่บ้าน</label>
+        </div>
+        <div class="col-md-3">
+          <select *ngIf="isStaff" [(ngModel)]="villageId" (change)="onChangeVillage()" [disabled]="isOffVillage">
+            <option value="">ทั้งหมด</option>
+            <option *ngFor="let item of listVillages" [value]="item.id" >{{'หมู่ที่ '+item.villageNo +' '+ item.villageName}}</option>
+          </select>
+          <input *ngIf="!isStaff" [value]="userInfo.villageName" [disabled]="true" >
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col-md-2 text-right">
+          <label class="label-form">อสม.</label>
+        </div>
+        <div class="col-md-3">
+          <select *ngIf="isStaff" [(ngModel)]="osmId" [disabled]="isOffOsm">
+            <option value="">ทั้งหมด</option>
+            <option *ngFor="let item of listOsm" [value]="item.personId" >{{item.fullName}}</option>
+          </select>
+          <input *ngIf="!isStaff" [value]="userInfo.fullName" [disabled]="true" >
+        </div>
+        <div class="col-md-2 text-right">
+          <label class="label-form">ปรเภทสถานที่</label>
+        </div>
+        <div class="col-md-3">
+          <select [(ngModel)]="homeTypeCode">
+            <option value="">ทั้งหมด</option>
+            <option *ngFor="let item of listHomeTypes" [value]="item.code">{{item.name}}</option>
+          </select>
+        </div>
+      </div>
+
+
+      <div class="row text-center" style="margin-top: 10px;">
+        <button id="filter-btnSearch" (click)="onReporting();" class="btn btn-primary btn-sm">
+          <i class="fa fa-file-text-o">&nbsp;รายงาน</i>
+        </button> &nbsp;&nbsp;
+        <button id="filter-btnClear" (click)="clear()" class="btn btn-primary btn-sm">
+          <i class="fa fa-refresh">&nbsp;ล้างค่า</i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -12,7 +12,7 @@ declare var bootbox: any;
   selector: 'app-survey-died-form',
   templateUrl: './survey-died-form.component.html',
   styleUrls: ['./survey-died-form.component.css','../../../checkbox.css']
-  
+
 })
 export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,AfterViewInit{
   @Input() action: string;
@@ -65,7 +65,16 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
     });
   }
   onChoosePersonal(mBean: DeadBean):void {
+    if(this.userInfo.personId == mBean.personId){
 
+      this.message_error('','ไม่สามารถทำรายการนี้ได้', ()=>{
+        this.isFindPersonal = false;
+        this.changeRef.detectChanges();
+        this.isFindPersonal = true;
+        this.changeRef.detectChanges();
+      });
+      return ;
+    }
     this.bean = mBean;
     if(this.action==this.ass_action.EDIT){
       let dateObj = this.convertDateTimeSQL_to_DisplayDateTime(this.bean.deathDate);
@@ -77,7 +86,7 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
       }else{
         this.bean.isCauseOther = false;
       }
-      
+
     }else{
       this.bean.mDateDead = this.getCurrentDatePickerModel();
       this.bean.cancerTypeId = "";
@@ -127,7 +136,7 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
     this.inputValidate = new InputValidateInfo();
     this.inputValidate.isCheck = true;
     this.changeRef.detectChanges();
-    let date = this.bean.mDateDead.date;    
+    let date = this.bean.mDateDead.date;
     this.bean.deathDate = this.getStringDateForDatePickerModel(this.bean.mDateDead.date)+' '+this.bean.mHours+':'+this.bean.mMins+':00.0';
     console.log(this.bean);
     if(this.action==this.ass_action.ADD){
@@ -235,6 +244,6 @@ export class SurveyDiedFormComponent extends BaseComponent implements OnInit ,Af
     //   });
     // });
 
-  
+
   }
 }

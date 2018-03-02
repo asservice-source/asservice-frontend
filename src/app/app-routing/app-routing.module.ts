@@ -35,6 +35,8 @@ import { IndexContactusComponent } from "../index/contactus/contactus.component"
 import { IndexAboutSystemComponent } from "../index/about-system/about-system.component";
 import {SummaryPregnantComponent} from '../summary/summary-pregnant/summary-pregnant.component';
 import {SummaryPatientComponent} from '../summary/summary-patient/summary-patient.component';
+import {SummaryMetabolicComponent} from '../summary/summary-metabolic/summary-metabolic.component';
+import {SummaryMosquitoComponent} from '../summary/summary-mosquito/summary-mosquito.component';
 
 @NgModule({
   imports: [
@@ -209,6 +211,14 @@ import {SummaryPatientComponent} from '../summary/summary-patient/summary-patien
             {
               path: 'patient',
               component: SummaryPatientComponent
+            },
+            {
+              path: 'metabolic',
+              component: SummaryMetabolicComponent
+            },
+            {
+              path: 'mosquito',
+              component: SummaryMosquitoComponent
             }
           ]
         }

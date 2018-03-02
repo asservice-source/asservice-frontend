@@ -98,6 +98,8 @@ import { SummaryPregnantComponent } from './summary/summary-pregnant/summary-pre
 import {SummaryPatientComponent} from './summary/summary-patient/summary-patient.component';
 import { SurveyMosquitoHistoryComponent } from './surveys/mosquito/survey-mosquito-history/survey-mosquito-history.component';
 import { SurveyMetabolicHistoryComponent } from './surveys/metabolic/survey-metabolic-history/survey-metabolic-history.component';
+import {SummaryMetabolicComponent} from './summary/summary-metabolic/summary-metabolic.component';
+import {SummaryMosquitoComponent} from './summary/summary-mosquito/summary-mosquito.component';
 
 @NgModule({
   declarations: [
@@ -189,7 +191,9 @@ import { SurveyMetabolicHistoryComponent } from './surveys/metabolic/survey-meta
     SummaryPregnantComponent,
     SummaryPatientComponent,
     SurveyMosquitoHistoryComponent,
-    SurveyMetabolicHistoryComponent
+    SurveyMetabolicHistoryComponent,
+    SummaryMetabolicComponent,
+    SummaryMosquitoComponent
   ],
   imports: [
     BrowserModule,

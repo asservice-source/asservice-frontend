@@ -1,48 +1,48 @@
-import { Component, OnInit } from '@angular/core';
-import {UserService} from '../../service/user.service';
-import {BaseComponent} from '../../base-component';
-import {ApiHTTPService} from '../../api-managements/api-http.service';
-import {InputValidateInfo} from '../../directives/inputvalidate.directive';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { BaseComponent } from '../../base-component';
 import {ReportPath} from '../../global-config';
-declare var $:any;
-@Component({
-  selector: 'app-summary-personal',
-  templateUrl: './summary-personal.component.html',
-  styleUrls: ['./summary-personal.component.css']
-})
-export class SummarytPersonalComponent extends BaseComponent implements OnInit {
+import {InputValidateInfo} from '../../directives/inputvalidate.directive';
+import {ApiHTTPService} from '../../api-managements/api-http.service';
 
+declare var $:any;
+
+@Component({
+  selector: 'app-summary-mosquito',
+  templateUrl: './summary-mosquito.component.html',
+  styleUrls: ['./summary-mosquito.component.css']
+})
+export class SummaryMosquitoComponent extends BaseComponent implements OnInit {
+  public reportPath: string = ReportPath.MOSQUITO;
+  public report: string = this.surveyHeaderCode.MONITORHICI;
   private api: ApiHTTPService;
+  public inputvalidate: InputValidateInfo;
   public isStaff: boolean;
   public listRounds: Array<any>;
   public listVillages: Array<any>;
   public listOsm: Array<any>;
-  public listHomes: Array<any>;
-  public inputvalidate: InputValidateInfo;
+  public listHomeTypes: Array<any>;
   public roundRowGuid: string = '';
   public villageId: string = '';
   public osmId: string = '';
-  public homeId: string = '';
+  public homeTypeCode: string = '';
   public personId: string;
   public isOffVillage: boolean = true;
   public isOffOsm: boolean = true;
-  public isOffHome: boolean = true;
 
-  constructor() {
+  constructor(private changeRef: ChangeDetectorRef) {
     super();
     this.api = new ApiHTTPService();
     this.isStaff = this.isStaffRole(this.userInfo.roleId);
     this.inputvalidate = new InputValidateInfo();
   }
-
   ngOnInit() {
 
     this.setDropdownListRounds();
+    this.setDropdownListHomeType();
     if(!this.isStaff){
       this.osmId = this.userInfo.personId;
-      //this.personId = this.userInfo.personId;
       this.villageId = this.userInfo.villageId;
-      this.setDropdownListHomes();
+
     }else{
       this.setDropdownListVillages();
     }
@@ -51,7 +51,7 @@ export class SummarytPersonalComponent extends BaseComponent implements OnInit {
   }
   setDropdownListRounds(){
     this.listRounds = new Array<any>();
-    this.api.api_SurveyHeaderList(this.surveyHeaderCode.POPULATION, data =>{
+    this.api.api_SurveyHeaderList(this.surveyHeaderCode.MONITORHICI, data =>{
       this.listRounds = data;
     });
   }
@@ -71,25 +71,17 @@ export class SummarytPersonalComponent extends BaseComponent implements OnInit {
       this.isOffOsm = false;
     });
   }
-  setDropdownListHomes(){
-    this.isOffHome = true;
-    this.listHomes = new Array<any>();
-    this.api.api_HomeList(this.villageId, this.osmId,'',data =>{
-      this.listHomes = data;
-      this.isOffHome = false;
+  setDropdownListHomeType(){
+    this.listHomeTypes = new Array<any>();
+    this.api.api_HomeTypeList((data)=>{
+      this.listHomeTypes = data;
     });
   }
   onChangeVillage(){
     this.osmId = '';
-    this.homeId = '';
     if(this.villageId){
       this.setDropdownListOsm();
-      this.setDropdownListHomes();
     }
-  }
-  onChangeOsm(){
-    this.homeId = '';
-    this.setDropdownListHomes();
   }
   onReporting(){
     this.inputvalidate = new InputValidateInfo();
@@ -99,13 +91,13 @@ export class SummarytPersonalComponent extends BaseComponent implements OnInit {
       console.log('UserPersonID',this.personId);
       console.log('OSMPersonID',this.osmId);
       console.log('VillageID',this.villageId);
-      console.log('HomeID',this.homeId);
+      console.log('HomeTypeCode',this.homeTypeCode);
       let $params = '<input name="SurveyHeaderRowGUID" value="'+this.roundRowGuid+'" >';
-      $params += ' <input name="HomeID" value="'+this.homeId+'" >';
+      $params += ' <input name="HomeTypeCode" value="'+this.homeTypeCode+'" >';
       $params += ' <input name="OSMPersonID" value="'+this.osmId+'" >';
       $params += ' <input name="VillageID" value="'+this.villageId+'" >';
       $params += ' <input name="UserPersonID" value="'+this.personId+'" >';
-      let $form = $('<form method="post" target="_blank" name="mfrm" action="'+ReportPath.POPULATION+'"></form>');
+      let $form = $('<form method="post" target="_blank" name="mfrm" action="'+ this.reportPath+'"></form>');
       $form.append($params);
       $form.css('display', 'none');
       $('body').append($form);
@@ -117,11 +109,10 @@ export class SummarytPersonalComponent extends BaseComponent implements OnInit {
   clear(){
     this.roundRowGuid = '';
     this.villageId = '';
-    this.homeId = '';
+    this.homeTypeCode = '';
     this.osmId = '';
     this.isOffOsm = true;
-    this.isOffHome = true;
     this.listOsm = [];
-    this.listHomes = [];
+    this.listHomeTypes = [];
   }
 }
