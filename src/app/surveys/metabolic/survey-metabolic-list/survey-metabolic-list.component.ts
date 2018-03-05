@@ -227,6 +227,7 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
         self.changeRef.detectChanges();
         $("#modalMultiMaps").modal("show");
       }
+
       self.loading = false;
     });
   }
