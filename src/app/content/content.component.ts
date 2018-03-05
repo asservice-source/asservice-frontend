@@ -38,8 +38,9 @@ export class ContentComponent extends BaseComponent implements OnInit {
 
   // Pie
   public pieChartLabels: string[] = ['พบลูกน้ำ', 'ไม่พบลูกน้ำ'];
-  public pieChartData: number[] = [0, 0];
   public pieChartType: string = 'pie';
+  public pieChartLegend: boolean = true;
+  public pieChartData: number[] = [0, 0];
 
   constructor(private http: Http, private route: Router) {
     super();
