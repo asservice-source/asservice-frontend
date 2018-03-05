@@ -361,9 +361,27 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
   onClickMultiMaps() {
     let self = this;
 
-    self.param_reset++;
-    self.changeRef.detectChanges();
-    $("#modalMultiMaps").modal("show");
+    self.loading = true;
+
+    let param = {
+      "documentId": self.filtersearch.rowGUID,
+      "villageId": self.filtersearch.villageId,
+      "homeTypeCode": self.filtersearch.homeType,
+      "osmId": self.filtersearch.osmId,
+      "homeId": self.filtersearch.homeId
+    };
+
+    let params = JSON.stringify(param);
+
+    self.api.post('survey_hici/search_hici_info_list', params, function (d) {
+      if (d != null && d.status.toUpperCase() == "SUCCESS") {
+        self.bindMultiMaps(d.response);
+        self.param_reset++;
+        self.changeRef.detectChanges();
+      }
+      $("#modalMultiMaps").modal("show");
+      self.loading = false;
+    });
   }
 
   bindMultiMaps(data) {

@@ -295,8 +295,8 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
         self.bindMultiMaps(d.response);
         self.param_reset++;
         self.changeRef.detectChanges();
-        $("#modalMultiMaps").modal("show");
       }
+      $("#modalMultiMaps").modal("show");
       self.loading = false;
     });
 

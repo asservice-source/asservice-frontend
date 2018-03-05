@@ -259,10 +259,10 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
         self.bindMultiMaps(d.response);
         self.param_reset++;
         self.changeRef.detectChanges();
-        $("#modalMultiMaps").modal("show");
       } else {
         console.log('survey-personal-pregnant-list(onClickMultiMaps) occured error(s) => ' + d.message);
       }
+      $("#modalMultiMaps").modal("show");
       self.loading = false;
     });
   }
