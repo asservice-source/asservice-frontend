@@ -51,6 +51,12 @@ export class FilterSummaryComponent extends BaseComponent{
       this.listRounds = new Array<any>();
       this.api.api_SurveyHeaderList(this.report, data =>{
         this.listRounds = data;
+        for(let item of this.listRounds){
+          if(item.status == '2'){
+            this.roundRowGuid = item.rowGUID;
+          }
+        }
+
       });
     }
     setDropdownListVillages(){
