@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../service/user.service';
 import { LocalStorageManagement } from '../service/localStorage-management';
 import { Router } from '@angular/router';
+import {BaseComponent} from '../base-component';
 declare var $:any;
 @Component({
   selector: 'app-index',
@@ -10,7 +11,7 @@ declare var $:any;
 })
 export class IndexComponent implements OnInit{
   private storage: LocalStorageManagement;
-
+  //private baseComp: BaseComponent;
   constructor(public user: UserService, private router: Router){
   this.storage = new LocalStorageManagement(this.user);
   }

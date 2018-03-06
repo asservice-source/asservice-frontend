@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import {BaseComponent} from '../base-component';
 declare var $:any;
 @Component({
   selector: 'app-main',
@@ -8,7 +9,7 @@ declare var $:any;
 export class MainComponent implements OnInit, OnDestroy {
   bodyClasses = 'skin-blue sidebar-mini';
   body: HTMLBodyElement = document.getElementsByTagName('body')[0];
-
+  private baseComp: BaseComponent;
   constructor() { }
 
   ngOnInit() {
@@ -23,7 +24,11 @@ export class MainComponent implements OnInit, OnDestroy {
         }
       });
     }, 1000);
+    this.baseComp = new BaseComponent();
+    this.baseComp.getLocationGooglemaps(null, (data)=>{
 
+      console.log('LocationGooglemaps', data);
+    });
   }
 
    ngOnDestroy() {

@@ -24,6 +24,7 @@ export class BaseComponent implements OnInit {
     public surveyHeaderCode = SurveyHeaderTypeCode;
     public rowPerPage: number = 10;
     public userInfo: UserService;
+    public httpAPI: ApiHTTPService;
     constructor() {
         this.userInfo = AppComponent.injector.get(UserService);
         this.labelManager = new LabelManager();
@@ -519,5 +520,29 @@ export class BaseComponent implements OnInit {
             citizenId = this.formatCitizenId(citizenId);
           }
           return citizenId;
+    }
+
+    getLocationGooglemaps(address: any, callback: (doc:any)=>void){
+      this.httpAPI = new ApiHTTPService();
+      if(!address){
+        address= this.userInfo.hospitalTumbolName;
+        address += ' '+this.userInfo.hospitalAmphurName;
+        address += ' '+this.userInfo.hospitalProvinceName;
+        address += ' '+this.userInfo.hospitalZipCode;
+      }
+      let params = {'address': address, 'key': this._GLOBAL.API_MAPS_KEY};
+
+      let url = Object.keys(params).map(function(k) {
+        return encodeURIComponent(k) + '=' + encodeURIComponent(params[k])
+      }).join('&');
+      console.log('params',params);
+      console.log('URL',url);
+      this.httpAPI.http.get('https://maps.googleapis.com/maps/api/geocode/json?'+url)
+        .map(res => res.json())
+        .subscribe(
+          data => callback(data),
+          err => callback(err),
+          () => console.log('Fetching complete for Server Api.')
+        )
     }
 }
