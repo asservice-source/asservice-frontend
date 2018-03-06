@@ -18,6 +18,8 @@ export class MultiMapsComponent extends BaseComponent implements OnInit {
   public positions: Array<MapsBean> = [];
   public info_content = "";
   public map: any;
+  public defaultLat: string = "";
+  public defaultLng: string = "";
 
   constructor(private _changeRef: ChangeDetectorRef) {
     super();
@@ -50,16 +52,34 @@ export class MultiMapsComponent extends BaseComponent implements OnInit {
       if (self.positions && self.positions.length > 0) {
         let numLat = +self.positions[0].latitude;
         let numLng = +self.positions[0].longitude;
-        let latLngLiteral = { lat: numLat, lng: numLng };
-        self.zoom = 12;
         self.center = numLat + "," + numLng;
         if (self.map) {
-          self.map.panTo(latLngLiteral);
+          self.map.panTo({ lat: numLat, lng: numLng });
+          self.map.setZoom(12);
         }
+        self.zoom = 12;
       } else {
-        self.zoom = 15;
-        let adr = 'ตำบล' + self.userInfo.hospitalTumbolName + ' อำเภอ' + self.userInfo.hospitalAmphurName + ' จังหวัด' + self.userInfo.hospitalProvinceName + ' ' + self.userInfo.hospitalZipCode;
-        self.center = adr;
+        // เก็บค่าไว้ในตัวแปร เมื่อมีค่าแล้วจะไม่ call api อีก
+        if (!self.defaultLat && !self.defaultLng) {
+          self.getLocationGooglemaps(null, function (d) {
+            if (d.results) {
+              self.defaultLat = d.results[0].geometry.location.lat;
+              self.defaultLng = d.results[0].geometry.location.lng;
+            }
+          });
+        }
+
+        if (self.defaultLat && self.defaultLng) {
+          self.center = self.defaultLat + ',' + self.defaultLng;
+          if (self.map) {
+            self.map.panTo({ lat: self.defaultLat, lng: self.defaultLng });
+            self.map.setZoom(15);
+          }
+        } else {
+          let adr = 'ตำบล' + self.userInfo.hospitalTumbolName + ' อำเภอ' + self.userInfo.hospitalAmphurName + ' จังหวัด' + self.userInfo.hospitalProvinceName + ' ' + self.userInfo.hospitalZipCode;
+          self.center = adr;
+          self.zoom = 15;
+        }
       }
     }
   }
