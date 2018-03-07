@@ -82,7 +82,8 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
         width: '120px',
         type: 'html',
         valuePrepareFunction: (cell, row) => {
-          return '<div class="text-center">' + this.formatNumber(cell) + '</div>'
+          let sum = this.formatNumber(cell) || 0;
+          return '<div class="text-center">' + sum + '</div>'
         }
       },
       totalDetect: {
@@ -91,7 +92,8 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
         width: '100px',
         type: 'html',
         valuePrepareFunction: (cell, row) => {
-          return '<div class="text-center">' + this.formatNumber(cell) + '</div>'
+          let sum = this.formatNumber(cell) || 0;
+          return '<div class="text-center">' + sum + '</div>'
         }
       },
       action: {
