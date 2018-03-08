@@ -37,19 +37,19 @@
           <label class="label-form">อสม.</label>
         </div>
         <div class="col-md-3">
-          <select *ngIf="isStaff" [(ngModel)]="osmId" (change)="onChangeOSM()" [disabled]="isOffOsm">
+          <select *ngIf="isStaff" [(ngModel)]="osmId" [disabled]="isOffOsm">
             <option value="">ทั้งหมด</option>
             <option *ngFor="let item of listOsm" [value]="item.personId" >{{item.fullName}}</option>
           </select>
           <input *ngIf="!isStaff" [value]="userInfo.fullName" [disabled]="true" >
         </div>
         <div class="col-md-2 text-right">
-          <label class="label-form">บ้านเลขที่</label>
+          <label class="label-form">ปรเภทสถานที่</label>
         </div>
         <div class="col-md-3">
-          <select [(ngModel)]="homeId" [disabled]="isOffHome">
+          <select [(ngModel)]="homeTypeCode">
             <option value="">ทั้งหมด</option>
-            <option *ngFor="let item of listHomes" [value]="item.homeId">{{item.homeNo}}</option>
+            <option *ngFor="let item of listHomeTypes" [value]="item.code">{{item.name}}</option>
           </select>
         </div>
       </div>

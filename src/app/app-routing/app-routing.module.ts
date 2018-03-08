@@ -37,6 +37,7 @@ import {SummaryPregnantComponent} from '../summary/summary-pregnant/summary-preg
 import {SummaryPatientComponent} from '../summary/summary-patient/summary-patient.component';
 import {SummaryMetabolicComponent} from '../summary/summary-metabolic/summary-metabolic.component';
 import {SummaryMosquitoComponent} from '../summary/summary-mosquito/summary-mosquito.component';
+import {SummaryHICIComponent} from '../summary/summary-hici/summary-hici.component';
 
 @NgModule({
   imports: [
@@ -219,6 +220,10 @@ import {SummaryMosquitoComponent} from '../summary/summary-mosquito/summary-mosq
             {
               path: 'mosquito',
               component: SummaryMosquitoComponent
+            },
+            {
+              path: 'hici',
+              component: SummaryHICIComponent
             }
           ]
         }

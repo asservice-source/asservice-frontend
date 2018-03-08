@@ -8,7 +8,7 @@ export class ReportPath{
   public static PREGNANCY = API_SERVER_URL + 'report/pregnancy/ViewMonthlyReport';
   public static PATIENT = API_SERVER_URL + 'report/patient/ViewMonthlyReport';
   public static METABOLIC = API_SERVER_URL + 'report/metabolic/ViewReportOfPersonInformation';
-  public static MOSQUITO = API_SERVER_URL + 'report/hici/mosquito/ViewMonthlyReportOfHICISummaryForTumbol';
-
+  public static MOSQUITO = API_SERVER_URL + 'report/hici/mosquito/ViewMonthlyReportOfHICISummaryForVillage';
+  public static MOSQUITO_HICI = API_SERVER_URL + 'report/hici/mosquito/ViewMonthlyReportOfHICISummaryForTumbol';
 
 }

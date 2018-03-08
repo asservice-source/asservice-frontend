@@ -100,6 +100,7 @@ import { SurveyMosquitoHistoryComponent } from './surveys/mosquito/survey-mosqui
 import { SurveyMetabolicHistoryComponent } from './surveys/metabolic/survey-metabolic-history/survey-metabolic-history.component';
 import {SummaryMetabolicComponent} from './summary/summary-metabolic/summary-metabolic.component';
 import {SummaryMosquitoComponent} from './summary/summary-mosquito/summary-mosquito.component';
+import {SummaryHICIComponent} from './summary/summary-hici/summary-hici.component';
 
 @NgModule({
   declarations: [
@@ -193,7 +194,8 @@ import {SummaryMosquitoComponent} from './summary/summary-mosquito/summary-mosqu
     SurveyMosquitoHistoryComponent,
     SurveyMetabolicHistoryComponent,
     SummaryMetabolicComponent,
-    SummaryMosquitoComponent
+    SummaryMosquitoComponent,
+    SummaryHICIComponent
   ],
   imports: [
     BrowserModule,
