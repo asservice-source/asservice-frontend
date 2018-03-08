@@ -36,8 +36,8 @@ import { IndexAboutSystemComponent } from "../index/about-system/about-system.co
 import {SummaryPregnantComponent} from '../summary/summary-pregnant/summary-pregnant.component';
 import {SummaryPatientComponent} from '../summary/summary-patient/summary-patient.component';
 import {SummaryMetabolicComponent} from '../summary/summary-metabolic/summary-metabolic.component';
+import {SummaryMosquitoHICIComponent} from '../summary/summary-mosquito-hici/summary-mosquito-hici.component';
 import {SummaryMosquitoComponent} from '../summary/summary-mosquito/summary-mosquito.component';
-import {SummaryHICIComponent} from '../summary/summary-hici/summary-hici.component';
 
 @NgModule({
   imports: [
@@ -223,7 +223,7 @@ import {SummaryHICIComponent} from '../summary/summary-hici/summary-hici.compone
             },
             {
               path: 'hici',
-              component: SummaryHICIComponent
+              component: SummaryMosquitoHICIComponent
             }
           ]
         }
