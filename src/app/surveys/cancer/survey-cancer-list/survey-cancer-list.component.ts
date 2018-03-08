@@ -141,6 +141,7 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
                 self.param_latitude = row.latitude;
                 self.param_longitude = row.longitude;
                 self.param_info = 'บ้านของ ' + row.fullName;
+                self.param_reset++;
                 $("#modalMaps").modal("show");
               }
               self.loading = false;
@@ -253,6 +254,7 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
                 self.param_latitude = row.latitude;
                 self.param_longitude = row.longitude;
                 self.param_info = 'บ้านของ ' + row.fullName;
+                self.param_reset++;
                 $("#modalMaps").modal("show");
               }
               self.loading = false;

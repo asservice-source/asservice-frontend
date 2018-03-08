@@ -130,6 +130,7 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
             self.param_latitude = row.latitude;
             self.param_longitude = row.longitude;
             self.param_info = 'บ้านของ ' + row.fullName;
+            self.param_reset++;
             $("#modalMaps").modal("show");
           });
 
@@ -206,6 +207,7 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
                 self.param_latitude = data.latitude;
                 self.param_longitude = data.longitude;
                 self.param_info = 'บ้านของ ' + data.fullName;
+                self.param_reset++;
                 $("#modalMaps").modal("show");
               }
               self.loading = false;
