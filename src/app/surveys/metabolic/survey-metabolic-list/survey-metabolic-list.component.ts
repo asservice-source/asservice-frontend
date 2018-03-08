@@ -117,6 +117,7 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
                 self.param_latitude = data.latitude;
                 self.param_longitude = data.longitude;
                 self.param_info = 'บ้านของ ' + data.fullName;
+                self.param_reset++;
                 $("#modalMaps").modal("show");
               }
               self.loading = false;

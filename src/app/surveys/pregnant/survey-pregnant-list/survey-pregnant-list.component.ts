@@ -159,6 +159,7 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
                 self.param_latitude = data.latitude;
                 self.param_longitude = data.longitude;
                 self.param_info = 'บ้านของ ' + data.fullName;
+                self.param_reset++;
                 self.changeRef.detectChanges();
                 $("#modalMaps").modal("show");
               }
@@ -196,15 +197,18 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
         width: '120px',
         type: 'custom',
         renderComponent: SurveyPregnantListButtonEditComponent, onComponentInitFunction(instance) {
+
           instance.action.subscribe((row: PregnantBean, cell) => {
             if (row && row.action.toUpperCase() == self.ass_action.EDIT) {
               self.param_rowGUID = row.rowGUID;
               self.onModalForm(self.ass_action.EDIT);
             }
           });
+
           instance.delete.subscribe(row => {
             self.onDeleteSurveyPregnant(row);
           });
+
           instance.maps.subscribe(row => {
             self.loading = true;
 
@@ -214,12 +218,14 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
                 self.param_latitude = data.latitude;
                 self.param_longitude = data.longitude;
                 self.param_info = 'บ้านของ ' + data.fullName;
+                self.param_reset++;
                 self.changeRef.detectChanges();
                 $("#modalMaps").modal("show");
               }
               self.loading = false;
             });
           });
+
         }
       };
       self.settings = self.getTableSetting(self.columns);
