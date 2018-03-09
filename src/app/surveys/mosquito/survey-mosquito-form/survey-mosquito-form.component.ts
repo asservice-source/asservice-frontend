@@ -329,6 +329,7 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
     let self = this;
     for (let item of this.mosquitobean.listContainerType) {
       delete item.containerTypeName;
+      item.osmId = this.isStaff?this.findOsmId: this.userInfo.personId;
     }
     let objs = {
       listContainerType: this.mosquitobean.listContainerType
@@ -339,7 +340,7 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
     for (let i = 0; i < this.containerTypeList.length; i++) {
       sumtotal += parseInt(this.mosquitobean.listContainerType[i].totalSurvey);
     }
-
+    console.log('=> params =>',params);
 
     if (this.validateSum()) {
       if (sumtotal <= 0) {
