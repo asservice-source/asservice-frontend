@@ -3,6 +3,8 @@ import { BaseComponent } from '../../../base-component';
 import { MosquitoBean } from '../../../beans/mosquito.bean';
 import { ApiHTTPService } from '../../../api-managements/api-http.service';
 import { HomeBean } from '../../../beans/home.bean'
+import {SelectHomeListButton} from '../../../filter/filter-find-mosquito/filter-find-mosquito.component';
+import {LocalDataSource} from 'ng2-smart-table';
 
 declare var $: any;
 @Component({
@@ -18,9 +20,11 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
   @Input() placeData: any;
   @Output() completed: EventEmitter<any> = new EventEmitter<any>();
 
-  public isFindHome: boolean = true;
   public isShowForm: boolean = false;
-  public resetFind: number = 1;
+  public isShowFind: boolean= true;
+  public isStaff: boolean;
+  public isFromPending: boolean = false;
+
   private api: ApiHTTPService;
   public containerTypeList: any;
   public loading: boolean = false;
@@ -28,7 +32,23 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
   public obj = [];
   public isShowAddPlace = false;
   public mosquitobean: MosquitoBean;
-  public isFromPending: boolean = false;
+
+  public settings: any;
+  public source: LocalDataSource;
+
+  public listVillages: Array<any> = [];
+  public listOsm: Array<any> = [];
+  public listHomeTypes: Array<any> = [];
+  public listHomes: Array<any> = [];
+
+  public findVillageId: string = '';
+  public findHomeTypeCode: string = '';
+  public findOsmId: string = '';
+
+  public isShowListHome: boolean;
+  public isVillageDisabled: boolean = true;
+  public isOsmDisabled: boolean = true;
+  public isHomeTypeDisabled: boolean = true;
 
   public valSurveyTotal: any = {};
   ngAfterViewInit(): void {
@@ -43,12 +63,61 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
   }
 
   ngOnInit() {
-    this.onModalEvent();
+    this.isStaff = this.isStaffRole(this.userInfo.roleId);
+    this.bindModalEvent();
     this.getContainerType();
 
   }
+  setListVillages(){
+    this.isVillageDisabled = true;
+    this.api.api_villageList(super.getHospitalCode(), (data)=> {
+      this.listVillages = data;
+      this.isVillageDisabled = false;
+    })
+  }
+  setListOSMs(){
+    this.isOsmDisabled = true;
+    if(this.findVillageId){
+      this.api.api_OsmList(this.findVillageId, (data)=> {
+        this.listOsm = data;
+        this.isOsmDisabled = false;
+      });
+    }
+  }
+  setListHomeTypes(){
+    this.isHomeTypeDisabled = true;
+    this.api.api_HomeTypeList((data)=>{
+      this.listHomeTypes = data;
+      this.isHomeTypeDisabled = false;
+    });
+  }
+  onFindVillageChange(){
+    this.setListOSMs();
+  }
+  onFindSearch() {
+    this.changeTableSetting();
+    let parameters = {
+      "villageId": this.findVillageId,
+      "homeTypeCode": this.findHomeTypeCode,
+      "documentId": this.documentId,
+      "osmId": this.findOsmId
+    };
 
-  addplace(villageId) {
+    console.log("parameters", parameters);
+    this.loading = true;
+    this.api.post('home/home_list_by_village_hometype', parameters, (resp)=> {
+      this.isShowListHome = true;
+      this.loading = false;
+      if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
+        this.listHomes = resp.response;
+        this.source = this.ng2STDatasource(this.listHomes);
+        this.changeRef.detectChanges();
+      }
+      this.changeRef.detectChanges();
+    });
+  }
+
+  onAddPlaceOrHome(){
     $('#find-person-md').modal('hide');
     this.homebean = new HomeBean();
     this.homebean.homeId = "";
@@ -59,24 +128,24 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
     this.homebean.latitude = "";
     this.homebean.longitude = "";
     this.homebean.homeTypeCode = "";
-    this.homebean.villageId = villageId;
+    this.homebean.villageId = this.findVillageId;
     if (!this.isStaffRole(this.userInfo.roleId)) {
       this.homebean.osmId = this.userInfo.personId;
     }
     this.isShowAddPlace = true;
     this.changeRef.detectChanges();
     $('#modalFormHome').modal('show');
-
   }
 
-  onBack() {
+
+  onCancel() {
     this.mosquitobean = new MosquitoBean();
 
     for (let i = 0; i < this.containerTypeList.length; i++) {
       this.obj[i] = false;
     }
 
-    this.isFindHome = true;
+    this.isShowFind = true;
     this.isShowForm = false;
     if (this.ass_action.EDIT == this.action || this.isFromPending) {
       $('#find-person-md').modal('hide');
@@ -84,36 +153,49 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
   }
 
   onChoosePlace(bean: any): void {
+    this.isShowFind = false;
     this.mosquitobean = new MosquitoBean();
     this.mosquitobean = bean;
-    this.isFindHome = false;
     this.isShowForm = true;
     if (this.action == this.ass_action.ADD) {
       this.setListContainerTypeDefault();
     }
   }
 
-  onModalEvent() {
+  bindModalEvent() {
     let self = this;
     $('#find-person-md').on('show.bs.modal', function (e) {
-      self.resetFind = self.resetFind + 1;
       self.isFromPending = false;
-
       if (self.action == self.ass_action.EDIT) {
         self.onChoosePlace(self.data);
       }else if(self.action == self.ass_action.ADD && self.placeData){
         self.onChoosePlace(self.placeData);
         self.isFromPending = true;
+      }else{
+        if(self.isStaff){
+          self.setListVillages();
+        }
+        self.setListHomeTypes();
+
       }
       self.changeRef.detectChanges();
     })
-    $('#find-person-md').on('hidden.bs.modal', function () {
 
+    $('#find-person-md').on('hidden.bs.modal', function () {
+      self.isShowListHome = false;
       self.isShowForm = false;
-      self.isFindHome = true;
-      self.resetFind = self.resetFind + 1;
+      self.clearFormSearch();
       self.changeRef.detectChanges();
     });
+  }
+  clearFormSearch(){
+    this.findOsmId = '';
+    this.findVillageId = '';
+    this.findHomeTypeCode = '';
+    this.listOsm = [];
+    this.isOsmDisabled = true;
+    this.listHomes = [];
+    this.source = this.ng2STDatasource(this.listHomes);
   }
   setListContainerTypeDefault() {
     let self = this;
@@ -170,7 +252,78 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
     }
     return validate;
   }
+  changeTableSetting() {
 
+    let self = this;
+    if (this.findHomeTypeCode == "01") {
+      this.settings = this.getTableSetting({
+        homeNo: {
+          title: 'เลขที่',
+          filter: false,
+          width: '80px',
+          type: 'html',
+          valuePrepareFunction: (cell, row) => {
+            return '<div class="text-center">' + cell + '</div>'
+          }
+        },
+        homeTypeName: {
+          title: 'ประเภท',
+          filter: false,
+          type: 'html',
+          valuePrepareFunction: (cell, row) => {
+            return '<div class="text-center">' + cell + '</div>'
+          }
+        },
+        address: {
+          title: 'ที่อยู่',
+          filter: false
+        },
+        action: {
+          title: '',
+          filter: false,
+          width: '70',
+          type: 'custom',
+          renderComponent: SelectHomeListButton,
+          onComponentInitFunction(instance) {
+            instance.action.subscribe((row: HomeBean) => {
+              self.onChoosePlace(row);
+            });
+          }
+        }
+      });
+    } else {
+      this.settings = this.getTableSetting({
+        name: {
+          title: 'ชื่อ',
+          filter: false
+        },
+        homeTypeName: {
+          title: 'ประเภท',
+          filter: false,
+          type: 'html',
+          valuePrepareFunction: (cell, row) => {
+            return '<div class="text-center">' + cell + '</div>'
+          }
+        },
+        address: {
+          title: 'ที่อยู่',
+          filter: false
+        },
+        action: {
+          title: '',
+          filter: false,
+          width: '70',
+          type: 'custom',
+          renderComponent: SelectHomeListButton,
+          onComponentInitFunction(instance) {
+            instance.action.subscribe((row: HomeBean) => {
+              self.onChoosePlace(row);
+            });
+          }
+        }
+      });
+    }
+  }
   addSurvey() {
 
     let self = this;
@@ -216,4 +369,6 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
       })
     }
   }
+
+
 }
