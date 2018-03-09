@@ -1,3 +1,419 @@
-<p>
-  survey-metabolic-history works!
-</p>
+<div id="modal-history-metabolic" class="modal fade" role="dialog" data-backdrop="false" data-keyboard="false">
+  <div class="modal-lg modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">ฟอร์มคัดกรองผู้ป่วย metabolic</h4>
+      </div>
+
+      <div>
+        <div class="row">
+          <div class="col-md-offset-1 col-md-10 col-md-offset-1">
+            <div class="panel-body">
+              <div class="panel panel-default" style="margin-bottom: inherit;">
+                <div class="panel-body">
+                  <div class="box-body">
+                    <dl class="dl-horizontal">
+                      <dt>หมายเลขประจำตัว : </dt>
+                      <dd>{{ formatCitizenId(metabolicbean.citizenId) }}</dd>
+                      <dt>ชื่อ-สกุล : </dt>
+                      <dd>{{ metabolicbean.fullName }}</dd>
+                      <dt>เพศ : </dt>
+                      <dd>{{ metabolicbean.genderName }}</dd>
+                      <dt>อายุ : </dt>
+                      <dd>{{ metabolicbean.age }}</dd>
+                      <dt>ที่อยู่ : </dt>
+                      <dd>{{ metabolicbean.address }}</dd>
+                      <dt>สิทธิบัตร : </dt>
+                      <dd>{{ metabolicbean.healthInsuranceTypeName }}</dd>
+                    </dl>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <hr style=" margin-top: 0px">
+        <!-- ประวัติสุขภาพ -->
+        <div class="row">
+          <div class="col-md-12 col-md-offset-2">
+            <div class="checkbox">
+              <label class="label-form" style="font-size: 1em">
+                <input disabled type="checkbox" [checked]="metabolicbean.isHeredityMetabolic" (change)="metabolicbean.isHeredityMetabolic = !metabolicbean.isHeredityMetabolic">
+                <span class="cr">
+                  <i class="cr-icon fa fa-check"></i>
+                </span>
+                มีประวัติ พ่อแม่ ญาติ พี่น้องสายตรงเป็นเบาหวาน
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 col-md-offset-2">
+            <div class="checkbox">
+              <label class="label-form" style="font-size: 1em">
+                <input disabled type="checkbox" [checked]="metabolicbean.isWaistlineOver" (change)="metabolicbean.isWaistlineOver = !metabolicbean.isWaistlineOver">
+                <span class="cr">
+                  <i class="cr-icon fa fa-check"></i>
+                </span>
+                รอบเอวในชาย >90 ซม./หญิง >80 ซม. หรือภาวะอ้วน ดัชนีมวลกาย >25 กก/ตร.ม
+              </label>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 col-md-offset-2">
+            <div class="checkbox">
+              <label class="label-form" style="font-size: 1em">
+                <input disabled type="checkbox" [checked]="metabolicbean.isBPOver" (change)="metabolicbean.isBPOver = !metabolicbean.isBPOver">
+                <span class="cr">
+                  <i class="cr-icon fa fa-check"></i>
+                </span>
+                ความดันโลหิต >140/90 mmHg หรือเคยมีประวัติเป็นโรคความดันโลหิตสูง
+              </label>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 col-md-offset-2">
+            <div class="checkbox">
+              <label class="label-form" style="font-size: 1em">
+                <input disabled type="checkbox" [checked]="metabolicbean.isFBS" (change)="metabolicbean.isFBS = !metabolicbean.isFBS">
+                <span class="cr">
+                  <i class="cr-icon fa fa-check"></i>
+                </span>
+                มีประวัติน้ำตาลในเลือดสูง
+              </label>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 col-md-offset-2">
+            <div class="checkbox">
+              <label class="label-form" style="font-size: 1em">
+                <input disabled type="checkbox" [checked]="metabolicbean.isCholesterol" (change)="metabolicbean.isCholesterol = !metabolicbean.isCholesterol">
+                <span class="cr">
+                  <i class="cr-icon fa fa-check"></i>
+                </span>
+                มีประวัติภาวะไขมันในเลือดสูง
+              </label>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 col-md-offset-2">
+            <div class="checkbox">
+              <label class="label-form" style="font-size: 1em">
+                <input disabled type="checkbox" [checked]="metabolicbean.isNewborn4kg" (change)="metabolicbean.isNewborn4kg = !metabolicbean.isNewborn4kg">
+                <span class="cr">
+                  <i class="cr-icon fa fa-check"></i>
+                </span>
+                มีประวัติเป็นเบาหวานและตั้งครรภ์หรือมีบุตรน้ำหนักแรกเกิดเกิน 4 กิโลกรัม
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 col-md-offset-2">
+            <div class="checkbox">
+              <label class="label-form" style="font-size: 1em">
+                <input disabled type="checkbox" [checked]="metabolicbean.isHeredityHypertension" (change)="metabolicbean.isHeredityHypertension = !metabolicbean.isHeredityHypertension">
+                <span class="cr">
+                  <i class="cr-icon fa fa-check"></i>
+                </span>
+                มีประวัติความดันโลหิตสูงในญาติสายตรง
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <hr>
+        <!-- ประวัติบุหรี่และของมึนเมา -->
+
+        <div class="row">
+          <div class="col-md-3 text-right">
+            <label class="label-form">สูบบุหรี่หรือไม่</label>
+          </div>
+
+          <div class="col-md-3">
+            <!-- <div class="input-group">
+              <div id="radioBtn" class="btn-group">
+                <a type="radio" [ngClass]="noSmoke" name="radioSmoke">ไม่สูบ</a>
+                <a type="radio" [ngClass]="smoke" name="radioSmoke">สูบ</a>
+                <a type="radio" [ngClass]="afterSmoke" name="radioSmoke">เคยแต่เลิกแล้ว</a>
+              </div>
+            </div> -->
+            {{ metabolicbean.smokingStatus }}
+          </div>
+
+          <div id="smoker">
+
+            <div class="col-md-1 text-right" style="width: 100px">
+              <label class="label-form">สูบจำนวน</label>
+            </div>
+
+            <div class="col-md-1" style="padding-right: 5px; padding-left: 10px;">
+              {{ metabolicbean.rollPerDay }}
+            </div>
+
+            <div class="col-md-1" style="padding-left: 0px;">
+              <label class="label-form">มวน/วัน</label>
+            </div>
+
+            <div class="col-md-1" style="padding-right: 5px; padding-left: 10px;">
+              {{ metabolicbean.packPerYear }}
+            </div>
+
+            <div class="col-md-1" style="padding-left: 0px;">
+              <label class="label-form">ซอง/ปี</label>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3 text-right">
+            <label class="label-form">ดื่มเครื่องดื่มแอลกอฮอล์หรือไม่</label>
+          </div>
+
+          <div class="col-md-3">
+            <!-- <div class="input-group">
+              <div id="radioBtn" class="btn-group">
+                <a type="radio" [ngClass]="noDrink" name="radioDrink" (click)="activeBtnDrink('2'); clearDrinkValue();">ไม่ดื่ม</a>
+                <a type="radio" [ngClass]="drinks" name="radioDrink" (click)="activeBtnDrink('1'); clearDrinkValue();">ดื่ม</a>
+                <a type="radio" [ngClass]="afterDrink" name="radioDrink" (click)="activeBtnDrink('3'); clearDrinkValue();">เคยแต่เลิกแล้ว</a>
+              </div>
+            </div> -->
+            {{ metabolicbean.drinkingStatus }}
+          </div>
+
+          <div id="drinker">
+            <div class="col-md-1 text-right" style="width: 100px">
+              <label class="label-form">ดื่มจำนวน</label>
+            </div>
+
+            <div class="col-md-1" style="padding-right: 5px; padding-left: 10px;">
+              {{ metabolicbean.oftenPerWeek }}
+            </div>
+
+            <div class="col-md-2" style="padding-left: 0px;">
+              <label class="label-form">ครั้ง/สัปดาห์</label>
+            </div>
+
+          </div>
+        </div>
+
+        <hr>
+        <!-- การตรวจร่างกาย -->
+        <div class="row">
+
+          <div class="col-md-2 col-md-offset-1 text-right">
+            <label class="label-form">น้ำหนัก</label>
+          </div>
+
+          <div class="col-md-2">
+            {{ metabolicbean.weight }}
+          </div>
+          <div class="col-md-1" style="padding-left: 0px;">
+            <label class="label-form">กิโลกรัม</label>
+          </div>
+
+
+          <div class="col-md-2 text-right">
+            <label class="label-form">ส่วนสูง</label>
+          </div>
+          <div class="col-md-2">
+            {{ metabolicbean.height }}
+          </div>
+          <div class="col-md-1" style="padding-left: 0px;">
+            <label class="label-form">เซนติเมตร</label>
+          </div>
+
+        </div>
+
+        <div class="row">
+          <div class="col-md-2 col-md-offset-1 text-right">
+            <label class="label-form">รอบเอว</label>
+          </div>
+
+          <div class="col-md-2">
+            {{ metabolicbean.waistline }}
+          </div>
+
+          <div class="col-md-1" style="padding-left: 0px;">
+            <label class="label-form">เซนติเมตร</label>
+          </div>
+
+          <div class="col-md-2 text-right">
+            <label class="label-form">ดัชนีมวลกาย(BMI)</label>
+          </div>
+
+          <div class="col-md-2">
+            {{ metabolicbean.bmi }}
+          </div>
+
+          <div class="col-md-1" style="padding-left: 0px;">
+            <label class="label-form">Kg/m</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2 col-md-offset-1 text-right">
+            <label class="label-form">BP ครั้งที่1</label>
+          </div>
+
+          <div class="col-md-2">
+            {{ metabolicbean.bp1 }}
+          </div>
+
+          <div class="col-md-1" style="padding-left: 0px;">
+            <label class="label-form">mmHg</label>
+          </div>
+
+          <div class="col-md-2 text-right">
+            <label class="label-form">BP ครั้งที่2</label>
+          </div>
+
+          <div class="col-md-2">
+            {{ metabolicbean.bp2 }}
+          </div>
+
+          <div class="col-md-1" style="padding-left: 0px;">
+            <label class="label-form">mmHg</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2 col-md-offset-1 text-right">
+            <label class="label-form">ระดับน้ำตาลในเลือด</label>
+          </div>
+
+          <div class="col-md-2">
+            {{ metabolicbean.fbs }}
+          </div>
+        </div>
+
+        <hr>
+        <!-- ภาวะแทรกซ้อน -->
+        <div class="row">
+          <div class="col-md-2 col-md-offset-1 text-right">
+            <label class="label-form">โรค</label>
+          </div>
+          <div class="col-md-3">
+            <div class="checkbox">
+              <label class="label-form" style="font-size: 1em">
+                <input disabled type="checkbox" [checked]="metabolicbean.isMetabolic" (change)="metabolicbean.isMetabolic = !metabolicbean.isMetabolic">
+                <span class="cr">
+                  <i class="cr-icon fa fa-check"></i>
+                </span>
+                ป่วยเป็นเบาหวาน
+              </label>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="checkbox">
+              <label class="label-form" style="font-size: 1em">
+                <input disabled type="checkbox" [checked]="metabolicbean.isHypertension" (change)="metabolicbean.isHypertension = !metabolicbean.isHypertension">
+                <span class="cr">
+                  <i class="cr-icon fa fa-check"></i>
+                </span>
+                ป่วยเป็นความดันโลหิตสูง
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2 col-md-offset-1 text-right">
+            <label class="label-form">ภาวะแทรกซ้อน</label>
+          </div>
+          <div class="col-md-3">
+            <div class="checkbox">
+              <label class="label-form" style="font-size: 1em">
+                <input disabled type="checkbox" [checked]="metabolicbean.isEyeComplication" (change)="metabolicbean.isEyeComplication = !metabolicbean.isEyeComplication">
+                <span class="cr">
+                  <i class="cr-icon fa fa-check"></i>
+                </span>
+                ตา
+              </label>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="checkbox">
+              <label class="label-form" style="font-size: 1em">
+                <input disabled type="checkbox" [checked]="metabolicbean.isKidneyComplication" (change)="metabolicbean.isKidneyComplication = !metabolicbean.isKidneyComplication">
+                <span class="cr">
+                  <i class="cr-icon fa fa-check"></i>
+                </span>
+                ไต
+              </label>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+
+            <div class="checkbox">
+              <label class="label-form" style="font-size: 1em">
+                <input disabled type="checkbox" [checked]="metabolicbean.isNeuropathy" (change)="metabolicbean.isNeuropathy = !metabolicbean.isNeuropathy">
+                <span class="cr">
+                  <i class="cr-icon fa fa-check"></i>
+                </span>
+                ระบบประสาท
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3 col-md-offset-3">
+            <div class="checkbox">
+              <label class="label-form" style="font-size: 1em">
+                <input disabled type="checkbox" [checked]="metabolicbean.isPeripheralNeuropathy" (change)="metabolicbean.isPeripheralNeuropathy = !metabolicbean.isPeripheralNeuropathy">
+                <span class="cr">
+                  <i class="cr-icon fa fa-check"></i>
+                </span>
+                ปลายประสาท
+              </label>
+            </div>
+          </div>
+          <div class="col-md-3" *ngIf="metabolicbean.isPeripheralNeuropathy == true ? true : false">
+            {{ metabolicbean.peripheralName }}
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3 col-md-offset-3">
+            <div class="checkbox">
+              <label class="label-form" style="font-size: 1em">
+                <input disabled type="checkbox" [checked]="metabolicbean.isOther" (change)="metabolicbean.isOther = !metabolicbean.isOther">
+                <span class="cr">
+                  <i class="cr-icon fa fa-check"></i>
+                </span> อื่นๆ</label>
+            </div>
+          </div>
+          <div class="col-md-3" *ngIf="metabolicbean.isOther == true ? true : false">
+            {{ metabolicbean.otherComplication }}
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-sm btn-primary" data-dismiss="modal">กลับ</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ass-loading [show]="loading"></ass-loading>

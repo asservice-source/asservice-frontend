@@ -4,7 +4,7 @@ import { Router } from "@angular/router";
 import { LocalDataSource } from 'ng2-smart-table';
 import { BaseComponent } from '../../../base-component';
 import { PersonBean } from "../../../beans/person.bean";
-import { ActionCustomView_2_Component } from '../../../action-custom-table/action-custom-view.component';
+import { ActionCustomView_2_Component, ActionCustomSurveyHistoryComponent } from '../../../action-custom-table/action-custom-view.component';
 import { FilterHeadSurveyBean } from '../../../beans/filter-head-survey.bean';
 import { MetabolicBean } from '../../../beans/metabolic.bean';
 import { ActionCustomViewMapsComponent } from '../../../action-custom-table/action-custom-view.component';
@@ -22,15 +22,14 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
 
   private apiMetabolic: Service_SurveyMetabolic;
 
-  public loading;
+  public loading: boolean = false;
   public surveyTypeCode: string = "METABOLIC";
   public isShowList: boolean = true;
-  public source: LocalDataSource;
+
   public metabolicbean: MetabolicBean = new MetabolicBean();
   public action: string = this.ass_action.ADD;
   public filtersearch: FilterHeadSurveyBean;
   public personData: any = null;
-
 
   //maps variable
   public param_reset: number = 0;
@@ -40,17 +39,20 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
   public param_listPosition: Array<MapsBean>;
 
   public settings: any;
+  public columns: any;
+  public source: LocalDataSource;
+
   public documentId: string;
 
   constructor(private http: Http, private router: Router, private changeRef: ChangeDetectorRef) {
     super();
 
-    this.apiMetabolic = new Service_SurveyMetabolic();
-
     let self = this;
-    this.filtersearch = new FilterHeadSurveyBean();
-    this.settings = this.getTableSetting({
 
+    self.apiMetabolic = new Service_SurveyMetabolic();
+    self.filtersearch = new FilterHeadSurveyBean();
+
+    self.columns = {
       fullName: {
         title: 'ชื่อ - นามสกุล',
         filter: false,
@@ -125,7 +127,8 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
           });
         }
       }
-    });
+    };
+    self.settings = self.getTableSetting(self.columns);
   }
 
   ngOnInit() {
@@ -151,20 +154,72 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
     });
   }
 
-
   onChangeFilter(event: FilterHeadSurveyBean) {
 
   }
 
-
   onSearch(event: FilterHeadSurveyBean) {
     let _self = this;
+
     _self.loading = true;
     _self.filtersearch = event;
 
     if (_self.isEmpty(this.documentId)) {
       _self.documentId = event.rowGUID;
     }
+
+    if (_self.documentId == event.rowGUID) {
+      _self.columns.action = {
+        title: 'การทำงาน',
+        filter: false,
+        sort: false,
+        width: '100px',
+        type: 'custom',
+        renderComponent: ActionCustomViewMapsComponent,
+        onComponentInitFunction(instance) {
+
+          instance.edit.subscribe(row => {
+            _self.getSurveyData(row.rowGUID);
+          });
+
+          instance.delete.subscribe(row => {
+            _self.actionDelete(row.rowGUID, row.fullName);
+          });
+
+          instance.maps.subscribe(row => {
+            _self.loading = true;
+
+            _self.apiMetabolic.getMetabolicInfo(row.rowGUID, function (d) {
+              let data = d.response;
+              if (!_self.isEmptyObject(data)) {
+                _self.param_latitude = data.latitude;
+                _self.param_longitude = data.longitude;
+                _self.param_info = 'บ้านของ ' + data.fullName;
+                _self.param_reset++;
+                $("#modalMaps").modal("show");
+              }
+              _self.loading = false;
+            });
+          });
+        }
+      };
+      _self.settings = _self.getTableSetting(_self.columns);
+    } else {
+      _self.columns.action = {
+        title: 'จัดการ',
+        filter: false,
+        sort: false,
+        width: '100px',
+        type: 'custom',
+        renderComponent: ActionCustomSurveyHistoryComponent, onComponentInitFunction(instance) {
+          instance.view.subscribe(row => {
+            _self.onHistory(row);
+          });
+        }
+      }
+      _self.settings = _self.getTableSetting(_self.columns);
+    }
+
     _self.apiMetabolic.getListMetabolic(event, function (response) {
       _self.source = _self.ng2STDatasource(response);
       _self.loading = false;
@@ -176,6 +231,19 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
     this.action = action;
     this.changeRef.detectChanges();
     $('#find-person-md').modal('show');
+  }
+
+  onHistory(row: any) {
+    let self = this;
+
+    self.loading = true;
+
+    self.apiMetabolic.getMetabolicInfo(row.rowGUID, function (d) {
+      self.metabolicbean = d.response;
+      self.changeRef.detectChanges();
+      $("#modal-history-metabolic").modal("show");
+      self.loading = false;
+    });
   }
 
   reloadData(event: any) {
@@ -191,14 +259,16 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
 
   getSurveyData(rowGUID) {
     let self = this;
+
     self.loading = true;
+
     self.apiMetabolic.getMetabolicInfo(rowGUID, function (resp) {
       if (resp.response && resp.status.toUpperCase() == 'SUCCESS') {
         self.metabolicbean = self.cloneObj(resp.response);
         self.onModalForm(self.ass_action.EDIT);
       }
       self.loading = false;
-    })
+    });
   }
 
   bindMultiMaps(data) {

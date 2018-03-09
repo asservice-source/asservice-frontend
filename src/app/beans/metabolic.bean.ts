@@ -1,4 +1,4 @@
-export class MetabolicBean{
+export class MetabolicBean {
     public citizenId: string = "";
     public firstName: string = "";
     public lastName: string = "";
@@ -27,11 +27,11 @@ export class MetabolicBean{
     public dischargeId: string = "";
     public familyStatus: string = "";
     public age: number;
-    public address : string;
+    public address: string;
     public action: string;
     public osmId;
     public homeId;
-  
+
     public isHeredityMetabolic: boolean = false;
     public isWaistlineOver: boolean = false;
     public isBPOver: boolean = false;
@@ -39,46 +39,50 @@ export class MetabolicBean{
     public isCholesterol: boolean = false;
     public isNewborn4kg: boolean = false;
     public isHeredityHypertension: boolean = false;
-    public rowGUID : string;
-    public personId : string;
-  
-    public smokingStatusId : string = "2";
-    public drinkingStatusId : string = "2";
+    public rowGUID: string;
+    public personId: string;
+
+    public smokingStatus: string = "";
+    public smokingStatusId: string = "2";
+    public drinkingStatus: string = "";
+    public drinkingStatusId: string = "2";
     public drugHistory_Smoke: string;
     public drugHistory_Drink: string;
     public rollPerDay: string;
-    public packPerYear : string;
+    public packPerYear: string;
     public oftenPerWeek: number;
 
-    public weight : number;
-    public height : number;
-    public waistline : number;
-    public bmi : string;
+    public weight: number;
+    public height: number;
+    public waistline: number;
+    public bmi: string;
 
-    public bp1 : string;
-    public bp1MM : string;
-    public bp1HG : string;
+    public bp1: string;
+    public bp1MM: string;
+    public bp1HG: string;
 
-    public bp2 : string;
-    public bp2MM : string;
-    public bp2HG : string;
+    public bp2: string;
+    public bp2MM: string;
+    public bp2HG: string;
 
     public fbs: string;
 
-    public isMetabolic : boolean;
-    public isHypertension : boolean;
-    public isEyeComplication : boolean;
-    public isKidneyComplication : boolean;
-    public isPeripheralNeuropathy : boolean;
-    public peripheralName : string;
-    public isNeuropathy : boolean;
-    public isOther : boolean;
-    public otherComplication : string;
+    public isMetabolic: boolean;
+    public isHypertension: boolean;
+    public isEyeComplication: boolean;
+    public isKidneyComplication: boolean;
+    public isPeripheralNeuropathy: boolean;
+    public peripheralName: string;
+    public isNeuropathy: boolean;
+    public isOther: boolean;
+    public otherComplication: string;
 
-    public rowGUIDDetailInfo : string;
-    public documentId : string;
-    public hInsuranceTypeId : string;
+    public rowGUIDDetailInfo: string;
+    public documentId: string;
+    public hInsuranceTypeId: string;
 
-    public latitude : string;
-    public longitude : string;
+    public latitude: string;
+    public longitude: string;
+
+    public healthInsuranceTypeName: string;
 }
