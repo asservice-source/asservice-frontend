@@ -16,7 +16,10 @@ export class SessionManagement {
             let timesLate = (3600000/2); // = 30 minute
             let sessionTimes: number = this.storage.getSessionTimes();
             let diffTime: number = Date.now() - sessionTimes;
-            console.log("diffTime", diffTime);
+            console.log("SessionTimes", sessionTimes);
+            console.log("TimesNow", Date.now());
+            console.log("DiffTimes", diffTime);
+            console.log("TimesLate", timesLate);
             if(sessionTimes == undefined || diffTime > timesLate){
                 localStorage.clear();
                 this.router.navigate(["login"]);
