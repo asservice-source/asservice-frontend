@@ -66,6 +66,10 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
     this.isStaff = this.isStaffRole(this.userInfo.roleId);
     this.bindModalEvent();
     this.getContainerType();
+    if(!this.isStaff){
+      this.findOsmId = this.userInfo.personId;
+      this.findVillageId = this.userInfo.villageId;
+    }
 
   }
   setListVillages(){
@@ -129,9 +133,8 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
     this.homebean.longitude = "";
     this.homebean.homeTypeCode = "";
     this.homebean.villageId = this.findVillageId;
-    if (!this.isStaffRole(this.userInfo.roleId)) {
-      this.homebean.osmId = this.userInfo.personId;
-    }
+    this.homebean.osmId = this.findOsmId;
+
     this.isShowAddPlace = true;
     this.changeRef.detectChanges();
     $('#modalFormHome').modal('show');
@@ -172,8 +175,12 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
         self.onChoosePlace(self.placeData);
         self.isFromPending = true;
       }else{
+        self.isShowFind = true;
         if(self.isStaff){
           self.setListVillages();
+        }else{
+          self.findOsmId = self.userInfo.personId;
+          self.findVillageId = self.userInfo.villageId;
         }
         self.setListHomeTypes();
 
@@ -329,7 +336,7 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
     let self = this;
     for (let item of this.mosquitobean.listContainerType) {
       delete item.containerTypeName;
-      item.osmId = this.isStaff?this.findOsmId: this.userInfo.personId;
+      item.osmId = this.findOsmId;
     }
     let objs = {
       listContainerType: this.mosquitobean.listContainerType
