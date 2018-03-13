@@ -150,12 +150,12 @@
                         </div>
                     </div>
                 </div>
-                
+
               </div> -->
 
           </div>
           <div class="col-md-6 text-center">
-            <app-maps [latitude]="bean.latitude" [longitude]="bean.longitude" [defaultAddress]="userInfo.address" [info]="" mode="edit" (positionChanged)="onMapChange($event)"></app-maps>
+            <app-maps [reset]="param_reset" [latitude]="bean.latitude" [longitude]="bean.longitude" [defaultAddress]="userInfo.address" [info]="" mode="edit" (positionChanged)="onMapChange($event)"></app-maps>
           </div>
         </div>
 
@@ -170,10 +170,10 @@
 
         </div>
         <div class="modal-footer">
-          
+
           <button type="button" class="btn btn-sm btn-primary" (click)="onSave()">ตกลง</button>
           <button type="button" class="btn btn-sm btn-primary" (click)="onCancel()" data-dismiss="modal">ยกเลิก</button>
-          
+
         </div>
       </div>
     </div>

@@ -165,7 +165,7 @@ export class ActionCustomViewHistoryComponent implements ViewCell, OnInit {
 @Component({
   selector: 'action-custom-table-maps',
   template: '<div style="width:100%; text-align: center;" >'
-    + '<a (click)="onView()" title="ดูประวัติ" class="cell-action glyphicon glyphicon-list-alt"></a>'
+    + '<a (click)="onView()" title="ข้อมูลการสำรวจ" class="cell-action glyphicon glyphicon-list-alt"></a>'
     + '</div>',
   styleUrls: ['./action-custom-view.component.css']
 })

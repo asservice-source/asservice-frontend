@@ -31,10 +31,11 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
   public params: any;
   public villageNo: string = '';
   public osmName: string = '';
+  public param_reset: number = 1;
 
-  constructor(private activatedRoute: ActivatedRoute, private route: Router, private changeRef: ChangeDetectorRef) { 
+  constructor(private activatedRoute: ActivatedRoute, private route: Router, private changeRef: ChangeDetectorRef) {
     super();
-    
+
     this.bean = new HomeBean();
     this.api = new Service_Home();
     this.isStaff = this.isStaffRole(this.userInfo.roleId);
@@ -47,7 +48,7 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
     _self.setupHomeTypeList();
     _self.activatedRoute.params.subscribe(params => {
       _self.params = params;
-      if(params['type']=='PD'){ 
+      if(params['type']=='PD'){
         // เจ้าหน้าที่ รพ.สต. เข้าใช้งานหน้าจอจัดการหมู่บ้าน
         _self.loading = true;
         _self.api.api_PersonByPersionId(params['id'], function(resp){
@@ -64,7 +65,7 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
               _self.route.navigate(['main']);
             });
           }
-          
+
         });
       }else if(params['type']=='T' && _self.isOsmRole(_self.userInfo.roleId)){
         // เจ้าหน้าที่ อสม. เข้าใช้งานหน้าจอจัดการหมู่บ้าน
@@ -80,7 +81,7 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
     });
   }
 
-  setupTable(){    
+  setupTable(){
     let _self = this;
     _self.loading = true;
     this.api.getList(this.findVillageId, this.findOsmId, this.findTypeCode, this.findName, function(response){
@@ -142,7 +143,7 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
         _self.onModalForm(_self.ass_action.EDIT);
       }
     });
-    
+
   }
   onViewMaps(row: any){
     let _self = this;
@@ -165,6 +166,8 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
       }else{
         _self.infoMaps = row.name;
       }
+      _self.param_reset +=1;
+      _self.changeRef.detectChanges();
       $('#modalMaps').modal('show');
     });
 
@@ -176,7 +179,7 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
     if(this.isHomeType(row.homeTypeCode)){
       msg += 'บ้านเลขที่ ';
       msgType = '<b>'+ row.homeNo +'</b>';
-      
+
     }else{
       msgType = ' <b>'+ row.name +'</b>';
     }
@@ -198,9 +201,9 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
           }
         });
       }
-      
+
     });
-    
+
   }
   onComplete(event:any){
     console.log(event);
@@ -209,11 +212,11 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
       _self.message_success('', event.message, function(){
         $('#btnSearch').click();
       })
-     
+
     }else{
       _self.message_error('', event.message);
     }
-    
+
   }
   onUpdateOSMHome(event: any){
     if(event.success){
@@ -227,7 +230,7 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
     }else{
       return;
     }
-    
+
   }
   onSearchFilter(){
     this.setupTable();
@@ -255,7 +258,7 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
         width: '140px',
         filter: false,
         type: "html",
-        valuePrepareFunction: (cell, row) => { 
+        valuePrepareFunction: (cell, row) => {
           let value = '';
           if(this.isHomeType(row.homeTypeCode)){
             value = 'บ้าน';
@@ -269,7 +272,7 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
         title: "เจ้าบ้าน/ชื่อสถานที่",
         filter: false,
         type: "html",
-        valuePrepareFunction: (cell, row) => { 
+        valuePrepareFunction: (cell, row) => {
           let value = '';
           if(this.isHomeType(row.homeTypeCode)){
             value = cell;
@@ -286,11 +289,11 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
         width: '160px',
         type: 'custom',
         renderComponent: ViewChildTableHomeManagement,
-        onComponentInitFunction(instance) {  
+        onComponentInitFunction(instance) {
           instance.click.subscribe(row => {
-            
+
             _self.onMemberManage(row);
-            
+
            });
 
           }
@@ -303,7 +306,7 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
         type: 'custom',
         renderComponent: ActionCustomViewMapsComponent,
         onComponentInitFunction(instance) {
-       
+
           instance.maps.subscribe(row => {
             _self.onViewMaps(row);
            });

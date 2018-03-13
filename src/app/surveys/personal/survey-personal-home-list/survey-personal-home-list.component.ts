@@ -29,7 +29,7 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
   public loading: boolean = false;
   public isStaff: boolean;
 
-  
+
   constructor(private http: Http, private router: Router, private changeRef: ChangeDetectorRef) {
     super();
 
@@ -174,7 +174,7 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
 @Component({
   template: '<div class="text-center">'
   +'<button *ngIf="!rowData.isWithoutOSM && rowData.isCurrent" (click)="clickEdit();" class="btn btn-sm btn-primary">ทำแบบสำรวจ</button>'
-  +'<button *ngIf="!rowData.isCurrent" (click)="clickHistory();" class="btn btn-sm btn-primary">ประวัติการสำรวจ</button>'
+  +'<a *ngIf="!rowData.isCurrent" (click)="clickHistory();" class="cell-action glyphicon glyphicon-list-alt"></a>'
   +'<label *ngIf="rowData.isWithoutOSM && rowData.isCurrent" class="value">ไม่มี อสม.</label>'
   +'</div>',
 })

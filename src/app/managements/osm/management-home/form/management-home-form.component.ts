@@ -30,7 +30,8 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
   public isHome: boolean;
   public isShowSelectHome: boolean = false;
   public isEdit: boolean;
-  constructor(private changeRef: ChangeDetectorRef) { 
+  public param_reset: number = 1;
+  constructor(private changeRef: ChangeDetectorRef) {
     super();
     this.inputValidate = new InputValidateInfo();
     this.api = new Service_Home();
@@ -68,7 +69,8 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
       }else{
         _self.isEdit = false;
       }
-        
+      _self.param_reset +=1;
+      _self.changeRef.detectChanges();
     });
     $('#modalFormHome').on('hidden.bs.modal', function(){
       _self.inputValidate = new InputValidateInfo();
@@ -83,21 +85,21 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
   setupHomeTypeList(){
     let _self = this;
     this.api.api_HomeTypeList(function(response){
-      
+
       if(_self.type == 'MOS'){
         _self.homeTypeList = [];
         for(let item of response){
-          
+
           if(item.code == '01'){
             continue;
           }
           _self.homeTypeList.push(item);
         }
-       
+
       }else{
         _self.homeTypeList = response;
       }
-      
+
     });
   }
   resetForm(){
@@ -157,7 +159,7 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
     }else{
       this.resetForm();
     }
-    
+
   }
   onChangeHomeTypeCode(select: any){
     this.bean.homeId='';
@@ -186,7 +188,7 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
     //   console.log(this.bean);
     // return;
     // }
-    
+
 
     this.inputValidate = new InputValidateInfo();
     this.inputValidate.isCheck = true;
@@ -231,14 +233,14 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
           } else{
             msg = 'ไม่สามารถ'+strAction+'บ้านเลขที่ <b>' + _self.bean.homeNo + '</b> ได้';
           }
-         
+
           _self.success.emit({"success": false, "message": msg});
         }
-        
+
       });
     }
 
   }
-  
+
 
 }
