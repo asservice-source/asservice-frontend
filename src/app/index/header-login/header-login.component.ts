@@ -47,7 +47,7 @@ export class HeaderLoginComponent extends BaseComponent implements OnInit {
     }
 
     self.loading = true;
-    let params = { "userName": strUser, "password": strPass };
+    let params = { "userName": strUser.trim(), "password": strPass };
     this.api.post('user/login', params, function(resp){
       console.log(resp);
       self.loading = false;
