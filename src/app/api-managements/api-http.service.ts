@@ -22,7 +22,7 @@ export class ApiHTTPService  implements OnInit {
         throw new Error("Method not implemented.");
     }
    
-    get(url: string, params: any, callback: (doc: any) => void) {
+    public get(url: string, params: any, callback: (doc: any) => void) {
         this.http.get(this.baseComponent.getApiUrl(url), params)
             .map(res => res.json())
             .subscribe(

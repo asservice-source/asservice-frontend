@@ -336,7 +336,9 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
     let self = this;
     for (let item of this.mosquitobean.listContainerType) {
       delete item.containerTypeName;
-      item.osmId = this.findOsmId;
+      if(this.action == this.ass_action.ADD){
+        item.osmId = this.findOsmId;
+      }
     }
     let objs = {
       listContainerType: this.mosquitobean.listContainerType

@@ -36,6 +36,7 @@ label.value{
 
 .balloon-warning{
     display: none;
+    position: absolute;
     color: #000;
     background-color: #ffbf00;
     width: fit-content;
