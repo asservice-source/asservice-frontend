@@ -207,6 +207,7 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
       arr.push('registrationId');
     }
     if(arr.length<=0){
+      _self.bean.homeNo = _self.bean.homeNo.trim();
       _self.api.commit_save(_self.bean, function(response){
         let strAction = _self.action==_self.ass_action.ADD?'เพิ่ม':'แก้ไข';
         if(response && response.status.toString().toUpperCase()=='SUCCESS'){

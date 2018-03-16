@@ -173,7 +173,9 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
     $('#find-person-md').on('show.bs.modal', function (e) {
       self.isPending = false;
       self.resetFind = self.resetFind + 1;
+      console.log("MD SHOW",self.data);
       if (self.action == self.ass_action.EDIT) {
+        
         self.onChoosePersonal(self.data);
         self.activeBtnsmoke(self.data.smokingStatusId);
         self.activeBtnDrink(self.data.drinkingStatusId);
@@ -221,14 +223,15 @@ export class SurveyMetabolicFormComponent extends BaseComponent implements OnIni
     this.metabolicbean.isPeripheralNeuropathy = this.metabolicbean.isPeripheralNeuropathy || false;
     this.metabolicbean.isNeuropathy = this.metabolicbean.isNeuropathy || false;
     this.metabolicbean.isOther = this.metabolicbean.isOther || false;
-
+    console.log("Validate Form", this.metabolicbean);
     if (this.metabolicbean.smokingStatusId == '1') {
-      if (!this.metabolicbean.rollPerDay || !this.metabolicbean.packPerYear) {
+      let rollPerDay = parseInt(this.metabolicbean.rollPerDay || '0');
+      let packPerYear = parseInt(this.metabolicbean.packPerYear || '0');
+      if (rollPerDay <=0 || packPerYear <=0) {
         this.isErrorSmoke = true;
         this.errorSmoke = this.errorinput;
         validateform = false;
-      }
-      else {
+      }else {
         this.isErrorSmoke = false;
         this.errorSmoke = "";
       }
