@@ -48,11 +48,25 @@
         </div>
         <div class="col-md-3">
           <select [(ngModel)]="homeId" [disabled]="isOffHome">
-            <option value="">ทั้งหมด</option>
+            <option value="">ทั้งหมด ที่รับผิดชอบ</option>
+            <option value="-1">ทั้งหมด ของหมู่บ้าน</option>
             <option *ngFor="let item of listHomes" [value]="item.homeId">{{item.homeNo}}</option>
           </select>
         </div>
       </div>
+
+      <div class="row">
+        <div class="col-md-2 text-right">
+            <label class="label-form">สถานะ</label>
+        </div>
+        <div class="col-md-3">
+            <select [(ngModel)]="statusId">
+                <option value="1">สำรวจแล้ว</option>
+                <option value="2">ยังไม่สำรวจ</option>
+              </select>
+        </div>
+        
+    </div>
 
 
       <div class="row text-center" style="margin-top: 10px;">

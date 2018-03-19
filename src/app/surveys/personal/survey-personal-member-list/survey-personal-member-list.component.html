@@ -33,7 +33,7 @@
       <div class="col-sm-12 text-left">
         <button class="btn btn-primary btn-sm" (click)="onClickAdd();">เพิ่มสมาชิก</button>
         &nbsp; &nbsp;
-        <button (click)="onViewInfo()" class="btn btn-primary btn-sm">ดูข้อมูลทั้งหมด</button>
+        <button *ngIf="showBtnViewInfo" (click)="onViewInfo()" class="btn btn-primary btn-sm">ดูข้อมูลทั้งหมด</button>
       </div>
     </div>
 

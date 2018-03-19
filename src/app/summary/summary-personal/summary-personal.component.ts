@@ -27,7 +27,7 @@ export class SummarytPersonalComponent extends BaseComponent implements OnInit {
   public isOffVillage: boolean = true;
   public isOffOsm: boolean = true;
   public isOffHome: boolean = true;
-
+  public statusId: string = '1';
   constructor() {
     super();
     this.api = new ApiHTTPService();
@@ -96,28 +96,40 @@ export class SummarytPersonalComponent extends BaseComponent implements OnInit {
     this.homeId = '';
     this.setDropdownListHomes();
   }
-  onReporting(){
-    this.inputvalidate = new InputValidateInfo();
-    this.inputvalidate.isCheck = true;
-    if(this.roundRowGuid){
-      console.log('SurveyHeaderRowGUID',this.roundRowGuid);
-      console.log('UserPersonID',this.personId);
-      console.log('OSMPersonID',this.osmId);
-      console.log('VillageID',this.villageId);
-      console.log('HomeID',this.homeId);
-      let $params = '<input name="SurveyHeaderRowGUID" value="'+this.roundRowGuid+'" >';
-      $params += ' <input name="HomeID" value="'+this.homeId+'" >';
-      $params += ' <input name="OSMPersonID" value="'+this.osmId+'" >';
-      $params += ' <input name="VillageID" value="'+this.villageId+'" >';
-      $params += ' <input name="UserPersonID" value="'+this.personId+'" >';
-      let $form = $('<form method="post" target="_blank" name="mfrm" action="'+ReportPath.POPULATION+'"></form>');
-      $form.append($params);
-      $form.css('display', 'none');
-      $('body').append($form);
-
-      $form.submit();
-      $form.remove();
+  onReporting(isBlankForm: boolean = false){
+    let $form: any;
+    if(isBlankForm){
+      $form = $('<form method="post" target="_blank" name="mfrm" action="'+ReportPath.POPULATION_BLANK_FORM+'"></form>');
+    }else{
+      this.inputvalidate = new InputValidateInfo();
+      this.inputvalidate.isCheck = true;
+      if(this.roundRowGuid){
+        console.log('SurveyHeaderRowGUID',this.roundRowGuid);
+        console.log('UserPersonID',this.personId);
+        console.log('OSMPersonID',this.osmId);
+        console.log('VillageID',this.villageId);
+        console.log('HomeID',this.homeId);
+        console.log('StatusID',this.statusId);
+        let $params = '<input name="SurveyHeaderRowGUID" value="'+this.roundRowGuid+'" >';
+        $params += ' <input name="HomeID" value="'+this.homeId+'" >';
+        $params += ' <input name="OSMPersonID" value="'+this.osmId+'" >';
+        $params += ' <input name="VillageID" value="'+this.villageId+'" >';
+        $params += ' <input name="UserPersonID" value="'+this.personId+'" >';
+        $params += ' <input name="StatusID" value="'+this.statusId+'" >';
+        $form = $('<form method="post" target="_blank" name="mfrm" action="'+ReportPath.POPULATION+'"></form>');
+        $form.append($params);
+        
+      }else{
+        return;
+      }
     }
+
+
+    $form.css('display', 'none');
+    $('body').append($form);
+    $form.submit();
+    $form.remove();
+    
   }
   clear(){
     this.roundRowGuid = '';

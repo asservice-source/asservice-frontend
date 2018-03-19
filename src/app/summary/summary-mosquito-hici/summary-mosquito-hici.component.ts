@@ -29,6 +29,7 @@ export class SummaryMosquitoHICIComponent extends BaseComponent implements OnIni
   public isOffVillage: boolean = true;
   public isOffOsm: boolean = true;
   public isOffHome: boolean = true;
+  public statusId: string = '1';
 
   constructor(private changeRef: ChangeDetectorRef) {
     super();
@@ -40,12 +41,13 @@ export class SummaryMosquitoHICIComponent extends BaseComponent implements OnIni
 
     this.setDropdownListRounds();
 
-    if(!this.isStaff){
+    if(this.isStaff){
+      this.setDropdownListVillages();
+    }else{
+      
       this.osmId = this.userInfo.personId;
       this.villageId = this.userInfo.villageId;
-
-    }else{
-      this.setDropdownListVillages();
+      this.setDropdownListHomes();
     }
 
     this.personId = this.userInfo.personId;
@@ -106,16 +108,21 @@ export class SummaryMosquitoHICIComponent extends BaseComponent implements OnIni
     this.inputvalidate = new InputValidateInfo();
     this.inputvalidate.isCheck = true;
     if(this.roundRowGuid){
+      if(this.homeId == '-1'){
+
+      }
       console.log('SurveyHeaderRowGUID',this.roundRowGuid);
       console.log('UserPersonID',this.personId);
       console.log('OSMPersonID',this.osmId);
       console.log('VillageID',this.villageId);
       console.log('HomeID',this.homeId);
+
       let $params = '<input name="SurveyHeaderRowGUID" value="'+this.roundRowGuid+'" >';
       $params += ' <input name="HomeID" value="'+this.homeId+'" >';
       $params += ' <input name="OSMPersonID" value="'+this.osmId+'" >';
       $params += ' <input name="VillageID" value="'+this.villageId+'" >';
       $params += ' <input name="UserPersonID" value="'+this.personId+'" >';
+      $params += ' <input name="StatusID" value="'+this.statusId+'" >';
       let $form = $('<form method="post" target="_blank" name="mfrm" action="'+ this.reportPath+'"></form>');
       $form.append($params);
       $form.css('display', 'none');

@@ -48,7 +48,8 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
 
   public isEditing: boolean = false;
   public isSaveData: boolean = false;
-  public warningLeavPage = 'เมื่อกดยกเลิกหรือย้อนกับ ข้อมูลการแก้ไขแบบสำรวจจะยังไม่ถูกบันทึกลงฐานข้อมูล<br>ต้องการทำต่อใช่หรือไม่?';
+  public warningLeavPage = 'เมื่อกดยกเลิกหรือย้อนกลับ ข้อมูลการแก้ไขแบบสำรวจจะยังไม่ถูกบันทึกลงฐานข้อมูล<br>ต้องการทำต่อใช่หรือไม่?';
+  public showBtnViewInfo: boolean = false;
   //private addressHome: Address;
   constructor(private http: Http, private route: Router, private routeAct: ActivatedRoute, private changeRef: ChangeDetectorRef) {
     super();
@@ -123,6 +124,9 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     let self = this;
     self.apiHttp.getListMember(self.paramRoundId, self.paramHomeId, (data) => {
       for (let item of data) {
+        if(item && item.rowGUID){
+          self.showBtnViewInfo = true;
+        }
         if (item && item.isGuest === true) {
           self.tempData2.push(item);
         } else {

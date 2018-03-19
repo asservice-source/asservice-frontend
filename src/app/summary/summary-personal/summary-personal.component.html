@@ -60,7 +60,7 @@
               <label class="label-form">สถานะ</label>
             </div>
             <div class="col-md-4">
-              <select>
+              <select [(ngModel)]="statusId">
                 <option value="1">สำรวจแล้ว</option>
                 <option value="2">ยังไม่สำรวจ</option>
               </select>
@@ -69,12 +69,15 @@
 
 
           <div class="row text-center" style="margin-top: 10px;">
-              <button id="filter-btnSearch" (click)="onReporting();" class="btn btn-primary btn-sm">
+              <button id="filter-btnSearch" (click)="onReporting(false);" class="btn btn-primary btn-sm">
                   <i class="fa fa-file-pdf-o">&nbsp;รายงาน</i>
               </button> &nbsp;&nbsp;
               <button id="filter-btnClear" (click)="clear()" class="btn btn-primary btn-sm">
                   <i class="fa fa-refresh">&nbsp;ล้างค่า</i>
-              </button>
+              </button> &nbsp;&nbsp;
+              <button  id="filter-btnClear" (click)="onReporting(true)" class="btn btn-info btn-sm">
+                <i class="fa fa-file-pdf-o">&nbsp;พิมพ์แบบฟอร์ม</i>
+            </button>
           </div>
       </div>
   </div>

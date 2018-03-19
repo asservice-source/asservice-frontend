@@ -1,12 +1,12 @@
-<div class="content-index text-center">
+<div class="content-index text-center" *ngIf="showSlider">
         <swiper [config]="config">
             <div class="swiper-wrapper">
 
-                <div class="swiper-slide"><img src="../../assets/img/50737-O6E92M-1.png" /></div>
-                <div class="swiper-slide"><img src="../../assets/img/50737-O6E92M-1.png" /></div>
-                <div class="swiper-slide"><img src="../../assets/img/50737-O6E92M-1.png" /></div>
-                <div class="swiper-slide"><img src="../../assets/img/50737-O6E92M-1.png" /></div>
-                <div class="swiper-slide"><img src="../../assets/img/50737-O6E92M-1.png" /></div>
+                <div *ngFor="let item of images" class="swiper-slide"><img class="img-slide" [src]="item.path" /></div>
+
+                <!-- <div class="swiper-slide"><img class="img-slide" src="../../assets/img/slides/banner-main-1.png" /></div>
+                <div class="swiper-slide"><img class="img-slide" src="../../assets/img/slides/banner-main-2.png" /></div> -->
+
             </div>
             <!-- Add Pagination -->
             <div class="swiper-pagination"></div>
