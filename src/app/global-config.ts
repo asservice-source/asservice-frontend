@@ -18,10 +18,9 @@ export class ReportPath{
   public static METABOLIC = API_SERVER_URL + 'report/metabolic/ViewReportOfPersonInformation';
   public static METABOLIC_BLANK_FORM = API_SERVER_URL + 'report/metabolic/NewForm';
 
-  public static MOSQUITO = API_SERVER_URL + 'report/hici/mosquito/ViewMonthlyReportOfHICISummaryForVillage';
-  public static MOSQUITO_BLANK_FORM = API_SERVER_URL + 'report/hici/mosquito/NewForm';
+  public static MOSQUITO = API_SERVER_URL + 'report/hici/mosquito/ViewMonthlyReportOfHICISummaryForTumbol';
 
-  public static MOSQUITO_HICI = API_SERVER_URL + 'report/hici/mosquito/ViewMonthlyReportOfHICISummaryForTumbol';
+  public static MOSQUITO_HICI = API_SERVER_URL + 'report/hici/mosquito/ViewMonthlyReportOfHICISummaryForVillage';
   public static MOSQUITO_HICI_BLANK_FORM = API_SERVER_URL + 'report/hici/mosquito/NewForm';
 
 }

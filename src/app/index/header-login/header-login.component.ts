@@ -38,7 +38,12 @@ export class HeaderLoginComponent extends BaseComponent implements OnInit {
     if(self.baseComponent.isEmpty(strUser) || self.baseComponent.isEmpty(strPass)){
       self.msgErrorLogin = "กรุณาใส่ชื่อผู้ใช้หรือรหัสผ่าน";
       self.isErrorLogin = true;
-      $('#username').focus();
+      if(self.baseComponent.isEmpty(strUser)){
+        $('#username').focus();
+      }else{
+        $('#password').focus();
+      }
+      
       $('.balloon-warning').fadeIn(100);
       $('.balloon-warning').fadeOut(100);
       $('.balloon-warning').fadeIn(100);
@@ -100,5 +105,10 @@ export class HeaderLoginComponent extends BaseComponent implements OnInit {
 
   onClickForgostPassword(){
     $('#modalForgotPassword').modal('show');
+  }
+  onKeypress(event: any){
+    if(event.keyCode == 13) {
+      this.login();
+    }
   }
 }

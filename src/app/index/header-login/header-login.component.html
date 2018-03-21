@@ -17,7 +17,7 @@
                                         <input style="opacity: 0.9;" type="text" id="username" [(ngModel)] = "user.username" placeholder="ชื่อผู้ใช้">
                                 </div>  
                                 <div class="col-md-4" style="padding-left:3px; padding-right: 4px;">
-                                        <input style="opacity: 0.9;" type="password" [(ngModel)] = "user.password" placeholder="รหัสผ่าน">
+                                        <input style="opacity: 0.9;" type="password" id="password" (keypress)="onKeypress($event)" [(ngModel)] = "user.password" placeholder="รหัสผ่าน">
                                 </div> 
                                 <div class="col-md-2" style="padding-left:3px; padding-right: 4px; width: 100px">
                                         <button class="btn btn-sm btn-primary" (click)="login();">เข้าสู่ระบบ</button>

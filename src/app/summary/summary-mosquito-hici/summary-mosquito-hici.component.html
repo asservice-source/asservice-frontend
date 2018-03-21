@@ -44,13 +44,13 @@
           <input *ngIf="!isStaff" [value]="userInfo.fullName" [disabled]="true" >
         </div>
         <div class="col-md-2 text-right">
-          <label class="label-form">บ้านเลขที่</label>
+          <label class="label-form">แสดงข้อมูล</label>
         </div>
         <div class="col-md-3">
           <select [(ngModel)]="homeId" [disabled]="isOffHome">
-            <option value="">ทั้งหมด ที่รับผิดชอบ</option>
-            <option value="-1">ทั้งหมด ของหมู่บ้าน</option>
-            <option *ngFor="let item of listHomes" [value]="item.homeId">{{item.homeNo}}</option>
+            <option value="">เฉพาะที่รับผิดชอบ</option>
+            <option value="-1">ทั้งหมดของหมู่บ้าน</option>
+            <!-- <option *ngFor="let item of listHomes" [value]="item.homeId">{{item.homeNo}}</option> -->
           </select>
         </div>
       </div>
@@ -75,7 +75,10 @@
         </button> &nbsp;&nbsp;
         <button id="filter-btnClear" (click)="clear()" class="btn btn-primary btn-sm">
           <i class="fa fa-refresh">&nbsp;ล้างค่า</i>
-        </button>
+        </button> &nbsp;&nbsp;
+        <button  id="filter-btnClear" (click)="onReporting(true)" class="btn btn-info btn-sm">
+          <i class="fa fa-file-pdf-o">&nbsp;พิมพ์แบบฟอร์ม</i>
+      </button>
       </div>
     </div>
   </div>

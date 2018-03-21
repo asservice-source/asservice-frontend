@@ -12,8 +12,6 @@ declare var $:any;
   styleUrls: ['./summary-mosquito-hici.component.css']
 })
 export class SummaryMosquitoHICIComponent extends BaseComponent implements OnInit {
-  public reportPath: string = ReportPath.MOSQUITO;
-  public report: string = this.surveyHeaderCode.MONITORHICI;
   private api: ApiHTTPService;
   public inputvalidate: InputValidateInfo;
   public isStaff: boolean;
@@ -104,33 +102,44 @@ export class SummaryMosquitoHICIComponent extends BaseComponent implements OnIni
     this.setDropdownListHomes();
     console.log(this.osmId);
   }
-  onReporting(){
-    this.inputvalidate = new InputValidateInfo();
-    this.inputvalidate.isCheck = true;
-    if(this.roundRowGuid){
-      if(this.homeId == '-1'){
+  onReporting(blankForm:boolean = false){
+    let $form: any;
+    if(blankForm){
+      $form = $('<form method="post" target="_blank" name="mfrm" action="'+ReportPath.MOSQUITO_HICI_BLANK_FORM+'"></form>');
+    }else{
+      this.inputvalidate = new InputValidateInfo();
+      this.inputvalidate.isCheck = true;
+      if(this.roundRowGuid){
+        if(this.homeId == '-1'){
 
+        }
+        console.log('SurveyHeaderRowGUID',this.roundRowGuid);
+        console.log('UserPersonID',this.personId);
+        console.log('OSMPersonID',this.osmId);
+        console.log('VillageID',this.villageId);
+        console.log('HomeID',this.homeId);
+
+        let $params = '<input name="SurveyHeaderRowGUID" value="'+this.roundRowGuid+'" >';
+        $params += ' <input name="HomeID" value="'+this.homeId+'" >';
+        $params += ' <input name="OSMPersonID" value="'+this.osmId+'" >';
+        $params += ' <input name="VillageID" value="'+this.villageId+'" >';
+        $params += ' <input name="UserPersonID" value="'+this.personId+'" >';
+        $params += ' <input name="StatusID" value="'+this.statusId+'" >';
+        $form = $('<form method="post" target="_blank" name="mfrm" action="'+ ReportPath.MOSQUITO_HICI+'"></form>');
+       
+        console.log('$params', $params);
+        $form.append($params);
+        
+      }else{
+        return;
       }
-      console.log('SurveyHeaderRowGUID',this.roundRowGuid);
-      console.log('UserPersonID',this.personId);
-      console.log('OSMPersonID',this.osmId);
-      console.log('VillageID',this.villageId);
-      console.log('HomeID',this.homeId);
-
-      let $params = '<input name="SurveyHeaderRowGUID" value="'+this.roundRowGuid+'" >';
-      $params += ' <input name="HomeID" value="'+this.homeId+'" >';
-      $params += ' <input name="OSMPersonID" value="'+this.osmId+'" >';
-      $params += ' <input name="VillageID" value="'+this.villageId+'" >';
-      $params += ' <input name="UserPersonID" value="'+this.personId+'" >';
-      $params += ' <input name="StatusID" value="'+this.statusId+'" >';
-      let $form = $('<form method="post" target="_blank" name="mfrm" action="'+ this.reportPath+'"></form>');
-      $form.append($params);
-      $form.css('display', 'none');
-      $('body').append($form);
-
-      $form.submit();
-      $form.remove();
     }
+
+    $form.css('display', 'none');
+    $('body').append($form);
+    $form.submit();
+    $form.remove();
+    
   }
   clear(){
     this.roundRowGuid = '';
@@ -138,7 +147,11 @@ export class SummaryMosquitoHICIComponent extends BaseComponent implements OnIni
     this.homeId = '';
     this.osmId = '';
     this.isOffOsm = true;
+    this.isOffHome = true;
     this.listOsm = [];
-    this.listHomes = [];
+    
+    if(this.isStaff){
+      this.listHomes = [];
+    }
   }
 }

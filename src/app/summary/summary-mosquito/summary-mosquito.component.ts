@@ -12,8 +12,7 @@ declare var $:any;
   styleUrls: ['./summary-mosquito.component.css']
 })
 export class SummaryMosquitoComponent extends BaseComponent implements OnInit {
-  public reportPath: string = ReportPath.MOSQUITO_HICI;
-  public report: string = this.surveyHeaderCode.MONITORHICI;
+ 
   private api: ApiHTTPService;
   public inputvalidate: InputValidateInfo;
   public isStaff: boolean;
@@ -102,7 +101,7 @@ export class SummaryMosquitoComponent extends BaseComponent implements OnInit {
       $params += ' <input name="OSMPersonID" value="'+this.osmId+'" >';
       $params += ' <input name="VillageID" value="'+this.villageId+'" >';
       $params += ' <input name="UserPersonID" value="'+this.personId+'" >';
-      let $form = $('<form method="post" target="_blank" name="mfrm" action="'+ this.reportPath+'"></form>');
+      let $form = $('<form method="post" target="_blank" name="mfrm" action="'+ ReportPath.MOSQUITO +'"></form>');
       $form.append($params);
       $form.css('display', 'none');
       $('body').append($form);
