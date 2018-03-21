@@ -313,7 +313,7 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
     }
   }
   onSave(){
-    this.bean.citizenId = this.pastCitizenId(this.bean.citizenId);
+    this.bean.citizenId = this.reverseFormatCitizenId(this.bean.citizenId);///this.pastCitizenId(this.bean.citizenId);
     this.inputValidateAddress = new InputValidateInfo();
     this.inputValidate = new InputValidateInfo();
     this.inputValidate.isCheck = true; // validate input error form

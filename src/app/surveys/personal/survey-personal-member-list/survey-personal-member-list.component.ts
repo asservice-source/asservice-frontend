@@ -23,6 +23,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
   private paramFromPage: string;
 
   public action: string = this.ass_action.ADD;
+  public forSurvey: boolean;
   public paramMember: PersonalBasicBean;
   public cloneMember: PersonalBasicBean;
   public memberBean: PersonalBasicBean;
@@ -172,19 +173,23 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     }
     self.copyObj(member, self.paramMember);
     let tmpMember = member;
-    let isActionAdd = (self.action == self.ass_action.ADD);
     let citizenIdsDup: Array<string> = []
     let index = -1;
-
-
     let listAll: Array<any> = [];
+    let isActionAdd: boolean = (self.action == self.ass_action.ADD);
     for (let item of self.tempData) {
+      if(member.personId == item.personId){
+        isActionAdd = false;
+      }
       listAll.push(item);
     }
     for (let item of self.tempData2) {
+      if(member.personId == item.personId){
+        isActionAdd = false;
+      }
       listAll.push(item);
     }
-
+    //isActionAdd = (self.action == self.ass_action.ADD);
     if (!isActionAdd) {
       // check CitizenId Duplicate in List
       for (let item of listAll) {
@@ -251,11 +256,15 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     console.log(self.tempData);
     console.log(self.tempData2);
     $("#modalMember").modal('hide');
-    self.message_success('', 'แก้ไขข้อมูลบุคคล <b>' + member.fullName + '</b> เรียบร้อย');
+    if(this.forSurvey){
+      self.message_success('', 'แก้ไขข้อมูลบุคคล <b>' + member.fullName + '</b> เรียบร้อย');
+    }
+    
   }
 
   onClickAdd() {
     let self = this;
+    self.forSurvey = false;
     self.action = this.ass_action.ADD;
     self.cloneMember = new PersonalBasicBean();
     self.paramMember = new PersonalBasicBean();
@@ -431,7 +440,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
         renderComponent: SurveyPersonalMemberListButtonEditComponent,
         onComponentInitFunction(instance) {
           instance.action.subscribe((row: PersonalBasicBean) => {
-            // console.log(row);
+            self.forSurvey = true;
             self.onModalForm(row);
           });
         }
@@ -504,7 +513,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
         onComponentInitFunction(instance) {
           instance.action.subscribe((row: PersonalBasicBean) => {
             // console.log(row);
-
+            self.forSurvey = true;
             self.onModalForm(row);
           });
         }

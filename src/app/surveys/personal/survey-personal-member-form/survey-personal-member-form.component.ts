@@ -36,7 +36,6 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
   public listSubDistrict: any = [];
   public modelBirthDate: any = null;
   public modelDischargeDate: any = null;
-  public validateVerify: InputValidateInfo = new InputValidateInfo();
   public validateSave: InputValidateInfo = new InputValidateInfo();
   public validateAddress: InputValidateInfo = new InputValidateInfo();
   public loading: boolean = false;
@@ -82,7 +81,6 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
         self.isGuestClearAddress();
       }
       
-      self.validateVerify = new InputValidateInfo();
       self.validateSave = new InputValidateInfo();
       self.validateAddress = new InputValidateInfo();
     });
@@ -202,18 +200,7 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
   onChangeSubDistrict() {
 
   }
-  isValidClickVerify(cid: any) {
-    let self = this;
 
-    self.validateVerify = new InputValidateInfo();
-    self.validateVerify.isCheck = true;
-
-    if (!self.isValidCitizenIdThailand(cid)) {
-      return false;
-    } else {
-      return true;
-    }
-  }
 
   isValidClickSave():boolean {
     
@@ -224,53 +211,57 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
     if(!this.isBirthDate){
       return false;
     }
-    this.memberBean.birthDate = this.getStringDateForDatePickerModel(this.modelBirthDate.date);
-    let simpValidate = new SimpleValidateForm();
-    let validateFields = ["genderId", "prefixCode", "firstName", "lastName", "birthDate", "educationCode"];
-    if(this.memberBean.dischargeId!='9'){
-      if(!this.isDischargeDate){
-        return false;
-      }
-      this.memberBean.dischargeDate = this.modelDischargeDate?this.getStringDateForDatePickerModel(this.modelDischargeDate.date):'';
-      validateFields.push('dischargeDate');
-    }
-    self.validateAddress = new InputValidateInfo();
-    if(this.memberBean.isGuest){
-      self.validateAddress.isCheck = true;
-      self.changeRef.detectChanges();
-      validateFields.push('homeNo','mooNo','tumbolCode','amphurCode','provinceCode');
-    }else{
-      // Home Address  Added to Personal Address 
-      this.memberBean.homeNo = this.address.homeNo;
-      this.memberBean.mooNo = this.address.mooNo;
-      this.memberBean.road = this.address.road;
-      this.memberBean.tumbolCode = this.address.tumbolCode;
-      this.memberBean.amphurCode = this.address.amphurCode;
-      this.memberBean.provinceCode = this.address.provinceCode;
-    }
-
-    let errors = simpValidate.getObjectEmpty_byFilds(this.memberBean, validateFields);
-    if (errors.length > 0) {
-      console.log(errors);
+    if(!this.isValidCitizenIdThailand(this.memberBean.citizenId)){
       return false;
+    }else{
+      this.memberBean.birthDate = this.getStringDateForDatePickerModel(this.modelBirthDate.date);
+      let simpValidate = new SimpleValidateForm();
+      let validateFields = ["genderId", "prefixCode", "firstName", "lastName", "birthDate", "educationCode"];
+      if(this.memberBean.dischargeId!='9'){
+        if(!this.isDischargeDate){
+          return false;
+        }
+        this.memberBean.dischargeDate = this.modelDischargeDate?this.getStringDateForDatePickerModel(this.modelDischargeDate.date):'';
+        validateFields.push('dischargeDate');
+      }
+      self.validateAddress = new InputValidateInfo();
+      if(this.memberBean.isGuest){
+        self.validateAddress.isCheck = true;
+        self.changeRef.detectChanges();
+        validateFields.push('homeNo','mooNo','tumbolCode','amphurCode','provinceCode');
+      }else{
+        // Home Address  Added to Personal Address 
+        this.memberBean.homeNo = this.address.homeNo;
+        this.memberBean.mooNo = this.address.mooNo;
+        this.memberBean.road = this.address.road;
+        this.memberBean.tumbolCode = this.address.tumbolCode;
+        this.memberBean.amphurCode = this.address.amphurCode;
+        this.memberBean.provinceCode = this.address.provinceCode;
+      }
 
-    } else {
-      for(let item of this.listGender){
-        if(this.memberBean.genderId==item.id){
-          this.memberBean.genderName = item.name;
+      let errors = simpValidate.getObjectEmpty_byFilds(this.memberBean, validateFields);
+      if (errors.length > 0) {
+        console.log(errors);
+        return false;
+
+      } else {
+        for(let item of this.listGender){
+          if(this.memberBean.genderId==item.id){
+            this.memberBean.genderName = item.name;
+          }
         }
-      }
-      for(let item of this.listPrefix){
-        if(this.memberBean.prefixCode==item.code){
-          this.memberBean.prefixName = item.name;
+        for(let item of this.listPrefix){
+          if(this.memberBean.prefixCode==item.code){
+            this.memberBean.prefixName = item.name;
+          }
         }
-      }
-      for(let item of this.listFamilyStatus){
-        if(this.memberBean.familyStatusId==item.id){
-          this.memberBean.familyStatusName = item.name;
+        for(let item of this.listFamilyStatus){
+          if(this.memberBean.familyStatusId==item.id){
+            this.memberBean.familyStatusName = item.name;
+          }
         }
+        return true;
       }
-      return true;
     }
   }
   isGuestClearAddress(){

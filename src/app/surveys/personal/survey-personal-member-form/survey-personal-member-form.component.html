@@ -14,7 +14,7 @@
                 <label class="label-form">หมายเลขประจำตัว</label>
               </div>
               <div class="col-md-3">
-                <div [InputValidate]="validateVerify" [citizenId]="true">
+                <div [InputValidate]="validateSave" [citizenId]="true">
                   <input type="text" [CitizenId]="memberBean.citizenId" [(ngModel)]="memberBean.citizenId">
                   <label class="error">กรุณาใส่หมายเลขประชาชนเป็นตัวเลข 13 หลัก</label>
                 </div>
