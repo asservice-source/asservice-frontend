@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserService } from '../../service/user.service';
 
 @Component({
   selector: 'app-main-header',
@@ -8,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class MainHeaderComponent implements OnInit {
 
-  constructor(private route: Router) {
+  constructor(private route: Router, private user: UserService) {
 
   }
 
@@ -20,8 +21,11 @@ export class MainHeaderComponent implements OnInit {
     this.route.navigate(['']);
   }
 
-  // onClickChangePassword() {
-  //   this.route.navigate(['/main/profile/change-password']);
-  // }
+  logout(){
+    localStorage.clear();
+    this.user = new UserService();
+    console.log('XXX == ', this.user);
+    this.route.navigate(['/']);
+  }
 
 }

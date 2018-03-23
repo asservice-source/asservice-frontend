@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class UserService {
+    public sid: string;
     public username: string = "";
     public password: string = "";
     public userId: string;

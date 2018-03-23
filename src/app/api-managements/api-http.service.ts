@@ -33,7 +33,13 @@ export class ApiHTTPService  implements OnInit {
     }
 
     public post(url: string, params: any, callback: (doc: any) => void) {
-        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let sid: string = this.baseComponent.userInfo.sid;
+        let headobj = { 
+                        'Content-Type': 'application/json' 
+                        , 'sid': sid
+                     };
+        console.log('headobj',headobj);
+        let headers = new Headers(headobj);
         let options = new RequestOptions({ headers: headers, method: "post" });
 
         this.http.post(this.baseComponent.getApiUrl(url), params, options)
