@@ -38,7 +38,7 @@ export class ApiHTTPService  implements OnInit {
                         'Content-Type': 'application/json' 
                         , 'sid': sid
                      };
-        console.log('headobj',headobj);
+        console.log(url+'>header>',headobj);
         let headers = new Headers(headobj);
         let options = new RequestOptions({ headers: headers, method: "post" });
 
