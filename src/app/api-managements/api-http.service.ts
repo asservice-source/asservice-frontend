@@ -3,6 +3,8 @@ import { Http, RequestOptions, Headers, BrowserXhr, BaseRequestOptions, Response
 import { FilterHeadSurveyBean } from '../beans/filter-head-survey.bean';
 import * as myconf from "../global-config";
 import { BaseComponent } from '../base-component';
+import { UserService } from '../service/user.service';
+declare var $:any;
 export class ApiHTTPService  implements OnInit {
     public baseComponent: BaseComponent = new BaseComponent();
     public http;
@@ -62,10 +64,20 @@ export class ApiHTTPService  implements OnInit {
         callback(data);
     }
     private subscribe_error(data: any, callback: (doc: any)=> void, params: any, path: any){
-        console.log("<<<< Call API. = " + path +" >>>>");
+        console.log("<<<< ERROR => Call API. = " + path +" >>>>");
         console.log('parameters', params);
         console.log('data response', data);
         console.log("<<<< /End >>>>");
+        if(data.ok == false){
+            $('#loading-backdrop').hide();
+            $('#loading-front').hide();
+            this.baseComponent.userInfo = new UserService();
+            localStorage.clear();
+            this.baseComponent.message_servNotRespond('','Session หมดอายุ',()=>{
+                location.href = '/';
+            });
+            return;
+        }
         if(data.status){
             data.status = ''+data.status;
         }else{

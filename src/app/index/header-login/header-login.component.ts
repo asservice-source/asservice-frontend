@@ -61,6 +61,7 @@ export class HeaderLoginComponent extends BaseComponent implements OnInit {
         self.storage.setUserInfo(obj);
         self.user.username = null;
         self.user.password = null;
+        console.log("=> SIGN PASS");
         self.router.navigate(["main"]);
       }else{
         localStorage.clear();

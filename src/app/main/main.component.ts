@@ -14,6 +14,7 @@ export class MainComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     // add the the body classes
+    console.log("=> MAIN");
     this.body.classList.add('skin-blue');
     this.body.classList.add('sidebar-mini');
     setTimeout(function(){

@@ -2,21 +2,32 @@ import { Injectable, Optional } from '@angular/core';
 import { Router } from "@angular/router";
 import { UserService } from "./user.service";
 import { BaseComponent } from '../base-component';
-import { SessionManagement } from './session.conf';
+import { LocalStorageManagement } from './localStorage-management';
 
 @Injectable()
 export class GuardService {
-    private session: SessionManagement;
+    private localstorage: LocalStorageManagement;
+    private basecomp: BaseComponent;
     constructor(private router:Router, private userService: UserService) { 
-        this.session = new SessionManagement(this.router, this.userService);
+        this.localstorage = new LocalStorageManagement(userService);
+        
+        this.basecomp = new BaseComponent();
     }
     canActivate(){
-        console.log("canActivate");
-        return this.session.initUserSession();
+        return this.activate();  
     }
     canActivateChild(){
-        console.log("canActivateChild");
-        return this.session.initUserSession();
+        return this.activate();
+    }
+    activate(): boolean{
+        console.log("=> SIGN PASS => canActivate");
+        this.localstorage.setUserInfo(this.localstorage.getDataUserInfo());
+        console.log("=> UserService", this.userService);
+       if(!this.basecomp.isEmpty(this.userService.sid)){
+            return  true;
+       }else{
+            return false;
+       }
     }
 
 }

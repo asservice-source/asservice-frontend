@@ -14,7 +14,7 @@ export class LocalStorageManagement{
         }
         let item =  window.btoa(encodeURIComponent(JSON.stringify(obj)));
         localStorage.setItem(LocalStorageManagement.UINFOKEY, item);
-        localStorage.setItem("sessionTimes", btoa((Date.now()).toString()));
+        //localStorage.setItem("sessionTimes", btoa((Date.now()).toString()));
         
         this.user.sid = obj.sid
         this.user.userId = obj.userId
@@ -66,16 +66,16 @@ export class LocalStorageManagement{
         return undefined;
       }
     }
-    setSessionTimes(){
-        let item = window.btoa((Date.now()).toString())
-        localStorage.setItem("sessionTimes", item);
-    }
-    getSessionTimes():number{
-      let item = localStorage.getItem("sessionTimes");
-      if(item){
-        return +(window.atob(item));
-      }else{
-        return undefined;
-      }
-    }
+    // setSessionTimes(){
+    //     let item = window.btoa((Date.now()).toString())
+    //     localStorage.setItem("sessionTimes", item);
+    // }
+    // getSessionTimes():number{
+    //   let item = localStorage.getItem("sessionTimes");
+    //   if(item){
+    //     return +(window.atob(item));
+    //   }else{
+    //     return undefined;
+    //   }
+    // }
 }

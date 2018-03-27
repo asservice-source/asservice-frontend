@@ -1,6 +1,6 @@
 
-        <div *ngIf="show" class="backdrop" [ngClass]="{'full-screen' : loadingConfig?.fullScreenBackdrop == true}" [ngStyle]="{'border-radius': loadingConfig?.backdropBorderRadius, 'background-color': loadingConfig?.backdropBackgroundColour}"></div>
-        <div *ngIf="show">
+        <div *ngIf="show" id="loading-backdrop" class="backdrop" [ngClass]="{'full-screen' : loadingConfig?.fullScreenBackdrop == true}" [ngStyle]="{'border-radius': loadingConfig?.backdropBorderRadius, 'background-color': loadingConfig?.backdropBackgroundColour}"></div>
+        <div *ngIf="show" id="loading-front">
             <div *ngIf="getAnimationType(loadingConfig?.animationType) === ANIMATION_TYPES.threeBounce" class="spinner-three-bounce" [ngClass]="{'full-screen' : loadingConfig?.fullScreenBackdrop == true}">
                 <div class="bounce1" [ngStyle]="{'background-color': loadingConfig?.primaryColour}"></div>
                 <div class="bounce2" [ngStyle]="{'background-color': loadingConfig?.secondaryColour}"></div>

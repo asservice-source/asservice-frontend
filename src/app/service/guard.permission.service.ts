@@ -1,13 +1,13 @@
 import { Injectable, Optional } from '@angular/core';
 import { Router } from "@angular/router";
 import { UserService } from "./user.service";
-import { SessionManagement } from './session.conf';
+import { BaseComponent } from '../base-component';
 
 @Injectable()
 export class GuardPermissionService {
-    private session: SessionManagement;
+    private baseComp: BaseComponent;
     constructor(private router:Router, private userService: UserService) {
-        this.session = new SessionManagement(this.router, this.userService);
+        this.baseComp = new BaseComponent();
      }
     canActivate(){
         console.log("canActivate : Permission");
@@ -18,11 +18,12 @@ export class GuardPermissionService {
         return this.activate();
     }
     activate(): boolean{
-        let isSession: boolean = this.session.initUserSession();
-        if(!isSession){
-            this.router.navigate(["login"]);
-            return false;
-        }else if(isSession && (this.userService.roleId=='2' || this.userService.roleId=='3')){
+    
+        // if(!isSession){
+        //     this.router.navigate(["login"]);
+        //     return false;
+        // }else 
+        if(this.baseComp.isStaffRole(this.userService.roleId)){
             return true;
         }else{
             console.log("navigate :: GuardPermissionService");
