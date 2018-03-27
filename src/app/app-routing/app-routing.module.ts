@@ -38,6 +38,7 @@ import {SummaryPatientComponent} from '../summary/summary-patient/summary-patien
 import {SummaryMetabolicComponent} from '../summary/summary-metabolic/summary-metabolic.component';
 import {SummaryMosquitoHICIComponent} from '../summary/summary-mosquito-hici/summary-mosquito-hici.component';
 import {SummaryMosquitoComponent} from '../summary/summary-mosquito/summary-mosquito.component';
+import { SummaryCancerComponent } from "../summary/summary-cancer/summary-cancer.component";
 
 @NgModule({
   imports: [
@@ -224,6 +225,10 @@ import {SummaryMosquitoComponent} from '../summary/summary-mosquito/summary-mosq
             {
               path: 'hici',
               component: SummaryMosquitoHICIComponent
+            },
+            {
+              path: 'cancer',
+              component: SummaryCancerComponent
             }
           ]
         }

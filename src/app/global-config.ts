@@ -23,4 +23,7 @@ export class ReportPath{
   public static MOSQUITO_HICI = API_SERVER_URL + 'report/hici/mosquito/ViewMonthlyReportOfHICISummaryForVillage';
   public static MOSQUITO_HICI_BLANK_FORM = API_SERVER_URL + 'report/hici/mosquito/NewForm';
 
+  public static CANCER = API_SERVER_URL + 'report/cancer/ViewMonthlyReport';
+  public static CANCER_BLANK_FORM = API_SERVER_URL + 'report/cancer/NewForm';
+
 }
