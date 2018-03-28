@@ -101,6 +101,7 @@ export class SummaryMosquitoComponent extends BaseComponent implements OnInit {
       $params += ' <input name="OSMPersonID" value="'+this.osmId+'" >';
       $params += ' <input name="VillageID" value="'+this.villageId+'" >';
       $params += ' <input name="UserPersonID" value="'+this.personId+'" >';
+      $params += ' <input name="sid" value="'+this.userInfo.sid+'" >';
       let $form = $('<form method="post" target="_blank" name="mfrm" action="'+ ReportPath.MOSQUITO +'"></form>');
       $form.append($params);
       $form.css('display', 'none');

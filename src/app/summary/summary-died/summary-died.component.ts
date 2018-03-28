@@ -95,6 +95,7 @@ export class SummaryDiedComponent extends BaseComponent implements OnInit {
         $params += ' <input name="OSMPersonID" value="'+this.osmId+'" >';
         $params += ' <input name="VillageID" value="'+this.villageId+'" >';
         $params += ' <input name="UserPersonID" value="'+this.personId+'" >';
+        $params += ' <input name="sid" value="'+this.userInfo.sid+'" >';
         $form = $('<form method="post" target="_blank" name="mfrm" action="'+ReportPath.DEATH+'"></form>');
         $form.append($params);
       }else{
