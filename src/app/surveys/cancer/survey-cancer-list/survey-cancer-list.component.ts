@@ -179,6 +179,8 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
     self.apiHttp.post('survey_patient/filter', params, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.bindMultiMaps(resp.response);
+        let totalRows = resp.response.length;
+        self.filtersearch.description += '<div class="total-row"><b>'+ totalRows +'</b></div>';
         self.source = self.ng2STDatasource(resp.response);
         self.isShowList = true;
       }

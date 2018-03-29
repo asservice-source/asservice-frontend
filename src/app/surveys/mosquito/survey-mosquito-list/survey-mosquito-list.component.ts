@@ -282,6 +282,8 @@ export class SurveyMosquitoListComponent extends BaseComponent implements OnInit
     self.api.post('survey_hici/search_hici_info_list', params, function (resp) {
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
         self.bindMultiMaps(resp.response);
+        let totalRows = resp.response.length;
+        self.filtersearch.description += '<div class="total-row"><b>'+ totalRows +'</b></div>';
         self.source = self.ng2STDatasource(resp.response);
         self.isShowList = true;
         // self.datas = resp.response;

@@ -145,6 +145,8 @@ export class SurverDiedListComponent extends BaseComponent implements OnInit {
       _self.settings =  _self.getTableSetting(_self.columns);
     }
     _self.apiDead.getList(event, function (response) {
+      let totalRows = response.length;
+      _self.filterBean.description += '<div class="total-row"><b>'+ totalRows +'</b></div>';
       _self.source = _self.ng2STDatasource(response);
       _self.loading = false;
       _self.changeRef.detectChanges();

@@ -283,6 +283,8 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
     self.apiHttp.post("survey_pregnant/search_pregnant_info_list", params, function (d) {
       if (d != null && d.status.toString().toUpperCase() == "SUCCESS") {
         // console.log(d);
+        let totalRows = d.response.length;
+        self.filter_bean.description += '<div class="total-row"><b>'+ totalRows +'</b></div>';
         self.source = self.ng2STDatasource(d.response);
         self.isShowTable = true;
       } else {

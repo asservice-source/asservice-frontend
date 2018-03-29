@@ -245,3 +245,18 @@ table .btn-sm{
     color: #D69708; 
     background-color: #ffffff; 
   }
+
+  .total-row{
+      float: right;
+      padding-right: 5px;
+  }.total-row:before{
+     content: 'จำนวนข้อมูลที่พบ';
+  }
+  .total-row:after{
+    content: 'แถว';
+ }
+ .total-row > b{
+   font-weight: bold;
+    padding-left: 6px;
+    padding-right: 6px;
+ }

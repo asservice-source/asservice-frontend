@@ -28,7 +28,6 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
   public isShowTable: boolean = false;
   public loading: boolean = false;
   public isStaff: boolean;
-  public totalRows: number = 0;
 
 
   constructor(private http: Http, private router: Router, private changeRef: ChangeDetectorRef) {
@@ -164,8 +163,8 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
       }else {
         data = response;
       }
-      self.totalRows = data.length;
-      self.filterBean.description += '<div class="text-right">'+ self.totalRows +'</div>';
+      let totalRows = data.length;
+      self.filterBean.description += '<div class="total-row"><b>'+ totalRows +'</b></div>';
       self.source = self.ng2STDatasource(data);
       self.isShowTable = true;
 

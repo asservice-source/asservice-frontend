@@ -30,7 +30,6 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
   public action: string = this.ass_action.ADD;
   public filtersearch: FilterHeadSurveyBean;
   public personData: any = null;
-
   //maps variable
   public param_reset: number = 0;
   public param_latitude: string = "";
@@ -221,6 +220,8 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
     }
 
     _self.apiMetabolic.getListMetabolic(event, function (response) {
+      let totalRows = response.length;
+      _self.filtersearch.description += '<div class="total-row"><b>'+ totalRows +'</b></div>';
       _self.source = _self.ng2STDatasource(response);
       _self.loading = false;
       _self.changeRef.detectChanges();

@@ -193,6 +193,8 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
       self.documentId = event.rowGUID;
     }
     self.apiPatient.getListPatient(event, function (response) {
+      let totalRows = response.length;
+      self.filtersearch.description += '<div class="total-row"><b>'+ totalRows +'</b></div>';
       self.source = self.ng2STDatasource(response);
       self.loading = false;
       self.changeRef.detectChanges();
