@@ -40,7 +40,7 @@ export class ApiHTTPService  implements OnInit {
                         'Content-Type': 'application/json' 
                         , 'sid': sid
                      };
-        console.log(url+'>header>',headobj);
+        console.log('HEADER#'+url,headobj);
         let headers = new Headers(headobj);
         let options = new RequestOptions({ headers: headers, method: "post" });
 
