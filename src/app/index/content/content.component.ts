@@ -47,6 +47,6 @@ export class IndexContentComponent implements OnInit{
     this.api.callResponse('app/image',{"category":"Slider"},(data)=>{
       this.images = data;
       this.showSlider = true;
-    });
+    },{errorcontinue: true});
   }
 }

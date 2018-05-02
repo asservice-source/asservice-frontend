@@ -15,10 +15,10 @@ export class MainLeftSideComponent implements OnInit {
   public staffMenus: any = {};
   public osmMenus: any = {};
   public myconf = myconf;
-  private api: ApiHTTPService = new ApiHTTPService();
+  private api: ApiHTTPService;
   
   constructor(public userInfo: UserService, private route: Router) { 
-    
+    this.api = new ApiHTTPService();
   }
 
   ngOnInit() {
@@ -33,6 +33,7 @@ export class MainLeftSideComponent implements OnInit {
   }
 
   compareMenu(menus: any){
+    console.log("compareMenus", menus);
     let menuSurveys = [];
     for(let item of menus){
       if(item.menuId==21){

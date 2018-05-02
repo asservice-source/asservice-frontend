@@ -4,10 +4,11 @@ import { FilterHeadSurveyBean } from '../beans/filter-head-survey.bean';
 import * as myconf from "../global-config";
 import { BaseComponent } from '../base-component';
 import { UserService } from '../service/user.service';
+import { HttpOptional } from '../beans/http-options';
 declare var $:any;
 export class ApiHTTPService  implements OnInit {
     public baseComponent: BaseComponent = new BaseComponent();
-    public http;
+    public http: Http;
     constructor() {
         let injector = ReflectiveInjector.resolveAndCreate([
             Http,
@@ -24,17 +25,17 @@ export class ApiHTTPService  implements OnInit {
         throw new Error("Method not implemented.");
     }
    
-    public get(url: string, params: any, callback: (doc: any) => void) {
+    public get(url: string, params: any, callback: (doc: any) => void, options: HttpOptional) {
         this.http.get(this.baseComponent.getApiUrl(url), params)
             .map(res => res.json())
             .subscribe(
             data => this.subscribe(data, callback, params, url),
-            err => this.subscribe_error(err, callback, params, url),
+            err => this.subscribe_error(err, callback, params, url, options),
             () => console.log('Fetching complete for Server Api.')
             )
     }
 
-    public post(url: string, params: any, callback: (doc: any) => void) {
+    public post(url: string, params: any, callback: (doc: any) => void, options?:any) {
         let sid: string = this.baseComponent.userInfo.sid;
         let headobj = { 
                         'Content-Type': 'application/json' 
@@ -42,13 +43,13 @@ export class ApiHTTPService  implements OnInit {
                      };
         console.log('HEADER#'+url,headobj);
         let headers = new Headers(headobj);
-        let options = new RequestOptions({ headers: headers, method: "post" });
+        let pOptions = new RequestOptions({ headers: headers, method: "post" });
 
-        this.http.post(this.baseComponent.getApiUrl(url), params, options)
+        this.http.post(this.baseComponent.getApiUrl(url), params, pOptions)
             .map(res => res.json())
             .subscribe(
             data => this.subscribe(data, callback, params, url),
-            err => this.subscribe_error(err, callback, params, url)
+            err => this.subscribe_error(err, callback, params, url, options)
             )
     }
     private subscribe(data: any, callback: (doc: any)=> void, params: any, path: any){
@@ -63,12 +64,25 @@ export class ApiHTTPService  implements OnInit {
         }
         callback(data);
     }
-    private subscribe_error(data: any, callback: (doc: any)=> void, params: any, path: any){
+    private subscribe_error(data: any, callback: (doc: any)=> void, params: any, path: any, options: HttpOptional){
         console.log("<<<< ERROR => Call API. = " + path +" >>>>");
         console.log('parameters', params);
         console.log('data response', data);
         console.log("<<<< /End >>>>");
-        if(data.ok == false){
+        if(!this.baseComponent.isEmptyObject(options) && options.errorcontinue){
+            if(data.status){
+                data.status = ''+data.status;
+            }else{
+                data.status = '';
+            }
+            data.message = data.statusText;
+            callback(data);
+            
+            return;
+        }
+      
+            
+        if(data.status == 0 || data.status == 401 || data.status == 403){
             $('#loading-backdrop').hide();
             $('#loading-front').hide();
             this.baseComponent.userInfo = new UserService();
@@ -77,16 +91,20 @@ export class ApiHTTPService  implements OnInit {
                 location.href = '/';
             });
             return;
-        }
-        if(data.status){
-            data.status = ''+data.status;
         }else{
-            data.status = '';
+            $('#loading-backdrop').hide();
+            $('#loading-front').hide();
+            this.baseComponent.message_servNotRespond('','ไม่สามารถทำรายการได้',()=>{
+                location.href = '/';
+            });
+            return;
         }
-        data.message = data.statusText;
-        callback(data);
+            
+            
+     
+        
     }
-    public callResponse(path: any, params: any, callback: (doc: any) => void){
+    public callResponse(path: any, params: any, callback: (doc: any) => void, options?: HttpOptional){
         this.post(
             path
             , params
@@ -111,35 +129,36 @@ export class ApiHTTPService  implements OnInit {
 
     }
     public api_MenuLeft(callback: (doc: any) => void){
-        this.post( 'app/menu'
-            , {}
-            , function(resp){
-                callback(resp);
-            });
+        // this.post( 'app/menu'
+        //     , {}
+        //     , function(resp){
+        //         callback(resp);
+        //     }, {errorcontinue: true});
+        this.callResponse('app/menu', {} , callback , {errorcontinue: true});
     }
 
     public api_HomeListByHeader(documentId:string,villageId:string,osmId:string,headerTypeCode:string,callback: (doc: any) => void){
-        this.callResponse('home/home_list_by_headertype_code',{"documentId":documentId,"villageId":villageId,"osmId":osmId,"headerTypeCode":headerTypeCode},callback);
+        this.callResponse('home/home_list_by_headertype_code',{"documentId":documentId,"villageId":villageId,"osmId":osmId,"headerTypeCode":headerTypeCode},callback, {errorcontinue: true});
     }
 
     public api_villageList(hospitalCode5: string, callback: (doc: any) => void) {
-        this.callResponse('village/village_no_list_by_hospital', {"hospitalCode": hospitalCode5}, callback);
+        this.callResponse('village/village_no_list_by_hospital', {"hospitalCode": hospitalCode5}, callback, {errorcontinue: true});
     }
 
     public api_OsmList(villageId: string, callback: (doc: any) => void) {
-        this.callResponse('osm/osm_list_by_village', {"villageId": villageId}, callback);
+        this.callResponse('osm/osm_list_by_village', {"villageId": villageId}, callback, {errorcontinue: true});
     }
     public api_HomeList(villageId: string, osmId: string,headerTypeCode: string, callback: (doc: any) => void) {
-        this.callResponse('home/home_no_list_by_village_or_osm', {"villageId": villageId, "osmId": osmId,"headerTypeCode":headerTypeCode}, callback);
+        this.callResponse('home/home_no_list_by_village_or_osm', {"villageId": villageId, "osmId": osmId,"headerTypeCode":headerTypeCode}, callback, {errorcontinue: true});
     }
     public api_HomeTypeList(callback: (doc: any) => void){
-        this.callResponse('home/home_type_list',{}, callback);
+        this.callResponse('home/home_type_list',{}, callback, {errorcontinue: true});
     }
     public api_HomeInfo(homeId: any, callback: (doc: any) => void){
         let parameter = {"homeId": +homeId};
         this.post('home/home_info', parameter, function(response){
             callback(response);
-        });
+        }, {errorcontinue: true});
     }
     public api_HomeMemberList(homeId: string, callback: (doc: any) => void){
         this.callResponse('homemember/homemember_by_home', {"homeId": homeId}, callback);
@@ -150,12 +169,12 @@ export class ApiHTTPService  implements OnInit {
     }
 
     public api_ProvinceList(callback: (doc: any) => void) {
-        this.callResponse('address/province', {}, callback);    
+        this.callResponse('address/province', {}, callback, {errorcontinue: true});    
     }
 
     public api_AmphurList(provinceCode: string, callback: (doc: any) => void) {
         if(provinceCode){
-            this.callResponse('address/amphur', {"provinceCode":provinceCode}, callback);
+            this.callResponse('address/amphur', {"provinceCode":provinceCode}, callback, {errorcontinue: true});
         }else{
             callback([]);
         }
@@ -163,7 +182,7 @@ export class ApiHTTPService  implements OnInit {
 
     public api_TumbolList(amphurCode: string, callback: (doc: any) => void) {
         if(amphurCode){
-            this.callResponse('address/tumbol', {"amphurCode": amphurCode}, callback);
+            this.callResponse('address/tumbol', {"amphurCode": amphurCode}, callback, {errorcontinue: true});
         }else{
             callback([]);
         }
@@ -171,68 +190,54 @@ export class ApiHTTPService  implements OnInit {
     }
     
     public api_GenderList(callback: (doc: any) => void) {
-        this.callResponse('person/gender_list', {}, callback);
+        this.callResponse('person/gender_list', {}, callback, {errorcontinue: true});
     }
 
     public api_PrefixNameList(genderId: string,callback: (doc: any) => void) {
-        this.callResponse('person/prefix_list', {"genderId": genderId}, callback);
+        this.callResponse('person/prefix_list', {"genderId": genderId}, callback, {errorcontinue: true});
     }
 
     public api_SurveyHeaderList(headerTypeCode: string, callback: (doc: any) => void){
-        this.callResponse('survey/survey_header_list', {"headerTypeCode": headerTypeCode, "hospitalCode": this.baseComponent.getHospitalCode()}, callback);
+        this.callResponse('survey/survey_header_list', {"headerTypeCode": headerTypeCode, "hospitalCode": this.baseComponent.getHospitalCode()}, callback, {errorcontinue: true});
     }
 
     public api_CancerList(callback: (doc: any) => void){
-        this.callResponse('person/cancer_type_list', {}, callback);
+        this.callResponse('person/cancer_type_list', {}, callback, {errorcontinue: true});
     }
 
     public api_DeathPlaceList(callback: (doc: any) => void){
-        this.callResponse('survey/survey_death_place_list', {}, callback);
+        this.callResponse('survey/survey_death_place_list', {}, callback, {errorcontinue: true});
     }
 
     public api_HealtInsuranceType(callback: (doc: any) => void){
-        this.post('person/health_insurance_type_list',{},callback);
+        this.post('person/health_insurance_type_list',{},callback, {errorcontinue: true});
      }
-
-    public api_PersonByCitizenId(citizenId: string, callback: (doc: any) => void){
-        citizenId = this.baseComponent.reverseFormatCitizenId(citizenId);
-        let parameter = {"citizenId": citizenId};
-        this.post('person/person_by_citizenid', parameter, function(response){
-            callback(response);
-        });
-    }
-    public api_PersonByPersionId(personId: string, callback: (doc: any) => void){;
-        let parameter = {"personId": personId};
-        this.post('person/person_by_personid', parameter, function(response){
-            callback(response);
-        });
-    }
     public api_RaceList(callback: (doc: any) => void){
-        this.callResponse('person/race_list',{}, callback);
+        this.callResponse('person/race_list',{}, callback, {errorcontinue: true});
     }
     public api_NationalityList(callback: (doc: any) => void){
-        this.callResponse('person/nationality_list',{}, callback);
+        this.callResponse('person/nationality_list',{}, callback, {errorcontinue: true});
     }
     public api_ReligionList(callback: (doc: any) => void){
-        this.callResponse('person/religion_list',{}, callback);
+        this.callResponse('person/religion_list',{}, callback, {errorcontinue: true});
     }
     public api_BloodTypeList(callback: (doc: any) => void){
-        this.callResponse('person/blood_type_list',{}, callback);
+        this.callResponse('person/blood_type_list',{}, callback, {errorcontinue: true});
     }
     public api_RHGroupList(callback: (doc: any) => void){
-        this.callResponse('person/rhgroup_list',{}, callback);
+        this.callResponse('person/rhgroup_list',{}, callback, {errorcontinue: true});
     }
     public api_EducationList(callback: (doc: any) => void){
-        this.callResponse('person/education_list',{}, callback);
+        this.callResponse('person/education_list',{}, callback, {errorcontinue: true});
     }
     public api_OccupationList(callback: (doc: any) => void){
-        this.callResponse('person/occupation_list',{}, callback);
+        this.callResponse('person/occupation_list',{}, callback, {errorcontinue: true});
     }
     public api_FamilyStatusList(callback: (doc: any) => void){
-        this.callResponse('home/family_status_list',{}, callback);
+        this.callResponse('home/family_status_list',{}, callback, {errorcontinue: true});
     }
     public api_DischargeList(callback: (doc: any) => void){
-        this.callResponse('person/discharge_list',{}, callback);
+        this.callResponse('person/discharge_list',{}, callback, {errorcontinue: true});
     }
     public getRound_byDocumentId(headerTypeCode: string, documentId: string, callback: (doc:any)=>void): any{
         let mitem = {};
@@ -246,6 +251,21 @@ export class ApiHTTPService  implements OnInit {
             }
             callback(mitem);
             return;
+        });
+    }
+
+    public api_PersonByCitizenId(citizenId: string, callback: (doc: any) => void){
+        citizenId = this.baseComponent.reverseFormatCitizenId(citizenId);
+        let parameter = {"citizenId": citizenId};
+        this.post('person/person_by_citizenid', parameter, function(response){
+            callback(response);
+        });
+    }
+
+    public api_PersonByPersionId(personId: string, callback: (doc: any) => void){;
+        let parameter = {"personId": personId};
+        this.post('person/person_by_personid', parameter, function(response){
+            callback(response);
         });
     }
 
