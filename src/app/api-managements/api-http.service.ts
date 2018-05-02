@@ -69,6 +69,7 @@ export class ApiHTTPService  implements OnInit {
         console.log('parameters', params);
         console.log('data response', data);
         console.log("<<<< /End >>>>");
+
         if(!this.baseComponent.isEmptyObject(options) && options.errorcontinue){
             if(data.status){
                 data.status = ''+data.status;
@@ -77,7 +78,6 @@ export class ApiHTTPService  implements OnInit {
             }
             data.message = data.statusText;
             callback(data);
-            
             return;
         }
       
