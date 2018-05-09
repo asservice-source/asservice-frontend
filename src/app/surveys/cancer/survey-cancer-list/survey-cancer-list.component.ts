@@ -173,6 +173,7 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
       "osmId": event.osmId,
       "name": event.fullName,
     };
+    self.filtersearch = event;
 
     let params = JSON.stringify(param);
 

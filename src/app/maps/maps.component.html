@@ -4,7 +4,8 @@
     <ngui-map [scrollwheel]="'false'" [zoom]="zoom" [center]="center" (mapReady$)="onMapReady($event)" (mapClick)="onMapClick($event)" (idle)="onIdle($event)"
       mapTypeId="ROADMAP">
       <div *ngIf="position">
-      <marker [position]="position" [draggable]="draggable" (initialized$)="onMarkerInit($event)" (click)="onMarkerClick($event)" (positionChanged)="onPositionChanged($event)"></marker>
+      <!-- <marker [position]="position" [draggable]="draggable" (initialized$)="onMarkerInit($event)" (click)="onMarkerClick($event)" (positionChanged)="onPositionChanged($event)"></marker> -->
+      <marker [position]="position" [draggable]="'false'" (initialized$)="onMarkerInit($event)" (click)="onMarkerClick($event)" (dragend)="onMarkerDragEnd($event);" (positionChanged)="onPositionChanged($event)"></marker>
       <info-window id="iw">
         <div>
           {{ info_content }}

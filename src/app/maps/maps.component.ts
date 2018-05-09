@@ -113,6 +113,30 @@ export class MapsComponent extends BaseComponent implements OnInit {
     }
   }
 
+  onMarkerDragEnd(event) {
+    let self = this;
+
+    console.log('onMarkerDragEnd -> event -> ', event);
+    console.log('onMarkerDragEnd -> mode -> ', self.mode);
+
+    let m = self.mode;
+    if (m == "edit") {
+      let tmpLat = event.latLng.lat();
+      let tmpLng = event.latLng.lng();
+
+      // self.latitude = tmpLat;
+      // self.longitude = tmpLng;
+      self.position = tmpLat + ',' + tmpLng;
+
+      console.log('onMarkerDragEnd -> latlng -> ', self.position);
+
+      let objLatLng = { lat: tmpLat, lng: tmpLng };
+      self.positionChanged.emit(objLatLng);
+    } else {
+
+    }
+  }
+
   onPositionChanged(target) {
     // let map = target.map;
     // if (map.markers) {
@@ -126,42 +150,24 @@ export class MapsComponent extends BaseComponent implements OnInit {
     let self = this;
 
     console.log('onMapClick -> event -> ', event);
-    console.log('onMapClick -> latlng -> ', event.latLng);
     console.log('onMapClick -> mode -> ', self.mode);
 
     let m = self.mode;
     if (m == "edit") {
-      self.position = event.latLng;
+      let tmpLat = event.latLng.lat();
+      let tmpLng = event.latLng.lng();
 
-      let objLatLng = { lat: event.latLng.lat(), lng: event.latLng.lng() };
+      // self.latitude = tmpLat;
+      // self.longitude = tmpLng;
+      self.position = tmpLat + ',' + tmpLng;
+
+      console.log('onMapClick -> latlng -> ', self.position);
+
+      let objLatLng = { lat: tmpLat, lng: tmpLng };
       self.positionChanged.emit(objLatLng);
     } else {
 
     }
   }
-
-  // initialized(autocomplete: any) {
-  //   this.autocomplete = autocomplete;
-  // }
-
-  // placeChanged(place) {
-  //   console.log('place',place);
-  //   this.center = place.geometry.location;
-  //   for (let i = 0; i < place.address_components.length; i++) {
-  //     let addressType = place.address_components[i].types[0];
-  //     this.address[addressType] = place.address_components[i].long_name;
-  //   }
-  //   this._changeRef.detectChanges();
-  // }
-
-  getLatLong() {
-    let self = this;
-
-    if (self.latitude || self.longitude) {
-      return self.latitude + ',' + self.longitude;
-    } else {
-      return "";
-    }
-  }
-
+  
 }
