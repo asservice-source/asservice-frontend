@@ -48,19 +48,28 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
     this.bindModalForm();
   }
   setupGender(){
-    let _self = this;
-    this.api.api_GenderList(function(response){
-      _self.genderList = response;
-      _self.setupPrefix();
+    this.api.api_GenderList((response)=>{
+      this.genderList = response;
+      this.setupPrefix();
     });
 
   }
   setupPrefix(){
-    this.bean.prefixCode="";
-    let _self = this;
-    _self.api.api_PrefixNameList(_self.bean.genderId, function (response) {
-      _self.prefixList = response;
-    });
+    console.log('setupPrefix', this.bean.prefixCode);
+    //this.bean.prefixCode="";
+    this.prefixList = [];
+    if(this.bean.genderId){
+      this.api.api_PrefixNameList(this.bean.genderId,  (response) => {
+        for(let item of response){
+          if(item.code == '001' || item.code == '002'){
+            continue; // ไม่เอา เด็กชาย เด็กหญิง
+          }
+          this.prefixList.push(item);
+        }
+
+      });
+    }
+    
   }
   setupVillage(){
     let _self = this;
@@ -83,6 +92,8 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
       if(_self.bean.personId){
         _self.action = _self.ass_action.EDIT;
         _self.oldCitizenId = _self.bean.citizenId;
+        _self.setupPrefix();
+        //_self.bean.genderId
         _self.isVerify = true;
         if(_self.bean.homeId || (_self.bean.userId && (_self.bean.activateHome || _self.bean.homeId))){
           _self.isDisabledVillage = true;
@@ -100,6 +111,7 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
     });
   }
   onGenderChange(){
+    this.bean.prefixCode = "";
     this.setupPrefix();
   }
   onClickVerifyCitizenId(){
