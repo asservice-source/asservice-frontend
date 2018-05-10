@@ -31,6 +31,8 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
   public isShowSelectHome: boolean = false;
   public isEdit: boolean;
   public param_reset: number = 1;
+  public homeNoPattern = "^[a-z0-9/]{1,10}$";
+
   constructor(private changeRef: ChangeDetectorRef) {
     super();
     this.inputValidate = new InputValidateInfo();
@@ -184,12 +186,7 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
     this.cancel.emit("CANCEL");
   }
   onSave(){
-    // if(1){
-    //   console.log(this.bean);
-    // return;
-    // }
-
-
+    
     this.inputValidate = new InputValidateInfo();
     this.inputValidate.isCheck = true;
     let simpleValidate = new SimpleValidateForm();
@@ -206,8 +203,23 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
     if(_self.bean.homeTypeCode=='01' && _self.bean.registrationId.trim().length!=11){
       arr.push('registrationId');
     }
+    console.log('FAIL', arr);
     if(arr.length<=0){
-      _self.bean.homeNo = _self.bean.homeNo.trim();
+
+      if(!_self.bean.homeNo){
+        _self.bean.homeNo = "";
+      }else{
+        _self.bean.homeNo = _self.bean.homeNo.trim();
+      }
+      if(this.isHome){
+        let homeNo = _self.bean.homeNo;
+        let test1 = /^[0-9/]{1,10}$/.test(homeNo);
+        if(!test1 || homeNo.lastIndexOf('/') == (homeNo.length-1) || homeNo.lastIndexOf('0') == 0){
+          this.message_error('','รูปแบบบ้านเลขที่ไม่ถูกต้อง',()=>{
+        });
+          return;
+        }
+      }
       _self.api.commit_save(_self.bean, function(response){
         let strAction = _self.action==_self.ass_action.ADD?'เพิ่ม':'แก้ไข';
         if(response && response.status.toString().toUpperCase()=='SUCCESS'){
