@@ -23,23 +23,6 @@ export class MainContentComponent implements OnInit {
   ngOnInit() {
     // Update the AdminLTE layouts
     AdminLTE.init();
-    console.log(this.userInfo);
-
-    let sid: string = this.baseComponent.userInfo.sid;
-        let headobj = { 
-                        'Content-Type': 'application/json' 
-                        , 'sid': sid
-                     };
-        let headers = new Headers(headobj);
-        let pOptions = new RequestOptions({ headers: headers, method: "post" });
-
-
-    this.api.http.post(this.baseComponent.getApiUrl('app/menu'), {}, pOptions)
-            .map(res => res.json())
-            .subscribe(
-            data => console.log('MENUS=>',data),
-            err => console.log('MENUS ERR=>',err)
-            )
   }
 
 

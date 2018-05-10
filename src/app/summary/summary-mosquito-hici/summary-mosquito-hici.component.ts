@@ -125,7 +125,7 @@ export class SummaryMosquitoHICIComponent extends BaseComponent implements OnIni
         $params += ' <input name="VillageID" value="'+this.villageId+'" >';
         $params += ' <input name="UserPersonID" value="'+this.personId+'" >';
         $params += ' <input name="StatusID" value="'+this.statusId+'" >';
-        $params += ' <input name="sid" value="'+this.userInfo.sid+'" >';
+        // $params += ' <input name="sid" value="'+this.userInfo.sid+'" >';
         $form = $('<form method="post" target="_blank" name="mfrm" action="'+ ReportPath.MOSQUITO_HICI+'"></form>');
        
         console.log('$params', $params);

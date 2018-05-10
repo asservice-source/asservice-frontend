@@ -69,20 +69,11 @@ export class ApiHTTPService  implements OnInit {
         console.log('parameters', params);
         console.log('data response', data);
         console.log("<<<< /End >>>>");
-
-        if(!this.baseComponent.isEmptyObject(options) && options.errorcontinue){
-            if(data.status){
-                data.status = ''+data.status;
-            }else{
-                data.status = '';
-            }
-            data.message = data.statusText;
-            callback(data);
-            return;
-        }
+        
       
-            
+        
         if(data.status == 0 || data.status == 401 || data.status == 403){
+            console.log('Session หมดอายุ');
             $('#loading-backdrop').hide();
             $('#loading-front').hide();
             this.baseComponent.userInfo = new UserService();
@@ -92,6 +83,18 @@ export class ApiHTTPService  implements OnInit {
             });
             return;
         }else{
+
+            if(options && options.errorcontinue){
+                if(data.status){
+                    data.status = ''+data.status;
+                }else{
+                    data.status = '';
+                }
+                data.message = data.statusText;
+                callback(data);
+                return;
+            }
+            
             $('#loading-backdrop').hide();
             $('#loading-front').hide();
             this.baseComponent.message_servNotRespond('','ไม่สามารถทำรายการได้',()=>{
@@ -99,10 +102,6 @@ export class ApiHTTPService  implements OnInit {
             });
             return;
         }
-            
-            
-     
-        
     }
     public callResponse(path: any, params: any, callback: (doc: any) => void, options?: HttpOptional){
         this.post(
@@ -198,7 +197,7 @@ export class ApiHTTPService  implements OnInit {
     }
 
     public api_SurveyHeaderList(headerTypeCode: string, callback: (doc: any) => void){
-        this.callResponse('survey/survey_header_list', {"headerTypeCode": headerTypeCode, "hospitalCode": this.baseComponent.getHospitalCode()}, callback, {errorcontinue: true});
+        this.callResponse('survey/survey_header_list', {"headerTypeCode": headerTypeCode, "hospitalCode": this.baseComponent.getHospitalCode()}, callback);
     }
 
     public api_CancerList(callback: (doc: any) => void){
