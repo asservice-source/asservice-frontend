@@ -521,6 +521,7 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
         item.bornLocationId = bornLocationId;
         item.bornTypeId = bornTypeId;
         item.abortionCause = "";
+        item.bornCitizenId = item.bornCitizenId.replace(/-/g, '');
         // item.bornCitizenId = self.formatCitizenId(item.bornCitizenId);
       }
       self.pregnantBean.childs = self.listChild;

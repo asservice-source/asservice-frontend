@@ -370,6 +370,7 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
 
         self.apiHttp.commit_delete(bean, function (d) {
           self.loading = false;
+          self.changeRef.detectChanges();
 
           if (d.status.toString().toUpperCase() == "SUCCESS") {
             self.message_success('', 'การยกเลิกแจ้งการตั้งครรภ์ของ "<b>' + bean.fullName + '</b>" สำเร็จ', function () {
