@@ -90,9 +90,9 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
         _self.homeTypeList = [];
         for(let item of response){
 
-          if(item.code == '01'){
-            continue;
-          }
+          // if(item.code == '01'){
+          //   continue;
+          // }
           _self.homeTypeList.push(item);
         }
 

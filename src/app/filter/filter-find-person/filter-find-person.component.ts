@@ -225,7 +225,7 @@ export class FilterFindPersonComponent extends BaseComponent implements OnInit {
         width: '180px',
         type: 'html',
         valuePrepareFunction: (cell, row) => {
-          return '<div class="text-center">' + cell + '</div>'
+          return '<div class="text-center">' + self.formatCitizenId(cell) + '</div>'
         }
       },
       age: {

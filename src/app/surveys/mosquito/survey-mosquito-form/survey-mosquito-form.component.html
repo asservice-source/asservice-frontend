@@ -53,8 +53,8 @@
 
             <div class="row">
               <div class="col-md-12 text-center">
-                <button type="button" class="btn btn-sm btn-primary" [disabled]="!findHomeTypeCode || !findVillageId || !findOsmId" (click)="onFindSearch();">
-                  <i _ngcontent-c8="" class="fa fa-search">&nbsp;ค้นหา</i>
+                <button type="button" id="btnSearch" class="btn btn-sm btn-primary" [disabled]="!findHomeTypeCode || !findVillageId || !findOsmId" (click)="onFindSearch();">
+                  <i class="fa fa-search">&nbsp;ค้นหา</i>
                 </button>
               </div>
 
@@ -66,7 +66,7 @@
             </div>
 
             <div class="modal-footer">
-              <button type="button" data-dismiss="modal" class="btn btn-sm btn-primary">ยกเลิก</button>
+              <button type="button" data-dismiss="modal" (click)="onCancelFind();" class="btn btn-sm btn-primary">ยกเลิก</button>
             </div>
           </div>
 
@@ -139,7 +139,7 @@
 
 <div *ngIf="isShowAddPlace">
     <div class="col-md-12">
-        <app-management-home-form type="MOS" [bean]="homebean" [action]="ass_action.ADD" (success)="onComplete($event)"></app-management-home-form>
+        <app-management-home-form type="MOS" [bean]="homebean" [action]="ass_action.ADD" (success)="onAddHomeComplete($event)"></app-management-home-form>
     </div>
 </div>
 <!-- <app-management-home-form [bean]="homeBean" [action]="ass_action.ADD" (success)="onComplete($event)"></app-management-home-form>  -->

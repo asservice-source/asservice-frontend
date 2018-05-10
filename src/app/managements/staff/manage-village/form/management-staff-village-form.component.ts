@@ -31,7 +31,7 @@ export class ManagementStaffVillageFormComponent extends BaseComponent implement
   }
   onSave(){
      let _self = this;
-    if(this.bean.villageNo==0){
+    if(this.bean.villageNo==0 || this.bean.villageNo == null){
       this.bean.villageNo = null;
       setTimeout(function(){
         _self.inputValidate = new InputValidateInfo();
@@ -49,7 +49,7 @@ export class ManagementStaffVillageFormComponent extends BaseComponent implement
         if(response.status && "SUCCESS"==response.status.toUpperCase()){
           $('#modalForm').modal('hide');
           let message = _self.action==_self.ass_action.ADD?'เพิ่มหมู่บ้าน':'แก้ไขหมู่บ้าน';
-          message += " : หมู่ที่ " + _self.bean.villageNo + " บ้าน" + _self.bean.villageName;
+          message += " : หมู่ที่ " + _self.bean.villageNo + ' ' + _self.bean.villageName;
           _self.onAdd.emit({"success": true, "message": message});
 
         }else{                                                     

@@ -551,6 +551,7 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
         self.message_error('', d.message);
       }
       self.loading = false;
+      self.changeRef.detectChanges();
     });
   }
 

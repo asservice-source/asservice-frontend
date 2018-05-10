@@ -50,6 +50,9 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
   public isOsmDisabled: boolean = true;
   public isHomeTypeDisabled: boolean = true;
 
+  public isOnAddHome: boolean = false;
+
+
   public valSurveyTotal: any = {};
   ngAfterViewInit(): void {
 
@@ -80,6 +83,7 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
     })
   }
   setListOSMs(){
+    this.findOsmId = "";
     this.isOsmDisabled = true;
     if(this.findVillageId){
       this.api.api_OsmList(this.findVillageId, (data)=> {
@@ -96,6 +100,7 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
     });
   }
   onFindVillageChange(){
+    
     this.setListOSMs();
   }
   onFindSearch() {
@@ -136,12 +141,28 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
     this.homebean.osmId = this.findOsmId;
 
     this.isShowAddPlace = true;
+    this.isOnAddHome = true;
     this.changeRef.detectChanges();
     $('#modalFormHome').modal('show');
   }
 
+  onAddHomeComplete(isSuccess) {
+    let self = this;
+    if (isSuccess.success) {
+      self.message_success('', 'เพิ่มสถานที่สำเร็จ', (confirm) => {
+        this.isOnAddHome = true;
+        $('#find-person-md').modal('show');
+      })
+    }
+  }
 
+  onCancelFind(){
+    this.isOnAddHome = false;
+    console.log('onCancel=>isOnAddHome', this.isOnAddHome);
+  }
   onCancel() {
+    
+    
     this.mosquitobean = new MosquitoBean();
 
     for (let i = 0; i < this.containerTypeList.length; i++) {
@@ -167,32 +188,47 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
 
   bindModalEvent() {
     let self = this;
-    $('#find-person-md').on('show.bs.modal', function (e) {
+    $('#find-person-md').on('show.bs.modal', (e) => {
       self.isFromPending = false;
-      if (self.action == self.ass_action.EDIT) {
+      console.log('isOnAddHome', this.isOnAddHome);
+      if (self.action == self.ass_action.EDIT && !this.isOnAddHome) {
         self.onChoosePlace(self.data);
-      }else if(self.action == self.ass_action.ADD && self.placeData){
+      }else if(self.action == self.ass_action.ADD && self.placeData && !this.isOnAddHome){
         self.onChoosePlace(self.placeData);
         self.isFromPending = true;
       }else{
-        self.isShowFind = true;
-        if(self.isStaff){
-          self.setListVillages();
-        }else{
-          self.findOsmId = self.userInfo.personId;
-          self.findVillageId = self.userInfo.villageId;
-        }
-        self.setListHomeTypes();
+        if(this.isOnAddHome){
+          this.findVillageId = this.homebean.villageId;
+          this.findOsmId = this.homebean.osmId;
+          this.findHomeTypeCode = this.homebean.homeTypeCode;
+          console.log("homebean", this.homebean); 
+          if(this.findVillageId != "" && this.findOsmId != "" && this.findHomeTypeCode != ""){
+            console.log("$('#btnSearch').click()");   
+            setTimeout(()=>{$('#btnSearch').click()}, 300);
+          }
 
+        }else{
+          self.isShowFind = true;
+          if(self.isStaff){
+            self.setListVillages();
+          }else{
+            self.findOsmId = self.userInfo.personId;
+            self.findVillageId = self.userInfo.villageId;
+          }
+          self.setListHomeTypes();
+        }
       }
       self.changeRef.detectChanges();
     })
 
     $('#find-person-md').on('hidden.bs.modal', function () {
-      self.isShowListHome = false;
-      self.isShowForm = false;
-      self.clearFormSearch();
-      self.changeRef.detectChanges();
+      if(!self.isOnAddHome){
+        self.isOnAddHome = false;
+        self.isShowListHome = false;
+        self.isShowForm = false;
+        self.clearFormSearch();
+        self.changeRef.detectChanges();
+      }
     });
   }
   clearFormSearch(){
@@ -360,25 +396,17 @@ export class SurveyMosquitoFormComponent extends BaseComponent implements OnInit
             self.loading = true;
             self.api.post('survey_hici/ins_upd_hici_info', params, function (resp) {
               self.loading = false;
+              self.changeRef.detectChanges();
               if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
                 $("#find-person-md").modal('hide');
                 self.completed.emit(true);
               }
-            })
+              
+            });
+
           }
         })
       }
     }
   }
-
-  onComplete(isSuccess) {
-    let self = this;
-    if (isSuccess.success) {
-      self.message_success('', 'เพิ่มสถานที่สำเร็จ', function (confirm) {
-
-      })
-    }
-  }
-
-
 }
