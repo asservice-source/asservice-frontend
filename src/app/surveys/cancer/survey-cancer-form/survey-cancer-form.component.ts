@@ -260,7 +260,6 @@ export class SurveyCancerFormComponent extends BaseComponent implements OnInit, 
           self.loading = true;
 
           let params = self.strNullToEmpty(obj);
-          console.log(params.remark.length);
           self.api.post('survey_patient/ins_upd', params, function (resp) {
             self.completed.emit(resp);
             self.loading = false;
