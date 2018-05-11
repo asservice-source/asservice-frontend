@@ -2,6 +2,7 @@ import { ApiHTTPService } from "./api-http.service";
 import { RequestOptions, Headers } from "@angular/http";
 import * as myconf from "../global-config";
 import { Service_FileUpload } from '../api-managements/service-upload';
+import { HttpOptional } from "../beans/http-options";
 
 export class Service_Profile extends ApiHTTPService {
 
@@ -74,7 +75,7 @@ export class Service_Profile extends ApiHTTPService {
 
         self.post('user/forgot_password_verified', parameters, function (d) {
             callback(d);
-        }, {continue_session: true});
+        }, new HttpOptional({continue_session: true}));
     }
 
     public reset_password(userLoginId: string, userName: string, newPassword: string, callback: (doc: any) => void) {
