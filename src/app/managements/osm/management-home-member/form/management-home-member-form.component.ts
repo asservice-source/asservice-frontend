@@ -175,6 +175,13 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
   }
   onChangeFamilyStatus(element: any){
     if(this.bean.familyStatusId=='1'){
+      // if(this.getYearDiff(this.modelBirthDate.date.year) < 20){
+      //   this.bean.familyStatusId='';
+      //   this.message_error('','เจ้าบ้านจะต้องมีอายุครบ 20 ปีบริบูรณ์',()=>{
+          
+      //   });
+      //   return;
+      // }
       this.bean.isGuest = false;
       $('#is-guest-error').hide();
     }
@@ -357,6 +364,17 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
         return;
       }
       if(objsEmpty.length<=0){
+
+        if(this.getYearDiff(this.modelBirthDate.date.year) < 20){
+          this.bean.familyStatusId = '';
+          this.message_error('','เจ้าบ้านจะต้องมีอายุครบ 20 ปีบริบูรณ์',()=>{
+            this.inputValidate = new InputValidateInfo();
+            this.inputValidate.isCheck = true; // validate input error form
+            this.changeRef.detectChanges();
+          });
+          return;
+        }
+
         let _self = this;
         _self.loading = true;
         this.api.api_PersonByCitizenId(_self.bean.citizenId, function(response){

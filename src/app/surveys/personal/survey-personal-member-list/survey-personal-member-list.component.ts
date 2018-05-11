@@ -277,7 +277,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
 
   }
 
-  onClickSave() {
+  onClickSendSurvey() {
     let self = this;
 
     let listAll: Array<any> = [];

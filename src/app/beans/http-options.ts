@@ -1,4 +1,4 @@
-export class HttpOptional{
+export class ApiOptional{
     public continue_session: boolean;
     public continue_error: boolean;
     constructor(params: any){

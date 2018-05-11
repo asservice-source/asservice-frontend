@@ -309,15 +309,20 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
 
   reloadData(event: any) {
     let self = this;
-
-    if (event) {
+    if (event != null && event.status.toUpperCase() == "SUCCESS") {
+      $("#find-person-md").modal('hide');
       self.message_success('', 'ท่านได้ทำการส่งแบบสำรวจผู้ป่วยมะเร็ง', function () {
-        // self.loadData(self.filtersearch);
         $('#filter-btnSearch').click();
       });
-    } else {
-      self.message_error('', 'Error');
+    }else{
+      if(event != null){
+        self.message_error('', event.message);
+      }else{
+        self.message_error('', 'ทำรายการไม่สำเร็จ');
+      }
+      
     }
+    
   }
 
   onHistory(row) {

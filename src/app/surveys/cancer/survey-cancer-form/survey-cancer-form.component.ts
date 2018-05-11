@@ -262,11 +262,9 @@ export class SurveyCancerFormComponent extends BaseComponent implements OnInit, 
           let params = self.strNullToEmpty(obj);
           console.log(params.remark.length);
           self.api.post('survey_patient/ins_upd', params, function (resp) {
-            if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-              $("#find-person-md").modal('hide');
-              self.completed.emit(true);
-            }
+            self.completed.emit(resp);
             self.loading = false;
+            self.changeRef.detectChanges();
           });
         }
       });

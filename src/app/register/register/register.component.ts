@@ -5,6 +5,7 @@ import { BaseComponent } from "../../base-component";
 import { CompleterService, CompleterData } from 'ng2-completer';
 import { RegisterBean } from "../../beans/register.bean";
 import { InputValidateInfo } from '../../directives/inputvalidate.directive';
+import { ApiOptional } from '../../beans/http-options';
 
 declare var bootbox: any;
 declare var $: any;
@@ -232,7 +233,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
           self.message_error('', 'หมายเลขประชาชนนี้ใช้ในการลงทะเบียนไปแล้ว');
         }
       }
-    })
+    }, new ApiOptional({continue_session: true}));
   }
 
   validateForm() {

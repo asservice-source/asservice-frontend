@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../service/user.service';
 import { Router } from '@angular/router';
 import { ApiHTTPService } from '../../api-managements/api-http.service';
-import { HttpOptional } from '../../beans/http-options';
+import { ApiOptional } from '../../beans/http-options';
 declare var $:any;
 @Component({
   selector: 'app-index-content',
@@ -48,6 +48,6 @@ export class IndexContentComponent implements OnInit{
     this.api.callResponse('app/image',{"category":"Slider"},(data)=>{
       this.images = data;
       this.showSlider = true;
-    }, new HttpOptional({continue_error: true}));
+    }, new ApiOptional({continue_error: true}));
   }
 }

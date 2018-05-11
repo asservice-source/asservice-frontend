@@ -164,8 +164,8 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
 
   }
   onChangeHomeTypeCode(select: any){
-    this.bean.homeId='';
-    this.bean.homeNo = '';
+    //this.bean.homeId='';
+    //this.bean.homeNo = '';
     if(this.isHomeType(select.value)){
       this.isHome = true;
     }else{
