@@ -1,3 +1,4 @@
 export class HttpOptional{
-    public errorcontinue: boolean;
+    public continue_session: boolean;
+    public continue_error: boolean;
 }

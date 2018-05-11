@@ -74,7 +74,7 @@ export class Service_Profile extends ApiHTTPService {
 
         self.post('user/forgot_password_verified', parameters, function (d) {
             callback(d);
-        });
+        }, {continue_session: true});
     }
 
     public reset_password(userLoginId: string, userName: string, newPassword: string, callback: (doc: any) => void) {

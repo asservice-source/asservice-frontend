@@ -87,9 +87,7 @@ export class SummaryPregnantComponent extends BaseComponent implements OnInit {
       this.inputvalidate = new InputValidateInfo();
       this.inputvalidate.isCheck = true;
       if(this.roundRowGuid){
-        console.log('report',this.surveyHeaderCode);
-        let obj = {'SurveyHeaderRowGUID':this.roundRowGuid,'OSMPersonID':this.osmId,'VillageID':this.villageId,'UserPersonID':this.personId,'DeadName':this.searchName}
-        console.log(obj);
+        let obj = {'SurveyHeaderRowGUID':this.roundRowGuid,'OSMPersonID':this.osmId,'VillageID':this.villageId,'UserPersonID':this.personId,'Name':this.searchName}
         let $params = '<input name="SurveyHeaderRowGUID" value="'+this.roundRowGuid+'" >';
         $params += ' <input name="Name" value="'+this.searchName+'" >';
         $params += ' <input name="OSMPersonID" value="'+this.osmId+'" >';
@@ -98,6 +96,9 @@ export class SummaryPregnantComponent extends BaseComponent implements OnInit {
         // $params += ' <input name="sid" value="'+this.userInfo.sid+'" >';        
         $form = $('<form method="post" target="_blank" name="mfrm" action="'+ReportPath.PREGNANCY+'"></form>');
         $form.append($params);
+        console.log('report',this.surveyHeaderCode);
+        console.log('OBJECT', obj);
+        console.log('FORM', $params);
       }else{
         return;
       }

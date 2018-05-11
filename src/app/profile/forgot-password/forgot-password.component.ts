@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { InputValidateInfo } from '../../directives/inputvalidate.directive';
 import { IMyDateModel } from 'mydatepicker-thai';
 import { BaseComponent } from '../../base-component';
@@ -46,7 +46,7 @@ export class ForgotPasswordComponent extends BaseComponent implements OnInit {
 
   public loading: boolean = false;
 
-  constructor(private route: Router) {
+  constructor(private route: Router, private changeRef: ChangeDetectorRef) {
     super();
   }
 
@@ -93,17 +93,21 @@ export class ForgotPasswordComponent extends BaseComponent implements OnInit {
     self.loading = true;
 
     self.apiHttp.verify_forgot_password(self.code5, self.citizenId, self.birthDate, self.firstName, self.lastName, function (d) {
+      self.loading = false;
+      
       if (d != null && d.status.toUpperCase() == "SUCCESS") {
         let data = d.response;
         if (data.isVerified === true) {
           self.isVerified = true;
           self.userLoginId = data.userLoginId;
           self.userName = data.userName;
-        } else {
-          self.message_error('', 'ข้อมูลของท่านไม่ถูกต้อง กรุณาระบุข้อมูลใหม่อีกครั้ง');
+          return;
         }
       }
-      self.loading = false;
+
+      self.message_error('', 'ข้อมูลของท่านไม่ถูกต้อง กรุณาระบุข้อมูลใหม่อีกครั้ง');
+
+     
     });
   }
 
@@ -147,20 +151,6 @@ export class ForgotPasswordComponent extends BaseComponent implements OnInit {
         self.message_success('', 'รีเซ็ตรหัสผ่านสำเร็จ', function () {
           self.clearData();
           $('#modalForgotPassword').modal('hide');
-          // self.route.navigate(['']);
-          // let parameters = { "userName": self.userName, "password": self.newPassword };
-          // this.api.post('user/login', parameters, function (resp) {
-          //   console.log(resp);
-          //   if (resp && resp.status.toString().toUpperCase() == 'SUCCESS' && resp.response.login) {
-          //     let obj = self.baseComponent.strNullToEmpty(resp.response);
-          //     self.storage.setUserInfo(obj);
-          //     self.route.navigate(["main"]);
-          //   } else {
-          //     localStorage.clear();
-          //     // self.msgErrorLogin = "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง";
-          //     // self.isErrorLogin = true;
-          //   }
-          // });
         });
       } else {
         self.message_error('', 'รีเซ็ตรหัสผ่านไม่สำเร็จ', function () {

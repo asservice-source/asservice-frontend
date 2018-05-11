@@ -64,7 +64,7 @@ export class ChangePasswordComponent extends BaseComponent implements OnInit {
     }
 
     if (self.newPassword != self.confirmNewPassword) {
-      self.error_message_confirmNewPassword = "รหัสผ่านใหม่และยืนยันรหัสผ่านใหม่ต้องมีค่าเหมือนกัน";
+      self.error_message_confirmNewPassword = "รหัสผ่านใหม่และยืนยันรหัสผ่านใหม่ไม่ตรงกัน";
       self.validateConfirmNewPassword = new InputValidateInfo();
       self.validateConfirmNewPassword.isCheck = true;
       self.validateConfirmNewPassword.isShowError = true;
@@ -84,7 +84,11 @@ export class ChangePasswordComponent extends BaseComponent implements OnInit {
           self.route.navigate(['/main']);
         });
       } else {
-        self.message_error('', 'เปลี่ยนรหัสผ่านไม่สำเร็จ', function () {
+        let msg = 'เปลี่ยนรหัสผ่านไม่สำเร็จ';
+        if(d.response && (""+d.response).indexOf('CurrentPassword')>=0){
+          msg = 'รหัสผ่านไม่ถูกต้อง';
+        }
+        self.message_error('', msg, function () {
           self.clearData();
         });
       }
