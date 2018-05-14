@@ -115,15 +115,19 @@ export class SurveyPregnantListComponent extends BaseComponent implements OnInit
       //     }
       //   }
       // },
-      pSurveyTypeCode: {
+      bornData: {
         title: 'สถานะครรภ์',
         filter: false,
         width: '100px',
         type: 'html',
         valuePrepareFunction: (cell, row) => {
+          console.log(row);
           let wombStatus = "";
-          if (cell == "Born") {
+          if (row.pSurveyTypeCode == "Born") {
             wombStatus = '<div class="text-center text-active">คลอดแล้ว</div>';
+            if(row.bornTypeId == '4') {
+              wombStatus = '<div class="text-center text-inactive">แท้ง</div>';
+            }
           } else {
             wombStatus = '<div class="text-center text-inactive">กำลังตั้งครรภ์</div>';
           }
