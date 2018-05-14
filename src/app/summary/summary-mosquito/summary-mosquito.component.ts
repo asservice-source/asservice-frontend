@@ -96,11 +96,11 @@ export class SummaryMosquitoComponent extends BaseComponent implements OnInit {
       console.log('OSMPersonID',this.osmId);
       console.log('VillageID',this.villageId);
       console.log('HomeTypeCode',this.homeTypeCode);
-      let $params = '<input name="SurveyHeaderRowGUID" value="'+this.roundRowGuid+'" >';
-      $params += ' <input name="HomeTypeCode" value="'+this.homeTypeCode+'" >';
-      $params += ' <input name="OSMPersonID" value="'+this.osmId+'" >';
-      $params += ' <input name="VillageID" value="'+this.villageId+'" >';
-      $params += ' <input name="UserPersonID" value="'+this.personId+'" >';
+      let $params = '<input type="hidden" name="SurveyHeaderRowGUID" value="'+this.roundRowGuid+'" >';
+      $params += ' <input type="hidden" name="HomeTypeCode" value="'+this.homeTypeCode+'" >';
+      $params += ' <input type="hidden" name="OSMPersonID" value="'+this.osmId+'" >';
+      $params += ' <input type="hidden" name="VillageID" value="'+this.villageId+'" >';
+      $params += ' <input type="hidden" name="UserPersonID" value="'+this.personId+'" >';
       // $params += ' <input name="sid" value="'+this.userInfo.sid+'" >';
       let $form = $('<form method="post" target="_blank" name="mfrm" action="'+ ReportPath.MOSQUITO +'"></form>');
       $form.append($params);

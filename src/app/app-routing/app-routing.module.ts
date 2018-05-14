@@ -97,6 +97,10 @@ import { SummaryCancerComponent } from "../summary/summary-cancer/summary-cancer
           , {
           path: 'content',
           component: ContentComponent
+        }
+        , {
+          path: 'contact-us',
+          component: IndexContactusComponent
         },
         {
           path: 'managements',

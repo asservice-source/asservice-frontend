@@ -71,7 +71,7 @@ export class ApiHTTPService  implements OnInit {
         console.log("<<<< /End >>>>");
         console.log('options', options);
         if(data.status == 0){
-            if(options.continue_session){
+            if(options && options.continue_session){
                 
                 return; 
             }

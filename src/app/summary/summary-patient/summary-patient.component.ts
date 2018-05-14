@@ -90,11 +90,11 @@ export class SummaryPatientComponent extends BaseComponent implements OnInit {
         console.log('report',this.surveyHeaderCode);
         let obj = {'SurveyHeaderRowGUID':this.roundRowGuid,'OSMPersonID':this.osmId,'VillageID':this.villageId,'UserPersonID':this.personId,'DeadName':this.searchName}
         console.log(obj);
-        let $params = '<input name="SurveyHeaderRowGUID" value="'+this.roundRowGuid+'" >';
-        $params += ' <input name="Name" value="'+this.searchName+'" >';
-        $params += ' <input name="OSMPersonID" value="'+this.osmId+'" >';
-        $params += ' <input name="VillageID" value="'+this.villageId+'" >';
-        $params += ' <input name="UserPersonID" value="'+this.personId+'" >';
+        let $params = '<input type="hidden" name="SurveyHeaderRowGUID" value="'+this.roundRowGuid+'" >';
+        $params += ' <input type="hidden" name="Name" value="'+this.searchName+'" >';
+        $params += ' <input type="hidden" name="OSMPersonID" value="'+this.osmId+'" >';
+        $params += ' <input type="hidden" name="VillageID" value="'+this.villageId+'" >';
+        $params += ' <input type="hidden" name="UserPersonID" value="'+this.personId+'" >';
         // $params += ' <input name="sid" value="'+this.userInfo.sid+'" >';
         $form = $('<form method="post" target="_blank" name="mfrm" action="'+ReportPath.PATIENT+'"></form>');
         $form.append($params);
