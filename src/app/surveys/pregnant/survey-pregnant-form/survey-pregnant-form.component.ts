@@ -236,17 +236,19 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
       self.pregnantBean.bornTypeId = self.pregnantBean.childs[0].bornTypeId;
       self.pregnantBean.abortionCause = self.pregnantBean.childs[0].abortionCause;
 
-      for (let item of self.pregnantBean.childs) {
-        let child = new PregnantChildBean();
-        child.genderId = item.genderId;
-        child.genderName = self.findGenderName(item.genderId);
-        child.citizenId = item.bornCitizenId;
-        child.firstName = item.firstName;
-        child.lastName = item.lastName;
-        child.bloodTypeId = item.bloodTypeId;
-        child.bloodTypeName = self.findBloodTypeName(item.bloodTypeId);
-        child.weight = item.weight;
-        self.listChild.push(child);
+      if(self.pregnantBean.bornTypeId != self.bornTypeAbort) {
+        for (let item of self.pregnantBean.childs) {
+          let child = new PregnantChildBean();
+          child.genderId = item.genderId;
+          child.genderName = self.findGenderName(item.genderId);
+          child.citizenId = item.bornCitizenId;
+          child.firstName = item.firstName;
+          child.lastName = item.lastName;
+          child.bloodTypeId = item.bloodTypeId;
+          child.bloodTypeName = self.findBloodTypeName(item.bloodTypeId);
+          child.weight = item.weight;
+          self.listChild.push(child);
+        }
       }
     }
     self.bindChildList();
