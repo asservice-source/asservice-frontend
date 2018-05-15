@@ -34,6 +34,7 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
   public loading: boolean = false;
   public refreshChange: RefreshChange;
   public isDisabledVillage: boolean;
+  public prefixName: string;
   constructor(private changeRef: ChangeDetectorRef) { 
     super();
     this.bean = new StaffUserBean();
@@ -59,11 +60,14 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
     //this.bean.prefixCode="";
     this.prefixList = [];
     if(this.bean.genderId){
+      console.log('setupPrefix 1');
       this.api.api_PrefixNameList(this.bean.genderId,  (response) => {
+        console.log('setupPrefix 2');
         for(let item of response){
           if(item.code == '001' || item.code == '002'){
             continue; // ไม่เอา เด็กชาย เด็กหญิง
           }
+          console.log('setupPrefix LLL');
           this.prefixList.push(item);
         }
 
@@ -88,12 +92,13 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
     $('#modalForm').on('show.bs.modal', function(){
       
       console.log(_self.bean);
+
       _self.msgError_BirthDate = 'กรุณาเลือก วัน/เดือน/ปี เกิด';
       if(_self.bean.personId){
         _self.action = _self.ass_action.EDIT;
         _self.oldCitizenId = _self.bean.citizenId;
         _self.setupPrefix();
-        //_self.bean.genderId
+        _self.prefixName = _self.bean.prefixName;
         _self.isVerify = true;
         if(_self.bean.homeId || (_self.bean.userId && (_self.bean.activateHome || _self.bean.homeId))){
           _self.isDisabledVillage = true;
@@ -113,6 +118,15 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
   onGenderChange(){
     this.bean.prefixCode = "";
     this.setupPrefix();
+  }
+  onPrefixChange(element: any){
+    console.log(element);
+    for(let item of element.options){
+      if(item.value==this.bean.prefixCode){
+        console.log(item.text);
+        this.prefixName = item.text
+      }
+    }
   }
   onClickVerifyCitizenId(){
     this.bean.citizenId = this.pastCitizenId(this.bean.citizenId);
@@ -180,10 +194,11 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
                _self.message_comfirm('', msg, function(result){
                  if(result){
                    _self.action = _self.ass_action.EDIT;
-                   _self.isVerify = true;
+                   _self.isVerify = true; 
                    _self.bean = person;
                    _self.bean.isActive = person.isActive==undefined?true:person.isActive;
                    _self.setDatePickerModel();
+                   _self.setupPrefix();
                    _self.oldCitizenId = _self.bean.citizenId;
 
                    if(_self.bean.activateHome || _self.bean.homeId){
@@ -218,6 +233,7 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
       
     }
   }
+  
   onClickEditCitizenId(){
 
   }
@@ -230,7 +246,7 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
     let valid = new SimpleValidateForm();
     this.bean.hospitalCode5 = this.getHospitalCode();
     let roleName = "";
-    let fullName = this.getFullName('', this.bean.firstName, this.bean.lastName);
+    //let fullName = this.getFullName('', this.bean.firstName, this.bean.lastName);
     if(this.isStaff){
       this.bean.villageId = '';
       this.bean.roleId ='3';
@@ -265,10 +281,16 @@ export class ManagementStaffUserFormComponent extends BaseComponent implements O
               _self.message_error('', 'หมายเลขบัตรประจำตัว <b>'+ _self.formatCitizenId(_self.bean.citizenId) +'</b> ซ้ำ');
             }else{
               // Save To API
-              _self.api.commit_save(_self.isStaff ,_self.bean, function(response){
+              _self.api.commit_save(_self.isStaff ,_self.bean, (response)=>{
+                let fullName = _self.getFullName(_self.prefixName, _self.bean.firstName, _self.bean.lastName);
                 _self.loading = false;
                 if(response && response.status.toString().toUpperCase()=='SUCCESS'){
                   $('#modalForm').modal('hide');
+                  if(_self.userInfo.personId == _self.bean.personId){
+                    _self.userInfo.fullName = fullName;
+                    console.log('PREFIX',_self.bean.prefixName);
+                    console.log('PREFIX',_self.userInfo.fullName);
+                  }
                   _self.success.emit({"success": true, message: _self.actionName+'เจ้าหน้าที่ ' + roleName + ' ' + fullName + ' เรียบร้อย'});
 
                 }else{

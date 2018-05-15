@@ -364,16 +364,16 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
         return;
       }
       if(objsEmpty.length<=0){
-
-        if(this.getYearDiff(this.modelBirthDate.date.year) < 20){
-          this.bean.familyStatusId = '';
-          this.message_error('','เจ้าบ้านจะต้องมีอายุครบ 20 ปีบริบูรณ์',()=>{
-            this.inputValidate = new InputValidateInfo();
-            this.inputValidate.isCheck = true; // validate input error form
-            this.changeRef.detectChanges();
-          });
-          return;
-        }
+        
+        // if(this.bean.familyStatusId=='1' && this.getYearDiff(this.modelBirthDate.date.year) < 20){
+        //   this.bean.familyStatusId = '';
+        //   this.message_error('','เจ้าบ้านจะต้องมีอายุครบ 20 ปีบริบูรณ์',()=>{
+        //     this.inputValidate = new InputValidateInfo();
+        //     this.inputValidate.isCheck = true; // validate input error form
+        //     this.changeRef.detectChanges();
+        //   });
+        //   return;
+        // }
 
         let _self = this;
         _self.loading = true;

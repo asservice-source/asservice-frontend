@@ -46,7 +46,7 @@
             </div>
             <div class="col-md-4">
               <div [InputValidate]="inputValidate">
-                <select [(ngModel)]="bean.prefixCode" [disabled]="!bean.genderId">
+                <select [(ngModel)]="bean.prefixCode" #prefix (change)="onPrefixChange(prefix)" [disabled]="!bean.genderId">
                   <option value="">---เลือก---</option>
                   <option *ngFor="let item of prefixList" [value]="item.code">{{item.name}}</option>
                 </select>
