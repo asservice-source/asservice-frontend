@@ -42,8 +42,9 @@ export class MainLeftSideComponent implements OnInit {
     let headers = new Headers(headobj);
     let pOptions = new RequestOptions({ headers: headers, method: "post" });
 
-
-    this.api.http.post(this.baseComponent.getApiUrl('app/menu'), {}, pOptions)
+    let roleId: string = this.baseComponent.userInfo.roleId;
+    console.log('roleId', roleId);
+    this.api.http.post(this.baseComponent.getApiUrl('app/menu'), { 'roleId': roleId }, pOptions)
             .map(res => res.json())
             .subscribe(
             data => this.compareMenu(data),

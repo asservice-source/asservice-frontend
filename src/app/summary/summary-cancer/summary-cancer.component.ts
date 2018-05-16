@@ -47,7 +47,7 @@ export class SummaryCancerComponent extends BaseComponent implements OnInit {
   }
   setDropdownListRounds(){
     this.listRounds = new Array<any>();
-    this.api.api_SurveyHeaderList(this.surveyHeaderCode.PATIENT, data =>{
+    this.api.api_SurveyHeaderList(this.surveyHeaderCode.CANCER, data =>{
       this.listRounds = data;
       for(let item of this.listRounds){
         if(item.status == '2'){
