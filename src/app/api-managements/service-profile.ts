@@ -78,6 +78,16 @@ export class Service_Profile extends ApiHTTPService {
         }, new ApiOptional({continue_session: true}));
     }
 
+    public verify_hospital_forgot_password(hospitalName: string, provinceCode: string, amphurCode: string, tumbolCode: string, code9: string, code5: string, citizenId: string, callback: (doc: any) => void) {
+        let self = this;
+
+        let parameters = { "hospitalName": hospitalName, "provinceCode": provinceCode, "amphurCode": amphurCode, "tumbolCode": tumbolCode, "code9": code9, "code5": code5, "citizenId": citizenId };
+
+        self.post('user/forgot_password_verified_hospital', parameters, function (d) {
+            callback(d);
+        }, new ApiOptional({continue_session: true}));
+    }
+
     public reset_password(userLoginId: string, userName: string, newPassword: string, callback: (doc: any) => void) {
         let self = this;
 
