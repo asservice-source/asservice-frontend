@@ -19,39 +19,20 @@
 			<div style="text-align: center">
 				<a routerLink="/main/profile/profile-management" style="color: #0069ad; font-weight: bold"><i class="fa fa-edit"></i> จัดการข้อมูลส่วนตัว</a>
 			</div>
-			<!-- <div style="text-align: center">
-					<label>{{userInfo.hospitalName}}</label>
-			</div> -->
-			<!-- <div class="pull-left info">
-				<p>{{currentUser?.getName()}}</p>
-				
-				<a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-			</div> -->
+			
 		</div>
-		<!-- search form (Optional) -->
-		<!-- <form action="#" method="get" class="sidebar-form">
-			<div class="input-group">
-				<input type="text" name="q" class="form-control"
-					placeholder="Search..."> <span class="input-group-btn">
-					<button type="submit" name="search" id="search-btn"
-						class="btn btn-flat">
-						<i class="fa fa-search"></i>
-					</button>
-				</span>
-			</div>
-		</form> -->
-		<!-- /.search form -->
+		
 		<!-- Sidebar Menu -->
 		<ul class="sidebar-menu">
 			<!-- Staff Menu -->
-			<li *ngIf="userInfo.roleId=='2' || userInfo.roleId=='3'" class="treeview manage-menu-let">
+			<li class="treeview manage-menu-let">
 					<a href="#">
-						<i *ngIf="staffMenus.icon" class="{{staffMenus.icon}}"></i>
-						<span>{{staffMenus.title}}</span>
+						<i *ngIf="managementMenu.icon" class="{{managementMenu.icon}}"></i>
+						<span>{{managementMenu.title}}</span>
 						<i class="fa fa-angle-left pull-right"></i>
 					</a>
 					<ul class="treeview-menu">
-						<ng-container *ngFor="let subitem of staffMenus.sublinks">
+						<ng-container *ngFor="let subitem of managementMenu.sublinks">
 							<li [class.active]="subitem.link[0] === currentUrl">
 								<a *ngIf="!subitem.external" [routerLink]="subitem.link">
 									<i *ngIf="subitem.icon" class="{{subitem.icon}}"></i>
@@ -67,7 +48,7 @@
 				</li>
 				
 				<!-- OSM Menu -->
-				<li *ngIf="userInfo.roleId=='5'" class="treeview manage-menu-let">
+				<!-- <li *ngIf="userInfo.roleId=='5'" class="treeview manage-menu-let">
 					<a href="#">
 						<i *ngIf="osmMenus.icon" class="{{osmMenus.icon}}"></i>
 						<span>{{osmMenus.title}}</span>
@@ -87,7 +68,7 @@
 							</li>
 						</ng-container>
 					</ul>
-				</li>
+				</li> -->
 
 			<ng-container *ngFor="let item of surveyMenus; let idx = index">
 

@@ -13,6 +13,7 @@ import { RequestOptions, Headers} from '@angular/http';
 })
 export class MainLeftSideComponent implements OnInit {
   //@Input() links: Array<any> = [];
+  public managementMenu: any = {};
   public surveyMenus: Array<any> = [];
   public staffMenus: any = {};
   public osmMenus: any = {};
@@ -53,21 +54,23 @@ export class MainLeftSideComponent implements OnInit {
   }
 
   compareMenu(menus: any){
+    
     console.log("compareMenus", menus);
     let menuSurveys = [];
     for(let item of menus){
-      if(item.menuId==21){
-        this.staffMenus = item;
-      }else if(item.menuId==25){
-        this.osmMenus = item;
+      // if(item.menuId==21){
+      //   this.staffMenus = item;
+      // }else if(item.menuId==25){
+      //   this.osmMenus = item;
+      // }else{
+      //   menuSurveys.push(item);
+      // }
+      if(item.menuId==21 || item.menuId==25){
+        this.managementMenu = item;
       }else{
         menuSurveys.push(item);
       }
     }
     this.surveyMenus = menuSurveys;
   }
-  // onManageProfile(){
-  //   this.route.navigate(['main/profile/profile-management']); 
-  // }
-
 }
