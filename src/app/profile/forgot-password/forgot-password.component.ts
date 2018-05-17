@@ -102,13 +102,13 @@ export class ForgotPasswordComponent extends BaseComponent implements OnInit {
     let self = this;
 
     if (val == '2') {
-      self.classHospital = self.classNotactive;
-      self.classOSM = self.classActive;
-      self.isFormHospital = false;
-    } else {
       self.classHospital = self.classActive;
       self.classOSM = self.classNotactive;
       self.isFormHospital = true;
+    } else {
+      self.classHospital = self.classNotactive;
+      self.classOSM = self.classActive;
+      self.isFormHospital = false;
     }
     self.clearData();
   }
@@ -142,6 +142,45 @@ export class ForgotPasswordComponent extends BaseComponent implements OnInit {
       if (d != null && d.status.toUpperCase() == "SUCCESS") {
         self.listSubDistrict = d.response;
       }
+    });
+  }
+
+  onClickVerify() {
+    let self = this;
+
+    self.validateInput = new InputValidateInfo();
+    self.validateInput.isCheck = true;
+
+    if (self.isEmpty(self.code5))
+      return;
+
+    if (self.isEmpty(self.citizenId))
+      return;
+
+    if (self.isEmpty(self.birthDate))
+      return;
+
+    if (self.isEmpty(self.firstName))
+      return;
+
+    if (self.isEmpty(self.lastName))
+      return;
+
+    self.loading = true;
+
+    self.apiHttp.verify_forgot_password(self.code5, self.citizenId, self.birthDate, self.firstName, self.lastName, function (d) {
+      self.loading = false;
+
+      if (d != null && d.status.toUpperCase() == "SUCCESS") {
+        let data = d.response;
+        if (data.isVerified === true) {
+          self.isVerified = true;
+          self.userLoginId = data.userLoginId;
+          self.userName = data.userName;
+          return;
+        }
+      }
+      self.message_error('', 'ข้อมูลของท่านไม่ถูกต้อง กรุณาระบุข้อมูลใหม่อีกครั้ง');
     });
   }
 
@@ -189,45 +228,6 @@ export class ForgotPasswordComponent extends BaseComponent implements OnInit {
     //   self.message_error('', 'ข้อมูลของท่านไม่ถูกต้อง กรุณาระบุข้อมูลใหม่อีกครั้ง');
     // });
     self.message_error('', 'ยังไม่พร้อมใช้งาน');
-  }
-
-  onClickVerify() {
-    let self = this;
-
-    self.validateInput = new InputValidateInfo();
-    self.validateInput.isCheck = true;
-
-    if (self.isEmpty(self.code5))
-      return;
-
-    if (self.isEmpty(self.citizenId))
-      return;
-
-    if (self.isEmpty(self.birthDate))
-      return;
-
-    if (self.isEmpty(self.firstName))
-      return;
-
-    if (self.isEmpty(self.lastName))
-      return;
-
-    self.loading = true;
-
-    self.apiHttp.verify_forgot_password(self.code5, self.citizenId, self.birthDate, self.firstName, self.lastName, function (d) {
-      self.loading = false;
-
-      if (d != null && d.status.toUpperCase() == "SUCCESS") {
-        let data = d.response;
-        if (data.isVerified === true) {
-          self.isVerified = true;
-          self.userLoginId = data.userLoginId;
-          self.userName = data.userName;
-          return;
-        }
-      }
-      self.message_error('', 'ข้อมูลของท่านไม่ถูกต้อง กรุณาระบุข้อมูลใหม่อีกครั้ง');
-    });
   }
 
   onClickSave() {
