@@ -168,7 +168,7 @@ export class ForgotPasswordComponent extends BaseComponent implements OnInit {
 
     self.loading = true;
 
-    self.apiHttp.verify_forgot_password(self.code5, self.citizenId, self.birthDate, self.firstName, self.lastName, function (d) {
+    self.apiHttp.verify_forgot_password(self.code5, self.reverseFormatCitizenId(self.citizenId), self.birthDate, self.firstName, self.lastName, function (d) {
       self.loading = false;
 
       if (d != null && d.status.toUpperCase() == "SUCCESS") {
@@ -211,23 +211,22 @@ export class ForgotPasswordComponent extends BaseComponent implements OnInit {
     if (self.isEmpty(self.hospitalCitizenId))
       return;
 
-    // self.loading = true;
+    self.loading = true;
 
-    // self.apiHttp.verify_forgot_password(self.code5, self.citizenId, self.birthDate, self.firstName, self.lastName, function (d) {
-    //   self.loading = false;
+    self.apiHttp.verify_hospital_forgot_password(self.hospitalName, self.hospitalProvince, self.hospitalDistrict, self.hospitalSubDistrict, self.hospitalCode9, self.hospitalCode5, self.reverseFormatCitizenId(self.hospitalCitizenId), function (d) {
+      self.loading = false;
 
-    //   if (d != null && d.status.toUpperCase() == "SUCCESS") {
-    //     let data = d.response;
-    //     if (data.isVerified === true) {
-    //       self.isVerified = true;
-    //       self.userLoginId = data.userLoginId;
-    //       self.userName = data.userName;
-    //       return;
-    //     }
-    //   }
-    //   self.message_error('', 'ข้อมูลของท่านไม่ถูกต้อง กรุณาระบุข้อมูลใหม่อีกครั้ง');
-    // });
-    self.message_error('', 'ยังไม่พร้อมใช้งาน');
+      if (d != null && d.status.toUpperCase() == "SUCCESS") {
+        let data = d.response;
+        if (data.isVerified === true) {
+          self.isVerified = true;
+          self.userLoginId = data.userLoginId;
+          self.userName = data.userName;
+          return;
+        }
+      }
+      self.message_error('', 'ข้อมูลของท่านไม่ถูกต้อง กรุณาระบุข้อมูลใหม่อีกครั้ง');
+    });
   }
 
   onClickSave() {
