@@ -1,5 +1,5 @@
 $.widget.bridge('uibutton', $.ui.button);
-
+// console.log = (x,n)=>{}; // Turn Off console.log
 //receive calls from typescript code to update the layouts
 var AdminLTE = (function () {
   return {
@@ -24,5 +24,7 @@ $(function () {
   //   localStorage.clear();
   //   return '';
   // };
+
+  
 
 });

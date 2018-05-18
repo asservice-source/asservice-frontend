@@ -29,8 +29,8 @@ export class ApiHTTPService  implements OnInit {
         this.http.get(this.baseComponent.getApiUrl(url), params)
             .map(res => res.json())
             .subscribe(
-            data => this.subscribe(data, callback, params, url),
-            err => this.subscribe_error(err, callback, params, url, options),
+            data => this.subscribe({},data, callback, params, url),
+            err => this.subscribe_error({},err, callback, params, url, options),
             () => console.log('Fetching complete for Server Api.')
             )
     }
@@ -41,22 +41,23 @@ export class ApiHTTPService  implements OnInit {
                         'Content-Type': 'application/json' 
                         , 'sid': sid
                      };
-        console.log('HEADER#'+url,headobj);
+        //console.log('HEADER#'+url,headobj);
         let headers = new Headers(headobj);
         let pOptions = new RequestOptions({ headers: headers, method: "post" });
 
         this.http.post(this.baseComponent.getApiUrl(url), params, pOptions)
             .map(res => res.json())
             .subscribe(
-            data => this.subscribe(data, callback, params, url),
-            err => this.subscribe_error(err, callback, params, url, options)
+            data => this.subscribe(headobj, data, callback, params, url),
+            err => this.subscribe_error(headobj, err, callback, params, url, options)
             )
     }
-    private subscribe(data: any, callback: (doc: any)=> void, params: any, path: any){
-        console.log("<<<< Call API. = " + path +" >>>>");
-        console.log('parameters', params);
-        console.log('data response', data);
-        console.log("<<<< /End >>>>");
+    private subscribe(header,data: any, callback: (doc: any)=> void, params: any, path: any){
+        console.log('%c Call API :'  + path, 'background: #69c74c; color: #ffffff');
+        console.log('header', header);
+        console.log('params', params);
+        console.log('response', data);
+        //console.log('%c END', 'font-size: 14px; background: #3f8bbc; color: #ffffff');
         if(data.status){
             data.status = ''+data.status;
         }else{
@@ -64,11 +65,11 @@ export class ApiHTTPService  implements OnInit {
         }
         callback(data);
     }
-    private subscribe_error(data: any, callback: (doc: any)=> void, params: any, path: any, options: ApiOptional){
-        console.log("<<<< ERROR => Call API. = " + path +" >>>>");
-        console.log('parameters', params);
-        console.log('data response', data);
-        console.log("<<<< /End >>>>");
+    private subscribe_error(header, data: any, callback: (doc: any)=> void, params: any, path: any, options: ApiOptional){
+        console.log('%c [ERROR] Call API :'  + path, 'background: #d50033; color: #ffffff');
+        console.log('header', header);
+        console.log('params', params);
+        console.log('response', data);
         console.log('options', options);
         if(data.status == 0){
             if(options && options.continue_session){
