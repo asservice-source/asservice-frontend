@@ -117,7 +117,7 @@
           </div>
 
           <div class="col-xs-8 ">
-            <input class="ng-pristine ng-valid ng-touched" type="text" placeholder="ชื่อ" [(ngModel)]="registerBean.contactFirstName">
+            <input class="ng-pristine ng-valid ng-touched" type="text" maxlength="50" placeholder="ชื่อ" [(ngModel)]="registerBean.contactFirstName">
             <label class="error2 col-xs-12" *ngIf="isErrorFirstName">กรุณาระบุชื่อจริง</label>
           </div>
         </div>
@@ -128,7 +128,7 @@
           </div>
 
           <div class="col-xs-8 ">
-            <input class="ng-pristine ng-valid ng-touched" type="text" placeholder="สกุล" [(ngModel)]="registerBean.contactLastName">
+            <input class="ng-pristine ng-valid ng-touched" type="text" maxlength="50" placeholder="สกุล" [(ngModel)]="registerBean.contactLastName">
             <label class="error2 col-xs-12" *ngIf="isErrorLastName">กรุณาระบุนามสกุล</label>
           </div>
         </div>
