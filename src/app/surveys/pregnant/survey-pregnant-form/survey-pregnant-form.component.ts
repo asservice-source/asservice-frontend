@@ -353,7 +353,7 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
       }
 
       if (self.actionChild == self.ass_action.ADD) {
-        if (!self.isEmptyObject(duplicateData) && isDuplicateInList) {
+        if (!self.isEmptyObject(duplicateData) || isDuplicateInList) {
           self.error_message_citizenId = "บัตรประชาชนซ้ำ";
           self.validateCitizenId = new InputValidateInfo();
           self.validateCitizenId.isCheck = true;
@@ -523,7 +523,7 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
         item.bornLocationId = bornLocationId;
         item.bornTypeId = bornTypeId;
         item.abortionCause = "";
-        item.bornCitizenId = item.bornCitizenId.replace(/-/g, '');
+        item.bornCitizenId = self.reverseFormatCitizenId(item.bornCitizenId);
         // item.bornCitizenId = self.formatCitizenId(item.bornCitizenId);
       }
       self.pregnantBean.childs = self.listChild;
@@ -744,7 +744,7 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
             self.validateCitizenId = new InputValidateInfo();
             self.validateVerify = new InputValidateInfo();
 
-            self.tmpChildCitizenId = row.citizenId.replace(/-/g, '');
+            self.tmpChildCitizenId = self.reverseFormatCitizenId(row.citizenId);
             self.tmpChildBean = row;
             self.childBean = self.cloneObj(row);
             self.actionChild = self.ass_action.EDIT;
