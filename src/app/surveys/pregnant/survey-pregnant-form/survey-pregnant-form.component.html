@@ -110,9 +110,9 @@
                                 </span>
                             </div>
                             <select *ngIf="isHiddenEditChild" [disabled]="isHiddenEditChild" [(ngModel)]="pregnantBean.bornLocationId">
-                                    <option value="">--เลือก โรงพยาบาล--</option>
-                                    <option *ngFor="let item of listBornLocation" [value]="item.id">{{item.name}}</option>
-                                </select>
+                                <option value="">--เลือก โรงพยาบาล--</option>
+                                <option *ngFor="let item of listBornLocation" [value]="item.id">{{item.name}}</option>
+                            </select>
                             <label class="error">กรุณาเลือก โรงพยาบาลที่คลอด</label>
                         </div>
                     </div>
@@ -176,10 +176,13 @@
                                             <label class="label-form">เพศ</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <select [(ngModel)]="childBean.genderId">
-                                                <option value="">--เลือก เพศ--</option>
-                                                <option *ngFor="let item of listGender" [value]="item.id">{{item.name}}</option>
-                                            </select>
+                                            <div [InputValidate]="validateVerify">
+                                                <select [(ngModel)]="childBean.genderId">
+                                                    <option value="">--เลือก เพศ--</option>
+                                                    <option *ngFor="let item of listGender" [value]="item.id">{{item.name}}</option>
+                                                </select>
+                                                <label class="error">กรุณาเลือก เพศ</label>
+                                            </div>
                                         </div>
                                     </div>
 

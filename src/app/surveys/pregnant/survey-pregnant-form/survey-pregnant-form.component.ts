@@ -370,6 +370,10 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
         }
       }
 
+      if (self.isEmpty(self.childBean.genderId)) {
+        return;
+      }
+
       if (self.isEmpty(self.childBean.firstName)) {
         return;
       }
