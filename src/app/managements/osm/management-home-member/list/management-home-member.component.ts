@@ -194,7 +194,8 @@ export class ManagementHomeMemberComponent extends BaseComponent implements OnIn
         width: '80px',
         type: 'html',
         valuePrepareFunction: (cell, row) => {
-          return '<div class="text-center">' + cell + '</div>'
+          let gn = (this.isEmpty(cell)) ? '' : cell;
+          return '<div class="text-center">' + gn + '</div>'
         }
       },
       age: {
