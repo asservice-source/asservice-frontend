@@ -19,6 +19,7 @@
                 if($('.modal').hasClass('in')){
                     $('body').addClass('modal-open');
                 }
+                $('body').css({"padding-right": 0}); 
             });
         }
         ,alert: function(title, message, callback){
