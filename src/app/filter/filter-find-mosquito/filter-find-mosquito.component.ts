@@ -3,7 +3,7 @@ import { BaseComponent } from '../../base-component';
 import { ApiHTTPService } from '../../api-managements/api-http.service';
 import { findHomeBean } from '../../beans/findhome.bean';
 import { HomeBean } from '../../beans/home.bean';
-import { LocalDataSource, ViewCell } from 'ng2-smart-table';
+import { LocalDataSource, ViewCell } from '../../ng2-smart-table';
 import { Router } from '@angular/router';
 
 

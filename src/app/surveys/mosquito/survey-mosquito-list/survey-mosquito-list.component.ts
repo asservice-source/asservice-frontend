@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { LocalDataSource } from 'ng2-smart-table';
+import { LocalDataSource } from '../../../ng2-smart-table';
 import { ActionCustomView_2_Component, ActionCustomSurveyHistoryComponent } from '../../../action-custom-table/action-custom-view.component';
 import { BaseComponent } from '../../../base-component';
 import { ApiHTTPService } from '../../../api-managements/api-http.service';

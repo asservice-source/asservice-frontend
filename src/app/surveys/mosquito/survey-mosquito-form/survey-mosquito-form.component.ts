@@ -4,7 +4,7 @@ import { MosquitoBean } from '../../../beans/mosquito.bean';
 import { ApiHTTPService } from '../../../api-managements/api-http.service';
 import { HomeBean } from '../../../beans/home.bean'
 import {SelectHomeListButton} from '../../../filter/filter-find-mosquito/filter-find-mosquito.component';
-import {LocalDataSource} from 'ng2-smart-table';
+import {LocalDataSource} from '../../../ng2-smart-table';
 
 declare var $: any;
 @Component({

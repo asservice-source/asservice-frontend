@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef, ElementRef, Input, Output, EventEmitter } from '@angular/core';
 import { BaseComponent } from '../../../../base-component';
-import { LocalDataSource, ViewCell } from 'ng2-smart-table';
+import { LocalDataSource, ViewCell } from '../../../../ng2-smart-table';
 import { ActionCustomView_2_Component } from '../../../../action-custom-table/action-custom-view.component';
 import { StaffUserBean } from '../../../../beans/staff-user.bean';
 import { Service_UserStaffAndOSM } from '../../../../api-managements/service-user-staff-osm';

@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterViewInit, ChangeDetectorRef, Input, EventEmitter, Output } from '@angular/core';
 import { PregnantBean } from '../../../beans/pregnant.bean'
 import { BaseComponent } from '../../../base-component';
-import { LocalDataSource } from 'ng2-smart-table';
+import { LocalDataSource } from '../../../ng2-smart-table';
 import { ActionCustomView_2_Component } from '../../../action-custom-table/action-custom-view.component';
 import { PregnantChildBean } from '../../../beans/pregnant-child.bean';
 import { Service_SurveyPregnant } from '../../../api-managements/service-survey-pregnant';

@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterViewInit, EventEmitter, Input, Output, ChangeDetectorRef } from '@angular/core';
 import { Http, Headers, RequestOptions } from "@angular/http";
 import { Router } from "@angular/router";
-import { ViewCell, LocalDataSource } from 'ng2-smart-table';
+import { ViewCell, LocalDataSource } from '../../../ng2-smart-table';
 import { ActionCustomViewComponent } from '../../../action-custom-table/action-custom-view.component';
 import { FilterBean } from "../../../beans/filter.bean";
 import { PersonalHomeBean } from '../../../beans/personal-home.bean';

@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { Http, Response, RequestOptions } from "@angular/http";
 import { Router } from "@angular/router";
-import { LocalDataSource } from 'ng2-smart-table';
+import { LocalDataSource } from '../../../ng2-smart-table';
 import { BaseComponent } from '../../../base-component';
 import { PersonBean } from "../../../beans/person.bean";
 import { ActionCustomView_2_Component, ActionCustomSurveyHistoryComponent } from '../../../action-custom-table/action-custom-view.component';

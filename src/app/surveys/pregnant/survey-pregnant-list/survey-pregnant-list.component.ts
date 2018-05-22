@@ -4,7 +4,7 @@ import { Router } from "@angular/router";
 import { FilterHeadSurveyBean } from '../../../beans/filter-head-survey.bean';
 import { BaseComponent } from "./../../../base-component";
 import { PersonBean } from "../../../beans/person.bean";
-import { LocalDataSource, ViewCell } from 'ng2-smart-table';
+import { LocalDataSource, ViewCell } from '../../../ng2-smart-table';
 import { PregnantBean } from '../../../beans/pregnant.bean'
 import { Service_SurveyPregnant } from '../../../api-managements/service-survey-pregnant';
 import { CompileMetadataResolver } from '@angular/compiler';

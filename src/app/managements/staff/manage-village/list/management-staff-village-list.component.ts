@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef, EventEmitter, Input, Output} from '@angular/core';
 import { BaseComponent } from '../../../../base-component';
-import { LocalDataSource } from 'ng2-smart-table';
+import { LocalDataSource } from '../../../../ng2-smart-table';
 import { ActionCustomView_2_Component } from '../../../../action-custom-table/action-custom-view.component';
 import { VillageBean } from '../../../../beans/village.bean';
 import { Service_Village } from '../../../../api-managements/service-village';

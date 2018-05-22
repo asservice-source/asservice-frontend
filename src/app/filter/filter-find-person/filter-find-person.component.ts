@@ -6,7 +6,7 @@ import { HomeBean } from '../../beans/home.bean';
 import { RequestOptions, Headers, Http } from '@angular/http';
 import { ApiHTTPService } from '../../api-managements/api-http.service';
 import { FilterBean } from '../../beans/filter.bean';
-import { ViewCell, LocalDataSource } from 'ng2-smart-table';
+import { ViewCell, LocalDataSource } from '../../ng2-smart-table';
 declare var $: any;
 
 @Component({

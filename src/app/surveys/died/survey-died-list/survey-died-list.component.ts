@@ -3,7 +3,7 @@ import { BaseComponent } from "../../../base-component";
 import { ActionCustomView_2_Component, ActionCustomSurveyHistoryComponent } from '../../../action-custom-table/action-custom-view.component';
 import { FilterHeadSurveyBean } from '../../../beans/filter-head-survey.bean';
 import { DeadBean } from '../../../beans/dead.bean';
-import { LocalDataSource } from 'ng2-smart-table';
+import { LocalDataSource } from '../../../ng2-smart-table';
 import { Service_SurveyDead } from '../../../api-managements/service-survey-dead';
 declare var $: any;
 

@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { NgModule } from '@angular/core';
 import { Ng2CompleterModule } from "ng2-completer";
-import { Ng2SmartTableModule } from "ng2-smart-table";
+import { Ng2SmartTableModule } from "./ng2-smart-table";
 import { HttpModule } from '@angular/http';
 import { ChartsModule } from 'ng2-charts';
 import 'rxjs/add/operator/map';

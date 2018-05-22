@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectorRef, Output, EventEmitter } from '@ang
 import { BaseComponent } from '../../../base-component';
 import { ActionCustomViewMapsComponent, ActionCustomViewHistoryComponent, ActionCustomSurveyHistoryComponent } from '../../../action-custom-table/action-custom-view.component';
 import { FilterHeadSurveyBean } from '../../../beans/filter-head-survey.bean';
-import { LocalDataSource } from 'ng2-smart-table';
+import { LocalDataSource } from '../../../ng2-smart-table';
 import { PatientBean } from '../../../beans/patient.bean'
 import { MapsBean } from '../../../multi-maps/multi-maps.component';
 import { Service_SurveyPatient } from '../../../api-managements/service-survey-patient';

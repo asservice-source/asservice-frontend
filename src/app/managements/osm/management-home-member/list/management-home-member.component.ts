@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef} from '@angular/core';
 import { BaseComponent } from '../../../../base-component';
-import { LocalDataSource } from 'ng2-smart-table';
+import { LocalDataSource } from '../../../../ng2-smart-table';
 import { ActionCustomView_2_Component } from '../../../../action-custom-table/action-custom-view.component';
 import { Service_HomeMember } from '../../../../api-managements/service-home-member';
 import { ActivatedRoute, Router } from '@angular/router';

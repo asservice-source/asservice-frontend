@@ -2,7 +2,7 @@ import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
 import { BaseComponent } from '../../../base-component';
 import { PregnantBean } from '../../../beans/pregnant.bean';
 import { PregnantChildBean } from '../../../beans/pregnant-child.bean';
-import { LocalDataSource } from 'ng2-smart-table';
+import { LocalDataSource } from '../../../ng2-smart-table';
 import { Service_SurveyPregnant } from '../../../api-managements/service-survey-pregnant';
 declare var $;
 

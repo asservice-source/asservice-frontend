@@ -31,55 +31,13 @@ export class MapsComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    
   }
 
   ngOnChanges() {
     let self = this;
 
-    let lat = +self.latitude;
-    let lng = +self.longitude;
-    // let latlng = self.getLatLong();
-    if (self.latitude && self.longitude) {
-      let latlng = lat + ',' + lng
-      self.center = latlng;
-      self.position = latlng;
-      self.info_content = self.info;
-      if (self.map) {
-        self.map.panTo({ lat: lat, lng: lng });
-        self.map.setZoom(15);
-      }
-      self.zoom = 15;
-    } else {
-      // self.zoom = 15;
-      // let adr = 'ตำบล' + self.userInfo.hospitalTumbolName + ' อำเภอ' + self.userInfo.hospitalAmphurName + ' จังหวัด' + self.userInfo.hospitalProvinceName + ' ' + self.userInfo.hospitalZipCode;
-      // self.center = self.defaultAddress || adr;
-      // self.position = "";
-
-      self.position = "";
-
-      // เก็บค่าไว้ในตัวแปร เมื่อมีค่าแล้วจะไม่ call api อีก
-      if (!self.defaultLat && !self.defaultLng) {
-        self.getLocationGooglemaps(null, function (d) {
-          if (d.results) {
-            self.defaultLat = d.results[0].geometry.location.lat;
-            self.defaultLng = d.results[0].geometry.location.lng;
-          }
-        });
-      }
-
-      if (self.defaultLat && self.defaultLng) {
-        self.center = self.defaultLat + ',' + self.defaultLng;
-        if (self.map) {
-          self.map.panTo({ lat: self.defaultLat, lng: self.defaultLng });
-          self.map.setZoom(15);
-        }
-      } else {
-        let adr = 'ตำบล' + self.userInfo.hospitalTumbolName + ' อำเภอ' + self.userInfo.hospitalAmphurName + ' จังหวัด' + self.userInfo.hospitalProvinceName + ' ' + self.userInfo.hospitalZipCode;
-        self.center = adr;
-        self.zoom = 15;
-      }
-    }
+    self.InitMap();
   }
 
   onMapReady(map) {
@@ -169,5 +127,51 @@ export class MapsComponent extends BaseComponent implements OnInit {
 
     }
   }
-  
+
+  InitMap() {
+    let self = this;
+
+    let lat = +self.latitude;
+    let lng = +self.longitude;
+
+    if (self.latitude && self.longitude) {
+      let latlng = lat + ',' + lng
+      self.center = latlng;
+      self.position = latlng;
+      self.info_content = self.info;
+      if (self.map) {
+        self.map.panTo({ lat: lat, lng: lng });
+        self.map.setZoom(15);
+      }
+      self.zoom = 15;
+    } else {
+      self.position = "";
+
+      // เก็บค่าไว้ในตัวแปร เมื่อมีค่าแล้วจะไม่ call api อีก
+      if (!self.defaultLat && !self.defaultLng) {
+        self.getLocationGooglemaps(null, function (d) {
+          if (d.results) {
+            self.defaultLat = d.results[0].geometry.location.lat;
+            self.defaultLng = d.results[0].geometry.location.lng;
+          }
+        });
+      }
+
+      // Set center for maps
+      if (self.defaultLat && self.defaultLng) {
+        self.center = self.defaultLat + ',' + self.defaultLng;
+      } else {
+        let adr = 'ตำบล' + self.userInfo.hospitalTumbolName + ' อำเภอ' + self.userInfo.hospitalAmphurName + ' จังหวัด' + self.userInfo.hospitalProvinceName + ' ' + self.userInfo.hospitalZipCode;
+        self.center = adr;
+      }
+
+      // Set zoom for maps
+      self.zoom = 15;
+      if (self.map) {
+        self.map.panTo({ lat: self.defaultLat, lng: self.defaultLng });
+        self.map.setZoom(15);
+      }
+    }
+  }
+
 }

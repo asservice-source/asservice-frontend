@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Http, Headers, RequestOptions } from "@angular/http";
 import { Router } from "@angular/router";
-import { LocalDataSource, ViewCell } from 'ng2-smart-table';
+import { LocalDataSource, ViewCell } from '../../../ng2-smart-table';
 import { BaseComponent } from '../../../base-component';
 import { ApiHTTPService } from '../../../api-managements/api-http.service';
 import { CancerBean } from '../../../beans/cancer.bean';

@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, Optional, Inject, Injectable, ChangeDetectorRef } from '@angular/core';
 import { LabelManager } from "./label/label-manager";
-import { LocalDataSource } from 'ng2-smart-table';
+import { LocalDataSource } from './ng2-smart-table';
 import { Utils, Action, SurveyHeaderTypeCode, MessageType } from "./utils.util";
 import * as myconf from "./global-config";
 import * as moment from 'moment'

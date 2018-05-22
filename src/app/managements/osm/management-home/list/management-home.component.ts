@@ -2,10 +2,9 @@ import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } fro
 import { Router, ActivatedRoute } from '@angular/router';
 import { HomeBean } from '../../../../beans/home.bean';
 import { BaseComponent } from '../../../../base-component';
-import { LocalDataSource } from 'ng2-smart-table';
+import { LocalDataSource, ViewCell } from '../../../../ng2-smart-table';
 import { ActionCustomViewMapsComponent } from '../../../../action-custom-table/action-custom-view.component';
 import { Service_Home } from '../../../../api-managements/service-home';
-import { ViewCell } from 'ng2-smart-table';
 
 declare var $:any;
 @Component({

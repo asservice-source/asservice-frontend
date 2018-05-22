@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } fro
 import { Http, Response, RequestOptions } from "@angular/http";
 import { Router } from "@angular/router";
 import { ActivatedRoute } from '@angular/router';
-import { ViewCell, LocalDataSource } from 'ng2-smart-table';
+import { ViewCell, LocalDataSource } from '../../../ng2-smart-table';
 import { BaseComponent } from '../../../base-component';
 import { PersonBean } from '../../../beans/person.bean';
 import { Service_SurveyPersonal } from '../../../api-managements/service-survey-personal';

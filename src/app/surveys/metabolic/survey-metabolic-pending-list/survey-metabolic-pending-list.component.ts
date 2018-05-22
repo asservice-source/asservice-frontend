@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { BaseComponent } from '../../../base-component';
 import { ActionCustomSurveyComponent } from '../../../action-custom-table/action-custom-view.component';
-import { LocalDataSource } from 'ng2-smart-table';
+import { LocalDataSource } from '../../../ng2-smart-table';
 import { Router } from '@angular/router';
 import { MetabolicBean } from '../../../beans/metabolic.bean';
 import { Service_SurveyMetabolic } from '../../../api-managements/service-survey-metabolic';
