@@ -363,9 +363,7 @@ export class ForgotPasswordComponent extends BaseComponent implements OnInit {
       self.hospitalList = new Array<any>();
       if (d != null && d.status.toUpperCase() == "SUCCESS") {
         for (let item of d.response) {
-          if (!item.isRegister) {
-            self.hospitalList.push(item);
-          }
+          self.hospitalList.push(item);
         }
       }
       self.dataHospitals = self.completerService.local(self.hospitalList, 'hospitalName', 'hospitalName');
