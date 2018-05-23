@@ -44,7 +44,6 @@ export class OnlyNumberDirective {
   replaceNotNumber($event){
     let self = this;
     let event = $event;
-    console.log(self.maxlength);
     setTimeout(function(){ 
       if(event.target.value){
         let value = event.target.value;
@@ -54,7 +53,12 @@ export class OnlyNumberDirective {
             value = value.substr(0,self.maxlength-1);
           }
         }
-        event.target.value = parseInt(value);
+        if(isNaN(parseInt(value))){
+          event.target.value = '';
+        }else{
+          event.target.value = parseInt(value);
+        }
+        
       }
     }, 50);
   }

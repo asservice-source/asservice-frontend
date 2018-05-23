@@ -144,6 +144,8 @@ export class FilterHeadSurveyComponent extends BaseComponent implements OnInit {
     if(this.isStaff){
       this.filterBean.villageId = '';
       this.filterBean.osmId = '' 
+      this.isDisabledOSM = true;
+      this.osmData = [];
     }
   }
 }

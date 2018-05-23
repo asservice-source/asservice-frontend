@@ -242,13 +242,13 @@ export class RegisterComponent extends BaseComponent implements OnInit {
     let validateForm = true;
     self.isFocusHospitalname = true;
 
-    let citi = self.formatForJson(self.registerBean.contactCitizenId);
-    let phone = self.formatForJson(self.registerBean.contactTelephone);
+    let citi = self.reverseFormatCitizenId(self.registerBean.contactCitizenId);
+    let phone = self.registerBean.contactTelephone
 
     console.log("citi ="+citi);
     console.log("phone ="+phone);
 
-    if (self.isEmpty(phone) || phone.length != 10) {
+    if (self.isEmpty(phone) || (phone.length != 9 && phone.length != 10)) {
       self.isErrorPhone = true;
       validateForm = false;
     } else {
@@ -285,7 +285,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
 
     if (!self.isEmpty(citi)) {
       if (citi.length == 13) {
-        //let citi = self.formatForJson(self.registerBean.contactCitizenId);
+
         if (self.isValidCitizenIdThailand(citi)) {
           self.isErrorCitizenID = false;
         } else {
@@ -347,73 +347,59 @@ export class RegisterComponent extends BaseComponent implements OnInit {
 
   }
 
-  formatInputCitizenID() {
-    let self = this;
+  // formatInputCitizenID() {
+  //   let self = this;
 
-    if (!self.isEmpty(self.registerBean.contactCitizenId)) {
-      let patternCitizen: string = "_-____-_____-__-_";
-      let patternCitizen_ex: string = "-";
-      let returnText = "";
-      let obj_1: number = self.registerBean.contactCitizenId.length;
-      let obj_2 = obj_1 - 1;
-      for (let i = 0; i < patternCitizen.length; i++) {
-        if (obj_2 == i && patternCitizen.charAt(i + 1) == patternCitizen_ex) {
-          returnText += self.registerBean.contactCitizenId + patternCitizen_ex;
-          self.registerBean.contactCitizenId = returnText;
-          //console.log(self.registerBean.contactCitizenId);
-        }
-      }
-    }
-  }
+  //   if (!self.isEmpty(self.registerBean.contactCitizenId)) {
+  //     let patternCitizen: string = "_-____-_____-__-_";
+  //     let patternCitizen_ex: string = "-";
+  //     let returnText = "";
+  //     let obj_1: number = self.registerBean.contactCitizenId.length;
+  //     let obj_2 = obj_1 - 1;
+  //     for (let i = 0; i < patternCitizen.length; i++) {
+  //       if (obj_2 == i && patternCitizen.charAt(i + 1) == patternCitizen_ex) {
+  //         returnText += self.registerBean.contactCitizenId + patternCitizen_ex;
+  //         self.registerBean.contactCitizenId = returnText;
+  //       }
+  //     }
+  //   }
+  // }
 
-  formatPhoneNumber() {
-    let self = this;
+  // formatPhoneNumber() {
+  //   let self = this;
 
-    if (!self.isEmpty(self.registerBean.contactTelephone)) {
-      let patternPhone: string = "__-____-____";
-      let patternPhone_ex: string = "-";
-      let returnText = "";
-      let obj_1: number = self.registerBean.contactTelephone.length;
-      let obj_2 = obj_1 - 1;
-      for (let i = 0; i < patternPhone.length; i++) {
-        if (obj_2 == i && patternPhone.charAt(i + 1) == patternPhone_ex) {
-          returnText += self.registerBean.contactTelephone + patternPhone_ex;
-          self.registerBean.contactTelephone = returnText;
-        }
-      }
-    }
-  }
+  //   if (!self.isEmpty(self.registerBean.contactTelephone)) {
+  //     let patternPhone: string = "__-____-____";
+  //     let patternPhone_ex: string = "-";
+  //     let returnText = "";
+  //     let obj_1: number = self.registerBean.contactTelephone.length;
+  //     let obj_2 = obj_1 - 1;
+  //     for (let i = 0; i < patternPhone.length; i++) {
+  //       if (obj_2 == i && patternPhone.charAt(i + 1) == patternPhone_ex) {
+  //         returnText += self.registerBean.contactTelephone + patternPhone_ex;
+  //         self.registerBean.contactTelephone = returnText;
+  //       }
+  //     }
+  //   }
+  // }
 
   onPastePhoneNumber($event){
     console.log("onPaste");
     let _self = this;
         let event = $event;
-        let max = 12;
+    
         setTimeout(function(){
           if(event.target.value){
             let value = event.target.value;
-            value = value.replace(/[^0-9\.]+/g, '');
-            if(max){
-              if(value.length > 10){
-                value = value.substr(0, 10);
-              }
+            value = value.replace(/[^0-9]+/g, '');
+            console.log(value);
+            if(value.length > 10){
+              value = value.substr(0, 10);
             }
-            event.target.value = _self.displayPhoneNumber(value);
+            event.target.value = value;
           }
         }, 50);
   }
-
-  displayPhoneNumber(phone: string): string {
-    if (!phone || phone.length != 10){
-        return phone;
-    } else{
-        if(phone.indexOf('-')>=0){
-            return phone;
-        }
-    }
-    let arr = phone.split('');
-    return arr[0] + arr[1] + '-' + arr[2] + arr[3] + arr[4] + arr[5] + '-' +arr[6] + arr[7] + arr[8] + arr[9];
-}
 
 
   setCode9Maxlenght() {

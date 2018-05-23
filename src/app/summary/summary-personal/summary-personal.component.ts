@@ -87,6 +87,10 @@ export class SummarytPersonalComponent extends BaseComponent implements OnInit {
   onChangeVillage(){
     this.osmId = '';
     this.homeId = '';
+    this.isOffOsm = true;
+    this.isOffHome = true;
+    this.listOsm = [];
+    this.listHomes = [];
     if(this.villageId){
       this.setDropdownListOsm();
       this.setDropdownListHomes();
@@ -137,6 +141,7 @@ export class SummarytPersonalComponent extends BaseComponent implements OnInit {
     this.villageId = '';
     this.homeId = '';
     this.osmId = '';
+    this.statusId = '1';
     this.isOffOsm = true;
     this.isOffHome = true;
     this.listOsm = [];

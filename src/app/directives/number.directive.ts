@@ -44,11 +44,12 @@ export class NumberDirective {
   replaceNotNumber($event){
     let self = this;
     let event = $event;
-    console.log(self.maxlength);
+    
     setTimeout(function(){ 
       if(event.target.value){
         let value = event.target.value;
         value = value.replace(/[^0-9\.]+/g, '');
+        console.log(value);
         if(self.maxlength){
           if(value.length>self.maxlength){
             value = value.substr(0,self.maxlength-1);

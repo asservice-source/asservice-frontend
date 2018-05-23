@@ -233,7 +233,7 @@
                 </div>
                 <div class="col-md-3">
                   <div [InputValidate]="validateAddress">
-                    <input type="text" [(ngModel)]="memberBean.homeNo">
+                    <input type="text" [(ngModel)]="memberBean.homeNo" maxlength="10">
                     <label class="error">กรุณาใส่บ้านเลขที่</label>
                   </div>
 
@@ -243,7 +243,7 @@
                 </div>
                 <div class="col-md-3">
                   <div [InputValidate]="validateAddress">
-                    <input type="text" [(ngModel)]="memberBean.mooNo">
+                    <input type="text" [OnlyNumber]="true" maxlength="2" [(ngModel)]="memberBean.mooNo">
                     <label class="error">กรุณาใส่หมู่ที่</label>
                   </div>
                 </div>
