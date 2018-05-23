@@ -8,3 +8,8 @@
 .modal {
   overflow-y: auto;
 }
+
+textarea {
+  height: 75px;
+  resize: none;
+}
