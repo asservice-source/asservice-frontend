@@ -192,11 +192,11 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
           _self.changeRef.detectChanges();
           let response = resp.response;
           if(response && resp.status.toUpperCase() == 'SUCCESS'){
-            _self.message_success('','ลบ '+msgType+' เรียบร้อย', function(){
+            _self.message_success('','ลบ ' + msg + ' เรียบร้อย', function(){
               $('#btnSearch').click();
             });
           }else{
-            _self.message_error('','ไม่สามารถลบ '+msgType);
+            _self.message_error('','ไม่สามารถลบ ' + msg);
           }
         });
       }
