@@ -34,9 +34,10 @@ export class MapsComponent extends BaseComponent implements OnInit {
 
   }
 
-  ngOnChanges() {
+  ngOnChanges(change) {
     let self = this;
 
+    console.log('Map -> ngOnChanges -> Change value -> ', change);
     console.log('Map -> ngOnChanges -> ', self.latitude + ', ' + self.longitude);
 
     if (!self.isEmpty(self.latitude) && !self.isEmpty(self.longitude)) {
@@ -47,11 +48,23 @@ export class MapsComponent extends BaseComponent implements OnInit {
       self.position = latlng;
       self.info_content = self.info;
 
-      self.center = latlng;
-      // self.zoom = 15;
-      if (self.map) {
-        self.map.panTo({ lat: lat, lng: lng });
-        // self.map.setZoom(15);
+      if(self.mode == 'view') {
+        self.center = latlng;
+        self.zoom = 15;
+        if (self.map) {
+          self.map.panTo({ lat: lat, lng: lng });
+          self.map.setZoom(15);
+        }
+      } else if (change.latitude && change.latitude.firstChange === false) {
+        // Change when event handling (click and drag locations)
+      } else {
+        // First change
+        self.center = latlng;
+        self.zoom = 15;
+        if (self.map) {
+          self.map.panTo({ lat: lat, lng: lng });
+          self.map.setZoom(15);
+        }
       }
     } else {
       self.position = "";
@@ -85,6 +98,7 @@ export class MapsComponent extends BaseComponent implements OnInit {
         }
       }
     }
+
   }
 
   onMapReady(map) {
