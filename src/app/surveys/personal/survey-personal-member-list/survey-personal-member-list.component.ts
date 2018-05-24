@@ -22,7 +22,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
   private paramRoundId: string;
   //private paramFromPage: string;
 
-  public action: string = this.ass_action.ADD;
+  public action: string;
   public forSurvey: boolean;
   public paramMember: PersonalBasicBean;
   public cloneMember: PersonalBasicBean;
@@ -152,7 +152,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     });
   }
 
-  onUpdatedMember(member: PersonalBasicBean) {
+  onUpdatedMember(member: PersonalBasicBean, event: any) {
     console.log(member);
     this.isEditing = true;
     let self = this;
@@ -255,21 +255,34 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     console.log(self.tempData);
     console.log(self.tempData2);
     $("#modalMember").modal('hide');
-    if(this.forSurvey){
-      self.message_success('', 'แก้ไขข้อมูลบุคคล <b>' + member.fullName + '</b> เรียบร้อย');
-    }
+    self.message_success('', event.message);
     
   }
 
   onClickAdd() {
-    let self = this;
-    self.forSurvey = false;
-    self.action = this.ass_action.ADD;
-    self.cloneMember = new PersonalBasicBean();
-    self.paramMember = new PersonalBasicBean();
-    self.paramMember.homeId = this.paramHomeId;
-    this.onModalManagementMemberForm();
+    this.forSurvey = false;
+    this.action = this.ass_action.ADD;
+    this.cloneMember = new PersonalBasicBean();
+    this.paramMember = new PersonalBasicBean();
+    this.paramMember.homeId = this.paramHomeId;
+    this.memberBean = new PersonalBasicBean();
+    this.memberBean.homeId = this.paramHomeId;
+    this.changeRef.detectChanges();
+    $("#modal-management-home-member-form").modal('show');
 
+  }
+
+  onClickEdit(row: PersonalBasicBean) {
+    this.action = this.ass_action.EDIT;
+    row.homeId = this.paramHomeId;
+    this.cloneMember = this.cloneObj(row);
+    this.paramMember = row;
+    this.paramMember = this.strNullToEmpty(this.paramMember);
+    this.memberBean = row;
+    this.changeRef.detectChanges();
+    //$("#modalMember").modal();
+    console.log(row);
+    $("#modal-management-home-member-form").modal('show');
   }
 
   onClickPrint() {
@@ -338,25 +351,6 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     }
 
   }
-
-  onModalForm(row: PersonalBasicBean) {
-    let self = this;
-    self.action = self.ass_action.EDIT;
-    row.homeId = self.paramHomeId;
-    self.cloneMember = self.cloneObj(row);
-    self.paramMember = row;
-    self.paramMember = self.strNullToEmpty(self.paramMember);
-
-    self.changeRef.detectChanges();
-    $("#modalMember").modal();
-  }
-
-  onModalManagementMemberForm() {
-    this.memberBean = new PersonalBasicBean();
-    this.memberBean.homeId = this.paramHomeId;
-    this.changeRef.detectChanges();
-    $("#modal-management-home-member-form").modal('show');
-  }
   onSaveCompleted(event: any) {
     console.log(event);
     let self = this;
@@ -365,9 +359,9 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
       let update: PersonalBasicBean = new PersonalBasicBean();
       let bean: PersonalBasicBean = event.bean;
       self.copyObj(bean, update);
-      self.message_success('', event.message, function () {
-        self.onUpdatedMember(update);
-      });
+   
+      self.onUpdatedMember(update, event);
+     
 
     } else {
 
@@ -448,7 +442,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
         onComponentInitFunction(instance) {
           instance.action.subscribe((row: PersonalBasicBean) => {
             self.forSurvey = true;
-            self.onModalForm(row);
+            self.onClickEdit(row);
           });
         }
       }
@@ -522,7 +516,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
           instance.action.subscribe((row: PersonalBasicBean) => {
             // console.log(row);
             self.forSurvey = true;
-            self.onModalForm(row);
+            self.onClickEdit(row);
           });
         }
       }
