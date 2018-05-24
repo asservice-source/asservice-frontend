@@ -119,7 +119,9 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
 
   bindModal(){
     let _self = this;
-    $('#modal-management-home-member-form').on('show.bs.modal', function(){
+    $('#modal-management-home-member-form').on('show.bs.modal', ()=>{
+      console.log('isSurvey',_self.isSurvey);
+      console.log(_self.bean)
       _self.homeId = _self.bean.homeId;
       // reset validate error class
       _self.msgError_BirthDate = 'กรุณาเลือก วัน/เดือน/ปี เกิด';
@@ -390,19 +392,27 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
               _self.message_error('', 'หมายเลขบัตรประจำตัว <b>'+ _self.formatCitizenId(_self.bean.citizenId) +'</b> ซ้ำ');
             }else{
               // Save To API
-              _self.api.commit_save(_self.bean, function(resp){
+              if(_self.isSurvey && _self.action == _self.ass_action.EDIT){
+                console.log("EditSurvey");
                 _self.loading = false;
-                let response = resp.response;
-                if(response && resp.status.toUpperCase()=='SUCCESS'){
-                  if(_self.isSurvey){
-                    _self.bean.isSurveyed = true;
+                _self.success.emit({"success": true, "bean": _self.bean ,"message": _self.actionName + 'สมาชิกเรียบร้อย'});
+              }else{
+                console.log("Save To Api");
+                _self.api.commit_save(_self.bean, function(resp){
+                  _self.loading = false;
+                  let response = resp.response;
+                  if(response && resp.status.toUpperCase()=='SUCCESS'){
+                    if(_self.isSurvey){
+                      _self.bean.isSurveyed = true;
+                    }
+                    _self.bean.personId = response.personId;
+                    _self.success.emit({"success": true, "bean": _self.bean ,"message": _self.actionName + 'สมาชิกเรียบร้อย'});
+                  }else{
+                    _self.success.emit({"success": false, "bean": _self.bean, "message": 'ไม่สามารถ'+_self.actionName+'ได้'});
                   }
-                  _self.bean.personId = response.personId;
-                  _self.success.emit({"success": true, "bean": _self.bean ,"message": _self.actionName + ' สมาชิกใหม่เรียบร้อย'});
-                }else{
-                  _self.success.emit({"success": false, "bean": _self.bean, "message": 'ไม่สามารถ'+_self.actionName+'ได้'});
-                }
-              });
+                });
+              }
+              
 
             }
           }else{
