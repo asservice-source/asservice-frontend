@@ -7,14 +7,14 @@
         <h4 class="modal-title">ข้อมูลสมาชิก</h4>
       </div>
 
-      <div class="panel-body">
+      <div class="panel-body" style="padding-right: 40px">
             <div class="row">
-              <div class="col-md-1"></div>
+          
               <div class="col-md-2 text-right">
-                <label class="label-form">หมายเลขประจำตัว</label>
+                <label class="label-form">{{getLabel('lbl_citizenid')}}</label>
               </div>
-              <div class="col-md-3">
-                <div [InputValidate]="validateSave" [citizenId]="true">
+              <div class="col-md-4">
+                <div [InputValidate]="inputValidate" [citizenId]="true">
                   <input type="text" [CitizenId]="memberBean.citizenId" [(ngModel)]="memberBean.citizenId">
                   <label class="error">กรุณาใส่หมายเลขประชาชนเป็นตัวเลข 13 หลัก</label>
                 </div>
@@ -22,12 +22,11 @@
             </div>
 
             <div class="row">
-              <div class="col-md-1"></div>
               <div class="col-md-2 text-right">
                 <label class="label-form">เพศ</label>
               </div>
-              <div class="col-md-3">
-                <div [InputValidate]="validateSave">
+              <div class="col-md-4">
+                <div [InputValidate]="inputValidate">
                   <select name="dropdown-gender" id="dropdown-gender" [(ngModel)]="memberBean.genderId" #gender (change)="onChangeGender(gender)">
                     <option value="">--เลือก--</option>
                     <option *ngFor="let item of listGender" [value]="item.id">{{item.name}}</option>
@@ -38,8 +37,8 @@
               <div class="col-md-2 text-right">
                 <label class="label-form">คำนำหน้า</label>
               </div>
-              <div class="col-md-3">
-                <div [InputValidate]="validateSave">
+              <div class="col-md-4">
+                <div [InputValidate]="inputValidate">
                   <select name="dropdown-prefix" id="dropdown-prefix" [(ngModel)]="memberBean.prefixCode" #prefix (change)="onChangePrefix(prefix)">
                     <option value="">--เลือก--</option>
                     <option *ngFor="let item of listPrefix" [value]="item.code">{{item.name}}</option>
@@ -50,12 +49,11 @@
             </div>
 
             <div class="row">
-              <div class="col-md-1"></div>
               <div class="col-md-2 text-right">
                 <label class="label-form">ชื่อ</label>
               </div>
-              <div class="col-md-3">
-                <div [InputValidate]="validateSave">
+              <div class="col-md-4">
+                <div [InputValidate]="inputValidate">
                   <input maxlength="50" [(ngModel)]="memberBean.firstName">
                   <label class="error">กรุณาใส ชื่อ</label>
                 </div>
@@ -63,8 +61,8 @@
               <div class="col-md-2 text-right">
                 <label class="label-form">นามสกุล</label>
               </div>
-              <div class="col-md-3">
-                <div [InputValidate]="validateSave">
+              <div class="col-md-4">
+                <div [InputValidate]="inputValidate">
                   <input type="text" maxlength="50" [(ngModel)]="memberBean.lastName">
                   <label class="error">กรุณาใสนามสกุล</label>
                 </div>
@@ -72,12 +70,11 @@
             </div>
 
             <div class="row">
-              <div class="col-md-1"></div>
               <div class="col-md-2 text-right">
                 <label class="label-form">วัน/เดือน/ปี เกิด</label>
               </div>
-              <div class="col-md-3">
-                <div [InputValidate]="validateSave" BirthDate="BirthDate" (notify)="validBirthDate($event);">
+              <div class="col-md-4">
+                <div [InputValidate]="inputValidate" BirthDate="BirthDate" (notify)="validBirthDate($event);">
                   <my-date-picker name="birthDate" [options]="datePickerOptions" [(ngModel)]="modelBirthDate" (dateChanged)="onChangeBirthDate($event)"></my-date-picker>
                   <label class="error">กรุณาเลือกวัน/เดือน/ปี เกิด</label>
                 </div>
@@ -85,8 +82,8 @@
               <div class="col-md-2 text-right">
                 <label class="label-form">การศึกษา</label>
               </div>
-              <div class="col-md-3">
-                <div [InputValidate]="validateSave">
+              <div class="col-md-4">
+                <div [InputValidate]="inputValidate">
                   <select name="dropdown-education" id="dropdown-education" [(ngModel)]="memberBean.educationCode">
                     <option value="">--เลือก--</option>
                     <option *ngFor="let item of listEducation" [value]="item.code">{{item.name}}</option>
@@ -97,11 +94,10 @@
             </div>
 
             <div class="row">
-              <div class="col-md-1"></div>
               <div class="col-md-2 text-right">
                 <label class="label-form">อาชีพ</label>
               </div>
-              <div class="col-md-3">
+              <div class="col-md-4">
                 <select name="dropdown-occupationCode" id="dropdown-occupationCode" [(ngModel)]="memberBean.occupationCode">
                   <option value="">--เลือก--</option>
                   <option *ngFor="let item of listOccupation" [value]="item.code">{{item.name}}</option>
@@ -111,19 +107,88 @@
               <div class="col-md-2 text-right">
                 <label class="label-form">โรคประจำตัว</label>
               </div>
-              <div class="col-md-3">
+              <div class="col-md-4">
                 <input type="text" [(ngModel)]="memberBean.congenitalDisease">
               </div>
 
             </div>
 
             <div class="row">
-              <div class="col-md-1"></div>
+                <div class="col-md-2 text-right">
+                    <label class="label-form">สวัสดิการ</label>
+                </div>
+                <div class="col-md-8  box-benefits">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="checkbox">
+                        <label class="label-form">
+                            <input type="checkbox">
+                            <span class="cr">
+                                <i class="cr-icon fa fa-check"></i>
+                            </span>
+                            สวัสดิการข้าราชการ
+                        </label>
+                      </div> 
+                    </div>
+                    <div class="col-md-6">
+                      <div class="checkbox">
+                        <label class="label-form">
+                            <input type="checkbox">
+                            <span class="cr">
+                                <i class="cr-icon fa fa-check"></i>
+                            </span>
+                            กองทุนประกันสังคม
+                        </label>
+                      </div> 
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="checkbox">
+                        <label class="label-form">
+                            <input type="checkbox">
+                            <span class="cr">
+                                <i class="cr-icon fa fa-check"></i>
+                            </span>
+                            สวัสดิการพนักงานส่วนท้องถิ่น
+                        </label>
+                      </div> 
+                    </div>
+                    <div class="col-md-6">
+                      <div class="checkbox">
+                        <label class="label-form">
+                            <input type="checkbox">
+                            <span class="cr">
+                                <i class="cr-icon fa fa-check"></i>
+                            </span>
+                            สวัสดิการของหน่วยงานรัฐอื่นๆ
+                        </label>
+                      </div> 
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="checkbox">
+                        <label class="label-form">
+                            <input type="checkbox">
+                            <span class="cr">
+                                <i class="cr-icon fa fa-check"></i>
+                            </span>
+                            หลักประกันสุขภาพแห่งชาติ
+                        </label>
+                      </div> 
+                    </div>
+                  </div>
+                  
+                </div>
+              </div>
+
+            <div class="row">
               <div class="col-md-2 text-right">
                 <label class="label-form">ความสัมพันธ์</label>
               </div>
-              <div class="col-md-3">
-                <div [InputValidate]="validateSave">
+              <div class="col-md-4">
+                <div [InputValidate]="inputValidate">
                   <select name="dropdown-familyStatus" id="dropdown-familyStatus" [(ngModel)]="memberBean.familyStatusId" #familyStatus (change)="onChangeFamilyStatus(familyStatus)">
                     <option value="">--เลือก--</option>
                     <option *ngFor="let item of listFamilyStatus" [value]="item.id">{{item.name}}</option>
@@ -134,7 +199,7 @@
               <div class="col-md-2 text-right">
                 <label class="label-form">สถานะการจำหน่าย</label>
               </div>
-              <div class="col-md-3">
+              <div class="col-md-4">
                 <select name="dropdown-discharge" id="dropdown-discharge" [(ngModel)]="memberBean.dischargeId">
                   <option *ngFor="let item of listDischarge" [value]="item.id">{{item.name}}</option>
                 </select>
@@ -144,19 +209,18 @@
             </div>
 
             <div class="row">
-              <div class="col-md-1"></div>
               <div class="col-md-2 text-right">
                 <label class="label-form">หมายเหตุ</label>
               </div>
-              <div class="col-md-3">
+              <div class="col-md-4">
                 <textarea style="height: 50px;" placeholder="หมายเหตุ" [(ngModel)]="memberBean.remark"></textarea>
               </div>
               <div *ngIf="memberBean.dischargeId != '9'">
                 <div class="col-md-2 text-right">
                   <label class="label-form">วันที่จำหน่าย</label>
                 </div>
-                <div class="col-md-3">
-                  <div [InputValidate]="validateSave" BirthDate="BirthDate" (notify)="validDischargeDate($event);">
+                <div class="col-md-4">
+                  <div [InputValidate]="inputValidate" BirthDate="BirthDate" (notify)="validDischargeDate($event);">
                     <my-date-picker name="dischargeDate" [options]="datePickerOptions" [(ngModel)]="modelDischargeDate"></my-date-picker>
                     <label class="error">กรุณาเลือกวันที่จำหน่าย</label>
                   </div>
@@ -165,7 +229,6 @@
             </div>
 
             <div class="row">
-              <div class="col-md-1"></div>
               <div class="col-md-2 text-right">
                 <label class="label-form">สถานะอยู่</label>
               </div>
@@ -194,7 +257,6 @@
             </div>
 
             <div class="row">
-              <div class="col-md-1"></div>
               <div class="col-md-2 text-right">
                 <label class="label-form">ประเภทการอยู่อาศัย</label>
               </div>
@@ -227,12 +289,11 @@
             <div *ngIf="memberBean.isGuest">
 
               <div class="row">
-                <div class="col-md-1"></div>
                 <div class="col-md-2 text-right">
                   <label class="label-form">บ้านเลขที่</label>
                 </div>
-                <div class="col-md-3">
-                  <div [InputValidate]="validateAddress">
+                <div class="col-md-4">
+                  <div [InputValidate]="inputValidateAddress">
                     <input type="text" #vhomeNo [(ngModel)]="memberBean.homeNo" maxlength="10">
                     <label class="error">กรุณาใส่บ้านเลขที่</label>
                   </div>
@@ -241,8 +302,8 @@
                 <div class="col-md-2 text-right">
                   <label class="label-form">หมู่ที่</label>
                 </div>
-                <div class="col-md-3">
-                  <div [InputValidate]="validateAddress">
+                <div class="col-md-4">
+                  <div [InputValidate]="inputValidateAddress">
                     <input type="text" [OnlyNumber]="true" maxlength="2" [(ngModel)]="memberBean.mooNo">
                     <label class="error">กรุณาใส่หมู่ที่</label>
                   </div>
@@ -250,18 +311,17 @@
               </div>
 
               <div class="row">
-                <div class="col-md-1"></div>
                 <div class="col-md-2 text-right">
                   <label class="label-form">ถนน</label>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                   <input type="text" [(ngModel)]="memberBean.road">
                 </div>
                 <div class="col-md-2 text-right">
                   <label class="label-form">จังหวัด</label>
                 </div>
-                <div class="col-md-3">
-                  <div [InputValidate]="validateAddress">
+                <div class="col-md-4">
+                  <div [InputValidate]="inputValidateAddress">
                     <select [(ngModel)]="memberBean.provinceCode" (change)="onChangeProvince()">
                       <option value="">--เลือก--</option>
                       <option *ngFor="let item of listProvince" [ngValue]="item.codeId">{{ item.name }}</option>
@@ -272,12 +332,11 @@
               </div>
 
               <div class="row">
-                <div class="col-md-1"></div>
                 <div class="col-md-2 text-right">
                   <label class="label-form">อำเภอ</label>
                 </div>
-                <div class="col-md-3">
-                  <div [InputValidate]="validateAddress">
+                <div class="col-md-4">
+                  <div [InputValidate]="inputValidateAddress">
                     <select  [(ngModel)]="memberBean.amphurCode" (change)="onChangeDistrict()" [disabled]="memberBean.provinceCode == '' ? true : false">
                       <option value="">--เลือก--</option>
                       <option *ngFor="let item of listDistrict" [value]="item.code">{{ item.name }}</option>
@@ -288,8 +347,8 @@
                 <div class="col-md-2 text-right">
                   <label class="label-form">ตำบล</label>
                 </div>
-                <div class="col-md-3">
-                  <div [InputValidate]="validateAddress">
+                <div class="col-md-4">
+                  <div [InputValidate]="inputValidateAddress">
                     <select [(ngModel)]="memberBean.tumbolCode" (change)="onChangeSubDistrict()" [disabled]="memberBean.amphurCode == '' ? true : false">
                       <option value="">--เลือก--</option>
                       <option *ngFor="let item of listSubDistrict" [value]="item.codeId">{{ item.name }}</option>

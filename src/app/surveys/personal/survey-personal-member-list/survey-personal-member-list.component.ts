@@ -428,9 +428,11 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
         type: 'html',
         valuePrepareFunction: (cell, row) => {
           let text = '';
-          if (cell || row.isSurveyed) {
+          if (cell) {
             text = 'สำรวจแล้ว';
-          } else {
+          } else if (row.isSurveyed) {
+            text = 'รอส่งข้อมูล';
+          }else{
             text = 'ยังไม่สำรวจ';
           }
           return '<div class="text-center">' + text + '</div>';
@@ -500,9 +502,11 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
         type: 'html',
         valuePrepareFunction: (cell, row) => {
           let text = '';
-          if (cell || row.isSurveyed) {
+          if (cell) {
             text = 'สำรวจแล้ว';
-          } else {
+          } else if (row.isSurveyed) {
+            text = 'รอส่งข้อมูล';
+          }else{
             text = 'ยังไม่สำรวจ';
           }
           return '<div class="text-center">' + text + '</div>';

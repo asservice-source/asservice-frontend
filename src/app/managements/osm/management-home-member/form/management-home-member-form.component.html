@@ -179,6 +179,85 @@
             </div>
           </div>
 
+          <div class="row" *ngIf="isSurvey">
+            <div class="col-md-2 text-right">
+                <label class="label-form">โรคประจำตัว</label>
+            </div>
+            <div class="col-md-4">
+              <input type="text" [(ngModel)]="bean.congenitalDisease">
+            </div>
+          </div>
+
+          <div class="row" *ngIf="isSurvey">
+            <div class="col-md-2 text-right">
+                <label class="label-form">สวัสดิการ</label>
+            </div>
+            <div class="col-md-9 box-benefits">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="checkbox">
+                    <label class="label-form">
+                        <input type="checkbox">
+                        <span class="cr">
+                            <i class="cr-icon fa fa-check"></i>
+                        </span>
+                        สวัสดิการข้าราชการ
+                    </label>
+                  </div> 
+                </div>
+                <div class="col-md-6">
+                  <div class="checkbox">
+                    <label class="label-form">
+                        <input type="checkbox">
+                        <span class="cr">
+                            <i class="cr-icon fa fa-check"></i>
+                        </span>
+                        กองทุนประกันสังคม
+                    </label>
+                  </div> 
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="checkbox">
+                    <label class="label-form">
+                        <input type="checkbox">
+                        <span class="cr">
+                            <i class="cr-icon fa fa-check"></i>
+                        </span>
+                        สวัสดิการพนักงานส่วนท้องถิ่น
+                    </label>
+                  </div> 
+                </div>
+                <div class="col-md-6">
+                  <div class="checkbox">
+                    <label class="label-form">
+                        <input type="checkbox">
+                        <span class="cr">
+                            <i class="cr-icon fa fa-check"></i>
+                        </span>
+                        สวัสดิการของหน่วยงานรัฐอื่นๆ
+                    </label>
+                  </div> 
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="checkbox">
+                    <label class="label-form">
+                        <input type="checkbox">
+                        <span class="cr">
+                            <i class="cr-icon fa fa-check"></i>
+                        </span>
+                        หลักประกันสุขภาพแห่งชาติ
+                    </label>
+                  </div> 
+                </div>
+              </div>
+
+            </div>
+          </div>
+
           <div class="row">
             <div class="col-md-2 text-right">
               <label>ความสัมพันธ์</label>
@@ -205,22 +284,54 @@
             </div>
           </div> 
 
-          <div class="row" *ngIf="bean.dischargeId!='9'">
+          <div class="row" *ngIf="isSurvey">
             <div class="col-md-2 text-right">
-              <label></label>
+              <label>หมายเหตุ</label>
             </div>
             <div class="col-md-4">
+                <textarea style="height: 50px;" placeholder="หมายเหตุ" [(ngModel)]="bean.remark"></textarea>
             </div>
-            <div class="col-md-2 text-right">
-              <label>วันที่จำหน่าย</label>
-            </div>
-            <div class="col-md-4">
-              <div [InputValidate]="inputValidate" BirthDate="BirthDate" (notify)="validDischargeDate($event);">
-                <my-date-picker [options]="datePickerOptions" [(ngModel)]="modelDischargeDate"></my-date-picker>
-                <label class="error">กรุณาเลือกวันที่จำหน่าย</label>
+            <div *ngIf="bean.dischargeId!='9'">
+              <div class="col-md-2 text-right">
+                <label>วันที่จำหน่าย</label>
+              </div>
+              <div class="col-md-4">
+                <div [InputValidate]="inputValidate" BirthDate="BirthDate" (notify)="validDischargeDate($event);">
+                  <my-date-picker [options]="datePickerOptions" [(ngModel)]="modelDischargeDate"></my-date-picker>
+                  <label class="error">กรุณาเลือกวันที่จำหน่าย</label>
+                </div>
               </div>
             </div>
           </div>
+
+          <div class="row" *ngIf="isSurvey">
+            <div class="col-md-2 text-right">
+              <label class="label-form">สถานะอยู่</label>
+            </div>
+            <div class="col-md-2" style="width: 140px;">
+              <div class="radio" style="padding-left: 5px;">
+                <label class="label-form" style="font-size: 1em">
+                  <input type="radio" name="existsType_add" id="existsType1_add" [value]="true" [(ngModel)]="bean.isExists">
+                  <span class="cr">
+                    <i class="cr-icon fa fa-check"></i>
+                  </span>
+                  อยู่จริง
+                </label>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="radio">
+                <label class="label-form" style="font-size: 1em">
+                  <input type="radio" name="existsType_add" id="existsType2_add" [value]="false" [(ngModel)]="bean.isExists">
+                  <span class="cr">
+                    <i class="cr-icon fa fa-check"></i>
+                  </span>
+                  ไม่อยู่จริง
+                </label>
+              </div>
+            </div>
+          </div>
+
 
           <div class="row">
             <div class="col-md-2 text-right" style="padding:0;">

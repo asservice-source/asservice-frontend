@@ -1,0 +1,8 @@
+.box-benefits{
+    border: 1px solid #DDD;
+    border-radius: 6px;
+    margin-left: 15px;
+}
+.box-benefits .col-md-6{
+    padding-right: 0;
+}

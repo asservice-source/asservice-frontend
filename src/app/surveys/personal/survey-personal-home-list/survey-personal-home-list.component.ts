@@ -15,7 +15,7 @@ declare var $: any;
   templateUrl: './survey-personal-home-list.component.html',
   styleUrls: ['./survey-personal-home-list.component.css']
 })
-export class SurveyPersonalHomeListComponent extends BaseComponent implements OnInit, AfterViewInit {
+export class SurveyPersonalHomeListComponent extends BaseComponent implements OnInit {
 
   private api: Service_SurveyPersonal = new Service_SurveyPersonal();
   public action: string = this.ass_action.ADD;
@@ -114,9 +114,6 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
 
   }
 
-  ngAfterViewInit() {
-
-  }
 
   onClickSearch(event: FilterBean) {
     this.filterBean = event;
@@ -141,10 +138,6 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
     let homeId = event.homeId;
     let surveyStatus = event.surveyStatus;
     self.loading = true;
-
-    // let URL_LIST_HOME: string = "survey_population/search_population_list";
-    // let params = { "documentId": roundId, "villageId": villageId, "osmId": osmId, "homeId": homeId };
-
     self.api.getListHome(roundId, villageId, osmId, homeId, function (response) {
 
       let data = [];
@@ -167,7 +160,6 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
       self.filterBean.description += '<div class="total-row"><b>'+ totalRows +'</b></div>';
       self.source = self.ng2STDatasource(data);
       self.isShowTable = true;
-
       self.loading = false;
       self.changeRef.detectChanges();
     });

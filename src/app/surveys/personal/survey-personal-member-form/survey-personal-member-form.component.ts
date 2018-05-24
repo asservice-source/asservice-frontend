@@ -38,14 +38,16 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
   public listSubDistrict: any = [];
   public modelBirthDate: any = null;
   public modelDischargeDate: any = null;
-  public validateSave: InputValidateInfo = new InputValidateInfo();
-  public validateAddress: InputValidateInfo = new InputValidateInfo();
+  public inputValidate: InputValidateInfo;
+  public inputValidateAddress: InputValidateInfo;
   public loading: boolean = false;
   public isBirthDate: boolean = false;
   public isDischargeDate: boolean = false;
 
   constructor(private changeRef: ChangeDetectorRef) {
     super();
+    this.inputValidate = new InputValidateInfo();
+    this.inputValidateAddress = new InputValidateInfo();
     this.address = new Address();
   }
 
@@ -83,8 +85,8 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
         self.isGuestClearAddress();
       }
       
-      self.validateSave = new InputValidateInfo();
-      self.validateAddress = new InputValidateInfo();
+      self.inputValidate = new InputValidateInfo();
+      self.inputValidateAddress = new InputValidateInfo();
     });
   }
   
@@ -180,7 +182,7 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
 
     if(this.memberBean.familyStatusId=='1' && this.memberBean.isGuest){
       this.memberBean.isGuest = false;
-      this.validateAddress = new InputValidateInfo();
+      this.inputValidateAddress = new InputValidateInfo();
     }
 
   }
@@ -207,8 +209,8 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
   isValidClickSave():boolean {
     
     let self = this;
-    self.validateSave = new InputValidateInfo();
-    self.validateSave.isCheck = true;
+    self.inputValidate = new InputValidateInfo();
+    self.inputValidate.isCheck = true;
     self.changeRef.detectChanges();
     if(!this.isBirthDate){
       return false;
@@ -226,9 +228,9 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
         this.memberBean.dischargeDate = this.modelDischargeDate?this.getStringDateForDatePickerModel(this.modelDischargeDate.date):'';
         validateFields.push('dischargeDate');
       }
-      self.validateAddress = new InputValidateInfo();
+      self.inputValidateAddress = new InputValidateInfo();
       if(this.memberBean.isGuest){
-        self.validateAddress.isCheck = true;
+        self.inputValidateAddress.isCheck = true;
         self.changeRef.detectChanges();
         validateFields.push('homeNo','mooNo','tumbolCode','amphurCode','provinceCode');
         if(!this.isHomeNo(this.memberBean.homeNo)){
@@ -289,7 +291,7 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
   }
   onChangeGuest(){
     console.log(this.memberBean.isGuest)
-    this.validateAddress = new InputValidateInfo();
+    this.inputValidateAddress = new InputValidateInfo();
     if(this.memberBean.isGuest && this.memberBean.familyStatusId=='1'){
       let msg = 'เมื่อเลือกประเภทการอยู่อาศัย เป็น "ไม่มีชื่อในสำเนาทะเบียนบ้าน แต่ตัวอยู่จริง"';
       msg += ' จะทำให้ สถานะความสัมพันธ์ เปลี่ยนเป็น "ผู้อยู่อาศัย" ทันที'

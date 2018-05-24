@@ -394,6 +394,9 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
                 _self.loading = false;
                 let response = resp.response;
                 if(response && resp.status.toUpperCase()=='SUCCESS'){
+                  if(_self.isSurvey){
+                    _self.bean.isSurveyed = true;
+                  }
                   _self.bean.personId = response.personId;
                   _self.success.emit({"success": true, "bean": _self.bean ,"message": _self.actionName + ' สมาชิกใหม่เรียบร้อย'});
                 }else{
