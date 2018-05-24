@@ -1,8 +1,31 @@
 /* You can add global styles to this file, and also import other style files */
-
+body{
+    overflow-x: auto;
+    display: inline-block;
+    width: 100%;
+    min-width: 900px;
+}
+.wrapper{
+    /* min-width: 980px; */
+}
 @media (min-width: 992px){
     .modal-xlg {
         width: 1100px;
+    }
+}
+@media (max-width: 767px){
+    .main-sidebar, .left-side {
+        -webkit-transform: none; 
+        transform: none;
+        padding-top: 50px;
+    }
+    .main-header .logo {
+        float: left;
+        width: auto;
+    }
+    .main-header .navbar-custom-menu {
+        position: absolute;
+        right: 270px;
     }
 }
 .modal-open .modal {
@@ -126,6 +149,10 @@ table .btn-sm{
 .modal-header {
     background-color: #ffbf00;
     color: #ffffff;
+}
+.modal-content {
+    display: inline-block;
+    min-width: 100%;
 }
 .bootbox-title{
     color: #FFF;

@@ -188,16 +188,16 @@ export class ManagementHomeMemberComponent extends BaseComponent implements OnIn
           return '<div class="text-center">' + _self.formatCitizenId(cell) + '</div>'
         }
       },
-      genderName: {
-        title: "เพศ",
-        filter: false,
-        width: '80px',
-        type: 'html',
-        valuePrepareFunction: (cell, row) => {
-          let gn = (this.isEmpty(cell)) ? '' : cell;
-          return '<div class="text-center">' + gn + '</div>'
-        }
-      },
+      // genderName: {
+      //   title: "เพศ",
+      //   filter: false,
+      //   width: '80px',
+      //   type: 'html',
+      //   valuePrepareFunction: (cell, row) => {
+      //     let gn = (this.isEmpty(cell)) ? '' : cell;
+      //     return '<div class="text-center">' + gn + '</div>'
+      //   }
+      // },
       age: {
         title: "อายุ",
         filter: false,
@@ -252,21 +252,13 @@ export class ManagementHomeMemberComponent extends BaseComponent implements OnIn
           return '<div class="text-center">' + _self.formatCitizenId(cell) + '</div>'
         }
       },
-      genderName: {
-        title: "เพศ",
-        filter: false,
-        width: '80px',
-        type: 'html',
-        valuePrepareFunction: (cell, row) => {
-          return '<div class="text-center">' + cell + '</div>'
-        }
-      },
-      // age:{
-      //   title: "อายุ",
+      // genderName: {
+      //   title: "เพศ",
       //   filter: false,
+      //   width: '80px',
       //   type: 'html',
-      //   valuePrepareFunction: (cell, row) => { 
-      //     return '<div class="text-center">'+cell+'</div>'
+      //   valuePrepareFunction: (cell, row) => {
+      //     return '<div class="text-center">' + cell + '</div>'
       //   }
       // },
 

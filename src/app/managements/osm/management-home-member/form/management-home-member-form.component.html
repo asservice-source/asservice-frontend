@@ -281,7 +281,7 @@
             </div>
             <div class="col-md-4">
               <div [InputValidate]="inputValidateAddress">
-                <input type="number" [(ngModel)]="bean.mooNo">
+                <input type="text" [OnlyNumber]="true" maxlength="2" [(ngModel)]="bean.mooNo">
                 <label class="error">กรุณาใส่หมู่ที่</label>
               </div>
             </div>

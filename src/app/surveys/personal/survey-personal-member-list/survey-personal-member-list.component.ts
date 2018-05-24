@@ -20,7 +20,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
 
   private paramHomeId: string;
   private paramRoundId: string;
-  private paramFromPage: string;
+  //private paramFromPage: string;
 
   public action: string = this.ass_action.ADD;
   public forSurvey: boolean;
@@ -48,7 +48,6 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
   public loading: boolean = false;
 
   public isEditing: boolean = false;
-  public isSaveData: boolean = false;
   public warningLeavPage = 'เมื่อกดยกเลิกหรือย้อนกลับ ข้อมูลการแก้ไขแบบสำรวจจะยังไม่ถูกบันทึกลงฐานข้อมูล<br>ต้องการทำต่อใช่หรือไม่?';
   public showBtnViewInfo: boolean = false;
   //private addressHome: Address;
@@ -73,7 +72,7 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
     this.routeAct.params.subscribe(params => {
       this.paramHomeId = params['homeId'];
       this.paramRoundId = params['roundId'];
-      this.paramFromPage = params['fromPage'];
+      //this.paramFromPage = params['fromPage'];
     });
   }
 
@@ -291,11 +290,12 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
       this.message_error('', 'สมาชิกในบ้านจะต้องมีอย่างน้อย 1 คน');
       return;
     }
-    self.apiHttp.commit_save_survey(self.paramHomeId, self.osmId, self.paramRoundId, listAll, function (d) {
-      console.log(d);
-      if (d != null && d.status.toUpperCase() == "SUCCESS") {
+    this.loading = true;
+    self.apiHttp.commit_save_survey(self.paramHomeId, self.osmId, self.paramRoundId, listAll, (response) => {
+      this.loading = false;
+      if (response != null && response.status.toUpperCase() == "SUCCESS") {
         self.message_success('', 'ส่งข้อมูลการสำรวจสำเร็จ', function () {
-          self.isSaveData = true;
+          self.isEditing = false;
           $('#btnBack').click();
           self.changeRef.detectChanges();
         });
@@ -310,25 +310,31 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
   onClickBack() {
     let _self = this;
 
-    let isFromPendingPage = (_self.paramFromPage == 'pending');
+   // let isFromPendingPage = (_self.paramFromPage == 'pending');
 
-    if (this.isEditing && !this.isSaveData) {
+    if (this.isEditing) {
       this.message_comfirm('', this.warningLeavPage
-        , function (isConfirm) {
+        ,(isConfirm) => {
           if (isConfirm) {
-            if(!isFromPendingPage){
-              _self.route.navigate(['/main/surveys/personal']);
-            } else {
-              _self.route.navigate(['/main/surveys/pending-personal']);
-            }
+            this.isEditing = false;
+            $('#btnBack').click();
+            //_self.route.navigate(['/main/surveys/personal']);
+            // if(!isFromPendingPage){
+            //   _self.route.navigate(['/main/surveys/personal']);
+            // } else {
+            //   _self.route.navigate(['/main/surveys/pending-personal']);
+            // }
           }
+          _self.changeRef.detectChanges();
+
         });
     } else {
-      if(!isFromPendingPage){
-        _self.route.navigate(['/main/surveys/personal']);
-      } else {
-        _self.route.navigate(['/main/surveys/pending-personal']);
-      }
+      _self.route.navigate(['/main/surveys/personal']);
+      // if(!isFromPendingPage){
+      //   _self.route.navigate(['/main/surveys/personal']);
+      // } else {
+      //   _self.route.navigate(['/main/surveys/pending-personal']);
+      // }
     }
 
   }
@@ -388,15 +394,15 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
           return '<div class="text-center">' + self.formatCitizenId(cell) + '</div>';
         }
       },
-      genderName: {
-        title: 'เพศ',
-        filter: false,
-        width: '80px',
-        type: 'html',
-        valuePrepareFunction: (cell, row) => {
-          return '<div class="text-center">' + cell + '</div>';
-        }
-      },
+      // genderName: {
+      //   title: 'เพศ',
+      //   filter: false,
+      //   width: '80px',
+      //   type: 'html',
+      //   valuePrepareFunction: (cell, row) => {
+      //     return '<div class="text-center">' + cell + '</div>';
+      //   }
+      // },
       age: {
         title: 'อายุ',
         filter: false,
@@ -427,7 +433,6 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
           } else {
             text = 'ยังไม่สำรวจ';
           }
-          console.log(cell);
           return '<div class="text-center">' + text + '</div>';
         }
       }
@@ -461,15 +466,15 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
           return '<div class="text-center">' + self.formatCitizenId(cell) + '</div>';
         }
       },
-      genderName: {
-        title: 'เพศ',
-        filter: false,
-        width: '80px',
-        type: 'html',
-        valuePrepareFunction: (cell, row) => {
-          return '<div class="text-center">' + cell + '</div>';
-        }
-      },
+      // genderName: {
+      //   title: 'เพศ',
+      //   filter: false,
+      //   width: '80px',
+      //   type: 'html',
+      //   valuePrepareFunction: (cell, row) => {
+      //     return '<div class="text-center">' + cell + '</div>';
+      //   }
+      // },
       age: {
         title: 'อายุ',
         filter: false,
@@ -495,12 +500,11 @@ export class SurveyPersonalMemberListComponent extends BaseComponent implements 
         type: 'html',
         valuePrepareFunction: (cell, row) => {
           let text = '';
-          if (!self.isEmpty(row.rowGUID)) {
+          if (cell || row.isSurveyed) {
             text = 'สำรวจแล้ว';
           } else {
             text = 'ยังไม่สำรวจ';
           }
-
           return '<div class="text-center">' + text + '</div>';
         }
       },

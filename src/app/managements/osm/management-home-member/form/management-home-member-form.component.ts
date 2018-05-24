@@ -363,6 +363,12 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
         this.msgError_BirthDate = 'วัน/เดือน/ปี เกิดไม่ถูกต้อง';
         return;
       }
+      if(!this.isHomeNo(this.bean.homeNo)){
+        this.message_error('','รูปแบบบ้านเลขที่ไม่ถูกต้อง',()=>{
+      });
+        return;
+      }
+
       if(objsEmpty.length<=0){
         
         // if(this.bean.familyStatusId=='1' && this.getYearDiff(this.modelBirthDate.date.year) < 20){

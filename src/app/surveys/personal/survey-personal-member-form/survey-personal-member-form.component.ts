@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef, ViewChild, ElementRef} from '@angular/core';
 import { IMyDpOptions, IMyDateModel } from 'mydatepicker';
 import { PersonBean } from "../../../beans/person.bean";
 //import { PersonalMemberBean } from '../../../beans/personal-member.bean';
@@ -22,6 +22,8 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
   @Input() address: Address;
   @Output() memberUpdated = new EventEmitter<PersonalBasicBean>();
 
+  @ViewChild('vhomeNo') vhomeNo: ElementRef;
+  
   private apiHttp: Service_SurveyPersonal = new Service_SurveyPersonal();
   public listTypeArea: any = [];
   public listPrefix: any = [];
@@ -229,6 +231,12 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
         self.validateAddress.isCheck = true;
         self.changeRef.detectChanges();
         validateFields.push('homeNo','mooNo','tumbolCode','amphurCode','provinceCode');
+        if(!this.isHomeNo(this.memberBean.homeNo)){
+          this.message_error('','รูปแบบบ้านเลขที่ไม่ถูกต้อง', () =>{
+            setTimeout(()=>{this.vhomeNo.nativeElement.focus()}, 50);
+          });
+          return false;
+        }
       }else{
         // Home Address  Added to Personal Address 
         this.memberBean.homeNo = this.address.homeNo;
@@ -306,10 +314,6 @@ export class SurveyPersonalMemberFormComponent extends BaseComponent implements 
     self.memberBean.citizenId = self.reverseFormatCitizenId(self.memberBean.citizenId)
     self.memberBean.isSurveyed = true;
     self.memberUpdated.emit(self.memberBean);
-    //$("#modalMember").modal('hide');
-    
-    
-    
   }
 
 }

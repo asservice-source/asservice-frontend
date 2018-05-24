@@ -545,4 +545,13 @@ export class BaseComponent implements OnInit {
           () => console.log('Fetching complete for Server Api.')
         )
     }
+
+    public isHomeNo(homeNo):boolean{
+        console.log('IsHomeNo', homeNo);
+        let test1 = /^[0-9/]{1,10}$/.test(homeNo);
+        if(!test1 || homeNo.lastIndexOf('/') == (homeNo.length-1) || homeNo.lastIndexOf('0') == 0){
+          return false;
+        }
+        return true;
+    }
 }

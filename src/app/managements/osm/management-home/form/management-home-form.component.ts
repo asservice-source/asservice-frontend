@@ -212,9 +212,7 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
         _self.bean.homeNo = _self.bean.homeNo.trim();
       }
       if(this.isHome){
-        let homeNo = _self.bean.homeNo;
-        let test1 = /^[0-9/]{1,10}$/.test(homeNo);
-        if(!test1 || homeNo.lastIndexOf('/') == (homeNo.length-1) || homeNo.lastIndexOf('0') == 0){
+        if(!this.isHomeNo(this.bean.homeNo)){
           this.message_error('','รูปแบบบ้านเลขที่ไม่ถูกต้อง',()=>{
         });
           return;

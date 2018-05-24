@@ -13,7 +13,7 @@ export class Service_Village extends ApiHTTPService{
         this.attr = 
         {
             "hospitalCode": this.baseComponent.getHospitalCode(),
-            "createdBy": this.baseComponent.getUserFullName(),
+            "createdBy": this.baseComponent.userInfo.personId,
             "id": bean.villageId,
             "villageNo": bean.villageNo,
             "villageName": bean.villageName.trim()
