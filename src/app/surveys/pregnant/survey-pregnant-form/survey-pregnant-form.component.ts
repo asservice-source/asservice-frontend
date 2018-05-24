@@ -551,8 +551,11 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
     self.apiHttp.commit_save(self.pregnantBean, function (d) {
       if (d && d.status.toString().toUpperCase() == "SUCCESS") {
         self.bindChildList();
-        self.memberUpdated.emit(self.pregnantBean);
+        
         $("#find-person-md").modal("hide");
+        self.message_success('', 'บันทึกสำเร็จ', ()=>{
+          self.memberUpdated.emit(self.pregnantBean);
+        });
       } else {
         self.message_error('', d.message);
       }
