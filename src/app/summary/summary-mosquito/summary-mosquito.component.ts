@@ -112,10 +112,13 @@ export class SummaryMosquitoComponent extends BaseComponent implements OnInit {
     }
   }
   clear(){
+   
+    if(this.isStaff){
+      this.osmId = '';
+      this.villageId = '';
+    }
     this.roundRowGuid = '';
-    this.villageId = '';
     this.homeTypeCode = '';
-    this.osmId = '';
     this.isOffOsm = true;
     this.listOsm = [];
     this.listHomeTypes = [];

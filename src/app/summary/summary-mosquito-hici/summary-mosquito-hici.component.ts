@@ -143,15 +143,16 @@ export class SummaryMosquitoHICIComponent extends BaseComponent implements OnIni
     
   }
   clear(){
+
     this.roundRowGuid = '';
-    this.villageId = '';
     this.homeId = '';
-    this.osmId = '';
     this.isOffOsm = true;
     this.isOffHome = true;
     this.listOsm = [];
     
     if(this.isStaff){
+      this.osmId = '';
+      this.villageId = '';
       this.listHomes = [];
     }
   }

@@ -112,10 +112,12 @@ export class SummaryDiedComponent extends BaseComponent implements OnInit {
 
   }
   clear(){
+    if(this.isStaff){
+      this.osmId = '';
+      this.villageId = '';
+    }
     this.roundRowGuid = '';
-    this.villageId = '';
     this.searchName = '';
-    this.osmId = '';
     this.isOffOsm = true;
     this.listOsm = [];
   }

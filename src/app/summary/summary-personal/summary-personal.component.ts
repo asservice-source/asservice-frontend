@@ -137,10 +137,12 @@ export class SummarytPersonalComponent extends BaseComponent implements OnInit {
     
   }
   clear(){
+    if(this.isStaff){
+      this.osmId = '';
+      this.villageId = '';
+    }
     this.roundRowGuid = '';
-    this.villageId = '';
     this.homeId = '';
-    this.osmId = '';
     this.statusId = '1';
     this.isOffOsm = true;
     this.isOffHome = true;
