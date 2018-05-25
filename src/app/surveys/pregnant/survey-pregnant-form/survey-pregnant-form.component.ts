@@ -283,10 +283,13 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
 
       self.pregnantBean.bornLocationId = "";
       self.pregnantBean.bornTypeId = "";
+      self.pregnantBean.abortionCause = "";
 
       self.clearListChild();
       self.bindChildList();
     }
+
+    self.onChangeBornType(false);
 
     self.validateSave = new InputValidateInfo();
   }
@@ -501,6 +504,14 @@ export class SurveyPregnantFormComponent extends BaseComponent implements OnInit
 
       if (self.isLessThanCurrentDate(self.pregnantBean.bornDueDate)) {
         self.error_message_bornDueDate = "กำหนดคลอด ต้องมีค่ามากกว่าหรือเท่ากับวันที่ปัจจุบัน";
+        self.validateBornDueDate = new InputValidateInfo();
+        self.validateBornDueDate.isCheck = true;
+        self.validateBornDueDate.isShowError = true;
+        errors_count++;
+      }
+
+      if (self.isMoreThanCurrentDate280Days(self.pregnantBean.bornDueDate)) {
+        self.error_message_bornDueDate = "กำหนดคลอด ต้องมีค่ามากกว่าวันที่ปัจจุบันไม่เกิน 280 วัน";
         self.validateBornDueDate = new InputValidateInfo();
         self.validateBornDueDate.isCheck = true;
         self.validateBornDueDate.isShowError = true;

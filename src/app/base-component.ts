@@ -156,6 +156,17 @@ export class BaseComponent implements OnInit {
         }
     }
 
+    public isMoreThanCurrentDate280Days(dateString: string) {
+        let currentDate = moment(moment().format('YYYY-MM-DD'));
+        let inpuDate = moment(dateString);
+        let diffDays = inpuDate.diff(currentDate, 'days')
+        if (diffDays > 280) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public isLessThanCurrentEqualsDate(dateString: string) {
         let currentDate = moment(moment().format('YYYY-MM-DD'));
         let inpuDate = moment(dateString);
