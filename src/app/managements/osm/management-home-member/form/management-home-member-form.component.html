@@ -190,25 +190,38 @@
 
           <div class="row">
             <div class="col-md-2 text-right">
-                <label class="label-form">สวัสดิการ</label>
+                <label class="label-form">สิทธิการรักษา</label>
             </div>
             <div class="col-md-10" style="padding-left: 0; padding-right: 0">
               <div class="col-md-4">
-                <select>
-                  <option value="">option 1</option>
+                <select [(ngModel)]="medical_LV0" (change)="onMedicalsChange(0)">
+                  <option value="">---เลือก---</option>
+                    <ng-container *ngFor="let item of medicalrightList">
+                      <option *ngIf="item.level==0" [value]="item.code">{{item.description}}</option>
+                    </ng-container>
                 </select>
               </div>
               <div class="col-md-4">
-                <select>
-                  <option value="">option 1</option>
+                <select [(ngModel)]="medical_LV1" (change)="onMedicalsChange(1)" [disabled]="!medical_LV0">
+                  <option value="">---เลือก---</option>
+                    <ng-container *ngFor="let item of medicalrightList">
+                      <option *ngIf="item.parentCode == medical_LV0" [value]="item.code">{{item.description}}</option>
+                    </ng-container>
                 </select>
               </div>
               <div class="col-md-4">
-                <select>
-                  <option value="">option 1</option>
-                </select>
+                <div [InputValidate]="inputValidate">
+                  <select [(ngModel)]="medical_LV2" (change)="onMedicalsChange(2)" [disabled]="!medical_LV1">
+                    <option value="">---เลือก---</option>
+                      <ng-container *ngFor="let item of medicalrightList">
+                        <option  *ngIf="item.parentCode == medical_LV1" [value]="item.code">{{item.description}}</option>
+                      </ng-container>
+                  </select>
+                  <label class="error">กรุณาเลือกสิทธิการรักษา</label>
+                </div>
               </div>
             </div>
+
           </div>
           <div class="row">
             <div class="col-md-2 text-right">

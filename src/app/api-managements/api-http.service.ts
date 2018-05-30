@@ -236,6 +236,9 @@ export class ApiHTTPService  implements OnInit {
     public api_DischargeList(callback: (doc: any) => void){
         this.callResponse('person/discharge_list',{}, callback, new ApiOptional({continue_error: true}));
     }
+    public api_MedicalRightList(callback: (doc: any) => void){
+        this.callResponse('person/medical_right_list',{}, callback, new ApiOptional({continue_error: true}));
+    }
     public getRound_byDocumentId(headerTypeCode: string, documentId: string, callback: (doc:any)=>void): any{
         let mitem = {};
         this.api_SurveyHeaderList(headerTypeCode, function(response){

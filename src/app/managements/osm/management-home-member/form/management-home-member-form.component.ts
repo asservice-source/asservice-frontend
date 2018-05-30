@@ -41,7 +41,13 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
   public amphurList: any = [];
   public tumbolList: any = [];
   public dischargeList: any = [];
-  public benifits: any = [];
+  public medicalrightList: any = [];
+  // public medicalList_LV0: any = [];
+  // public medicalList_LV1: any = [];
+  // public medicalList_LV2: any = [];
+  public medical_LV0: string = '';
+  public medical_LV1: string = '';
+  public medical_LV2: string = '';
   public oldCitizenId: string;
   public actionName: string;
   public msgError_CitizenId: string = '';
@@ -67,23 +73,54 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
   ngOnInit() {
     this.bindModal();
     this.setupGender();
+    this.setupMedicalrightList();
     this.setupDropdownList();
-    this.benifits.push({"id": "1000","name": "สวัสดิการ 1000", "sub":[{"id": "1100","name": "สวัสดิการ 1100", "sub":[{"id": "1110","name": "สวัสดิการ 1110"}]}]});
-    this.benifits.push({"id": "2000","name": "สวัสดิการ 1000", "sub":[{"id": "2100","name": "สวัสดิการ 2100", "sub":[{"id": "2110","name": "สวัสดิการ 2110"}]}]});
+  }
+  generateMedicalrights( elements:any, parentCode = 0 ):any
+  {
+      let branch: Array<any> = undefined;
+      for (let element of elements)
+      {
+          if ( element.parentCode == parentCode )
+          {
+              let children = this.generateMedicalrights( elements, element.code );
+              if (children){
+                element.sub = children;
+              }  
+              if(!branch){
+                branch = [];
+              }
+              branch.push(element);
+          }
+      }
+      return branch;
   }
 
+  setupMedicalrightList(){
+    this.api.api_MedicalRightList((elements)=>{
+      this.medicalrightList = elements; //this.generateMedicalrights(elements, 0);
+      // for(let item of elements){
+      //   switch(item.level){
+      //     case 0: this.medicalList_LV0.push(item);
+      //     break;
+      //     case 1: this.medicalList_LV1.push(item);
+      //     break; 
+      //     case 2: this.medicalList_LV2.push(item);
+      //     break;
+      //   }
+      // }
+    });
+  }
   setupGender(){
-    let _self = this;
-    this.api.api_GenderList(function(response){
-      _self.genderList = response;
-      _self.setupPrefix();
+    this.api.api_GenderList((elements)=>{
+      this.genderList = elements;
+      this.setupPrefix();
     });
 
   }
   setupPrefix(){
-    let _self = this;
-    _self.api.api_PrefixNameList(_self.bean.genderId, function (response) {
-      _self.prefixList = response;
+    this.api.api_PrefixNameList(this.bean.genderId, (elements) => {
+      this.prefixList = elements;
     });
   }
 
@@ -134,6 +171,9 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
       _self.msgError_CitizenId = _self.msgError_CitizenIdEmty;
       _self.bean.dischargeId = _self.bean.dischargeId || '9';
       //---
+      _self.medical_LV0 = '';
+      _self.medical_LV1 = '';
+      _self.medical_LV2 = '';
       if(_self.isEmpty(_self.bean.personId)){
         _self.action = _self.ass_action.ADD
         _self.actionName = 'เพิ่ม';
@@ -155,10 +195,70 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
         _self.setDatePickerModel();
         _self.setupAmphur();
         _self.setupTumbol();
+        if(_self.bean.medicalRightCode){
+          for(let item of this.medicalrightList){
+            if(item.code==_self.bean.medicalRightCode){
+              _self.medical_LV2 = item.code;
+              _self.medical_LV1 = item.parentCode;
+              for(let item2 of this.medicalrightList){
+                if(item2.code== _self.medical_LV1){
+                  _self.medical_LV0 = item2.parentCode;
+                }
+              }
+            }
+          }
+        }
+
       }
       _self.bean = _self.strNullToEmpty(_self.bean);
 
     });
+  }
+  onMedicalsChange(level:number){
+    
+    switch(level){
+      case 0: this.medical_LV1 = '';
+              this.medical_LV2 = '';
+              let num = 0;
+              let code = '';
+              for(let item of this.medicalrightList){
+                if(item.parentCode==this.medical_LV0){
+                  num++;
+                  code = item.code;
+                }
+              }
+              if(num==1){
+                this.medical_LV1 = code;
+                num = 0;
+                code = '';
+                for(let item of this.medicalrightList){
+                  if(item.parentCode==this.medical_LV1){
+                    num++;
+                    code = item.code;
+                  }
+                }
+                if(num==1){
+                  this.medical_LV2 = code;
+                }
+              }
+      break;
+      case 1: this.medical_LV2 = '';
+              let num1 = 0;
+              let code1 = '';
+              for(let item of this.medicalrightList){
+                if(item.parentCode==this.medical_LV1){
+                  num1++;
+                  code1 = item.code;
+                }
+              }
+              if(num1==1){
+                this.medical_LV2 = code1;
+              }
+      break;
+      case 2: 
+      break;
+    }
+    console.log('MedicalRight', this.medical_LV0 + ' : '+this.medical_LV1+' : '+this.medical_LV2);
   }
   onGenderChange(element: any){
     this.bean.prefixCode = '';
@@ -334,9 +434,9 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
 
     if(this.isValidCitizenIdThailand(this.bean.citizenId)){
       let birthDate = this.modelBirthDate && this.getStringDateForDatePickerModel(this.modelBirthDate.date);
-
       this.bean.birthDate = birthDate || '';
-      let fildsCheck = ['citizenId', 'firstName', 'lastName', 'prefixCode', 'genderId', 'raceCode', 'nationCode', 'religionCode', 'birthDate', 'educationCode', 'occupCode', 'familyStatusId', 'isGuest'];
+      this.bean.medicalRightCode = this.medical_LV2;
+      let fildsCheck = ['citizenId', 'firstName', 'lastName', 'prefixCode', 'genderId', 'raceCode', 'nationCode', 'religionCode', 'birthDate', 'educationCode', 'occupCode', 'medicalRightCode', 'familyStatusId', 'isGuest'];
       if(this.bean.isGuest){
         fildsCheck.push('homeNo','mooNo','tumbolCode','amphurCode','provinceCode');
         this.inputValidateAddress = new InputValidateInfo();

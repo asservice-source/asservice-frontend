@@ -58,6 +58,7 @@ export class PersonalBasicBean{
     public coupleCid: string;
     public congenitalDisease: string;
     public remark: string;
+    public medicalRightCode: string;
     
     public userId: string;
     public osmId: string;

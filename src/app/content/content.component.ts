@@ -89,9 +89,7 @@ export class ContentComponent extends BaseComponent implements OnInit {
         self.setDataResponses(d);
       });
     }
-
   }
-
   setDataResponses(d:any){
     let death = 0, cancer = 0, pregnant = 0, patient = 0, metabolic = 0;
     let noMosquito = 0, detectedMosquito = 0;
@@ -167,5 +165,7 @@ export class ContentComponent extends BaseComponent implements OnInit {
   public pieChartHovered(e: any): void {
     console.log('pieChartHovered',e);
   }
+
+
 }
 
