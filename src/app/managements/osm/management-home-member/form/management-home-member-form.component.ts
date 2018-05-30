@@ -41,6 +41,7 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
   public amphurList: any = [];
   public tumbolList: any = [];
   public dischargeList: any = [];
+  public benifits: any = [];
   public oldCitizenId: string;
   public actionName: string;
   public msgError_CitizenId: string = '';
@@ -67,6 +68,8 @@ export class ManagementHomeMemberFormComponent extends BaseComponent implements 
     this.bindModal();
     this.setupGender();
     this.setupDropdownList();
+    this.benifits.push({"id": "1000","name": "สวัสดิการ 1000", "sub":[{"id": "1100","name": "สวัสดิการ 1100", "sub":[{"id": "1110","name": "สวัสดิการ 1110"}]}]});
+    this.benifits.push({"id": "2000","name": "สวัสดิการ 1000", "sub":[{"id": "2100","name": "สวัสดิการ 2100", "sub":[{"id": "2110","name": "สวัสดิการ 2110"}]}]});
   }
 
   setupGender(){
