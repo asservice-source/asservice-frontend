@@ -1,7 +1,7 @@
 import { ApiHTTPService } from "./api-http.service";
 import { BaseComponent } from "../base-component";
 import { PersonalBasicBean } from "../beans/personal-basic.bean";
-
+declare var $:any;
 export class Service_HomeMember extends ApiHTTPService{
 
     public attr: any;
@@ -70,6 +70,8 @@ export class Service_HomeMember extends ApiHTTPService{
             if(response && response.status.toString().toUpperCase()=='SUCCESS'){
                 callback(response.response);
             }else{
+                $('#loading-backdrop').hide();
+                $('#loading-front').hide();
                 _self.baseComponent.message_servNotRespond('', response.message);
             }
         });

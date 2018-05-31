@@ -53,7 +53,9 @@ export class Service_SurveyPersonal extends ApiHTTPService {
                 "road": bean.road,
                 "provinceCode": bean.provinceCode,
                 "amphurCode": bean.amphurCode,
-                "tumbolCode": bean.tumbolCode
+                "tumbolCode": bean.tumbolCode,
+
+                "medicalRightCode": bean.medicalRightCode,
             };
         params = self.baseComponent.strNullToEmpty(params);
 
