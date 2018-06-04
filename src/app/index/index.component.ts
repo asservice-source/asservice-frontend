@@ -13,7 +13,7 @@ export class IndexComponent implements OnInit{
   private storage: LocalStorageManagement;
   //private baseComp: BaseComponent;
   constructor(public user: UserService, private router: Router){
-  this.storage = new LocalStorageManagement(this.user);
+  this.storage = new LocalStorageManagement(this.user, this.router);
   }
   ngOnInit(): void {
 
@@ -21,7 +21,16 @@ export class IndexComponent implements OnInit{
     if(jsonUInfo){
       this.storage.setUserInfo(jsonUInfo);
       if(this.user.userId){
-        this.router.navigate(["main"]);
+         this.router.navigate(["main"]);
+      //  let path = this.getUrlParameter('p');
+      //  if(path){
+      //   path = atob(path);
+      //   console.log('Source',path);
+      //   this.router.navigate([path])
+      //  }else{
+      //   this.router.navigate(["main"]);
+      //  }
+       
       }
     }
 
@@ -42,4 +51,19 @@ export class IndexComponent implements OnInit{
     // , 1000);
 
   }
+
+ getUrlParameter(sParam) {
+    let sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+    }
+};
 }

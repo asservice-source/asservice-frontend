@@ -21,7 +21,7 @@ $(function () {
   $('[aria-label="Last"]>span').text('>>');
 
   // window.onbeforeunload = function() {
-  //   localStorage.clear();
+  
   //   return '';
   // };
 

@@ -1,13 +1,16 @@
 import { BaseComponent } from "../base-component";
 import { UserService } from "../service/user.service";
+import { Router } from "@angular/router";
+import * as globalconfig from "../global-config";
 
 export class LocalStorageManagement{
     private baseComponent: BaseComponent;
-    public static UINFOKEY:string = window.btoa('uinfo');
-    constructor(public user: UserService){
+    public static UINFOKEY:string = window.btoa(globalconfig.environment_path + '_uinfo');
+    constructor(public user: UserService,public route: Router){
         this.baseComponent = new BaseComponent();
     }
     setUserInfo(data: any){
+        console.log('PATH = ',this.route.url);
         let obj = this.baseComponent.strNullToEmpty(data);
         if(!obj.userId){
             obj = JSON.parse(obj);
@@ -62,7 +65,7 @@ export class LocalStorageManagement{
         }
       }catch(e) {
         //console.error("User Error", e);
-        localStorage.clear();
+        localStorage.removeItem(LocalStorageManagement.UINFOKEY);
         return undefined;
       }
     }

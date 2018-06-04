@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../../service/user.service';
+import { LocalStorageManagement } from '../../service/localStorage-management';
 
 @Component({
   selector: 'app-main-header',
@@ -22,9 +23,8 @@ export class MainHeaderComponent implements OnInit {
   }
 
   logout(){
-    localStorage.clear();
+    localStorage.removeItem(LocalStorageManagement.UINFOKEY);
     this.user = new UserService();
-    console.log('XXX == ', this.user);
     this.route.navigate(['/']);
   }
 

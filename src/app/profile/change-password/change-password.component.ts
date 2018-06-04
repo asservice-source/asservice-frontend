@@ -80,7 +80,6 @@ export class ChangePasswordComponent extends BaseComponent implements OnInit {
     self.apiHttp.change_password(userLoginId, username, self.oldPassword, self.newPassword, function (d) {
       if (d != null && d.status.toUpperCase() == "SUCCESS") {
         self.message_success('', 'เปลี่ยนรหัสผ่านสำเร็จ', function () {
-          // localStorage.clear();
           self.route.navigate(['/main']);
         });
       } else {

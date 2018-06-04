@@ -9,7 +9,7 @@ export class GuardService {
     private localstorage: LocalStorageManagement;
     private basecomp: BaseComponent;
     constructor(private router:Router, private userService: UserService) { 
-        this.localstorage = new LocalStorageManagement(userService);
+        this.localstorage = new LocalStorageManagement(userService, this.router);
         
         this.basecomp = new BaseComponent();
     }

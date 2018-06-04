@@ -32,7 +32,7 @@ export class ProfileManagementComponent extends BaseComponent implements OnInit 
 
         let self = this;
 
-        self.storage = new LocalStorageManagement(self.userInfo);
+        self.storage = new LocalStorageManagement(self.userInfo, this.route);
     }
 
     ngOnInit() {

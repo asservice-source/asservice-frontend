@@ -5,6 +5,7 @@ import * as myconf from "../global-config";
 import { BaseComponent } from '../base-component';
 import { UserService } from '../service/user.service';
 import { ApiOptional } from '../beans/http-options';
+import { LocalStorageManagement } from '../service/localStorage-management';
 declare var $:any;
 export class ApiHTTPService  implements OnInit {
     public baseComponent: BaseComponent = new BaseComponent();
@@ -53,16 +54,22 @@ export class ApiHTTPService  implements OnInit {
             )
     }
     private subscribe(header,data: any, callback: (doc: any)=> void, params: any, path: any){
-        console.log('%c Call API :'  + path, 'background: #69c74c; color: #ffffff');
-        console.log('header', header);
-        console.log('params', params);
-        console.log('response', data);
+        
         //console.log('%c END', 'font-size: 14px; background: #3f8bbc; color: #ffffff');
         if(data.status){
             data.status = ''+data.status;
         }else{
             data.status = '';
         }
+        if(data.status.toUpperCase()== 'SUCCESS'){
+            console.log('%c [SUCCESS] Call API :'  + path, 'background: #69c74c; color: #ffffff');
+        }else{
+            console.log('%c [FAIL] Call API :'  + path, 'background: #ff6f0f; color: #ffffff');
+        }
+        
+        console.log('header', header);
+        console.log('params', params);
+        console.log('response', data);
         callback(data);
     }
     private subscribe_error(header, data: any, callback: (doc: any)=> void, params: any, path: any, options: ApiOptional){
@@ -80,8 +87,8 @@ export class ApiHTTPService  implements OnInit {
             $('#loading-backdrop').hide();
             $('#loading-front').hide();
             this.baseComponent.userInfo = new UserService();
-            localStorage.clear();
-            this.baseComponent.message_servNotRespond('','Session หมดอายุ',()=>{
+            localStorage.removeItem(LocalStorageManagement.UINFOKEY);
+            this.baseComponent.message_servNotRespond('','ไม่สามารถติดต่อ server ได้',()=>{
                 location.href = '/';
             });
             return;

@@ -23,7 +23,7 @@ export class HeaderLoginComponent extends BaseComponent implements OnInit {
   constructor(public user: UserService, private http: Http, private router: Router) {
     super();
     this.baseComponent = new BaseComponent();
-    this.storage = new LocalStorageManagement(this.user);
+    this.storage = new LocalStorageManagement(this.user, this.router);
   }
 
   ngOnInit() {
@@ -64,7 +64,7 @@ export class HeaderLoginComponent extends BaseComponent implements OnInit {
         console.log("=> SIGN PASS");
         self.router.navigate(["main"]);
       }else{
-        localStorage.clear();
+        localStorage.removeItem(LocalStorageManagement.UINFOKEY);
         self.msgErrorLogin = "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง";
         self.isErrorLogin = true;
         $('.balloon-warning').fadeIn(100);
@@ -92,7 +92,7 @@ export class HeaderLoginComponent extends BaseComponent implements OnInit {
     // headers.append('Access-Control-Allow-Headers', 'X-Requested-With,contenttype');
     // headers.append('Access-Control-Allow-Credentials', 'true');
     let options = new RequestOptions({headers: headers});
-    this.http.post('http://192.168.1.203:8080/api-asservice/oauth/token?grant_type=password&username=anamai01&password=an123401', param, options).map(res => res.json())
+    this.http.post('http://xxxx:8080/xxx/oauth/token?grant_type=password&username=anamai01&password=an123401', param, options).map(res => res.json())
       .subscribe(
         data => console.log(data),
         err => console.log(err),

@@ -4,6 +4,7 @@ import { AppComponent } from '../../app.component';
 import { ApiHTTPService } from '../../api-managements/api-http.service';
 import { BaseComponent } from '../../base-component';
 import { RequestOptions, Headers } from '@angular/http';
+import { Router } from '@angular/router';
 // Variable in assets/js/scripts.js file
 declare var AdminLTE: any;
 
@@ -16,13 +17,14 @@ declare var AdminLTE: any;
 export class MainContentComponent implements OnInit {
   public api: ApiHTTPService;
   public baseComponent: BaseComponent;
-  constructor(public userInfo: UserService) {
+  constructor(public userInfo: UserService, public router: Router) {
     this.api = new ApiHTTPService();
     this.baseComponent = new BaseComponent();
   }
   ngOnInit() {
     // Update the AdminLTE layouts
     AdminLTE.init();
+   // console.log('PATH = ',this.router.url);
   }
 
 
