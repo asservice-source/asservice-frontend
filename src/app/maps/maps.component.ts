@@ -19,7 +19,7 @@ export class MapsComponent extends BaseComponent implements OnInit {
   // public autocomplete: any;
   public zoom: number = 15;
   public center = "";
-  public position = "";
+  public positions : any[] = [];
   public draggable = false;
   public info_content = "";
   public map: any;
@@ -45,7 +45,8 @@ export class MapsComponent extends BaseComponent implements OnInit {
       let lng = +self.longitude;
       let latlng = lat + ',' + lng
 
-      self.position = latlng;
+      self.positions = [];
+      self.positions.push({ lat: lat, lng: lng });
       self.info_content = self.info;
 
       if(self.mode == 'view') {
@@ -67,7 +68,7 @@ export class MapsComponent extends BaseComponent implements OnInit {
         }
       }
     } else {
-      self.position = "";
+      self.positions = [];
 
       // เก็บค่าไว้ในตัวแปร เมื่อมีค่าแล้วจะไม่ call api อีก
       if (self.isEmpty(self.defaultLat) && self.isEmpty(self.defaultLng)) {
@@ -145,9 +146,10 @@ export class MapsComponent extends BaseComponent implements OnInit {
 
       // self.latitude = tmpLat;
       // self.longitude = tmpLng;
-      self.position = tmpLat + ',' + tmpLng;
+      self.positions = [];
+      self.positions.push({ lat: tmpLat, lng: tmpLng });
 
-      console.log('onMarkerDragEnd -> latlng -> ', self.position);
+      console.log('onMarkerDragEnd -> latlng -> ', self.positions);
 
       let objLatLng = { lat: tmpLat, lng: tmpLng };
       self.positionChanged.emit(objLatLng);
@@ -166,6 +168,9 @@ export class MapsComponent extends BaseComponent implements OnInit {
   }
 
   onMapClick(event) {
+    // if (event instanceof MouseEvent)
+    //   return;
+
     let self = this;
 
     console.log('onMapClick -> event -> ', event);
@@ -178,9 +183,10 @@ export class MapsComponent extends BaseComponent implements OnInit {
 
       // self.latitude = tmpLat;
       // self.longitude = tmpLng;
-      self.position = tmpLat + ',' + tmpLng;
+      self.positions = [];
+      self.positions.push({ lat: tmpLat, lng: tmpLng });
 
-      console.log('onMapClick -> latlng -> ', self.position);
+      console.log('onMapClick -> latlng -> ', self.positions);
 
       let objLatLng = { lat: tmpLat, lng: tmpLng };
       self.positionChanged.emit(objLatLng);

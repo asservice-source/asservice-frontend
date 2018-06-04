@@ -15,7 +15,7 @@ export class MultiMapsComponent extends BaseComponent implements OnInit {
 
   public zoom: number = 15;
   public center = "";
-  public positions: Array<MapsBean> = [];
+  public listMaps: Array<MapsBean> = [];
   public info_content = "";
   public map: any;
   public defaultLat: string = "";
@@ -48,16 +48,22 @@ export class MultiMapsComponent extends BaseComponent implements OnInit {
     let self = this;
 
     if (changes['reset']) {
-      self.positions = self.list;
-      if (self.positions && self.positions.length > 0) {
-        let numLat = +self.positions[0].latitude;
-        let numLng = +self.positions[0].longitude;
+      self.listMaps = self.list;
+      if (self.listMaps && self.listMaps.length > 0) {
+        for(let map of self.listMaps) {
+          map.locations.push({ lat: +map.latitude, lng: +map.longitude });
+        }
+
+        // ตั้งค่าการ default center ของ maps เป็นค่าแรกของ list
+        let numLat = +self.listMaps[0].latitude;
+        let numLng = +self.listMaps[0].longitude;
+
+        self.zoom = 12;
         self.center = numLat + "," + numLng;
         if (self.map) {
           self.map.panTo({ lat: numLat, lng: numLng });
           self.map.setZoom(12);
         }
-        self.zoom = 12;
       } else {
         // เก็บค่าไว้ในตัวแปร เมื่อมีค่าแล้วจะไม่ call api อีก
         if (!self.defaultLat && !self.defaultLng) {
@@ -126,8 +132,6 @@ export class MultiMapsComponent extends BaseComponent implements OnInit {
 export class MapsBean {
   public latitude: string = "";
   public longitude: string = "";
+  public locations: any[] = [];
   public info: string = "";
-  public latlng() {
-    return this.latitude + "," + this.longitude;
-  }
 }
