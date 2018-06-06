@@ -69,7 +69,7 @@ export class MapsComponent extends BaseComponent implements OnInit {
       }
     } else {
       self.positions = [];
-
+      this._changeRef.detectChanges();
       // เก็บค่าไว้ในตัวแปร เมื่อมีค่าแล้วจะไม่ call api อีก
       if (self.isEmpty(self.defaultLat) && self.isEmpty(self.defaultLng)) {
         self.getLocationGooglemaps(null, function (d) {

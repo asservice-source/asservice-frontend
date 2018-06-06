@@ -47,7 +47,7 @@ export class FilterPersonalComponent extends BaseComponent implements OnInit {
       self.bindHomeNo(self.userInfo.villageId, self.userInfo.personId);
     }
 
-    self.onSearchFilter();
+    //self.onSearchFilter();
   }
 
   onChangeRound(select: any) {

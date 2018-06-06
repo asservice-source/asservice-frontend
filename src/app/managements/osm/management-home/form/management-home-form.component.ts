@@ -32,6 +32,8 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
   public isEdit: boolean;
   public param_reset: number = 1;
   public homeNoPattern = "^[a-z0-9/]{1,10}$";
+  public latitude: string = '';
+  public longitude: string = '';
 
   constructor(private changeRef: ChangeDetectorRef) {
     super();
@@ -54,6 +56,7 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
       _self.setupOsmList();
       _self.setupHomeTypeList();
       _self.isDisabledHomeType=false;
+      
       if(_self.bean.osmId){
         _self.isDisabledOsm = true;
       }else{
@@ -62,6 +65,9 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
       }
       if(_self.action == _self.ass_action.EDIT){
         _self.isEdit = true;
+        _self.longitude = _self.bean.longitude;
+        _self.latitude = _self.bean.latitude;
+        _self.param_reset += 1;
         if(_self.isHomeType(_self.bean.homeTypeCode)){
           _self.isDisabledHomeType=true;
           _self.isHome = true;
@@ -69,6 +75,9 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
           _self.isHome = false;
         }
       }else{
+        _self.longitude = '';
+        _self.latitude = '';
+        _self.param_reset += 1;
         _self.isEdit = false;
       }
       _self.param_reset +=1;
@@ -114,6 +123,8 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
     this.bean.telephone = '';
     this.bean.latitude = '';
     this.bean.longitude = '';
+    this.latitude = '';
+    this.longitude = '';
   }
   onClickSelectHome(): void{
     if(this.isEdit){
@@ -156,6 +167,8 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
           this.bean.telephone = item.telephone;
           this.bean.latitude = item.latitude;
           this.bean.longitude = item.longitude;
+          this.latitude = item.latitude;
+          this.longitude = item.longitude;
         }
       }
     }else{
@@ -179,6 +192,8 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
     if(event){
       this.bean.latitude = event.lat;
       this.bean.longitude = event.lng;
+      this.latitude = event.latitude;
+      this.longitude = event.longitude;
     }
     console.log(event);
   }

@@ -31,6 +31,8 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
   public villageNo: string = '';
   public osmName: string = '';
   public param_reset: number = 1;
+  public latitude: string = '';
+  public longitude: string = '';
 
   constructor(private activatedRoute: ActivatedRoute, private route: Router, private changeRef: ChangeDetectorRef) {
     super();
@@ -151,13 +153,11 @@ export class ManagementHomeComponent extends BaseComponent implements OnInit {
       _self.loading = false;
       let response = resp.response;
       if(response && resp.status.toUpperCase()=='SUCCESS'){
-
-        _self.bean.latitude = response.latitude;
-        _self.bean.longitude = response.longitude;
-
+        _self.latitude = response.latitude;
+        _self.longitude = response.longitude;
       }else{
-        _self.bean.latitude = row.latitude;
-        _self.bean.longitude = row.longitude;
+        _self.latitude = row.latitude;
+        _self.longitude = row.longitude;
       }
 
       if(_self.isHomeType(row.homeTypeCode)){

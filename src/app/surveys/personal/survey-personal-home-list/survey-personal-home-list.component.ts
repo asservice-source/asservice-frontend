@@ -121,7 +121,7 @@ export class SurveyPersonalHomeListComponent extends BaseComponent implements On
     if(this.isEmpty(this.currentRoundId)){
       this.currentRoundId = event.roundId;
     }
-   console.log(this.filterBean);
+    console.log('onClickSearch',this.filterBean);
     this.bindHomeList(event);
   }
 
