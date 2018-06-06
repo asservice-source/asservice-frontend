@@ -63,25 +63,28 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
         _self.bean.osmId = '';
         _self.isDisabledOsm = false;
       }
+
       if(_self.action == _self.ass_action.EDIT){
         _self.isEdit = true;
-        _self.longitude = _self.bean.longitude;
-        _self.latitude = _self.bean.latitude;
-        _self.param_reset += 1;
         if(_self.isHomeType(_self.bean.homeTypeCode)){
           _self.isDisabledHomeType=true;
           _self.isHome = true;
         }else{
           _self.isHome = false;
         }
+        _self.longitude = _self.bean.longitude;
+        _self.latitude = _self.bean.latitude;
+        _self.param_reset += 1;
+        _self.changeRef.detectChanges();
+        _self.param_reset += 1;
+        _self.changeRef.detectChanges();
       }else{
+        _self.isEdit = false;
         _self.longitude = '';
         _self.latitude = '';
-        _self.param_reset += 1;
-        _self.isEdit = false;
+        _self.param_reset +=1;
+        _self.changeRef.detectChanges();
       }
-      _self.param_reset +=1;
-      _self.changeRef.detectChanges();
     });
     $('#modalFormHome').on('hidden.bs.modal', function(){
       _self.inputValidate = new InputValidateInfo();
