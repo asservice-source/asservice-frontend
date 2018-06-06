@@ -76,15 +76,14 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
         _self.latitude = _self.bean.latitude;
         _self.param_reset += 1;
         _self.changeRef.detectChanges();
-        _self.param_reset += 1;
-        _self.changeRef.detectChanges();
       }else{
         _self.isEdit = false;
         _self.longitude = '';
         _self.latitude = '';
-        _self.param_reset +=1;
+         _self.param_reset +=1;
         _self.changeRef.detectChanges();
       }
+      
     });
     $('#modalFormHome').on('hidden.bs.modal', function(){
       _self.inputValidate = new InputValidateInfo();
@@ -195,8 +194,8 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
     if(event){
       this.bean.latitude = event.lat;
       this.bean.longitude = event.lng;
-      this.latitude = event.latitude;
-      this.longitude = event.longitude;
+      this.latitude = event.lat;
+      this.longitude = event.lng;
     }
     console.log(event);
   }
