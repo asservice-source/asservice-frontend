@@ -10,7 +10,7 @@ export class LocalStorageManagement{
         this.baseComponent = new BaseComponent();
     }
     setUserInfo(data: any){
-        console.log('PATH = ',this.route.url);
+        //console.log('PATH = ',this.route.url);
         let obj = this.baseComponent.strNullToEmpty(data);
         if(!obj.userId){
             obj = JSON.parse(obj);

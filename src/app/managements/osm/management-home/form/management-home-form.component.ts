@@ -43,8 +43,8 @@ export class ManagementHomeFormComponent extends BaseComponent implements OnInit
 
   ngOnInit() {
     this.bindModalForm();
-    this.setupOsmList();
-    this.setupHomeTypeList();
+    //this.setupOsmList();
+    //this.setupHomeTypeList();
   }
   bindModalForm(){
     let _self = this;

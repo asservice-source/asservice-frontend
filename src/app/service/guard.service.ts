@@ -20,9 +20,8 @@ export class GuardService {
         return this.activate();
     }
     activate(): boolean{
-        console.log("=> SIGN PASS => canActivate");
         this.localstorage.setUserInfo(this.localstorage.getDataUserInfo());
-        console.log("=> UserService", this.userService);
+        console.log("SIGN PASS => UserInfo", this.userService);
        if(!this.basecomp.isEmpty(this.userService.sid)){
             return  true;
        }else{
