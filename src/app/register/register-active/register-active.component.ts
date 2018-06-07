@@ -40,7 +40,7 @@ export class RegisterActiveComponent extends BaseComponent implements OnInit {
     this.api.post('hospital/activate_hospital', params, function (resp) {
       console.log(resp);
       if (resp != null && resp.status.toUpperCase() == "SUCCESS") {
-        self.message_success("","ยืนยันการลงทะเบียนสำเร็จ",function (){
+        self.message_success("","<b>"+resp.response.hospitalName+"</b>"+" ลงทะเบียนเรียบร้อยแล้ว",function (){
           location.href = "/login";
         });
       }else{

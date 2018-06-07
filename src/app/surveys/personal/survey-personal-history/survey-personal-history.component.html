@@ -31,8 +31,9 @@
                             <th width="120">การศึกษา</th>
                             <th width="120">อาชีพ</th>
                             <th width="120">โรคประจำตัว</th>
+                            <th width="180">สิทธิการรักษา</th>
                             <th width="120">ความสัมพันธ์</th>
-                            <th width="120">สถานะการอยู่</th>
+                            <th width="120">สถานะ</th>
                             <th width="80">หมายเหตุ</th>
                         </tr>
                     </thead>
@@ -46,6 +47,7 @@
                             <td>{{item.educationName}}</td>
                             <td>{{item.occupationName}}</td>
                             <td>{{item.congenitalDisease}}</td>
+                            <td>{{item.medicalRightCode + ' ' + item.medicalRightDescription}}</td>
                             <td align="center">{{item.familyStatusName}}</td>
                             <td align="center">{{item.isExists?'อยู่จริง':'ไม่อยู่จริง'}}</td>
                             <td>{{item.remark}}</td>
@@ -69,8 +71,9 @@
                             <th width="120">การศึกษา</th>
                             <th width="120">อาชีพ</th>
                             <th width="120">โรคประจำตัว</th>
+                            <th width="180">สิทธิการรักษา</th>
                             <th width="120">ความสัมพันธ์</th>
-                            <th width="120">สถานะการอยู่</th>
+                            <th width="120">สถานะ</th>
                             <th width="80">หมายเหตุ</th>
                         </tr>
                     </thead>
@@ -84,6 +87,7 @@
                             <td>{{item.educationName}}</td>
                             <td>{{item.occupationName}}</td>
                             <td>{{item.congenitalDisease}}</td>
+                            <td>{{item.medicalRightCode + ' ' + item.medicalRightDescription}}</td>
                             <td align="center">{{item.familyStatusName}}</td>
                             <td align="center">{{item.isExists?'อยู่จริง':'ไม่อยู่จริง'}}</td>
                             <td>{{item.remark}}</td>
