@@ -85,4 +85,7 @@ export class MetabolicBean {
     public longitude: string;
 
     public healthInsuranceTypeName: string;
+
+    public medicalRightCode:  string;
+    public medicalRightDescription: string;
 }
