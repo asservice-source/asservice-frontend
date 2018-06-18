@@ -26,12 +26,13 @@
                                 <dt>ที่อยู่ : </dt>
                                 <dd>{{ metabolicbean.address }}</dd>
 
-                                <dt>สิทธิบัตร : </dt>
+                                <dt>สวัสดิการ : </dt>
                                 <dd class="col-md-2" style="margin-left:0px;">
-                                    <select class="small-select" [(ngModel)]="metabolicbean.hInsuranceTypeId">
+                                    {{metabolicbean.medicalRightCode + ' ' + metabolicbean.medicalRightDescription}}
+                                    <!-- <select class="small-select" [(ngModel)]="metabolicbean.hInsuranceTypeId">
                                         <option value="0">เลือก</option>
                                         <option *ngFor="let item of healtInsuranceTypeList" value="{{item.id}}">{{item.code}}</option>
-                                    </select>
+                                    </select> -->
                                 </dd>
 
                             </dl>

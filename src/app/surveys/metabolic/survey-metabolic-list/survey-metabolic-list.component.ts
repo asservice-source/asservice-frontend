@@ -240,7 +240,7 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
     self.loading = true;
 
     self.apiMetabolic.getMetabolicInfo(row.rowGUID, function (d) {
-      self.metabolicbean = d.response;
+      self.metabolicbean = self.strNullToEmpty(d.response);
       self.changeRef.detectChanges();
       $("#modal-history-metabolic").modal("show");
       self.loading = false;
