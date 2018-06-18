@@ -85,16 +85,10 @@
 
                                 <div class="row">
                                     <div class="col-md-4 text-right">
-                                        <label class="label-form">สิทธิบัตร</label>
+                                        <label class="label-form">สวัสดิการ</label>
                                     </div>
                                     <div class="col-md-8">
-                                        <div [InputValidate]="inputValidate">
-                                            <select [(ngModel)]="patientbean.hInsuranceTypeId">
-                                                <option value="">--เลือก--</option>
-                                                <option *ngFor="let item of healtInsuranceTypeList" value="{{item.id}}">{{item.code}}</option>
-                                            </select>
-                                            <label class="error">กรุณาเลือกสิทธิบัตร</label>
-                                        </div>
+                                        {{patientbean.medicalRightCode + ' ' + patientbean.medicalRightDescription}}
                                     </div>
                                 </div>
                                 <div class="row" style="padding-bottom: 0px">
@@ -230,16 +224,17 @@
 
                                 <div class="row" style="padding-bottom: 0px">
                                     <div class="col-md-4 text-right">
-                                        <label class="label-form">สิทธิบัตร</label>
+                                        <label class="label-form">สวัสดิการ</label>
                                     </div>
                                     <div class="col-md-8">
-                                        <div [InputValidate]="inputValidate">
+                                        {{patientbean.medicalRightCode + ' ' + patientbean.medicalRightDescription}}
+                                        <!-- <div [InputValidate]="inputValidate">
                                             <select [(ngModel)]="patientbean.hInsuranceTypeId">
                                                 <option value="">--เลือก--</option>
                                                 <option *ngFor="let item of healtInsuranceTypeList" value="{{item.id}}">{{item.code}}</option>
                                             </select>
                                             <label class="error">กรุณาเลือกสิทธิบัตร</label>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                                 <div class="row">

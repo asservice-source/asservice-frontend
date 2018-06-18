@@ -57,4 +57,7 @@ export class PatientBean{  action: any;
     public latitude : string;
     public longitude : string;
 
+    public medicalRightDescription: string;
+    public medicalRightCode: string;
+
 }

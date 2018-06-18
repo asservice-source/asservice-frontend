@@ -335,7 +335,7 @@ export class SurveyCancerListComponent extends BaseComponent implements OnInit {
 
     self.apiHttp.post('survey_patient/patient_by_rowguid', param, function (d) {
       if (d != null && d.status.toUpperCase() == "SUCCESS") {
-        self.cancerbean = d.response;
+        self.cancerbean = self.strNullToEmpty(d.response);
         self.changeRef.detectChanges();
         $('#modal-cancer-history').modal('show');
       }

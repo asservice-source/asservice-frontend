@@ -224,7 +224,7 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
 
     self.apiPatient.getPatientInfo(rowGUID, function (d) {
       if (d.response && d.status.toUpperCase() == 'SUCCESS') {
-        self.patientbean = self.cloneObj(d.response);
+        self.patientbean = self.strNullToEmpty(self.cloneObj(d.response));
         self.isCurrent = true;
         self.changeRef.detectChanges();
         $('#modal-history-patient').modal('show');

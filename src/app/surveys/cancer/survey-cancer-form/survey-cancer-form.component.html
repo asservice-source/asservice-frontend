@@ -53,16 +53,17 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-4 text-right">
-                                    <label class="label-form">สิทธิบัตร</label>
+                                    <label class="label-form">สวัสดิการ</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <div [InputValidate]="inputValidate">
+                                        {{cancerbean.medicalRightCode + ' ' + cancerbean.medicalRightDescription}}
+                                    <!-- <div [InputValidate]="inputValidate">
                                         <select [(ngModel)]="cancerbean.hInsuranceTypeId">
                                             <option value="">--เลือก--</option>
                                             <option *ngFor="let item of healtInsuranceTypeList" value="{{item.id}}">{{item.code}}</option>
                                         </select>
                                         <label class="error">กรุณาเลือกประเภทสิทธิบัตร</label>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                             <div class="row" style="padding-bottom: 0px">

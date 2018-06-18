@@ -68,4 +68,7 @@ export class CancerBean {
     public hInsuranceTypeName: string = "";
     public cancerTypeName: string = "";
     public diseaseStatusTypeName: string = "";
+
+    public medicalRightCode: string;
+    public medicalRightDescription: string;
 }
