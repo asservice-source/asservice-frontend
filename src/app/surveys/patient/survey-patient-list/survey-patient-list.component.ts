@@ -285,7 +285,7 @@ export class SurveyPatientListComponent extends BaseComponent implements OnInit 
 
     self.apiPatient.getPatientInfo(rowGUID, function (resp) {
       if (resp.response && resp.status.toUpperCase() == 'SUCCESS') {
-        self.patientbean = self.cloneObj(resp.response);
+        self.patientbean = self.strNullToEmpty(self.cloneObj(resp.response));
         self.onModalForm(self.ass_action.EDIT);
       }
       self.loading = false;

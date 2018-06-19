@@ -265,7 +265,7 @@ export class SurveyMetabolicListComponent extends BaseComponent implements OnIni
 
     self.apiMetabolic.getMetabolicInfo(rowGUID, function (resp) {
       if (resp.response && resp.status.toUpperCase() == 'SUCCESS') {
-        self.metabolicbean = self.cloneObj(resp.response);
+        self.metabolicbean = self.strNullToEmpty(self.cloneObj(resp.response));
         self.onModalForm(self.ass_action.EDIT);
       }
       self.loading = false;
